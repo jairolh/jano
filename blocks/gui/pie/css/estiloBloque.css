@@ -1,0 +1,139 @@
+
+#pie{
+    border: 0;
+    height: 150px;
+    display: block;
+    background-image: url(../imagen/piejano.jpg);
+    background-size: 100% ;
+    width: 100%
+}
+
+#marcoDatosBasicosPie{
+    border: 0;
+
+}
+
+
+#cssclock{
+    height:270px;
+}
+
+
+#ventana1{
+
+    opacity: 1;	
+
+}
+
+
+
+
+#ventana2{
+
+    opacity: 0.8;	
+
+}
+
+
+#clockdigital img {
+    border: 0 none;
+    display: block;
+    height: 500px;
+    left: -385px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: -215px;
+    width: 500px;
+}	
+
+
+
+
+
+
+#clockdigital {
+    background: url(../imagen/digital2.gif) no-repeat  44px 26px #012345;
+    background-size:32% 20%;
+    float: right;
+    height: 62px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 121px;
+}
+
+#clockdigital div {
+    background: none repeat scroll 0 0 #012345;
+    height: 21px;
+    position: absolute;
+    width: 121px;
+    opacity: 0.8;	
+}
+#clockdigital div:last-child {
+    bottom: 0;
+}
+
+
+element.style {
+    opacity: 0.8;
+}
+
+
+
+.fecha{
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+#colm1 { 
+    width: 10%; 
+    float: left; 
+    display: block; 
+    height: 50px;
+    left: 0;
+    margin: 0%;
+}
+
+
+#colm2{ 
+
+    width: 65%; 
+    float: left; 
+    display: block; 
+    height: 50px;
+    left: 0;
+    margin: 0%;
+}
+
+
+#colm3 {
+    width: 25%; 
+    float: right; 
+    display: block; 
+    left: 0;
+    margin-top: 0.1%;
+}
+
+
+#colm4 {
+    width: 15%; 
+    float: right; 
+    display: block; 
+    height: 50px;
+    left: 0;
+    right: 80%;
+    margin-left: 95%;
+}
+
+
+
+#escudo {
+    clear: both;
+    width: 50px;
+    height: 85px;
+    display: block;
+    margin: auto;
+}
+

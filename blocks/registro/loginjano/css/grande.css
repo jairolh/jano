@@ -1,0 +1,233 @@
+/* General Demo Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+@font-face {
+    font-family: 'fontawesome';
+    src:url('../fonts/fontawesome.eot');
+    src:url('../fonts/fontawesome.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/fontawesome.svg#fontawesome') format('svg'),
+        url('../fonts/fontawesome.woff') format('woff'),
+        url('../fonts/fontawesome.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+header{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+#fondo_base{
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    height: 5%;
+    background-color: #ffffff;
+    z-index: 1;
+    opacity: 0.8;
+}
+#fondo_menu{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 10%;
+    background-color: #ffffff;
+}
+
+#fondo_login{
+    position: absolute;
+    z-index: 2;
+    width: 22%;
+    max-width: 300px;
+    height: 27%;
+    max-height: 140px;
+    background-color: #ffffff;
+    top: 40%;
+    left: 70%;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    //opacity: 0.9;
+    -moz-opacity: 0.9;
+    -webkit-opacity: 0.9;
+}
+#form_login{
+    text-align: center;
+    margin: 5%;
+}
+.login{
+    margin-top: 5%;
+    color: #ffffff;
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    //background:linear-gradient(#ffffff, #27292c);
+    border: 1px solid #222;
+    border-radius: 0.3em;
+}
+
+input[type=submit]{
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    margin-top: 5%;
+    padding: 2.5px 10px;
+    border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 5px;
+    background: #0184ff;
+    color: #fff;
+}
+#logo_universidad{
+    position: absolute;
+    z-index: 3;
+    width: 55%;
+    max-width: 300px;
+    height: 15%;
+    max-height: 15px;
+    //background-color:  #FFFFFF;
+    bottom : 0%;
+    left: 5%;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    //opacity: 0.9;
+    -moz-opacity: 0.5;
+    -webkit-opacity: 0.9;
+    text-align: left;
+}
+
+
+#datos{
+    width: 100%;
+    height: 90%;
+    margin: 1%;
+    z-index: 3;
+    left: 10%;
+}
+#datos p{
+    color: #656565;
+    font-size: 1.1em;
+    text-align: left;
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+}
+
+#contenedor_logo_u{
+    margin: 1%;
+    width: 10%;
+    height: 10%;
+    text-align: right;
+}
+
+#logo_u{
+    position: absolute;
+    right: 97%;
+    z-index: 3;
+    width: 2%;
+    bottom: 2%;
+    max-width: 20px;
+    height: 5%;
+    max-height: 20px;
+  
+}
+
+#fondo_texto{
+    position: absolute;
+    z-index: 2;
+    width: 65%;
+    max-width: 700px;
+    height: 50%;
+    max-height: 200px;
+    top: 55%;
+    left: 0;
+    background-color: #170317;
+    opacity: 0.7;
+    border-radius: 0px 10px 10px 0px;  
+}
+
+#logo_arka{
+    position: absolute;
+    z-index: 3;
+    width: 11.5%;
+    max-width: 90px;
+    height: 30%;
+    max-height: 100px;
+    left: 6%;
+    top:40%;
+    background-color: #2E052D;
+    border-radius: 0px 0px 10px 10px; 
+}
+
+#logo_a{
+    position: absolute;
+    left: 1%;
+    z-index: 3;
+    width: 2%;
+    bottom: 100.4%;
+    max-width: 20px;
+    height: 5%;
+    max-height: 20px;
+}
+
+#texto{
+    width: 85%;
+    height: 80%;
+    margin: 8%;
+    color: #ffffff;
+    text-align: center;
+    left: 2%;
+}
+h1{
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    font-size: 2.8em;
+    margin: 0;
+}
+h2{
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    font-size: 2.0em;
+    margin: 0;
+}
+h3{
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    font-size: 1.5em;
+    margin: 0;
+}
+footer{
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 10%;
+    background-color: #ffffff;
+    top: 95%;
+    left: 0;
+    text-align: left;
+    opacity: 0.8;
+}
+
+
+#footerLeft { 
+    width: 47%; 
+    float: left; 
+    display: block; 
+    height: 50px;
+    color: #fff;
+    left: 0;
+}
+
+#footerRight { width: 10%; float: right; display: block; height: 50px; margin: 1%; right: 0;}
+
+
+#footerLeft p{
+    margin-left:  12%;
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    color:  #2E052D;
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    font-size: 11px;
+    left: 8%;
+   
+}
+#footerLeft a{
+    left: 8%;
+    text-decoration: none;
+    color: #0184ff;
+    font-family: Tahoma,Arial,Geneva,sans-serif;
+    font-size: 11px;
+}

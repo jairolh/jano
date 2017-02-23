@@ -23,6 +23,19 @@ $('#<?php echo sha1('clave'.$_REQUEST['tiempo']);?>').keydown(function(e) {
     }
 });
 
+        $(function() {
+            $("#loginjano").submit(function() {
+                $resultado=$("#loginjano").validationEngine("validate");
+                if ($resultado) {
+                                
+                    return true;
+                    
+                }
+                return false;
+            });
+        });
+
+
  $( "button" ).button().click(function( event ) 
  {
     event.preventDefault();
@@ -31,5 +44,25 @@ $('#<?php echo sha1('clave'.$_REQUEST['tiempo']);?>').keydown(function(e) {
 setTimeout(function() {
     $('#divMensaje').hide( "drop", { direction: "up" }, "slow" );
 }, 10000); // <-- time in milliseconds
+
+
+        $(function() {
+		$(document).tooltip();
+	});
+	
+	// Asociar el widget tabs a la división cuyo id es tabs
+	$(function() {
+		$("#tabs").tabs();
+	});
+
+        $(function() {
+            $("button").button().click(function(event) {
+                    event.preventDefault();
+            });
+        });
+
+$('#<?php echo $this->campoSeguro('tipo_identificacion')?>').width(210);
+$("#<?php echo $this->campoSeguro('tipo_identificacion')?>").select2(); 
+
 
 

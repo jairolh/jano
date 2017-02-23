@@ -50,6 +50,10 @@ class Funcion {
     function cambiarClave() {
         include_once ($this->ruta . "funcion/cambiarClave.php");
     }
+    
+    function registroUsuario() {
+        include_once ($this->ruta . "funcion/registroUsuario.php");
+    }    
     function action() {
         $resultado = true;
         
@@ -69,18 +73,19 @@ class Funcion {
                     case "finSesion" :
                         $this->finSesion();
                         break;
-
                     case "validarLogin":
                         $resultado = $this->procesarFormulario();
                         break;
-                    
                     case "enviarMensaje":
                         $this->enviarMensaje();
                         break;
-                    
                     case 'cambiarClave':
                         $this->cambiarClave();
                         break;
+                    case 'registrarUsuario':
+                        $this->registroUsuario();
+                        break;
+                    
                 }
             }
         }

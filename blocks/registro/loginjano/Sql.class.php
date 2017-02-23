@@ -105,17 +105,7 @@ class Sql extends \Sql {
                             $cadenaSql .= "AND id_usuario = '".trim ( $variable ["usuario"] )."'";
                             break;
                         
-                        case "buscarUsuarioActivo":
-                            $cadenaSql = 'SELECT ';
-                            $cadenaSql .= 'id_usuario ';
-                            $cadenaSql .= 'FROM ';
-                            $cadenaSql .= $prefijo . 'usuario ';
-                            $cadenaSql .= "WHERE ";
-                            $cadenaSql .= "estado=1 ";
-                            $cadenaSql .= "AND id_usuario = '" . trim ( $variable ["usuario"] ) . "' ";
-                            break;
-                        
-			case "buscarUsuario" :
+                	case "buscarUsuario" :
 				$cadenaSql = 'SELECT ';
 				$cadenaSql .= 'id_usuario, ';
 				$cadenaSql .= 'nombre, ';
@@ -131,7 +121,15 @@ class Sql extends \Sql {
 				$cadenaSql .= 'FROM ';
 				$cadenaSql .= $prefijo . 'usuario ';
 				$cadenaSql .= "WHERE ";
-				$cadenaSql .= "id_usuario = '" . trim ( $variable ["usuario"] ) . "' ";
+				
+                                if(isset($variable['identificacion']) && $variable['identificacion']>0)
+                                    { $cadenaSql .= " identificacion='".$variable['identificacion']."'"; 
+                                      $cadenaSql .= " AND tipo_identificacion='".$variable['tipo_identificacion']."'"; 
+                                    }
+                                elseif(isset($variable['usuario']) && $variable['usuario']!='')
+                                    { $cadenaSql .= "id_usuario = '" . trim ( $variable ["usuario"] ) . "' ";
+                                    } 
+                                
 				break;
 			
 			case "registrarEvento" :
@@ -147,8 +145,88 @@ class Sql extends \Sql {
 
 				break;
 
-        }
+                        case "tipoIdentificacion":
+				$cadenaSql = "SELECT   tipo_identificacion,  tipo_nombre ";
+                                $cadenaSql .= "FROM ".$prefijo."tipo_identificacion ";
+                                $cadenaSql .= " WHERE  tipo_estado = 1";
+                                $cadenaSql .= " ORDER BY tipo_nombre ASC";
+                            break;       
+                        
+                        case "consultaPerfilesSistema":
+                            
+				$cadenaSql = " SELECT DISTINCT ";
+                                $cadenaSql .= " sub.id_subsistema, ";
+                                $cadenaSql .= " sub.nombre, ";
+                                $cadenaSql .= " sub.etiketa, ";
+                                $cadenaSql .= " sub.id_pagina, ";
+                                $cadenaSql .= " sub.observacion, ";
+                                $cadenaSql .= " rol.rol_id, ";
+                                $cadenaSql .= " rol.rol_nombre, ";
+                                $cadenaSql .= " rol.rol_alias, ";
+                                $cadenaSql .= " rol.rol_descripcion, ";
+                                $cadenaSql .= "est.estado_registro_alias estado,  ";
+                                $cadenaSql .= " rol.rol_fecha_registro ";
+                                $cadenaSql .= " FROM ".$prefijo."rol rol  ";
+                                $cadenaSql .= " INNER JOIN ".$prefijo."rol_subsistema rolSub ON rolSub.rol_id=rol.rol_id ";
+                                $cadenaSql .= " INNER JOIN ".$prefijo."subsistema sub ON sub.id_subsistema=rolSub.id_subsistema  ";
+                                $cadenaSql .= " INNER JOIN ".$prefijo."estado_registro est ON est.estado_registro_id=rolSub.estado ";
+                                $cadenaSql .= " WHERE trim(rol.rol_nombre)='".$variable."'";
+                                                            
+                            break;                        
+                        
+                        case "insertarUsuario":
+                            
+				$cadenaSql = "INSERT INTO ".$prefijo."usuario(id_usuario, nombre, apellido, correo, telefono, imagen, clave, tipo, estilo, idioma, estado, fecha_registro, identificacion,tipo_identificacion) ";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " '".$variable['id_usuario']."', ";
+                                $cadenaSql .= " '".$variable['nombres']."', ";
+                                $cadenaSql .= " '".$variable['apellidos']."', ";
+                                $cadenaSql .= " '".$variable['correo']."', ";
+                                $cadenaSql .= " '".$variable['telefono']."', ";
+                                $cadenaSql .= " 'N/A', ";
+                                $cadenaSql .= " '".$variable['password']."', ";
+                                $cadenaSql .= " '1', ";
+                                $cadenaSql .= " 'basico', ";
+                                $cadenaSql .= " 'es_es', ";
+                                $cadenaSql .= " 1, ";
+                                $cadenaSql .= " '".$variable['fechaIni']."', ";
+                                $cadenaSql .= " ".$variable['identificacion'].", ";
+                                $cadenaSql .= " '".$variable['tipo_identificacion']."' ";
+                                $cadenaSql .= " )";
+                                
+			break;
 
+                        case "insertarPerfilUsuario":
+                            
+				$cadenaSql = "INSERT INTO ".$prefijo."usuario_subsistema(id_usuario, id_subsistema, rol_id, fecha_registro, fecha_caduca, estado) ";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " '".$variable['id_usuario']."', ";
+                                $cadenaSql .= " '".$variable['subsistema']."', ";
+                                $cadenaSql .= " '".$variable['perfil']."', ";
+                                $cadenaSql .= " '".$variable['fechaIni']."', ";
+                                $cadenaSql .= " '".$variable['fechaFin']."', ";
+                                $cadenaSql .= " '1'";
+                                $cadenaSql .= " )";
+                                
+			break;                        
+                    
+                        case "insertarConcursante":
+                            
+				$cadenaSql=" INSERT INTO concurso.persona(";
+                                $cadenaSql.=" consecutivo, tipo_identificacion, identificacion, nombre, apellido)";
+                                $cadenaSql.=" VALUES (";
+                                $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['tipo_identificacion']."', ";
+                                $cadenaSql .= " '".$variable['identificacion']."', ";
+                                $cadenaSql .= " '".$variable['nombres']."', ";
+                                $cadenaSql .= " '".$variable['apellidos']."' ";
+                                $cadenaSql .= " )";
+                                
+			break;                       
+                    
+                    
+
+        }
         return $cadenaSql;
 
     }

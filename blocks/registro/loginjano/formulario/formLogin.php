@@ -127,10 +127,35 @@ class Formulario {
                 $atributos ['ancho'] = '30px';
                 $atributos ['alto'] = '30px';
                 $atributos ['redirLugar'] = true;
+                $atributos ['titulo'] = $this->lenguaje->getCadena($esteCampo);
                 echo $this->miFormulario->enlace ( $atributos );
                 unset ( $atributos );                
                 
+                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                $variable = "pagina=" . $this->miConfigurador->getVariableConfiguracion('pagina');
+                $variable .= "&opcion=" . "registro";
+                $variable .= "&bloque=" . $esteBloque ['nombre'];
+                $variable .= "&bloqueGrupo=" . $esteBloque ["grupo"];
+                $variableRegistro = $this->miConfigurador->fabricaConexiones->crypto->codificar_url( $variable );
                 
+                //echo "<a  href=index.php?data" . $variable . ">".$this->lenguaje->getCadena("recuperarClave")."</a>";
+                
+                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                $esteCampo = 'registro';
+                $atributos ['id'] = $esteCampo;
+                $atributos ['enlace'] = "index.php?".$this->miConfigurador->getVariableConfiguracion('enlace').$variableRegistro;
+                $atributos ['tabIndex'] = 1;
+                $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                $atributos ['estilo'] = 'textoPequenno textoGris textoNegrita';
+                $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                $atributos ['posicionImagen'] = "";//"atras";//"adelante";
+                $atributos ['ancho'] = '30px';
+                $atributos ['alto'] = '30px';
+                $atributos ['redirLugar'] = true;
+                echo " | ".$this->miFormulario->enlace ( $atributos );
+                unset ( $atributos );   
+
+                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------                
                 $esteCampo = 'usuario';
                 $atributos ['id'] = $esteCampo;
                 $atributos ['nombre'] = $esteCampo;
@@ -262,9 +287,8 @@ class Formulario {
         <section>
             <div id="fondo_texto">
                 <div id="texto">
-                    <h3>SISTEMA DE GESTIÓN </h3>
-                    <h3>DE CONCURSOS</h3><BR>
-                    <h2>Jano</h2>
+                    <h3>Sistema de Gestión para Concurso de Méritos</h3><BR>
+                    <h2>JANO</h2>
                 </div>
             </div>
         </section>

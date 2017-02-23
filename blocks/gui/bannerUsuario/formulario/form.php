@@ -44,7 +44,7 @@ class Formulario {
             // ------------------- Inicio División -------------------------------
             $esteCampo = 'divLogoNotificador';
             $atributos ['id'] = $esteCampo;
-            $atributos['imagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'css/images/bannerTitan2.jpg';
+            $atributos['imagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'css/images/bannerJano2.jpg';
             $atributos['estilo'] = $esteCampo;
             $atributos['etiqueta'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
             $atributos['ancho'] = '100%';

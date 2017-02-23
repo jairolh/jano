@@ -61,6 +61,24 @@ class Frontera {
         if (isset ( $_REQUEST ['opcion'] )) {
             switch ($_REQUEST ['opcion']) {
 
+                case "registro" :
+                    
+                    	//$atributos ["items"] = $items;
+                        $atributos ["estilo"] = "jqueryui";
+                        $atributos ["pestañas"] = "true";
+                        //echo $this->miFormulario->listaNoOrdenada ( $atributos );
+                        // unset ( $atributos );
+
+                        $atributos ["id"] = "tabUsuario";
+                        $atributos ["estilo"] = "";
+                        echo $this->miFormulario->division ( "inicio", $atributos );
+                         include_once ($this->ruta . "/formulario/registroUsuarioForm.php");
+                        echo $this->miFormulario->division ( "fin" );
+                    
+                    
+                    
+                    //include_once ($this->ruta . "/formulario/registroUsuarioForm.php");
+                    break;                
                 case "recuperarClave" :
                     include_once ($this->ruta . "/formulario/recuperarClaveForm.php");
                     break;

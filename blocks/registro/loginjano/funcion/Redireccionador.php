@@ -81,6 +81,59 @@ class Redireccionador {
                 $variable .= "&mensaje=$opcion";
                 break;
             
+            case "campoNovalido" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                foreach ($var as $key => $value) {
+                    $variable .= "&".$value."=" . $valor[$value];
+                }
+                break;
+            case "correoNovalido" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                foreach ($var as $key => $value) {
+                    $variable .= "&".$value."=" . $valor[$value];
+                }
+                break;  
+            case "claveNovalido" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                foreach ($var as $key => $value) {
+                    $variable .= "&".$value."=" . $valor[$value];
+                }
+                break;     
+                
+            case "existe" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                foreach ($var as $key => $value) {
+                    $variable .= "&".$value."=" . $valor[$value];
+                }
+                break;
+                
+            case "insertoUsuario" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                $var=['id_usuario' ,'perfilAlias'];
+                foreach ($var as $key => $value) {
+                    $variable .= "&".$value."=" . $valor[$value];
+                }
+                break;     
+                
+            case "noInserto" :
+                $variable = 'pagina=' . $miPaginaActual;
+                $variable .= "&opcion=mensaje";
+                $variable .= "&mensaje=$opcion";
+                break;                
 //            case "recuperarClave":
 //                $variable = 'pagina='.$miPaginaActual;
 //                $variable .= '&opcion=' . $valor;

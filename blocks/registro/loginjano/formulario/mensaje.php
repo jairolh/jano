@@ -152,6 +152,46 @@ class registrarForm {
                     echo $this->miFormulario->cuadroMensaje ( $atributos );
                     // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                 }
+                
+                if ($_REQUEST ['mensaje'] == 'insertoUsuario') {
+
+                    $mensaje = "Se ha registrado el usuario exitosamente, con el perfil <b>" .$_REQUEST['perfilAlias']."</b>!<br> "
+                            . " El usuario para ingresar al sistema es <h4> " .$_REQUEST['id_usuario']."</h4>";
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                     $atributos ['tipo'] = 'success';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+
+                    $tab ++;
+
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                } 
+                
+                if ($_REQUEST ['mensaje'] == 'noInserto') {
+
+                    $mensaje = "No fue posible registrar el usuario, por favor intente más tarde";
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                     $atributos ['tipo'] = 'error';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+
+                    $tab ++;
+
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                }                 
+                
                 if ($_REQUEST ['mensaje'] == 'correoNoEnviado') {
 
                     $mensaje = "El correo no ha podido ser enviado a <h4> " .$_REQUEST['correo']."</h4>"
@@ -208,6 +248,106 @@ class registrarForm {
                     echo $this->miFormulario->cuadroMensaje ( $atributos );
                     // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                 }
+                if ($_REQUEST ['mensaje'] == 'existe') {
+
+                    $mensaje = "El usuario con identificación <h4>".$_REQUEST['tipo_identificacion']." ".$_REQUEST['identificacion']."</h4> ya existe en el Sistema!<br>"
+                            . "Para poder ingresar intente recuperar la contraseña, si no le es posible es porque la cuenta no se encuentra activa!<br>"
+                            . "Por tanto favor comuníquese con el administrador del sistema";
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                    $atributos ['tipo'] = 'error';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+
+                    $tab ++;
+
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                }                
+                if ($_REQUEST ['mensaje'] == 'campoNovalido') {
+
+                    $mensaje = "Los campos de registro no son validos o estan vacios<br>"
+                            . "Por favor verifique los datos ingresados en intente nuevamente";
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                    $atributos ['tipo'] = 'error';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+                    $tab ++;
+                    
+                    $variableReg="&opcion=registro";
+                    $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                        foreach ($var as $key => $value) {
+                            $variableReg .= "&".$value."=" . $_REQUEST[$value];
+                        }
+
+//                    echo $variableReg;exit;
+
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                }
+
+                if ($_REQUEST ['mensaje'] == 'correoNovalido') {
+
+                    $mensaje = "El correo electonico NO es valido<br>"
+                            . "Por favor verifique los datos ingresados en intente nuevamente";
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                    $atributos ['tipo'] = 'error';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+                    $tab ++;
+                    
+                    $variableReg="&opcion=registro";
+                    $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                        foreach ($var as $key => $value) {
+                            $variableReg .= "&".$value."=" . $_REQUEST[$value];
+                        }
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                }                
+
+                if ($_REQUEST ['mensaje'] == 'claveNovalido') {
+
+                    $mensaje = "La contraseña NO es valida o no coinciden <br>"
+                            . "Por favor verifique los datos ingresados en intente nuevamente"
+                            ."<br>Recuerde que la contraseña debe contener:<br><br> * Entre 8 y 16 caracteres<br>"
+                            ."* Por lo menos una letra mayúscula<br>"
+                            ."* Por lo menos un número<br>";
+                            
+
+                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                    $esteCampo = 'mensajeRegistro';
+                    $atributos ['id'] = $esteCampo;
+                    $atributos ['tipo'] = 'error';
+                    $atributos ['estilo'] = 'textoCentrar';
+                    $atributos ['mensaje'] = $mensaje;
+                    $tab ++;
+                    
+                    $variableReg="&opcion=registro";
+                    $var=['identificacion' ,'tipo_identificacion','nombres','apellidos','correo','telefono'];
+                        foreach ($var as $key => $value) {
+                            $variableReg .= "&".$value."=" . $_REQUEST[$value];
+                        }
+                    // Aplica atributos globales al control
+                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                    echo $this->miFormulario->cuadroMensaje ( $atributos );
+                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                }                
+                
+                
                 if ($_REQUEST ['mensaje'] == 'linkCaducado') {
 
                     $mensaje = "El enlace ya ha caducado, su solicitud fue hecha el ".$_REQUEST['fecha'].", por favor vuelva a hacer la solicitud";
@@ -322,7 +462,13 @@ class registrarForm {
         $valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
         $valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
         $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-        $valorCodificado .= "&opcion=paginaPrincipal";
+        
+        if(isset($variableReg))
+            {$valorCodificado .= $variableReg;}
+        else
+            {$valorCodificado .= "&opcion=paginaPrincipal";}
+        
+        
         /**
          * SARA permite que los nombres de los campos sean dinámicos.
          * Para ello utiliza la hora en que es creado el formulario para

@@ -87,7 +87,7 @@ class pie {
                     $atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
                     $atributos ['tabIndex'] = $tab;
                     $atributos ['estilo'] = 'escudo';
-                    $atributos ['enlaceImagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'imagen/escudo.png';
+                   // $atributos ['enlaceImagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'imagen/escudo.png';
                     $atributos ['ancho'] = '60px';
                     $atributos ['alto'] = '80px';
                     $tab++;

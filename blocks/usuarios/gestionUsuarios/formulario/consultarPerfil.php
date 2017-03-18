@@ -236,7 +236,7 @@ class consultarForm {
                     //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                     unset($atributos);
 
-                    echo "<div class='cell-border'><table id='tablaProcesos'>";
+                    echo "<div class='cell-border'><table id='tablaProcesos' class='table table-striped table-bordered'>";
 
                     echo "<thead>
                             <tr align='center'>

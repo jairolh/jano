@@ -173,7 +173,8 @@ class Formulario {
                 } else {
                     $atributos ['valor'] = '';
                 }
-                $atributos ['titulo'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
+                //$atributos ['titulo'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
+                $atributos ['titulo'] = '';
                 $atributos ['deshabilitado'] = false;
                 $atributos ['tamanno'] = 20;
                 $atributos ['maximoTamanno'] = '25';
@@ -201,7 +202,8 @@ class Formulario {
                 } else {
                     $atributos ['valor'] = '';
                 }
-                $atributos ['titulo'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
+                //$atributos ['titulo'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
+                $atributos ['titulo'] = '';
                 $atributos ['deshabilitado'] = false;
                 $atributos ['tamanno'] = 20;
                 $atributos ['maximoTamanno'] = '25';

@@ -95,6 +95,7 @@ class Configurador {
             $dato = $_REQUEST ['formSaraData'];
             unset($_REQUEST ['formSaraData']);
             $campos = $_REQUEST;
+            $archivos = $_FILES;
 
             $this->fabricaConexiones->crypto->decodificar_url($dato);
         } else {
@@ -103,12 +104,21 @@ class Configurador {
 
         //Si existen campos seguros se deben decodificar sus nombres
         if (isset($_REQUEST['campoSeguro'])) {
+            //decodifica $_REQUEST
             foreach ($campos as $clave => $valor) {
                 $dato = $this->fabricaConexiones->crypto->decodificar($clave);
                 $dato = substr($dato, 0, strlen($dato) - strlen($_REQUEST['campoSeguro']));
                 $_REQUEST[$dato] = $valor;
                 unset($_REQUEST[$clave]);
             }
+            //decodifica $_FILES
+            foreach ($archivos as $clave => $valor) {
+                $dato = $this->fabricaConexiones->crypto->decodificar($clave);
+                $dato = substr($dato, 0, strlen($dato) - strlen($_REQUEST['campoSeguro']));
+                $_FILES[$dato] = $valor;
+                unset($_FILES[$clave]);
+            }
+            
         }
     }
 

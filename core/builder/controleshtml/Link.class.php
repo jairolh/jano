@@ -15,6 +15,11 @@ class Link  extends HtmlBase {
         $this->campoSeguro();
     
         $this->cadenaHTML = "";
+        
+        if (isset($atributos [self::COLUMNAS]) && $atributos [self::COLUMNAS] != '' && is_numeric($atributos [self::COLUMNAS])) {
+            $this->cadenaHTML = "<div class='campoCuadroLista anchoColumna" . $atributos [self::COLUMNAS] . "'>\n";
+        }
+        
         $this->cadenaHTML .= "<a ";
     
         if (isset ( $atributos ["id"] )) {
@@ -45,41 +50,40 @@ class Link  extends HtmlBase {
         $this->cadenaHTML .= ">\n";
         
         
+	if (isset ( $atributos ["enlaceImagen"] )) {
+		$imagen = "<img src=" . $atributos ["enlaceImagen"] . " ";
+		
+		if (isset ( $atributos [self::ANCHO] )) {
+			if ($atributos [self::ANCHO] != "") {
+				$imagen .= "width='" . $atributos [self::ANCHO] . "' ";
+			}
+		} else {
+			$imagen .= "width='10px' ";
+		}
+		
+		if (isset ( $atributos ["alto"] )) {
+			if ($atributos ["alto"] != "") {
+				$imagen .= "height='" . $atributos [self::ALTO] . "' ";
+			}
+		} else {
+			$imagen .= "height='10px' ";
+		}
+		
+		$imagen .= " />";
+	}
         
-        if (isset ( $atributos ["enlaceImagen"] )) {
-        	$imagen = "<img src=" . $atributos ["enlaceImagen"] . " ";
-        		
-        	if (isset ( $atributos [self::ANCHO] )) {
-        		if ($atributos [self::ANCHO] != "") {
-        			$imagen .= "width='" . $atributos [self::ANCHO] . "' ";
-        		}
-        	} else {
-        		$imagen .= "width='10px' ";
-        	}
-        		
-        	if (isset ( $atributos ["alto"] )) {
-        		if ($atributos ["alto"] != "") {
-        			$imagen .= "height='" . $atributos [self::ALTO] . "' ";
-        		}
-        	} else {
-        		$imagen .= "height='10px' ";
-        	}
-        		
-        	$imagen .= " />";
-        }
+        if (isset ( $atributos ["enlaceImagen"] ) && isset ( $atributos [self::POSICIONIMAGEN]) && $atributos [self::POSICIONIMAGEN]=='atras' )
+            {$this->cadenaHTML .= $imagen; }
         
-        
-        if (isset ( $atributos ["enlaceTexto"] )) {
-            $this->cadenaHTML .= "<span>" . $atributos ["enlaceTexto"] . "</span>";
-        }
-        
+	if (isset ( $atributos ["enlaceTexto"] )) {
+		$this->cadenaHTML .= "<span>" . $atributos ["enlaceTexto"] . "</span>";
+	}
+	
+        if (isset ( $atributos ["enlaceImagen"] ) && isset ( $atributos [self::POSICIONIMAGEN]) && $atributos [self::POSICIONIMAGEN]=='adelante' )
+            {$this->cadenaHTML .= $imagen; }
+	 elseif (isset ( $atributos ["enlaceImagen"] ) && !isset ( $atributos [self::POSICIONIMAGEN] ))
+            {$this->cadenaHTML .= $imagen; }
 
-        if (isset ( $atributos ["enlaceImagen"] ) && isset ( $atributos [self::POSICIONIMAGEN] ) && $atributos [self::POSICIONIMAGEN] == 'adelante') {
-        	$this->cadenaHTML .= $imagen;
-        } elseif (isset ( $atributos ["enlaceImagen"] ) && ! isset ( $atributos [self::POSICIONIMAGEN] )) {
-        	$this->cadenaHTML .= $imagen;
-        }
-        
         $this->cadenaHTML .= "</a>";
         
         if (isset ( $atributos [self::SALTOLINEA] )) {
@@ -87,8 +91,12 @@ class Link  extends HtmlBase {
         		$this->cadenaHTML .= " <br>";
         	}
         }
+
+        if (isset($atributos [self::COLUMNAS]) && $atributos [self::COLUMNAS] != '' && is_numeric($atributos [self::COLUMNAS])) {
+           $this->cadenaHTML .= "</div>\n";        
+        }
         
-        
+
         
         return $this->cadenaHTML;
     

@@ -50,53 +50,17 @@ class Frontera {
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;
-				
-				case "verificarDatos":
-					include_once($this->ruta."/formulario/verificarDatos.php");
-					break;	
                                     
-				case "nuevo":
-					include_once($this->ruta."formulario/nuevo.php");
+				case "mostrar":
+					include_once($this->ruta."formulario/registroDatos.php");
 					break;
                                     
-                                case "editar":
-					include_once($this->ruta."formulario/nuevo.php");
-					break;    
-
-                                case "borrar":
-					include_once($this->ruta."formulario/borrar.php");
-					break;    
-                                    
-                                case "inhabilitar":
-					include_once($this->ruta."formulario/cambiaEstado.php");
-					break;     
-                                    
-                                case "habilitar":
-					include_once($this->ruta."formulario/cambiaEstado.php");
-					break;       
-
-                                case "perfil":
-					include_once($this->ruta."/formulario/consultarPerfil.php");
-					break;    
                                 
-                                case "nuevoPerfil":
-					include_once($this->ruta."/formulario/nuevoPerfil.php");
-					break;
-                                
-                                case "editarPerfil":
-					include_once($this->ruta."/formulario/nuevoPerfil.php");
-					break;
-                                    
-                                case "inhabilitarPerfil":
-					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;        
-                                case "habilitarPerfil":
-					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;                                      
         		}
 		} else {
 			$_REQUEST ['opcion'] = "mostrar";
-			include_once($this->ruta."formulario/nuevo.php");
+			include_once($this->ruta."formulario/registroDatos.php");
+                        
 		}
 	}
 }

@@ -89,10 +89,15 @@ class ListHTML extends HtmlBase {
 			//Para manejar pestañas
 			if (isset ( $this->atributos ["pestañas"] ) && $this->atributos ["pestañas"]) {
 				$this->cadenaHTML .= "<a id='pes" . $clave . "' " . $claseEnlace . " href='#" . $clave . "'><div id='tab" . $clave . "'>" . $valor . "</div></a>";
+			}elseif(isset ( $this->atributos ["enlacePestaña"] ) && $this->atributos ["enlacePestaña"]) {
+				$enlace = explode ( '|', $valor );
+                                $this->cadenaHTML .= "<a id='pes" . $clave . "' " . $claseEnlace . " href='" . $enlace [1] . "'>";
+                                $this->cadenaHTML .= "<div id='tab" . $clave . "' class='ui-accordion ui-widget ui-helper-reset'>";
+                                $this->cadenaHTML .=  $enlace [0] . "</div></a>";
 			}elseif(isset ( $this->atributos ["enlaces"] ) && $this->atributos ["enlaces"]) {
 				$enlace = explode ( '|', $valor );
 				$this->cadenaHTML .= "<a href='" . $enlace [1] . "' " . $claseEnlace . ">" . $enlace [0] . "</a>";
-			}else{
+                        }else{
 				//Una lista normal
 				$this->cadenaHTML .=$valor; 
 			}

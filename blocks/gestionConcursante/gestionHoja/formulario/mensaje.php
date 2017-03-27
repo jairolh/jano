@@ -79,7 +79,7 @@ class registrarForm {
 				
 			$variable = "pagina=" . $miPaginaActual;
 
-				
+			$pestanna='';	
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 		        $esteCampo = 'botonRegresar';
                         $atributos ['id'] = $esteCampo;
@@ -115,6 +115,13 @@ class registrarForm {
                                         $variable.="&tab=tabBasicos";
                                         break;                                
                                 
+                                    case "actualizoContacto":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de Contacto del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        //$variable.="&tab=tabContacto";
+                                        $pestanna='#tabContacto';
+                                        break;                                      
                                     
                                     
                                     case "confirma":
@@ -195,93 +202,6 @@ class registrarForm {
                                         $boton = "regresar";
                                         break;
                                     
-                                    case "inhabilito":
-                                        $tipo = 'success';
-                                        $mensaje = "El usuario se inhabilito con exito.";
-                                        $boton = "continuar";
-                                        break;
-                                    
-                                    case "noInhabilito":
-                                        $tipo = 'error';
-                                        $mensaje = "El usuario no se pudo inhabilitar. Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        break;
-                                    
-                                    case "habilito":
-                                        $tipo = 'success';
-                                        $mensaje = "El usuario se habilito con exito.";
-                                        $boton = "continuar";
-                                        break;
-                                    
-                                    case "nohabilito":
-                                        $tipo = 'error';
-                                        $mensaje = "El usuario no se pudo habilitar. Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        break;
-
-                                    case "confirmaPerfil":
-                                        $tipo = 'success';
-                                        $mensaje = "Se registro con exito el perfil <b>".$_REQUEST['perfilUs']."</b> al Usuario <b>".$_REQUEST['id_usuario']."</b>.";
-                                        $boton = "continuar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "errorPerfil":
-                                        $tipo = 'error';
-                                        $mensaje = "No fue posible registrar el nuevo perfil al Usuario ".$_REQUEST['id_usuario'].". Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "confirmaEditaPerfil":
-                                        $tipo = 'success';
-                                        $mensaje = "Se actualizó con exito el perfil <b>".$_REQUEST['perfilUs']."</b> al Usuario <b>".$_REQUEST['id_usuario']."</b>.";
-                                        $boton = "continuar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "errorEditaPerfil":
-                                        $tipo = 'error';
-                                        $mensaje = "No fue posible actualizar el perfil al Usuario ".$_REQUEST['id_usuario'].". Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "inhabilitoPerfil":
-                                        $tipo = 'success';
-                                        $mensaje = "El perfil del usuario se inhabilito con exito.";
-                                        $boton = "continuar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "noInhabilitoPerfil":
-                                        $tipo = 'error';
-                                        $mensaje = "El perfil del usuario no se pudo inhabilitar. Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "habilitoPerfil":
-                                        $tipo = 'success';
-                                        $mensaje = "El perfil del usuario se habilito con exito.";
-                                        $boton = "continuar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
-                                    
-                                    case "nohabilitoPerfil":
-                                        $tipo = 'error';
-                                        $mensaje = "El perfil del usuario no se pudo habilitar. Por favor intente mas tarde.";
-                                        $boton = "regresar";
-                                        $variable.="&opcion=perfil";
-                                        $variable.="&id_usuario=".$_REQUEST['id_usuario'];
-                                        break;
                                     }
                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                             $esteCampo = 'mensaje';
@@ -326,7 +246,7 @@ class registrarForm {
                         
                         $esteCampo = 'botonContinuar';
 			$atributos ['id'] = $esteCampo;
-			$atributos ['enlace'] = $variable;
+			$atributos ['enlace'] = $variable.$pestanna;
 			$atributos ['tabIndex'] = 1;
 			$atributos ['estilo'] = 'jqueryui';
 			$atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );

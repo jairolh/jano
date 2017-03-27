@@ -71,15 +71,16 @@ class registrarForm {
                 $resultadoSopIden = $esteRecursoDB->ejecutarAcceso($cadenaSopIden_sql, "busqueda");
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
-		$atributos ['id'] = $esteCampo;
-		$atributos ['nombre'] = $esteCampo;
+                $estefomulario= 'datosBasicos';
+		$atributos ['id'] = $estefomulario;
+		$atributos ['nombre'] = $estefomulario;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
 		$atributos ['tipoFormulario'] = 'multipart/form-data';
 		// Si no se coloca, entonces toma el valor predeterminado 'POST'
 		$atributos ['metodo'] = 'POST';
 		// Si no se coloca, entonces toma el valor predeterminado 'index.php' (Recomendado)
 		$atributos ['action'] = 'index.php';
-		// $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo );
+		$atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo );
 		// Si no se coloca, entonces toma el valor predeterminado.
 		$atributos ['estilo'] = '';
 		$atributos ['marco'] = false;
@@ -113,7 +114,6 @@ class registrarForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{	      
-
                             // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                 $atributos ["id"]="fotografia";
                                 $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
@@ -586,76 +586,70 @@ class registrarForm {
 					$atributos ["verificar"] = '';
 					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
 					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-					$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+					$atributos ['nombreFormulario'] = $estefomulario;//$esteBloque ['nombre'];
 					$tab ++;
 					
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
 					echo $this->miFormulario->campoBoton ( $atributos );
-					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+				    // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+				    // ------------------- SECCION: Paso de variables ------------------------------------------------
+
+                                    /**
+                                     * En algunas ocasiones es útil pasar variables entre las diferentes páginas.
+                                     * SARA permite realizar esto a través de tres
+                                     * mecanismos:
+                                     * (a). Registrando las variables como variables de sesión. Estarán disponibles durante toda la sesión de usuario. Requiere acceso a
+                                     * la base de datos.
+                                     * (b). Incluirlas de manera codificada como campos de los formularios. Para ello se utiliza un campo especial denominado
+                                     * formsara, cuyo valor será una cadena codificada que contiene las variables.
+                                     * (c) a través de campos ocultos en los formularios. (deprecated)
+                                     */
+                                    // En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
+
+                                    $valorCodificado = "action=" . $esteBloque ["nombre"];
+                                    $valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                    $valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
+                                    $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
+                                    $valorCodificado .= "&opcion=guardarDatosBasicos";
+                                    $valorCodificado .= "&id_usuario=".$usuario;
+                                    $valorCodificado .= "&consecutivo=".$resultadoUsuarios[0]['consecutivo'];
+                                    $valorCodificado .= "&tipo_identificacion=".$resultadoUsuarios[0]['tipo_identificacion'];
+                                    /**
+                                     * SARA permite que los nombres de los campos sean dinámicos.
+                                     * Para ello utiliza la hora en que es creado el formulario para
+                                     * codificar el nombre de cada campo. Si se utiliza esta técnica es necesario pasar dicho tiempo como una variable:
+                                     * (a) invocando a la variable $_REQUEST ['tiempo'] que se ha declarado en ready.php o
+                                     * (b) asociando el tiempo en que se está creando el formulario
+                                     */
+                                    $valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                    $valorCodificado .= "&tiempo=" . time ();
+                                    // Paso 2: codificar la cadena resultante
+                                    $valorCodificado = $this->miConfigurador->fabricaConexiones->crypto->codificar ( $valorCodificado );
+
+                                    $atributos ["id"] = "formSaraData"; // No cambiar este nombre
+                                    $atributos ["tipo"] = "hidden";
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ["obligatorio"] = false;
+                                    $atributos ['marco'] = true;
+                                    $atributos ["etiqueta"] = "";
+                                    $atributos ["valor"] = $valorCodificado;
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+
 				}
+                                
 				echo $this->miFormulario->division ( 'fin' );
-				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-				
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
-				// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
-				// Se debe declarar el mismo atributo de marco con que se inició el formulario.
+				
 			}
-			
+			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 			// ------------------Fin Division para los botones-------------------------
-			echo $this->miFormulario->division ( "fin" );
-			
-			// ------------------- SECCION: Paso de variables ------------------------------------------------
-			
-			/**
-			 * En algunas ocasiones es útil pasar variables entre las diferentes páginas.
-			 * SARA permite realizar esto a través de tres
-			 * mecanismos:
-			 * (a). Registrando las variables como variables de sesión. Estarán disponibles durante toda la sesión de usuario. Requiere acceso a
-			 * la base de datos.
-			 * (b). Incluirlas de manera codificada como campos de los formularios. Para ello se utiliza un campo especial denominado
-			 * formsara, cuyo valor será una cadena codificada que contiene las variables.
-			 * (c) a través de campos ocultos en los formularios. (deprecated)
-			 */
-			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-			
-			$valorCodificado = "action=" . $esteBloque ["nombre"];
-			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
-			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-			$valorCodificado .= "&opcion=guardarDatosBasicos";
-			$valorCodificado .= "&id_usuario=".$usuario;
-                        $valorCodificado .= "&consecutivo=".$resultadoUsuarios[0]['consecutivo'];
-                        $valorCodificado .= "&tipo_identificacion=".$resultadoUsuarios[0]['tipo_identificacion'];
-			/**
-			 * SARA permite que los nombres de los campos sean dinámicos.
-			 * Para ello utiliza la hora en que es creado el formulario para
-			 * codificar el nombre de cada campo. Si se utiliza esta técnica es necesario pasar dicho tiempo como una variable:
-			 * (a) invocando a la variable $_REQUEST ['tiempo'] que se ha declarado en ready.php o
-			 * (b) asociando el tiempo en que se está creando el formulario
-			 */
-			$valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
-			$valorCodificado .= "&tiempo=" . time ();
-			// Paso 2: codificar la cadena resultante
-			$valorCodificado = $this->miConfigurador->fabricaConexiones->crypto->codificar ( $valorCodificado );
-			
-			$atributos ["id"] = "formSaraData"; // No cambiar este nombre
-			$atributos ["tipo"] = "hidden";
-			$atributos ['estilo'] = '';
-			$atributos ["obligatorio"] = false;
-			$atributos ['marco'] = true;
-			$atributos ["etiqueta"] = "";
-			$atributos ["valor"] = $valorCodificado;
-			echo $this->miFormulario->campoCuadroTexto ( $atributos );
-			unset ( $atributos );
-			
-			$atributos ['marco'] = true;
-			$atributos ['tipoEtiqueta'] = 'fin';
-			echo $this->miFormulario->formulario ( $atributos );
-			
-			return true;
 		}
+                $atributos ['tipoEtiqueta'] = 'fin';
+                echo $this->miFormulario->formulario ( $atributos );
+                return true;
 	}
 }
 

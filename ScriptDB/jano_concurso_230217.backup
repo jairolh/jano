@@ -36,6 +36,9 @@ CREATE TABLE persona (
     apellido character varying(50) DEFAULT ''::character varying NOT NULL,
     lugar_nacimiento numeric(10,0),
     fecha_nacimiento date
+    pais_nacimiento numeric(10,0),
+    departamento_nacimiento numeric(10,0),
+    sexo character varying(2) ,
 );
 
 
@@ -67,15 +70,6 @@ ALTER SEQUENCE persona_consecutivo_seq OWNED BY persona.consecutivo;
 --
 
 ALTER TABLE ONLY persona ALTER COLUMN consecutivo SET DEFAULT nextval('persona_consecutivo_seq'::regclass);
-
-
---
--- Data for Name: persona; Type: TABLE DATA; Schema: concurso; Owner: jano_admin
---
-
-COPY persona (consecutivo, tipo_identificacion, identificacion, nombre, apellido, lugar_nacimiento, fecha_nacimiento) FROM stdin;
-1	CC	37440348	MARIA	ROSAS	\N	\N
-\.
 
 
 --

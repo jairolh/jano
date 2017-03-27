@@ -3,9 +3,11 @@
 
 $this->idioma["tabBasicos"]="Datos Básicos";
 $this->idioma["tabContacto"]="Datos de Contacto";
+$this->idioma["tabFormacion"]="Formación Académica";
 
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
+$this->idioma["marcoContacto"]="Registro datos de Contacto";
 
 
 
@@ -54,18 +56,34 @@ $this->idioma["nombresTitulo"]="Digite los nombres del usuario";
 $this->idioma["nombres"]="Nombres: "; 
 $this->idioma["apellidosTitulo"]="Digite los apellidos del usuario";
 $this->idioma["apellidos"]="Apellidos: "; 
-$this->idioma["correoTitulo"]="Digite el correo electrónico del usuario";
-$this->idioma["correo"]="Correo Electrónico: ";
 $this->idioma["sexoTitulo"]="Seleccione el Género";
 $this->idioma["sexo"]="Género: ";
 $this->idioma["fecha_nacimientoTitulo"]="Ingrese la Fecha de Nacimiento";
 $this->idioma["fecha_nacimiento"]="Fecha Nacimiento: ";
 $this->idioma["paisTitulo"]="Seleccione el país";
 $this->idioma["pais"]="País: ";
-$this->idioma["departamentoTitulo"]="Seleccione el departamentos";
+$this->idioma["departamentoTitulo"]="Seleccione el departamento";
 $this->idioma["departamento"]="Departamento: ";
 $this->idioma["ciudadTitulo"]="Seleccione la Ciudad de Nacimiento";
 $this->idioma["ciudad"]="Ciudad: ";
+
+$this->idioma["pais_residenciaTitulo"]="Seleccione el país de Residencia";
+$this->idioma["pais_residencia"]="País: ";
+$this->idioma["departamento_residenciaTitulo"]="Seleccione el departamento ";
+$this->idioma["departamento_residencia"]="Departamento: ";
+$this->idioma["ciudad_residenciaTitulo"]="Seleccione la Ciudad de  Residencia";
+$this->idioma["ciudad_residencia"]="Ciudad Residencia: ";
+$this->idioma["direccion_residenciaTitulo"]="Ingrese la dirección de  Residencia";
+$this->idioma["direccion_residencia"]="Direccion Residencia: ";
+$this->idioma["correoTitulo"]="Digite el correo electrónico";
+$this->idioma["correo"]="Correo Electrónico: ";
+$this->idioma["correo_secundarioTitulo"]="Digite el correo electrónico";
+$this->idioma["correo_secundario"]="Correo Alterno: ";
+$this->idioma["telefonoTitulo"]="Digite el número de telefono";
+$this->idioma["telefono"]="Número Telefono: ";
+$this->idioma["celularTitulo"]="Digite el número de telefono Celular";
+$this->idioma["celular"]="Número Celular: ";
+
 
 $this->idioma["tipousuarioTitulo"]="Seleccione el tipo de usuario"; 
 
@@ -75,6 +93,7 @@ $this->idioma["noDefinido"]="No definido";
 
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
+$this->idioma["botonContacto"]="Guardar Datos de Contacto";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

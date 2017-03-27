@@ -39,12 +39,27 @@ $(function() {
     $("#gestionHoja").submit(function() {
         $resultado=$("#gestionHoja").validationEngine("validate");
         if ($resultado) {
-
             return true;
-
         }
         return false;
     });
+    
+    $("#datosBasicos").submit(function() {
+        $resultado=$("#datosBasicos").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });   
+    
+    $("#datosContacto").submit(function() {
+        $resultado=$("#datosContacto").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });        
+    
 });
  
 <?php /*?>
@@ -121,6 +136,13 @@ $('#<?php echo $this->campoSeguro('ciudad')?>').width(210);
 $("#<?php echo $this->campoSeguro('ciudad')?>").select2(); 
 $('#<?php echo $this->campoSeguro('sexo')?>').width(210);
 $("#<?php echo $this->campoSeguro('sexo')?>").select2(); 
+
+$('#<?php echo $this->campoSeguro('paisResidencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('paisResidencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('departamentoResidencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('departamentoResidencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('ciudadResidencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('ciudadResidencia')?>").select2(); 
 <?php 
 //}
 

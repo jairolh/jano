@@ -45,7 +45,7 @@ class CargarArchivo {
                                                         'tipo_soporte'=>$resultadoSoporte[0]['tipo_soporte'],
                                                         'consecutivo_persona'=>$_REQUEST['consecutivo'],
                                                         'tipo_dato'=>$tipoSoporte,
-                                                        'consecutivo_dato'=>$_REQUEST['consecutivo'],
+                                                        'consecutivo_dato'=>$_REQUEST['consecutivo_dato'],
                                                         'nombre'=>$nombreArchivo,
                                                         'alias'=>$_FILES [$key]['name']
                                                         );

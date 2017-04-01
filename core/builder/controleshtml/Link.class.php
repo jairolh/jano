@@ -33,6 +33,10 @@ class Link  extends HtmlBase {
         if (isset ( $atributos [self::ENLACECODIFICAR] ) && $atributos [self::ENLACECODIFICAR] != "") {
             $this->cadenaHTML .= "href='" . $this->miConfigurador->fabricaConexiones->crypto->$atributos [self::ENLACE] . "' ";
         }
+        
+        if (isset ( $atributos [self::ONCLICK] ) && $atributos [self::ONCLICK] != "") {
+            $this->cadenaHTML .= "onclick='" . $atributos [self::ONCLICK] . "' ";
+        }
     
         if (isset ( $atributos ["tabIndex"] )) {
             $this->cadenaHTML .= "tabindex='" . $atributos ["tabIndex"] . "' ";

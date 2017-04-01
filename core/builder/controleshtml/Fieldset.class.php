@@ -15,6 +15,10 @@ class Fieldset  extends HtmlBase{
                     $this->cadenaHTML .= "id='" . $atributos ["id"] . "' ";
                 }
     
+                if (isset ( $atributos [self::ESTILOENLINEA] ) && $atributos [self::ESTILOENLINEA] != "") {
+                        $this->cadenaHTML .= "style='" . $atributos [self::ESTILOENLINEA] . "' ";
+                    }
+                
                 $this->cadenaHTML .= ">\n";
                 $this->cadenaHTML .= "<fieldset class='ui-widget ui-widget-content' ";
     

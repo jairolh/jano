@@ -9,7 +9,7 @@ if (!isset($GLOBALS ["autorizado"])) {
     exit();
 }
 
-class RegistradorBasicos {
+class RegistradorContactos {
 
     var $miConfigurador;
     var $lenguaje;
@@ -78,7 +78,7 @@ class RegistradorBasicos {
 
 }
 
-$miRegistrador = new RegistradorBasicos($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
+$miRegistrador = new RegistradorContactos($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
 
 $resultado = $miRegistrador->procesarFormulario();
 ?>

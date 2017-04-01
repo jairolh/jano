@@ -371,7 +371,7 @@ class registrarForm {
                                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                                                   $esteCampo = 'archivoIdentificacion';
                                                                   $atributos ['id'] = $esteCampo;
-                                                                  $atributos ['enlace'] = 'javascript:soporte();';
+                                                                  $atributos ['enlace'] = 'javascript:soporte("ruta_Ident");';
                                                                   $atributos ['tabIndex'] = 0;
                                                                   $atributos ['marco'] = true;
                                                                   $atributos ['columnas'] = 2;
@@ -387,7 +387,7 @@ class registrarForm {
                                                                   echo $this->miFormulario->enlace( $atributos );
                                                                   unset ( $atributos );
                                                                  // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                                  $esteCampo = 'rutasoporte';
+                                                                  $esteCampo = 'ruta_Ident';
                                                                   $atributos ['id'] = $esteCampo;
                                                                   $atributos ['nombre'] = $esteCampo;
                                                                   $atributos ['tipo'] = 'hidden';
@@ -409,7 +409,7 @@ class registrarForm {
                                                                   $atributos ['anchoEtiqueta'] = 170;
                                                                   $tab ++;
                                                                   // Aplica atributos globales al control
-                                                                  $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                  //$atributos = array_merge ( $atributos, $atributosGlobales );
                                                                   echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                                                               }

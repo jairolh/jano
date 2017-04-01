@@ -49,7 +49,8 @@ class RegistradorBasicos {
         $resultadoBasicos = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarBasicos" );
         
         if($resultadoBasicos)
-            {   $this->miArchivo->procesarArchivo('datosBasicos');
+            {   $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo'];
+                $this->miArchivo->procesarArchivo('datosBasicos');
                 redireccion::redireccionar('actualizoBasicos',$arregloDatos);  exit();
             }else
             {

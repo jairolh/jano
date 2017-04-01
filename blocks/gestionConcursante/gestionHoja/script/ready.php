@@ -59,7 +59,14 @@ $(function() {
         }
         return false;
     });        
-    
+
+    $("#datosFormacion").submit(function() {
+        $resultado=$("#datosFormacion").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });     
 });
  
 <?php /*?>
@@ -109,7 +116,21 @@ $('#<?php echo $this->campoSeguro('fecha_nacimiento')?>').datepicker({
 
    });
 
-
+$('#<?php echo $this->campoSeguro('fecha_grado')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0'
+   });
+   
 
 $(function() {
         $(document).tooltip();
@@ -137,12 +158,25 @@ $("#<?php echo $this->campoSeguro('ciudad')?>").select2();
 $('#<?php echo $this->campoSeguro('sexo')?>').width(210);
 $("#<?php echo $this->campoSeguro('sexo')?>").select2(); 
 
-$('#<?php echo $this->campoSeguro('paisResidencia')?>').width(210);
-$("#<?php echo $this->campoSeguro('paisResidencia')?>").select2(); 
-$('#<?php echo $this->campoSeguro('departamentoResidencia')?>').width(210);
-$("#<?php echo $this->campoSeguro('departamentoResidencia')?>").select2(); 
-$('#<?php echo $this->campoSeguro('ciudadResidencia')?>').width(210);
-$("#<?php echo $this->campoSeguro('ciudadResidencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('pais_residencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_residencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('departamento_residencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('departamento_residencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('ciudad_residencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('ciudad_residencia')?>").select2(); 
+
+$('#<?php echo $this->campoSeguro('pais_formacion')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_formacion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('modalidad')?>').width(210);
+$("#<?php echo $this->campoSeguro('modalidad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_formacion')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_formacion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_institucion')?>').width(450);
+$("#<?php echo $this->campoSeguro('codigo_institucion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('consecutivo_programa')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_programa')?>").select2(); 
+$('#<?php echo $this->campoSeguro('graduado')?>').width(450);
+$("#<?php echo $this->campoSeguro('graduado')?>").select2(); 
 <?php 
 //}
 

@@ -5,42 +5,18 @@ $this->idioma["tabBasicos"]="Datos Básicos";
 $this->idioma["tabContacto"]="Datos de Contacto";
 $this->idioma["tabFormacion"]="Formación Académica";
 
-
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
-
-
+$this->idioma["marcoFormacion"]="Registro datos de Formación Académica";
+$this->idioma["marcoListaFormacion"]="Formación Académica";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
-
-$this->idioma["marcoConsultaUsuarios"]="Usuario Registrados";
-
-$this->idioma ["selecc_registros"] ="Selección Registros: ";
-
-$this->idioma ["observaciones"] ="Observaciones ";
-
-$this->idioma ["observacionesTitulo"] ="Ingrese Observaciones";
-
 $this->idioma ["botonAceptar"] ="Aceptar";
-
 $this->idioma ["botonCancelar"] ="Cancelar";
-
 $this->idioma ["botonContinuar"] ="Continuar";
-
 $this->idioma ["botonConsultar"] ="Consultar";
-
 $this->idioma ["botonRegresar"] =" Regresar ";
 
-
-
-
-
-
-$this->idioma["marcoEditaUsuario"]="Editar Datos de Usuario";
-
-$this->idioma["marcoPerfil"]="Nuevo Rol de Usuario";
-
-$this->idioma["marcoEditaPerfil"]="Editar Rol de Usuario";
 $this->idioma["borrar"]="Eliminar Usuario";
 
 $this->idioma["cuadroIdentificacion"]="Documento Identificación "; 
@@ -84,42 +60,44 @@ $this->idioma["telefono"]="Número Telefono: ";
 $this->idioma["celularTitulo"]="Digite el número de telefono Celular";
 $this->idioma["celular"]="Número Celular: ";
 
+$this->idioma["nuevoFormacion"]="Registrar Formación";
+$this->idioma["pais_formacionTitulo"]="Seleccione el país de Formación";
+$this->idioma["pais_formacion"]="País: ";
+$this->idioma["modalidadTitulo"]="Selecciona la modalidad de formación";
+$this->idioma["modalidad"]="Modalidad: ";
+$this->idioma["nivel_formacionTitulo"]="Selecciona el nivel de formación";
+$this->idioma["nivel_formacion"]="Nivel: ";
+$this->idioma["codigo_institucionTitulo"]="Selecciona La institucion Educativa";
+$this->idioma["codigo_institucion"]="Institucion Educativa: ";
+$this->idioma["nombre_institucionTitulo"]="Ingrese el Nombre de la Institucion Educativa";
+$this->idioma["nombre_institucion"]="Nombre Institucion: ";
+$this->idioma["consecutivo_programaTitulo"]="Selecciona el programa Académico";
+$this->idioma["consecutivo_programa"]="Programa Académico: ";
+$this->idioma["nombre_programaTitulo"]="Ingrese el Nombre del programa Académico";
+$this->idioma["nombre_programa"]="Nombre programa: ";
+$this->idioma["cursos_aprobadosTitulo"]="Ingrese la cantidad de Semestres, Cursos u Horas aprobadas del programa";
+$this->idioma["cursos_aprobados"]="Cursos Aprobados: ";
+$this->idioma["graduadoTitulo"]="Indique si ya es graduado del programa";
+$this->idioma["graduado"]="Graduado: ";
+$this->idioma["fecha_gradoTitulo"]="Indique la fecha de graduacion o terminacion del programa";
+$this->idioma["fecha_grado"]="Fecha Grado: ";
+$this->idioma["soporteDiplomaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteDiploma"]="Soporte Diploma o acta de grado: "; 
+$this->idioma["soporteTprofesionalTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteTprofesional"]="Soporte Tarjeta profesional: "; 
 
-$this->idioma["tipousuarioTitulo"]="Seleccione el tipo de usuario"; 
-
-$this->idioma["tipousuario"]="Tipo Usuario: ";
 
 $this->idioma["noDefinido"]="No definido";
-
+$this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
+$this->idioma["botonFormacion"]="Guardar Datos de Formación";
 
 $this->idioma["botonActualizar"]="Actualizar";
 
-$this->idioma["tiporesultadosTitulo"]="Seleccione el tipo de resultados del proceso";
-
-$this->idioma["tiporesultados"]="Tipo de resultados del proceso"; 
-
-$this->idioma["subsistema"]="Módulo"; 
-
-$this->idioma["subsistemaTitulo"]="Seleccione el Módulo ";
-
-$this->idioma["perfil"]="Rol de Usuario"; 
-
-$this->idioma["fechaFin"]="Fecha Caducidad"; 
-
-$this->idioma["fechaFinTitulo"]="Seleccione la Fecha de Caducidad del perfil";
-
-$this->idioma["id_usuarioTitulo"]="Nombre de Cuenta de Usuario";
-
-$this->idioma["id_usuario"]="Usuario: "; 
 //------------------Mensajes -----------------------------------
-
 $this->idioma["continuar"]="Continuar";
-
 $this->idioma["regresar"]="Regresar";
-
-
 
 ?>

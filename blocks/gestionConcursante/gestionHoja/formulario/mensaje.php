@@ -95,7 +95,6 @@ class registrarForm {
                         unset ( $atributos );
 			
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
-			
 			$esteCampo = "marcoDatosBasicos";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -114,7 +113,6 @@ class registrarForm {
                                         $boton = "continuar";
                                         $variable.="&tab=tabBasicos";
                                         break;                                
-                                
                                     case "actualizoContacto":
                                         $tipo = 'success';
                                         $mensaje = "Los datos de Contacto del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
@@ -122,7 +120,13 @@ class registrarForm {
                                         //$variable.="&tab=tabContacto";
                                         $pestanna='#tabContacto';
                                         break;                                      
-                                    
+                                    case "actualizoFormacion":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de Formación Académica del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        //$variable.="&tab=tabContacto";
+                                        $pestanna='#tabFormacion';
+                                        break;        
                                     
                                     case "confirma":
                                         $tipo = 'success';

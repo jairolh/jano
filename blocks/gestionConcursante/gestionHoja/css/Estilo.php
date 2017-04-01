@@ -11,6 +11,7 @@ $estilo[$indice++]="select2.css";
 $estilo[$indice++]="jquery_switch.css";
 $estilo[$indice++]="jquery-ui_smoot.css";
 $estilo[$indice++]="jquery-ui.css";
+$estilo[$indice++]="miestilo.css";
 
 // Tablas
 $estilo[$indice++]="demo_page.css";

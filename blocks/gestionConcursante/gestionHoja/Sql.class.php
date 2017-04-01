@@ -133,6 +133,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" AND sop.tipo_dato='".$variable['tipo_dato']."'";
                                 $cadenaSql.=" AND sop.consecutivo_persona='".$variable['consecutivo']."'";
                                 $cadenaSql.=" AND tsop.nombre='".$variable['nombre_soporte']."'";
+                                if(isset($variable['consecutivo_dato']) && $variable['consecutivo_dato']!='')
+                                    {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
                                 $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
 				break;                            
                                                         
@@ -179,6 +181,102 @@ class Sql extends \Sql {
                                 $cadenaSql.=" LEFT OUTER JOIN concurso.contacto cont ON cont.consecutivo_persona=bas.consecutivo";
                                 $cadenaSql.=" WHERE us.id_usuario='".$variable['id_usuario']."'";
 			break;
+                        case "consultarFormacion":
+                    
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" form.consecutivo_formacion, ";
+                                $cadenaSql.=" form.consecutivo_persona, ";
+                                $cadenaSql.=" form.codigo_modalidad, ";
+                                $cadenaSql.=" modo.nombre modalidad,";
+                                $cadenaSql.=" form.codigo_nivel, ";
+                                $cadenaSql.=" nv.nombre nivel,";
+                                $cadenaSql.=" form.pais_formacion, ";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" form.codigo_institucion, ";
+                                $cadenaSql.=" form.nombre_institucion, ";
+                                $cadenaSql.=" form.codigo_programa, ";
+                                $cadenaSql.=" form.nombre_programa, ";
+                                $cadenaSql.=" form.cursos_aprobados, ";
+                                $cadenaSql.=" form.graduado, ";
+                                $cadenaSql.=" form.fecha_grado";
+                                $cadenaSql.=" FROM concurso.persona bas ";
+                                $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
+                                $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
+                                $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
+                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
+                                $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
+                                if(isset($variable['consecutivo_formacion']) && $variable['consecutivo_formacion']!='')
+                                    {$cadenaSql.=" AND form.consecutivo_formacion='".$variable['consecutivo_formacion']."' ";}
+                                $cadenaSql.=" ORDER BY form.codigo_nivel, ";
+                                $cadenaSql.=" form.fecha_grado";    
+                                    
+			break;                  
+                    
+                        case "consultarModalidad":
+                            $cadenaSql=" SELECT DISTINCT";
+                            $cadenaSql.=" codigo_modalidad,";
+                            $cadenaSql.=" nombre, ";
+                            $cadenaSql.=" estado";
+                            $cadenaSql.=" FROM general.modalidad_educacion";
+                            $cadenaSql.=" WHERE estado='A'";
+			break;                    
+                    
+                        case "consultarNivel":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" codigo_nivel,";
+                                $cadenaSql.=" nombre,";
+                                $cadenaSql.=" tipo_nivel,";
+                                $cadenaSql.=" descripcion,";
+                                $cadenaSql.=" estado";
+                                $cadenaSql.=" FROM general.nivel";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" estado='A'";
+                                if(isset($variable['tipo_nivel']) && $variable['tipo_nivel']!='')
+                                    {$cadenaSql.=" AND tipo_nivel='".$variable['tipo_nivel']."' ";}
+                                if(isset($variable['codigo_nivel']) && $variable['codigo_nivel']>0)
+                                    {$cadenaSql.=" AND codigo_nivel='".$variable['codigo_nivel']."' ";}
+			break;  
+                        
+                        case "consultarInstitucion":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" codigo_ies,";
+                                $cadenaSql.=" nombre, ";
+                                $cadenaSql.=" pais_institucion, ";
+                                $cadenaSql.=" estado";
+                                $cadenaSql.=" FROM general.institucion_educacion";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" estado='A'";
+                                if(isset($variable['codigo_ies']))
+                                    {$cadenaSql.=" AND codigo_ies='".$variable['codigo_ies']."' ";}
+                                if(isset($variable['pais_institucion']))
+                                    {$cadenaSql.=" AND pais_institucion='".$variable['pais_institucion']."' ";}    
+                                $cadenaSql.=" ORDER BY nombre ";    
+			break;    
+                        
+                        case "consultarPrograma":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" consecutivo_programa, ";
+                                $cadenaSql.=" nombre, ";
+                                $cadenaSql.=" codigo_programa, ";
+                                $cadenaSql.=" codigo_ies, ";
+                                $cadenaSql.=" estado";
+                                $cadenaSql.=" FROM general.programa_ies";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" estado='A'";
+                                if(isset($variable['codigo_ies']))
+                                    {$cadenaSql.=" AND codigo_ies='".$variable['codigo_ies']."' ";}
+                                $cadenaSql.=" UNION ";
+                                $cadenaSql.=" SELECT DISTINCT ";
+                                $cadenaSql.=" 0 consecutivo_programa, ";
+                                $cadenaSql.=" 'OTRO' nombre, ";
+                                $cadenaSql.=" 0 codigo_programa, ";
+                                $cadenaSql.=" 0 codigo_ies, ";
+                                $cadenaSql.=" 'A' estado";
+                                $cadenaSql.=" FROM general.programa_ies";
+                                $cadenaSql.=" ORDER BY nombre ";    
+                                
+			break;                              
                                         
 			case 'registroSoporte' :
 				$cadenaSql=" INSERT INTO";
@@ -227,6 +325,40 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['celular']."'";
                                 $cadenaSql.=" )";
 				break;                    
+                            
+			case 'registroFormacion' :
+                                $cadenaSql=" INSERT INTO concurso.formacion(";
+                                $cadenaSql.=" consecutivo_formacion, ";
+                                $cadenaSql.=" consecutivo_persona, ";
+                                $cadenaSql.=" codigo_modalidad, ";
+                                $cadenaSql.=" codigo_nivel, ";
+                                $cadenaSql.=" pais_formacion, ";
+                                $cadenaSql.=" codigo_institucion, ";
+                                $cadenaSql.=" nombre_institucion, ";
+                                $cadenaSql.=" codigo_programa, ";
+                                $cadenaSql.=" nombre_programa, ";
+                                $cadenaSql.=" cursos_aprobados, ";
+                                $cadenaSql.=" graduado,";
+                                $cadenaSql.=" fecha_grado)";
+                                $cadenaSql.=" VALUES (";
+                                $cadenaSql.=" DEFAULT,";
+                                $cadenaSql.=" '".$variable['consecutivo_persona']."',";
+                                $cadenaSql.=" '".$variable['codigo_modalidad']."',";
+                                $cadenaSql.=" '".$variable['codigo_nivel']."',";
+                                $cadenaSql.=" '".$variable['pais_formacion']."',";
+                                $cadenaSql.=" '".$variable['codigo_institucion']."',";
+                                if(isset($variable['codigo_institucion']) && $variable['codigo_institucion']==0)
+                                    {$cadenaSql.=" '".$variable['nombre_institucion']."',";}
+                                else {$cadenaSql.="(SELECT inst.nombre inst FROM general.institucion_educacion inst WHERE inst.codigo_ies='".$variable['codigo_institucion']."'),";}    
+                                $cadenaSql.=" '".$variable['codigo_programa']."',";
+                                if(isset($variable['codigo_programa']) && $variable['codigo_programa']==0)
+                                    { $cadenaSql.=" '".$variable['nombre_programa']."',";}
+                                else {$cadenaSql.="(SELECT prog.nombre FROM general.programa_ies prog WHERE prog.consecutivo_programa='".$variable['codigo_programa']."'),";}    
+                                $cadenaSql.=" '".$variable['cursos_aprobados']."',";
+                                $cadenaSql.=" '".$variable['graduado']."',";
+                                $cadenaSql.=" '".$variable['fecha_grado']."'";
+                                $cadenaSql.=" )";
+				break;                               
 
                         case "actualizarBasicos":
                                 $cadenaSql=" UPDATE concurso.persona";
@@ -257,7 +389,25 @@ class Sql extends \Sql {
                                 $cadenaSql.=" consecutivo_contacto='".$variable['consecutivo_contacto']."' ";
                                 
                     	break;                      
-                    
+
+                        case "actualizarFormacion":
+                                $cadenaSql=" UPDATE concurso.formacion";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" codigo_modalidad='".$variable['codigo_modalidad']."',";
+                                $cadenaSql.=" codigo_nivel='".$variable['codigo_nivel']."',";
+                                $cadenaSql.=" pais_formacion='".$variable['pais_formacion']."',";
+                                $cadenaSql.=" codigo_institucion='".$variable['codigo_institucion']."',";
+                                $cadenaSql.=" nombre_institucion='".$variable['nombre_institucion']."',";
+                                $cadenaSql.=" codigo_programa='".$variable['codigo_programa']."',";
+                                $cadenaSql.=" nombre_programa='".$variable['nombre_programa']."',";
+                                $cadenaSql.=" cursos_aprobados='".$variable['cursos_aprobados']."',";
+                                $cadenaSql.=" graduado='".$variable['graduado']."',";
+                                $cadenaSql.=" fecha_grado='".$variable['fecha_grado']."'";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_formacion='".$variable['consecutivo_formacion']."' ";
+                                
+                    	break;                      
+                                        
                     /*viejas consultas para revisar*/
                        
                     

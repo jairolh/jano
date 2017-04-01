@@ -19,4 +19,21 @@ if ($_REQUEST ['funcion'] == 'consultarCiudadAjax') {
 	echo $resultado;
 }
 
+if ($_REQUEST ['funcion'] == 'consultarIESAjax') {
+        $parametro=array('pais_institucion'=>$_REQUEST['valor']);
+	$cadenaSql = $this->sql->getCadenaSql ( 'consultarInstitucion', $parametro );
+	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
+	$resultado = json_encode ( $resultado);
+	echo $resultado;
+}
+
+if ($_REQUEST ['funcion'] == 'consultarProgramaAjax') {
+        $parametro=array('codigo_ies'=>$_REQUEST['valor']);
+	$cadenaSql = $this->sql->getCadenaSql ( 'consultarPrograma', $parametro );
+	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
+	$resultado = json_encode ( $resultado);
+	echo $resultado;
+}
+
+
 ?>

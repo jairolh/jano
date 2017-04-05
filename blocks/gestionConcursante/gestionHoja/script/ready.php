@@ -27,7 +27,28 @@ $('#tablaProcesos').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 
 });
-        
+
+
+
+$('#tablaExperiencia').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+});
+
                       
 // Asociar el widget de validación al formulario
 $("#gestionHoja").validationEngine({
@@ -43,30 +64,61 @@ $(function() {
         }
         return false;
     });
-    
+
+// Asociar el widget de validación al formulario
+$("#datosBasicos").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
     $("#datosBasicos").submit(function() {
-        $resultado=$("#datosBasicos").validationEngine("validate");
-        if ($resultado) {
+        $resultadoBas=$("#datosBasicos").validationEngine("validate");
+        if ($resultadoBas) {
             return true;
         }
         return false;
     });   
     
+// Asociar el widget de validación al formulario
+$("#datosContacto").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
     $("#datosContacto").submit(function() {
-        $resultado=$("#datosContacto").validationEngine("validate");
-        if ($resultado) {
+        $resultadoCont=$("#datosContacto").validationEngine("validate");
+        if ($resultadoCont) {
             return true;
         }
         return false;
     });        
 
+// Asociar el widget de validación al formulario
+$("#datosFormacion").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
     $("#datosFormacion").submit(function() {
-        $resultado=$("#datosFormacion").validationEngine("validate");
-        if ($resultado) {
+        $resultadoForm=$("#datosFormacion").validationEngine("validate");
+        if ($resultadoForm) {
             return true;
         }
         return false;
     });     
+   
+// Asociar el widget de validación al formulario
+$("#datosExperiencia").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+}); 
+
+    $("#datosExperiencia").submit(function() {
+        $resultadoExp=$("#datosExperiencia").validationEngine("validate");
+        if ($resultadoExp) {
+            return true;
+        }
+        return false;
+    });        
+    
+    
 });
  
 <?php /*?>
@@ -130,7 +182,41 @@ $('#<?php echo $this->campoSeguro('fecha_grado')?>').datepicker({
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
         yearRange: '-50:+0'
    });
-   
+
+$('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0',
+        <?php /*?>permite asirnara a otro campo como fecha minima */?>
+        onSelect: function(dateText, inst) {
+        var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker('getDate'));
+        //lockDate.setDate(lockDate.getDate() + 1);
+        $('input#<?php echo $this->campoSeguro('fecha_fin')?>').datepicker('option', 'minDate', lockDate);} 
+   });
+
+$('#<?php echo $this->campoSeguro('fecha_fin')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0'
+   });   
 
 $(function() {
         $(document).tooltip();
@@ -177,6 +263,17 @@ $('#<?php echo $this->campoSeguro('consecutivo_programa')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").select2(); 
 $('#<?php echo $this->campoSeguro('graduado')?>').width(450);
 $("#<?php echo $this->campoSeguro('graduado')?>").select2(); 
+
+$('#<?php echo $this->campoSeguro('nivel_experiencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_experiencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('pais_experiencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_experiencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('cargo_actual')?>').width(210);
+$("#<?php echo $this->campoSeguro('cargo_actual')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_institucion')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_institucion')?>").select2(); 
+
+
 <?php 
 //}
 

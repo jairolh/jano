@@ -42,6 +42,7 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             "tabBasicos"   => $this->lenguaje->getCadena ( "tabBasicos" ),            
                             "tabContacto"  => $this->lenguaje->getCadena ( "tabContacto" ),
                             "tabFormacion"  => $this->lenguaje->getCadena ( "tabFormacion" ),
+                            "tabExperiencia"  => $this->lenguaje->getCadena ( "tabExperiencia" ),
                             //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
             );
             $atributos ["items"] = $items;
@@ -81,6 +82,17 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             if(!isset($_REQUEST['consecutivo_formacion']))
                    {include_once ($this->ruta . "formulario/tabs/consultarFormacion.php"); }
                    include_once ($this->ruta . "formulario/tabs/datosFormacion.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 3-------------------------
+            // ------------------Division para la pestaña 3-------------------------
+            $atributos ["id"] = "tabExperiencia";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+
+            if(!isset($_REQUEST['consecutivo_formacion']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarExperiencia.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosExperiencia.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 3-------------------------

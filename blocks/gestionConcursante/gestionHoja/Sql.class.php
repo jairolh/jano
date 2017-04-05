@@ -211,7 +211,38 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY form.codigo_nivel, ";
                                 $cadenaSql.=" form.fecha_grado";    
                                     
-			break;                  
+			break;      
+                        
+                        case "consultarExperiencia":
+                    
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" consecutivo_experiencia,";
+                                $cadenaSql.=" consecutivo_persona, ";
+                                $cadenaSql.=" codigo_nivel_experiencia, ";
+                                $cadenaSql.=" pais_experiencia, ";
+                                $cadenaSql.=" nombre_institucion, ";
+                                $cadenaSql.=" direccion_institucion, ";
+                                $cadenaSql.=" correo_institucion, ";
+                                $cadenaSql.=" telefono_institucion, ";
+                                $cadenaSql.=" cargo, ";
+                                $cadenaSql.=" descripcion_cargo, ";
+                                $cadenaSql.=" actual, ";
+                                $cadenaSql.=" fecha_inicio, ";
+                                $cadenaSql.=" fecha_fin";
+                                $cadenaSql.=" FROM concurso.experiencia_laboral";
+                               /*
+                                $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
+                                $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
+                                $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
+                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
+                                $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
+                                if(isset($variable['consecutivo_formacion']) && $variable['consecutivo_formacion']!='')
+                                    {$cadenaSql.=" AND form.consecutivo_formacion='".$variable['consecutivo_formacion']."' ";}
+                                $cadenaSql.=" ORDER BY form.codigo_nivel, ";
+                                $cadenaSql.=" form.fecha_grado";    */
+                                    
+			break;                            
                     
                         case "consultarModalidad":
                             $cadenaSql=" SELECT DISTINCT";

@@ -4,11 +4,15 @@
 $this->idioma["tabBasicos"]="Datos Básicos";
 $this->idioma["tabContacto"]="Datos de Contacto";
 $this->idioma["tabFormacion"]="Formación Académica";
+$this->idioma["tabExperiencia"]="Experiencia Laboral";
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
 $this->idioma["marcoFormacion"]="Registro datos de Formación Académica";
 $this->idioma["marcoListaFormacion"]="Formación Académica";
+$this->idioma["marcoExperiencia"]="Registro datos de Experiencia Laboral";
+$this->idioma["marcoListaExperiencia"]="Experiencia Laboral";
+
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -86,13 +90,43 @@ $this->idioma["soporteDiploma"]="Soporte Diploma o acta de grado: ";
 $this->idioma["soporteTprofesionalTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 $this->idioma["soporteTprofesional"]="Soporte Tarjeta profesional: "; 
 
+$this->idioma["nuevoExperiencia"]="Registrar Experiencia Laboral";
+$this->idioma["nivel_experienciaTitulo"]="Selecciona el tipo de Experiencia Laboral";
+$this->idioma["nivel_experiencia"]="Tipo Experiencia: ";
+$this->idioma["pais_experienciaTitulo"]="Seleccione el país";
+$this->idioma["pais_experiencia"]="País: ";
+$this->idioma["nombre_institucion_experienciaTitulo"]="Ingrese el Nombre de la Institucion Educativa";
+$this->idioma["nombre_institucion_experiencia"]="Nombre Institucion: ";
+$this->idioma["nivel_institucionTitulo"]="Selecciona el tipo de Institución";
+$this->idioma["nivel_institucion"]="Tipo Institución: ";
+$this->idioma["cargoTitulo"]="Ingrese el nombre del cargo desempeñado ";
+$this->idioma["cargo"]="Cargo: ";
+$this->idioma["descripcion_cargoTitulo"]="Describa las actividades realizadas en el cargo desempeñado ";
+$this->idioma["descripcion_cargo"]="Actividades desempeñadas: ";
+$this->idioma["direccion_institucionTitulo"]="Ingrese la dirección de la Institución";
+$this->idioma["direccion_institucion"]="Direccion Institución: ";
+$this->idioma["correo_institucionTitulo"]="Digite el correo electrónico";
+$this->idioma["correo_institucion"]="Correo Institución: ";
+$this->idioma["telefono_institucionTitulo"]="Digite el número de telefono de la Institución";
+$this->idioma["telefono_institucion"]="Telefono Institución: ";
+$this->idioma["cargo_actualTitulo"]="Indique si ya actualmente desempeña el cargo";
+$this->idioma["cargo_actual"]="Cargo Actual: ";
+$this->idioma["fecha_inicioTitulo"]="Indique la fecha de ingreso";
+$this->idioma["fecha_inicio"]="Fecha Ingreso: ";
+$this->idioma["fecha_finTitulo"]="Indique la fecha de terminación";
+$this->idioma["fecha_fin"]="Fecha Terminación: ";
+$this->idioma["soporteExperienciaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteExperiencia"]="Soporte Certificación Laboral: "; 
+
 
 $this->idioma["noDefinido"]="No definido";
 $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";
+$this->idioma["noEncontroExperiencia"]="No existe Experiencia Laboral registrada! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
 $this->idioma["botonFormacion"]="Guardar Datos de Formación";
+$this->idioma["botonExperiencia"]="Guardar Datos de Experiencia Laboral";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

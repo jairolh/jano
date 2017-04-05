@@ -205,7 +205,7 @@ class contactoForm {
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
                                     $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 120;
+                                    $atributos ['columnas'] = 74;
                                     $atributos ['filas'] = 2;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
@@ -213,9 +213,9 @@ class contactoForm {
                                     $atributos ['validar'] = 'required, minSize[1]';
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
-                                    $atributos ['tamanno'] = 20;
+                                    $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 220;
+                                    $atributos ['anchoEtiqueta'] = 170;
                                     if (isset ( $resultadoContacto[0]['direccion_residencia'] )) {
                                             $atributos ['valor'] = $resultadoContacto[0]['direccion_residencia'];
                                     } else {

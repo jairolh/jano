@@ -194,6 +194,22 @@ $(function () {
                  }
           });       
           
+    $("#<?php echo $this->campoSeguro('cargo_actual')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('cargo_actual')?>").val()=='N'){
+                 $("#<?php echo $this->campoSeguro('fecha_fin')?>").val('');
+                 $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('fecha_fin')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('fecha_fin')?>").hide();
+                 
+            }else{
+                  $("#<?php echo $this->campoSeguro('fecha_inicio')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").hide().slideDown("slow");
+                 }
+          });          
+          
 });
 
 function consultarDepartamento(elem, request, response){

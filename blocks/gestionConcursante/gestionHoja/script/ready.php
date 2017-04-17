@@ -29,8 +29,26 @@ $('#tablaProcesos').DataTable({
 });
 
 
-
 $('#tablaProfesional').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+});
+
+$('#tablaDocencia').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
     "zeroRecords": "No se encontraron registros coincidentes",
@@ -129,23 +147,8 @@ $("#datosDocencia").validationEngine({
         }
         return false;
     });     
-    
-    
-   
-// Asociar el widget de validación al formulario
-$("#datosExperiencia").validationEngine({
-    promptPosition : "centerRight", 
-    scroll: false
-}); 
+        
 
-    $("#datosExperiencia").submit(function() {
-        $resultadoExp=$("#datosExperiencia").validationEngine("validate");
-        if ($resultadoExp) {
-            return true;
-        }
-        return false;
-    });        
-    
     
 });
  
@@ -246,6 +249,41 @@ $('#<?php echo $this->campoSeguro('fecha_fin')?>').datepicker({
         yearRange: '-50:+0'
    });   
 
+$('#<?php echo $this->campoSeguro('fecha_inicio_docencia')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0',
+        <?php /*?>permite asirnara a otro campo como fecha minima */?>
+        onSelect: function(dateText, inst) {
+        var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_inicio_docencia')?>').datepicker('getDate'));
+        //lockDate.setDate(lockDate.getDate() + 1);
+        $('input#<?php echo $this->campoSeguro('fecha_fin_docencia')?>').datepicker('option', 'minDate', lockDate);} 
+   });
+
+$('#<?php echo $this->campoSeguro('fecha_fin_docencia')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0'
+   });    
+   
 $(function() {
         $(document).tooltip();
 });
@@ -298,6 +336,20 @@ $('#<?php echo $this->campoSeguro('cargo_actual')?>').width(210);
 $("#<?php echo $this->campoSeguro('cargo_actual')?>").select2(); 
 $('#<?php echo $this->campoSeguro('nivel_institucion')?>').width(210);
 $("#<?php echo $this->campoSeguro('nivel_institucion')?>").select2(); 
+
+
+$('#<?php echo $this->campoSeguro('pais_docencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_docencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('docencia_actual')?>').width(210);
+$("#<?php echo $this->campoSeguro('docencia_actual')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_institucion_docencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_institucion_docencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>').width(450);
+$("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_nivel_docencia')?>').width(210);
+$("#<?php echo $this->campoSeguro('codigo_nivel_docencia')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_vinculacion')?>').width(210);
+$("#<?php echo $this->campoSeguro('codigo_vinculacion')?>").select2(); 
 
 
 <?php 

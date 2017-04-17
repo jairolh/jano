@@ -118,7 +118,7 @@ $(function () {
                  }
           });            
 
-
+// Controles Formacion
     $("#<?php echo $this->campoSeguro('pais_formacion')?>").change(function(){
                 
             if($("#<?php echo $this->campoSeguro('pais_formacion')?>").val()==112){
@@ -193,7 +193,7 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_grado')?>").removeAttr('disabled');
                  }
           });       
-          
+// Controles  experiencia Profesional
     $("#<?php echo $this->campoSeguro('cargo_actual')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('cargo_actual')?>").val()=='S'){
                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").val('');
@@ -207,6 +207,67 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_fin')?>").addClass("validate[required]");
                   $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeAttr('disabled');
                   $("#<?php echo $this->campoSeguro('fecha_fin')?>").hide().slideDown("slow");
+                 }
+          });      
+// Controles experiencia Docente
+
+    $("#<?php echo $this->campoSeguro('pais_docencia')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('pais_docencia')?>").val()==112){
+               consultarIESdocencia();
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").val('');
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").hide().slideDown("slow");
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").removeClass("validate[required]");
+            }else{
+                  $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").html('');
+                  $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>");  
+                  $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").select2();
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").val('');
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").hide().slideDown("slow");
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").addClass("validate[required]");
+                 }
+          });
+
+
+    $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").val()>0){
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").hide();
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").removeClass("validate[required]");
+            }else if($("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").val()==0){
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").hide().slideDown("slow");
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_docencia')?>").addClass("validate[required]");
+            }
+          });  
+          
+    $("#<?php echo $this->campoSeguro('codigo_vinculacion')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('codigo_vinculacion')?>").val()>0){
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").hide();
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").removeClass("validate[required]");
+                    
+            }else if($("#<?php echo $this->campoSeguro('codigo_vinculacion')?>").val()==0){
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").hide().slideDown("slow");
+                    $("#<?php echo $this->campoSeguro('nombre_vinculacion')?>").addClass("validate[required]");
+            }
+          });             
+   $("#<?php echo $this->campoSeguro('docencia_actual')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('docencia_actual')?>").val()=='S'){
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").val('');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").hide();
+                 
+            }else{
+                  $("#<?php echo $this->campoSeguro('fecha_inicio_docencia')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").hide().slideDown("slow");
                  }
           });          
           
@@ -321,6 +382,25 @@ function consultarIES(elem, request, response){
                     $("#<?php echo $this->campoSeguro('codigo_institucion')?>").removeAttr('disabled');
                     //$('#<?php echo $this->campoSeguro('ciudad_residencia')?>').width(250);
                     $("#<?php echo $this->campoSeguro('codigo_institucion')?>").select2();
+                }
+            }
+        });
+    }; 
+
+function consultarIESdocencia(elem, request, response){
+        $.ajax({
+            url: "<?php echo $urlFinalIES?>",
+            dataType: "json",
+            data: { valor:$("#<?php echo $this->campoSeguro('pais_docencia')?>").val()},
+            success: function(data){ 
+                if(data[0]!=" "){
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").html('');
+                    $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>");
+                    $.each(data , function(indice,valor){
+                           $("<option value='"+data[ indice ].codigo_ies+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>");
+                        });
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").removeAttr('disabled');
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").select2();
                 }
             }
         });

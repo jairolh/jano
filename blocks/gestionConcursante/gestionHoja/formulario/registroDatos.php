@@ -86,7 +86,7 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 3-------------------------
-            // ------------------Division para la pestaña 3-------------------------
+            // ------------------Division para la pestaña 4-------------------------
             $atributos ["id"] = "tabProfesional";
             $atributos ["estilo"] = "";
             echo $this->miFormulario->division ( "inicio", $atributos );
@@ -96,8 +96,18 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                    include_once ($this->ruta . "formulario/tabs/datosProfesional.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
-            // -----------------Fin Division para la pestaña 3-------------------------
+            // -----------------Fin Division para la pestaña 4-------------------------
+            // ------------------Division para la pestaña 5-------------------------
+            $atributos ["id"] = "tabDocencia";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
 
+            if(!isset($_REQUEST['consecutivo_docencia']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarDocencia.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosDocencia.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 5-------------------------
 
 
     }

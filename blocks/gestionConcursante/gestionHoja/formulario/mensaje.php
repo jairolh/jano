@@ -136,7 +136,7 @@ class registrarForm {
                                         break;                                    
                                     case "actualizoDocencia":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos de Experiencia Docente del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $mensaje = "Los datos de Experiencia Docente Universitaria del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
                                         //$variable.="&tab=tabContacto";
                                         $pestanna='#tabDocencia';

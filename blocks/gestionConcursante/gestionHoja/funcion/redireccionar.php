@@ -40,7 +40,25 @@ class redireccion {
                                 $variable.="&nombres=".$valor['nombre'];
                                 $variable.="&apellidos=".$valor['apellido'];
                                 break;                            
-                    
+
+                        case "actualizoProfesional":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoProfesional";
+                                $variable.="&id_usuario=".$valor['id_usuario'];
+                                $variable.="&nombres=".$valor['nombre'];
+                                $variable.="&apellidos=".$valor['apellido'];
+                                break;                                  
+                            
+                        case "actualizoDocencia":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoDocencia";
+                                $variable.="&id_usuario=".$valor['id_usuario'];
+                                $variable.="&nombres=".$valor['nombre'];
+                                $variable.="&apellidos=".$valor['apellido'];
+                                break;                                   
+                            
                     case "inserto":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";

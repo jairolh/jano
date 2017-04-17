@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 }
 use gestionConcursante\gestionHoja\funcion\redireccion;
 
-class experienciaForm {
+class profesionalForm {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -49,21 +49,19 @@ class experienciaForm {
                 $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 if(isset($_REQUEST['consecutivo_experiencia']))
                     {  $parametro['consecutivo_experiencia']=$_REQUEST['consecutivo_experiencia'];
-                       $cadena_sql = $this->miSql->getCadenaSql("consultarFormacion", $parametro);
-                       $resultadoExperiencia = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                       $parametroSop = array('consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
-                                             'tipo_dato'=>'datosFormacion',
-                                             'nombre_soporte'=>'soporteDiploma',
-                                             'consecutivo_dato'=>$_REQUEST['consecutivo_formacion']);
-                        $cadenaSopDip_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopDip = $esteRecursoDB->ejecutarAcceso($cadenaSopDip_sql, "busqueda");
-                        $parametroSop['nombre_soporte']='soporteTprofesional';
-                        $cadenaSopTP_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopTP = $esteRecursoDB->ejecutarAcceso($cadenaSopTP_sql, "busqueda");
+                       $cadena_sql = $this->miSql->getCadenaSql("consultarExperiencia", $parametro);
+                       $resultadoProfesional = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       $parametroExp = array('consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
+                                             'tipo_dato'=>'datosExperiencia',
+                                             'nombre_soporte'=>'soporteExperiencia',
+                                             'consecutivo_dato'=>$_REQUEST['consecutivo_experiencia']);
+                        $cadenaSopExp_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroExp);
+                        $resultadoSopExp = $esteRecursoDB->ejecutarAcceso($cadenaSopExp_sql, "busqueda");
+
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
-                $estefomulario= 'datosExperiencia';
+                $estefomulario= 'datosProfesional';
 		$atributos ['id'] = $estefomulario;
 		$atributos ['nombre'] =$estefomulario;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
@@ -93,10 +91,10 @@ class experienciaForm {
 			$variable = "pagina=" . $miPaginaActual;
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-			$esteCampo = "marcoExperiencia";
+			$esteCampo = "marcoProfesional";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
-                        if(!isset($_REQUEST['consecutivo_formacion']))
+                        if(!isset($_REQUEST['consecutivo_experiencia']))
                             { $atributos ["estiloEnLinea"] = "display:none;"; }
 			$atributos ['tipoEtiqueta'] = 'inicio';
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
@@ -111,34 +109,6 @@ class experienciaForm {
 				unset ( $atributos );
 				{
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'nivel_experiencia';
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['tab'] = $tab ++;
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos ['evento'] = '';
-                                    if (isset ( $resultadoExperiencia[0]['codigo_nivel_experiencia'] ))
-                                         {  $atributos ['seleccion'] = $resultadoExperiencia[0]['codigo_nivel_experiencia'];}
-                                    else {  $atributos ['seleccion'] = -1; }
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['tamanno'] = 1;
-                                    $atributos ['estilo'] = "jqueryui";
-                                    $atributos ['validar'] = "required";
-                                    $atributos ['limitar'] = true;
-                                    $atributos ['anchoCaja'] = 60;
-                                    $atributos ['evento'] = '';
-                                    $parametronivel=array('tipo_nivel'=> 'Experiencia');
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
-                                    $matrizItems = array (array (0,' '));
-                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-                                    $atributos ['matrizItems'] = $matrizItems;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'pais_experiencia';
                                     $atributos ['nombre'] = $esteCampo;
                                     $atributos ['id'] = $esteCampo;
@@ -147,8 +117,8 @@ class experienciaForm {
                                     $atributos ['tab'] = $tab ++;
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = ' ';
-                                    if (isset ( $resultadoExperiencia[0]['pais_experiencia'] ))
-                                         {  $atributos ['seleccion'] = $resultadoExperiencia[0]['pais_experiencia'];}
+                                    if (isset ( $resultadoProfesional[0]['pais_experiencia'] ))
+                                         {  $atributos ['seleccion'] = $resultadoProfesional[0]['pais_experiencia'];}
                                     else {	$atributos ['seleccion'] = 112;}
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['columnas'] = 1;
@@ -181,8 +151,8 @@ class experienciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required,minSize[1]";
-                                    if (isset ( $resultadoExperiencia[0]['cargo'] )) {
-                                            $atributos ['valor'] = $resultadoExperiencia[0]['cargo']; }
+                                    if (isset ( $resultadoProfesional[0]['cargo'] )) {
+                                            $atributos ['valor'] = $resultadoProfesional[0]['cargo']; }
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
@@ -214,8 +184,8 @@ class experienciaForm {
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
-                                    if (isset ( $resultadoExperiencia[0]['descripcion_cargo'] )) {
-                                            $atributos ['valor'] = $resultadoExperiencia[0]['descripcion_cargo'];
+                                    if (isset ( $resultadoProfesional[0]['descripcion_cargo'] )) {
+                                            $atributos ['valor'] = $resultadoProfesional[0]['descripcion_cargo'];
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -226,32 +196,6 @@ class experienciaForm {
                                     echo $this->miFormulario->campoTextArea ( $atributos );
                                     unset ( $atributos );                                                   
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'nombre_institucion_experiencia';
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['tipo'] = 'text';
-                                    $atributos ['estilo'] = 'jqueryui';
-                                    $atributos ['marco'] = true;
-                                    $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['dobleLinea'] = 0;
-                                    $atributos ['tabIndex'] = $tab;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
-                                    if (isset ( $resultadoExperiencia[0]['nombre_institucion'] )) 
-                                         {   $atributos ['valor'] = $resultadoExperiencia[0]['nombre_institucion']; }
-                                    else {   $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['tamanno'] = 60;
-                                    $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $tab ++;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------  
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'nivel_institucion';
                                     $atributos ['nombre'] = $esteCampo;
@@ -261,8 +205,8 @@ class experienciaForm {
                                     $atributos ['tab'] = $tab ++;
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = '';
-                                    if (isset ( $resultadoExperiencia[0]['nivel_institucion'] ))
-                                         {  $atributos ['seleccion'] = $resultadoExperiencia[0]['nivel_institucion'];}
+                                    if (isset($resultadoProfesional[0]['nivel_institucion']))
+                                         {  $atributos ['seleccion'] = $resultadoProfesional[0]['nivel_institucion'];}
                                     else {  $atributos ['seleccion'] = -1; }
                                     $atributos ['columnas'] = 1;
                                     $atributos ['tamanno'] = 1;
@@ -280,6 +224,32 @@ class experienciaForm {
                                     echo $this->miFormulario->campoCuadroLista ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'nombre_institucion_experiencia';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="required,minSize[1]";
+                                    if (isset ( $resultadoProfesional[0]['nombre_institucion'] )) 
+                                         {   $atributos ['valor'] = $resultadoProfesional[0]['nombre_institucion']; }
+                                    else {   $atributos ['valor'] = '';}
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------  
                                                                                  
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'correo_institucion';
@@ -295,8 +265,8 @@ class experienciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
-                                    if (isset ( $resultadoExperiencia[0]['correo'] )) {
-                                            $atributos ['valor'] = $resultadoExperiencia[0]['correo'];
+                                    if (isset ( $resultadoProfesional[0]['correo_institucion'] )) {
+                                            $atributos ['valor'] = $resultadoProfesional[0]['correo_institucion'];
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -326,8 +296,8 @@ class experienciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required,minSize[7],custom[phone]";
-                                    if (isset ( $resultadoExperiencia[0]['cursos_aprobados'] )) 
-                                         {  $atributos ['valor'] = $resultadoExperiencia[0]['cursos_aprobados'];} 
+                                    if (isset ( $resultadoProfesional[0]['telefono_institucion'] )) 
+                                         {  $atributos ['valor'] = $resultadoProfesional[0]['telefono_institucion'];} 
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
@@ -347,8 +317,8 @@ class experienciaForm {
                                     $atributos ['tab'] = $tab ++;
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = ' ';
-                                    if (isset ( $resultadoExperiencia[0]['graduado'] ))
-                                         {  $atributos ['seleccion'] = $resultadoExperiencia[0]['actual'];}
+                                    if (isset ( $resultadoProfesional[0]['actual'] ))
+                                         {  $atributos ['seleccion'] = $resultadoProfesional[0]['actual'];}
                                     else {	$atributos ['seleccion'] = -1;}
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['columnas'] = 1;
@@ -379,8 +349,8 @@ class experienciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[date]";
-                                    if (isset ( $resultadoExperiencia[0]['fecha_inicio'] )) 
-                                        {   $atributos ['valor'] = $resultadoExperiencia[0]['fecha_inicio'];}
+                                    if (isset ( $resultadoProfesional[0]['fecha_inicio'] )) 
+                                        {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_inicio'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
@@ -405,8 +375,8 @@ class experienciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="custom[date]";
-                                    if (isset ( $resultadoExperiencia[0]['fecha_grado'] )) 
-                                        {   $atributos ['valor'] = $resultadoExperiencia[0]['fecha_inicio'];}
+                                    if (isset ( $resultadoProfesional[0]['fecha_fin'] )) 
+                                        {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_fin'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
@@ -418,7 +388,7 @@ class experienciaForm {
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
                                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
-                                        $atributos ["id"]="Experiencia";
+                                        $atributos ["id"]="Profesional";
                                         $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
                                         $atributos = array_merge ( $atributos, $atributosGlobales );
                                         echo $this->miFormulario->division ( "inicio", $atributos );
@@ -431,7 +401,7 @@ class experienciaForm {
                                                     $atributos ['tipo'] = 'file';
                                                     $atributos ['estilo'] = 'jqueryui';
                                                     $atributos ['marco'] = true;
-                                                    if(isset($resultadoSopDip[0]['archivo']))
+                                                    if(isset($resultadoSopExp[0]['archivo']))
                                                         {  $atributos ['columnas'] = 2;}
                                                     else{  $atributos ['columnas'] = 1;}
                                                     $atributos ['dobleLinea'] = false;
@@ -512,7 +482,7 @@ class experienciaForm {
 				unset ( $atributos );
 				{
 					// -----------------CONTROL: Botón ----------------------------------------------------------------
-					$esteCampo = 'botonExperiencia';
+					$esteCampo = 'botonProfesional';
 					$atributos ["id"] = $esteCampo;
 					$atributos ["tabIndex"] = $tab;
 					$atributos ["tipo"] = 'boton';
@@ -551,15 +521,16 @@ class experienciaForm {
                                      * (c) a través de campos ocultos en los formularios. (deprecated)
                                      */
                                     // En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-                                    $experiencia=isset($resultadoExperiencia[0]['consecutivo_experiencia'])?$resultadoExperiencia[0]['consecutivo_experiencia']:0;    
+                                    $experiencia=isset($resultadoProfesional[0]['consecutivo_experiencia'])?$resultadoProfesional[0]['consecutivo_experiencia']:0;    
                                     $valorCodificado = "action=" . $esteBloque ["nombre"];
                                     $valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                     $valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-                                    $valorCodificado .= "&opcion=guardarDatosExperiencia";
+                                    $valorCodificado .= "&opcion=guardarDatosProfesional";
                                     $valorCodificado .= "&id_usuario=".$usuario;
                                     $valorCodificado .= "&consecutivo_experiencia=".$experiencia;
                                     $valorCodificado .= "&consecutivo_persona=".$resultadoUsuarios[0]['consecutivo'];
+                                    $valorCodificado .= "&codigo_institucion=0";
                                     $valorCodificado .= "&nombre=".$resultadoUsuarios[0]['nombre'];
                                     $valorCodificado .= "&apellido=".$resultadoUsuarios[0][0]['apellido'];
                                     /**
@@ -596,6 +567,6 @@ class experienciaForm {
                 return true;
 	}
 }
-$miSeleccionador = new experienciaForm ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new profesionalForm ( $this->lenguaje, $this->miFormulario, $this->sql );
 $miSeleccionador->miForm ();
 ?>

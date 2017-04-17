@@ -20,7 +20,7 @@ $cadenaCodificar .= "&bloqueNombre=" . $esteBloque ["nombre"];
 $cadenaCodificar .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 
 
-$cadenaCodificarPais .= $cadenaCodificar . "&funcion=consultarDepartamentoAjax";
+$cadenaCodificarPais = $cadenaCodificar . "&funcion=consultarDepartamentoAjax";
 $cadenaCodificarPais .= "&tiempo=" . $_REQUEST ['tiempo'];
 // Codificar las variables
 $enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -28,7 +28,7 @@ $cadenaPais = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( 
 $urlFinalPais = $url.$cadenaPais;
 
 //Variables cargar ciudad
-$cadenaCodificarDepto .= $cadenaCodificar . "&funcion=consultarCiudadAjax";
+$cadenaCodificarDepto = $cadenaCodificar . "&funcion=consultarCiudadAjax";
 $cadenaCodificarDepto .= "&tiempo=" . $_REQUEST ['tiempo'];
 // Codificar las variables
 $enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -36,7 +36,7 @@ $cadenaDepto = $this->miConfigurador->fabricaConexiones->crypto->codificar_url (
 $urlFinalDepto = $url . $cadenaDepto;
 
 //Variables cargar IES
-$cadenaCodificarIES .= $cadenaCodificar . "&funcion=consultarIESAjax";
+$cadenaCodificarIES = $cadenaCodificar . "&funcion=consultarIESAjax";
 $cadenaCodificarIES .= "&tiempo=" . $_REQUEST ['tiempo'];
 // Codificar las variables
 $enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -44,7 +44,7 @@ $cadenaIES = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $
 $urlFinalIES = $url . $cadenaIES;
 
 //Variables cargar programa
-$cadenaCodificarProg .= $cadenaCodificar . "&funcion=consultarProgramaAjax";
+$cadenaCodificarProg = $cadenaCodificar . "&funcion=consultarProgramaAjax";
 $cadenaCodificarProg .= "&tiempo=" . $_REQUEST ['tiempo'];
 // Codificar las variables
 $enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -195,7 +195,7 @@ $(function () {
           });       
           
     $("#<?php echo $this->campoSeguro('cargo_actual')?>").change(function(){
-            if($("#<?php echo $this->campoSeguro('cargo_actual')?>").val()=='N'){
+            if($("#<?php echo $this->campoSeguro('cargo_actual')?>").val()=='S'){
                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").val('');
                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeClass("validate[required]");
                  $("#<?php echo $this->campoSeguro('fecha_fin')?>").attr('disabled','');

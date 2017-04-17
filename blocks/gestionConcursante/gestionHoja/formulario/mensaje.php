@@ -127,7 +127,20 @@ class registrarForm {
                                         //$variable.="&tab=tabContacto";
                                         $pestanna='#tabFormacion';
                                         break;        
-                                    
+                                    case "actualizoProfesional":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de Experiencia Profesional del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        //$variable.="&tab=tabContacto";
+                                        $pestanna='#tabProfesional';
+                                        break;                                    
+                                    case "actualizoDocencia":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de Experiencia Docente del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        //$variable.="&tab=tabContacto";
+                                        $pestanna='#tabDocencia';
+                                        break;                                     
                                     case "confirma":
                                         $tipo = 'success';
                                         $mensaje = "El usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos']." ha sido creado exitosamente. Puede descargar el siguiente PDF con la información del usuario.";

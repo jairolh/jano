@@ -216,31 +216,32 @@ class Sql extends \Sql {
                         case "consultarExperiencia":
                     
                                 $cadenaSql=" SELECT DISTINCT";
-                                $cadenaSql.=" consecutivo_experiencia,";
-                                $cadenaSql.=" consecutivo_persona, ";
-                                $cadenaSql.=" codigo_nivel_experiencia, ";
-                                $cadenaSql.=" pais_experiencia, ";
-                                $cadenaSql.=" nombre_institucion, ";
-                                $cadenaSql.=" direccion_institucion, ";
-                                $cadenaSql.=" correo_institucion, ";
-                                $cadenaSql.=" telefono_institucion, ";
-                                $cadenaSql.=" cargo, ";
-                                $cadenaSql.=" descripcion_cargo, ";
-                                $cadenaSql.=" actual, ";
-                                $cadenaSql.=" fecha_inicio, ";
-                                $cadenaSql.=" fecha_fin";
-                                $cadenaSql.=" FROM concurso.experiencia_laboral";
-                               /*
+                                $cadenaSql.=" prof.consecutivo_experiencia,";
+                                $cadenaSql.=" prof.consecutivo_persona,";
+                                $cadenaSql.=" prof.codigo_nivel_experiencia, ";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prof.codigo_nivel_experiencia) nivel_experiencia,";
+                                $cadenaSql.=" prof.pais_experiencia,";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" prof.codigo_nivel_institucion, ";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prof.codigo_nivel_institucion) nivel_institucion,";
+                                $cadenaSql.=" prof.codigo_institucion,";                                
+                                $cadenaSql.=" prof.nombre_institucion, ";
+                                $cadenaSql.=" prof.direccion_institucion,";
+                                $cadenaSql.=" prof.correo_institucion,";
+                                $cadenaSql.=" prof.telefono_institucion, ";
+                                $cadenaSql.=" prof.cargo,";
+                                $cadenaSql.=" prof.descripcion_cargo,";
+                                $cadenaSql.=" prof.actual,";
+                                $cadenaSql.=" prof.fecha_inicio,";
+                                $cadenaSql.=" prof.fecha_fin ";
+                                $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
-                                $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
-                                $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
-                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
-                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
+                                $cadenaSql.=" INNER JOIN concurso.experiencia_laboral prof ON prof.consecutivo_persona=bas.consecutivo";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=prof.pais_experiencia";
                                 $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
-                                if(isset($variable['consecutivo_formacion']) && $variable['consecutivo_formacion']!='')
-                                    {$cadenaSql.=" AND form.consecutivo_formacion='".$variable['consecutivo_formacion']."' ";}
-                                $cadenaSql.=" ORDER BY form.codigo_nivel, ";
-                                $cadenaSql.=" form.fecha_grado";    */
+                                if(isset($variable['consecutivo_experiencia']) && $variable['consecutivo_experiencia']!='')
+                                    {$cadenaSql.=" AND prof.consecutivo_experiencia='".$variable['consecutivo_experiencia']."' ";}
+                                $cadenaSql.=" ORDER BY prof.fecha_inicio DESC";    
                                     
 			break;                            
                     
@@ -267,6 +268,8 @@ class Sql extends \Sql {
                                     {$cadenaSql.=" AND tipo_nivel='".$variable['tipo_nivel']."' ";}
                                 if(isset($variable['codigo_nivel']) && $variable['codigo_nivel']>0)
                                     {$cadenaSql.=" AND codigo_nivel='".$variable['codigo_nivel']."' ";}
+                                if(isset($variable['nombre']) && $variable['nombre']!='')
+                                    {$cadenaSql.=" AND lower(nombre) LIKE lower('".$variable['nombre']."') ";}                                    
 			break;  
                         
                         case "consultarInstitucion":
@@ -391,6 +394,43 @@ class Sql extends \Sql {
                                 $cadenaSql.=" )";
 				break;                               
 
+			case 'registroExperiencia' :
+                                
+                                $cadenaSql=" INSERT INTO concurso.experiencia_laboral(";
+                                $cadenaSql.=" consecutivo_experiencia,";
+                                $cadenaSql.=" consecutivo_persona,";
+                                $cadenaSql.=" codigo_nivel_experiencia, ";
+                                $cadenaSql.=" pais_experiencia,";
+                                $cadenaSql.=" codigo_nivel_institucion,";
+                                $cadenaSql.=" codigo_institucion,";                                
+                                $cadenaSql.=" nombre_institucion, ";
+                                $cadenaSql.=" direccion_institucion,";
+                                $cadenaSql.=" correo_institucion,";
+                                $cadenaSql.=" telefono_institucion, ";
+                                $cadenaSql.=" cargo,";
+                                $cadenaSql.=" descripcion_cargo,";
+                                $cadenaSql.=" actual,";
+                                $cadenaSql.=" fecha_inicio,";
+                                $cadenaSql.=" fecha_fin)";
+                                $cadenaSql.=" VALUES (";
+                                $cadenaSql.=" DEFAULT,";
+                                $cadenaSql.=" '".$variable['consecutivo_persona']."',";
+                                $cadenaSql.=" '".$variable['codigo_nivel_experiencia']."',";
+                                $cadenaSql.=" '".$variable['pais_experiencia']."',";
+                                $cadenaSql.=" '".$variable['codigo_nivel_institucion']."',";
+                                $cadenaSql.=" '".$variable['codigo_institucion']."',";
+                                $cadenaSql.=" '".$variable['nombre_institucion']."',";
+                                $cadenaSql.=" '".$variable['direccion_institucion']."',";
+                                $cadenaSql.=" '".$variable['correo_institucion']."',";
+                                $cadenaSql.=" '".$variable['telefono_institucion']."',";
+                                $cadenaSql.=" '".$variable['cargo']."',";
+                                $cadenaSql.=" '".$variable['descripcion_cargo']."',";
+                                $cadenaSql.=" '".$variable['actual']."',";
+                                $cadenaSql.=" '".$variable['fecha_inicio']."',";
+                                $cadenaSql.=" '".$variable['fecha_fin']."'";
+                                $cadenaSql.=" )";
+				break;                                 
+                                
                         case "actualizarBasicos":
                                 $cadenaSql=" UPDATE concurso.persona";
                                 $cadenaSql.=" SET ";
@@ -437,7 +477,30 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_formacion='".$variable['consecutivo_formacion']."' ";
                                 
-                    	break;                      
+                    	break;        
+                    
+                        case 'actualizarExperiencia' :
+                           
+                                $cadenaSql=" UPDATE concurso.experiencia_laboral";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" codigo_nivel_experiencia='".$variable['codigo_nivel_experiencia']."', ";
+                                $cadenaSql.=" pais_experiencia='".$variable['pais_experiencia']."', ";
+                                $cadenaSql.=" codigo_nivel_institucion='".$variable['codigo_nivel_institucion']."', ";
+                                $cadenaSql.=" codigo_institucion='".$variable['codigo_institucion']."', ";
+                                $cadenaSql.=" nombre_institucion='".$variable['nombre_institucion']."', ";
+                                $cadenaSql.=" direccion_institucion='".$variable['direccion_institucion']."', ";
+                                $cadenaSql.=" correo_institucion='".$variable['correo_institucion']."', ";
+                                $cadenaSql.=" telefono_institucion='".$variable['telefono_institucion']."', ";
+                                $cadenaSql.=" cargo='".$variable['cargo']."', ";
+                                $cadenaSql.=" descripcion_cargo='".$variable['descripcion_cargo']."', ";
+                                $cadenaSql.=" actual='".$variable['actual']."', ";
+                                $cadenaSql.=" fecha_inicio='".$variable['fecha_inicio']."', ";
+                                $cadenaSql.=" fecha_fin='".$variable['fecha_fin']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_experiencia='".$variable['consecutivo_experiencia']."' ";
+				break;                     
+                    
+                    
                                         
                     /*viejas consultas para revisar*/
                        

@@ -30,7 +30,7 @@ $('#tablaProcesos').DataTable({
 
 
 
-$('#tablaExperiencia').DataTable({
+$('#tablaProfesional').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
     "zeroRecords": "No se encontraron registros coincidentes",
@@ -103,6 +103,34 @@ $("#datosFormacion").validationEngine({
         }
         return false;
     });     
+    
+// Asociar el widget de validación al formulario
+$("#datosProfesional").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
+    $("#datosProfesional").submit(function() {
+        $resultadoForm=$("#datosprofesional").validationEngine("validate");
+        if ($resultadoForm) {
+            return true;
+        }
+        return false;
+    });     
+    
+// Asociar el widget de validación al formulario
+$("#datosDocencia").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
+    $("#datosDocencia").submit(function() {
+        $resultadoForm=$("#datosDocencia").validationEngine("validate");
+        if ($resultadoForm) {
+            return true;
+        }
+        return false;
+    });     
+    
+    
    
 // Asociar el widget de validación al formulario
 $("#datosExperiencia").validationEngine({
@@ -264,8 +292,6 @@ $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").select2();
 $('#<?php echo $this->campoSeguro('graduado')?>').width(450);
 $("#<?php echo $this->campoSeguro('graduado')?>").select2(); 
 
-$('#<?php echo $this->campoSeguro('nivel_experiencia')?>').width(210);
-$("#<?php echo $this->campoSeguro('nivel_experiencia')?>").select2(); 
 $('#<?php echo $this->campoSeguro('pais_experiencia')?>').width(210);
 $("#<?php echo $this->campoSeguro('pais_experiencia')?>").select2(); 
 $('#<?php echo $this->campoSeguro('cargo_actual')?>').width(210);

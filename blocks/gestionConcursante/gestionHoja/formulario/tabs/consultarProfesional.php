@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
-class consultarExperiencia {
+class consultarProfesional {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -60,8 +60,8 @@ class consultarExperiencia {
 	//identifca lo roles para la busqueda de subsistemas
             $parametro=array('id_usuario'=>$_REQUEST['usuario']);    
             $cadena_sql = $this->miSql->getCadenaSql("consultarExperiencia", $parametro);
-            $resultadoListaExperiencia = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            $esteCampo = "marcoListaExperiencia";
+            $resultadoListaProfesional = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            $esteCampo = "marcoListaProfesional";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
@@ -73,10 +73,10 @@ class consultarExperiencia {
                 echo "<div ><table width='100%' align='center'>
                         <tr align='center'>
                             <td align='center'>";
-                                $esteCampo = 'nuevoExperiencia';
+                                $esteCampo = 'nuevoProfesional';
                                 $atributos ['id'] = $esteCampo;
                                 $atributos ['enlace'] = "#";//$variableNuevo;
-                                $atributos ['onClick'] ="show(\"marcoExperiencia\")";
+                                $atributos ['onClick'] ="show(\"marcoProfesional\")";
                                 $atributos ['tabIndex'] = 1;
                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                                 $atributos ['estilo'] = 'textoPequenno textoGris';
@@ -91,107 +91,73 @@ class consultarExperiencia {
                         </tr>
                       </table></div> ";
 
-                    if($resultadoListaExperiencia)
+                    if($resultadoListaProfesional)
                         {	
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
-                                $esteCampo = "marcoConsultaExperiencia";
+                                $esteCampo = "marcoConsultaProfesional";
                                 $atributos["estilo"] = "jqueryui";
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
-                                echo "<div class='cell-border'><table id='tablaExperiencia' class='table table-striped table-bordered'>";
+                                echo "<div class='cell-border'><table id='tablaProfesional' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>
                                             <th>Pais</th>
-                                            <th>Institucion</th>
-                                            <th>Nivel Formacion</th>
-                                            <th>Programa</th>
-                                            <th>Modalidad</th>
-                                            <th>Cursos aprobados</th>
-                                            <th>Graduado</th>
-                                            <th>Fecha de grado</th>
-                                            <th>Diploma / Acta</th>
-                                            <th>Tarjeta Profesional</th>
+                                            <th>Ingreso</th>                                            
+                                            <th>Terminación</th>                                            
+                                            <th>Cargo</th>
+                                            <th>Actividades</th>
+                                            <th>Institución</th>
+                                            <th>Tipo</th>
+                                            <th>Telefono</th>
+                                            <th>Correo</th>
+                                            <th>Certificación</th>
                                             <th>Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
-                                foreach($resultadoListaExperiencia as $key=>$value )
+                                foreach($resultadoListaProfesional as $key=>$value )
                                     {   $parametro['tipo']='unico';
-                                        $parametroSop = array('consecutivo'=>$$resultadoListaExperiencia[$key]['consecutivo_persona'],
-                                             'tipo_dato'=>'datosFormacion',
-                                             'nombre_soporte'=>'soporteDiploma',
-                                             'consecutivo_dato'=>$resultadoListaExperiencia[$key]['consecutivo_formacion']
+                                        $parametroSop = array('consecutivo'=>$resultadoListaProfesional[$key]['consecutivo_persona'],
+                                             'tipo_dato'=>'datosExperiencia',
+                                             'nombre_soporte'=>'soporteExperiencia',
+                                             'consecutivo_dato'=>$resultadoListaProfesional[$key]['consecutivo_experiencia']
                                             );
                                         
-                                        $cadenaDip_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                                        $resultadoDip = $esteRecursoDB->ejecutarAcceso($cadenaDip_sql, "busqueda");
+                                        $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                                        $resultadoSprof = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
                                         
-                                        $parametroSop['nombre_soporte']='soporteTprofesional';
-                                        $cadenaTarjeta_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                                        $resultadoTarjeta = $esteRecursoDB->ejecutarAcceso( $cadenaTarjeta_sql, "busqueda");
-
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
                                         $variableEditar.= "&opcion=mostrar";
                                         $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$resultadoExperiencia[$key]['id_usuario'];
+                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
                                         $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_formacion=".$resultadoExperiencia[$key]['consecutivo_formacion'];
-                                        $variableEditar .= "&consecutivo_persona=".$resultadoExperiencia[$key]['consecutivo_persona'];       
+                                        $variableEditar .= "&consecutivo_experiencia=".$resultadoListaProfesional[$key]['consecutivo_experiencia'];
+                                        $variableEditar .= "&consecutivo_persona=".$resultadoListaProfesional[$key]['consecutivo_persona'];       
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
-                                        $variableEditar.= "#tabFormacion";
+                                        $variableEditar.= "#tabProfesional";
                                         
                                         $mostrarHtml = "<tr align='center'>
-                                                <td align='left'>".$resultadoExperiencia[$key]['pais']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['nombre_institucion']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['nivel']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['nombre_programa']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['modalidad']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['cursos_aprobados']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['graduado']."</td>
-                                                <td align='left'>".$resultadoExperiencia[$key]['fecha_grado']."</td>";
-                                        $mostrarHtml .= "<td> ";
-                                                if(isset($resultadoDip[0]['alias']))
-                                                    {
-                                                      $esteCampo = 'archivoDiploma'.$resultadoDip[0]['consecutivo_soporte'];
-                                                      $atributos ['id'] = $esteCampo;
-                                                      $atributos ['enlace'] = 'javascript:soporte("ruta_diploma'.$resultadoDip[0]['consecutivo_soporte'].'");';
-                                                      $atributos ['tabIndex'] = 0;
-                                                      $atributos ['columnas'] = 2;
-                                                      $atributos ['enlaceTexto'] = $resultadoDip[0]['alias'];
-                                                      $atributos ['estilo'] = 'clasico';
-                                                      $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                      $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                      $atributos ['ancho'] = '25px';
-                                                      $atributos ['alto'] = '25px';
-                                                      $atributos ['redirLugar'] = false;
-                                                      $atributos ['valor'] = '';
-                                                      $mostrarHtml .= $this->miFormulario->enlace( $atributos );
-                                                      unset ( $atributos );
-                                                       // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                      $esteCampo = 'ruta_diploma'.$resultadoDip[0]['consecutivo_soporte'];
-                                                      $atributos ['id'] = $esteCampo;
-                                                      $atributos ['nombre'] = $esteCampo;
-                                                      $atributos ['tipo'] = 'hidden';
-                                                      $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                      $atributos ['obligatorio'] = false;
-                                                      $atributos ['valor'] = $this->rutaSoporte.$resultadoDip[0]['ubicacion']."/".$resultadoDip[0]['archivo'];
-                                                      $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                      $atributos ['deshabilitado'] = FALSE;
-                                                      $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                      // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                    }                                        
-                                        $mostrarHtml .= "</td>
-                                                        <td>";
-                                                    if(isset($resultadoTarjeta[0]['alias']))
+                                                <td align='left'>".$resultadoListaProfesional[$key]['pais']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['fecha_inicio']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['cargo']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['descripcion_cargo']."</td>                                                    
+                                                <td align='left'>".$resultadoListaProfesional[$key]['nombre_institucion']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['nivel_institucion']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['telefono_institucion']."</td>
+                                                <td align='left'>".$resultadoListaProfesional[$key]['correo_institucion']."</td>";
+                                      
+                                        $mostrarHtml .= "<td>";
+                                                    if(isset($resultadoSprof[0]['alias']))
                                                         {
-                                                          $esteCampo = 'archivotarjeta'.$resultadoTarjeta[0]['consecutivo_soporte'];
+                                                          $esteCampo = 'archivoexperiencia'.$resultadoTarjeta[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_tarjetap'.$resultadoTarjeta[0]['consecutivo_soporte'].'");';
+                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_experiencia'.$resultadoSprof[0]['consecutivo_soporte'].'");';
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoTarjeta[0]['alias'];
+                                                          $atributos ['enlaceTexto'] = $resultadoSprof[0]['alias'];
                                                           $atributos ['estilo'] = 'clasico';
                                                           $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -202,13 +168,13 @@ class consultarExperiencia {
                                                           $mostrarHtml .= $this->miFormulario->enlace( $atributos );
                                                           unset ( $atributos );
                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_tarjetap'.$resultadoTarjeta[0]['consecutivo_soporte'];
+                                                          $esteCampo = 'ruta_experiencia'.$resultadoSprof[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['nombre'] = $esteCampo;
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoTarjeta[0]['ubicacion']."/".$resultadoTarjeta[0]['archivo'];
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSprof[0]['ubicacion']."/".$resultadoSprof[0]['archivo'];
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
@@ -241,13 +207,13 @@ class consultarExperiencia {
 
                         }else
                         {
-                                $atributos["id"]="divNoEncontroExperiencia";
+                                $atributos["id"]="divNoEncontroProfesional";
                                 $atributos["estilo"]="";
                            //$atributos["estiloEnLinea"]="display:none"; 
                                 echo $this->miFormulario->division("inicio",$atributos);
 
                                 //-------------Control Boton-----------------------
-                                $esteCampo = "noEncontroExperiencia";
+                                $esteCampo = "noEncontroProfesional";
                                 $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
                                 $atributos["etiqueta"] = "";
                                 $atributos["estilo"] = "centrar";
@@ -261,12 +227,12 @@ class consultarExperiencia {
                                 //------------------Division para los botones-------------------------
                         }
                 }
-            echo $this->miFormulario->marcoAgrupacion ( 'fin', $atributos );
+            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
             unset ( $atributos );
     }
 }
 
-$miSeleccionador = new consultarExperiencia ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new consultarProfesional ( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

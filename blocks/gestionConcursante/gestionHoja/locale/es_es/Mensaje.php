@@ -4,15 +4,17 @@
 $this->idioma["tabBasicos"]="Datos Básicos";
 $this->idioma["tabContacto"]="Datos de Contacto";
 $this->idioma["tabFormacion"]="Formación Académica";
-$this->idioma["tabExperiencia"]="Experiencia Laboral";
+$this->idioma["tabProfesional"]="Experiencia Profesional";
+$this->idioma["tabDocencia"]="Experiencia Docente";
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
 $this->idioma["marcoFormacion"]="Registro datos de Formación Académica";
 $this->idioma["marcoListaFormacion"]="Formación Académica";
-$this->idioma["marcoExperiencia"]="Registro datos de Experiencia Laboral";
-$this->idioma["marcoListaExperiencia"]="Experiencia Laboral";
-
+$this->idioma["marcoProfesional"]="Registro datos de Experiencia Profesional";
+$this->idioma["marcoListaProfesional"]="Experiencia Profesional";
+$this->idioma["marcoDocencia"]="Registro Experiencia Docente Universitaria";
+$this->idioma["marcoListaDocencia"]="Experiencia Docente Universitaria";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -90,8 +92,8 @@ $this->idioma["soporteDiploma"]="Soporte Diploma o acta de grado: ";
 $this->idioma["soporteTprofesionalTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 $this->idioma["soporteTprofesional"]="Soporte Tarjeta profesional: "; 
 
-$this->idioma["nuevoExperiencia"]="Registrar Experiencia Laboral";
-$this->idioma["nivel_experienciaTitulo"]="Selecciona el tipo de Experiencia Laboral";
+$this->idioma["nuevoProfesional"]="Registrar Experiencia Profesional";
+$this->idioma["nivel_experienciaTitulo"]="Selecciona el tipo de Experiencia Profesional";
 $this->idioma["nivel_experiencia"]="Tipo Experiencia: ";
 $this->idioma["pais_experienciaTitulo"]="Seleccione el país";
 $this->idioma["pais_experiencia"]="País: ";
@@ -121,12 +123,12 @@ $this->idioma["soporteExperiencia"]="Soporte Certificación Laboral: ";
 
 $this->idioma["noDefinido"]="No definido";
 $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";
-$this->idioma["noEncontroExperiencia"]="No existe Experiencia Laboral registrada! ";
+$this->idioma["noEncontroProfesional"]="No existe Experiencia Profesional registrada! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
 $this->idioma["botonFormacion"]="Guardar Datos de Formación";
-$this->idioma["botonExperiencia"]="Guardar Datos de Experiencia Laboral";
+$this->idioma["botonProfesional"]="Guardar Datos de Experiencia Profesional";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

@@ -42,7 +42,8 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             "tabBasicos"   => $this->lenguaje->getCadena ( "tabBasicos" ),            
                             "tabContacto"  => $this->lenguaje->getCadena ( "tabContacto" ),
                             "tabFormacion"  => $this->lenguaje->getCadena ( "tabFormacion" ),
-                            "tabExperiencia"  => $this->lenguaje->getCadena ( "tabExperiencia" ),
+                            "tabProfesional"  => $this->lenguaje->getCadena ( "tabProfesional" ),
+                            "tabDocencia"  => $this->lenguaje->getCadena ( "tabDocencia" ),
                             //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
             );
             $atributos ["items"] = $items;
@@ -86,13 +87,13 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 3-------------------------
             // ------------------Division para la pestaña 3-------------------------
-            $atributos ["id"] = "tabExperiencia";
+            $atributos ["id"] = "tabProfesional";
             $atributos ["estilo"] = "";
             echo $this->miFormulario->division ( "inicio", $atributos );
 
-            if(!isset($_REQUEST['consecutivo_formacion']))
-                   {include_once ($this->ruta . "formulario/tabs/consultarExperiencia.php"); }
-                   include_once ($this->ruta . "formulario/tabs/datosExperiencia.php"); 
+            if(!isset($_REQUEST['consecutivo_experiencia']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarProfesional.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosProfesional.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 3-------------------------
@@ -129,6 +130,6 @@ include_once 'my_scriptjs.php';
     unset ( $atributos );
     // ------------------Fin Division para progreso-------------------------    
 //llama funcion para visualizar al div cuando termina de cargar
-echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},1000)  </script>";
+echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},2000)  </script>";
 
 ?>

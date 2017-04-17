@@ -134,7 +134,6 @@ class consultarFormacion {
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
                                         $variableEditar.= "&opcion=mostrar";
                                         $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$resultadoFormacion[$key]['id_usuario'];
                                         $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEditar.= "&tiempo=" . time ();
                                         $variableEditar .= "&consecutivo_formacion=".$resultadoFormacion[$key]['consecutivo_formacion'];
@@ -261,7 +260,7 @@ class consultarFormacion {
                                 //------------------Division para los botones-------------------------
                         }
                 }
-            echo $this->miFormulario->marcoAgrupacion ( 'fin', $atributos );
+            echo $this->miFormulario->marcoAgrupacion ( 'fin');
             unset ( $atributos );
     }
 }

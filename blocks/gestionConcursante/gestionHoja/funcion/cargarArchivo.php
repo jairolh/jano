@@ -40,7 +40,8 @@ class CargarArchivo {
                         if($resultadoSoporte)
                             {  
                                 //$nombreArchivo= $_REQUEST['consecutivo']. "_" . $_FILES [$key]['name'];
-                                $nombreArchivo= $_REQUEST['consecutivo']. "_" .$_REQUEST['consecutivo_dato']. "_" .time();                              
+                                $extension = end(explode(".", $_FILES [$key]['name']));
+                                $nombreArchivo= $_REQUEST['consecutivo']. "_" .$_REQUEST['consecutivo_dato']. "_" .time(). "." .$extension ;                              
                                 $destino[$key] = $rutaBloque .$resultadoSoporte[0]['ubicacion']."/".$nombreArchivo;
                                 $arregloSoporte = array('id_usuario'=>$_REQUEST['id_usuario'],
                                                         'tipo_soporte'=>$resultadoSoporte[0]['tipo_soporte'],

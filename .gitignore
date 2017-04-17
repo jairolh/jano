@@ -22,4 +22,8 @@ nb-configuration.xml
 !.gitignore
 !.htaccess
 *~
-
+# -- Archivos --------------------------
+blocks/soportes/*/*.pdf
+blocks/soportes/*/*.png
+blocks/soportes/*/*.jpg
+blocks/soportes/*/*.jepg

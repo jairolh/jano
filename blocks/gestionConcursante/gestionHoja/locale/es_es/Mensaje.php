@@ -6,6 +6,8 @@ $this->idioma["tabContacto"]="Datos de Contacto";
 $this->idioma["tabFormacion"]="Formación Académica";
 $this->idioma["tabProfesional"]="Experiencia Profesional";
 $this->idioma["tabDocencia"]="Experiencia Docente";
+$this->idioma["tabInvestigacion"]="Experiencia Investigación";
+$this->idioma["tabProduccion"]="Producción Académica";
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
@@ -15,6 +17,8 @@ $this->idioma["marcoProfesional"]="Registro datos de Experiencia Profesional";
 $this->idioma["marcoListaProfesional"]="Experiencia Profesional";
 $this->idioma["marcoDocencia"]="Registro Experiencia Docente Universitaria";
 $this->idioma["marcoListaDocencia"]="Experiencia Docente Universitaria";
+$this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación";
+$this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -154,16 +158,59 @@ $this->idioma["fecha_fin_docencia"]="Fecha Terminación: ";
 $this->idioma["soporteDocenciaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 $this->idioma["soporteDocencia"]="Soporte Certificación Docencia: "; 
 
+$this->idioma["nuevoInvestigacion"]="Registrar Experiencia en Investigación";
+$this->idioma["pais_investigacionTitulo"]="Seleccione el país";
+$this->idioma["pais_investigacion"]="País: ";
+$this->idioma["codigo_institucion_investigacionTitulo"]="Selecciona La institucion de la practica de Investigación";
+$this->idioma["codigo_institucion_investigacion"]="Institucion: ";
+$this->idioma["nombre_institucion_investigacionTitulo"]="Ingrese el Nombre de la Institución";
+$this->idioma["nombre_institucion_investigacion"]="Nombre Institucion: ";
+$this->idioma["nivel_institucion_investigacionTitulo"]="Selecciona el tipo de Institución";
+$this->idioma["nivel_institucion_investigacion"]="Tipo Institución: ";
+$this->idioma["descripcion_investigacionTitulo"]="Describa las actividades realizadas";
+$this->idioma["descripcion_investigacion"]="Actividades desempeñadas: ";
+$this->idioma["direccion_institucion_investigacionTitulo"]="Ingrese la dirección de la Institución";
+$this->idioma["direccion_institucion_investigacion"]="Direccion Institución: ";
+$this->idioma["correo_institucion_investigacionTitulo"]="Digite el correo electrónico";
+$this->idioma["correo_institucion_investigacion"]="Correo Institución: ";
+$this->idioma["telefono_institucion_investigacionTitulo"]="Digite el número de telefono de la Institución";
+$this->idioma["telefono_institucion_investigacion"]="Telefono Institución: ";
+$this->idioma["titulo_investigacionTitulo"]="Ingrese el título de la Investigación";
+$this->idioma["titulo_investigacion"]="Título Investigación: ";
+$this->idioma["jefe_investigacionTitulo"]="Ingrese el Nombre del director de la Investigación";
+$this->idioma["jefe_investigacion"]="Director: ";
+$this->idioma["grupo_investigacionTitulo"]="Ingrese el Nombre del grupo con que realiza la Investigación";
+$this->idioma["grupo_investigacion"]="Grupo Investigación : ";
+$this->idioma["categoria_grupo_Titulo"]="Ingrese la categoria asignada al grupo de Investigación";
+$this->idioma["categoria_grupo"]="Categoria grupo : ";
+$this->idioma["direccion_investigacionTitulo"]="Ingrese el enlace URL a la página de la Investigación";
+$this->idioma["direccion_investigacion"]="Enlace a Investigación: ";
+
+$this->idioma["investigacion_actualTitulo"]="Indique si ya actualmente adelanta la Investigación";
+$this->idioma["investigacion_actual"]="Actual: ";
+$this->idioma["fecha_inicio_investigacionTitulo"]="Indique la fecha de ingreso";
+$this->idioma["fecha_inicio_investigacion"]="Fecha Ingreso: ";
+$this->idioma["fecha_fin_investigacionTitulo"]="Indique la fecha de terminación";
+$this->idioma["fecha_fin_investigacion"]="Fecha Terminación: ";
+$this->idioma["soporteInvestigacionTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteInvestigacion"]="Soporte Certificación Investigación: "; 
+
+
+
+
+
 $this->idioma["noDefinido"]="No definido";
 $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";
 $this->idioma["noEncontroProfesional"]="No existe Experiencia Profesional registrada! ";
 $this->idioma["noEncontroDocencia"]="No existe Experiencia Docente Universitaria registrada! ";
+$this->idioma["noEncontroInvestigacion"]="No existe Experiencia en Investigación registrada! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
 $this->idioma["botonFormacion"]="Guardar Datos de Formación";
 $this->idioma["botonProfesional"]="Guardar Datos de Experiencia Profesional";
 $this->idioma["botonDocencia"]="Guardar Datos de Experiencia Docente Universitaria";
+$this->idioma["botonInvestigacion"]="Guardar Datos de Experiencia en Investigación";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

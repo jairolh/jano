@@ -62,6 +62,11 @@ function soporte(archivo) {
   miPopup.location = $("#"+archivo).val();
 }
 
+function enlace(direccion) {
+  var miVentana
+  miVentana = window.open('about:blank','enlace','width=800,height=600,menubar=no,scrollbars=yes') 
+  miVentana.location = $("#"+direccion).val();
+}
 
 function marcar(obj) {
     elem=obj.elements;
@@ -271,6 +276,55 @@ $(function () {
                  }
           });          
           
+// Controles experiencia Investigacion
+
+    $("#<?php echo $this->campoSeguro('pais_investigacion')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('pais_investigacion')?>").val()==112){
+               consultarIESinvestigacion();
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").hide().slideDown("slow");
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").removeClass("validate[required]");
+            }else{
+                  $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").html('');
+                  $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>");  
+                  $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").select2();
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").hide().slideDown("slow");
+                  $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").addClass("validate[required]");
+                 }
+          });
+
+
+    $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").val()>0){
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").hide();
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").removeClass("validate[required]");
+            }else if($("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").val()==0){
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").hide().slideDown("slow");
+                    $("#<?php echo $this->campoSeguro('nombre_institucion_investigacion')?>").addClass("validate[required]");
+            }
+          });     
+          
+   $("#<?php echo $this->campoSeguro('investigacion_actual')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('investigacion_actual')?>").val()=='S'){
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").val('');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").hide();
+                 
+            }else{
+                  $("#<?php echo $this->campoSeguro('fecha_inicio_investigacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").hide().slideDown("slow");
+                 }
+          });           
+          
 });
 
 function consultarDepartamento(elem, request, response){
@@ -401,6 +455,24 @@ function consultarIESdocencia(elem, request, response){
                         });
                     $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").removeAttr('disabled');
                     $("#<?php echo $this->campoSeguro('codigo_institucion_docencia')?>").select2();
+                }
+            }
+        });
+    }; 
+function consultarIESinvestigacion(elem, request, response){
+        $.ajax({
+            url: "<?php echo $urlFinalIES?>",
+            dataType: "json",
+            data: { valor:$("#<?php echo $this->campoSeguro('pais_investigacion')?>").val()},
+            success: function(data){ 
+                if(data[0]!=" "){
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").html('');
+                    $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>");
+                    $.each(data , function(indice,valor){
+                           $("<option value='"+data[ indice ].codigo_ies+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>");
+                        });
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").removeAttr('disabled');
+                    $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").select2();
                 }
             }
         });

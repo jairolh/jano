@@ -244,9 +244,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY prof.fecha_inicio DESC";    
                                     
 			break;    
-
                         case "consultarDocencia":
-                    
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" doc.consecutivo_docencia,";
                                 $cadenaSql.=" doc.consecutivo_persona,";
@@ -275,7 +273,37 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_docencia']) && $variable['consecutivo_docencia']!='')
                                     {$cadenaSql.=" AND doc.consecutivo_docencia='".$variable['consecutivo_docencia']."' ";}
                                 $cadenaSql.=" ORDER BY doc.fecha_inicio DESC";    
-                                    
+			break;                            
+                        case "consultarInvestigacion":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" inv.consecutivo_investigacion,";
+                                $cadenaSql.=" inv.consecutivo_persona,";
+                                $cadenaSql.=" inv.pais_investigacion,";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" inv.codigo_nivel_institucion,";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=inv.codigo_nivel_institucion) nivel_institucion,";
+                                $cadenaSql.=" inv.codigo_institucion,";
+                                $cadenaSql.=" inv.nombre_institucion,";
+                                $cadenaSql.=" inv.direccion_institucion,";
+                                $cadenaSql.=" inv.correo_institucion,";
+                                $cadenaSql.=" inv.telefono_institucion,";
+                                $cadenaSql.=" inv.titulo_investigacion,";
+                                $cadenaSql.=" inv.jefe_investigacion,";
+                                $cadenaSql.=" inv.descripcion_investigacion,";
+                                $cadenaSql.=" inv.direccion_investigacion,";
+                                $cadenaSql.=" inv.actual,";
+                                $cadenaSql.=" inv.fecha_inicio,";
+                                $cadenaSql.=" inv.fecha_fin,";
+                                $cadenaSql.=" inv.grupo_investigacion,";
+                                $cadenaSql.=" inv.categoria_grupo ";
+                                $cadenaSql.=" FROM concurso.persona bas "; 
+                                $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
+                                $cadenaSql.=" INNER JOIN concurso.experiencia_investigacion inv ON inv.consecutivo_persona=bas.consecutivo";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=inv.pais_investigacion";
+                                $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
+                                if(isset($variable['consecutivo_investigacion']) && $variable['consecutivo_investigacion']!='')
+                                    {$cadenaSql.=" AND inv.consecutivo_investigacion='".$variable['consecutivo_investigacion']."' ";}
+                                $cadenaSql.=" ORDER BY inv.fecha_inicio DESC";    
 			break;                            
                     
                         case "consultarModalidad":
@@ -314,8 +342,6 @@ class Sql extends \Sql {
                                         $cadenaSql.=" FROM general.nivel";
                                     }
                                 $cadenaSql.=" ORDER BY nombre ";        
-                                
-                                
 			break;  
                         
                         case "consultarInstitucion":
@@ -476,7 +502,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['fecha_fin']."'";
                                 $cadenaSql.=" )";
 				break;   
-                            
 			case 'registroDocencia' :
                                 $cadenaSql=" INSERT INTO ";
                                 $cadenaSql.=" concurso.experiencia_docencia(";
@@ -517,6 +542,50 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['docencia_actual']."',";
                                 $cadenaSql.=" '".$variable['fecha_inicio_docencia']."',";
                                 $cadenaSql.=" '".$variable['fecha_fin_docencia']."'";
+                                $cadenaSql.=" )";
+				break;                              
+			case 'registroInvestigacion' :
+                                $cadenaSql=" INSERT INTO ";
+                                $cadenaSql.=" concurso.experiencia_investigacion(";
+                                $cadenaSql.=" consecutivo_investigacion,";
+                                $cadenaSql.=" consecutivo_persona, ";
+                                $cadenaSql.=" pais_investigacion, ";
+                                $cadenaSql.=" codigo_nivel_institucion,";
+                                $cadenaSql.=" codigo_institucion, ";
+                                $cadenaSql.=" nombre_institucion, ";
+                                $cadenaSql.=" direccion_institucion,";
+                                $cadenaSql.=" correo_institucion, ";
+                                $cadenaSql.=" telefono_institucion, ";
+                                $cadenaSql.=" titulo_investigacion, ";
+                                $cadenaSql.=" jefe_investigacion, ";
+                                $cadenaSql.=" descripcion_investigacion, ";
+                                $cadenaSql.=" direccion_investigacion,";
+                                $cadenaSql.=" actual,";
+                                $cadenaSql.=" fecha_inicio,";
+                                $cadenaSql.=" fecha_fin, ";
+                                $cadenaSql.=" grupo_investigacion, ";
+                                $cadenaSql.=" categoria_grupo)";                            
+                                $cadenaSql.=" VALUES (";
+                                $cadenaSql.=" DEFAULT,";
+                                $cadenaSql.=" '".$variable['consecutivo_persona']."',";
+                                $cadenaSql.=" '".$variable['pais_investigacion']."',";
+                                $cadenaSql.=" '".$variable['nivel_institucion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['codigo_institucion_investigacion']."',";
+                                if(isset($variable['codigo_institucion_investigacion']) && $variable['codigo_institucion_investigacion']==0)
+                                    {$cadenaSql.=" '".$variable['nombre_institucion_investigacion']."',";}
+                                else {$cadenaSql.="(SELECT inst.nombre inst FROM general.institucion_educacion inst WHERE inst.codigo_ies='".$variable['codigo_institucion_investigacion']."'),";}                                    
+                                $cadenaSql.=" '".$variable['direccion_institucion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['correo_institucion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['telefono_institucion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['titulo_investigacion']."',";
+                                $cadenaSql.=" '".$variable['jefe_investigacion']."',";
+                                $cadenaSql.=" '".$variable['descripcion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['direccion_investigacion']."',";
+                                $cadenaSql.=" '".$variable['investigacion_actual']."',";
+                                $cadenaSql.=" '".$variable['fecha_inicio_investigacion']."',";
+                                $cadenaSql.=" '".$variable['fecha_fin_investigacion']."',";
+                                $cadenaSql.=" '".$variable['grupo_investigacion']."',";
+                                $cadenaSql.=" '".$variable['categoria_grupo']."'";
                                 $cadenaSql.=" )";
 				break;                                       
                                 
@@ -588,9 +657,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_experiencia='".$variable['consecutivo_experiencia']."' ";
 				break;                     
-                    
                         case 'actualizarDocencia' :
-                           
                                 $cadenaSql=" UPDATE concurso.experiencia_docencia ";
                                 $cadenaSql.=" SET ";
                                 $cadenaSql.=" codigo_nivel_docencia='".$variable['codigo_nivel_docencia']."', ";
@@ -600,12 +667,10 @@ class Sql extends \Sql {
                                 if(isset($variable['codigo_institucion_docencia']) && $variable['codigo_institucion_docencia']==0)
                                      {$cadenaSql.=" nombre_institucion='".$variable['nombre_institucion_docencia']."', ";}
                                 else {$cadenaSql.=" nombre_institucion=(SELECT inst.nombre inst FROM general.institucion_educacion inst WHERE inst.codigo_ies='".$variable['codigo_institucion_docencia']."'),";}                                    
-                                                                
                                 $cadenaSql.=" direccion_institucion='".$variable['direccion_institucion_docencia']."', ";
                                 $cadenaSql.=" correo_institucion='".$variable['correo_institucion_docencia']."', ";
                                 $cadenaSql.=" telefono_institucion='".$variable['telefono_institucion_docencia']."', ";
                                 $cadenaSql.=" codigo_vinculacion='".$variable['codigo_vinculacion']."', ";
-
                                 if(isset($variable['codigo_vinculacion']) && $variable['codigo_vinculacion']==0)
                                      { $cadenaSql.=" nombre_vinculacion='".['nombre_vinculacion']."',";}
                                 else {$cadenaSql.="nombre_vinculacion= (SELECT niv.nombre FROM general.nivel niv WHERE niv.codigo_nivel='".$variable['codigo_vinculacion']."'),";}                                    
@@ -615,8 +680,30 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_fin='".$variable['fecha_fin_docencia']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_docencia='".$variable['consecutivo_docencia']."' ";
-
-                                
+				break;                                           
+                        case 'actualizarInvestigacion' :
+                                $cadenaSql=" UPDATE concurso.experiencia_investigacion ";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" pais_investigacion='".$variable['pais_investigacion']."', ";
+                                $cadenaSql.=" codigo_nivel_institucion='".$variable['nivel_institucion_investigacion']."', ";
+                                $cadenaSql.=" codigo_institucion='".$variable['codigo_institucion_investigacion']."', ";
+                                if(isset($variable['codigo_institucion_investigacion']) && $variable['codigo_institucion_investigacion']==0)
+                                     {$cadenaSql.=" nombre_institucion='".$variable['nombre_institucion_investigacion']."', ";}
+                                else {$cadenaSql.=" nombre_institucion=(SELECT inst.nombre inst FROM general.institucion_educacion inst WHERE inst.codigo_ies='".$variable['codigo_institucion_investigacion']."'),";}                                    
+                                $cadenaSql.=" direccion_institucion='".$variable['direccion_institucion_investigacion']."', ";
+                                $cadenaSql.=" correo_institucion='".$variable['correo_institucion_investigacion']."', ";
+                                $cadenaSql.=" telefono_institucion='".$variable['telefono_institucion_investigacion']."', ";
+                                $cadenaSql.=" titulo_investigacion='".$variable['titulo_investigacion']."', ";
+                                $cadenaSql.=" jefe_investigacion='".$variable['jefe_investigacion']."', ";
+                                $cadenaSql.=" descripcion_investigacion='".$variable['descripcion_investigacion']."', ";
+                                $cadenaSql.=" direccion_investigacion='".$variable['direccion_investigacion']."', ";
+                                $cadenaSql.=" actual='".$variable['investigacion_actual']."', ";
+                                $cadenaSql.=" fecha_inicio='".$variable['fecha_inicio_investigacion']."', ";
+                                $cadenaSql.=" fecha_fin='".$variable['fecha_fin_investigacion']."', ";
+                                $cadenaSql.=" grupo_investigacion='".$variable['grupo_investigacion']."', ";
+                                $cadenaSql.=" categoria_grupo='".$variable['categoria_grupo']."'";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_investigacion='".$variable['consecutivo_investigacion']."' ";
 				break;                       
                                         
                     /*viejas consultas para revisar*/

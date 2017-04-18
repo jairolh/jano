@@ -44,6 +44,8 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             "tabFormacion"  => $this->lenguaje->getCadena ( "tabFormacion" ),
                             "tabProfesional"  => $this->lenguaje->getCadena ( "tabProfesional" ),
                             "tabDocencia"  => $this->lenguaje->getCadena ( "tabDocencia" ),
+                            "tabInvestigacion"  => $this->lenguaje->getCadena ( "tabInvestigacion" ),
+                            "tabProduccion"  => $this->lenguaje->getCadena ( "tabProduccion" ),
                             //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
             );
             $atributos ["items"] = $items;
@@ -108,6 +110,17 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 5-------------------------
+            // ------------------Division para la pestaña 6-------------------------
+            $atributos ["id"] = "tabInvestigacion";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+
+            if(!isset($_REQUEST['consecutivo_investigacion']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarInvestigacion.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosInvestigacion.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 6-------------------------
 
 
     }

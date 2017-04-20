@@ -152,7 +152,7 @@ class consultarProfesional {
                                         $mostrarHtml .= "<td>";
                                                     if(isset($resultadoSprof[0]['alias']))
                                                         {
-                                                          $esteCampo = 'archivoexperiencia'.$resultadoTarjeta[0]['consecutivo_soporte'];
+                                                          $esteCampo = 'archivoexperiencia'.$resultadoSprof[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['enlace'] = 'javascript:soporte("ruta_experiencia'.$resultadoSprof[0]['consecutivo_soporte'].'");';
                                                           $atributos ['tabIndex'] = 0;

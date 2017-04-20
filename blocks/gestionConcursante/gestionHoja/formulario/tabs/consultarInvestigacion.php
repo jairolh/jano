@@ -130,7 +130,7 @@ class consultarInvestigacion {
                                             );
                                         
                                         $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                                        $resultadoSprof = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
+                                        $resultadoSinv = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
                                         
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
                                         $variableEditar.= "&opcion=mostrar";
@@ -189,14 +189,14 @@ class consultarInvestigacion {
                                                         }
                                         $mostrarHtml .= "</td>
                                                          <td>";
-                                                    if(isset($resultadoSprof[0]['alias']))
+                                                    if(isset($resultadoSinv[0]['alias']))
                                                         {
-                                                          $esteCampo = 'archivoexperiencia'.$resultadoTarjeta[0]['consecutivo_soporte'];
+                                                          $esteCampo = 'archivoinvestigacion'.$resultadoSinv[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_experiencia'.$resultadoSprof[0]['consecutivo_soporte'].'");';
+                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_investigacion'.$resultadoSinv[0]['consecutivo_soporte'].'");';
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoSprof[0]['alias'];
+                                                          $atributos ['enlaceTexto'] = $resultadoSinv[0]['alias'];
                                                           $atributos ['estilo'] = 'clasico';
                                                           $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -207,13 +207,13 @@ class consultarInvestigacion {
                                                           $mostrarHtml .= $this->miFormulario->enlace( $atributos );
                                                           unset ( $atributos );
                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_experiencia'.$resultadoSprof[0]['consecutivo_soporte'];
+                                                          $esteCampo = 'ruta_investigacion'.$resultadoSinv[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['nombre'] = $esteCampo;
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSprof[0]['ubicacion']."/".$resultadoSprof[0]['archivo'];
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSinv[0]['ubicacion']."/".$resultadoSinv[0]['archivo'];
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );

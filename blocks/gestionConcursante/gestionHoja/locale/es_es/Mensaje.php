@@ -8,6 +8,7 @@ $this->idioma["tabProfesional"]="Experiencia Profesional";
 $this->idioma["tabDocencia"]="Experiencia Docente";
 $this->idioma["tabInvestigacion"]="Experiencia Investigación";
 $this->idioma["tabProduccion"]="Producción Académica";
+$this->idioma["tabIdiomas"]="Conocimiento en Idiomas";
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
@@ -19,6 +20,8 @@ $this->idioma["marcoDocencia"]="Registro Experiencia Docente Universitaria";
 $this->idioma["marcoListaDocencia"]="Experiencia Docente Universitaria";
 $this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación";
 $this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación";
+$this->idioma["marcoIdioma"]="Registro Conocimiento en Idioma";
+$this->idioma["marcoListaIdioma"]="Conocimiento en Idiomas";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -185,7 +188,6 @@ $this->idioma["categoria_grupo_Titulo"]="Ingrese la categoria asignada al grupo 
 $this->idioma["categoria_grupo"]="Categoria grupo : ";
 $this->idioma["direccion_investigacionTitulo"]="Ingrese el enlace URL a la página de la Investigación";
 $this->idioma["direccion_investigacion"]="Enlace a Investigación: ";
-
 $this->idioma["investigacion_actualTitulo"]="Indique si ya actualmente adelanta la Investigación";
 $this->idioma["investigacion_actual"]="Actual: ";
 $this->idioma["fecha_inicio_investigacionTitulo"]="Indique la fecha de ingreso";
@@ -196,7 +198,15 @@ $this->idioma["soporteInvestigacionTitulo"]="Adjuntar Documento en Formato PDF m
 $this->idioma["soporteInvestigacion"]="Soporte Certificación Investigación: "; 
 
 
-
+$this->idioma["nuevoIdioma"]="Registrar Idioma";
+$this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el Idioma";
+$this->idioma["codigo_idioma"]="Idioma: ";
+$this->idioma["porc_leeTitulo"]="Ingrese el porcetaje de lectura del idioma";
+$this->idioma["porc_lee"]="Porcentaje Lee: ";
+$this->idioma["porc_escribeTitulo"]="Ingrese el porcetaje en que escribe el idioma";
+$this->idioma["porc_escribe"]="Porcentaje escribe: ";
+$this->idioma["porc_hablaTitulo"]="Ingrese el porcetaje en que habla el idioma";
+$this->idioma["porc_habla"]="Porcentaje Habla: ";
 
 
 $this->idioma["noDefinido"]="No definido";
@@ -205,12 +215,16 @@ $this->idioma["noEncontroProfesional"]="No existe Experiencia Profesional regist
 $this->idioma["noEncontroDocencia"]="No existe Experiencia Docente Universitaria registrada! ";
 $this->idioma["noEncontroInvestigacion"]="No existe Experiencia en Investigación registrada! ";
 
+$this->idioma["noEncontroIdioma"]="No existe Conocimiento en Idiomas registrado! ";
+
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
 $this->idioma["botonFormacion"]="Guardar Datos de Formación";
 $this->idioma["botonProfesional"]="Guardar Datos de Experiencia Profesional";
 $this->idioma["botonDocencia"]="Guardar Datos de Experiencia Docente Universitaria";
 $this->idioma["botonInvestigacion"]="Guardar Datos de Experiencia en Investigación";
+
+$this->idioma["botonIdioma"]="Guardar Datos de Conocimiento en Idioma";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

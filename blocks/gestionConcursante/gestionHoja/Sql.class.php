@@ -113,6 +113,22 @@ class Sql extends \Sql {
                                 $cadenaSql.=" AND estado='A' ";
 				break;
                             
+          			case 'buscarIdioma' :
+				$cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" codigo_idioma,";
+                                $cadenaSql.=" nombre,";
+                                $cadenaSql.=" codigo_iso,";
+                                $cadenaSql.=" estado";
+                                $cadenaSql.=" FROM general.idioma ";    
+                                $cadenaSql.=" WHERE";
+                                $cadenaSql.=" estado='A' ";
+                                if(isset($variable['codigo_idioma']) && $variable['codigo_idioma']!='')
+                                    {$cadenaSql.=" AND codigo_idioma='".$variable['codigo_idioma']."' ";}
+                                $cadenaSql.=" ORDER BY nombre ASC ";
+				break;                   
+                            
+                        
+                            
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";
@@ -305,7 +321,26 @@ class Sql extends \Sql {
                                     {$cadenaSql.=" AND inv.consecutivo_investigacion='".$variable['consecutivo_investigacion']."' ";}
                                 $cadenaSql.=" ORDER BY inv.fecha_inicio DESC";    
 			break;                            
-                    
+
+                        case "consultarIdiomas":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" conidm.consecutivo_conocimiento,";
+                                $cadenaSql.=" conidm.consecutivo_persona, ";
+                                $cadenaSql.=" conidm.codigo_idioma, ";
+                                $cadenaSql.=" idm.nombre idioma, ";
+                                $cadenaSql.=" conidm.porc_lee, ";
+                                $cadenaSql.=" conidm.porc_escribe,";
+                                $cadenaSql.=" conidm.porc_habla";
+                                $cadenaSql.=" FROM concurso.persona bas "; 
+                                $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
+                                $cadenaSql.=" INNER JOIN concurso.conocimiento_idioma conidm ON conidm.consecutivo_persona=bas.consecutivo";    
+                                $cadenaSql.=" INNER JOIN general.idioma idm ON idm.codigo_idioma=conidm.codigo_idioma";
+                                $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
+                                if(isset($variable['consecutivo_conocimiento']) && $variable['consecutivo_conocimiento']!='')
+                                    {$cadenaSql.=" AND conidm.consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";}
+                                $cadenaSql.=" ORDER BY idm.nombre DESC";   
+			break;                          
+                        
                         case "consultarModalidad":
                             $cadenaSql=" SELECT DISTINCT";
                             $cadenaSql.=" codigo_modalidad,";
@@ -587,7 +622,27 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['grupo_investigacion']."',";
                                 $cadenaSql.=" '".$variable['categoria_grupo']."'";
                                 $cadenaSql.=" )";
-				break;                                       
+				break;      
+                                
+                                
+			case 'registroIdioma' :
+                                
+                                $cadenaSql=" INSERT INTO concurso.conocimiento_idioma(";
+                                $cadenaSql.=" consecutivo_conocimiento,";
+                                $cadenaSql.=" consecutivo_persona,";
+                                $cadenaSql.=" codigo_idioma, ";
+                                $cadenaSql.=" porc_lee, ";
+                                $cadenaSql.=" porc_escribe, ";
+                                $cadenaSql.=" porc_habla)";
+                                $cadenaSql.=" VALUES (";
+                                $cadenaSql.=" DEFAULT,";
+                                $cadenaSql.=" '".$variable['consecutivo_persona']."',";
+                                $cadenaSql.=" '".$variable['codigo_idioma']."',";
+                                $cadenaSql.=" '".$variable['porc_lee']."',";
+                                $cadenaSql.=" '".$variable['porc_escribe']."',";
+                                $cadenaSql.=" '".$variable['porc_habla']."'";
+                                $cadenaSql.=" )";
+				break;                                   
                                 
                         case "actualizarBasicos":
                                 $cadenaSql=" UPDATE concurso.persona";
@@ -704,7 +759,19 @@ class Sql extends \Sql {
                                 $cadenaSql.=" categoria_grupo='".$variable['categoria_grupo']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_investigacion='".$variable['consecutivo_investigacion']."' ";
-				break;                       
+				break;    
+                                
+			case 'actualizarIdioma' :
+                                $cadenaSql=" UPDATE concurso.conocimiento_idioma ";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" codigo_idioma='".$variable['codigo_idioma']."',";
+                                $cadenaSql.=" porc_lee='".$variable['porc_lee']."',";
+                                $cadenaSql.=" porc_escribe='".$variable['porc_escribe']."',";
+                                $cadenaSql.=" porc_habla='".$variable['porc_habla']."'";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";
+				break;                                  
+                                
                                         
                     /*viejas consultas para revisar*/
                        

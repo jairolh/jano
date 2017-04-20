@@ -33,7 +33,6 @@ class RegistradorFormacion {
     function procesarFormulario() {
         $conexion="estructura";
 	$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-        
         $arregloDatos = array('id_usuario'=>$_REQUEST['id_usuario'],
                               'consecutivo_formacion'=>$_REQUEST['consecutivo_formacion'],
                               'consecutivo_persona'=>$_REQUEST['consecutivo_persona'],
@@ -42,7 +41,7 @@ class RegistradorFormacion {
                               'pais_formacion'=>$_REQUEST['pais_formacion'],
                               'codigo_institucion'=>$_REQUEST['codigo_institucion'],
                               'nombre_institucion'=>$_REQUEST['nombre_institucion'],
-                              'codigo_programa'=>$_REQUEST['consecutivo_programa'],
+                              'codigo_programa'=>isset($_REQUEST['consecutivo_programa'])?$_REQUEST['consecutivo_programa']:0,
                               'nombre_programa'=>$_REQUEST['nombre_programa'],
                               'cursos_aprobados'=>$_REQUEST['cursos_aprobados'],
                               'graduado'=>$_REQUEST['graduado'],
@@ -50,7 +49,6 @@ class RegistradorFormacion {
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
             );
-        
         if($arregloDatos['consecutivo_formacion']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroFormacion',$arregloDatos );
                 $resultadoFormacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroFormacion" );
@@ -58,7 +56,7 @@ class RegistradorFormacion {
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarFormacion',$arregloDatos );
                 $resultadoFormacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarFormacion" );
         }
-
+        
         
         if($resultadoFormacion)
             {   $_REQUEST['consecutivo']=$_REQUEST['consecutivo_persona'];

@@ -623,7 +623,7 @@ class docenciaForm {
                                     $valorCodificado .= "&consecutivo_docencia=".$docencia;
                                     $valorCodificado .= "&consecutivo_persona=".$resultadoUsuarios[0]['consecutivo'];
                                     $valorCodificado .= "&nombre=".$resultadoUsuarios[0]['nombre'];
-                                    $valorCodificado .= "&apellido=".$resultadoUsuarios[0][0]['apellido'];
+                                    $valorCodificado .= "&apellido=".$resultadoUsuarios[0]['apellido'];
                                     /**
                                      * SARA permite que los nombres de los campos sean dinámicos.
                                      * Para ello utiliza la hora en que es creado el formulario para

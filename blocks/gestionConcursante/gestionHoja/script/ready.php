@@ -84,6 +84,25 @@ $('#tablaInvestigacion').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
                       
+
+$('#tablaIdioma').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+});
+
 // Asociar el widget de validación al formulario
 $("#gestionHoja").validationEngine({
     promptPosition : "centerRight", 
@@ -176,6 +195,20 @@ $("#datosInvestigacion").validationEngine({
         }
         return false;
     });      
+    
+    
+// Asociar el widget de validación al formulario
+$("#datosIdioma").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
+    $("#datosIdioma").submit(function() {
+        $resultadoForm=$("#datosIdioma").validationEngine("validate");
+        if ($resultadoForm) {
+            return true;
+        }
+        return false;
+    });     
 
     
 });
@@ -422,6 +455,10 @@ $('#<?php echo $this->campoSeguro('nivel_institucion_investigacion')?>').width(2
 $("#<?php echo $this->campoSeguro('nivel_institucion_investigacion')?>").select2(); 
 $('#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>').width(450);
 $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").select2(); 
+
+
+$('#<?php echo $this->campoSeguro('codigo_idioma')?>').width(210);
+$("#<?php echo $this->campoSeguro('codigo_idioma')?>").select2(); 
 
 
 <?php 

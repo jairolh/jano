@@ -46,6 +46,7 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             "tabDocencia"  => $this->lenguaje->getCadena ( "tabDocencia" ),
                             "tabInvestigacion"  => $this->lenguaje->getCadena ( "tabInvestigacion" ),
                             "tabProduccion"  => $this->lenguaje->getCadena ( "tabProduccion" ),
+                            "tabIdiomas"  => $this->lenguaje->getCadena ( "tabIdiomas" ),
                             //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
             );
             $atributos ["items"] = $items;
@@ -122,6 +123,19 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 6-------------------------
 
+            
+            // ------------------Division para la pestaña 8-------------------------
+            $atributos ["id"] = "tabIdiomas";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+
+            if(!isset($_REQUEST['consecutivo_conocimiento']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarIdiomas.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosIdiomas.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 8-------------------------
+            
 
     }
 

@@ -147,6 +147,13 @@ class registrarForm {
                                         $boton = "continuar";
                                         //$variable.="&tab=tabContacto";
                                         $pestanna='#tabInvestigacion';
+                                        break;  
+                                    case "actualizoProduccion":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de Producción Académica del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        //$variable.="&tab=tabContacto";
+                                        $pestanna='#tabProduccion';
                                         break;    
                                     case "actualizoIdioma":
                                         $tipo = 'success';

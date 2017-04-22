@@ -20,6 +20,8 @@ $this->idioma["marcoDocencia"]="Registro Experiencia Docente Universitaria";
 $this->idioma["marcoListaDocencia"]="Experiencia Docente Universitaria";
 $this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación";
 $this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación";
+$this->idioma["marcoProduccion"]="Registro Producción Académica";
+$this->idioma["marcoListaProduccion"]="Producción Académica";
 $this->idioma["marcoIdioma"]="Registro Conocimiento en Idioma";
 $this->idioma["marcoListaIdioma"]="Conocimiento en Idiomas";
 
@@ -197,6 +199,44 @@ $this->idioma["fecha_fin_investigacion"]="Fecha Terminación: ";
 $this->idioma["soporteInvestigacionTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 $this->idioma["soporteInvestigacion"]="Soporte Certificación Investigación: "; 
 
+$this->idioma["nuevoProduccion"]="Registrar Producción Académica";
+$this->idioma["pais_produccionTitulo"]="Seleccione el país";
+$this->idioma["pais_produccion"]="País: ";
+$this->idioma["departamento_produccionTitulo"]="Seleccione el departamento ";
+$this->idioma["departamento_produccion"]="Departamento: ";
+$this->idioma["ciudad_produccionTitulo"]="Seleccione la Ciudad ";
+$this->idioma["ciudad_produccion"]="Ciudad: ";
+$this->idioma["codigo_tipo_produccionTitulo"]="Seleccione el tipo de producto";
+$this->idioma["codigo_tipo_produccion"]="Producto: ";
+$this->idioma["nombre_tipo_produccionTitulo"]="Ingrese el Nombre del Producto";
+$this->idioma["nombre_tipo_produccion"]="Tipo Producto: ";
+$this->idioma["titulo_produccionTitulo"]="Ingrese el título del Producto";
+$this->idioma["titulo_produccion"]="Título Producto: ";
+$this->idioma["nombre_autorTitulo"]="Ingrese el nombre del autor o editor del producto";
+$this->idioma["nombre_autor"]="Autor / Editor: ";
+$this->idioma["nombre_producto_incluyeTitulo"]="Ingrese el nombre de la revista, libro de publicación o evento";
+$this->idioma["nombre_producto_incluye"]="Nombre Publicación:<br>(Revista,Libro o Evento)";
+$this->idioma["nombre_editorialTitulo"]="Ingrese el Nombre de la editorial de producto";
+$this->idioma["nombre_editorial"]="Editorial: ";
+$this->idioma["volumenTitulo"]="Ingrese Volumen de la publicación";
+$this->idioma["volumen"]="Volumen : ";
+$this->idioma["pagina_productoTitulo"]="Ingrese los numeros de pagina de producto en la publicación";
+$this->idioma["pagina_producto"]="Página : ";
+$this->idioma["codigo_isbnTitulo"]="Indique el codigo ISBN del producto";
+$this->idioma["codigo_isbn"]="Código ISBN: ";
+$this->idioma["codigo_issnTitulo"]="Indique el codigo ISSN del producto";
+$this->idioma["codigo_issn"]="Código ISSN: ";
+$this->idioma["indexadoTitulo"]="Ingrese la indexación del producto";
+$this->idioma["indexado"]="Indexado en: ";
+$this->idioma["descripcion_produccionTitulo"]="Ingrese la descripción del producto";
+$this->idioma["descripcion_produccion"]="Descripción del producto : ";
+$this->idioma["direccion_produccion"]="Ingrese el enlace URL a la página del producto";
+$this->idioma["direccion_produccion"]="Enlace a Producto: ";
+$this->idioma["fecha_produccionTitulo"]="Indique la fecha de  producción";
+$this->idioma["fecha_produccion"]="Fecha producción: ";
+$this->idioma["soporteProduccionTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteProduccion"]="Soporte Producción Académica: "; 
+
 
 $this->idioma["nuevoIdioma"]="Registrar Idioma";
 $this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el Idioma";
@@ -214,7 +254,7 @@ $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada
 $this->idioma["noEncontroProfesional"]="No existe Experiencia Profesional registrada! ";
 $this->idioma["noEncontroDocencia"]="No existe Experiencia Docente Universitaria registrada! ";
 $this->idioma["noEncontroInvestigacion"]="No existe Experiencia en Investigación registrada! ";
-
+$this->idioma["noEncontroProduccion"]="No existe Producción Académica registrada! ";
 $this->idioma["noEncontroIdioma"]="No existe Conocimiento en Idiomas registrado! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
@@ -223,7 +263,7 @@ $this->idioma["botonFormacion"]="Guardar Datos de Formación";
 $this->idioma["botonProfesional"]="Guardar Datos de Experiencia Profesional";
 $this->idioma["botonDocencia"]="Guardar Datos de Experiencia Docente Universitaria";
 $this->idioma["botonInvestigacion"]="Guardar Datos de Experiencia en Investigación";
-
+$this->idioma["botonProduccion"]="Guardar Datos de Producción Académica";
 $this->idioma["botonIdioma"]="Guardar Datos de Conocimiento en Idioma";
 
 $this->idioma["botonActualizar"]="Actualizar";

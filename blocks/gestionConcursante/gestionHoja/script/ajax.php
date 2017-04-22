@@ -107,7 +107,7 @@ $(function () {
           });  
           
     $("#<?php echo $this->campoSeguro('pais_residencia')?>").change(function(){
-            if($("#<?php echo $this->campoSeguro('paisResidencia')?>").val()!=''){
+            if($("#<?php echo $this->campoSeguro('pais_residencia')?>").val()!=''){
                 consultarDepartamentoRes();
             }else{
                   $("#<?php echo $this->campoSeguro('departamento_residencia')?>").attr('disabled','');
@@ -323,7 +323,41 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").removeAttr('disabled');
                   $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").hide().slideDown("slow");
                  }
+          });     
+          
+// Controles experiencia Produccion          
+          
+    $("#<?php echo $this->campoSeguro('pais_produccion')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('pais_produccion')?>").val()!=''){
+                consultarDepartamentoProd();
+            }else{
+                  $("#<?php echo $this->campoSeguro('departamento_produccion')?>").attr('disabled','');
+                  $("#<?php echo $this->campoSeguro('cuidad_produccion')?>").attr('disabled', '');
+                 }
+          });  
+
+    $("#<?php echo $this->campoSeguro('departamento_produccion')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('departamento_produccion')?>").val()!=''){
+                consultarCiudadProd();
+            }else{
+                  $("#<?php echo $this->campoSeguro('cuidad_produccion')?>").attr('disabled','');
+                 }
+          });          
+
+    $("#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>").change(function(){
+                
+            if($("#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>").val()>0){
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").hide();
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").removeClass("validate[required]");
+            }else if($("#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>").val()==0){
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").attr('enabled');
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").val('');
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").hide().slideDown("slow");
+                    $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").addClass("validate[required]");
+            }
           });           
+          
           
 });
 
@@ -419,7 +453,57 @@ function consultarCiudadRes(elem, request, response){
             }
         });
     };
-    
+
+
+
+
+function consultarDepartamentoProd(elem, request, response){
+            $.ajax({
+	    url: "<?php echo $urlFinalPais?>",
+	    dataType: "json",
+	    data: { valor:$("#<?php echo $this->campoSeguro('pais_produccion')?>").val()},
+            success: function(data){ 
+	        if(data[0]!=" "){
+	            $("#<?php echo $this->campoSeguro('departamento_produccion')?>").html('');
+                        $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('departamento_produccion')?>");
+                        $.each(data , function(indice,valor){
+                            $("<option value='"+data[ indice ].id_departamento+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('departamento_produccion')?>");
+                        });
+                        $("#<?php echo $this->campoSeguro('departamento_produccion')?>").removeAttr('disabled');
+                        //$('#<?php echo $this->campoSeguro('departamento_produccion')?>').width(250);
+                        $("#<?php echo $this->campoSeguro('departamento_produccion')?>").select2();
+                        $("#<?php echo $this->campoSeguro('departamento_produccion')?>").removeClass("validate[required]");
+
+                    $("#<?php echo $this->campoSeguro('ciudad_produccion')?>").html('');
+                        $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('ciudad_produccion')?>");
+                        $("#<?php echo $this->campoSeguro('ciudad_produccion')?>").select2();
+	            }
+	    }
+	   });
+	};
+
+function consultarCiudadProd(elem, request, response){
+        $.ajax({
+            url: "<?php echo $urlFinalDepto?>",
+            dataType: "json",
+            data: { valor:$("#<?php echo $this->campoSeguro('departamento_produccion')?>").val()},
+            success: function(data){ 
+                if(data[0]!=" "){
+                    $("#<?php echo $this->campoSeguro('ciudad_produccion')?>").html('');
+                    $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('ciudad_produccion')?>");
+                    $.each(data , function(indice,valor){
+                           $("<option value='"+data[ indice ].id_ciudad+"'>"+data[ indice ].nombreciudad+"</option>").appendTo("#<?php echo $this->campoSeguro('ciudad_produccion')?>");
+                        });
+                    $("#<?php echo $this->campoSeguro('ciudad_produccion')?>").removeAttr('disabled');
+                    //$('#<?php echo $this->campoSeguro('ciudad_produccion')?>').width(250);
+                    $("#<?php echo $this->campoSeguro('ciudad_produccion')?>").select2();
+                }
+            }
+        });
+    };
+
+
+
 
 function consultarIES(elem, request, response){
         $.ajax({

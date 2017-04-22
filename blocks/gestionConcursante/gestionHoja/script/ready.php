@@ -83,6 +83,23 @@ $('#tablaInvestigacion').DataTable({
 },
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
+$('#tablaProduccion').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+});
                       
 
 $('#tablaIdioma').DataTable({
@@ -190,6 +207,20 @@ $("#datosInvestigacion").validationEngine({
 });    
     $("#datosInvestigacion").submit(function() {
         $resultadoForm=$("#datosInvestigacion").validationEngine("validate");
+        if ($resultadoForm) {
+            return true;
+        }
+        return false;
+    });      
+        
+    
+// Asociar el widget de validación al formulario
+$("#datosProduccion").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
+    $("#datosProduccion").submit(function() {
+        $resultadoForm=$("#datosProduccion").validationEngine("validate");
         if ($resultadoForm) {
             return true;
         }
@@ -380,6 +411,21 @@ $('#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>').datepicker({
         yearRange: '-50:+0'
    });     
    
+$('#<?php echo $this->campoSeguro('fecha_produccion')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0'
+   });   
+   
 $(function() {
         $(document).tooltip();
 });
@@ -455,6 +501,15 @@ $('#<?php echo $this->campoSeguro('nivel_institucion_investigacion')?>').width(2
 $("#<?php echo $this->campoSeguro('nivel_institucion_investigacion')?>").select2(); 
 $('#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>').width(450);
 $("#<?php echo $this->campoSeguro('codigo_institucion_investigacion')?>").select2(); 
+
+$('#<?php echo $this->campoSeguro('pais_produccion')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_produccion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('departamento_produccion')?>').width(210);
+$("#<?php echo $this->campoSeguro('departamento_produccion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('ciudad_produccion')?>').width(210);
+$("#<?php echo $this->campoSeguro('ciudad_produccion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>').width(450);
+$("#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>").select2(); 
 
 
 $('#<?php echo $this->campoSeguro('codigo_idioma')?>').width(210);

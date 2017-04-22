@@ -67,6 +67,14 @@ class redireccion {
                                 $variable.="&nombres=".$valor['nombre'];
                                 $variable.="&apellidos=".$valor['apellido'];
                                 break;  
+                        case "actualizoProduccion":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoProduccion";
+                                $variable.="&id_usuario=".$valor['id_usuario'];
+                                $variable.="&nombres=".$valor['nombre'];
+                                $variable.="&apellidos=".$valor['apellido'];
+                                break;                              
                         case "actualizoIdioma":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";

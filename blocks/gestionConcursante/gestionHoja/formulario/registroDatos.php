@@ -122,8 +122,17 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 6-------------------------
+            // ------------------Division para la pestaña 7-------------------------
+            $atributos ["id"] = "tabProduccion";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
 
-            
+            if(!isset($_REQUEST['consecutivo_produccion']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarProduccion.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosProduccion.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 7-------------------------
             // ------------------Division para la pestaña 8-------------------------
             $atributos ["id"] = "tabIdiomas";
             $atributos ["estilo"] = "";

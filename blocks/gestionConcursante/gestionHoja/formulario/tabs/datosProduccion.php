@@ -55,8 +55,8 @@ class produccionForm {
                                              'tipo_dato'=>'datosProduccion',
                                              'nombre_soporte'=>'soporteProduccion',
                                              'consecutivo_dato'=>$_REQUEST['consecutivo_produccion']);
-                        $cadenaSopInv_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroExp);
-                        $resultadoSopInv = $esteRecursoDB->ejecutarAcceso($cadenaSopInv_sql, "busqueda");
+                        $cadenaSopProd_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroExp);
+                        $resultadoSopProd = $esteRecursoDB->ejecutarAcceso($cadenaSopProd_sql, "busqueda");
 
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
@@ -602,28 +602,31 @@ class produccionForm {
                                                     $atributos ['tipo'] = 'file';
                                                     $atributos ['estilo'] = 'jqueryui';
                                                     $atributos ['marco'] = true;
-                                                    if(isset($resultadoSopInv[0]['archivo']))
-                                                        {  $atributos ['columnas'] = 2;}
-                                                    else{  $atributos ['columnas'] = 1;}
                                                     $atributos ['dobleLinea'] = false;
                                                     $atributos ['tabIndex'] = $tab;
                                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                    $atributos ['obligatorio'] = false;
                                                     $atributos ['etiquetaObligatorio'] = false;
-                                                    $atributos ['validar'] = 'minSize[1]';
+                                                    $atributos ['tamanno'] = 1024;
+                                                    $atributos ['evento'] = 'accept="pdf"';
+                                                    if(isset($resultadoSopProd[0]['archivo']))
+                                                        {  $atributos ['columnas'] = 2;
+                                                           $atributos ['validar'] = ''; 
+                                                        }
+                                                    else{  $atributos ['columnas'] = 1;
+                                                           $atributos ['validar'] = 'required,minSize[1]'; 
+                                                        }
                                                     if (isset ( $_REQUEST [$esteCampo] )) 
                                                          { $atributos ['valor'] = $_REQUEST [$esteCampo];}
                                                     else {  $atributos ['valor'] = '';}
                                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                     $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['tamanno'] = 30;
                                                     $atributos ['anchoCaja'] = 60;
                                                     $atributos ['maximoTamanno'] = '';
                                                     $atributos ['anchoEtiqueta'] = 170;
                                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                                     // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                  if(isset($resultadoSopInv[0]['archivo']))
+                                                  if(isset($resultadoSopProd[0]['archivo']))
                                                         {
                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                                           $esteCampo = 'archivoProduccion';
@@ -657,7 +660,7 @@ class produccionForm {
                                                           $atributos ['obligatorio'] = false;
                                                           $atributos ['etiquetaObligatorio'] = false;
                                                           $atributos ['validar'] = '';
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopInv[0]['ubicacion']."/".$resultadoSopInv[0]['archivo'];
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopProd[0]['ubicacion']."/".$resultadoSopProd[0]['archivo'];
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $atributos ['tamanno'] = 30;

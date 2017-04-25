@@ -132,9 +132,10 @@ class registrarForm {
                                             $atributos ['dobleLinea'] = false;
                                             $atributos ['tabIndex'] = $tab;
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                            $atributos ['obligatorio'] = false;
                                             $atributos ['etiquetaObligatorio'] = false;
-                                            $atributos ['validar'] = 'minSize[1]';
+                                            $atributos ['tamanno'] = 1024;
+                                            $atributos ['evento'] = 'accept="jpg, jpe, jpeg, png, pbm"';
+                                            $atributos ['validar'] = ''; 
                                             if (isset ( $_REQUEST [$esteCampo] )) {
                                                     $atributos ['valor'] = $_REQUEST [$esteCampo];
                                             } else {
@@ -142,7 +143,6 @@ class registrarForm {
                                             }
                                             $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                             $atributos ['deshabilitado'] = FALSE;
-                                            $atributos ['tamanno'] = 30;
                                             $atributos ['anchoCaja'] = 60;
                                             $atributos ['maximoTamanno'] = '';
                                             $atributos ['anchoEtiqueta'] = 170;
@@ -342,21 +342,24 @@ class registrarForm {
                                                             $atributos ['tipo'] = 'file';
                                                             $atributos ['estilo'] = 'jqueryui';
                                                             $atributos ['marco'] = true;
-                                                            $atributos ['columnas'] = 2;
                                                             $atributos ['dobleLinea'] = false;
                                                             $atributos ['tabIndex'] = $tab;
                                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                            $atributos ['obligatorio'] = false;
                                                             $atributos ['etiquetaObligatorio'] = false;
-                                                            $atributos ['validar'] = 'minSize[1]';
-                                                            if (isset ( $_REQUEST [$esteCampo] )) {
-                                                                    $atributos ['valor'] = $_REQUEST [$esteCampo];
-                                                            } else {
-                                                                    $atributos ['valor'] = '';
-                                                            }
+                                                            $atributos ['tamanno'] = 1024;
+                                                            $atributos ['evento'] = 'accept="pdf"';
+                                                            if(isset($resultadoSopIden[0]['archivo']))
+                                                                {  $atributos ['columnas'] = 2;
+                                                                   $atributos ['validar'] = ''; 
+                                                                }
+                                                            else{  $atributos ['columnas'] = 1;
+                                                                   $atributos ['validar'] = 'required,minSize[1]'; 
+                                                                }
+                                                            if (isset ( $_REQUEST [$esteCampo] ))
+                                                                 {$atributos ['valor'] = $_REQUEST [$esteCampo];}
+                                                            else {$atributos ['valor'] = '';}
                                                             $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                             $atributos ['deshabilitado'] = FALSE;
-                                                            $atributos ['tamanno'] = 30;
                                                             $atributos ['anchoCaja'] = 60;
                                                             $atributos ['maximoTamanno'] = '';
                                                             $atributos ['anchoEtiqueta'] = 170;

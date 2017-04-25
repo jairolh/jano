@@ -185,7 +185,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" form.nombre_programa, ";
                                 $cadenaSql.=" form.cursos_aprobados, ";
                                 $cadenaSql.=" form.graduado, ";
-                                $cadenaSql.=" form.fecha_grado";
+                                $cadenaSql.=" form.fecha_grado, ";
+                                $cadenaSql.=" form.promedio ";
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
                                 $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
@@ -497,7 +498,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" nombre_programa, ";
                                 $cadenaSql.=" cursos_aprobados, ";
                                 $cadenaSql.=" graduado,";
-                                $cadenaSql.=" fecha_grado)";
+                                $cadenaSql.=" fecha_grado,";
+                                $cadenaSql.=" promedio)";
                                 $cadenaSql.=" VALUES (";
                                 $cadenaSql.=" DEFAULT,";
                                 $cadenaSql.=" '".$variable['consecutivo_persona']."',";
@@ -514,7 +516,8 @@ class Sql extends \Sql {
                                 else {$cadenaSql.="(SELECT prog.nombre FROM general.programa_ies prog WHERE prog.consecutivo_programa='".$variable['codigo_programa']."'),";}    
                                 $cadenaSql.=" '".$variable['cursos_aprobados']."',";
                                 $cadenaSql.=" '".$variable['graduado']."',";
-                                $cadenaSql.=" '".$variable['fecha_grado']."'";
+                                $cadenaSql.=" '".$variable['fecha_grado']."',";
+                                $cadenaSql.=" '".$variable['promedio']."'";
                                 $cadenaSql.=" )";
                             break;                               
 			case 'registroExperiencia' :
@@ -779,7 +782,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" nombre_programa='".$variable['nombre_programa']."',";
                                 $cadenaSql.=" cursos_aprobados='".$variable['cursos_aprobados']."',";
                                 $cadenaSql.=" graduado='".$variable['graduado']."',";
-                                $cadenaSql.=" fecha_grado='".$variable['fecha_grado']."'";
+                                $cadenaSql.=" fecha_grado='".$variable['fecha_grado']."',";
+                                $cadenaSql.=" promedio='".$variable['promedio']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_formacion='".$variable['consecutivo_formacion']."' ";
                             break;        

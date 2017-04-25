@@ -153,7 +153,7 @@ class consultarDocencia {
                                                 <td align='left'>".$resultadoListaDocencia[$key]['correo_institucion']."</td>";
                                       
                                         $mostrarHtml .= "<td>";
-                                                    if(isset($resultadoSprof[0]['alias']))
+                                                    if(isset($resultadoSdoc[0]['alias']))
                                                         {
                                                           $esteCampo = 'archivoexperiencia'.$resultadoSdoc[0]['consecutivo_soporte'];
                                                           $atributos ['id'] = $esteCampo;

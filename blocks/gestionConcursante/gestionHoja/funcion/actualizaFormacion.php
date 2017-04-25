@@ -46,6 +46,7 @@ class RegistradorFormacion {
                               'cursos_aprobados'=>$_REQUEST['cursos_aprobados'],
                               'graduado'=>$_REQUEST['graduado'],
                               'fecha_grado'=>$_REQUEST['fecha_grado'],
+                              'promedio'=>$_REQUEST['promedio'],
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
             );

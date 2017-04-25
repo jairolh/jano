@@ -108,6 +108,7 @@ class consultarFormacion {
                                             <th>Programa</th>
                                             <th>Modalidad</th>
                                             <th>Cursos aprobados</th>
+                                            <th>Promedio</th>
                                             <th>Graduado</th>
                                             <th>Fecha de grado</th>
                                             <th>Diploma / Acta</th>
@@ -148,6 +149,7 @@ class consultarFormacion {
                                                 <td align='left'>".$resultadoFormacion[$key]['nombre_programa']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['modalidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['cursos_aprobados']."</td>
+                                                <td align='left'>".$resultadoFormacion[$key]['promedio']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['graduado']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['fecha_grado']."</td>";
                                         $mostrarHtml .= "<td> ";

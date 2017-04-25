@@ -56,7 +56,7 @@ class actividadForm {
                                              'nombre_soporte'=>'soporteActividad',
                                              'consecutivo_dato'=>$_REQUEST['consecutivo_actividad']);
                         $cadenaSopDoc_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroExp);
-                        $resultadoSopDoc = $esteRecursoDB->ejecutarAcceso($cadenaSopDoc_sql, "busqueda");
+                        $resultadoSopAct = $esteRecursoDB->ejecutarAcceso($cadenaSopDoc_sql, "busqueda");
 
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
@@ -494,28 +494,31 @@ class actividadForm {
                                                     $atributos ['tipo'] = 'file';
                                                     $atributos ['estilo'] = 'jqueryui';
                                                     $atributos ['marco'] = true;
-                                                    if(isset($resultadoSopDoc[0]['archivo']))
-                                                        {  $atributos ['columnas'] = 2;}
-                                                    else{  $atributos ['columnas'] = 1;}
                                                     $atributos ['dobleLinea'] = false;
                                                     $atributos ['tabIndex'] = $tab;
                                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                    $atributos ['obligatorio'] = false;
                                                     $atributos ['etiquetaObligatorio'] = false;
-                                                    $atributos ['validar'] = 'minSize[1]';
+                                                    $atributos ['tamanno'] = 1024;
+                                                    $atributos ['evento'] = 'accept="pdf"';
+                                                    if(isset($resultadoSopAct[0]['archivo']))
+                                                        {  $atributos ['columnas'] = 2;
+                                                           $atributos ['validar'] = ''; 
+                                                        }
+                                                    else{  $atributos ['columnas'] = 1;
+                                                           $atributos ['validar'] = 'required,minSize[1]'; 
+                                                        }
                                                     if (isset ( $_REQUEST [$esteCampo] )) 
                                                          { $atributos ['valor'] = $_REQUEST [$esteCampo];}
                                                     else {  $atributos ['valor'] = '';}
                                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                     $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['tamanno'] = 30;
                                                     $atributos ['anchoCaja'] = 60;
                                                     $atributos ['maximoTamanno'] = '';
                                                     $atributos ['anchoEtiqueta'] = 170;
                                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                                     // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                  if(isset($resultadoSopDoc[0]['archivo']))
+                                                  if(isset($resultadoSopAct[0]['archivo']))
                                                         {
                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                                           $esteCampo = 'archivoActividad';
@@ -524,7 +527,7 @@ class actividadForm {
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['marco'] = true;
                                                           $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoSopDoc[0]['alias'];
+                                                          $atributos ['enlaceTexto'] = $resultadoSopAct[0]['alias'];
                                                           $atributos ['estilo'] = 'textoGrande textoGris ';
                                                           $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -549,7 +552,7 @@ class actividadForm {
                                                           $atributos ['obligatorio'] = false;
                                                           $atributos ['etiquetaObligatorio'] = false;
                                                           $atributos ['validar'] = '';
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopDoc[0]['ubicacion']."/".$resultadoSopDoc[0]['archivo'];
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopAct[0]['ubicacion']."/".$resultadoSopAct[0]['archivo'];
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $atributos ['tamanno'] = 30;

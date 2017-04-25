@@ -402,8 +402,24 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").hide().slideDown("slow");
                     $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").addClass("validate[required]");
             }
-          });           
+          });   
           
+// Controles de validacion de tipo de archivo          
+    $("input[type='file']").bind('change',function(){
+       var sizeByte = this.files[0].size;
+       var ext=$(this).val().substring($(this).val().lastIndexOf('.') + 1).toLowerCase();   
+       var accept = $(this).attr('accept').toLowerCase();
+       var siezekiloByte = parseInt(sizeByte / 1024);
+       if(accept.indexOf(ext) >= 0){
+              if(siezekiloByte > $(this).attr('size')){
+                  alert('El tamaño del archivo, supera el limite permitido de '+($(this).attr('size')/1024).toFixed(2)+' Mb' );
+                  $(this).val('');
+                  }
+          }
+       else{alert('El tipo archivo no es permitido, debe ser '+accept);
+            $(this).val('');
+           }
+     });
           
 });
 

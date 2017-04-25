@@ -339,7 +339,33 @@ class formacionForm {
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                    
+                                    // ---------------- FIN CONTROL: Cuadro de Texto -------------------------------------------------------- 
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'promedio';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="minSize[1],maxSize[4],custom[number],min[0],max[5]";
+                                    if (isset ( $resultadoFormacion[0]['promedio'] )) 
+                                         {  $atributos ['valor'] = $resultadoFormacion[0]['promedio'];} 
+                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'graduado';
                                     $atributos ['nombre'] = $esteCampo;
@@ -407,21 +433,24 @@ class formacionForm {
                                                     $atributos ['tipo'] = 'file';
                                                     $atributos ['estilo'] = 'jqueryui';
                                                     $atributos ['marco'] = true;
-                                                    if(isset($resultadoSopDip[0]['archivo']))
-                                                        {  $atributos ['columnas'] = 2;}
-                                                    else{  $atributos ['columnas'] = 1;}
                                                     $atributos ['dobleLinea'] = false;
                                                     $atributos ['tabIndex'] = $tab;
                                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                    $atributos ['obligatorio'] = false;
                                                     $atributos ['etiquetaObligatorio'] = false;
-                                                    $atributos ['validar'] = 'minSize[1]';
+                                                    $atributos ['tamanno'] = 1024;
+                                                    $atributos ['evento'] = 'accept="pdf"';
+                                                    if(isset($resultadoSopDip[0]['archivo']))
+                                                        {  $atributos ['columnas'] = 2;
+                                                           $atributos ['validar'] = ''; 
+                                                        }
+                                                    else{  $atributos ['columnas'] = 1;
+                                                           $atributos ['validar'] = 'required,minSize[1]'; 
+                                                        }
                                                     if (isset ( $_REQUEST [$esteCampo] )) 
                                                          { $atributos ['valor'] = $_REQUEST [$esteCampo];}
                                                     else {  $atributos ['valor'] = '';}
                                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                     $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['tamanno'] = 30;
                                                     $atributos ['anchoCaja'] = 60;
                                                     $atributos ['maximoTamanno'] = '';
                                                     $atributos ['anchoEtiqueta'] = 170;
@@ -500,12 +529,13 @@ class formacionForm {
                                                     $atributos ['obligatorio'] = false;
                                                     $atributos ['etiquetaObligatorio'] = false;
                                                     $atributos ['validar'] = '';
+                                                    $atributos ['tamanno'] = 1024;
+                                                    $atributos ['evento'] = 'accept="pdf"';
                                                     if (isset ( $_REQUEST [$esteCampo] )) 
                                                          {    $atributos ['valor'] = $_REQUEST [$esteCampo];} 
                                                     else {  $atributos ['valor'] = '';}
                                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                     $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['tamanno'] = 30;
                                                     $atributos ['anchoCaja'] = 60;
                                                     $atributos ['maximoTamanno'] = '';
                                                     $atributos ['anchoEtiqueta'] = 170;

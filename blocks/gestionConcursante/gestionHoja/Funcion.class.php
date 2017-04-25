@@ -88,6 +88,10 @@ class Funcion {
                             case "guardarDatosDocencia":
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->actualizarDatosDocencia();
+                                break;
+                            case "guardarDatosActividad":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->actualizarDatosActividad();
                                 break; 
                             case "guardarDatosInvestigacion":
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
@@ -189,6 +193,10 @@ class Funcion {
         function actualizarDatosDocencia()
 	{
 		include_once($this->ruta."/funcion/actualizaDocencia.php");
+	}        
+        function actualizarDatosActividad()
+	{
+		include_once($this->ruta."/funcion/actualizaActividad.php");
 	}        
         function actualizarDatosInvestigacion()
 	{

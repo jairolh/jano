@@ -59,7 +59,7 @@ class RegistradorProduccion {
              );
         
         if($arregloDatos['consecutivo_produccion']==0)
-             { echo $cadenaSql = $this->miSql->getCadenaSql ( 'registroProduccion',$arregloDatos );
+             { $cadenaSql = $this->miSql->getCadenaSql ( 'registroProduccion',$arregloDatos );
                $resultadoProduccion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroExperienciaProduccion" );
              }
         else { $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarProduccion',$arregloDatos );

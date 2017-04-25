@@ -44,6 +44,7 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             "tabFormacion"  => $this->lenguaje->getCadena ( "tabFormacion" ),
                             "tabProfesional"  => $this->lenguaje->getCadena ( "tabProfesional" ),
                             "tabDocencia"  => $this->lenguaje->getCadena ( "tabDocencia" ),
+                            "tabActividad"  => $this->lenguaje->getCadena ( "tabActividad" ),
                             "tabInvestigacion"  => $this->lenguaje->getCadena ( "tabInvestigacion" ),
                             "tabProduccion"  => $this->lenguaje->getCadena ( "tabProduccion" ),
                             "tabIdiomas"  => $this->lenguaje->getCadena ( "tabIdiomas" ),
@@ -108,6 +109,17 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             if(!isset($_REQUEST['consecutivo_docencia']))
                    {include_once ($this->ruta . "formulario/tabs/consultarDocencia.php"); }
                    include_once ($this->ruta . "formulario/tabs/datosDocencia.php"); 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 5-------------------------
+            // ------------------Division para la pestaña 5-------------------------
+            $atributos ["id"] = "tabActividad";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+
+            if(!isset($_REQUEST['consecutivo_actividad']))
+                   {include_once ($this->ruta . "formulario/tabs/consultarActividad.php"); }
+                   include_once ($this->ruta . "formulario/tabs/datosActividad.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 5-------------------------

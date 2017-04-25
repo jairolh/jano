@@ -117,29 +117,31 @@ class registrarForm {
                                         $tipo = 'success';
                                         $mensaje = "Los datos de Contacto del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
-                                        //$variable.="&tab=tabContacto";
                                         $pestanna='#tabContacto';
                                         break;                                      
                                     case "actualizoFormacion":
                                         $tipo = 'success';
                                         $mensaje = "Los datos de Formación Académica del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
-                                        //$variable.="&tab=tabContacto";
                                         $pestanna='#tabFormacion';
                                         break;        
                                     case "actualizoProfesional":
                                         $tipo = 'success';
                                         $mensaje = "Los datos de Experiencia Profesional del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
-                                        //$variable.="&tab=tabContacto";
                                         $pestanna='#tabProfesional';
                                         break;                                    
                                     case "actualizoDocencia":
                                         $tipo = 'success';
                                         $mensaje = "Los datos de Experiencia Docente Universitaria del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
-                                        //$variable.="&tab=tabContacto";
                                         $pestanna='#tabDocencia';
+                                        break; 
+                                    case "actualizoActividad":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos de  Actividad Académica del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabActividad';
                                         break; 
                                     case "actualizoInvestigacion":
                                         $tipo = 'success';

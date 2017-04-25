@@ -66,6 +66,24 @@ $('#tablaDocencia').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
 
+$('#tablaActividad').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+});
+
 $('#tablaInvestigacion').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
@@ -186,7 +204,7 @@ $("#datosProfesional").validationEngine({
         }
         return false;
     });     
-    
+
 // Asociar el widget de validación al formulario
 $("#datosDocencia").validationEngine({
     promptPosition : "centerRight", 
@@ -194,6 +212,19 @@ $("#datosDocencia").validationEngine({
 });    
     $("#datosDocencia").submit(function() {
         $resultadoForm=$("#datosDocencia").validationEngine("validate");
+        if ($resultadoForm) {
+            return true;
+        }
+        return false;
+    });
+    
+// Asociar el widget de validación al formulario
+$("#datosActividad").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});    
+    $("#datosActividad").submit(function() {
+        $resultadoForm=$("#datosActividad").validationEngine("validate");
         if ($resultadoForm) {
             return true;
         }
@@ -375,6 +406,41 @@ $('#<?php echo $this->campoSeguro('fecha_fin_docencia')?>').datepicker({
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
         yearRange: '-50:+0'
    });    
+
+$('#<?php echo $this->campoSeguro('fecha_inicio_actividad')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0',
+        <?php /*?>permite asirnara a otro campo como fecha minima */?>
+        onSelect: function(dateText, inst) {
+        var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_inicio_actividad')?>').datepicker('getDate'));
+        //lockDate.setDate(lockDate.getDate() + 1);
+        $('input#<?php echo $this->campoSeguro('fecha_fin_actividad')?>').datepicker('option', 'minDate', lockDate);} 
+   });
+
+$('#<?php echo $this->campoSeguro('fecha_fin_actividad')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-50:+0'
+   });      
    
 $('#<?php echo $this->campoSeguro('fecha_inicio_investigacion')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
@@ -492,6 +558,16 @@ $('#<?php echo $this->campoSeguro('codigo_nivel_docencia')?>').width(210);
 $("#<?php echo $this->campoSeguro('codigo_nivel_docencia')?>").select2(); 
 $('#<?php echo $this->campoSeguro('codigo_vinculacion')?>').width(210);
 $("#<?php echo $this->campoSeguro('codigo_vinculacion')?>").select2(); 
+
+$('#<?php echo $this->campoSeguro('pais_actividad')?>').width(210);
+$("#<?php echo $this->campoSeguro('pais_actividad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_institucion_actividad')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_institucion_actividad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_institucion_actividad')?>').width(450);
+$("#<?php echo $this->campoSeguro('codigo_institucion_actividad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>').width(450);
+$("#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>").select2(); 
+
 
 $('#<?php echo $this->campoSeguro('pais_investigacion')?>').width(210);
 $("#<?php echo $this->campoSeguro('pais_investigacion')?>").select2(); 

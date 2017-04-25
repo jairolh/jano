@@ -38,8 +38,7 @@ class CargarArchivo {
                         $cadena_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametro);
                         $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                         if($resultadoSoporte)
-                            {  
-                                //$nombreArchivo= $_REQUEST['consecutivo']. "_" . $_FILES [$key]['name'];
+                            {  //$nombreArchivo= $_REQUEST['consecutivo']. "_" . $_FILES [$key]['name'];
                                 $extension = end(explode(".", $_FILES [$key]['name']));
                                 $nombreArchivo= $_REQUEST['consecutivo']. "_" .$_REQUEST['consecutivo_dato']. "_" .time(). "." .$extension ;                              
                                 $destino[$key] = $rutaBloque .$resultadoSoporte[0]['ubicacion']."/".$nombreArchivo;

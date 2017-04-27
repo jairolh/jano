@@ -51,6 +51,12 @@ class idiomaForm {
                     {  $parametro['consecutivo_conocimiento']=$_REQUEST['consecutivo_conocimiento'];
                        $cadena_sql = $this->miSql->getCadenaSql("consultarIdiomas", $parametro);
                        $resultadoIdioma = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       $parametroIdm = array('consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
+                                             'tipo_dato'=>'datosIdioma',
+                                             'nombre_soporte'=>'soporteIdioma',
+                                             'consecutivo_dato'=>$_REQUEST['consecutivo_conocimiento']);
+                        $cadenaSopIdm_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroIdm);
+                        $resultadoSopIdm = $esteRecursoDB->ejecutarAcceso($cadenaSopIdm_sql, "busqueda");
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -129,8 +135,122 @@ class idiomaForm {
                                     echo $this->miFormulario->campoCuadroLista ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    $esteCampo = 'nivel_lee';
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['tab'] = $tab ++;
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos ['evento'] = '';
+                                    if (isset($resultadoIdioma[0]['nivel_lee']))
+                                         {  $atributos ['seleccion'] = $resultadoIdioma[0]['nivel_lee'];}
+                                    else {  $atributos ['seleccion'] = -1; }
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['tamanno'] = 1;
+                                    $atributos ['estilo'] = "jqueryui";
+                                    $atributos ['validar'] = "required";
+                                    $atributos ['limitar'] = true;
+                                    $atributos ['anchoCaja'] = 60;
+                                    $atributos ['evento'] = '';
+                                    $parametronivel=array('tipo_nivel'=> 'Idioma',
+                                                          'order'=> 'codigo');
+                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
+                                    $matrizItems = array (array (0,' '));
+                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                    $atributos ['matrizItems'] = $matrizItems;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    //echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------                                 
+                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    $esteCampo = 'nivel_escribe';
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['tab'] = $tab ++;
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos ['evento'] = '';
+                                    if (isset($resultadoIdioma[0]['nivel_escribe']))
+                                         {  $atributos ['seleccion'] = $resultadoIdioma[0]['nivel_escribe'];}
+                                    else {  $atributos ['seleccion'] = -1; }
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['tamanno'] = 1;
+                                    $atributos ['estilo'] = "jqueryui";
+                                    $atributos ['validar'] = "required";
+                                    $atributos ['limitar'] = true;
+                                    $atributos ['anchoCaja'] = 60;
+                                    $atributos ['evento'] = '';
+                                    $parametronivel=array('tipo_nivel'=> 'Idioma',
+                                                          'order'=> 'codigo');
+                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
+                                    $matrizItems = array (array (0,' '));
+                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                    $atributos ['matrizItems'] = $matrizItems;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    //echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------          
+                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    $esteCampo = 'nivel_habla';
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['tab'] = $tab ++;
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos ['evento'] = '';
+                                    if (isset($resultadoIdioma[0]['nivel_habla']))
+                                         {  $atributos ['seleccion'] = $resultadoIdioma[0]['nivel_habla'];}
+                                    else {  $atributos ['seleccion'] = -1; }
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['tamanno'] = 1;
+                                    $atributos ['estilo'] = "jqueryui";
+                                    $atributos ['validar'] = "required";
+                                    $atributos ['limitar'] = true;
+                                    $atributos ['anchoCaja'] = 60;
+                                    $atributos ['evento'] = '';
+                                    $parametronivel=array('tipo_nivel'=> 'Idioma',
+                                                          'order'=> 'codigo');
+                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
+                                    $matrizItems = array (array (0,' '));
+                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                    $atributos ['matrizItems'] = $matrizItems;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    //echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------  
+                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    $esteCampo = 'certificado';
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['tab'] = $tab ++;
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos ['evento'] = ' ';
+                                    if (isset ( $resultadoIdioma[0]['certificacion'] ))
+                                         {  $atributos ['seleccion'] = 'S';}
+                                    else {  $atributos ['seleccion'] = 'N';}
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['tamanno'] = 1;
+                                    $atributos ['estilo'] = "jqueryui";
+                                    $atributos ['validar'] = "required";
+                                    $atributos ['limitar'] = true;
+                                    $atributos ['anchoCaja'] = 60;
+                                    $atributos ['evento'] = '';
+                                    $matrizItems = array (array ('N','NO'),
+                                                          array ('S','SI'));
+                                    $atributos ['matrizItems'] = $matrizItems;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------                                    
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'porc_lee';
+                                    $esteCampo = 'certificacion';
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['nombre'] = $esteCampo;
                                     $atributos ['tipo'] = 'text';
@@ -142,21 +262,24 @@ class idiomaForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],custom[number],min[0],max[100]";
-                                    if (isset ( $resultadoIdioma[0]['porc_lee'] )) 
-                                         {  $atributos ['valor'] = $resultadoIdioma[0]['porc_lee'];} 
-                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['validar']="required,minSize[1]";
+                                    if (isset ( $resultadoIdioma[0]['certificacion'] )) 
+                                         {   $atributos ['valor'] = $resultadoIdioma[0]['certificacion']; 
+                                         }
+                                    else {   $atributos ['valor'] = '';
+                                         }
+                                    $atributos ['deshabilitado'] = false;                                    
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                    
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                      
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'porc_escribe';
+                                    $esteCampo = 'institucion_certificacion';
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['nombre'] = $esteCampo;
                                     $atributos ['tipo'] = 'text';
@@ -168,45 +291,111 @@ class idiomaForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],custom[number],min[0],max[100]";
-                                    if (isset ( $resultadoIdioma[0]['porc_escribe'] )) 
-                                         {  $atributos ['valor'] = $resultadoIdioma[0]['porc_escribe'];} 
-                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['validar']="required,minSize[1]";
+                                    if (isset ( $resultadoIdioma[0]['institucion_certificacion'] )) 
+                                         {   $atributos ['valor'] = $resultadoIdioma[0]['institucion_certificacion']; 
+                                         }
+                                    else {   $atributos ['valor'] = '';
+                                         }
+                                    $atributos ['deshabilitado'] = false;                                    
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------        
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'porc_habla';
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['tipo'] = 'text';
-                                    $atributos ['estilo'] = 'jqueryui';
-                                    $atributos ['marco'] = true;
-                                    $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['dobleLinea'] = 0;
-                                    $atributos ['tabIndex'] = $tab;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],custom[number],min[0],max[100]";
-                                    if (isset ( $resultadoIdioma[0]['porc_habla'] )) 
-                                         {  $atributos ['valor'] = $resultadoIdioma[0]['porc_habla'];} 
-                                    else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
-                                    $atributos ['tamanno'] = 60;
-                                    $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                            
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------    
+                                    // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
+                                        $atributos ["id"]="Idioma";
+                                        $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
+                                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                                        echo $this->miFormulario->division ( "inicio", $atributos );
+                                        unset ( $atributos );
+                                                {
+                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                    $esteCampo = 'soporteIdioma';
+                                                    $atributos ['id'] = $esteCampo;
+                                                    $atributos ['nombre'] = $esteCampo;
+                                                    $atributos ['tipo'] = 'file';
+                                                    $atributos ['estilo'] = 'jqueryui';
+                                                    $atributos ['marco'] = true;
+                                                    $atributos ['dobleLinea'] = false;
+                                                    $atributos ['tabIndex'] = $tab;
+                                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                                    $atributos ['etiquetaObligatorio'] = false;
+                                                    $atributos ['tamanno'] = 1024;
+                                                    $atributos ['evento'] = 'accept="pdf"';
+                                                    if(isset($resultadoSopIdm[0]['archivo']))
+                                                        {  $atributos ['columnas'] = 2;
+                                                           $atributos ['validar'] = ''; 
+                                                        }
+                                                    else{  $atributos ['columnas'] = 1;
+                                                           $atributos ['validar'] = 'required,minSize[1]'; 
+                                                        }
+                                                    if (isset ( $_REQUEST [$esteCampo] )) 
+                                                         { $atributos ['valor'] = $_REQUEST [$esteCampo];}
+                                                    else {  $atributos ['valor'] = '';}
+                                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                    $atributos ['deshabilitado'] = FALSE;
+                                                    $atributos ['anchoCaja'] = 60;
+                                                    $atributos ['maximoTamanno'] = '';
+                                                    $atributos ['anchoEtiqueta'] = 170;
+                                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                  if(isset($resultadoSopIdm[0]['archivo']))
+                                                        {
+                                                           // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                          $esteCampo = 'archivoIdioma';
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_idioma");';
+                                                          $atributos ['tabIndex'] = 0;
+                                                          $atributos ['marco'] = true;
+                                                          $atributos ['columnas'] = 2;
+                                                          $atributos ['enlaceTexto'] = $resultadoSopIdm[0]['alias'];
+                                                          $atributos ['estilo'] = 'textoGrande textoGris ';
+                                                          $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                          $atributos ['ancho'] = '50px';
+                                                          $atributos ['alto'] = '50px';
+                                                          $atributos ['redirLugar'] = false;
+                                                          $atributos ['valor'] = '';
+                                                          $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                          echo $this->miFormulario->enlace( $atributos );
+                                                          unset ( $atributos );
+                                                         // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                          $esteCampo = 'ruta_idioma';
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['nombre'] = $esteCampo;
+                                                          $atributos ['tipo'] = 'hidden';
+                                                          $atributos ['estilo'] = 'jqueryui';
+                                                          $atributos ['marco'] = true;
+                                                          $atributos ['columnas'] = 1;
+                                                          $atributos ['dobleLinea'] = false;
+                                                          $atributos ['tabIndex'] = $tab;
+                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                          $atributos ['obligatorio'] = false;
+                                                          $atributos ['etiquetaObligatorio'] = false;
+                                                          $atributos ['validar'] = '';
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopIdm[0]['ubicacion']."/".$resultadoSopIdm[0]['archivo'];
+                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                          $atributos ['deshabilitado'] = FALSE;
+                                                          $atributos ['tamanno'] = 30;
+                                                          $atributos ['anchoCaja'] = 60;
+                                                          $atributos ['maximoTamanno'] = '';
+                                                          $atributos ['anchoEtiqueta'] = 170;
+                                                          //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                                          echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                      }
+                                            }
+                                        echo $this->miFormulario->division( 'fin' );
+                                        unset ( $atributos );
+                                        // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------                                    
+                                    
+                                    
                                     
                                 }
 				echo $this->miFormulario->division ( "fin" );

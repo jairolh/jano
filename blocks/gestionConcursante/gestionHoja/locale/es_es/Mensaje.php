@@ -9,7 +9,7 @@ $this->idioma["tabDocencia"]="Experiencia Docente";
 $this->idioma["tabActividad"]="Actividades Académicas";
 $this->idioma["tabInvestigacion"]="Experiencia Investigación";
 $this->idioma["tabProduccion"]="Producción Académica";
-$this->idioma["tabIdiomas"]="Conocimiento en Idiomas";
+$this->idioma["tabIdiomas"]="Lengua Extranjera";
 
 $this->idioma["marcoBasicos"]="Registro datos básicos";
 $this->idioma["marcoContacto"]="Registro datos de Contacto";
@@ -25,8 +25,8 @@ $this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación";
 $this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación";
 $this->idioma["marcoProduccion"]="Registro Producción Académica";
 $this->idioma["marcoListaProduccion"]="Producción Académica";
-$this->idioma["marcoIdioma"]="Registro Conocimiento en Idioma";
-$this->idioma["marcoListaIdioma"]="Conocimiento en Idiomas";
+$this->idioma["marcoIdioma"]="Registro Lengua Extranjera";
+$this->idioma["marcoListaIdioma"]="Lengua Extranjera";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -174,7 +174,7 @@ $this->idioma["nivel_actividad"]="Tipo Experiencia: ";
 $this->idioma["pais_actividadTitulo"]="Seleccione el país";
 $this->idioma["pais_actividad"]="País: ";
 $this->idioma["codigo_institucion_actividadTitulo"]="Selecciona La institucion Educativa";
-$this->idioma["codigo_institucion_actividad"]="Institucion Educativa: ";
+$this->idioma["codigo_institucion_actividad"]="Institucion: ";
 $this->idioma["nombre_institucion_actividadTitulo"]="Ingrese el Nombre de la Institucion Educativa";
 $this->idioma["nombre_institucion_actividad"]="Nombre Institucion: ";
 $this->idioma["nivel_institucion_actividadTitulo"]="Selecciona el tipo de Institución";
@@ -187,8 +187,8 @@ $this->idioma["codigo_tipo_actividadTitulo"]="Selecciona la el tipo de actividad
 $this->idioma["codigo_tipo_actividad"]="Tipo Actividad: ";
 $this->idioma["nombre_tipo_actividadTitulo"]="Ingrese Nombre del tipo de Actividad";
 $this->idioma["nombre_tipo_actividad"]="Actividad: ";
-$this->idioma["nombre_actividadTitulo"]="Ingrese el nombre del Evento,Consejo, Grupo o Momitoria en que participó";
-$this->idioma["nombre_actividad"]="Nombre Actividad:&nbsp;&nbsp;&nbsp;<br>Evento,Consejo,Grupo,etc";
+$this->idioma["nombre_actividadTitulo"]="Ingrese el nombre del Certamen, Consejo, Grupo, Monitoria o tipo de distinción académica en que participó";
+$this->idioma["nombre_actividad"]="Nombre Actividad:&nbsp;&nbsp;&nbsp;<br>Consejo,Certamen,Grupo,etc";
 $this->idioma["descripcion_actividadTitulo"]="Describa las actividades realizadas";
 $this->idioma["descripcion_actividad"]="Actividades desempeñadas: ";
 $this->idioma["jefe_actividadTitulo"]="Ingrese el Nombre del director o Jefe de la Actividad";
@@ -276,16 +276,23 @@ $this->idioma["soporteProduccionTitulo"]="Adjuntar Documento en Formato PDF meno
 $this->idioma["soporteProduccion"]="Soporte Producción Académica: "; 
 
 
-$this->idioma["nuevoIdioma"]="Registrar Idioma";
-$this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el Idioma";
+$this->idioma["nuevoIdioma"]="Registrar Lengua Extranjera";
+$this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el Idioma que domina";
 $this->idioma["codigo_idioma"]="Idioma: ";
-$this->idioma["porc_leeTitulo"]="Ingrese el porcetaje de lectura del idioma";
-$this->idioma["porc_lee"]="Porcentaje Lee: ";
-$this->idioma["porc_escribeTitulo"]="Ingrese el porcetaje en que escribe el idioma";
-$this->idioma["porc_escribe"]="Porcentaje escribe: ";
-$this->idioma["porc_hablaTitulo"]="Ingrese el porcetaje en que habla el idioma";
-$this->idioma["porc_habla"]="Porcentaje Habla: ";
-
+$this->idioma["nivel_leeTitulo"]="Seleccione el nivel de lectura del idioma";
+$this->idioma["nivel_lee"]="Nivel Lectura: ";
+$this->idioma["nivel_escribeTitulo"]="Seleccione el nivel de escritura del idioma";
+$this->idioma["nivel_escribe"]="Nivel escritura: ";
+$this->idioma["nivel_hablaTitulo"]="Seleccione el nivel de habla del idioma";
+$this->idioma["nivel_habla"]="Nivel Dialogo: ";
+$this->idioma["certificadoTitulo"]="Indique si el Idioma es certificado";
+$this->idioma["certificado"]="Idioma Certificado: ";
+$this->idioma["certificacionTitulo"]="Ingrese el nombre de la certificación realizada";
+$this->idioma["certificacion"]="Nombre Certificación: ";
+$this->idioma["institucion_certificacionTitulo"]="Ingrese el nombre de la institución que certifica";
+$this->idioma["institucion_certificacion"]="Institución Certifica: ";
+$this->idioma["soporteIdiomaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
+$this->idioma["soporteIdioma"]="Soporte Certificación: ";
 
 $this->idioma["noDefinido"]="No definido";
 $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";
@@ -294,7 +301,7 @@ $this->idioma["noEncontroDocencia"]="No existe Experiencia Docente Universitaria
 $this->idioma["noEncontroActividad"]="No existe Actividad Académica registrada! ";
 $this->idioma["noEncontroInvestigacion"]="No existe Experiencia en Investigación registrada! ";
 $this->idioma["noEncontroProduccion"]="No existe Producción Académica registrada! ";
-$this->idioma["noEncontroIdioma"]="No existe Conocimiento en Idiomas registrado! ";
+$this->idioma["noEncontroIdioma"]="No existe Lengua Extranjera registrada! ";
 
 $this->idioma["botonBasicos"]="Guardar Datos Básicos";
 $this->idioma["botonContacto"]="Guardar Datos de Contacto";
@@ -304,7 +311,7 @@ $this->idioma["botonDocencia"]="Guardar Datos de Experiencia Docente Universitar
 $this->idioma["botonActividad"]="Guardar Datos de Actividad Académica";
 $this->idioma["botonInvestigacion"]="Guardar Datos de Experiencia en Investigación";
 $this->idioma["botonProduccion"]="Guardar Datos de Producción Académica";
-$this->idioma["botonIdioma"]="Guardar Datos de Conocimiento en Idioma";
+$this->idioma["botonIdioma"]="Guardar Datos de Lengua Extranjera";
 
 $this->idioma["botonActualizar"]="Actualizar";
 

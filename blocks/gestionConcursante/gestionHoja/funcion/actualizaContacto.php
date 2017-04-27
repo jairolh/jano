@@ -58,8 +58,7 @@ class RegistradorContactos {
         }
         
         if($resultadoContacto)
-            {   $this->miArchivo->procesarArchivo('datosContacto');
-                redireccion::redireccionar('actualizoContacto',$arregloDatos);  exit();
+            {   redireccion::redireccionar('actualizoContacto',$arregloDatos);  exit();
             }else
             {
                 redireccion::redireccionar('noActualizo',$arregloDatos);  exit();

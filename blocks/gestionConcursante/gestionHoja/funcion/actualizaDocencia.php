@@ -58,6 +58,7 @@ class RegistradorDocencia {
         if($arregloDatos['consecutivo_docencia']==0)
              { $cadenaSql = $this->miSql->getCadenaSql ( 'registroDocencia',$arregloDatos );
                $resultadoDocencia = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroExperienciaDocencia" );
+               $_REQUEST['consecutivo_docencia']=$resultadoDocencia;
              }
         else { $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarDocencia',$arregloDatos );
                $resultadoDocencia = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarExperienciaDocencia" );

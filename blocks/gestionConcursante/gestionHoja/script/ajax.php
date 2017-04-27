@@ -309,6 +309,7 @@ $(function () {
             }
           });  
           
+       /*   
     $("#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>").change(function(){
                 
             if($("#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>").val()>0){
@@ -321,7 +322,7 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('nombre_tipo_actividad')?>").hide().slideDown("slow");
                     $("#<?php echo $this->campoSeguro('nombre_tipo_actividad')?>").addClass("validate[required]");
             }
-          });             
+          });     */        
 // Controles experiencia Investigacion
 
     $("#<?php echo $this->campoSeguro('pais_investigacion')?>").change(function(){
@@ -369,7 +370,8 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").removeAttr('disabled');
                   $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").hide().slideDown("slow");
                  }
-          });     
+          }); 
+          
           
 // Controles experiencia Produccion          
           
@@ -403,6 +405,60 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('nombre_tipo_produccion')?>").addClass("validate[required]");
             }
           });   
+          
+//controles idioma        
+if($("#<?php echo $this->campoSeguro('certificacion')?>").val()==''){
+        $("#<?php echo $this->campoSeguro('certificacion')?>").val('');
+        $("#<?php echo $this->campoSeguro('certificacion')?>").removeClass("validate[required]");
+        $("#<?php echo $this->campoSeguro('certificacion')?>").attr('disabled','');
+        $("#<?php echo $this->campoSeguro('certificacion')?>").hide();
+
+        $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").val('');
+        $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").removeClass("validate[required]");
+        $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").attr('disabled','');
+        $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").hide();
+        
+        $("#<?php echo $this->campoSeguro('soporteIdioma')?>").val('');
+        $("#<?php echo $this->campoSeguro('soporteIdioma')?>").removeClass("validate[required]");
+        $("#<?php echo $this->campoSeguro('soporteIdioma')?>").attr('disabled','');
+        $("#<?php echo $this->campoSeguro('soporteIdioma')?>").hide();        
+    }
+   
+   $("#<?php echo $this->campoSeguro('certificado')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('certificado')?>").val()=='N'){
+                 $("#<?php echo $this->campoSeguro('certificacion')?>").val('');
+                 $("#<?php echo $this->campoSeguro('certificacion')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('certificacion')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('certificacion')?>").hide();
+                 
+                 $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").val('');
+                 $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").hide();
+                 
+                 $("#<?php echo $this->campoSeguro('soporteIdioma')?>").val('');
+                 $("#<?php echo $this->campoSeguro('soporteIdioma')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('soporteIdioma')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('soporteIdioma')?>").hide();
+                 
+                 
+            }else{
+                  $("#<?php echo $this->campoSeguro('certificacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('certificacion')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('certificacion')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('certificacion')?>").hide().slideDown("slow");
+                  
+                  $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").val('');
+                  $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('institucion_certificacion')?>").hide().slideDown("slow");
+                  
+                  $("#<?php echo $this->campoSeguro('soporteIdioma')?>").val('');
+                  $("#<?php echo $this->campoSeguro('soporteIdioma')?>").addClass("validate[required]");
+                  $("#<?php echo $this->campoSeguro('soporteIdioma')?>").removeAttr('disabled');
+                  $("#<?php echo $this->campoSeguro('soporteIdioma')?>").hide().slideDown("slow");
+                 }
+          });       
           
 // Controles de validacion de tipo de archivo          
     $("input[type='file']").bind('change',function(){

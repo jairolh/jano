@@ -61,6 +61,7 @@ class RegistradorProduccion {
         if($arregloDatos['consecutivo_produccion']==0)
              { $cadenaSql = $this->miSql->getCadenaSql ( 'registroProduccion',$arregloDatos );
                $resultadoProduccion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroExperienciaProduccion" );
+               $_REQUEST['consecutivo_produccion']=$resultadoProduccion;
              }
         else { $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarProduccion',$arregloDatos );
                $resultadoProduccion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarExperienciaProduccion" );

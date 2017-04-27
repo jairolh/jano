@@ -100,18 +100,40 @@ class consultarIdioma {
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
                                 echo "<div class='cell-border'><table id='tablaIdioma' class='table table-striped table-bordered'>";
+                              /*
                                 echo "<thead>
                                         <tr align='center'>
                                             <th>Idioma </th>
-                                            <th>Lee</th>                                            
-                                            <th>Escribe</th>                                            
-                                            <th>Habla</th>
+                                            <th>Nivel Lectura</th>                                            
+                                            <th>Nivel Escritura</th>                                            
+                                            <th>Nivel Dialogo</th>
+                                            <th>Certificación</th>
+                                            <th>Institución certifica</th>
+                                            <th>Soporte</th>
+                                            <th>Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";*/
+                                echo "<thead>
+                                        <tr align='center'>
+                                            <th>Idioma </th>
+                                            <th>Certificación</th>
+                                            <th>Institución certifica</th>
+                                            <th>Soporte</th>
                                             <th>Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
+                                
                                 foreach($resultadoListaIdioma as $key=>$value )
-                                    {   $parametro['tipo']='unico';
+                                    {   
+                                        $parametroSop = array('consecutivo'=>$resultadoListaIdioma[$key]['consecutivo_persona'],
+                                             'tipo_dato'=>'datosIdioma',
+                                             'nombre_soporte'=>'soporteIdioma',
+                                             'consecutivo_dato'=>$resultadoListaIdioma[$key]['consecutivo_conocimiento']
+                                            );
+                                        $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                                        $resultadoSidm = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
                                         $variableEditar.= "&opcion=mostrar";
                                         $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -123,13 +145,51 @@ class consultarIdioma {
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabIdiomas";
                                         
+                                        /*$mostrarHtml = "<tr align='center'>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['idioma']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['nombre_nivel_lee']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['nombre_nivel_escribe']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['nombre_nivel_habla']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['certificacion']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['institucion_certificacion']."</td>";*/
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['idioma']."</td>
-                                                <td align='left'>".$resultadoListaIdioma[$key]['porc_lee']." %</td>
-                                                <td align='left'>".$resultadoListaIdioma[$key]['porc_escribe']." %</td>
-                                                <td align='left'>".$resultadoListaIdioma[$key]['porc_habla']." %</td>";
+                                                <td align='left'>".$resultadoListaIdioma[$key]['certificacion']."</td>
+                                                <td align='left'>".$resultadoListaIdioma[$key]['institucion_certificacion']."</td>";
                                       
                                         $mostrarHtml .= "<td>";
+                                                    if(isset($resultadoSidm[0]['alias']))
+                                                        {
+                                                          $esteCampo = 'archivoactividad'.$resultadoSidm[0]['consecutivo_soporte'];
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_idioma'.$resultadoSidm[0]['consecutivo_soporte'].'");';
+                                                          $atributos ['tabIndex'] = 0;
+                                                          $atributos ['columnas'] = 2;
+                                                          $atributos ['enlaceTexto'] = $resultadoSidm[0]['alias'];
+                                                          $atributos ['estilo'] = 'clasico';
+                                                          $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                          $atributos ['ancho'] = '25px';
+                                                          $atributos ['alto'] = '25px';
+                                                          $atributos ['redirLugar'] = false;
+                                                          $atributos ['valor'] = '';
+                                                          $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                          unset ( $atributos );
+                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                          $esteCampo = 'ruta_idioma'.$resultadoSidm[0]['consecutivo_soporte'];
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['nombre'] = $esteCampo;
+                                                          $atributos ['tipo'] = 'hidden';
+                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                          $atributos ['obligatorio'] = false;
+                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSidm[0]['ubicacion']."/".$resultadoSidm[0]['archivo'];
+                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                          $atributos ['deshabilitado'] = FALSE;
+                                                          $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                        }
+                                        $mostrarHtml .= "</td>
+                                                        <td>";
                                                     //-------------Enlace-----------------------
                                                     $esteCampo = "editar";
                                                     $atributos["id"]=$esteCampo;

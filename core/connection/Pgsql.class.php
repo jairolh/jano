@@ -472,6 +472,7 @@ class Pgsql extends ConectorDb {
 	 * @return boolean
 	 * @access private
 	 */
+        /*
 	private function ejecutar_acceso_db($cadena) {
 		if (! @pg_query ( $this->enlace, $cadena )) {
 			$this->error = pg_last_error ( $this->enlace );
@@ -479,7 +480,27 @@ class Pgsql extends ConectorDb {
 		} else {
 			return TRUE;
 		}
+	}*/
+        private function ejecutar_acceso_db($cadena) {
+            
+                //execute query
+                $result = pg_query($this->enlace, $cadena);
+                //write query result to array
+                $row = pg_fetch_row($result);
+                //write array to variable id
+                $retorna = $row[0];
+            
+                if (isset($retorna) && $retorna!='' ) {
+			return $retorna;
+                }
+		elseif (!@$result) {
+			$this->error = pg_last_error ( $this->enlace );
+			return FALSE;
+		} else {
+			return TRUE;
+		}
 	}
+        
 	function tratarCadena($cadena) {
 		return str_replace ( "<AUTOINCREMENT>", "DEFAULT", $cadena );
 	}

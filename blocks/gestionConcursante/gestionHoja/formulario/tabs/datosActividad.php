@@ -290,7 +290,7 @@ class actividadForm {
                                     $atributos ['evento'] = '';
                                     if (isset($resultadoActividad[0]['codigo_tipo_actividad']))
                                          {  $atributos ['seleccion'] = $resultadoActividad[0]['codigo_tipo_actividad'];}
-                                    else {  $atributos ['seleccion'] = 0; }
+                                    else {  $atributos ['seleccion'] = -1; }
                                     $atributos ['columnas'] = 1;
                                     $atributos ['tamanno'] = 1;
                                     $atributos ['estilo'] = "jqueryui";
@@ -299,7 +299,7 @@ class actividadForm {
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
                                     $parametronivel=array('tipo_nivel'=> 'ActividadAcademica',
-                                                          'add_otro'=> 'SI'  
+                                                         // 'add_otro'=> 'SI'  
                                                          );
                                     $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
                                     $matrizItems = array (array (0,' '));
@@ -336,7 +336,7 @@ class actividadForm {
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $tab ++;
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    //echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                      
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -409,12 +409,12 @@ class actividadForm {
                                     $atributos ['estilo'] = 'jqueryui';
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ["etiquetaObligatorio"] = false;
                                     $atributos ['columnas'] = 1;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="minSize[1]";
                                     if (isset ( $resultadoActividad[0]['jefe_actividad'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['jefe_actividad']; }
                                     else {   $atributos ['valor'] = ''; }

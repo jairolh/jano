@@ -51,7 +51,7 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
                             //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
             );
             $atributos ["items"] = $items;
-            $atributos ["estilo"] = "jqueryui";
+            $atributos ["estilo"] = "";
             $atributos ["pestañas"] = "true";
             //$atributos ["menu"] = "true";
             //$atributos ["enlacePestaña"] = "true";

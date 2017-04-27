@@ -53,6 +53,7 @@ class RegistradorFormacion {
         if($arregloDatos['consecutivo_formacion']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroFormacion',$arregloDatos );
                 $resultadoFormacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroFormacion" );
+                $_REQUEST['consecutivo_formacion']=$resultadoFormacion;
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarFormacion',$arregloDatos );
                 $resultadoFormacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarFormacion" );

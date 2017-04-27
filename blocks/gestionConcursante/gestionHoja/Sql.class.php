@@ -354,9 +354,14 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conidm.consecutivo_persona, ";
                                 $cadenaSql.=" conidm.codigo_idioma, ";
                                 $cadenaSql.=" idm.nombre idioma, ";
-                                $cadenaSql.=" conidm.porc_lee, ";
-                                $cadenaSql.=" conidm.porc_escribe,";
-                                $cadenaSql.=" conidm.porc_habla";
+                                $cadenaSql.=" conidm.nivel_lee, ";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_lee,'99')) nombre_nivel_lee,";
+                                $cadenaSql.=" conidm.nivel_escribe,";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_escribe,'99')) nombre_nivel_escribe,";
+                                $cadenaSql.=" conidm.nivel_habla, ";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_habla,'99')) nombre_nivel_habla,";
+                                $cadenaSql.=" conidm.certificacion,";
+                                $cadenaSql.=" conidm.institucion_certificacion";
                                 $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
                                 $cadenaSql.=" INNER JOIN concurso.conocimiento_idioma conidm ON conidm.consecutivo_persona=bas.consecutivo";    
@@ -400,7 +405,10 @@ class Sql extends \Sql {
                                         $cadenaSql.=" 'A' estado";
                                         $cadenaSql.=" FROM general.nivel";
                                     }
-                                $cadenaSql.=" ORDER BY nombre ";        
+                                if(isset($variable['order']) && $variable['order']=='codigo')
+                                     {$cadenaSql.=" ORDER BY codigo_nivel ";  }    
+                                else {$cadenaSql.=" ORDER BY nombre ";  }
+                                
                             break;  
                         case "consultarInstitucion":
                                 $cadenaSql=" SELECT DISTINCT ";
@@ -519,6 +527,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['fecha_grado']."',";
                                 $cadenaSql.=" '".$variable['promedio']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_formacion";
                             break;                               
 			case 'registroExperiencia' :
                                 $cadenaSql=" INSERT INTO concurso.experiencia_laboral(";
@@ -554,6 +563,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['fecha_inicio']."',";
                                 $cadenaSql.=" '".$variable['fecha_fin']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_experiencia";
                             break;   
 			case 'registroDocencia' :
                                 $cadenaSql=" INSERT INTO ";
@@ -596,6 +606,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['fecha_inicio_docencia']."',";
                                 $cadenaSql.=" '".$variable['fecha_fin_docencia']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_docencia";
                             break;     
                         case 'registroActividad' :
                                 $cadenaSql=" INSERT INTO ";
@@ -636,6 +647,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['fecha_inicio_actividad']."',";
                                 $cadenaSql.=" '".$variable['fecha_fin_actividad']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_actividad";
                             break;                              
 			case 'registroInvestigacion' :
                                 $cadenaSql=" INSERT INTO ";
@@ -680,6 +692,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['grupo_investigacion']."',";
                                 $cadenaSql.=" '".$variable['categoria_grupo']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_investigacion";
                             break;
                         case 'registroProduccion' :
                                 $cadenaSql=" INSERT INTO concurso.produccion_academica(";
@@ -725,23 +738,29 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['direccion_produccion']."',";
                                 $cadenaSql.=" '".$variable['fecha_produccion']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_produccion";
                             break;      
 			case 'registroIdioma' :
                                 $cadenaSql=" INSERT INTO concurso.conocimiento_idioma(";
                                 $cadenaSql.=" consecutivo_conocimiento,";
                                 $cadenaSql.=" consecutivo_persona,";
                                 $cadenaSql.=" codigo_idioma, ";
-                                $cadenaSql.=" porc_lee, ";
-                                $cadenaSql.=" porc_escribe, ";
-                                $cadenaSql.=" porc_habla)";
+                                $cadenaSql.=" nivel_lee, ";
+                                $cadenaSql.=" nivel_escribe, ";
+                                $cadenaSql.=" nivel_habla, ";
+                                $cadenaSql.=" certificacion, ";
+                                $cadenaSql.=" institucion_certificacion)";
                                 $cadenaSql.=" VALUES (";
                                 $cadenaSql.=" DEFAULT,";
                                 $cadenaSql.=" '".$variable['consecutivo_persona']."',";
                                 $cadenaSql.=" '".$variable['codigo_idioma']."',";
-                                $cadenaSql.=" '".$variable['porc_lee']."',";
-                                $cadenaSql.=" '".$variable['porc_escribe']."',";
-                                $cadenaSql.=" '".$variable['porc_habla']."'";
+                                $cadenaSql.=" '".$variable['nivel_lee']."',";
+                                $cadenaSql.=" '".$variable['nivel_escribe']."',";
+                                $cadenaSql.=" '".$variable['nivel_habla']."',";
+                                $cadenaSql.=" '".$variable['certificacion']."',";
+                                $cadenaSql.=" '".$variable['institucion_certificacion']."'";
                                 $cadenaSql.=" )";
+                                $cadenaSql.=" RETURNING consecutivo_conocimiento";
                             break;                                   
                         case "actualizarBasicos":
                                 $cadenaSql=" UPDATE concurso.persona";
@@ -907,9 +926,11 @@ class Sql extends \Sql {
                                 $cadenaSql=" UPDATE concurso.conocimiento_idioma ";
                                 $cadenaSql.=" SET ";
                                 $cadenaSql.=" codigo_idioma='".$variable['codigo_idioma']."',";
-                                $cadenaSql.=" porc_lee='".$variable['porc_lee']."',";
-                                $cadenaSql.=" porc_escribe='".$variable['porc_escribe']."',";
-                                $cadenaSql.=" porc_habla='".$variable['porc_habla']."'";
+                                $cadenaSql.=" nivel_lee='".$variable['nivel_lee']."',";
+                                $cadenaSql.=" nivel_escribe='".$variable['nivel_escribe']."',";
+                                $cadenaSql.=" nivel_habla='".$variable['nivel_habla']."',";
+                                $cadenaSql.=" certificacion='".$variable['certificacion']."',";
+                                $cadenaSql.=" institucion_certificacion='".$variable['institucion_certificacion']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";
                             break;                                  

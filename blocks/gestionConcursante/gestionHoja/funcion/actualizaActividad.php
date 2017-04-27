@@ -56,6 +56,7 @@ class RegistradorActividad {
         if($arregloDatos['consecutivo_actividad']==0)
              { $cadenaSql = $this->miSql->getCadenaSql ( 'registroActividad',$arregloDatos );
                $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroActividadAcademica" );
+               $_REQUEST['consecutivo_actividad']=$resultadoActividad;
              }
         else { $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarActividad',$arregloDatos );
                $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarActividadAcademica" );

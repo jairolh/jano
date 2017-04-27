@@ -590,6 +590,14 @@ $("#<?php echo $this->campoSeguro('codigo_tipo_produccion')?>").select2();
 
 $('#<?php echo $this->campoSeguro('codigo_idioma')?>').width(210);
 $("#<?php echo $this->campoSeguro('codigo_idioma')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_lee')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_lee')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_escribe')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_escribe')?>").select2(); 
+$('#<?php echo $this->campoSeguro('nivel_habla')?>').width(210);
+$("#<?php echo $this->campoSeguro('nivel_habla')?>").select2(); 
+$('#<?php echo $this->campoSeguro('certificado')?>').width(210);
+$("#<?php echo $this->campoSeguro('certificado')?>").select2(); 
 
 
 <?php 

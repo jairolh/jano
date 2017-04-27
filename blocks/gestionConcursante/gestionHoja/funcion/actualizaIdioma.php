@@ -38,23 +38,28 @@ class RegistradorIdioma {
                               'consecutivo_conocimiento'=>$_REQUEST['consecutivo_conocimiento'],
                               'consecutivo_persona'=>$_REQUEST['consecutivo_persona'],
                               'codigo_idioma'=>$_REQUEST['codigo_idioma'],
-                              'porc_lee'=>$_REQUEST['porc_lee'],
-                              'porc_escribe'=>$_REQUEST['porc_escribe'],
-                              'porc_habla'=>$_REQUEST['porc_habla'],
+                              'nivel_lee'=>$_REQUEST['nivel_lee'],
+                              'nivel_escribe'=>$_REQUEST['nivel_escribe'],
+                              'nivel_habla'=>$_REQUEST['nivel_habla'],
+                              'certificacion'=>$_REQUEST['certificacion'],
+                              'institucion_certificacion'=>$_REQUEST['institucion_certificacion'],
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
             );
-
         if($arregloDatos['consecutivo_conocimiento']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroIdioma',$arregloDatos );
                 $resultadoIdioma = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registrarConocimientoIdioma" );
+                $_REQUEST['consecutivo_conocimiento']=$resultadoIdioma;
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarIdioma',$arregloDatos );
                 $resultadoIdioma = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarConocimientoIdioma" );
         }
         
         if($resultadoIdioma)
-            {   redireccion::redireccionar('actualizoIdioma',$arregloDatos);  exit();
+            {   $_REQUEST['consecutivo']=$_REQUEST['consecutivo_persona'];
+                $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_conocimiento'];
+                $this->miArchivo->procesarArchivo('datosIdioma');
+                redireccion::redireccionar('actualizoIdioma',$arregloDatos);  exit();
             }else
             {
                 redireccion::redireccionar('noActualizo',$arregloDatos);  exit();

@@ -66,6 +66,7 @@ class RegistradorExperiencia {
         if($arregloDatos['consecutivo_experiencia']==0)
              { $cadenaSql = $this->miSql->getCadenaSql ( 'registroExperiencia',$arregloDatos );
                $resultadoExperiencia = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroExperienciaProfesional" );
+               $_REQUEST['consecutivo_experiencia']=$resultadoExperiencia;
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarExperiencia',$arregloDatos );
                $resultadoExperiencia = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarExperienciaProfesional" );

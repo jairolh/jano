@@ -159,7 +159,7 @@ class registrarForm {
                                         break;    
                                     case "actualizoIdioma":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos de Conocimiento en idioma del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
+                                        $mensaje = "Los datos de Segunda Lengua del usuario ".$_REQUEST['nombres']." ".$_REQUEST['apellidos'].", se actualizarón exitosamente.";
                                         $boton = "continuar";
                                         //$variable.="&tab=tabContacto";
                                         $pestanna='#tabIdiomas';

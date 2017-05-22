@@ -141,41 +141,6 @@ class registrarForm {
 				unset ( $atributos );
 				// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
        			
-       			// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-				$esteCampo = 'estadoFactor';
-				$atributos ['columnas'] = 2;
-				$atributos ['nombre'] = $esteCampo;
-				$atributos ['id'] = $esteCampo;
-				$atributos ['evento'] = '';
-				$atributos ['deshabilitado'] = false;
-				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['tab'] = $tab;
-				$atributos ['tamanno'] = 1;
-				$atributos ['estilo'] = 'jqueryui';
-				$atributos ['validar'] = 'required';
-				$atributos ['limitar'] = true;
-				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-				$atributos ['anchoEtiqueta'] = 170;
-                $atributos ['anchoCaja'] = 60;
-				if (isset ( $_REQUEST [$esteCampo] ))
-                	{$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
-              	else {	$atributos ['seleccion'] = -1;}
-		
-				$matrizItems[0][0] = "A";
-				$matrizItems[0][1] = "Activo";
-				$matrizItems[1][0] = "I";
-				$matrizItems[1][1] = "Inactivo";
-				
-				$atributos ['matrizItems'] = $matrizItems;
-				// Utilizar lo siguiente cuando no se pase un arreglo:
-				// $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
-				// $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
-				$tab ++;
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->campoCuadroLista ( $atributos );
-				unset ( $atributos );
-                // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                
 				echo $this->miFormulario->division ( "fin" );
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";

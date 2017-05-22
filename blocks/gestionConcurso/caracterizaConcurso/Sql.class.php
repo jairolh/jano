@@ -91,10 +91,9 @@ class Sql extends \Sql {
                         
                         
                         case "registrarFactor":
-                        	$cadenaSql = "INSERT INTO concurso.factor_evaluacion(nombre, estado)";
+                        	$cadenaSql = "INSERT INTO concurso.factor_evaluacion(nombre)";
                         	$cadenaSql .= " VALUES ( ";
-                        	$cadenaSql .= " '".$variable['nombre']."', ";
-                        	$cadenaSql .= " '".$variable['estado']."' ";
+                        	$cadenaSql .= " '".$variable['nombre']."' ";
                         	$cadenaSql .= " ) ";
                         	$cadenaSql .= " RETURNING consecutivo_factor";
                         	break;

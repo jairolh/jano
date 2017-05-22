@@ -35,8 +35,7 @@ class RegistradorPerfil {
         $conexion="estructura";
 		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
         
-		$datos = array('nombre'=> $_REQUEST['nombreFactor'],
-				'estado'=> $_REQUEST['estadoFactor']
+		$datos = array('nombre'=> $_REQUEST['nombreFactor']
 		);
 		
 		$cadena_sql = $this->miSql->getCadenaSql("registrarFactor", $datos);

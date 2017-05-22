@@ -123,7 +123,6 @@ class consultarForm {
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
-                                    <th>Editar</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
@@ -131,17 +130,6 @@ class consultarForm {
 
                         foreach($resultadoFactores as $key=>$value )
                             { 
-                            	
-                            	$variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                      
-                                $variableEditar.= "&opcion=editar";
-                                $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                $variableEditar.= "&id_factor=" .$resultadoFactores[$key]['consecutivo_factor'];
-                                $variableEditar.= "&factor=" .$resultadoFactores[$key]['nombre'];
-                                $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                $variableEditar.= "&tiempo=" . time ();
-			
-                                $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
-                                
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                 if($resultadoFactores[$key]['estado']=='A')
@@ -159,24 +147,9 @@ class consultarForm {
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoFactores[$key]['consecutivo_factor']."</td>
                                         <td align='left'>".$resultadoFactores[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>
-                                        <td>";
-                                                    //-------------Enlace-----------------------
-                                                $esteCampo = "editar";
-                                                $atributos["id"]=$esteCampo;
-                                                $atributos['enlace']=$variableEditar;
-                                                $atributos['tabIndex']=$esteCampo;
-                                                $atributos['redirLugar']=true;
-                                                $atributos['estilo']='clasico';
-                                                $atributos['enlaceTexto']='';
-                                                $atributos['ancho']='25';
-                                                $atributos['alto']='25';
-                                                $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
-                                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                unset($atributos);    
+                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>";
                                 
-		                        $mostrarHtml .= "</td>
-		                                          <td>";
+		                        $mostrarHtml .= "<td>";
 
                                         if($resultadoFactores[$key]['estado']=='A')
                                             {   

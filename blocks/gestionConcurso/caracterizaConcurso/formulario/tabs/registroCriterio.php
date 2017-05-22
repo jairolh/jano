@@ -181,42 +181,6 @@ class registrarForm {
 				unset ( $atributos );
 				// ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
 				
-                                
-				// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-				$esteCampo = 'estadoCriterio';
-				$atributos ['columnas'] = 2;
-				$atributos ['nombre'] = $esteCampo;
-				$atributos ['id'] = $esteCampo;
-				$atributos ['evento'] = '';
-				$atributos ['deshabilitado'] = false;
-				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['tab'] = $tab;
-				$atributos ['tamanno'] = 1;
-				$atributos ['estilo'] = 'jqueryui';
-				$atributos ['validar'] = 'required';
-				$atributos ['limitar'] = true;
-				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-				$atributos ['anchoEtiqueta'] = 170;
-				$atributos ['anchoCaja'] = 60;
-				if (isset ( $_REQUEST [$esteCampo] ))
-				{$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
-				else {	$atributos ['seleccion'] = -1;}
-				
-				$matriz[0][0] = "A";
-				$matriz[0][1] = "Activo";
-				$matriz[1][0] = "I";
-				$matriz[1][1] = "Inactivo";
-				
-				$atributos ['matrizItems'] = $matriz;
-				// Utilizar lo siguiente cuando no se pase un arreglo:
-				// $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
-				// $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
-				$tab ++;
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->campoCuadroLista ( $atributos );
-				unset ( $atributos );
-				// ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-				
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";

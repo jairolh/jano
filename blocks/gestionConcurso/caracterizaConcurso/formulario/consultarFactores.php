@@ -143,6 +143,11 @@ class consultarForm {
                                 $variableEstado.= "&tiempo=" . time ();
                                 $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
+                                if($resultadoFactores[$key]['estado']=='A'){
+                                	$resultadoFactores[$key]['estado']="Activo";
+                                }else{
+                                	$resultadoFactores[$key]['estado']="Inactivo";
+                                }
                                 
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoFactores[$key]['consecutivo_factor']."</td>
@@ -151,7 +156,7 @@ class consultarForm {
                                 
 		                        $mostrarHtml .= "<td>";
 
-                                        if($resultadoFactores[$key]['estado']=='A')
+                                        if($resultadoFactores[$key]['estado']=='Activo')
                                             {   
                                             	$esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;

@@ -100,11 +100,10 @@ class Sql extends \Sql {
                         	
                         	
                         	case "registrarCriterio":
-                        		$cadenaSql = "INSERT INTO concurso.criterio_evaluacion(consecutivo_factor, nombre, estado)";
+                        		$cadenaSql = "INSERT INTO concurso.criterio_evaluacion(consecutivo_factor, nombre)";
                         		$cadenaSql .= " VALUES ( ";
                         		$cadenaSql .= " '".$variable['factor']."', ";
-                        		$cadenaSql .= " '".$variable['nombre']."', ";
-                        		$cadenaSql .= " '".$variable['estado']."' ";
+                        		$cadenaSql .= " '".$variable['nombre']."' ";
                         		$cadenaSql .= " ) ";
                         		$cadenaSql .= " RETURNING consecutivo_criterio";
                         		break;

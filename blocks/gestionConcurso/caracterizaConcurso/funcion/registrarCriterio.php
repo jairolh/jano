@@ -36,8 +36,7 @@ class RegistradorPerfil {
 		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
         
 		$datos = array('nombre'=> $_REQUEST['nombreCriterio'],
-				'factor'=> $_REQUEST['seleccionFactor'],
-				'estado'=> $_REQUEST['estadoCriterio']
+				'factor'=> $_REQUEST['seleccionFactor']
 		);
 		
 		$cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);

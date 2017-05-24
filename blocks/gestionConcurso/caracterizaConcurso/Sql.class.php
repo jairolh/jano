@@ -49,6 +49,7 @@ class Sql extends \Sql {
                         
                         case "buscarFactores":
                         	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
+                        	$cadenaSql .= " WHERE estado ='A'";
                             break;
                         
                             

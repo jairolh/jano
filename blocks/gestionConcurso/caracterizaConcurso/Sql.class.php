@@ -46,11 +46,25 @@ class Sql extends \Sql {
 			case "consultaFactores":
                 $cadenaSql = "Select * from concurso.factor_evaluacion";
                 break;
+                
+                case "consultaModalidades":
+                	$cadenaSql = "Select * from concurso.modalidad_concurso";
+                	break;
                         
-                        case "buscarFactores":
-                        	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
-                        	$cadenaSql .= " WHERE estado ='A'";
+                	case "consultaModalidades":
+                		$cadenaSql = "Select * from general.nivel ";
+                		$cadenaSql .= "WHERE tipo_nivel='TipoConcurso'";
+                		break;
+                	
+                        case "buscarNiveles":
+                        	$cadenaSql = " SELECT * FROM general.nivel ";
+                        	$cadenaSql .= " WHERE tipo_nivel ='TipoConcurso'";
                             break;
+                            
+            case "buscarFactores":
+            	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
+            	$cadenaSql .= " WHERE estado ='A'";
+            	break;
                         
                             
             case "consultarCriterios":
@@ -108,6 +122,16 @@ class Sql extends \Sql {
                         		$cadenaSql .= " ) ";
                         		$cadenaSql .= " RETURNING consecutivo_criterio";
                         		break;
+                        		
+                        		
+                        		case "registrarModalidad":
+                        			$cadenaSql = "INSERT INTO concurso.modalidad_concurso(codigo_nivel_concurso, nombre)";
+                        			$cadenaSql .= " VALUES ( ";
+                        			$cadenaSql .= " ".$variable['nivel'].", ";
+                        			$cadenaSql .= " '".$variable['nombre']."' ";
+                        			$cadenaSql .= " ) ";
+                        			$cadenaSql .= " RETURNING consecutivo_modalidad";
+                        			break;
                             
                         case "insertarRol":
                             
@@ -139,6 +163,12 @@ class Sql extends \Sql {
                 $cadenaSql .= " estado = '".$variable['estado']."'";
                 $cadenaSql .= " WHERE consecutivo_factor = '".$variable['id_factor']."' ";
 				break; 
+				
+			case "cambiarEstadoModalidad":
+				$cadenaSql = "UPDATE concurso.modalidad_concurso SET ";
+				$cadenaSql .= " estado = '".$variable['estado']."'";
+				$cadenaSql .= " WHERE consecutivo_modalidad = '".$variable['id_modalidad']."' ";
+				break;
                     
                 case "editarFactor":
                 	$cadenaSql = "UPDATE concurso.factor_evaluacion ";

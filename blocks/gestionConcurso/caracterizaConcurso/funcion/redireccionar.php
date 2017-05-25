@@ -26,6 +26,20 @@ class redireccion {
         		$variable.="&mensaje=habilito";
         		$variable.="&factor=".$valor['nombre_factor'];
 				break;
+				
+				case "inhabilitarModalidad":
+					$variable="pagina=".$miPaginaActual;
+					$variable.="&opcion=mensaje";
+					$variable.="&mensaje=inhabilitoModalidad";
+					$variable.="&modalidad=".$valor['nombre_modalidad'];
+					break;
+					 
+				case "habilitarModalidad":
+					$variable="pagina=".$miPaginaActual;
+					$variable.="&opcion=mensaje";
+					$variable.="&mensaje=habilitoModalidad";
+					$variable.="&modalidad=".$valor['nombre_modalidad'];
+					break;
 			
 			case "nohabilitar":
 				$variable="pagina=".$miPaginaActual;
@@ -61,6 +75,20 @@ class redireccion {
             	$variable.="&mensaje=errorCriterio";
             	$variable.="&nombreCriterio=".$valor['nombre'];
             	break;
+            	
+            	case "insertoModalidad":
+            		$variable="pagina=".$miPaginaActual;
+            		$variable.="&opcion=mensaje";
+            		$variable.="&mensaje=confirmaModalidad";
+            		$variable.="&nombreModalidad=".$valor['nombre'];
+            		break;
+            	
+            	case "noInsertoModalidad":
+            		$variable="pagina=".$miPaginaActual;
+            		$variable.="&opcion=mensaje";
+            		$variable.="&mensaje=errorModalidad";
+            		$variable.="&nombreModalidad=".$valor['nombre'];
+            		break;
             
             case "editoFactor":
             	$variable="pagina=".$miPaginaActual;

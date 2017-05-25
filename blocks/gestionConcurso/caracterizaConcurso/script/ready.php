@@ -117,6 +117,10 @@ $("#<?php echo $this->campoSeguro('seleccionFactor')?>").select2();
 $('#<?php echo $this->campoSeguro('estadoCriterio')?>').width(210);
 $("#<?php echo $this->campoSeguro('estadoCriterio')?>").select2();
 
+$('#<?php echo $this->campoSeguro('seleccionNivel')?>').width(210);
+$("#<?php echo $this->campoSeguro('seleccionNivel')?>").select2();
+
+
 <?php 
 //}
 

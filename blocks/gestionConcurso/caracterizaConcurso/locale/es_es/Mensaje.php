@@ -19,6 +19,10 @@ $this->idioma ["botonConsultar"] ="Consultar";
 $this->idioma ["botonRegresar"] =" Regresar ";
 
 $this->idioma["marcoSubsistema"]="Nuevo Factor";
+$this->idioma["nombreModalidad"]="Nombre modalidad";
+
+
+$this->idioma["seleccionNivel"]="Selección nivel";
 
 $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
 
@@ -27,8 +31,10 @@ $this->idioma["tabPerfil"]="Factores";
 $this->idioma["marcoPerfil"]="Factores y Criterios de Evaluación";
 
 $this->idioma["marcoCriterio"]="Criterios de Evaluación";
+$this->idioma["marcoModalidad"]="Registrar Modalidad";
 
 $this->idioma["nuevoFactor"]="<br><b>Registrar Nuevo <br> Factor</b>";
+$this->idioma["nuevaModalidad"]="<br><b>Registrar Nueva <br> Modalidad</b>";
 
 $this->idioma["nuevoSub"]="Nuevo Factor";
 

@@ -1,11 +1,12 @@
 <?php
+namespace gestionConcurso\caracterizaConcurso;
 
 if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
 
-class registrarForm {
+class mensajeForm {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -42,6 +43,9 @@ class registrarForm {
 		
 		// -------------------------------------------------------------------------------------------------
 		
+        $conexion="estructura";
+        $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+              		
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
 		$atributos ['id'] = $esteCampo;
@@ -63,32 +67,33 @@ class registrarForm {
 		$atributos ['tipoEtiqueta'] = 'inicio';
 		echo $this->miFormulario->formulario ( $atributos );
 		{
-			
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-				
-			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
-			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
-			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-                        
+			
             $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
             $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
             $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+                        
+			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
+			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 				
 			$variable = "pagina=" . $miPaginaActual;
-
+                            
+			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 				
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-			$esteCampo = 'botonRegresar';
-			$atributos ['id'] = $esteCampo;
-			$atributos ['enlace'] = $variable;
-			$atributos ['tabIndex'] = 1;
-			//$atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-			$atributos ['estilo'] = 'textoPequenno textoGris';
-			$atributos ['enlaceImagen'] = $rutaBloque."/images/atras.png";
-			$atributos ['ancho'] = '30px';
-			$atributos ['alto'] = '30px';
-			$atributos ['redirLugar'] = true;
-			//echo $this->miFormulario->enlace ( $atributos );
+            $esteCampo = 'botonRegresar';
+            $atributos ['id'] = $esteCampo;
+            $atributos ['enlace'] = $variable;
+            $atributos ['tabIndex'] = 1;
+            $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+            $atributos ['estilo'] = 'textoPequenno textoGris';
+            $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+            $atributos ['posicionImagen'] = "atras";//"adelante";
+            $atributos ['ancho'] = '30px';
+            $atributos ['alto'] = '30px';
+            $atributos ['redirLugar'] = true;
+            echo $this->miFormulario->enlace ( $atributos );
             unset ( $atributos );
 			
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
@@ -97,133 +102,57 @@ class registrarForm {
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
 			$atributos ['tipoEtiqueta'] = 'inicio';
+			// $atributos ["leyenda"] = "Regitrar Orden Compra";
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
-			{
-			if (isset ( $_REQUEST ['mensaje'] )){
-				
-				switch ($_REQUEST ['mensaje']){   
-					
-					case "confirmaFactor":
-						$tipo = 'success';
-						$mensaje = "Se registro con exito el Factor de Evaluación <b>".$_REQUEST['nombreFactor']."</b>.";
-						$boton = "continuar";
-						$variable.="&opcion=nuevo";
-						break;
-					
-					case "errorFactor":
-						$tipo = 'error';
-						$mensaje = "No fue posible registrar el nuevo Factor de evaluación <b>".$_REQUEST['nombreFactor']."</b>. Por favor intente más tarde.";
-                        $boton = "regresar";
-                        $variable.="&opcion=nuevoSub";
-                        break;
-					
-					case "confirmaCriterio":
-						$tipo = 'success';
-						$mensaje = "Se registro con éxito el Criterio de Evaluación <b>".$_REQUEST['nombreCriterio']."</b>.";
-						$boton = "continuar";
-                        $variable.="&opcion=nuevo";
-                        break;
-                  	
-                  	case "errorCriterio":
-                  		$tipo = 'error';
-                  		$mensaje = "No fue posible registrar el nuevo Criterio de evaluación <b>".$_REQUEST['nombreCriterio']."</b>. Por favor intente más tarde.";
-                        $boton = "regresar";
-                        $variable.="&opcion=nuevoSub";
-                        break;
-                        
-                        case "confirmaModalidad":
-                        	$tipo = 'success';
-                        	$mensaje = "Se registro con éxito la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>.";
-                        	$boton = "continuar";
-                        	$variable.="&opcion=gestionModalidad";
-                        	break;
-                        	 
-                        case "errorModalidad":
-                        	$tipo = 'error';
-                        	$mensaje = "No fue posible registrar el la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>. Por favor intente más tarde.";
-                        	$boton = "regresar";
-                        	$variable.="&opcion=gestionModalidad";
-                        	break;
-                        
-                 	
-                 	case "confirmaEditaFactor":
-                 		$tipo = 'success';
-                 		$mensaje = "Se actualizó con exito el Factor <b>".$_REQUEST ["nombreFactor"]." </b>.";
-                 		$boton = "continuar";
-                 		break;
-                 	
-                 	case "errorEditaFactor":
-                 		$tipo = 'error';
-                 		$mensaje = "No fue posible actualizar el Factor <b>".$_REQUEST ["nombreFactor"]." </b> Por favor intente más tarde.";
-                        $boton = "regresar";
-                        $variable.="&opcion=editar";
-                        $variable.="&id_subsistema=".$_REQUEST ["id_subsistema"];
-                        $variable.="&rol_id=".$_REQUEST ["rol_id"];
-                        break;
-                        
-                   	case "inhabilito":
-                   		$tipo = 'success';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> se inhabilitó con éxito.";
-                   		$boton = "continuar";
-                   		break;
-                   	
-                   	case "noInhabilito":
-                   		$tipo = 'error';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
-                   		$boton = "regresar";
-                   		break;
-                   	
-                   	case "habilito":
-                   		$tipo = 'success';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> se habilitó con éxito.";
-                   		$boton = "continuar";
-                   		break;
-                   		
-                   	case "habilitoModalidad":
-                   		$tipo = 'success';
-                   		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se habilitó con éxito.";
-                   		$boton = "continuar";
-                   		break;
-                   			
-                   	case "inhabilitoModalidad":
-                   		$tipo = 'success';
-                   		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se inhabilitó con éxito.";
-                   		$boton = "continuar";
-                   		break;
-            	}
-            	
-                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                $esteCampo = 'mensaje';
-                $atributos ['id'] = $esteCampo;
-                $atributos ['tipo'] = $tipo;
-                $atributos ['estilo'] = 'textoCentrar';
-                $atributos ['mensaje'] = $mensaje;
-                $tab ++;
-                // Aplica atributos globales al control
-                $atributos = array_merge ( $atributos, $atributosGlobales );
-                echo $this->miFormulario->cuadroMensaje ( $atributos );	
-            }
-    	}
+      		{
+      			$tipo = 'warning';
+      			switch ($_REQUEST ['opcion']) {
+      				case "inhabilitarModalidad": 
+      					$mensaje = "Esta seguro de Inhabilitar la Modalidad <b>".$_REQUEST ['nombre_modalidad']."</b>?";
+      					$boton = "inhabilitarModalidad";
+      					break;
+      				
+      				case "habilitarModalidad": 
+      					$mensaje = "Esta seguro de habilitar la Modalidad <b>".$_REQUEST ['nombre_modalidad']."</b>?";
+      					$boton = "habilitarModalidad";
+      					break;
+             }
+             
+             $esteCampo = $_REQUEST['id_modalidad'];
+             $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+             $atributos["etiqueta"] = "";
+             $atributos["estilo"] = "centrar";
+             $atributos["tipo"] = $tipo;
+             $atributos["mensaje"] = $mensaje;
+             echo $this->miFormulario->cuadroMensaje($atributos);
+             unset($atributos);    
+			}
+			
 			// ------------------Division para los botones-------------------------
 			$atributos ["id"] = "botones";
 			$atributos ["estilo"] = "marcoBotones";
 			echo $this->miFormulario->division ( "inicio", $atributos );
 			
+			// -----------------CONTROL: Botón ----------------------------------------------------------------
+			//$esteCampo = 'botonContinuar';
+            $esteCampo = "botonContinuar";
+			$atributos ["id"] = $esteCampo;
+			$atributos ["tabIndex"] = $tab;
+			$atributos ["tipo"] = 'boton';
+			// submit: no se coloca si se desea un tipo button genérico
+			$atributos ['submit'] = true;
+			$atributos ["estiloMarco"] = '';
+			$atributos ["estiloBoton"] = 'jqueryui';
+			// verificar: true para verificar el formulario antes de pasarlo al servidor.
+			$atributos ["verificar"] = '';
+			$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+			$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+			$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+			$tab ++;
 			
-            $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-                        
-            $esteCampo = 'botonContinuar';
-			$atributos ['id'] = $esteCampo;
-			$atributos ['enlace'] = $variable;
-			$atributos ['tabIndex'] = 1;
-			$atributos ['estilo'] = 'jqueryui';
-			$atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-			//$atributos ['ancho'] = '10%';
-			//$atributos ['alto'] = '10%';
-			$atributos ['redirLugar'] = true;
-			echo $this->miFormulario->enlace ( $atributos );
-            unset($atributos);
-                        
+			// Aplica atributos globales al control
+			$atributos = array_merge ( $atributos, $atributosGlobales );
+			echo $this->miFormulario->campoBoton ( $atributos );
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 			
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
@@ -269,7 +198,11 @@ class registrarForm {
 		$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 		$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-		$valorCodificado .= "&opcion=paginaPrincipal";
+		$valorCodificado .= "&opcion=".$boton;
+        $valorCodificado .= "&id_modalidad=" .$_REQUEST['id_modalidad'];
+        $valorCodificado .= "&nombre_modalidad=" .$_REQUEST['nombre_modalidad'];
+                                
+                
 		/**
 		 * SARA permite que los nombres de los campos sean dinámicos.
 		 * Para ello utiliza la hora en que es creado el formulario para
@@ -296,7 +229,7 @@ class registrarForm {
 		echo $this->miFormulario->formulario ( $atributos );
 	}
 }
-$miSeleccionador = new registrarForm ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new mensajeForm ( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

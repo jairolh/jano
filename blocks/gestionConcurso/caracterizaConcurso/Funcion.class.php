@@ -79,6 +79,13 @@ class Funcion {
                 	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                     $this->guardarCriterio();
                     break;
+                
+                case "guardarModalidad":
+                	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                	$this->guardarModalidad();
+                	break;
+                    
+                    
 
                             case "guardarDatosSub":
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
@@ -103,7 +110,17 @@ class Funcion {
                             case "habilitar":
                                     $_REQUEST["estado"]="A";
                                     $this->cambiarEstadoFactor(); 
-                                break;       
+                                break;   
+                                
+                                case "inhabilitarModalidad":
+                                	$_REQUEST["estado"]="I";
+                                	$this->cambiarEstadoModalidad();
+                                	break;
+                                
+                                case "habilitarModalidad":
+                                	$_REQUEST["estado"]="A";
+                                	$this->cambiarEstadoModalidad();
+                                	break;
 
                         }
                                        
@@ -193,9 +210,17 @@ class Funcion {
 	function guardarCriterio(){
 		include_once($this->ruta."/funcion/registrarCriterio.php");
 	}
+	
+	function guardarModalidad(){
+		include_once($this->ruta."/funcion/registrarModalidad.php");
+	}
         
    	function cambiarEstadoFactor(){
 		include_once($this->ruta."/funcion/cambiarEstadoFactor.php");
+	}
+	
+	function cambiarEstadoModalidad(){
+		include_once($this->ruta."/funcion/cambiarEstadoModalidad.php");
 	}
  
 

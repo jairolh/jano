@@ -105,6 +105,22 @@ class redireccion {
             	$variable.="&id_factor=".$valor['id_factor'];
             	$variable.="&nombreFactor=".$valor['nombreFactor'];
             	break;
+            	
+	       	case "editoModalidad":
+	          	$variable="pagina=".$miPaginaActual;
+	           	$variable.="&opcion=mensaje";
+	          	$variable.="&mensaje=confirmaEditaModalidad";
+	         	$variable.="&id_modalidad=".$valor['id_modalidad'];
+	          	$variable.="&nombreModalidad=".$valor['nombreModalidad'];
+	           	break;
+            		 
+            	case "noEditoModalidad":
+            		$variable="pagina=".$miPaginaActual;
+            		$variable.="&opcion=mensaje";
+            		$variable.="&mensaje=errorEditaModalidad";
+            		$variable.="&id_modalidad=".$valor['id_modalidad'];
+            		$variable.="&nombreModalidad=".$valor['nombreModalidad'];
+            		break;
 
         	case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;

@@ -176,8 +176,17 @@ class Sql extends \Sql {
 					$cadenaSql .= "nombre='".$variable['nombreFactor']."'";
                     $cadenaSql .= " WHERE ";
                     $cadenaSql .= " consecutivo_factor = '".$variable['id_factor']."' ";
+                    break;    
+                    
+               	case "editarModalidad":
+               		$cadenaSql = "UPDATE concurso.modalidad_concurso ";
+               		$cadenaSql .= " SET ";
+               		$cadenaSql .= "nombre='".$variable['nombreModalidad']."',";
+               		$cadenaSql .= "codigo_nivel_concurso=".$variable['nivel']."";
+               		$cadenaSql .= " WHERE ";
+                    $cadenaSql .= " consecutivo_modalidad = '".$variable['id_modalidad']."' ";
                     //var_dump($cadenaSql);
-                    break;                    
+                    break;
                             
                         case "EditarRol":
                             

@@ -21,12 +21,15 @@ $this->idioma ["botonRegresar"] =" Regresar ";
 $this->idioma["marcoSubsistema"]="Nuevo Factor";
 $this->idioma["nombreModalidad"]="Nombre modalidad";
 
-
+$this->idioma["nivel"]="Nivel";
 $this->idioma["seleccionNivel"]="Selección nivel";
 
 $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
 
+$this->idioma["marcoEditaModalidad"]="Editar Datos de la Modalidad";
+
 $this->idioma["tabPerfil"]="Factores";
+$this->idioma["tabModalidades"]="Modalidades";
 
 $this->idioma["marcoPerfil"]="Factores y Criterios de Evaluación";
 

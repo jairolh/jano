@@ -124,6 +124,7 @@ class consultarForm {
                         			<th>Nivel</th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
+                        			<th>Editar</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
@@ -131,6 +132,18 @@ class consultarForm {
 
                         foreach($resultadoFactores as $key=>$value )
                             { 
+                            	
+                            	$variableEditar = "pagina=". $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                            	$variableEditar.= "&opcion=editarModalidad";
+                            	$variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                            	$variableEditar.= "&id_modalidad=" .$resultadoFactores[$key]['consecutivo_modalidad'];
+                            	$variableEditar.= "&modalidad=" .$resultadoFactores[$key]['nombre'];
+                            	$variableEditar.= "&nivel=" .$resultadoFactores[$key]['codigo_nivel_concurso'];
+                            	$variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                            	$variableEditar.= "&tiempo=" . time ();
+                            	
+                            	$variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
+                            	
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                 if($resultadoFactores[$key]['estado']=='A')
@@ -154,9 +167,28 @@ class consultarForm {
                                         <td align='left'>".$resultadoFactores[$key]['consecutivo_modalidad']."</td>
                                         <td align='left'>".$resultadoFactores[$key]['codigo_nivel_concurso']."</td>
                                         <td align='left'>".$resultadoFactores[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>";
+                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>
+                                        
+                                        <td>";
                                 
-		                        $mostrarHtml .= "<td>";
+					                        //-------------Enlace-----------------------
+					                        $esteCampo = "editar";
+					                        $atributos["id"]=$esteCampo;
+					                        $atributos['enlace']=$variableEditar;
+					                        $atributos['tabIndex']=$esteCampo;
+					                        $atributos['redirLugar']=true;
+					                        $atributos['estilo']='clasico';
+					                        $atributos['enlaceTexto']='';
+					                        $atributos['ancho']='25';
+					                        $atributos['alto']='25';
+					                        $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
+					                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
+					                        unset($atributos);
+		                        
+		                        $mostrarHtml .= "</td>
+                                          <td>";
+		                        
+		                        
 
                                         if($resultadoFactores[$key]['estado']=='Activo')
                                             {   

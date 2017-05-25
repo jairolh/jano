@@ -101,6 +101,7 @@ class registrarForm {
 			{
 			if (isset ( $_REQUEST ['mensaje'] )){
 				
+				
 				switch ($_REQUEST ['mensaje']){   
 					
 					case "confirmaFactor":
@@ -157,9 +158,22 @@ class registrarForm {
                  		$mensaje = "No fue posible actualizar el Factor <b>".$_REQUEST ["nombreFactor"]." </b> Por favor intente más tarde.";
                         $boton = "regresar";
                         $variable.="&opcion=editar";
-                        $variable.="&id_subsistema=".$_REQUEST ["id_subsistema"];
-                        $variable.="&rol_id=".$_REQUEST ["rol_id"];
+                        $variable.="&id_factor=".$_REQUEST ["id_factor"];
                         break;
+                        
+                   	case "confirmaEditaModalidad":
+                      	$tipo = 'success';
+                      	$mensaje = "Se actualizó con exito la Modalidad <b>".$_REQUEST ["nombreModalidad"]." </b>.";
+                       	$boton = "continuar";
+                       	break;
+                        
+                   	case "errorEditaModalidad":
+                        $tipo = 'error';
+                       	$mensaje = "No fue posible actualizar la Modalidad <b>".$_REQUEST ["nombreModalidad"]." </b> Por favor intente más tarde.";
+                       	$boton = "regresar";
+                       	$variable.="&opcion=editarModalidad";
+                       	$variable.="&id_modalidad=".$_REQUEST ["id_modalidad"];
+                       	break;
                         
                    	case "inhabilito":
                    		$tipo = 'success';
@@ -183,12 +197,14 @@ class registrarForm {
                    		$tipo = 'success';
                    		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se habilitó con éxito.";
                    		$boton = "continuar";
+                   		$variable.="&opcion=gestionModalidad";
                    		break;
                    			
                    	case "inhabilitoModalidad":
                    		$tipo = 'success';
                    		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se inhabilitó con éxito.";
                    		$boton = "continuar";
+                   		$variable.="&opcion=gestionModalidad";
                    		break;
             	}
             	

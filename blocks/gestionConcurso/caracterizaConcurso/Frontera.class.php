@@ -53,21 +53,22 @@ class Frontera {
 					break;
 				
 				case "nuevo":
-					include_once($this->ruta."formulario/nuevo.php");
+					include_once($this->ruta."formulario/factores.php");
 					break;
                                     
 				case "nuevoCriterio":
-					include_once($this->ruta."formulario/nuevo.php");
+					include_once($this->ruta."formulario/factores.php");
 					break;
 				
 				case "nuevoFactor":
-					include_once($this->ruta."formulario/nuevo.php");
+					include_once($this->ruta."formulario/factores.php");
 					break;    
 					
 				case "editar":
-					include_once($this->ruta."formulario/nuevo.php");
+					include_once($this->ruta."formulario/factores.php");
 					break;   
 				
+					
 				case "inhabilitar":
 					include_once($this->ruta."formulario/cambiaEstadoFactor.php");
 					break;    
@@ -98,7 +99,11 @@ class Frontera {
 					break;
 					
 				case "nuevaModalidad":
-					include_once($this->ruta."formulario/registrarModalidad.php");
+					include_once($this->ruta."formulario/modalidades.php");
+					break;
+					
+				case "editarModalidad":
+					include_once($this->ruta."formulario/modalidades.php");
 					break;
                                                                          
         		}

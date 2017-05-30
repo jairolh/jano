@@ -77,7 +77,9 @@ class mensajeForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 				
-			$variable = "pagina=gestionModalidad";
+			
+			$variable = "pagina=" . $miPaginaActual;
+			$variable = "&opcion=gestionModalidad";
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 				
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------

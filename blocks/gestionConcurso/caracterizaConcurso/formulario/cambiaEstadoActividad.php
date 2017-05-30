@@ -78,11 +78,11 @@ class mensajeForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 				
 			$variable = "pagina=" . $miPaginaActual;
-                            
+			$variable .= "&opcion=gestionActividades";               
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 				
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-            $esteCampo = 'botonRegresar';
+			$esteCampo = 'botonRegresar';
             $atributos ['id'] = $esteCampo;
             $atributos ['enlace'] = $variable;
             $atributos ['tabIndex'] = 1;

@@ -169,7 +169,7 @@ class registrarForm {
                  	
                  	case "errorEditaFactor":
                  		$tipo = 'error';
-                 		$mensaje = "No fue posible actualizar el Factor <b>".$_REQUEST ["nombreFactor"]." </b> Por favor intente más tarde.";
+                 		$mensaje = "No fue posible actualizar el Factor <b>".$_REQUEST ["nombreFactor"]."</b>. Por favor intente más tarde.";
                         $boton = "regresar";
                         $variable.="&opcion=editar";
                         $variable.="&id_factor=".$_REQUEST ["id_factor"];
@@ -193,14 +193,14 @@ class registrarForm {
                       	$tipo = 'success';
                       	$mensaje = "Se actualizó con exito la Actividad <b>".$_REQUEST ["nombreActividad"]." </b>.";
                        	$boton = "continuar";
+                       	$variable.="&opcion=gestionActividades";
                        	break;
                        	
                     case "errorEditaActividad":
                        	$tipo = 'error';
-                       	$mensaje = "No fue posible actualizar la Actividad <b>".$_REQUEST ["nombreActividad"]." </b> Por favor intente más tarde.";
+                       	$mensaje = "No fue posible actualizar la Actividad <b>".$_REQUEST ["nombreActividad"]."</b>. Por favor intente más tarde.";
                       	$boton = "regresar";
-                      	$variable.="&opcion=editarActividad";
-                      	$variable.="&id_actividad=".$_REQUEST ["id_actividad"];
+                      	$variable.="&opcion=gestionActividades";
                        	break;
                         
                    	case "inhabilito":
@@ -271,12 +271,14 @@ class registrarForm {
                    		$tipo = 'error';
                    		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo habilitar. Por favor intente más tarde.";
                    		$boton = "regresar";
+                   		$variable.="&opcion=gestionActividades";
                    		break;
                    	
                    	case "noinhabilitoActividad":
                    		$tipo = 'error';
                    		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
                    		$boton = "regresar";
+                   		$variable.="&opcion=gestionActividades";
                   		break;
             	}
             	

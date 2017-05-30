@@ -85,6 +85,14 @@ class Frontera {
 					include_once($this->ruta."formulario/cambiaEstadoModalidad.php");
 					break;
 					
+				case "inhabilitarActividad":
+					include_once($this->ruta."formulario/cambiaEstadoActividad.php");
+					break;
+				
+				case "habilitarActividad":
+					include_once($this->ruta."formulario/cambiaEstadoActividad.php");
+					break;
+					
 					
 				case "gestionCriterio":
 					include_once($this->ruta."formulario/consultarFactores.php");
@@ -105,6 +113,15 @@ class Frontera {
 				case "editarModalidad":
 					include_once($this->ruta."formulario/modalidades.php");
 					break;
+					
+				case "editarActividad":
+					include_once($this->ruta."formulario/actividades.php");
+					break;
+					
+				case "nuevaActividad":
+					include_once($this->ruta."formulario/actividades.php");
+					break;
+							
                                                                          
         		}
 		} else {

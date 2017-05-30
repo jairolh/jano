@@ -84,6 +84,11 @@ class Funcion {
                 	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                 	$this->guardarModalidad();
                 	break;
+                	
+                case "guardarActividad":
+               		$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                	$this->guardarActividad();
+               		break;
                     
                     
 
@@ -97,6 +102,11 @@ class Funcion {
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->editarDatos();
                                 break;
+                                
+                           	case "editarActividad":
+                               	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                               	$this->editarActividad();
+                               	break;
 
                             case "borrar":
                                     $this->borrarDatos();
@@ -112,15 +122,25 @@ class Funcion {
                                     $this->cambiarEstadoFactor(); 
                                 break;   
                                 
-                                case "inhabilitarModalidad":
-                                	$_REQUEST["estado"]="I";
-                                	$this->cambiarEstadoModalidad();
-                                	break;
+                           	case "inhabilitarModalidad":
+                                $_REQUEST["estado"]="I";
+                               	$this->cambiarEstadoModalidad();
+                               	break;
                                 
-                                case "habilitarModalidad":
-                                	$_REQUEST["estado"]="A";
-                                	$this->cambiarEstadoModalidad();
-                                	break;
+                          	case "habilitarModalidad":
+                                $_REQUEST["estado"]="A";
+                               	$this->cambiarEstadoModalidad();
+                               	break;
+                               	
+                           	case "inhabilitarActividad":
+                               	$_REQUEST["estado"]="I";
+                               	$this->cambiarEstadoActividad();
+                              	break;
+                               	
+                           	case "habilitarActividad":
+                               	$_REQUEST["estado"]="A";
+                               	$this->cambiarEstadoActividad();
+                              	break;
 
                         }
                                        
@@ -197,6 +217,10 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/editarFactor.php");
 	}
+	
+	function editarActividad(){
+		include_once($this->ruta."/funcion/editarActividad.php");
+	}
         
         function guardarDatosSub()
 	{
@@ -214,6 +238,10 @@ class Funcion {
 	function guardarModalidad(){
 		include_once($this->ruta."/funcion/registrarModalidad.php");
 	}
+	
+	function guardarActividad(){
+		include_once($this->ruta."/funcion/registrarActividad.php");
+	}
         
    	function cambiarEstadoFactor(){
 		include_once($this->ruta."/funcion/cambiarEstadoFactor.php");
@@ -222,7 +250,10 @@ class Funcion {
 	function cambiarEstadoModalidad(){
 		include_once($this->ruta."/funcion/cambiarEstadoModalidad.php");
 	}
- 
+ 	
+	function cambiarEstadoActividad(){
+		include_once($this->ruta."/funcion/cambiarEstadoActividad.php");
+	}
 
 }
 ?>

@@ -132,20 +132,34 @@ class registrarForm {
                         $variable.="&opcion=nuevoSub";
                         break;
                         
-                        case "confirmaModalidad":
-                        	$tipo = 'success';
-                        	$mensaje = "Se registro con éxito la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>.";
-                        	$boton = "continuar";
-                        	$variable.="&opcion=gestionModalidad";
-                        	break;
+					case "confirmaModalidad":
+                        $tipo = 'success';
+                       	$mensaje = "Se registro con éxito la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>.";
+                       	$boton = "continuar";
+                       	$variable.="&opcion=gestionModalidad";
+                       	break;
                         	 
-                        case "errorModalidad":
-                        	$tipo = 'error';
-                        	$mensaje = "No fue posible registrar el la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>. Por favor intente más tarde.";
-                        	$boton = "regresar";
-                        	$variable.="&opcion=gestionModalidad";
-                        	break;
+					case "errorModalidad":
+                        $tipo = 'error';
+                       	$mensaje = "No fue posible registrar el la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>. Por favor intente más tarde.";
+                       	$boton = "regresar";
+                       	$variable.="&opcion=gestionModalidad";
+                       	break;
                         
+                       	
+					case "confirmaActividad":
+                       	$tipo = 'success';
+                       	$mensaje = "Se registro con éxito la Actividad <b>".$_REQUEST['nombreActividad']."</b>.";
+                      	$boton = "continuar";
+                      	$variable.="&opcion=gestionActividades";
+                      	break;
+                   	
+                   	case "errorActividad":
+                       	$tipo = 'error';
+                       	$mensaje = "No fue posible registrar la Actividad <b>".$_REQUEST['nombreActividad']."</b>. Por favor intente más tarde.";
+                      	$boton = "regresar";
+                      	$variable.="&opcion=gestionActividades";
+                      	break;
                  	
                  	case "confirmaEditaFactor":
                  		$tipo = 'success';
@@ -173,6 +187,20 @@ class registrarForm {
                        	$boton = "regresar";
                        	$variable.="&opcion=editarModalidad";
                        	$variable.="&id_modalidad=".$_REQUEST ["id_modalidad"];
+                       	break;
+                       	
+                  	case "confirmaEditaActividad":
+                      	$tipo = 'success';
+                      	$mensaje = "Se actualizó con exito la Actividad <b>".$_REQUEST ["nombreActividad"]." </b>.";
+                       	$boton = "continuar";
+                       	break;
+                       	
+                    case "errorEditaActividad":
+                       	$tipo = 'error';
+                       	$mensaje = "No fue posible actualizar la Actividad <b>".$_REQUEST ["nombreActividad"]." </b> Por favor intente más tarde.";
+                      	$boton = "regresar";
+                      	$variable.="&opcion=editarActividad";
+                      	$variable.="&id_actividad=".$_REQUEST ["id_actividad"];
                        	break;
                         
                    	case "inhabilito":
@@ -205,6 +233,26 @@ class registrarForm {
                    		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se inhabilitó con éxito.";
                    		$boton = "continuar";
                    		$variable.="&opcion=gestionModalidad";
+                   		break;
+                   		
+                   	case "habilitoActividad":
+                   		$tipo = 'success';
+                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> se habilitó con éxito.";
+                   		$boton = "continuar";
+                   		$variable.="&opcion=gestionActividades";
+                  		break;
+                   		
+                   	case "inhabilitoActividad":
+                   		$tipo = 'success';
+                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> se inhabilitó con éxito.";
+                   		$boton = "continuar";
+                   		$variable.="&opcion=gestionActividades";
+                   		break;
+                   	
+                   	case "nohabilitoActividad":
+                   		$tipo = 'error';
+                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
                    		break;
             	}
             	

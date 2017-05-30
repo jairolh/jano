@@ -27,19 +27,40 @@ class redireccion {
         		$variable.="&factor=".$valor['nombre_factor'];
 				break;
 				
-				case "inhabilitarModalidad":
-					$variable="pagina=".$miPaginaActual;
-					$variable.="&opcion=mensaje";
-					$variable.="&mensaje=inhabilitoModalidad";
-					$variable.="&modalidad=".$valor['nombre_modalidad'];
-					break;
-					 
-				case "habilitarModalidad":
-					$variable="pagina=".$miPaginaActual;
-					$variable.="&opcion=mensaje";
-					$variable.="&mensaje=habilitoModalidad";
-					$variable.="&modalidad=".$valor['nombre_modalidad'];
-					break;
+			case "inhabilitarModalidad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=inhabilitoModalidad";
+				$variable.="&modalidad=".$valor['nombre_modalidad'];
+				break;
+				
+			case "habilitarModalidad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=habilitoModalidad";
+				$variable.="&modalidad=".$valor['nombre_modalidad'];
+				break;
+					
+			case "inhabilitarActividad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=inhabilitoActividad";
+				$variable.="&actividad=".$valor['nombre_actividad'];
+				break;
+			
+			case "habilitarActividad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=habilitoActividad";
+				$variable.="&actividad=".$valor['nombre_actividad'];
+				break;
+				
+			case "noinhabilitarActividad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=nohabilitoActividad";
+				$variable.="&actividad=".$valor['nombre_actividad'];
+				break;
 			
 			case "nohabilitar":
 				$variable="pagina=".$miPaginaActual;
@@ -76,19 +97,33 @@ class redireccion {
             	$variable.="&nombreCriterio=".$valor['nombre'];
             	break;
             	
-            	case "insertoModalidad":
-            		$variable="pagina=".$miPaginaActual;
-            		$variable.="&opcion=mensaje";
-            		$variable.="&mensaje=confirmaModalidad";
-            		$variable.="&nombreModalidad=".$valor['nombre'];
-            		break;
+            case "insertoModalidad":
+            	$variable="pagina=".$miPaginaActual;
+           		$variable.="&opcion=mensaje";
+           		$variable.="&mensaje=confirmaModalidad";
+           		$variable.="&nombreModalidad=".$valor['nombre'];
+            	break;
             	
-            	case "noInsertoModalidad":
-            		$variable="pagina=".$miPaginaActual;
-            		$variable.="&opcion=mensaje";
-            		$variable.="&mensaje=errorModalidad";
-            		$variable.="&nombreModalidad=".$valor['nombre'];
-            		break;
+            case "noInsertoModalidad":
+            	$variable="pagina=".$miPaginaActual;
+            	$variable.="&opcion=mensaje";
+           		$variable.="&mensaje=errorModalidad";
+            	$variable.="&nombreModalidad=".$valor['nombre'];
+            	break;
+            	
+            case "insertoActividad":
+           		$variable="pagina=".$miPaginaActual;
+           		$variable.="&opcion=mensaje";
+            	$variable.="&mensaje=confirmaActividad";
+           		$variable.="&nombreActividad=".$valor['nombre'];
+           		break;
+            		 
+            case "noInsertoActividad":
+           		$variable="pagina=".$miPaginaActual;
+           		$variable.="&opcion=mensaje";
+            	$variable.="&mensaje=errorActividad";
+            	$variable.="&nombreActividad=".$valor['nombre'];
+           		break;
             
             case "editoFactor":
             	$variable="pagina=".$miPaginaActual;
@@ -114,13 +149,29 @@ class redireccion {
 	          	$variable.="&nombreModalidad=".$valor['nombreModalidad'];
 	           	break;
             		 
-            	case "noEditoModalidad":
-            		$variable="pagina=".$miPaginaActual;
-            		$variable.="&opcion=mensaje";
-            		$variable.="&mensaje=errorEditaModalidad";
-            		$variable.="&id_modalidad=".$valor['id_modalidad'];
-            		$variable.="&nombreModalidad=".$valor['nombreModalidad'];
-            		break;
+            case "noEditoModalidad":
+            	$variable="pagina=".$miPaginaActual;
+            	$variable.="&opcion=mensaje";
+           		$variable.="&mensaje=errorEditaModalidad";
+           		$variable.="&id_modalidad=".$valor['id_modalidad'];
+            	$variable.="&nombreModalidad=".$valor['nombreModalidad'];
+            	break;
+            	
+            case "editoActividad":
+            	$variable="pagina=".$miPaginaActual;
+            	$variable.="&opcion=mensaje";
+           		$variable.="&mensaje=confirmaEditaActividad";
+           		$variable.="&id_actividad=".$valor['id_actividad'];
+            	$variable.="&nombreActividad=".$valor['nombreActividad'];
+            	break;
+            		 
+            case "noEditoActividad":
+           		$variable="pagina=".$miPaginaActual;
+            	$variable.="&opcion=mensaje";
+            	$variable.="&mensaje=errorEditaActividad";
+           		$variable.="&id_actividad=".$valor['id_actividad'];
+           		$variable.="&nombreActividad=".$valor['nombreActividad'];
+           		break;
 
         	case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;

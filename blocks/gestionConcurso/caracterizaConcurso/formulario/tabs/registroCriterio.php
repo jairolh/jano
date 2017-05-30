@@ -103,7 +103,7 @@ class registrarForm {
                         $esteCampo = 'botonRegresar';
                         $atributos ['id'] = $esteCampo;
                         $atributos ['enlace'] = $variable;
-                        $atributos ['tabIndex'] = 1;
+                        $atributos ['tabIndex'] = $tab;
                         $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                         $atributos ['estilo'] = 'textoPequenno textoGris';
                         $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
@@ -111,6 +111,7 @@ class registrarForm {
                         $atributos ['ancho'] = '30px';
                         $atributos ['alto'] = '30px';
                         $atributos ['redirLugar'] = true;
+                        $tab ++;
                         echo $this->miFormulario->enlace ( $atributos );
                         unset ( $atributos );
                         

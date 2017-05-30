@@ -47,6 +47,10 @@ class Sql extends \Sql {
                 $cadenaSql = "Select * from concurso.factor_evaluacion";
                 break;
                 
+                case "consultaActividades":
+                	$cadenaSql = "Select * from concurso.actividad_calendario";
+                	break;
+                
                 case "consultaModalidades":
                 	$cadenaSql = "Select * from concurso.modalidad_concurso";
                 	break;
@@ -123,15 +127,23 @@ class Sql extends \Sql {
                         		$cadenaSql .= " RETURNING consecutivo_criterio";
                         		break;
                         		
-                        		
-                        		case "registrarModalidad":
-                        			$cadenaSql = "INSERT INTO concurso.modalidad_concurso(codigo_nivel_concurso, nombre)";
-                        			$cadenaSql .= " VALUES ( ";
-                        			$cadenaSql .= " ".$variable['nivel'].", ";
-                        			$cadenaSql .= " '".$variable['nombre']."' ";
-                        			$cadenaSql .= " ) ";
-                        			$cadenaSql .= " RETURNING consecutivo_modalidad";
-                        			break;
+                        	case "registrarModalidad":
+                        		$cadenaSql = "INSERT INTO concurso.modalidad_concurso(codigo_nivel_concurso, nombre)";
+                        		$cadenaSql .= " VALUES ( ";
+                        		$cadenaSql .= " ".$variable['nivel'].", ";
+                       			$cadenaSql .= " '".$variable['nombre']."' ";
+                       			$cadenaSql .= " ) ";
+                       			$cadenaSql .= " RETURNING consecutivo_modalidad";
+                       			break;
+                       			
+                       		case "registrarActividad":
+                       			$cadenaSql = "INSERT INTO concurso.actividad_calendario(nombre, descripcion)";
+                       			$cadenaSql .= " VALUES ( ";
+                       			$cadenaSql .= " '".$variable['nombre']."', ";
+                       			$cadenaSql .= " '".$variable['descripcion']."' ";
+                       			$cadenaSql .= " ) ";
+                      			$cadenaSql .= " RETURNING consecutivo_actividad";
+                     			break;
                             
                         case "insertarRol":
                             
@@ -169,6 +181,12 @@ class Sql extends \Sql {
 				$cadenaSql .= " estado = '".$variable['estado']."'";
 				$cadenaSql .= " WHERE consecutivo_modalidad = '".$variable['id_modalidad']."' ";
 				break;
+				
+			case "cambiarEstadoActividad":
+				$cadenaSql = "UPDATE concurso.actividad_calendario SET ";
+				$cadenaSql .= " estado = '".$variable['estado']."'";
+				$cadenaSql .= " WHERE consecutivo_actividad = '".$variable['id_actividad']."' ";
+				break;
                     
                 case "editarFactor":
                 	$cadenaSql = "UPDATE concurso.factor_evaluacion ";
@@ -186,6 +204,15 @@ class Sql extends \Sql {
                		$cadenaSql .= " WHERE ";
                     $cadenaSql .= " consecutivo_modalidad = '".$variable['id_modalidad']."' ";
                     //var_dump($cadenaSql);
+                    break;
+              	
+              	case "editarActividad":
+                    $cadenaSql = "UPDATE concurso.actividad_calendario ";
+                   	$cadenaSql .= " SET ";
+                   	$cadenaSql .= "nombre='".$variable['nombreActividad']."',";
+                   	$cadenaSql .= "descripcion='".$variable['descripcionActividad']."'";
+                   	$cadenaSql .= " WHERE ";
+                   	$cadenaSql .= " consecutivo_actividad = '".$variable['id_actividad']."' ";
                     break;
                             
                         case "EditarRol":

@@ -59,7 +59,7 @@ class consultarForm {
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 	
 		$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-		$valorCodificado .= "&opcion=nuevo";
+		$valorCodificado .= "&opcion=nuevaActividad";
         $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
 		
 		/**
@@ -75,14 +75,14 @@ class consultarForm {
 		// Paso 2: codificar la cadena resultante
         $variableNuevo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($valorCodificado, $directorio);
 		
-        $cadena_sql = $this->miSql->getCadenaSql("consultaFactores", "");
-        $resultadoFactores = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            //var_dump($resultadoFactores);
+        $cadena_sql = $this->miSql->getCadenaSql("consultaActividades", "");
+        $resultadoActividades = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //var_dump($resultadoActividades);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>GESTIÓN DE FACTORES</b>";
+            $atributos ["leyenda"] = "<b>Gestión de Actividades</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -90,7 +90,7 @@ class consultarForm {
                 echo "<div ><table width='100%' align='center'>
                         <tr align='center'>
                             <td align='center'>";
-                                $esteCampo = 'nuevoFactor';
+                                $esteCampo = 'nuevaActividad';
                                 $atributos ['id'] = $esteCampo;
                                 $atributos ['enlace'] = $variableNuevo;
                                 $atributos ['tabIndex'] = 1;
@@ -107,7 +107,7 @@ class consultarForm {
                         </tr>
                       </table></div> ";
 
-                if($resultadoFactores)
+                if($resultadoActividades)
                 {	
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoConsultaPerfiles";
@@ -122,41 +122,72 @@ class consultarForm {
                                 <tr align='center'>
                                     <th>Id</th>
                                     <th>Nombre</th>
+                        			<th>Descripción</th>
                                     <th>Estado</th>
+                        			<th>Editar</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
                             <tbody>";
 
-                        foreach($resultadoFactores as $key=>$value )
+                        foreach($resultadoActividades as $key=>$value )
                             { 
+                            	$variableEditar = "pagina=". $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                            	$variableEditar.= "&opcion=editarActividad";
+                            	$variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                            	$variableEditar.= "&id_actividad=" .$resultadoActividades[$key]['consecutivo_actividad'];
+                            	$variableEditar.= "&actividad=" .$resultadoActividades[$key]['nombre'];
+                            	$variableEditar.= "&descripcion=" .$resultadoActividades[$key]['descripcion'];
+                            	$variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                            	$variableEditar.= "&tiempo=" . time ();
+                            	 
+                            	$variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
+                            	 
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                if($resultadoFactores[$key]['estado']=='A')
-                                    {$variableEstado.= "&opcion=inhabilitar";}
-                                else{$variableEstado.= "&opcion=habilitar";}    
+                                if($resultadoActividades[$key]['estado']=='A')
+                                    {$variableEstado.= "&opcion=inhabilitarActividad";}
+                                else{$variableEstado.= "&opcion=habilitarActividad";}    
                                 $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                $variableEstado.= "&id_factor=" .$resultadoFactores[$key]['consecutivo_factor'];
-                                $variableEstado.= "&nombre_factor=" .$resultadoFactores[$key]['nombre'];
-                                $variableEstado.= "&estado_factor=" .$resultadoFactores[$key]['estado'];
+                                $variableEstado.= "&id_actividad=" .$resultadoActividades[$key]['consecutivo_actividad'];
+                                $variableEstado.= "&nombre_actividad=" .$resultadoActividades[$key]['nombre'];
+                                $variableEstado.= "&estado_actividad=" .$resultadoActividades[$key]['estado'];
                                 $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                 $variableEstado.= "&tiempo=" . time ();
                                 $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
-                                if($resultadoFactores[$key]['estado']=='A'){
-                                	$resultadoFactores[$key]['estado']="Activo";
+                                if($resultadoActividades[$key]['estado']=='A'){
+                                	$resultadoActividades[$key]['estado']="Activo";
                                 }else{
-                                	$resultadoFactores[$key]['estado']="Inactivo";
+                                	$resultadoActividades[$key]['estado']="Inactivo";
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoFactores[$key]['consecutivo_factor']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>";
+                                        <td align='left'>".$resultadoActividades[$key]['consecutivo_actividad']."</td>
+                                        <td align='left'>".$resultadoActividades[$key]['nombre']."</td>
+                                        <td align='left'>".$resultadoActividades[$key]['descripcion']."</td>		
+                                        <td align='left'>".$resultadoActividades[$key]['estado']."</td>
                                 
-		                        $mostrarHtml .= "<td>";
+                                <td>";
+                                
+                                //-------------Enlace-----------------------
+                                $esteCampo = "editar";
+                                $atributos["id"]=$esteCampo;
+                                $atributos['enlace']=$variableEditar;
+                                $atributos['tabIndex']=$esteCampo;
+                                $atributos['redirLugar']=true;
+                                $atributos['estilo']='clasico';
+                                $atributos['enlaceTexto']='';
+                                $atributos['ancho']='25';
+                                $atributos['alto']='25';
+                                $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
+                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                unset($atributos);
+                                
+                                $mostrarHtml .= "</td>
+                                		<td>";
 
-                                        if($resultadoFactores[$key]['estado']=='Activo')
+                                        if($resultadoActividades[$key]['estado']=='Activo')
                                             {   
                                             	$esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;

@@ -27,16 +27,20 @@ $this->idioma["seleccionNivel"]="Selección nivel";
 $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
 
 $this->idioma["marcoEditaModalidad"]="Editar Datos de la Modalidad";
+$this->idioma["marcoEditaActividad"]="Editar Datos de la Actividad";
 
 $this->idioma["tabPerfil"]="Factores";
 $this->idioma["tabModalidades"]="Modalidades";
+$this->idioma["tabActividades"]="Actividades";
 
 $this->idioma["marcoPerfil"]="Factores y Criterios de Evaluación";
 
 $this->idioma["marcoCriterio"]="Criterios de Evaluación";
 $this->idioma["marcoModalidad"]="Registrar Modalidad";
+$this->idioma["marcoActividad"]="Registrar Actividad";
 
 $this->idioma["nuevoFactor"]="<br><b>Registrar Nuevo <br> Factor</b>";
+$this->idioma["nuevaActividad"]="<br><b>Registrar Nueva <br> Actividad</b>";
 $this->idioma["nuevaModalidad"]="<br><b>Registrar Nueva <br> Modalidad</b>";
 
 $this->idioma["nuevoSub"]="Nuevo Factor";
@@ -58,6 +62,9 @@ $this->idioma["botonActualizar"]="Actualizar";
 $this->idioma["factor"]="Factor"; 
 
 $this->idioma["nombreCriterio"]="Nombre del criterio:";
+$this->idioma["nombreActividad"]="Nombre de la actividad:";
+
+$this->idioma["descripcionActividad"]="Descripción de la actividad:";
 
 $this->idioma["subsistemaTitulo"]="Seleccione el Subsistema ";
 

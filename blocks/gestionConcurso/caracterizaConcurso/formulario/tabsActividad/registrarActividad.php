@@ -79,7 +79,7 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 			
 			$variable = "pagina=" . $miPaginaActual;
-			$variable .= "&opcion=gestionModalidad";
+			$variable .= "&opcion=gestionActividades";
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 			
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -94,21 +94,20 @@ class registrarForm {
            	$atributos ['ancho'] = '30px';
            	$atributos ['alto'] = '30px';
            	$atributos ['redirLugar'] = true;
+           	$tab ++;
            	echo $this->miFormulario->enlace ( $atributos );
            	unset ( $atributos );
                         
-			$esteCampo = "marcoModalidad";
+			$esteCampo = "marcoActividad";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
 			$atributos ['tipoEtiqueta'] = 'inicio';
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
-			$tab ++;
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{	
-                
                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-				$esteCampo = 'nombreModalidad';
+				$esteCampo = 'nombreActividad';
 				$atributos ['id'] = $esteCampo;
 				$atributos ['nombre'] = $esteCampo;
 				$atributos ['tipo'] = 'text';
@@ -126,7 +125,7 @@ class registrarForm {
 				$atributos ['deshabilitado'] = false;
 				$atributos ['tamanno'] = 60;
 				$atributos ['maximoTamanno'] = '';
-				$atributos ['anchoEtiqueta'] = 170;
+				$atributos ['anchoEtiqueta'] = 200;
 				$tab ++;
 				// Aplica atributos globales al control
 				$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -134,36 +133,33 @@ class registrarForm {
 				unset ( $atributos );
 				// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
 				
-				// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-				$esteCampo = 'seleccionNivel';
-				$atributos ['columnas'] = 1;
-				$atributos ['nombre'] = $esteCampo;
+				// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+				$esteCampo = 'descripcionActividad';
 				$atributos ['id'] = $esteCampo;
-				$atributos ['evento'] = '';
-				$atributos ['deshabilitado'] = false;
-				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['tab'] = $tab;
-				$atributos ['tamanno'] = 1;
+				$atributos ['nombre'] = $esteCampo;
+				$atributos ['tipo'] = 'text';
 				$atributos ['estilo'] = 'jqueryui';
-				$atributos ['validar'] = 'required';
-				$atributos ['limitar'] = true;
+				$atributos ['marco'] = true;
+				$atributos ['estiloMarco'] = '';
+				$atributos ["etiquetaObligatorio"] = true;
+				$atributos ['columnas'] = 1;
+				$atributos ['dobleLinea'] = 0;
+				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-				$atributos ['anchoEtiqueta'] = 170;
-				$atributos ['anchoCaja'] = 60;
-				if (isset ( $_REQUEST [$esteCampo] ))
-				{$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
-				else {	$atributos ['seleccion'] = -1;}
-				$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarNiveles" );
-				$matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-				$atributos ['matrizItems'] = $matrizItems;
-				// Utilizar lo siguiente cuando no se pase un arreglo:
-				// $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
-				// $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
+				$atributos ['validar']="required, minSize[5]";
+				$atributos ['valor'] = '';
+				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+				$atributos ['deshabilitado'] = false;
+				$atributos ['tamanno'] = 60;
+				$atributos ['maximoTamanno'] = '';
+				$atributos ['anchoEtiqueta'] = 200;
 				$tab ++;
+				// Aplica atributos globales al control
 				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->campoCuadroLista ( $atributos );
+				echo $this->miFormulario->campoCuadroTexto ( $atributos );
 				unset ( $atributos );
-				// ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+				// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+				
 				
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
@@ -223,7 +219,7 @@ class registrarForm {
 			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-			$valorCodificado .= "&opcion=guardarModalidad";
+			$valorCodificado .= "&opcion=guardarActividad";
 			
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

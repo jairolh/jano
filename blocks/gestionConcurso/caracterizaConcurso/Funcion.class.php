@@ -65,11 +65,8 @@ class Funcion {
 			$this->procesarAjax ();
 		} 
 		elseif (isset ( $_REQUEST ["opcion"] )){
-			switch ($_REQUEST ['opcion']){       
-				case "guardarDatos":
-					$this->guardarDatos();
-                    break;
-                
+			switch ($_REQUEST ['opcion']){ 
+				
                 case "guardarFactor":
                 	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                 	$this->guardarFactor();
@@ -89,73 +86,57 @@ class Funcion {
                		$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                 	$this->guardarActividad();
                		break;
-                    
-                    
+               	
+               	case "editarDatos":
+               		$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+               		$this->editarDatos();
+               		break;
+               	
+               	case "editarModalidad":
+               		$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+               		$this->editarModalidad();
+               		break;
+               		
+               	case "editarActividad":
+               		$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+               		$this->editarActividad();
+               		break;
+               	
+               	case "inhabilitar":
+               		$_REQUEST["estado"]="I";
+               		$this->cambiarEstadoFactor(); 
+               		break;  
+               	
+               	case "habilitar":
+               		$_REQUEST["estado"]="A";
+               		$this->cambiarEstadoFactor(); 
+               		break;  
+               	
+               	case "inhabilitarModalidad":
+               		$_REQUEST["estado"]="I";
+               		$this->cambiarEstadoModalidad();
+               		break;
+               	
+               	case "habilitarModalidad":
+               		$_REQUEST["estado"]="A";
+               		$this->cambiarEstadoModalidad();
+               		break;
+               	
+               	case "inhabilitarActividad":
+               		$_REQUEST["estado"]="I";
+               		$this->cambiarEstadoActividad();
+               		break;
+               	
+               	case "habilitarActividad":
+               		$_REQUEST["estado"]="A";
+               		$this->cambiarEstadoActividad();
+               		break;
 
-                            case "guardarDatosSub":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarDatosSub();
-                                break;
-
-                            
-                            case "editarDatos":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->editarDatos();
-                                break;
-                                
-                           	case "editarActividad":
-                               	$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                               	$this->editarActividad();
-                               	break;
-
-                            case "borrar":
-                                    $this->borrarDatos();
-                                    break;    
-
-                            case "inhabilitar":
-                                    $_REQUEST["estado"]="I";
-                                    $this->cambiarEstadoFactor(); 
-                                break;     
-
-                            case "habilitar":
-                                    $_REQUEST["estado"]="A";
-                                    $this->cambiarEstadoFactor(); 
-                                break;   
-                                
-                           	case "inhabilitarModalidad":
-                                $_REQUEST["estado"]="I";
-                               	$this->cambiarEstadoModalidad();
-                               	break;
-                                
-                          	case "habilitarModalidad":
-                                $_REQUEST["estado"]="A";
-                               	$this->cambiarEstadoModalidad();
-                               	break;
-                               	
-                           	case "inhabilitarActividad":
-                               	$_REQUEST["estado"]="I";
-                               	$this->cambiarEstadoActividad();
-                              	break;
-                               	
-                           	case "habilitarActividad":
-                               	$_REQUEST["estado"]="A";
-                               	$this->cambiarEstadoActividad();
-                              	break;
-
-                        }
+			}
                                        
-// 			if ($validacion == false) {
-// 				// Instanciar a la clase pagina con mensaje de correcion de datos
-// 				echo "Datos Incorrectos";
-// 			} else {
-// 				// Validar las variables para evitar un tipo insercion de SQL
-// 				$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-				
-// 				$this->funcionEjemplo ();
-// 				$this->redireccionar ( "exito" );
-// 			}
 		}
 	}
+	
 	function __construct() {
 		$this->miConfigurador = \Configurador::singleton ();
 		
@@ -176,23 +157,28 @@ class Funcion {
 			$this->miRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 		}
 	}
+	
 	public function setRuta($unaRuta) {
 		$this->ruta = $unaRuta;
 	}
+	
 	function setSql($a) {
 		$this->sql = $a;
 	}
+	
 	function setFuncion($funcion) {
 		$this->funcion = $funcion;
 	}
+	
 	public function setLenguaje($lenguaje) {
 		$this->lenguaje = $lenguaje;
 	}
+	
 	public function setFormulario($formulario) {
 		$this->formulario = $formulario;
 	}
         
-        /*Funciones propias*/
+    /*Funciones propias*/
         	
 	function verificarCampos(){
 		include_once($this->ruta."/funcion/verificarCampos.php");
@@ -202,29 +188,17 @@ class Funcion {
 			return true;
 		}
 	}
-	
-	function guardarDatos()
-	{
-		include_once($this->ruta."/funcion/registrarPerfil.php");
-	}	
-	
-	function borrarDatos()
-	{
-		include_once($this->ruta."/funcion/borrarRol.php");
-	}	
         
-        function editarDatos()
-	{
+    function editarDatos(){
 		include_once($this->ruta."/funcion/editarFactor.php");
+	}
+	
+	function editarModalidad(){
+		include_once($this->ruta."/funcion/editarModalidad.php");
 	}
 	
 	function editarActividad(){
 		include_once($this->ruta."/funcion/editarActividad.php");
-	}
-        
-        function guardarDatosSub()
-	{
-		include_once($this->ruta."/funcion/registrarSubsistema.php");
 	}
         
     function guardarFactor(){

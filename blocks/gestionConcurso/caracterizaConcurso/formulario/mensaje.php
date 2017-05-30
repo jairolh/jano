@@ -179,14 +179,14 @@ class registrarForm {
                       	$tipo = 'success';
                       	$mensaje = "Se actualizó con exito la Modalidad <b>".$_REQUEST ["nombreModalidad"]." </b>.";
                        	$boton = "continuar";
+                       	$variable.="&opcion=gestionModalidad";
                        	break;
                         
                    	case "errorEditaModalidad":
                         $tipo = 'error';
-                       	$mensaje = "No fue posible actualizar la Modalidad <b>".$_REQUEST ["nombreModalidad"]." </b> Por favor intente más tarde.";
+                       	$mensaje = "No fue posible actualizar la Modalidad <b>".$_REQUEST ["nombreModalidad"]."</b>. Por favor intente más tarde.";
                        	$boton = "regresar";
-                       	$variable.="&opcion=editarModalidad";
-                       	$variable.="&id_modalidad=".$_REQUEST ["id_modalidad"];
+                       	$variable.="&opcion=gestionModalidad";
                        	break;
                        	
                   	case "confirmaEditaActividad":
@@ -221,6 +221,8 @@ class registrarForm {
                    		$boton = "continuar";
                    		break;
                    		
+                   	/*Mensaje para Habilitar o Deshabilitar las Modalidades*/
+                   
                    	case "habilitoModalidad":
                    		$tipo = 'success';
                    		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> se habilitó con éxito.";
@@ -235,6 +237,22 @@ class registrarForm {
                    		$variable.="&opcion=gestionModalidad";
                    		break;
                    		
+                   	case "nohabilitoModalidad":
+                   		$tipo = 'error';
+                  		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> no se pudo habilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
+                   		$variable.="&opcion=gestionModalidad";
+                  		break;
+                   		
+                   	case "noinhabilitoModalidad":
+                   		$tipo = 'error';
+                   		$mensaje = "La modalidad <b>".$_REQUEST ["modalidad"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
+                   		$variable.="&opcion=gestionModalidad";
+                  		break;
+                  		
+                   	/*Mensaje para Habilitar o Deshabilitar las Actividades*/
+                  		
                    	case "habilitoActividad":
                    		$tipo = 'success';
                    		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> se habilitó con éxito.";
@@ -251,9 +269,15 @@ class registrarForm {
                    	
                    	case "nohabilitoActividad":
                    		$tipo = 'error';
-                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo habilitar. Por favor intente más tarde.";
                    		$boton = "regresar";
                    		break;
+                   	
+                   	case "noinhabilitoActividad":
+                   		$tipo = 'error';
+                   		$mensaje = "La actividad <b>".$_REQUEST ["actividad"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
+                  		break;
             	}
             	
                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------

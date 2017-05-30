@@ -76,8 +76,8 @@ class consultarForm {
         $variableNuevo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($valorCodificado, $directorio);
 		
         $cadena_sql = $this->miSql->getCadenaSql("consultaModalidades", "");
-        $resultadoFactores = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-//         var_dump($resultadoFactores);
+        $resultadoModalidades = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+//         var_dump($resultadoModalidades);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -107,7 +107,7 @@ class consultarForm {
                         </tr>
                       </table></div> ";
 
-                if($resultadoFactores)
+                if($resultadoModalidades)
                 {	
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoConsultaPerfiles";
@@ -130,15 +130,15 @@ class consultarForm {
                             </thead>
                             <tbody>";
 
-                        foreach($resultadoFactores as $key=>$value )
+                        foreach($resultadoModalidades as $key=>$value )
                             { 
                             	
                             	$variableEditar = "pagina=". $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableEditar.= "&opcion=editarModalidad";
                             	$variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                            	$variableEditar.= "&id_modalidad=" .$resultadoFactores[$key]['consecutivo_modalidad'];
-                            	$variableEditar.= "&modalidad=" .$resultadoFactores[$key]['nombre'];
-                            	$variableEditar.= "&nivel=" .$resultadoFactores[$key]['codigo_nivel_concurso'];
+                            	$variableEditar.= "&id_modalidad=" .$resultadoModalidades[$key]['consecutivo_modalidad'];
+                            	$variableEditar.= "&modalidad=" .$resultadoModalidades[$key]['nombre'];
+                            	$variableEditar.= "&nivel=" .$resultadoModalidades[$key]['codigo_nivel_concurso'];
                             	$variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                             	$variableEditar.= "&tiempo=" . time ();
                             	
@@ -146,28 +146,28 @@ class consultarForm {
                             	
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                if($resultadoFactores[$key]['estado']=='A')
+                                if($resultadoModalidades[$key]['estado']=='A')
                                     {$variableEstado.= "&opcion=inhabilitarModalidad";}
                                 else{$variableEstado.= "&opcion=habilitarModalidad";}    
                                 $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                $variableEstado.= "&id_modalidad=" .$resultadoFactores[$key]['consecutivo_modalidad'];
-                                $variableEstado.= "&nombre_modalidad=" .$resultadoFactores[$key]['nombre'];
-                                $variableEstado.= "&estado_modalidad=" .$resultadoFactores[$key]['estado'];
+                                $variableEstado.= "&id_modalidad=" .$resultadoModalidades[$key]['consecutivo_modalidad'];
+                                $variableEstado.= "&nombre_modalidad=" .$resultadoModalidades[$key]['nombre'];
+                                $variableEstado.= "&estado_modalidad=" .$resultadoModalidades[$key]['estado'];
                                 $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                 $variableEstado.= "&tiempo=" . time ();
                                 $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
-                                if($resultadoFactores[$key]['estado']=='A'){
-                                	$resultadoFactores[$key]['estado']="Activo";
+                                if($resultadoModalidades[$key]['estado']=='A'){
+                                	$resultadoModalidades[$key]['estado']="Activo";
                                 }else{
-                                	$resultadoFactores[$key]['estado']="Inactivo";
+                                	$resultadoModalidades[$key]['estado']="Inactivo";
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoFactores[$key]['consecutivo_modalidad']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['codigo_nivel_concurso']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>
+                                        <td align='left'>".$resultadoModalidades[$key]['consecutivo_modalidad']."</td>
+                                        <td align='left'>".$resultadoModalidades[$key]['codigo_nivel_concurso']."</td>
+                                        <td align='left'>".$resultadoModalidades[$key]['nombre']."</td>
+                                        <td align='left'>".$resultadoModalidades[$key]['estado']."</td>
                                         
                                         <td>";
                                 
@@ -190,7 +190,7 @@ class consultarForm {
 		                        
 		                        
 
-                                        if($resultadoFactores[$key]['estado']=='Activo')
+                                        if($resultadoModalidades[$key]['estado']=='Activo')
                                             {   
                                             	$esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;

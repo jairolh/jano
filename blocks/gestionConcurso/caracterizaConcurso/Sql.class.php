@@ -203,7 +203,6 @@ class Sql extends \Sql {
                		$cadenaSql .= "codigo_nivel_concurso=".$variable['nivel']."";
                		$cadenaSql .= " WHERE ";
                     $cadenaSql .= " consecutivo_modalidad = '".$variable['id_modalidad']."' ";
-                    //var_dump($cadenaSql);
                     break;
               	
               	case "editarActividad":

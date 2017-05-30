@@ -45,9 +45,9 @@ class RegistradorPerfil {
         $resultadoFactor = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
         
         if($resultadoFactor){ 
-            redireccion::redireccionar('editoFactor',$arregloDatos);  exit();
+            redireccion::redireccionar('editoModalidad',$arregloDatos);  exit();
         }else{
-        	redireccion::redireccionar('noEditoFactor',$arregloDatos);  exit();
+        	redireccion::redireccionar('noEditoModalidad',$arregloDatos);  exit();
         }
 
   

@@ -12,6 +12,7 @@ class redireccion {
 		//$miPaginaActual = $miConfigurador->getVariableConfiguracion ( "pagina" );
        	$miPaginaActual="caracterizaConcurso";
 		
+       	
 		switch ($opcion) {
         	case "inhabilitar":
         		$variable="pagina=".$miPaginaActual;
@@ -27,6 +28,8 @@ class redireccion {
         		$variable.="&factor=".$valor['nombre_factor'];
 				break;
 				
+				
+			/*Mensajes actualización estado de la Modalidad*/
 			case "inhabilitarModalidad":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
@@ -40,7 +43,23 @@ class redireccion {
 				$variable.="&mensaje=habilitoModalidad";
 				$variable.="&modalidad=".$valor['nombre_modalidad'];
 				break;
-					
+				
+			case "nohabilitarModalidad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=nohabilitoModalidad";
+				$variable.="&modalidad=".$valor['nombre_modalidad'];
+				break;
+				
+			case "noinhabilitarModalidad":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=noinhabilitoModalidad";
+				$variable.="&modalidad=".$valor['nombre_modalidad'];
+				break;
+			/*Fin Mensajes actualización estado de la Modalidad*/
+				
+				
 			case "inhabilitarActividad":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";

@@ -115,7 +115,7 @@ class registrarForm {
 						$tipo = 'error';
 						$mensaje = "No fue posible registrar el nuevo Factor de evaluación <b>".$_REQUEST['nombreFactor']."</b>. Por favor intente más tarde.";
                         $boton = "regresar";
-                        $variable.="&opcion=nuevoSub";
+                        $variable.="&opcion=nuevo";
                         break;
 					
 					case "confirmaCriterio":
@@ -129,7 +129,7 @@ class registrarForm {
                   		$tipo = 'error';
                   		$mensaje = "No fue posible registrar el nuevo Criterio de evaluación <b>".$_REQUEST['nombreCriterio']."</b>. Por favor intente más tarde.";
                         $boton = "regresar";
-                        $variable.="&opcion=nuevoSub";
+                        $variable.="&opcion=nuevo";
                         break;
                         
 					case "confirmaModalidad":
@@ -209,7 +209,7 @@ class registrarForm {
                    		$boton = "continuar";
                    		break;
                    	
-                   	case "noInhabilito":
+                   	case "noinhabilito":
                    		$tipo = 'error';
                    		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
                    		$boton = "regresar";
@@ -219,6 +219,12 @@ class registrarForm {
                    		$tipo = 'success';
                    		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> se habilitó con éxito.";
                    		$boton = "continuar";
+                   		break;
+                   		
+                 	case "nohabilito":
+                   		$tipo = 'error';
+                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> no se pudo habilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
                    		break;
                    		
                    	/*Mensaje para Habilitar o Deshabilitar las Modalidades*/

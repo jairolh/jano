@@ -13,6 +13,8 @@ class redireccion {
        	$miPaginaActual="caracterizaConcurso";
 		
 		switch ($opcion) {
+			
+			/*Mensajes actualización estado del factor */
         	case "inhabilitar":
         		$variable="pagina=".$miPaginaActual;
         		$variable.="&opcion=mensaje";
@@ -27,6 +29,20 @@ class redireccion {
         		$variable.="&factor=".$valor['nombre_factor'];
 				break;
 				
+			case "nohabilitar":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=nohabilito";
+				$variable.="&factor=".$valor['nombre_factor'];
+				break;
+				
+			case "noinhabilitar":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=noinhabilito";
+				$variable.="&factor=".$valor['nombre_factor'];
+				break;
+					
 			/*Mensajes actualización estado de la Modalidad*/
 			case "inhabilitarModalidad":
 				$variable="pagina=".$miPaginaActual;
@@ -55,7 +71,6 @@ class redireccion {
 				$variable.="&mensaje=noinhabilitoModalidad";
 				$variable.="&modalidad=".$valor['nombre_modalidad'];
 				break;
-			/*Fin Mensajes actualización estado de la Modalidad*/
 				
 			/*Mensajes actualización estado de la Actividad*/
 			case "inhabilitarActividad":
@@ -86,13 +101,6 @@ class redireccion {
 				$variable.="&actividad=".$valor['nombre_actividad'];
 				break;
 			/*Fin Mensajes actualización estado de la Actividad*/
-			
-			case "nohabilitar":
-				$variable="pagina=".$miPaginaActual;
-				$variable.="&opcion=mensaje";
-				$variable.="&mensaje=nohabilito";
-				$variable.="&factor=".$valor['nombre_factor'];
-				break; 
 			
 			case "insertoFactor":
 				$variable="pagina=".$miPaginaActual;

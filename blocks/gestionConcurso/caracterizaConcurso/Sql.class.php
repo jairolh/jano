@@ -96,7 +96,7 @@ class Sql extends \Sql {
                     
             case "cambiarEstadoFactor":
                 $cadenaSql = "UPDATE concurso.factor_evaluacion SET ";
-                $cadenaSql .= " estado = '".$variable['estado']."'";
+               	$cadenaSql .= " estado = '".$variable['estado']."'";
                 $cadenaSql .= " WHERE consecutivo_factor = '".$variable['id_factor']."' ";
 				break; 
 				

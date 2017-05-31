@@ -62,8 +62,6 @@ class pie {
         $atributos ['tipoEtiqueta'] = 'inicio';
         echo $this->miFormulario->formulario($atributos);
         {
-
-
             //-------------------------------------------------------------------//
             $esteCampo = "marcoDatosBasicosPie";
             $atributos ['id'] = $esteCampo;
@@ -73,7 +71,6 @@ class pie {
             echo $this->miFormulario->marcoAgrupacion('inicio', $atributos);
             unset($atributos);
             {
-
                 $tab = 1;
                 // ------------------Division-------------------------
 
@@ -81,7 +78,6 @@ class pie {
                 echo $this->miFormulario->division("inicio", $atributos);
                 unset($atributos);
                 {
-
                     $esteCampo = 'enlaceDistrital';
                     $atributos ['id'] = $esteCampo;
                     $atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
@@ -94,14 +90,11 @@ class pie {
                     echo $this->miFormulario->enlace($atributos);
                     unset($atributos);
                 }
-
                 echo $this->miFormulario->division("fin");
-
                 $atributos ["id"] = "colm2";
                 echo $this->miFormulario->division("inicio", $atributos);
                 unset($atributos);
                 {
-
                     $esteCampo = 'mensajePie';
                     $atributos ["id"] = $esteCampo;
                     $atributos ["estilo"] = $esteCampo;
@@ -112,10 +105,7 @@ class pie {
                     echo $this->miFormulario->campoTexto($atributos);
                     unset($atributos);
                 }
-
                 echo $this->miFormulario->division("fin");
-
-
                 $atributos ["id"] = "colm3";
                 echo $this->miFormulario->division("inicio", $atributos);
                 unset($atributos);
@@ -133,18 +123,17 @@ class pie {
                     echo $this->miFormulario->campoTexto($atributos);
                     unset($atributos);
                 }
-
                 echo $this->miFormulario->division("fin");
-
                 $atributos ["id"] = "colm4";
                 echo $this->miFormulario->division("inicio", $atributos);
                 unset($atributos);
                 {
-
                     $esteCampo = 'enlacegoogle';
                     $atributos ['id'] = $esteCampo;
-                    $atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
-                    $atributos ['columnas'] = 1;
+                    //$atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
+                    $atributos ['enlace'] = '#';
+                    $atributos ['columnas'] = 3;
+                    $atributos ['onClick']='window.open("'.$this->lenguaje->getCadena($esteCampo).'")';
                     // $atributos ['estilo'] = 'jquery';
                     $atributos ['enlaceImagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'imagen/google+.png';
                     $atributos ['ancho'] = '30px';
@@ -155,8 +144,10 @@ class pie {
 
                     $esteCampo = 'enlacefacebook';
                     $atributos ['id'] = $esteCampo;
-                    $atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
-                    $atributos ['columnas'] = 1;
+                    //$atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
+                    $atributos ['enlace'] = '#';
+                    $atributos ['columnas'] = 3;
+                    $atributos ['onClick']='window.open("'.$this->lenguaje->getCadena($esteCampo).'")';
                     // $atributos ['estilo'] = 'jquery';
                     $atributos ['enlaceImagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'imagen/facebook.png';
                     $atributos ['ancho'] = '30px';
@@ -164,11 +155,12 @@ class pie {
                     $tab ++;
                     echo $this->miFormulario->enlace($atributos);
                     unset($atributos);
-
                     $esteCampo = 'enlacetwitter';
                     $atributos ['id'] = $esteCampo;
-                    $atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
-                    $atributos ['columnas'] = 1;
+                    //$atributos ['enlace'] = $this->lenguaje->getCadena($esteCampo);
+                    $atributos ['enlace'] = '#';
+                    $atributos ['columnas'] = 3;
+                    $atributos ['onClick']='window.open("'.$this->lenguaje->getCadena($esteCampo).'")';
                     // $atributos ['estilo'] = 'jquery';
                     $atributos ['enlaceImagen'] = $this->miConfigurador->getVariableConfiguracion('rutaUrlBloque') . 'imagen/twitter.png';
                     $atributos ['ancho'] = '30px';

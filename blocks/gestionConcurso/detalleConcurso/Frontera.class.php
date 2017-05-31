@@ -55,15 +55,6 @@ class Frontera {
 				case "nuevo":
 					include_once($this->ruta."formulario/nuevo.php");
 					break;
-                                    
-				case "nuevoRol":
-					include_once($this->ruta."formulario/nuevo.php");
-					break;
-
-                                case "nuevoSub":
-					include_once($this->ruta."formulario/nuevo.php");
-					break;                                    
-                                
                                 case "editar":
 					include_once($this->ruta."formulario/nuevo.php");
 					break;    

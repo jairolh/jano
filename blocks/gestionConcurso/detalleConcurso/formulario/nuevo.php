@@ -47,7 +47,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                 include ($this->ruta . "formulario/tabs/registroConcurso.php");
                                 break;
                         case "editar":
-                                include ($this->ruta . "formulario/tabs/edita.php");
+                                include ($this->ruta . "formulario/tabs/registroConcurso.php");
                                 break;
                 }
 

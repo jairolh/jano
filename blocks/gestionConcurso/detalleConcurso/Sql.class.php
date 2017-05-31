@@ -34,6 +34,30 @@ class Sql extends \Sql {
                         case "idioma":
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
+                        case 'buscarSoporte' :
+				$cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" sop.consecutivo_soporte,";
+                                $cadenaSql.=" sop.consecutivo_persona,";
+                                $cadenaSql.=" sop.tipo_dato, ";
+                                $cadenaSql.=" sop.consecutivo_dato,";
+                                $cadenaSql.=" sop.nombre archivo,";
+                                $cadenaSql.=" sop.alias,";
+                                $cadenaSql.=" tsop.tipo_soporte,";
+                                $cadenaSql.=" tsop.nombre, ";
+                                $cadenaSql.=" tsop.ubicacion";
+                                $cadenaSql.=" FROM concurso.soporte sop";
+                                $cadenaSql.=" INNER JOIN general.tipo_soporte tsop";
+                                $cadenaSql.=" ON tsop.tipo_soporte=sop.tipo_soporte";
+                                $cadenaSql.=" AND tsop.estado=sop.estado";
+                                $cadenaSql.=" WHERE";
+                                $cadenaSql.=" tsop.estado='A' ";
+                                $cadenaSql.=" AND sop.tipo_dato='".$variable['tipo_dato']."'";
+                                $cadenaSql.=" AND sop.consecutivo_persona='".$variable['consecutivo']."'";
+                                $cadenaSql.=" AND tsop.nombre='".$variable['nombre_soporte']."'";
+                                if(isset($variable['consecutivo_dato']) && $variable['consecutivo_dato']!='')
+                                    {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
+                                $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
+                            break;   
                         case "consultarNivel":
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" codigo_nivel,";
@@ -90,7 +114,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conc.descripcion,";
                                 $cadenaSql.=" conc.fecha_inicio,";
                                 $cadenaSql.=" conc.fecha_fin, ";
-                                //$cadenaSql.=" conc.estado, ";
                                 $cadenaSql.=" (CASE WHEN conc.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado, ";
                                 $cadenaSql.=" mdl.nombre modalidad, ";
                                 $cadenaSql.=" mdl.codigo_nivel_concurso,";
@@ -144,10 +167,10 @@ class Sql extends \Sql {
                                 $cadenaSql.= " nombre= '".$variable['nombre']."', ";
                                 $cadenaSql.= " acuerdo= '".$variable['acuerdo']."', ";
                                 $cadenaSql.= " descripcion= '".$variable['descripcion']."', ";
-                                $cadenaSql.= " fecha_inicio= '".$variable['fecha_inicio']."', ";
-                                $cadenaSql.= " fecha_fin= '".$variable['fecha_fin']."' ";
+                                $cadenaSql.= " fecha_inicio= '".$variable['fecha_inicio_concurso']."', ";
+                                $cadenaSql.= " fecha_fin= '".$variable['fecha_fin_concurso']."' ";
                                 $cadenaSql.=" WHERE ";
-                                $cadenaSql.=" consecutivo_concurso= '".$variable['consecutivo_concurso']."', ";
+                                $cadenaSql.=" consecutivo_concurso= '".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_concurso";
                         break;   
                     

@@ -3,7 +3,7 @@
 $this->idioma ["noDefinido"] = "Etiqueta no definida";
 $this->idioma["nuevoConcurso"]="<br><b>Registrar Nuevo Concurso</b>";
 //tabs
-$this->idioma["tabConcurso"]="Detalle Concurso";
+$this->idioma["tabConcurso"]="Registro Concurso";
 
 //marcos
 $this->idioma["marcoConcurso"]="Nuevo Concurso";
@@ -30,6 +30,7 @@ $this->idioma["fecha_fin_concursoTitulo"]="Ingrese la fecha del terminación del
 //botones
 $this->idioma ["botonRegresar"] =" Regresar ";
 $this->idioma ["botonAceptar"] ="Aceptar";
+$this->idioma ["botonGuardar"] ="Guardar";
 $this->idioma ["botonCancelar"] ="Cancelar";
 $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";

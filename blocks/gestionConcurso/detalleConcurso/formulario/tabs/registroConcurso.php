@@ -11,6 +11,7 @@ class registrarConcursoForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
+        var $rutaSoporte;  
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 		
@@ -21,12 +22,13 @@ class registrarConcursoForm {
 		$this->miFormulario = $formulario;
 		
 		$this->miSql = $sql;
+                
 	}
 	function miForm() {
 		
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-		
+		$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -51,22 +53,16 @@ class registrarConcursoForm {
                 $usuario=$miSesion->idUsuario();
                 
                 if(isset($_REQUEST['consecutivo_concurso']))
-                    {  $parametro['consecutivo_formacion']=$_REQUEST['consecutivo_formacion'];
-                       $cadena_sql = $this->miSql->getCadenaSql("consultarFormacion", $parametro);
-                       $resultadoFormacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                        $parametroSop = array('consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
-                                             'tipo_dato'=>'datosFormacion',
-                                             'nombre_soporte'=>'soporteDiploma',
-                                             'consecutivo_dato'=>$_REQUEST['consecutivo_formacion']);
-                        $cadenaSopDip_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopDip = $esteRecursoDB->ejecutarAcceso($cadenaSopDip_sql, "busqueda");
-                        $parametroSop['nombre_soporte']='soporteTprofesional';
-                        $cadenaSopTP_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopTP = $esteRecursoDB->ejecutarAcceso($cadenaSopTP_sql, "busqueda");
+                    {   $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
+                        $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
+                        $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        $parametroSop = array('consecutivo'=>0,
+                                             'tipo_dato'=>'datosConcurso',
+                                             'nombre_soporte'=>'soporteAcuerdo',
+                                             'consecutivo_dato'=>$_REQUEST['consecutivo_concurso']);
+                        $cadenaSopAcu_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                        $resultadoSopAcu = $esteRecursoDB->ejecutarAcceso($cadenaSopAcu_sql, "busqueda");
                     }
-                    
-                
-                
 		
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -89,17 +85,13 @@ class registrarConcursoForm {
 		echo $this->miFormulario->formulario ( $atributos );
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
-			
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-			
-                        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+			$rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
                         $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
                         $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
-                        
-			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+                        $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-			
 			$variable = "pagina=" . $miPaginaActual;
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 			
@@ -125,77 +117,64 @@ class registrarConcursoForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-				// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+			{	// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
 				$esteCampo = 'tipo';
 				$atributos ['nombre'] = $esteCampo;
-				$atributos ['id'] = $esteCampo;
-				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['tab'] = $tab ++;
-				$atributos ['seleccion'] = - 1;
-				$atributos ['anchoEtiqueta'] = 170;
-				$atributos ['evento'] = '';
-				if (isset ( $_REQUEST [$esteCampo] )) 
-                                    {	$atributos ['valor'] = $_REQUEST [$esteCampo];}
-                                else{	$atributos ['valor'] = '';}
-				$atributos ['deshabilitado'] = false;
+                                $atributos ['id'] = $esteCampo;
+                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                $atributos ["etiquetaObligatorio"] = true;
+                                $atributos ['tab'] = $tab ++;
+                                $atributos ['anchoEtiqueta'] = 170;
+                                $atributos ['evento'] = '';
+                                if (isset ( $resultadoConcurso[0] ['codigo_nivel_concurso'] )) 
+                                    {	$atributos ['seleccion'] = $resultadoConcurso[0] ['codigo_nivel_concurso'];}
+                                else{	$atributos ['seleccion'] = '';}
 				$atributos ['columnas'] = 1;
-				$atributos ['tamanno'] = 1;
-				$atributos ['ajax_function'] = "";
-				$atributos ['ajax_control'] = $esteCampo;
-				$atributos ['estilo'] = "jqueryui";
-				$atributos ['validar'] = "required";
-				$atributos ['limitar'] = true;
-				$atributos ['anchoCaja'] = 60;
-				$atributos ['miEvento'] = '';
-				$parametronivel=array('tipo_nivel'=> 'TipoConcurso');
+                                $atributos ['tamanno'] = 1;
+                                $atributos ['estilo'] = "jqueryui";
+                                $atributos ['validar'] = "required";
+                                $atributos ['limitar'] = true;
+                                $atributos ['anchoCaja'] = 60;
+                                $atributos ['evento'] = '';
+                                $parametronivel=array('tipo_nivel'=> 'TipoConcurso');
                                 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarNivel",$parametronivel );
-				$matrizItems = array (array (0,' '));
-				$matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-				$atributos ['matrizItems'] = $matrizItems;
-				// $atributos['miniRegistro']=;
-				// $atributos ['baseDatos'] = "inventarios";
-				// $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "clase_entrada" );
-				// Aplica atributos globales al control
+                                $matrizItems = array (array (0,' '));
+                                $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                $atributos ['matrizItems'] = $matrizItems;
+                                // Aplica atributos globales al control
 				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                echo $this->miFormulario->campoCuadroLista ( $atributos );
 				unset ( $atributos );
 				// ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
                                 // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
 				$esteCampo = 'modalidad';
 				$atributos ['nombre'] = $esteCampo;
-				$atributos ['id'] = $esteCampo;
-				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['tab'] = $tab ++;
-				$atributos ['seleccion'] = - 1;
-				$atributos ['anchoEtiqueta'] = 170;
-				$atributos ['evento'] = '';
-				if (isset ( $_REQUEST [$esteCampo] )) 
-                                    {	$atributos ['valor'] = $_REQUEST [$esteCampo];
+                                $atributos ['id'] = $esteCampo;
+                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                $atributos ["etiquetaObligatorio"] = true;
+                                $atributos ['tab'] = $tab ++;
+                                $atributos ['anchoEtiqueta'] = 170;
+                                $atributos ['evento'] = '';
+                                if (isset ($resultadoConcurso[0] ['consecutivo_modalidad']  )) 
+                                    {	$atributos ['seleccion'] = $resultadoConcurso[0]['consecutivo_modalidad'] ;
+                                        $parametro['tipo_concurso']=$resultadoConcurso[0]['codigo_nivel_concurso'];
                                         $atributos ['deshabilitado'] = false;
                                     }
-                                else{	$atributos ['valor'] = '';
+                                else{	$atributos ['seleccion'] = '';
                                         $atributos ['deshabilitado'] = true;
                                     }
                                 $atributos ['columnas'] = 1;
-				$atributos ['tamanno'] = 1;
-				$atributos ['ajax_function'] = "";
-				$atributos ['ajax_control'] = $esteCampo;
-				$atributos ['estilo'] = "jqueryui";
-				$atributos ['validar'] = "required";
-				$atributos ['limitar'] = true;
-				$atributos ['anchoCaja'] = 60;
-				$atributos ['miEvento'] = '';
-				$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaModalidad" );
-				$matrizItems = array (array (0,' '));
-				$matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-				$atributos ['matrizItems'] = $matrizItems;
-				// $atributos['miniRegistro']=;
-				// $atributos ['baseDatos'] = "inventarios";
-				// $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "clase_entrada" );
-				// Aplica atributos globales al control
+                                $atributos ['tamanno'] = 1;
+                                $atributos ['estilo'] = "jqueryui";
+                                $atributos ['validar'] = "required";
+                                $atributos ['limitar'] = true;
+                                $atributos ['anchoCaja'] = 60;
+                                $atributos ['evento'] = '';
+                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaModalidad",$parametro );
+                                $matrizItems = array (array (0,' '));
+                                $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                $atributos ['matrizItems'] = $matrizItems;
+                                // Aplica atributos globales al control
 				$atributos = array_merge ( $atributos, $atributosGlobales );
 				echo $this->miFormulario->campoCuadroLista ( $atributos );
 				unset ( $atributos );
@@ -214,8 +193,10 @@ class registrarConcursoForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['validar']="required, minSize[5],maxSize[255]";
-                                $atributos ['valor'] = '';
-				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                if (isset ($resultadoConcurso[0] ['nombre']  )) 
+                                    { $atributos ['valor'] =  $resultadoConcurso[0]['nombre'] ;}
+                                else{ $atributos ['valor'] = ''; }
+                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = false;
 				$atributos ['tamanno'] = 60;
 				$atributos ['maximoTamanno'] = '';
@@ -240,7 +221,9 @@ class registrarConcursoForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['validar']="required, minSize[5],maxSize[50]";
-                                $atributos ['valor'] = '';
+                                if (isset ($resultadoConcurso[0] ['acuerdo']  )) 
+                                    { $atributos ['valor'] =  $resultadoConcurso[0]['acuerdo'] ;}
+                                else{ $atributos ['valor'] = ''; }
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = false;
 				$atributos ['tamanno'] = 60;
@@ -272,7 +255,7 @@ class registrarConcursoForm {
                                                     $atributos ['etiquetaObligatorio'] = false;
                                                     $atributos ['tamanno'] = 1024;
                                                     $atributos ['evento'] = 'accept="pdf"';
-                                                    if(isset($resultadoSopDip[0]['archivo']))
+                                                    if(isset($resultadoSopAcu[0]['archivo']))
                                                         {  $atributos ['columnas'] = 2;
                                                            $atributos ['validar'] = ''; 
                                                         }
@@ -359,11 +342,9 @@ class registrarConcursoForm {
                                 $atributos ['tamanno'] = 60;
                                 $atributos ['maximoTamanno'] = '';
                                 $atributos ['anchoEtiqueta'] = 170;
-                                if (isset ( $resultadoProfesional[0]['descripcion'] )) {
-                                        $atributos ['valor'] = $resultadoProfesional[0]['descripcion'];
-                                } else {
-                                        $atributos ['valor'] = '';
-                                }
+                                if (isset ($resultadoConcurso[0]['descripcion']  )) 
+                                    { $atributos ['valor'] =  $resultadoConcurso[0]['descripcion'] ;}
+                                else{ $atributos ['valor'] = ''; }
                                 $tab ++;
 
                                 // Aplica atributos globales al control
@@ -385,7 +366,9 @@ class registrarConcursoForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['validar']="required";
-                                $atributos ['valor'] = '';
+                                if (isset ($resultadoConcurso[0]['fecha_inicio']  )) 
+                                    { $atributos ['valor'] =  $resultadoConcurso[0]['fecha_inicio'] ;}
+                                else{ $atributos ['valor'] = ''; }
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = true;
 				$atributos ['tamanno'] = 60;
@@ -412,7 +395,9 @@ class registrarConcursoForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['validar']="required";
-                                $atributos ['valor'] = '';
+                                if (isset ($resultadoConcurso[0]['fecha_fin']  )) 
+                                    { $atributos ['valor'] =  $resultadoConcurso[0]['fecha_fin'] ;}
+                                else{ $atributos ['valor'] = ''; }
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = true;
 				$atributos ['tamanno'] = 60;
@@ -433,7 +418,7 @@ class registrarConcursoForm {
 				unset ( $atributos );
 				{
 					// -----------------CONTROL: Botón ----------------------------------------------------------------
-					$esteCampo = 'botonAceptar';
+					$esteCampo = 'botonGuardar';
 					$atributos ["id"] = $esteCampo;
 					$atributos ["tabIndex"] = $tab;
 					$atributos ["tipo"] = 'boton';

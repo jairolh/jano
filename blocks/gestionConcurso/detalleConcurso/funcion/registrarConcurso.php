@@ -43,15 +43,15 @@ class RegistradorConcurso {
                               'fecha_fin_concurso'=>$_REQUEST['fecha_fin_concurso'],
                               'estado'=>$_REQUEST['estado']
             );
+        
         if($arregloDatos['consecutivo_concurso']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
                 $_REQUEST['consecutivo_concurso']=$resultadoConcurso;
              }
-        else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarConcurso',$arregloDatos );
+        else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarConcurso" );
         }
-        
         
         if($resultadoConcurso)
             {   $_REQUEST['consecutivo']=0;$_REQUEST['consecutivo_persona'];

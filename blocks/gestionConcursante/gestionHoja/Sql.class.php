@@ -467,6 +467,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['nombre']."',";
                                 $cadenaSql.=" '".$variable['alias']."',";
                                 $cadenaSql.=" 'A' )";
+                                $cadenaSql.=  " RETURNING consecutivo_soporte ";
                             break;
 			case 'registroContacto' :
                                 $cadenaSql=" INSERT INTO concurso.contacto(";
@@ -774,6 +775,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" sexo='".$variable['sexo']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo='".$variable['consecutivo']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo ";
                             break;  
                         case "actualizarContacto":
                                 $cadenaSql=" UPDATE concurso.contacto";
@@ -788,6 +790,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" celular='".$variable['celular']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_contacto='".$variable['consecutivo_contacto']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_contacto ";
                             break;                      
                         case "actualizarFormacion":
                                 $cadenaSql=" UPDATE concurso.formacion";
@@ -805,6 +808,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" promedio='".$variable['promedio']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_formacion='".$variable['consecutivo_formacion']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_formacion ";
                             break;        
                         case 'actualizarExperiencia' :
                                 $cadenaSql=" UPDATE concurso.experiencia_laboral";
@@ -824,6 +828,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_fin='".$variable['fecha_fin']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_experiencia='".$variable['consecutivo_experiencia']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_experiencia ";
                             break;                     
                         case 'actualizarDocencia' :
                                 $cadenaSql=" UPDATE concurso.experiencia_docencia ";
@@ -848,6 +853,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_fin='".$variable['fecha_fin_docencia']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_docencia='".$variable['consecutivo_docencia']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_docencia ";
                             break;        
                         case 'actualizarActividad' :
                                 $cadenaSql=" UPDATE";
@@ -872,6 +878,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_fin='".$variable['fecha_fin_actividad']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_actividad='".$variable['consecutivo_actividad']."'";
+                                $cadenaSql.=  " RETURNING consecutivo_actividad ";
                             break;                                 
                         case 'actualizarInvestigacion' :
                                 $cadenaSql=" UPDATE concurso.experiencia_investigacion ";
@@ -896,6 +903,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" categoria_grupo='".$variable['categoria_grupo']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_investigacion='".$variable['consecutivo_investigacion']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_investigacion ";
                             break;    
                         case 'actualizarProduccion' :
                                 $cadenaSql=" UPDATE concurso.produccion_academica";
@@ -921,6 +929,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_produccion='".$variable['fecha_produccion']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_produccion='".$variable['consecutivo_produccion']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_produccion ";
                             break;                                
 			case 'actualizarIdioma' :
                                 $cadenaSql=" UPDATE concurso.conocimiento_idioma ";
@@ -933,6 +942,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" institucion_certificacion='".$variable['institucion_certificacion']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";
+                                $cadenaSql.=  " RETURNING consecutivo_conocimiento ";
                             break;                                  
                     /*viejas consultas para revisar*/
                         case "consultarLogUsuario":

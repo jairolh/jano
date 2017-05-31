@@ -206,7 +206,7 @@ class Pgsql extends ConectorDb {
 						
 						$log = array (
 								'accion' => $evento,
-								'id_registro' => $parametros ['usuario'],
+								'id_registro' => $parametros ['id_registro'],
 								'tipo_registro' => $parametros ['opcion'],
 								'nombre_registro' => $registroAccion,
 								'descripcion' => $parametros ['pagina'] . " - " . $parametros ['opcion'] 
@@ -221,7 +221,7 @@ class Pgsql extends ConectorDb {
 						
 						$log = array (
 								'accion' => $evento,
-								'id_registro' => $parametros ['usuario'],
+								'id_registro' => $parametros ['id_registro'],
 								'tipo_registro' => $parametros ['opcion'],
 								'nombre_registro' => $registroAccion,
 								'descripcion' => $parametros ['pagina'] . " - " . $parametros ['opcion'] 
@@ -274,14 +274,14 @@ class Pgsql extends ConectorDb {
 				$regitro = stristr ( $cadena, 'INSERT' );
 				
 				if ($regitro) {
-					
+                                        $_REQUEST['id_registro']=$esteRegistro;
 					$this->registro_log ( 'REGISTRO', $arregloDatos, $_REQUEST, $nombre_accion );
 				}
 				
 				$actualizacion = stristr ( $cadena, 'UPDATE' );
 				
 				if ($actualizacion) {
-					
+					$_REQUEST['id_registro']=$esteRegistro;
 					$this->registro_log ( 'ACTUALIZACION', $arregloDatos, $_REQUEST, $nombre_accion );
 				}
 				

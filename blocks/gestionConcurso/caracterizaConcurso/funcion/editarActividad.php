@@ -34,22 +34,31 @@ class RegistradorPerfil {
     	
 	    $conexion="estructura";
 		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-	    
-		$arregloDatos = array('id_actividad'=>$_REQUEST['id_actividad'],
-							  'nombreActividad'=>$_REQUEST['nombreActividad'],
-	                          'descripcionActividad'=>$_REQUEST['descripcionActividad']
-				
-		);
-        
-        $this->cadena_sql = $this->miSql->getCadenaSql("editarActividad", $arregloDatos);
-        $resultadoActividad = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
-        
-        if($resultadoActividad){ 
-            redireccion::redireccionar('editoActividad',$arregloDatos);  exit();
-        }else{
-        	redireccion::redireccionar('noEditoActividad',$arregloDatos);  exit();
-        }
 
+		$arregloDatos = array('id_actividad'=>$_REQUEST['id_actividad'],
+				'nombreActividad'=>$_REQUEST['nombreActividad'],
+				'descripcionActividad'=>$_REQUEST['descripcionActividad']
+		
+		);
+		
+		$cadena_sql = $this->miSql->getCadenaSql("actividadEnConsurso", $arregloDatos);
+		$resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+	    
+		if($resultado){
+			//La actividad tiene relación con un consurso
+			redireccion::redireccionar('actividadEnConsurso',$arregloDatos);  exit();
+		}else{
+			
+			$this->cadena_sql = $this->miSql->getCadenaSql("editarActividad", $arregloDatos);
+			$resultadoActividad = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $arregloDatos, "editarActividad");
+				
+			if($resultadoActividad){
+				redireccion::redireccionar('editoActividad',$arregloDatos);  exit();
+			}else{
+				redireccion::redireccionar('noEditoActividad',$arregloDatos);  exit();
+			}
+			
+		}
   
     }
 

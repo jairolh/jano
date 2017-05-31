@@ -40,7 +40,7 @@ class RegistradorPerfil {
 		);
 		
 		$cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);
-		$resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra");
+		$resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroCriterio");
 		
 		if($resultadoCriterio){
 			redireccion::redireccionar('insertoCriterio',$datos);  exit();

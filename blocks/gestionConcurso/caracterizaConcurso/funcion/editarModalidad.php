@@ -40,16 +40,23 @@ class RegistradorPerfil {
 	                          'nivel'=>$_REQUEST['nivel']
 				
 		);
-        
-        $this->cadena_sql = $this->miSql->getCadenaSql("editarModalidad", $arregloDatos);
-        $resultadoFactor = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
-        
-        if($resultadoFactor){ 
-            redireccion::redireccionar('editoModalidad',$arregloDatos);  exit();
-        }else{
-        	redireccion::redireccionar('noEditoModalidad',$arregloDatos);  exit();
-        }
-
+		
+		$cadena_sql = $this->miSql->getCadenaSql("modalidadEnConsurso", $arregloDatos);
+		$resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+		
+		if($resultado){
+			//La modalidad tiene relación con un consurso
+			redireccion::redireccionar('modalidadEnConsurso',$arregloDatos);  exit();
+		}else{
+			$this->cadena_sql = $this->miSql->getCadenaSql("editarModalidad", $arregloDatos);
+			$resultadoFactor = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $arregloDatos, "editarModalidad");
+			
+			if($resultadoFactor){
+				redireccion::redireccionar('editoModalidad',$arregloDatos);  exit();
+			}else{
+				redireccion::redireccionar('noEditoModalidad',$arregloDatos);  exit();
+			}
+		}
   
     }
 

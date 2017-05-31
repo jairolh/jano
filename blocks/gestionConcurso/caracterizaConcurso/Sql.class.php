@@ -98,12 +98,14 @@ class Sql extends \Sql {
                 $cadenaSql = "UPDATE concurso.factor_evaluacion SET ";
                	$cadenaSql .= " estado = '".$variable['estado']."'";
                 $cadenaSql .= " WHERE consecutivo_factor = '".$variable['id_factor']."' ";
+                $cadenaSql .= " RETURNING consecutivo_factor";
 				break; 
 				
 			case "cambiarEstadoModalidad":
 				$cadenaSql = "UPDATE concurso.modalidad_concurso SET ";
 				$cadenaSql .= " estado = '".$variable['estado']."'";
 				$cadenaSql .= " WHERE consecutivo_modalidad = '".$variable['id_modalidad']."' ";
+				$cadenaSql .= " RETURNING consecutivo_modalidad";
 				break;
 				
 			case "cambiarEstadoActividad":
@@ -127,6 +129,7 @@ class Sql extends \Sql {
            		$cadenaSql .= "codigo_nivel_concurso=".$variable['nivel']."";
            		$cadenaSql .= " WHERE ";
            		$cadenaSql .= " consecutivo_modalidad = '".$variable['id_modalidad']."' ";
+           		$cadenaSql .= " RETURNING consecutivo_modalidad";
            		break;
           
            	case "editarActividad":
@@ -136,8 +139,20 @@ class Sql extends \Sql {
            		$cadenaSql .= "descripcion='".$variable['descripcionActividad']."'";
            		$cadenaSql .= " WHERE ";
            		$cadenaSql .= " consecutivo_actividad = '".$variable['id_actividad']."' ";
+           		$cadenaSql .= " RETURNING consecutivo_actividad";
            		break;
-                        
+           		
+           	case "actividadEnConsurso":
+           		$cadenaSql = "Select * from concurso.concurso_calendario";
+           		$cadenaSql .= " WHERE ";
+           		$cadenaSql .= " consecutivo_actividad = ".$variable['id_actividad'];
+           		break;
+           		
+           	case "modalidadEnConsurso":
+           		$cadenaSql = "Select * from concurso.concurso";
+           		$cadenaSql .= " WHERE ";
+           		$cadenaSql .= " consecutivo_modalidad = ".$variable['id_modalidad'];
+           		break;
                     
 			/**
 			 * Clausulas genéricas. se espera que estén en todos los formularios

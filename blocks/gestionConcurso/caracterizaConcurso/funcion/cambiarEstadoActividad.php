@@ -39,7 +39,7 @@ class CambiarEstado {
         $parametro['id_actividad']=$_REQUEST['id_actividad'];
         
         $this->cadena_sql = $this->miSql->getCadenaSql("cambiarEstadoActividad", $parametro);
-        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $parametro, "actualizarEstadoActividad");
 	
         if($resultadoEstado){
             redireccion::redireccionar($_REQUEST['opcion'], $_REQUEST);

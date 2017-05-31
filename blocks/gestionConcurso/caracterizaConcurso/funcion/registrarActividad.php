@@ -40,7 +40,7 @@ class RegistradorPerfil {
 		);
 		
 		$cadena_sql = $this->miSql->getCadenaSql("registrarActividad", $datos);
-		$resultadoActividad = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra");
+		$resultadoActividad = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroActividadCalendario");
 		
 		if($resultadoActividad){   
 			redireccion::redireccionar('insertoActividad',$datos);  exit();

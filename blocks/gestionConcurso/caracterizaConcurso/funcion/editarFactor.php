@@ -41,7 +41,7 @@ class RegistradorPerfil {
 		);
         
         $this->cadena_sql = $this->miSql->getCadenaSql("editarFactor", $arregloDatos);
-        $resultadoFactor = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoFactor = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $arregloDatos, "editarFactor");
         
         if($resultadoFactor){ 
             redireccion::redireccionar('editoFactor',$arregloDatos);  exit();

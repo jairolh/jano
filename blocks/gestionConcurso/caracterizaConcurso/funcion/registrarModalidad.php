@@ -40,7 +40,7 @@ class RegistradorPerfil {
 		);
 		
 		$cadena_sql = $this->miSql->getCadenaSql("registrarModalidad", $datos);
-		$resultadoModalidad = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra");
+		$resultadoModalidad = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroModalidad");
 		
 		if($resultadoModalidad){   
 			redireccion::redireccionar('insertoModalidad',$datos);  exit();

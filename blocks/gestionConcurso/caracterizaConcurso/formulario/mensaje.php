@@ -189,6 +189,20 @@ class registrarForm {
                        	$variable.="&opcion=gestionModalidad";
                        	break;
                        	
+                   	case "modalidadEnConsurso":
+                       	$tipo = 'error';
+                       	$mensaje = "La modallidad <b>".$_REQUEST ["nombreModalidad"]." </b> está asociada a un consurso, no se puede editar";
+                       	$boton = "continuar";
+                       	$variable.="&opcion=gestionModalidad";
+                       	break;
+                       	
+                 	case "actividadEnConsurso":
+                    	$tipo = 'error';
+                       	$mensaje = "La actividad <b>".$_REQUEST ["nombreActividad"]." </b> está asociada a un consurso, no se puede editar";
+                       	$boton = "continuar";
+                      	$variable.="&opcion=gestionActividades";
+                       	break;
+                       	
                   	case "confirmaEditaActividad":
                       	$tipo = 'success';
                       	$mensaje = "Se actualizó con exito la Actividad <b>".$_REQUEST ["nombreActividad"]." </b>.";

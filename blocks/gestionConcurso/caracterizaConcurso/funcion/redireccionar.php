@@ -190,6 +190,14 @@ class redireccion {
             	$variable.="&nombreModalidad=".$valor['nombreModalidad'];
             	break;
             	
+          	case "modalidadEnConsurso":
+            	$variable="pagina=".$miPaginaActual;
+            	$variable.="&opcion=mensaje";
+            	$variable.="&mensaje=modalidadEnConsurso";
+            	$variable.="&id_modalidad=".$valor['id_modalidad'];
+            	$variable.="&nombreModalidad=".$valor['nombreModalidad'];
+            	break;
+            	
             case "editoActividad":
             	$variable="pagina=".$miPaginaActual;
             	$variable.="&opcion=mensaje";
@@ -203,6 +211,14 @@ class redireccion {
             	$variable.="&opcion=mensaje";
             	$variable.="&mensaje=errorEditaActividad";
            		$variable.="&id_actividad=".$valor['id_actividad'];
+           		$variable.="&nombreActividad=".$valor['nombreActividad'];
+           		break;
+           		
+          	case "actividadEnConsurso":
+           		$variable="pagina=".$miPaginaActual;
+           		$variable.="&opcion=mensaje";
+           		$variable.="&mensaje=actividadEnConsurso";
+          		$variable.="&id_actividad=".$valor['id_actividad'];
            		$variable.="&nombreActividad=".$valor['nombreActividad'];
            		break;
 

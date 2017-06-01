@@ -112,6 +112,7 @@ class registrarForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{	
+				
                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 				$esteCampo = 'nombreActividad';
 				$atributos ['id'] = $esteCampo;
@@ -126,7 +127,7 @@ class registrarForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['textoFondo'] = '';//this->lenguaje->getCadena($esteCampo . 'Titulo');
-				$atributos ['validar']="required, minSize[5]";
+				$atributos ['validar']="required, minSize[5], maxSize[100]";
                 $atributos ['valor'] = $_REQUEST['actividad'];
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = false;

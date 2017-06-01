@@ -127,7 +127,7 @@ class registrarForm {
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
 				$atributos ['textoFondo'] = '';//this->lenguaje->getCadena($esteCampo . 'Titulo');
-				$atributos ['validar']="required, minSize[5]";
+				$atributos ['validar']="required, minSize[5], maxSize[100]";
                 $atributos ['valor'] = $_REQUEST['modalidad'];
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = false;
@@ -135,6 +135,7 @@ class registrarForm {
 				$atributos ['maximoTamanno'] = '';
 				$atributos ['anchoEtiqueta'] = 170;
 				$tab ++;
+				
 				// Aplica atributos globales al control
 				$atributos = array_merge ( $atributos, $atributosGlobales );
 				echo $this->miFormulario->campoCuadroTexto ( $atributos );

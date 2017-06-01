@@ -19,7 +19,6 @@ $this->idioma ["botonConsultar"] ="Consultar";
 $this->idioma ["botonRegresar"] =" Regresar ";
 
 $this->idioma["marcoSubsistema"]="Nuevo Factor";
-$this->idioma["nombreModalidad"]="Nombre modalidad";
 
 $this->idioma["nivel"]="Nivel";
 $this->idioma["seleccionNivel"]="Selección nivel";
@@ -58,19 +57,26 @@ $this->idioma["noDefinido"]="No definido";
 $this->idioma["botonAceptar"]="Guardar";
 
 $this->idioma["botonActualizar"]="Actualizar";
-
 $this->idioma["factor"]="Factor"; 
-
-$this->idioma["nombreCriterio"]="Nombre del criterio:";
-$this->idioma["nombreActividad"]="Nombre de la actividad:";
-
-$this->idioma["descripcionActividad"]="Descripción de la actividad:";
 
 $this->idioma["subsistemaTitulo"]="Seleccione el Subsistema ";
 
 $this->idioma["criterio"]="Criterio"; 
 
 $this->idioma["nombreFactor"]="Nombre : "; 
+$this->idioma["nombreFactorTitulo"]="Ingrese el nombre del factor";
+
+$this->idioma["nombreCriterio"]="Nombre del criterio:";
+$this->idioma["nombreCriterioTitulo"]="Ingrese el nombre del criterio";
+
+$this->idioma["nombreActividad"]="Nombre de la actividad:";
+$this->idioma["nombreActividadTitulo"]="Ingrese el nombre de la actividad";
+
+$this->idioma["descripcionActividad"]="Descripción de la actividad:";
+$this->idioma["descripcionActividadTitulo"]="Ingrese la descripción de la actividad";
+
+$this->idioma["nombreModalidad"]="Nombre modalidad";
+$this->idioma["nombreModalidadTitulo"]="Ingrese el nombre de la modalidad";
 
 $this->idioma["estadoFactor"]="Estado del Factor: ";
 

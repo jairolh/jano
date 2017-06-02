@@ -13,5 +13,14 @@ if ($_REQUEST ['funcion'] == 'consultarModalidad') {
 	echo $resultado;
 }
 
+if ($_REQUEST ['funcion'] == 'consultarCriterio') {
+    
+        $parametro['consecutivo_factor']=$_REQUEST ['valor'];
+	$cadenaSql = $this->sql->getCadenaSql ( 'consultaCriterio', $parametro );
+	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
+	$resultado = json_encode ( $resultado );
+	echo $resultado;
+}
+
 
 ?>

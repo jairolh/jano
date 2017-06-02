@@ -4,10 +4,18 @@ $this->idioma ["noDefinido"] = "Etiqueta no definida";
 $this->idioma["nuevoConcurso"]="<br><b>Registrar Nuevo Concurso</b>";
 //tabs
 $this->idioma["tabConcurso"]="Registro Concurso";
+$this->idioma["tabCriterio"]="Criterios de Evaluación";
+$this->idioma["tabCalendario"]="Calendario";
+$this->idioma["tabPerfil"]="Perfiles";
 
 //marcos
 $this->idioma["marcoConcurso"]="Nuevo Concurso";
 $this->idioma["marcoListaConcurso"]="Concursos Registrados";
+$this->idioma["marcoDetalleConcurso"]="Detalle Concurso";
+$this->idioma["marcoCriterio"]="Registro Criterios de Evaluación";
+$this->idioma["marcoListaCriterio"]="Criterios de Evaluación para el Concurso";
+
+
 //formularios
 $this->idioma["tipo"]="Tipo: "; 
 $this->idioma["tipoTitulo"]="Seleccione el tipo de Concurso";
@@ -27,6 +35,16 @@ $this->idioma["fecha_inicio_concursoTitulo"]="Ingrese la fecha del Inicio del de
 $this->idioma["fecha_fin_concurso"]="Fecha Terminación"; 
 $this->idioma["fecha_fin_concursoTitulo"]="Ingrese la fecha del terminación del concurso";
 
+$this->idioma["nuevoCriterio"]="Registrar Criterio de Evaluación ";
+$this->idioma["consecutivo_factorTitulo"]="Seleccione el factor de evaluación";
+$this->idioma["consecutivo_factor"]="Factor: ";
+$this->idioma["consecutivo_criterioTitulo"]="Seleccione el criterio de evaluación";
+$this->idioma["consecutivo_criterio"]="Criterio: ";
+$this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
+$this->idioma["maximo_puntos"]="Puntaje Máximo: ";
+
+
+
 //botones
 $this->idioma ["botonRegresar"] =" Regresar ";
 $this->idioma ["botonAceptar"] ="Aceptar";
@@ -34,10 +52,15 @@ $this->idioma ["botonGuardar"] ="Guardar";
 $this->idioma ["botonCancelar"] ="Cancelar";
 $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
-
+$this->idioma["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 
 //------------------Mensajes -----------------------------------
 $this->idioma ["noEncontroConcurso"] = "No existen concursos Registrados.";
+$this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso.";
+$this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
+
+
+
 $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
 $this->idioma["inhabilitar"]="Inactivar";

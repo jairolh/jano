@@ -3,42 +3,74 @@
 //if(!isset($_REQUEST["opcion"])||(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]!="confirmar")){
 
 ?>
-        $('#tablaConcursos').DataTable({
-	"language": {
-            "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
-            "zeroRecords": "No se encontraron registros coincidentes",
-            "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
-            "infoEmpty": "Ninguna hay datos registrados",
-            "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
-            "search": "Buscar:",
-            "paginate": {
-		        "first":      "Primera",
-		        "last":       "&Uacute;ltima",
-		        "next":       "Siguiente",
-		        "previous":   "Anterior"
-		    }
-        },
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
-        
+$('#tablaConcursos').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });       
-                      
-        // Asociar el widget de validación al formulario
-        $("#detalleConcurso").validationEngine({
-            promptPosition : "centerRight", 
-            scroll: false
-        });
 
-        $(function() {
-            $("#detalleConcurso").submit(function() {
-                $resultado=$("#detalleConcurso").validationEngine("validate");
-                if ($resultado) {
-                                
-                    return true;
-                    
-                }
-                return false;
-            });
-        });
+$('#tablaConsultaCriterio').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+});       
+
+
+                      
+// Asociar el widget de validación al formulario detalleConcurso
+$("#detalleConcurso").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});
+
+// Asociar el widget de validación al formulario
+$("#datosCriterio").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});
+
+$(function() {
+    $("#detalleConcurso").submit(function() {
+        $resultado=$("#detalleConcurso").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+    $("#datosCriterio").submit(function() {
+        $resultado=$("#datosCriterio").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+    
+});        
  
 <?php /*?>
                $('#<?php echo $this->campoSeguro('fecha_final')?>').datepicker({
@@ -124,6 +156,10 @@ $('#<?php echo $this->campoSeguro('tipo')?>').width(210);
 $("#<?php echo $this->campoSeguro('tipo')?>").select2(); 
 $('#<?php echo $this->campoSeguro('modalidad')?>').width(210);
 $("#<?php echo $this->campoSeguro('modalidad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('consecutivo_factor')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_factor')?>").select2(); 
+$('#<?php echo $this->campoSeguro('consecutivo_criterio')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2(); 
 
 <?php 
 //}

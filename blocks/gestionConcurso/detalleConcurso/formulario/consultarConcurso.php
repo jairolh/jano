@@ -11,6 +11,7 @@ class consultarForm {
 	var $miFormulario;
 	var $miSql;
         var $miSesion;
+        var $rutaSoporte;
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 		
@@ -36,7 +37,7 @@ class consultarForm {
                 $directorio = $this->miConfigurador->getVariableConfiguracion("host");
                 $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
                 $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-                
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -122,6 +123,7 @@ class consultarForm {
                                     <th>Fecha Fin</th>
                                     <th>Estado</th>
                                     <th>Acuerdo</th>
+                                    <th>Soporte</th>
                                     <th>Detalle</th>
                                     <th>Editar</th>
                                     <th>Actualizar Estado</th>
@@ -130,7 +132,15 @@ class consultarForm {
                             <tbody>";
 
                         foreach($resultadoConcurso as $key=>$value )
-                            { 
+                            {   $parametro['tipo']='unico';
+                                $parametroSop = array('consecutivo'=>0,
+                                     'tipo_dato'=>'datosConcurso',
+                                     'nombre_soporte'=>'soporteAcuerdo',
+                                     'consecutivo_dato'=>$resultadoConcurso[$key]['consecutivo_concurso']
+                                    );
+                                $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                                $resultadoSopCon = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
+                            
                                 $variableEditar = "pagina=detalleConcurso"; //pendiente la pagina para modificar parametro                                                        
                                 $variableEditar.= "&opcion=editar";
                                 $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -171,9 +181,40 @@ class consultarForm {
                                         <td align='left'>".$resultadoConcurso[$key]['fecha_inicio']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['fecha_fin']."</td>
                                         <td>".$resultadoConcurso[$key]['estado']."</td>    
-                                        <td>".$resultadoConcurso[$key]['acuerdo']."</td>        
-                                        <td>";
-                                              
+                                        <td>".$resultadoConcurso[$key]['acuerdo']."</td>";
+                                $mostrarHtml .= "<td>";
+                                            if(isset($resultadoSopCon[0]['alias']))
+                                                {
+                                                  $esteCampo = 'archivoactividad'.$resultadoSopCon[0]['consecutivo_soporte'];
+                                                  $atributos ['id'] = $esteCampo;
+                                                  $atributos ['enlace'] = 'javascript:soporte("ruta_actividad'.$resultadoSopCon[0]['consecutivo_soporte'].'");';
+                                                  $atributos ['tabIndex'] = 0;
+                                                  $atributos ['columnas'] = 2;
+                                                  $atributos ['enlaceTexto'] = "";// $resultadoSopCon[0]['alias'];
+                                                  $atributos ['estilo'] = 'clasico';
+                                                  $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                  $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                  $atributos ['ancho'] = '25px';
+                                                  $atributos ['alto'] = '25px';
+                                                  $atributos ['redirLugar'] = false;
+                                                  $atributos ['valor'] = '';
+                                                  $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                  unset ( $atributos );
+                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                  $esteCampo = 'ruta_actividad'.$resultadoSopCon[0]['consecutivo_soporte'];
+                                                  $atributos ['id'] = $esteCampo;
+                                                  $atributos ['nombre'] = $esteCampo;
+                                                  $atributos ['tipo'] = 'hidden';
+                                                  $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                  $atributos ['obligatorio'] = false;
+                                                  $atributos ['valor'] = $this->rutaSoporte.$resultadoSopCon[0]['ubicacion']."/".$resultadoSopCon[0]['archivo'];
+                                                  $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                  $atributos ['deshabilitado'] = FALSE;
+                                                  $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                  // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                }
+                                    $mostrarHtml .= "</td>
+                                                     <td>";
                                                 $esteCampo = "detalle";
                                                 $atributos["id"]=$esteCampo;
                                                 $atributos['enlace']=$variableDetalle;
@@ -203,9 +244,7 @@ class consultarForm {
                                                 if(isset($resultadoConcurso[$key]['perfiles']) && $resultadoConcurso[$key]['perfiles']==0)
                                                     { $mostrarHtml .= $this->miFormulario->enlace($atributos);}
                                                 unset($atributos);    
-                                         
                                         $mostrarHtml .= "</td> <td>";
-
                                         if($resultadoConcurso[$key]['estado']=='Activo')
                                             {   $esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;
@@ -235,8 +274,6 @@ class consultarForm {
                                                 $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                 unset($atributos);    
                                             }    
-                               
-                                
                                 $mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";

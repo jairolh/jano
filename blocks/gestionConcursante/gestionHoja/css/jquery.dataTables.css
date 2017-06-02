@@ -15,7 +15,8 @@ table.dataTable {
    * Body styles
    */
 }
-TD {font-size:10px}
+TH {font-size:13px}
+TD {font-size:11px}
 
 table.dataTable thead th,
 table.dataTable tfoot th {

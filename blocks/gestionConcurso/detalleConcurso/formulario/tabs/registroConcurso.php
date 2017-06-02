@@ -128,7 +128,7 @@ class registrarConcursoForm {
                                 $atributos ['evento'] = '';
                                 if (isset ( $resultadoConcurso[0] ['codigo_nivel_concurso'] )) 
                                     {	$atributos ['seleccion'] = $resultadoConcurso[0] ['codigo_nivel_concurso'];}
-                                else{	$atributos ['seleccion'] = '';}
+                                else{	$atributos ['seleccion'] = -1;}
 				$atributos ['columnas'] = 1;
                                 $atributos ['tamanno'] = 1;
                                 $atributos ['estilo'] = "jqueryui";
@@ -160,7 +160,7 @@ class registrarConcursoForm {
                                         $parametro['tipo_concurso']=$resultadoConcurso[0]['codigo_nivel_concurso'];
                                         $atributos ['deshabilitado'] = false;
                                     }
-                                else{	$atributos ['seleccion'] = '';
+                                else{	$atributos ['seleccion'] = -1;
                                         $atributos ['deshabilitado'] = true;
                                     }
                                 $atributos ['columnas'] = 1;

@@ -74,6 +74,18 @@ class Funcion {
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->guardarConcurso();
                                 break;
+                            case "guardarCriterioConcurso":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->guardarCriterioConcurso();
+                                break;
+                            case "guardarCalendarioConcurso":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->guardarCalendarioConcurso();
+                                break;
+                            case "guardarPerfilConcurso":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->guardarPerfilConcurso();
+                                break;
 
                             case "borrar":
                                     $this->borrarDatos();
@@ -87,6 +99,15 @@ class Funcion {
                             case "habilitar":
                                     $_REQUEST["estado"]=1;
                                     $this->cambiarEstado(); 
+                                break;   
+                            case "inhabilitarCriterio":
+                                    $_REQUEST["estado"]='I';
+                                    $this->cambiarEstadoCriterio(); 
+                                break;     
+
+                            case "habilitarCriterio":
+                                    $_REQUEST["estado"]='A';
+                                    $this->cambiarEstadoCriterio(); 
                                 break;       
 
                         }
@@ -154,7 +175,19 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/registrarConcurso.php");
 	}	
-	
+        
+        function guardarCriterioConcurso()
+	{
+		include_once($this->ruta."/funcion/registrarCriterioConcurso.php");
+	}
+        function guardarCalendarioConcurso()
+	{
+		include_once($this->ruta."/funcion/registrarCalendarioConcurso.php");
+	}
+        function guardarPerfilConcurso()
+	{
+		include_once($this->ruta."/funcion/registrarPerfilConcurso.php");
+	}        
 	function borrarDatos()
 	{
 		include_once($this->ruta."/funcion/borrarRol.php");
@@ -169,7 +202,10 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/cambiarEstado.php");
 	}
- 
+        function cambiarEstadoCriterio()
+	{
+		include_once($this->ruta."/funcion/cambiarEstadoCriterio.php");
+	} 
 
 }
 ?>

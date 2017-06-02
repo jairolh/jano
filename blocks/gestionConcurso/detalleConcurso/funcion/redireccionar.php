@@ -45,8 +45,14 @@ class redireccion {
                                 $variable.="&mensaje=actualizoConcurso";
                                 $variable.="&id_usuario=".$valor['id_usuario'];
                                 $variable.="&nombre=".$valor['nombre'];
-                                break;       
+                                break;     
                             
+                        case "actualizoCriterioConcurso":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoCriterioConcurso";
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                break;          
                  
                         case "noActualizo":
                                 $variable="pagina=".$miPaginaActual;
@@ -57,6 +63,15 @@ class redireccion {
                                     $variable.="&nombre=".$valor['nombre'];
                                     }
                                 break;       
+                        case "noActualizoDetalle":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=errorActualizoDetalle";
+                                if($valor!=""){
+                                    $variable.="&detalle=".$valor['detalle'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                    }
+                                break;
                                 
                         case "inhabilitarConcurso":
                                 $variable="pagina=".$miPaginaActual;
@@ -90,7 +105,45 @@ class redireccion {
                                 if($valor!=""){
                                         $variable.="&nombre=".$valor;
                                 }
-                                break;                                 
+                                break;   
+                        case "inhabilitarCriterio":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=inhabilitoCriterio";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+
+                                break;
+
+                        case "noinhabilitarCriterio":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noInhabilitoCriterio";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;        
+
+                        case "habilitarCriterio":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=habilitoCriterio";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+
+                                break;
+
+                        case "nohabilitarCriterio":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=nohabilitoCriterio";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;                                   
+                                
                         
         		case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;

@@ -16,7 +16,7 @@ class CrearTabla extends HtmlBase {
 
         foreach ($datos[0] as $key => $values) {
             if (!is_numeric($key)) {
-                $encabezado[$key] = '<th>' . strtoupper(str_replace("_", " ", $key)) . '</th>';
+                $encabezado[$key] = '<th align="center" >' . strtoupper(str_replace("_", " ", $key)) . '</th>';
             }
         }
 
@@ -25,14 +25,14 @@ class CrearTabla extends HtmlBase {
         foreach ($this->cadenaHTML as $key => $values) {
 
             if (is_array($datos)) {
-                $this->cadenaHTML[$key] = '<table id="tablaReporte"><thead><tr>';
+                $this->cadenaHTML[$key] = '<table id="tablaReporte" width="100%" class="table table-striped table-bordered"><thead><tr>';
                 $this->cadenaHTML[$key].=$encabezadof;
                 $this->cadenaHTML[$key].='</tr></thead><tbody>';
                     foreach ($datos as $nodo => $fila) {
                         $this->cadenaHTML[$key].= '<tr>';
                         foreach ($fila as $columna => $valor) {
                             if (is_numeric($columna)) {
-                                $this->cadenaHTML[$key].= "<td>" . $valor . "</td> ";
+                                $this->cadenaHTML[$key].= "<td align='center'>" . $valor . "</td> ";
                             }
                         }
                         $this->cadenaHTML[$key].= '</tr>';

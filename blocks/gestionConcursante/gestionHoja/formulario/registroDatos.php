@@ -116,7 +116,6 @@ $host .= $this->miConfigurador->getVariableConfiguracion("enlace");
             $atributos ["id"] = "tabActividad";
             $atributos ["estilo"] = "";
             echo $this->miFormulario->division ( "inicio", $atributos );
-
             if(!isset($_REQUEST['consecutivo_actividad']))
                    {include_once ($this->ruta . "formulario/tabs/consultarActividad.php"); }
                    include_once ($this->ruta . "formulario/tabs/datosActividad.php"); 

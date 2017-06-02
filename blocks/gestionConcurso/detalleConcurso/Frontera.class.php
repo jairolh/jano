@@ -55,6 +55,9 @@ class Frontera {
 				case "nuevo":
 					include_once($this->ruta."formulario/nuevo.php");
 					break;
+                                case "detalle":
+					include_once($this->ruta."formulario/detalle.php");
+					break;    
                                 case "editar":
 					include_once($this->ruta."formulario/nuevo.php");
 					break;    
@@ -62,13 +65,18 @@ class Frontera {
                                 case "borrar":
 					include_once($this->ruta."formulario/borrar.php");
 					break;    
-                                    
                                 case "inhabilitar":
 					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
 					break;     
                                     
                                 case "habilitar":
 					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
+					break;                                    
+                                case "inhabilitarCriterio":
+					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
+					break;     
+                                case "habilitarCriterio":
+					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
 					break;       
                                                                          
         		}

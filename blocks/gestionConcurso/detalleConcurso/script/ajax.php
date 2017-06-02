@@ -11,22 +11,25 @@ $url .= "/index.php?";
 
 
 // Variables
-$cadenaACodificar16 = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( "pagina" );
-$cadenaACodificar16 .= "&procesarAjax=true";
-$cadenaACodificar16 .= "&action=index.php";
-$cadenaACodificar16 .= "&bloqueNombre=" . $esteBloque ["nombre"];
-$cadenaACodificar16 .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-$cadenaACodificar16 .= $cadenaACodificar16 . "&funcion=consultarModalidad";
+$cadenaACodificar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( "pagina" );
+$cadenaACodificar .= "&procesarAjax=true";
+$cadenaACodificar .= "&action=index.php";
+$cadenaACodificar .= "&bloqueNombre=" . $esteBloque ["nombre"];
+$cadenaACodificar .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 if(isset($_REQUEST['id_usuario']))
-    {$cadenaACodificar16 .= "&id_usuario=".$_REQUEST['id_usuario'];}
-$cadenaACodificar16 .= "&tiempo=" . $_REQUEST ['tiempo'];
-
-// Codificar las variables
-$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-$cadena16 = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificar16, $enlace );
-
-// URL definitiva
-$urlFinal16 = $url . $cadena16;
+    {$cadenaACodificar.= "&id_usuario=".$_REQUEST['id_usuario'];}
+    
+$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );    
+//modalidad
+$cadenaACodificarMod .= $cadenaACodificar . "&funcion=consultarModalidad";
+$cadenaACodificarMod .= "&tiempo=" . $_REQUEST ['tiempo'];
+$cadenaMod = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarMod, $enlace );
+$urlFinalMod = $url . $cadenaMod;
+//criterio
+$cadenaACodificarCrit .= $cadenaACodificar . "&funcion=consultarCriterio";
+$cadenaACodificarCrit .= "&tiempo=" . $_REQUEST ['tiempo'];
+$cadenaCrit = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarCrit, $enlace );
+$urlFinalCrit = $url . $cadenaCrit;
 
 
 ?>
@@ -85,10 +88,29 @@ $(function () {
           
 });
 
+$(function () {
+    $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
+            consultarModalidad();
+            }else{
+                    $("#<?php echo $this->campoSeguro('modalidad')?>").attr('disabled','');
+                    }
+          });
+    $("#<?php echo $this->campoSeguro('consecutivo_factor')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()!=''){
+            consultarCriterio();
+            }else{
+                    $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
+                    }
+          });
+          
+          
+});
+
 
 function consultarModalidad(elem, request, response){
 	  $.ajax({
-	    url: "<?php echo $urlFinal16?>",
+	    url: "<?php echo $urlFinalMod?>",
 	    dataType: "json",
 	    data: { valor:$("#<?php echo $this->campoSeguro('tipo')?>").val()},
 	    success: function(data){ 
@@ -107,13 +129,26 @@ function consultarModalidad(elem, request, response){
 	   });
 	};
 
-	    $(function () {
-	        $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
-	        	if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
-	            	consultarModalidad();
-	    		}else{
-	    			$("#<?php echo $this->campoSeguro('modalidad')?>").attr('disabled','');
-	    			}
-	    	      });
-	    });
+function consultarCriterio(elem, request, response){
+	  $.ajax({
+	    url: "<?php echo $urlFinalCrit?>",
+	    dataType: "json",
+	    data: { valor:$("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()},
+	    success: function(data){ 
+	        if(data[0]!=" "){
+	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").html('');
+	            $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_criterio')?>");
+	            $.each(data , function(indice,valor){
+	            	$("<option value='"+data[ indice ].codigo+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_criterio')?>");
+	            });
+	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").removeAttr('disabled');
+	            $('#<?php echo $this->campoSeguro('consecutivo_criterio')?>').width(450);
+	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2();
+		        }
+	    }
+		                    
+	   });
+	};
+
+
 </script>

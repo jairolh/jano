@@ -78,8 +78,7 @@ class registrarForm {
                         $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 				
 			$variable = "pagina=" . $miPaginaActual;
-
-				
+	
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 		        $esteCampo = 'botonRegresar';
                         $atributos ['id'] = $esteCampo;
@@ -110,16 +109,37 @@ class registrarForm {
                                 {   
                                     case "actualizoConcurso":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos de Concurso ' ".$_REQUEST['nombre']." ', se registrarón exitosamente.";
+                                        $mensaje = "Los datos de Concurso ' ".$_REQUEST['nombre']." ', se registro exitosamente.";
                                         $boton = "continuar";
+                                        $pestanna='';
                                         break;  
-                                
                                     case "errorActualizo":
                                         $tipo = 'error';
                                         $mensaje = "Error en el registro de la información! Por favor verifique los datos e intente mas tarde.";
                                         $boton = "regresar";
                                         break;
-                                    
+                                    case "actualizoCriterioConcurso":
+                                        $tipo = 'success';
+                                        $mensaje = "El criterio de evaluación , se registro exitosamente al Concurso.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;  
+                                
+                                    case "errorActualizoDetalle":
+                                        $tipo = 'error';
+                                        $mensaje = "Error en el registro de la información! Por favor verifique los datos e intente mas tarde.";
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $boton = "regresar";
+                                        if($_REQUEST['detalle']=='criterio')
+                                            {$pestanna='#tabCriterio';}
+                                        if($_REQUEST['detalle']=='calendario')
+                                            {$pestanna='#tabCalendario';}
+                                        if($_REQUEST['detalle']=='perfil')
+                                            {$pestanna='#tabPerfil';}
+                                        break;
                                     
                                     case "inhabilitoConcurso":
                                         $tipo = 'success';
@@ -144,6 +164,42 @@ class registrarForm {
                                         $mensaje = "El Concurso <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
                                         $boton = "regresar";
                                         break;
+                                    
+                                   case "inhabilitoCriterio":
+                                        $tipo = 'success';
+                                        $mensaje = "El Criterio <b>".$_REQUEST ["nombre"]." </b> se Inactivo con exito.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "noInhabilitoCriterio":
+                                        $tipo = 'error';
+                                        $mensaje = "El Criterio <b>".$_REQUEST ["nombre"]." </b>  no se pudo Inactivar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "habilitoCriterio":
+                                        $tipo = 'success';
+                                        $mensaje = "El Criterio <b>".$_REQUEST ["nombre"]." </b>  se Activo con exito.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "nohabilitoCriterio":
+                                        $tipo = 'error';
+                                        $mensaje = "El Criterio <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;                                    
                                     
                                     //verificar luego
                                     case "existe":
@@ -196,32 +252,11 @@ class registrarForm {
 			echo $this->miFormulario->division ( "inicio", $atributos );
 			
 			// -----------------CONTROL: Botón ----------------------------------------------------------------
-			/*
-                        $esteCampo = 'botonContinuar';
-			$atributos ["id"] = $esteCampo;
-			$atributos ["tabIndex"] = $tab;
-			$atributos ["tipo"] = 'boton';
-			// submit: no se coloca si se desea un tipo button genérico
-			$atributos ['submit'] = true;
-			$atributos ["estiloMarco"] = '';
-			$atributos ["estiloBoton"] = 'jqueryui';
-			// verificar: true para verificar el formulario antes de pasarlo al servidor.
-			$atributos ["verificar"] = '';
-			$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-			$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-			$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-			$tab ++;
 			
-			// Aplica atributos globales al control
-			$atributos = array_merge ( $atributos, $atributosGlobales );
-			//echo $this->miFormulario->campoBoton ( $atributos );
-                        */
-                        
                         $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-                        
                         $esteCampo = 'botonContinuar';
 			$atributos ['id'] = $esteCampo;
-			$atributos ['enlace'] = $variable;
+			$atributos ['enlace'] = $variable.$pestanna;
 			$atributos ['tabIndex'] = 1;
 			$atributos ['estilo'] = 'jqueryui';
 			$atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );

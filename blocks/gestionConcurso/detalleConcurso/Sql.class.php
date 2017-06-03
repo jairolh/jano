@@ -124,7 +124,18 @@ class Sql extends \Sql {
                                    { $cadenaSql .= " AND consecutivo_criterio='".$variable['consecutivo_criterio']."' "; }
                                 if(isset($variable['consecutivo_factor']) &&  $variable['consecutivo_factor']!='' )
                                    { $cadenaSql .= " AND consecutivo_factor='".$variable['consecutivo_factor']."' "; }   
-                            break;                            
+                            break;      
+                        case "consultaActividadObligatoria":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" consecutivo_actividad, ";
+                                $cadenaSql.=" nombre, ";
+                                $cadenaSql.=" descripcion, ";
+                                $cadenaSql.=" estado ";
+                                $cadenaSql.=" FROM concurso.actividad_calendario ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" nombre IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
+                            break;                               
+                            
                         case "consultaConcurso":
                                 $cadenaSql=" SELECT conc.consecutivo_concurso, ";
                                 $cadenaSql.=" conc.consecutivo_modalidad,";
@@ -212,7 +223,31 @@ class Sql extends \Sql {
                                 $cadenaSql .= " 'A' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_evaluar";
-                        break;                    
+                        break;   
+                        case "registroCalendarioConcurso":
+                                $cadenaSql=" INSERT INTO ";
+                                $cadenaSql.=" concurso.concurso_calendario(";
+                                $cadenaSql.=" consecutivo_calendario,";
+                                $cadenaSql.=" consecutivo_concurso,";
+                                $cadenaSql.=" consecutivo_actividad,";
+                                $cadenaSql.=" descripcion,";
+                                $cadenaSql.=" fecha_inicio,";
+                                $cadenaSql.=" fecha_fin,";
+                                $cadenaSql.=" estado,";
+                                $cadenaSql.=" consecutivo_evaluar)";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['consecutivo_concurso']."', ";
+                                $cadenaSql .= " '".$variable['consecutivo_actividad']."', ";
+                                $cadenaSql .= " '".$variable['descripcion']."', ";
+                                $cadenaSql .= " '".$variable['fecha_inicio']."', ";
+                                $cadenaSql .= " '".$variable['fecha_fin']."', ";
+                                $cadenaSql .= " 'A', ";
+                                $cadenaSql .= " '".$variable['consecutivo_evaluar']."' ";
+                                $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING consecutivo_calendario";
+                        break;                       
+                    
                         case "actualizaConcurso":
                                 $cadenaSql=" UPDATE concurso.concurso";
                                 $cadenaSql.=" SET ";

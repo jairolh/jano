@@ -48,6 +48,21 @@ class RegistradorConcurso {
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
                 $_REQUEST['consecutivo_concurso']=$resultadoConcurso;
+                
+                $cadenaSql = $this->miSql->getCadenaSql ( 'consultaActividadObligatoria',$arregloDatos );
+                $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
+                foreach ($resultadoActividad as $key => $value) {
+                    $datosCalendario=array('consecutivo_concurso'=> $resultadoConcurso,
+                                           'consecutivo_actividad'=>$resultadoActividad[$key]['consecutivo_actividad'] ,
+                                           'descripcion'=> 'Espacio tiempo para '.$resultadoActividad[$key]['descripcion'] ,
+                                           'fecha_inicio'=> $_REQUEST['fecha_inicio_concurso'],
+                                           'fecha_fin'=> $_REQUEST['fecha_fin_concurso'],
+                                           'consecutivo_evaluar'=> 0,
+                                        );
+                    $cadenaSql = $this->miSql->getCadenaSql ('registroCalendarioConcurso',$datosCalendario);
+                    $resultadoCalendario = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $datosCalendario, "registroCalendarioConcurso" );
+                }
+                
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarConcurso" );

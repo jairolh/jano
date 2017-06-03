@@ -69,7 +69,7 @@ class soporte extends soporteBase {
                                                         ); 
 
                                 if (copy ( $_FILES [$key]['tmp_name'], $destino[$key] )) 
-                                    {  echo $cadenaSql = $this->miSql->getCadenaSql("registroSoporte",$arregloSoporte );
+                                    {   $cadenaSql = $this->miSql->getCadenaSql("registroSoporte",$arregloSoporte );
                                         $resultado = $this->miConexion->ejecutarAcceso($cadenaSql, self::ACCEDER ,$arregloSoporte,'registroSoporte');
                                         
                                         $status = "Archivo subido: <b>" . $nombreArchivo . "</b>";

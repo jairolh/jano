@@ -35,6 +35,7 @@ class loggerSql {
                 $this->cadena_sql [$indice]= " INSERT INTO  ";
                 $this->cadena_sql [$indice].=  $this->prefijoTablas."log_usuario  ";
                 $this->cadena_sql [$indice].= "(  ";
+                $this->cadena_sql [$indice].= "id_log,  ";
                 $this->cadena_sql [$indice].= "id_usuario,  ";
                 $this->cadena_sql [$indice].= "accion,  ";
                 $this->cadena_sql [$indice].= "id_registro,  ";
@@ -46,6 +47,7 @@ class loggerSql {
                 $this->cadena_sql [$indice].= ")  ";
                 $this->cadena_sql [$indice].= "VALUES  ";
                 $this->cadena_sql [$indice].= "(  ";
+                $this->cadena_sql [$indice].= "DEFAULT, ";
                 $this->cadena_sql [$indice].= "'".$parametro['id_usuario']."',  ";
                 $this->cadena_sql [$indice].= "'".$parametro['accion']."',  ";
                 $this->cadena_sql [$indice].= "'".$parametro['id_registro']."',  ";

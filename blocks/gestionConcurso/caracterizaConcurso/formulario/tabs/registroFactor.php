@@ -81,6 +81,7 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 			
 			$variable = "pagina=" . $miPaginaActual;
+			$variable .= "&opcion=nuevo";
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 			
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -113,7 +114,7 @@ class registrarForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{	
-                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 				$esteCampo = 'nombreFactor';
 				$atributos ['id'] = $esteCampo;
 				$atributos ['nombre'] = $esteCampo;

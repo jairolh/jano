@@ -104,12 +104,12 @@ class Funcion {
                	
                	case "inhabilitar":
                		$_REQUEST["estado"]="I";
-               		$this->cambiarEstadoFactor(); 
+               		$this->cambiarEstadoCriterio(); 
                		break;  
                	
                	case "habilitar":
                		$_REQUEST["estado"]="A";
-               		$this->cambiarEstadoFactor(); 
+               		$this->cambiarEstadoCriterio(); 
                		break;  
                	
                	case "inhabilitarModalidad":
@@ -217,8 +217,8 @@ class Funcion {
 		include_once($this->ruta."/funcion/registrarActividad.php");
 	}
         
-   	function cambiarEstadoFactor(){
-		include_once($this->ruta."/funcion/cambiarEstadoFactor.php");
+   	function cambiarEstadoCriterio(){
+		include_once($this->ruta."/funcion/cambiarEstadoCriterio.php");
 	}
 	
 	function cambiarEstadoModalidad(){

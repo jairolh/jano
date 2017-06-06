@@ -82,7 +82,7 @@ class consultarForm {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>GESTIÓN DE FACTORES</b>";
+            $atributos ["leyenda"] = "<b>GESTIÓN DE CRITERIOS</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -90,13 +90,13 @@ class consultarForm {
                 echo "<div ><table width='100%' align='center'>
                         <tr align='center'>
                             <td align='center'>";
-                                $esteCampo = 'nuevoFactor';
+                                $esteCampo = 'registrarCriterio';
                                 $atributos ['id'] = $esteCampo;
                                 $atributos ['enlace'] = $variableNuevo;
                                 $atributos ['tabIndex'] = 1;
                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                                 $atributos ['estilo'] = 'textoPequenno textoGris';
-                                $atributos ['enlaceImagen'] = $rutaBloque."/images/asociar.png";
+                                $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
                                 $atributos ['posicionImagen'] = "atras";//"adelante";
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
@@ -120,8 +120,8 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                    <th>Id</th>
-                                    <th>Nombre</th>
+                                    <th>Factor</th>
+                        			<th>Criterio</th>
                                     <th>Estado</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
@@ -132,31 +132,31 @@ class consultarForm {
                             { 
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                if($resultadoFactores[$key]['estado']=='A')
+                                if($resultadoFactores[$key]['estado_criterio']=='A')
                                     {$variableEstado.= "&opcion=inhabilitar";}
                                 else{$variableEstado.= "&opcion=habilitar";}    
                                 $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                $variableEstado.= "&id_factor=" .$resultadoFactores[$key]['consecutivo_factor'];
-                                $variableEstado.= "&nombre_factor=" .$resultadoFactores[$key]['nombre'];
-                                $variableEstado.= "&estado_factor=" .$resultadoFactores[$key]['estado'];
+                                $variableEstado.= "&id_criterio=" .$resultadoFactores[$key]['consecutivo_criterio'];
+                                $variableEstado.= "&nombre_criterio=" .$resultadoFactores[$key]['criterio'];
+                                $variableEstado.= "&estado_criterio=" .$resultadoFactores[$key]['estado_criterio'];
                                 $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                 $variableEstado.= "&tiempo=" . time ();
                                 $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
-                                if($resultadoFactores[$key]['estado']=='A'){
-                                	$resultadoFactores[$key]['estado']="Activo";
+                                if($resultadoFactores[$key]['estado_criterio']=='A'){
+                                	$resultadoFactores[$key]['estado_criterio']="Activo";
                                 }else{
-                                	$resultadoFactores[$key]['estado']="Inactivo";
+                                	$resultadoFactores[$key]['estado_criterio']="Inactivo";
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoFactores[$key]['consecutivo_factor']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoFactores[$key]['estado']."</td>";
+                                        <td align='left'>".$resultadoFactores[$key]['factor']."</td>
+                                        <td align='left'>".$resultadoFactores[$key]['criterio']."</td>
+                                        <td align='left'>".$resultadoFactores[$key]['estado_criterio']."</td>";
                                 
 		                        $mostrarHtml .= "<td>";
 
-                                        if($resultadoFactores[$key]['estado']=='Activo')
+                                        if($resultadoFactores[$key]['estado_criterio']=='Activo')
                                             {   
                                             	$esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;

@@ -96,7 +96,7 @@ class consultarForm {
                                 $atributos ['tabIndex'] = 1;
                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                                 $atributos ['estilo'] = 'textoPequenno textoGris';
-                                $atributos ['enlaceImagen'] = $rutaBloque."/images/asociar.png";
+                                $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
                                 $atributos ['posicionImagen'] = "atras";//"adelante";
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
@@ -120,7 +120,6 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                    <th>Id</th>
                                     <th>Nombre</th>
                         			<th>Descripción</th>
                                     <th>Estado</th>
@@ -163,7 +162,6 @@ class consultarForm {
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoActividades[$key]['consecutivo_actividad']."</td>
                                         <td align='left'>".$resultadoActividades[$key]['nombre']."</td>
                                         <td align='left'>".$resultadoActividades[$key]['descripcion']."</td>		
                                         <td align='left'>".$resultadoActividades[$key]['estado']."</td>

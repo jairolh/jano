@@ -101,7 +101,6 @@ class registrarForm {
 			{
 			if (isset ( $_REQUEST ['mensaje'] )){
 				
-				
 				switch ($_REQUEST ['mensaje']){   
 					
 					case "confirmaFactor":
@@ -219,19 +218,19 @@ class registrarForm {
                         
                    	case "inhabilito":
                    		$tipo = 'success';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> se inhabilitó con éxito.";
+                   		$mensaje = "El Criterio <b>".$_REQUEST ["criterio"]." </b> se inhabilitó con éxito.";
                    		$boton = "continuar";
                    		break;
                    	
                    	case "noinhabilito":
                    		$tipo = 'error';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$mensaje = "El Criterio <b>".$_REQUEST ["criterio"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
                    		$boton = "regresar";
                    		break;
                    	
                    	case "habilito":
                    		$tipo = 'success';
-                   		$mensaje = "El Factor <b>".$_REQUEST ["factor"]." </b> se habilitó con éxito.";
+                   		$mensaje = "El Criterio <b>".$_REQUEST ["criterio"]." </b> se habilitó con éxito.";
                    		$boton = "continuar";
                    		break;
                    		

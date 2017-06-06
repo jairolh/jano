@@ -96,7 +96,7 @@ class consultarForm {
                                 $atributos ['tabIndex'] = 1;
                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                                 $atributos ['estilo'] = 'textoPequenno textoGris';
-                                $atributos ['enlaceImagen'] = $rutaBloque."/images/asociar.png";
+                                $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
                                 $atributos ['posicionImagen'] = "atras";//"adelante";
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
@@ -120,7 +120,6 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                    <th>Id</th>
                         			<th>Nivel</th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
@@ -164,8 +163,7 @@ class consultarForm {
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoModalidades[$key]['consecutivo_modalidad']."</td>
-                                        <td align='left'>".$resultadoModalidades[$key]['codigo_nivel_concurso']."</td>
+                                        <td align='left'>".$resultadoModalidades[$key]['nivel']."</td>
                                         <td align='left'>".$resultadoModalidades[$key]['nombre']."</td>
                                         <td align='left'>".$resultadoModalidades[$key]['estado']."</td>
                                         

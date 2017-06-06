@@ -108,17 +108,17 @@ class mensajeForm {
       			$tipo = 'warning';
       			switch ($_REQUEST ['opcion']) {
       				case "inhabilitar": 
-      					$mensaje = "Esta seguro de Inhabilitar el Factor <b>".$_REQUEST ['nombre_factor']."</b>?";
+      					$mensaje = "Esta seguro de Inhabilitar el Criterio <b>".$_REQUEST ['nombre_criterio']."</b>?";
       					$boton = "inhabilitar";
       					break;
       				
       				case "habilitar": 
-      					$mensaje = "Esta seguro de habilitar el Factor <b>".$_REQUEST ['nombre_factor']."</b>?";
+      					$mensaje = "Esta seguro de habilitar el Criterio <b>".$_REQUEST ['nombre_criterio']."</b>?";
       					$boton = "habilitar";
       					break;
              }
              
-             $esteCampo = $_REQUEST['id_factor'];
+             $esteCampo = $_REQUEST['id_criterio'];
              $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
              $atributos["etiqueta"] = "";
              $atributos["estilo"] = "centrar";
@@ -199,8 +199,8 @@ class mensajeForm {
 		$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 		$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 		$valorCodificado .= "&opcion=".$boton;
-        $valorCodificado .= "&id_factor=" .$_REQUEST['id_factor'];
-        $valorCodificado .= "&nombre_factor=" .$_REQUEST['nombre_factor'];
+        $valorCodificado .= "&id_criterio=" .$_REQUEST['id_criterio'];
+        $valorCodificado .= "&nombre_criterio=" .$_REQUEST['nombre_criterio'];
                                 
                 
 		/**

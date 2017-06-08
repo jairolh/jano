@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 }
 use gestionConcursante\gestionHoja\funcion\redireccion;
 
-class criterioForm {
+class calendarioForm {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -47,16 +47,16 @@ class criterioForm {
 		$parametro['id_usuario']=$usuario;
                 $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
                 $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                if(isset($_REQUEST['consecutivo_evaluar']))
-                    {  $parametro=array('consecutivo_evaluar'=>$_REQUEST['consecutivo_evaluar'],
+                if(isset($_REQUEST['consecutivo_calendario']))
+                    {  $parametro=array('consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
-                       $cadena_sql = $this->miSql->getCadenaSql("consultarCriterioConcurso", $parametro);
-                       $resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                       //var_dump($resultadoCriterio);
+                       $cadena_sql = $this->miSql->getCadenaSql("consultarCalendarioConcurso", $parametro);
+                       $resultadoCalendario = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       var_dump($resultadoCalendario);
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
-                $estefomulario= 'datosCriterio';
+                $estefomulario= 'datosCalendario';
 		$atributos ['id'] = $estefomulario;
 		$atributos ['nombre'] =$estefomulario;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
@@ -86,7 +86,7 @@ class criterioForm {
 			$variable = "pagina=" . $miPaginaActual;
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-			$esteCampo = "marcoCriterio";
+			$esteCampo = "marcoCalendario";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
                         if(!isset($_REQUEST['consecutivo_evaluar']))
@@ -97,14 +97,14 @@ class criterioForm {
 			unset ( $atributos );
 			{	      
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-				$atributos ["id"] = "cuadro_criterio";
+				$atributos ["id"] = "cuadro_calendario";
 				$atributos ["estiloEnLinea"] = "display:block";
 				$atributos = array_merge ( $atributos, $atributosGlobales );
 				echo $this->miFormulario->division ( "inicio", $atributos );
 				unset ( $atributos );
 				{
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'consecutivo_factor';
+                                    $esteCampo = 'consecutivo_actividad';
                                     $atributos ['nombre'] = $esteCampo;
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
@@ -112,9 +112,9 @@ class criterioForm {
                                     $atributos ['tab'] = $tab ++;
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = ' ';
-                                    if (isset ( $resultadoCriterio[0]['consecutivo_factor'] ))
-                                         {  $atributos ['seleccion'] = $resultadoCriterio[0]['consecutivo_factor'];}
-                                    else {	$atributos ['seleccion'] = -1;}
+                                    if (isset ( $resultadoCalendario[0]['consecutivo_actividad'] ))
+                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_actividad'];}
+                                    else {  $atributos ['seleccion'] = -1;}
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['columnas'] = 1;
                                     $atributos ['tamanno'] = 1;
@@ -123,41 +123,9 @@ class criterioForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaFactor" );
-                                    $matrizItems = array (array (0,' '));
-                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-                                    $atributos ['matrizItems'] = $matrizItems;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'consecutivo_criterio';
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['tab'] = $tab ++;
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos ['evento'] = '';
-                                    if (isset($resultadoCriterio[0]['consecutivo_criterio']))
-                                         {  $atributos ['seleccion'] = $resultadoCriterio[0]['consecutivo_criterio'];
-                                             $atributos ['deshabilitado'] = false;
-                                         }
-                                    else {  $atributos ['seleccion'] = -1;
-                                             $atributos ['deshabilitado'] = true;
-                                         }
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['tamanno'] = 1;
-                                    $atributos ['estilo'] = "jqueryui";
-                                    $atributos ['validar'] = "required";
-                                    $atributos ['limitar'] = true;
-                                    $atributos ['anchoCaja'] = 60;
-                                    $atributos ['evento'] = '';
-                                    if (isset ( $resultadoCriterio[0]['consecutivo_factor'] ))
-                                         { $parametro=array('consecutivo_factor'=> $resultadoCriterio[0]['consecutivo_factor']);}
-                                    else { $parametro='';}
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaCriterio",$parametro );
+                                    $parametroAct=array('consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
+                                                     'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
+                                    echo $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaActividadCalendario",$parametroAct );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
                                     $atributos ['matrizItems'] = $matrizItems;
@@ -166,10 +134,40 @@ class criterioForm {
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'maximo_puntos';
+                                    $esteCampo = 'descripcion';
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['nombre'] = $esteCampo;
                                     $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 74;
+                                    $atributos ['filas'] = 4;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar'] = 'required, minSize[1], maxSize[255]';
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    if (isset ($resultadoConcurso[0]['descripcion']  )) 
+                                        { $atributos ['valor'] =  $resultadoConcurso[0]['descripcion'] ;}
+                                    else{ $atributos ['valor'] = ''; }
+                                    $tab ++;
+
+                                    // Aplica atributos globales al control
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoTextArea ( $atributos );
+                                    unset ( $atributos );                                                   
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'fecha_inicio_calendario';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'texto';
                                     $atributos ['estilo'] = 'jqueryui';
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
@@ -178,19 +176,50 @@ class criterioForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,custom[onlyNumberSp],minSize[1],min[1],max[100]";
-                                    if (isset ( $resultadoCriterio[0]['maximo_puntos'] )) 
-                                         {  $atributos ['valor'] = $resultadoCriterio[0]['maximo_puntos'];} 
-                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['validar']="required";
+                                    if (isset ($resultadoConcurso[0]['fecha_inicio']  )) 
+                                        { $atributos ['valor'] =  $resultadoConcurso[0]['fecha_inicio'] ;}
+                                    else{ $atributos ['valor'] = $_REQUEST['inicio_concurso']; }
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    // Aplica atributos globales al control
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                               
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'fecha_fin_calendario';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'texto';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="required";
+                                    if (isset ($resultadoConcurso[0]['fecha_fin']  )) 
+                                        { $atributos ['valor'] =  $resultadoConcurso[0]['fecha_fin'] ;}
+                                    else{ $atributos ['valor'] = ''; }
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = true;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    // Aplica atributos globales al control
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+
                                     
                                 }
 				echo $this->miFormulario->division ( "fin" );
@@ -203,7 +232,7 @@ class criterioForm {
 				unset ( $atributos );
 				{
 					// -----------------CONTROL: Botón ----------------------------------------------------------------
-					$esteCampo = 'botonCriterio';
+					$esteCampo = 'botonCalendario';
 					$atributos ["id"] = $esteCampo;
 					$atributos ["tabIndex"] = $tab;
 					$atributos ["tipo"] = 'boton';
@@ -242,15 +271,15 @@ class criterioForm {
                                      * (c) a través de campos ocultos en los formularios. (deprecated)
                                      */
                                     // En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-                                    $criterio=isset($resultadoCriterio[0]['consecutivo_evaluar'])?$resultadoCriterio[0]['consecutivo_evaluar']:0;    
+                                    $calendario=isset($resultadoCalendario[0]['consecutivo_evaluar'])?$resultadoCalendario[0]['consecutivo_evaluar']:0;    
                                     $valorCodificado = "action=" . $esteBloque ["nombre"];
                                     $valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                     $valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-                                    $valorCodificado .= "&opcion=guardarCriterioConcurso";
+                                    $valorCodificado .= "&opcion=guardarCalendarioConcurso";
                                     $valorCodificado .= "&id_usuario=".$usuario;
                                     $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-                                    $valorCodificado .= "&consecutivo_evaluar=".$criterio;
+                                    $valorCodificado .= "&consecutivo_evaluar=".$calendario;
                                     
                                     /**
                                      * SARA permite que los nombres de los campos sean dinámicos.
@@ -286,6 +315,6 @@ class criterioForm {
                 return true;
 	}
 }
-$miSeleccionador = new criterioForm ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new calendarioForm ( $this->lenguaje, $this->miFormulario, $this->sql );
 $miSeleccionador->miForm ();
 ?>

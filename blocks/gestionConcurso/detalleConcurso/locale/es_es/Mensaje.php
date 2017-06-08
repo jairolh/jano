@@ -14,6 +14,8 @@ $this->idioma["marcoListaConcurso"]="Concursos Registrados";
 $this->idioma["marcoDetalleConcurso"]="Detalle Concurso";
 $this->idioma["marcoCriterio"]="Registro Criterios de Evaluación";
 $this->idioma["marcoListaCriterio"]="Criterios de Evaluación para el Concurso";
+$this->idioma["marcoCalendario"]="Registro Calendario";
+$this->idioma["marcoListaCalendario"]="Calendario de actividades para el Concurso";
 
 
 //formularios
@@ -44,6 +46,15 @@ $this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criteri
 $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
 
 
+$this->idioma["nuevoCalendario"]="Registrar nueva actividad al Calendario ";
+$this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";
+$this->idioma["consecutivo_actividad"]="Actividad: ";
+$this->idioma["consecutivo_criterioTitulo"]="Seleccione el criterio de evaluación";
+$this->idioma["consecutivo_criterio"]="Criterio: ";
+$this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
+$this->idioma["maximo_puntos"]="Puntaje Máximo: ";
+
+
 
 //botones
 $this->idioma ["botonRegresar"] =" Regresar ";
@@ -53,11 +64,13 @@ $this->idioma ["botonCancelar"] ="Cancelar";
 $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
 $this->idioma["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
+$this->idioma["botonCalendario"]="Guardar Datos de Calendario";
 
 //------------------Mensajes -----------------------------------
 $this->idioma ["noEncontroConcurso"] = "No existen concursos Registrados.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso.";
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
+$this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
 
 
 

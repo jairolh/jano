@@ -35,7 +35,7 @@ class cabecera {
             // ------------------- Inicio División -------------------------------
             $esteCampo = 'divLogoNotificador';
             $atributos ['id'] = $esteCampo;
-            $atributos['imagen'] = $this->miConfigurador->getVariableConfiguracion('host') .$this->miConfigurador->getVariableConfiguracion('site') . '/blocks/gui/bannerUsuario/css/images/bannerJano.jpg';
+            $atributos['imagen'] = $this->miConfigurador->getVariableConfiguracion('host') .$this->miConfigurador->getVariableConfiguracion('site') . '/blocks/gui/bannerUsuario/css/images/bannerJano2.jpg';
             $atributos['estilo'] = $esteCampo;
            // $atributos['etiqueta'] = $this->lenguaje->getCadena($esteCampo . 'Titulo');
             $atributos['ancho'] = '100%';

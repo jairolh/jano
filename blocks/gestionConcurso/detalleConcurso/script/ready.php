@@ -70,6 +70,12 @@ $("#datosCriterio").validationEngine({
     scroll: false
 });
 
+// Asociar el widget de validación al formulario
+$("#datosCalendario").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});
+
 $(function() {
     $("#detalleConcurso").submit(function() {
         $resultado=$("#detalleConcurso").validationEngine("validate");
@@ -86,7 +92,14 @@ $(function() {
         }
         return false;
     });
-    
+
+    $("#datosCalendario").submit(function() {
+        $resultado=$("#datosCalendario").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });    
 });        
  
 <?php /*?>
@@ -161,6 +174,7 @@ $('#<?php echo $this->campoSeguro('fecha_inicio_calendario')?>').datepicker({
         dateFormat: 'yy-mm-dd',
         <?php /*?> maxDate: 0,<?php */?>
          minDate: '<?php echo $_REQUEST['inicio_concurso']?>',
+         maxDate: '<?php echo $_REQUEST['cierre_concurso']?>',
         changeYear: true,
         changeMonth: true,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -180,7 +194,7 @@ $('#<?php echo $this->campoSeguro('fecha_inicio_calendario')?>').datepicker({
 $('#<?php echo $this->campoSeguro('fecha_fin_calendario')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
-       <?php /*?> maxDate: 0,<?php */?>
+        maxDate: '<?php echo $_REQUEST['cierre_concurso']?>',
         changeYear: true,
         changeMonth: true,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -216,7 +230,10 @@ $('#<?php echo $this->campoSeguro('consecutivo_criterio')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2(); 
 $('#<?php echo $this->campoSeguro('consecutivo_actividad')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_actividad')?>").select2(); 
-<?php 
+$('#<?php echo $this->campoSeguro('consecutivo_evaluar')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_evaluar')?>").select2(); 
+    
+    <?php 
 //}
 
 

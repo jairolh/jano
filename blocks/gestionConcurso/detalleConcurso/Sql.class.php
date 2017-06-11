@@ -147,9 +147,37 @@ class Sql extends \Sql {
                                     $cadenaSql.=" (SELECT DISTINCT ";
                                     $cadenaSql.="  consecutivo_actividad ";
                                     $cadenaSql.=" FROM concurso.concurso_calendario ";
-                                    $cadenaSql.=" WHERE consecutivo_concurso='".$variable['consecutivo_concurso']."' ) ";
+                                    $cadenaSql.=" WHERE consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="  ) ";
+                            if(isset($variable['consecutivo_actividad']) &&  $variable['consecutivo_actividad']!='' )
+                               {
+                                $cadenaSql.=" UNION ";
+                                $cadenaSql.=" SELECT DISTINCT ";
+                                $cadenaSql.=" consecutivo_actividad codigo, ";
+                                $cadenaSql.=" nombre, ";
+                                $cadenaSql.=" descripcion, ";
+                                $cadenaSql.=" estado ";
+                                $cadenaSql.=" FROM concurso.actividad_calendario ";
+                                $cadenaSql.=" WHERE  ";
+                                $cadenaSql.=" consecutivo_actividad ='".$variable['consecutivo_actividad']."' "; 
+                                }
                             break;                          
-                            
+                        case "consultaCriterioCalendario":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" eval.consecutivo_evaluar codigo, ";
+                                $cadenaSql.=" crt.nombre, ";
+                                $cadenaSql.=" crt.estado ";
+                                $cadenaSql.=" FROM concurso.criterio_evaluacion crt ";
+                                $cadenaSql.=" INNER JOIN concurso.concurso_evaluar eval  ";
+                                $cadenaSql.=" ON crt.consecutivo_criterio=eval.consecutivo_criterio  ";
+                                $cadenaSql.=" AND eval.estado='A' ";
+                                $cadenaSql.=" WHERE "; 
+                                $cadenaSql .= " eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' "; 
+                                if(isset($variable['consecutivo_criterio']) &&  $variable['consecutivo_criterio']!='' )
+                                   {$cadenaSql.=" AND crt_ev.consecutivo_criterio='".$variable['consecutivo_criterio']."' "; 
+                                   }
+                                $cadenaSql.=" ORDER BY crt.nombre ";
+                            break;                            
                         case "consultaConcurso":
                                 $cadenaSql=" SELECT conc.consecutivo_concurso, ";
                                 $cadenaSql.=" conc.consecutivo_modalidad,";
@@ -201,19 +229,21 @@ class Sql extends \Sql {
                             break;     
                             
                         case "consultarCalendarioConcurso":
-                                
-                            $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql=" SELECT DISTINCT ";
                                 $cadenaSql.=" cal.consecutivo_calendario, ";
                                 $cadenaSql.=" cal.consecutivo_concurso, ";
                                 $cadenaSql.=" cal.consecutivo_actividad, ";
                                 $cadenaSql.=" act.nombre ,";
-                                $cadenaSql.=" act.descripcion,";
+                                $cadenaSql.=" cal.descripcion,";
                                 $cadenaSql.=" cal.fecha_inicio, ";
                                 $cadenaSql.=" cal.fecha_fin, ";
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
                                 $cadenaSql.=" cal.consecutivo_evaluar,";
-                                $cadenaSql.=" crt.nombre criterio";
+                                $cadenaSql.=" crt.nombre criterio,";
+                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro Soportes' OR act.nombre='Evaluar Requisitos' ";
+                                $cadenaSql.=" THEN 'S' ";
+                                $cadenaSql.=" ELSE 'N' END ) obligatoria  ";
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
                                 $cadenaSql.=" INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad";
                                 $cadenaSql.=" INNER JOIN general.estado est ON est.tipo=cal.estado ";
@@ -225,16 +255,10 @@ class Sql extends \Sql {
                                    {
                                     $cadenaSql.=" AND cal.consecutivo_calendario='".$variable['consecutivo_calendario']."' "; 
                                    }
-                                $cadenaSql.=" ORDER BY  cal.fecha_inicio, cal.fecha_fin, cal.consecutivo_calendario ";
-                                
-
+                                $cadenaSql.=" ORDER BY  cal.fecha_inicio ASC, cal.fecha_fin ASC ";
                                 
                             break;     
                                  
-                            
-                            
-                            
-                            
                         case "registroConcurso":
                                 $cadenaSql=" INSERT INTO concurso.concurso(";
                                 $cadenaSql.=" consecutivo_concurso,";
@@ -329,7 +353,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" consecutivo_evaluar= '".$variable['consecutivo_evaluar']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_evaluar";
                         break;                    
-                    
                         case "actualizaEstadoCriterio":
                                 $cadenaSql=" UPDATE concurso.concurso_evaluar";
                                 $cadenaSql.=" SET ";
@@ -337,8 +360,28 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_evaluar= '".$variable['consecutivo_evaluar']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_evaluar";
-                        break;                       
-                            
+                        break;  
+                        case "actualizaCalendarioConcurso":
+                                $cadenaSql=" UPDATE ";
+                                $cadenaSql.="  concurso.concurso_calendario ";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" consecutivo_actividad='".$variable['consecutivo_actividad']."', ";
+                                $cadenaSql.=" fecha_inicio='".$variable['fecha_inicio']."', ";
+                                $cadenaSql.=" fecha_fin='".$variable['fecha_fin']."', ";
+                                $cadenaSql.=" descripcion='".$variable['descripcion']."', ";
+                                $cadenaSql.=" consecutivo_evaluar='".$variable['consecutivo_evaluar']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_calendario";
+                        break;                    
+                        case "actualizaEstadoCalendario":
+                                $cadenaSql=" UPDATE concurso.concurso_calendario";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.= " estado= '".$variable['estado']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_calendario";
+                        break;                            
                     
                         case "CambiarEstadoRol":
                             

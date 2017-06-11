@@ -126,7 +126,14 @@ class registrarForm {
                                         $variable.= "&opcion=detalle";
                                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;  
-                                
+                                    case "actualizoCalendarioConcurso":
+                                        $tipo = 'success';
+                                        $mensaje = "La actividad se registro exitosamente al Calendario del Concurso.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;                                  
                                     case "errorActualizoDetalle":
                                         $tipo = 'error';
                                         $mensaje = "Error en el registro de la información! Por favor verifique los datos e intente mas tarde.";
@@ -197,6 +204,41 @@ class registrarForm {
                                         $mensaje = "El Criterio <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
                                         $boton = "regresar";
                                         $pestanna='#tabCriterio';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;                                    
+                                   case "inhabilitoCalendario":
+                                        $tipo = 'success';
+                                        $mensaje = "La actividad <b>".$_REQUEST ['nombre']."</b> se Inactivo con exito del calendario del Concurso.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "noInhabilitoCalendario":
+                                        $tipo = 'error';
+                                        $mensaje = "La actividad  <b>".$_REQUEST ["nombre"]." </b>  no se pudo Inactivar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "habilitoCalendario":
+                                        $tipo = 'success';
+                                        $mensaje = "La actividad <b>".$_REQUEST ['nombre']."</b> se Activo con exito del calendario del Concurso.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "nohabilitoCalendario":
+                                        $tipo = 'error';
+                                        $mensaje = "La actividad <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabCalendario';
                                         $variable.= "&opcion=detalle";
                                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;                                    

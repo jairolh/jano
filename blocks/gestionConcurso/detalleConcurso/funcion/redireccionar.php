@@ -53,7 +53,13 @@ class redireccion {
                                 $variable.="&mensaje=actualizoCriterioConcurso";
                                 $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
                                 break;          
-                 
+                        case "actualizoCalendarioConcurso":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoCalendarioConcurso";
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                break;  
+                            
                         case "noActualizo":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -138,6 +144,43 @@ class redireccion {
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
                                 $variable.="&mensaje=nohabilitoCriterio";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;                                   
+                        case "inhabilitarCalendario":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=inhabilitoCalendario";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+
+                                break;
+
+                        case "noinhabilitarCalendario":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noInhabilitoCalendario";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;        
+
+                        case "habilitarCalendario":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=habilitoCalendario";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+
+                                break;
+
+                        case "nohabilitarCalendario":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=nohabilitoCalendario";
                                 if($valor!=""){
                                     $variable.="&nombre=".$valor['nombre'];
                                     $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];

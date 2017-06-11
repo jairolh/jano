@@ -33,7 +33,7 @@ $this->idioma["soporteAcuerdoTitulo"]="Adjuntar Documento en Formato PDF menor a
 $this->idioma["descripcion"]="Descripción: "; 
 $this->idioma["descripcionTitulo"]="Ingrese breve descripción del Concurso ";
 $this->idioma["fecha_inicio_concurso"]="Fecha Inicio"; 
-$this->idioma["fecha_inicio_concursoTitulo"]="Ingrese la fecha del Inicio del del concurso";
+$this->idioma["fecha_inicio_concursoTitulo"]="Ingrese la fecha del Inicio del concurso";
 $this->idioma["fecha_fin_concurso"]="Fecha Terminación"; 
 $this->idioma["fecha_fin_concursoTitulo"]="Ingrese la fecha del terminación del concurso";
 
@@ -49,10 +49,14 @@ $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
 $this->idioma["nuevoCalendario"]="Registrar nueva actividad al Calendario ";
 $this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";
 $this->idioma["consecutivo_actividad"]="Actividad: ";
-$this->idioma["consecutivo_criterioTitulo"]="Seleccione el criterio de evaluación";
-$this->idioma["consecutivo_criterio"]="Criterio: ";
-$this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
-$this->idioma["maximo_puntos"]="Puntaje Máximo: ";
+$this->idioma["descripcion"]="Descripción: "; 
+$this->idioma["descripcionTitulo"]="Ingrese breve descripción de la actividad";
+$this->idioma["fecha_inicio_calendario"]="Fecha Inicio"; 
+$this->idioma["fecha_inicio_calendarioTitulo"]="Ingrese la fecha del Inicio de la actividad";
+$this->idioma["fecha_fin_calendario"]="Fecha Terminación"; 
+$this->idioma["fecha_fin_calendarioTitulo"]="Ingrese la fecha del terminación de la actividad";
+$this->idioma["consecutivo_evaluarTitulo"]="Seleccione el criterio de evaluación a aplicar";
+$this->idioma["consecutivo_evaluar"]="Criterio a evaluar: ";
 
 
 

@@ -22,6 +22,9 @@ class criterioForm {
 		
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
+                $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
+		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
                 $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";
                 $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 		
@@ -229,8 +232,32 @@ class criterioForm {
                                         $atributos["tabIndex"]=$tab++;
                                         $atributos["valor"]=$this->lenguaje->getCadena($esteCampo);
                                         $atributos = array_merge ( $atributos, $atributosGlobales );
-                                        echo $this->miFormulario->campoBoton($atributos);
+                                      //  echo $this->miFormulario->campoBoton($atributos);
                                         //-------------Fin Control Boton---------------------- 
+                                        
+                                                                                // -----------------CONTROL: Botón ----------------------------------------------------------------
+                                        $pestanna='#tabCriterio';
+                                        $variable= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+                                        
+                                        $esteCampo = 'botonCancelar';
+                                        $atributos ['id'] = $esteCampo;
+                                        $atributos["tipo"]="boton";
+                                        $atributos ['enlace'] = $variable.$pestanna;
+                                        $atributos ['tabIndex'] = 1;
+                                        $atributos ['estilo'] = 'jqueryui';
+                                        $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                                        //$atributos ['ancho'] = '10%';
+                                        //$atributos ['alto'] = '10%';
+                                        $atributos ['redirLugar'] = true;
+                                        echo $this->miFormulario->enlace ( $atributos );
+                                        unset($atributos);
+
+                                        // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                                        
+                                        
                                      /**
                                      * En algunas ocasiones es útil pasar variables entre las diferentes páginas.
                                      * SARA permite realizar esto a través de tres

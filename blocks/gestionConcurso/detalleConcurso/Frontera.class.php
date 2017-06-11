@@ -78,7 +78,12 @@ class Frontera {
                                 case "habilitarCriterio":
 					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
 					break;       
-                                                                         
+                                case "inhabilitarCalendario":
+					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
+					break;     
+                                case "habilitarCalendario":
+					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
+					break;                                                                          
         		}
 		} else {
 			$_REQUEST ['opcion'] = "listar";

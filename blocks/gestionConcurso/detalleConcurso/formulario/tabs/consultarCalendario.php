@@ -103,10 +103,10 @@ class consultarCalendario {
                                 echo "<div class='cell-border'><table id='tablaConsultaCalendario' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>
+                                            <th>Fecha inicial</th>                                            
+                                            <th>Fecha cierre</th> 
                                             <th>Actividad</th>
                                             <th>Descripción</th>
-                                            <th>Fecha inicial</th>                                            
-                                            <th>Fecha cierre</th>                                            
                                             <th>Criterio Evalua</th>                                            
                                             <th>Estado</th>
                                             <th>Editar</th>
@@ -148,10 +148,10 @@ class consultarCalendario {
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
                                         
                                         $mostrarHtml = "<tr align='center'>
-                                                <td align='left'>".$resultadoListaCalendario[$key]['nombre']."</td>
-                                                <td align='left'>".$resultadoListaCalendario[$key]['descripcion']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_inicio']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin']."</td>    
+                                                <td align='left'>".$resultadoListaCalendario[$key]['nombre']."</td>
+                                                <td align='left'>".$resultadoListaCalendario[$key]['descripcion']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['criterio']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nom_estado']."</td>";
                                         $mostrarHtml .= "<td>";
@@ -169,36 +169,38 @@ class consultarCalendario {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                          $mostrarHtml .= "</td> <td>";
-
-                                            if($resultadoListaCalendario[$key]['estado']=='A')
-                                                {   $esteCampo = "habilitar";
-                                                    $atributos["id"]=$esteCampo;
-                                                    $atributos['enlace']=$variableEstado;
-                                                    $atributos['tabIndex']=$esteCampo;
-                                                    $atributos['redirLugar']=true;
-                                                    $atributos['estilo']='clasico';
-                                                    $atributos['enlaceTexto']='';
-                                                    $atributos['ancho']='25';
-                                                    $atributos['alto']='25';
-                                                    $atributos['enlaceImagen']=$rutaBloque."/images/player_pause.png";
-                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                    unset($atributos);    
-                                                }
-                                            else{
-                                                        //-------------Enlace-----------------------
-                                                    $esteCampo = "habilitar";
-                                                    $atributos["id"]=$esteCampo;
-                                                    $atributos['enlace']=$variableEstado;
-                                                    $atributos['tabIndex']=$esteCampo;
-                                                    $atributos['redirLugar']=true;
-                                                    $atributos['estilo']='clasico';
-                                                    $atributos['enlaceTexto']='';
-                                                    $atributos['ancho']='25';
-                                                    $atributos['alto']='25';
-                                                    $atributos['enlaceImagen']=$rutaBloque."/images/success.png";
-                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                    unset($atributos);    
-                                                }    
+                                        if($resultadoListaCalendario[$key]['obligatoria']=='N')
+                                            { 
+                                                if($resultadoListaCalendario[$key]['estado']=='A')
+                                                    {   $esteCampo = "habilitar";
+                                                        $atributos["id"]=$esteCampo;
+                                                        $atributos['enlace']=$variableEstado;
+                                                        $atributos['tabIndex']=$esteCampo;
+                                                        $atributos['redirLugar']=true;
+                                                        $atributos['estilo']='clasico';
+                                                        $atributos['enlaceTexto']='';
+                                                        $atributos['ancho']='25';
+                                                        $atributos['alto']='25';
+                                                        $atributos['enlaceImagen']=$rutaBloque."/images/player_pause.png";
+                                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                        unset($atributos);    
+                                                    }
+                                                else{
+                                                            //-------------Enlace-----------------------
+                                                        $esteCampo = "habilitar";
+                                                        $atributos["id"]=$esteCampo;
+                                                        $atributos['enlace']=$variableEstado;
+                                                        $atributos['tabIndex']=$esteCampo;
+                                                        $atributos['redirLugar']=true;
+                                                        $atributos['estilo']='clasico';
+                                                        $atributos['enlaceTexto']='';
+                                                        $atributos['ancho']='25';
+                                                        $atributos['alto']='25';
+                                                        $atributos['enlaceImagen']=$rutaBloque."/images/success.png";
+                                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                        unset($atributos);    
+                                                    }
+                                            }    
                                         $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;

@@ -109,7 +109,15 @@ class Funcion {
                                     $_REQUEST["estado"]='A';
                                     $this->cambiarEstadoCriterio(); 
                                 break;       
+                            case "inhabilitarCalendario":
+                                    $_REQUEST["estado"]='I';
+                                    $this->cambiarEstadoCalendario(); 
+                                break;     
 
+                            case "habilitarCalendario":
+                                    $_REQUEST["estado"]='A';
+                                    $this->cambiarEstadoCalendario(); 
+                                break;       
                         }
                                        
 // 			if ($validacion == false) {
@@ -206,6 +214,9 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/cambiarEstadoCriterio.php");
 	} 
-
+        function cambiarEstadoCalendario()
+	{
+		include_once($this->ruta."/funcion/cambiarEstadoCalendario.php");
+	} 
 }
 ?>

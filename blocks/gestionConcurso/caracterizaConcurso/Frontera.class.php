@@ -93,7 +93,6 @@ class Frontera {
 					include_once($this->ruta."formulario/cambiaEstadoActividad.php");
 					break;
 					
-					
 				case "gestionCriterio":
 					include_once($this->ruta."formulario/consultarFactores.php");
 					break;

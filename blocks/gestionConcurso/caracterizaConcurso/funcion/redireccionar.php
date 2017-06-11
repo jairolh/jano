@@ -19,28 +19,28 @@ class redireccion {
         		$variable="pagina=".$miPaginaActual;
         		$variable.="&opcion=mensaje";
         		$variable.="&mensaje=inhabilito";
-        		$variable.="&factor=".$valor['nombre_factor'];
+        		$variable.="&criterio=".$valor['nombre_criterio'];
         		break; 
         	
         	case "habilitar":
         		$variable="pagina=".$miPaginaActual;
         		$variable.="&opcion=mensaje";
         		$variable.="&mensaje=habilito";
-        		$variable.="&factor=".$valor['nombre_factor'];
+        		$variable.="&criterio=".$valor['nombre_criterio'];
 				break;
 				
 			case "nohabilitar":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=nohabilito";
-				$variable.="&factor=".$valor['nombre_factor'];
+				$variable.="&criterio=".$valor['nombre_criterio'];
 				break;
 				
 			case "noinhabilitar":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=noinhabilito";
-				$variable.="&factor=".$valor['nombre_factor'];
+				$variable.="&criterio=".$valor['nombre_criterio'];
 				break;
 					
 			/*Mensajes actualización estado de la Modalidad*/

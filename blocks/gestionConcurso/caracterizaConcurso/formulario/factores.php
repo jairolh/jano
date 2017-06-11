@@ -31,7 +31,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 {
 	// -------------------- Listado de Pestañas (Como lista No Ordenada) -------------------------------
 	$items = array (
-			"tabPerfil" => $this->lenguaje->getCadena ( "tabPerfil" ),
+			"tabCriterios" => $this->lenguaje->getCadena ( "tabCriterios" ),
 			//"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
 	);
 	$atributos ["items"] = $items;

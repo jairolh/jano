@@ -33,7 +33,9 @@ class Sql extends \Sql {
 			 */
                         
 			case "consultaFactores":
-                $cadenaSql = "Select * from concurso.factor_evaluacion";
+                $cadenaSql = "Select f.consecutivo_factor, f.nombre AS factor, f.estado AS estado_factor, c.consecutivo_criterio, c.nombre AS criterio, c.estado AS estado_criterio";
+                $cadenaSql .= " FROM concurso.factor_evaluacion f, concurso.criterio_evaluacion c";
+                $cadenaSql .= " WHERE f.consecutivo_factor=c.consecutivo_factor order by f.nombre";
                 break;
             
             case "consultaActividades":
@@ -41,7 +43,9 @@ class Sql extends \Sql {
                	break;
                 
             case "consultaModalidades":
-                $cadenaSql = "Select * from concurso.modalidad_concurso";
+                $cadenaSql = "SELECT codigo_nivel_concurso, modalidad.nombre AS nombre, modalidad.estado AS estado, nivel.nombre AS nivel";
+                $cadenaSql .= " FROM concurso.modalidad_concurso modalidad, general.nivel nivel";
+                $cadenaSql .= " WHERE codigo_nivel_concurso=codigo_nivel";
                 break;
            
             case "buscarNiveles":
@@ -52,6 +56,7 @@ class Sql extends \Sql {
             case "buscarFactores":
             	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
             	$cadenaSql .= " WHERE estado ='A'";
+            	$cadenaSql .= " order by nombre";
             	break;
                             
             case "consultarCriterios":
@@ -94,11 +99,11 @@ class Sql extends \Sql {
         		$cadenaSql .= " RETURNING consecutivo_actividad";
         		break;
                     
-            case "cambiarEstadoFactor":
-                $cadenaSql = "UPDATE concurso.factor_evaluacion SET ";
+            case "cambiarEstadoCriterio":
+                $cadenaSql = "UPDATE concurso.criterio_evaluacion SET ";
                	$cadenaSql .= " estado = '".$variable['estado']."'";
-                $cadenaSql .= " WHERE consecutivo_factor = '".$variable['id_factor']."' ";
-                $cadenaSql .= " RETURNING consecutivo_factor";
+                $cadenaSql .= " WHERE consecutivo_criterio = '".$variable['id_criterio']."' ";
+                $cadenaSql .= " RETURNING consecutivo_criterio";
 				break; 
 				
 			case "cambiarEstadoModalidad":

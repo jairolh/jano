@@ -28,17 +28,17 @@ $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
 $this->idioma["marcoEditaModalidad"]="Editar Datos de la Modalidad";
 $this->idioma["marcoEditaActividad"]="Editar Datos de la Actividad";
 
-$this->idioma["tabPerfil"]="Factores";
+$this->idioma["tabCriterios"]="Gestión de Criterios";
 $this->idioma["tabModalidades"]="Modalidades";
 $this->idioma["tabActividades"]="Actividades";
 
-$this->idioma["marcoPerfil"]="Factores y Criterios de Evaluación";
+$this->idioma["marcoPerfil"]="Nuevo Criterio de Evaluación";
 
 $this->idioma["marcoCriterio"]="Criterios de Evaluación";
 $this->idioma["marcoModalidad"]="Registrar Modalidad";
 $this->idioma["marcoActividad"]="Registrar Actividad";
 
-$this->idioma["nuevoFactor"]="<br><b>Registrar Nuevo <br> Factor</b>";
+$this->idioma["registrarCriterio"]="<br><b>Registrar Nuevo <br> Criterio</b>";
 $this->idioma["nuevaActividad"]="<br><b>Registrar Nueva <br> Actividad</b>";
 $this->idioma["nuevaModalidad"]="<br><b>Registrar Nueva <br> Modalidad</b>";
 
@@ -46,7 +46,7 @@ $this->idioma["nuevoSub"]="Nuevo Factor";
 
 $this->idioma["nuevoCriterio"]="Nuevo Criterio";
 
-$this->idioma["inhabilitar"]="Inhabilitar Factor";
+$this->idioma["inhabilitar"]="Inhabilitar Criterio";
 
 $this->idioma["habilitar"]="Habilitar Factor";
 

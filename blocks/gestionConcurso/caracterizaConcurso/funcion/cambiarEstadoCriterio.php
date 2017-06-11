@@ -39,9 +39,9 @@ class CambiarEstado {
 		//$usuarioSoporte = $miSesion->getSesionUsuarioId(); 
 
         $parametro['estado']=$_REQUEST['estado'];
-        $parametro['id_factor']=$_REQUEST['id_factor'];
-        $this->cadena_sql = $this->miSql->getCadenaSql("cambiarEstadoFactor", $parametro);
-        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $parametro, "actualizarEstadoFactor");
+        $parametro['id_criterio']=$_REQUEST['id_criterio'];
+        $this->cadena_sql = $this->miSql->getCadenaSql("cambiarEstadoCriterio", $parametro);
+        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $parametro, "actualizarEstadoCriterio");
 	
         if($resultadoEstado){
             redireccion::redireccionar($_REQUEST['opcion'], $_REQUEST);

@@ -109,7 +109,7 @@ class registrarForm {
                                 {   
                                     case "actualizoConcurso":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos de Concurso ' ".$_REQUEST['nombre']." ', se registro exitosamente.";
+                                        $mensaje = "Los datos de Concurso ' ".$_REQUEST['nombre']." ', se registraron exitosamente.";
                                         $boton = "continuar";
                                         $pestanna='';
                                         break;  
@@ -120,7 +120,7 @@ class registrarForm {
                                         break;
                                     case "actualizoCriterioConcurso":
                                         $tipo = 'success';
-                                        $mensaje = "El criterio de evaluación , se registro exitosamente al Concurso.";
+                                        $mensaje = "Los datos del criterio de evaluación, se registraron exitosamente para el Concurso.";
                                         $boton = "continuar";
                                         $pestanna='#tabCriterio';
                                         $variable.= "&opcion=detalle";
@@ -128,15 +128,23 @@ class registrarForm {
                                         break;  
                                     case "actualizoCalendarioConcurso":
                                         $tipo = 'success';
-                                        $mensaje = "La actividad se registro exitosamente al Calendario del Concurso.";
+                                        $mensaje = " Los datos de la actividad se registraron exitosamente al Calendario del Concurso.";
                                         $boton = "continuar";
                                         $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;   
+                                    case "actualizoPerfilConcurso":
+                                        $tipo = 'success';
+                                        $mensaje = "Los datos del perfil se registraron exitosamente pera el Concurso.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabPerfil';
                                         $variable.= "&opcion=detalle";
                                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;                                  
                                     case "errorActualizoDetalle":
                                         $tipo = 'error';
-                                        $mensaje = "Error en el registro de la información! Por favor verifique los datos e intente mas tarde.";
+                                        $mensaje = "Error en el registro de información para el concurso! Por favor verifique los datos e intente mas tarde.";
                                         $variable.= "&opcion=detalle";
                                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         $boton = "regresar";
@@ -239,6 +247,42 @@ class registrarForm {
                                         $mensaje = "La actividad <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
                                         $boton = "regresar";
                                         $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;                                    
+
+                                   case "inhabilitoPerfil":
+                                        $tipo = 'success';
+                                        $mensaje = "El perfil <b>".$_REQUEST ['nombre']."</b> se Inactivo con exito.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabPerfil';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "noInhabilitoPerfil":
+                                        $tipo = 'error';
+                                        $mensaje = "El perfil <b>".$_REQUEST ["nombre"]." </b>  no se pudo Inactivar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabPerfil';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "habilitoPerfil":
+                                        $tipo = 'success';
+                                        $mensaje = "El perfil <b>".$_REQUEST ['nombre']."</b> se Activo con exito.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabPerfil';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+                                    
+                                    case "nohabilitoPerfil":
+                                        $tipo = 'error';
+                                        $mensaje = "El perfil <b>".$_REQUEST ["nombre"]." </b> no se pudo Activar. Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabPerfil';
                                         $variable.= "&opcion=detalle";
                                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;                                    

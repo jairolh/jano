@@ -227,7 +227,6 @@ class Sql extends \Sql {
                                    }
                                 $cadenaSql.=" ORDER BY fac.nombre, crt.nombre ";
                             break;     
-                            
                         case "consultarCalendarioConcurso":
                                 $cadenaSql=" SELECT DISTINCT ";
                                 $cadenaSql.=" cal.consecutivo_calendario, ";
@@ -258,7 +257,36 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY  cal.fecha_inicio ASC, cal.fecha_fin ASC ";
                                 
                             break;     
-                                 
+                        case "consultarPerfilConcurso":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" prf.consecutivo_perfil, ";
+                                $cadenaSql.=" prf.consecutivo_concurso, ";
+                                $cadenaSql.=" prf.nombre, ";
+                                $cadenaSql.=" prf.descripcion,  ";
+                                $cadenaSql.=" prf.requisitos, ";
+                                $cadenaSql.=" prf.dependencia, ";
+                                $cadenaSql.=" prf.area, ";
+                                $cadenaSql.=" prf.vacantes, ";
+                                $cadenaSql.=" prf.estado, ";
+                                $cadenaSql.=" est.estado nom_estado, ";
+                                    $cadenaSql.=" (SELECT COUNT(insc.consecutivo_inscrito) inscrito ";
+                                    $cadenaSql.=" FROM concurso.concurso_inscrito insc ";
+                                    $cadenaSql.=" WHERE ";
+                                    $cadenaSql.=" insc.estado='A' ";
+                                    $cadenaSql.=" AND insc.consecutivo_perfil =prf.consecutivo_perfil) inscritos ";
+                                $cadenaSql.=" FROM ";
+                                $cadenaSql.=" concurso.concurso_perfil prf ";
+                                $cadenaSql.=" INNER JOIN general.estado est ON est.tipo=prf.estado ";
+                                $cadenaSql.=" WHERE "; 
+                                $cadenaSql .= " prf.consecutivo_concurso='".$variable['consecutivo_concurso']."' "; 
+                                if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
+                                   {
+                                    $cadenaSql.=" AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' "; 
+                                   }
+                                $cadenaSql.=" ORDER BY prf.dependencia, prf.area,prf.nombre ";
+                                
+                            break;     
+                            
                         case "registroConcurso":
                                 $cadenaSql=" INSERT INTO concurso.concurso(";
                                 $cadenaSql.=" consecutivo_concurso,";
@@ -320,6 +348,31 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['consecutivo_evaluar']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_calendario";
+                        break; 
+                        case "registroPerfilConcurso":
+                                $cadenaSql=" INSERT INTO ";
+                                $cadenaSql.=" concurso.concurso_perfil(";
+                                $cadenaSql.=" consecutivo_perfil,";
+                                $cadenaSql.=" consecutivo_concurso,";
+                                $cadenaSql.=" nombre,";
+                                $cadenaSql.=" descripcion,";
+                                $cadenaSql.=" requisitos,";
+                                $cadenaSql.=" dependencia,";
+                                $cadenaSql.=" area,";
+                                $cadenaSql.=" vacantes,";
+                                $cadenaSql.=" estado)";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['consecutivo_concurso']."', ";
+                                $cadenaSql .= " '".$variable['nombre']."', ";
+                                $cadenaSql .= " '".$variable['descripcion']."', ";
+                                $cadenaSql .= " '".$variable['requisitos']."', ";
+                                $cadenaSql .= " '".$variable['dependencia']."', ";
+                                $cadenaSql .= " '".$variable['area']."', ";
+                                $cadenaSql .= " '".$variable['vacantes']."', ";
+                                $cadenaSql .= " 'A' ";
+                                $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING consecutivo_perfil";
                         break;                       
                     
                         case "actualizaConcurso":
@@ -381,8 +434,29 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_calendario";
-                        break;                            
-                    
+                        break;                     
+                        case "actualizaPerfilConcurso":
+                                $cadenaSql=" UPDATE ";
+                                $cadenaSql.="  concurso.concurso_perfil ";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql .= "nombre= '".$variable['nombre']."', ";
+                                $cadenaSql .= "descripcion= '".$variable['descripcion']."', ";
+                                $cadenaSql .= "requisitos= '".$variable['requisitos']."', ";
+                                $cadenaSql .= "dependencia= '".$variable['dependencia']."', ";
+                                $cadenaSql .= "area= '".$variable['area']."', ";
+                                $cadenaSql .= "vacantes= '".$variable['vacantes']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_perfil= '".$variable['consecutivo_perfil']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_perfil";
+                        break;                    
+                        case "actualizaEstadoPerfil":
+                                $cadenaSql=" UPDATE concurso.concurso_perfil";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.= " estado= '".$variable['estado']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_perfil= '".$variable['consecutivo_perfil']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_perfil";
+                        break;                     
                         case "CambiarEstadoRol":
                             
 				$cadenaSql = "UPDATE ".$prefijo."rol_subsistema SET ";

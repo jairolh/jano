@@ -118,6 +118,15 @@ class Funcion {
                                     $_REQUEST["estado"]='A';
                                     $this->cambiarEstadoCalendario(); 
                                 break;       
+                            case "inhabilitarPerfil":
+                                    $_REQUEST["estado"]='I';
+                                    $this->cambiarEstadoPerfil(); 
+                                break;     
+
+                            case "habilitarPerfil":
+                                    $_REQUEST["estado"]='A';
+                                    $this->cambiarEstadoPerfil(); 
+                                break;                              
                         }
                                        
 // 			if ($validacion == false) {
@@ -218,5 +227,9 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/cambiarEstadoCalendario.php");
 	} 
+        function cambiarEstadoPerfil()
+	{
+		include_once($this->ruta."/funcion/cambiarEstadoPerfil.php");
+	}         
 }
 ?>

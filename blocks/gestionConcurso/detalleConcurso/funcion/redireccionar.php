@@ -59,7 +59,13 @@ class redireccion {
                                 $variable.="&mensaje=actualizoCalendarioConcurso";
                                 $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
                                 break;  
-                            
+                        case "actualizoPerfilConcurso":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=actualizoPerfilConcurso";
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                break;  
+                                                        
                         case "noActualizo":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -155,7 +161,6 @@ class redireccion {
                                 $variable.="&mensaje=inhabilitoCalendario";
                                 $variable.="&nombre=".$valor['nombre'];
                                 $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
-
                                 break;
 
                         case "noinhabilitarCalendario":
@@ -174,7 +179,6 @@ class redireccion {
                                 $variable.="&mensaje=habilitoCalendario";
                                 $variable.="&nombre=".$valor['nombre'];
                                 $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
-
                                 break;
 
                         case "nohabilitarCalendario":
@@ -187,6 +191,41 @@ class redireccion {
                                 }
                                 break;                                   
                                 
+                        case "inhabilitarPerfil":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=inhabilitoPerfil";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                break;
+
+                        case "noinhabilitarPerfil":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noInhabilitoPerfil";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;        
+
+                        case "habilitarPerfil":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=habilitoPerfil";
+                                $variable.="&nombre=".$valor['nombre'];
+                                $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                break;
+
+                        case "nohabilitarPerfil":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=nohabilitoPerfil";
+                                if($valor!=""){
+                                    $variable.="&nombre=".$valor['nombre'];
+                                    $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                                }
+                                break;                                   
                         
         		case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;

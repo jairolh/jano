@@ -83,6 +83,12 @@ class Frontera {
 					break;     
                                 case "habilitarCalendario":
 					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
+					break;   
+                                case "inhabilitarPerfil":
+					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
+					break;     
+                                case "habilitarPerfil":
+					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
 					break;                                                                          
         		}
 		} else {

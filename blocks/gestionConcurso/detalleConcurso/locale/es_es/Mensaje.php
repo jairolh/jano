@@ -16,6 +16,8 @@ $this->idioma["marcoCriterio"]="Registro Criterios de Evaluación";
 $this->idioma["marcoListaCriterio"]="Criterios de Evaluación para el Concurso";
 $this->idioma["marcoCalendario"]="Registro Calendario";
 $this->idioma["marcoListaCalendario"]="Calendario de actividades para el Concurso";
+$this->idioma["marcoPerfil"]="Registro Perfil";
+$this->idioma["marcoListaPerfil"]="Perfiles del Concurso";
 
 
 //formularios
@@ -45,7 +47,6 @@ $this->idioma["consecutivo_criterio"]="Criterio: ";
 $this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
 $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
 
-
 $this->idioma["nuevoCalendario"]="Registrar nueva actividad al Calendario ";
 $this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";
 $this->idioma["consecutivo_actividad"]="Actividad: ";
@@ -58,7 +59,19 @@ $this->idioma["fecha_fin_calendarioTitulo"]="Ingrese la fecha del terminación d
 $this->idioma["consecutivo_evaluarTitulo"]="Seleccione el criterio de evaluación a aplicar";
 $this->idioma["consecutivo_evaluar"]="Criterio a evaluar: ";
 
-
+$this->idioma["nuevoPerfil"]="Registrar nuevo Perfil ";
+$this->idioma["nombrePerfil"]="Nombre: "; 
+$this->idioma["nombrePerfilTitulo"]="Ingrese el nombre del perfil";
+$this->idioma["descripcion"]="Descripción: "; 
+$this->idioma["descripcionTitulo"]="Ingrese breve descripción del perfil";
+$this->idioma["requisitos"]="Requisitos: "; 
+$this->idioma["requisitosTitulo"]="Ingrese los requisitos para el perfil";
+$this->idioma["dependencia"]="Dependencia / Facultad"; 
+$this->idioma["dependenciaTitulo"]="Ingrese el nombre de la Dependencia o Facultad donde se ubica el perfil";
+$this->idioma["area"]="Área / Proyecto"; 
+$this->idioma["areaTitulo"]="Ingrese el nombre del Área o Proyecto Curricular donde se ubica el perfil";
+$this->idioma["vacantes"]="Vacantes: "; 
+$this->idioma["vacantesTitulo"]="Ingrese la cantidad de vacantes para el perfil";
 
 //botones
 $this->idioma ["botonRegresar"] =" Regresar ";
@@ -69,13 +82,13 @@ $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
 $this->idioma["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 $this->idioma["botonCalendario"]="Guardar Datos de Calendario";
-
+$this->idioma["botonPerfil"]="Guardar Datos de Perfil";
 //------------------Mensajes -----------------------------------
 $this->idioma ["noEncontroConcurso"] = "No existen concursos Registrados.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso.";
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
-
+$this->idioma["noEncontroPerfil"]="No existe Perfiles registrados! ";
 
 
 $this->idioma["continuar"]="Continuar";

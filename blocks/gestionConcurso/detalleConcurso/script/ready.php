@@ -57,7 +57,24 @@ $('#tablaConsultaCalendario').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 }); 
 
-                      
+$('#tablaConsultaPerfil').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "Ninguna hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+}); 
+
 // Asociar el widget de validación al formulario detalleConcurso
 $("#detalleConcurso").validationEngine({
     promptPosition : "centerRight", 
@@ -72,6 +89,12 @@ $("#datosCriterio").validationEngine({
 
 // Asociar el widget de validación al formulario
 $("#datosCalendario").validationEngine({
+    promptPosition : "centerRight", 
+    scroll: false
+});
+
+// Asociar el widget de validación al formulario
+$("#datosPerfil").validationEngine({
     promptPosition : "centerRight", 
     scroll: false
 });
@@ -95,6 +118,13 @@ $(function() {
 
     $("#datosCalendario").submit(function() {
         $resultado=$("#datosCalendario").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });    
+    $("#datosPerfil").submit(function() {
+        $resultado=$("#datosPerfil").validationEngine("validate");
         if ($resultado) {
             return true;
         }

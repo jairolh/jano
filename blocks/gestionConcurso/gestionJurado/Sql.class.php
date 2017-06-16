@@ -54,7 +54,7 @@ class Sql extends \Sql {
 
       case "consultaTiposJurado":
           $cadenaSql = "Select id, nombre, descripcion, estado from concurso.jurado_tipo ";
-          $cadenaSql .= "WHERE estado='A'";
+          //$cadenaSql .= "WHERE estado='A'";
          	break;
 
 			case "consultaTiposJuradoId":

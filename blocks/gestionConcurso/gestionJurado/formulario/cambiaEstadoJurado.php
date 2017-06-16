@@ -118,7 +118,7 @@ class mensajeForm {
       					break;
              }
 
-             $esteCampo = $_REQUEST['id_tipo'];
+             $esteCampo = $_REQUEST['id_tipo_jurado'];
              $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
              $atributos["etiqueta"] = "";
              $atributos["estilo"] = "centrar";

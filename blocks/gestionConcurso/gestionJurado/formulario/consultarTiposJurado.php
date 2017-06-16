@@ -120,23 +120,23 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                    <th>Nombre</th>
-                        			<th>Descripción</th>
-                                    <th>Estado</th>
-                        			<th>Detalle</th>
-                                    <th>Actualizar Estado</th>
+                                  <th>Tipo de Jurado</th>
+                        					<th>Descripción</th>
+                                  <th>Estado</th>
+                        					<th>Detalle</th>
+                                  <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
                             <tbody>";
 
                         foreach($resultadoTiposJurado as $key=>$value )
                             {
-                            	//enlace para consultar los criterios asociados al tipo sw jurado
+                            	//enlace para consultar los criterios asociados al tipo de jurado
                             	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableDetalle.= "&opcion=detalleCriterios";
                             	$variableDetalle.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
                             	$variableDetalle.= "&id_tipoJurado=" .$resultadoTiposJurado[$key]['id'];
-                                $variableDetalle.= "&nombre_tipoJurado=" .$resultadoTiposJurado[$key]['nombre'];
+                              $variableDetalle.= "&nombre_tipoJurado=" .$resultadoTiposJurado[$key]['nombre'];
                             	$variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);

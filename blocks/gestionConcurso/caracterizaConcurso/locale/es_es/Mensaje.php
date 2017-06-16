@@ -57,13 +57,13 @@ $this->idioma["noDefinido"]="No definido";
 $this->idioma["botonAceptar"]="Guardar";
 
 $this->idioma["botonActualizar"]="Actualizar";
-$this->idioma["factor"]="Factor"; 
+$this->idioma["factor"]="Factor";
 
 $this->idioma["subsistemaTitulo"]="Seleccione el Subsistema ";
 
-$this->idioma["criterio"]="Criterio"; 
+$this->idioma["criterio"]="Criterio";
 
-$this->idioma["nombreFactor"]="Nombre : "; 
+$this->idioma["nombreFactor"]="Nombre : ";
 $this->idioma["nombreFactorTitulo"]="Ingrese el nombre del factor";
 
 $this->idioma["nombreCriterio"]="Nombre del criterio:";
@@ -84,22 +84,22 @@ $this->idioma["estadoCriterio"]="Estado del Criterio: ";
 
 $this->idioma["seleccionFactor"]="Factor: ";
 
-$this->idioma["etiqueta"]="Etiqueta : "; 
+$this->idioma["etiqueta"]="Etiqueta : ";
 
-$this->idioma["paginaSub"]="Pagina : "; 
+$this->idioma["paginaSub"]="Pagina : ";
 
 $this->idioma["paginaSubTitulo"]="Seleccione la pagina Principal del Subsistema";
 
-$this->idioma["descripcionSub"]="Descripción : "; 
+$this->idioma["descripcionSub"]="Descripción : ";
 
-$this->idioma["id_perfil"]="Perfil: "; 
+$this->idioma["id_perfil"]="Perfil: ";
 
 //------------------Mensajes -----------------------------------
 
 $this->idioma["continuar"]="Continuar";
 
 $this->idioma["regresar"]="Regresar";
-
+$this->idioma["noEncontroModalidades"]="No hay modalidades registradas";
 
 
 ?>

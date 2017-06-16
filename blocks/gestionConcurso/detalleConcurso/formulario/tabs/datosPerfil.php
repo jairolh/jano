@@ -147,7 +147,7 @@ class perfilForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar'] = 'required, minSize[1], maxSize[2000]';
+                                    $atributos ['validar'] = 'required, minSize[1], maxSize[3000]';
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -173,11 +173,11 @@ class perfilForm {
                                     $atributos ['estiloMarco'] = '';
                                     $atributos ["etiquetaObligatorio"] = true;
                                     $atributos ['columnas'] = 74;
-                                    $atributos ['filas'] = 4;
+                                    $atributos ['filas'] = 8;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar'] = 'required, minSize[1], maxSize[3000]';
+                                    $atributos ['validar'] = 'required, minSize[1], maxSize[5000]';
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;

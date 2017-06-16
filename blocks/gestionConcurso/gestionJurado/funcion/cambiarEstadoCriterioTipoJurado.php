@@ -35,15 +35,11 @@ class CambiarEstado {
         $conexion="estructura";
         $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
-        
-
         $parametro['estado']=$_REQUEST['estado'];
         $parametro['id_tipo']=$_REQUEST['id_tipo'];
         $parametro['id_criterio']=$_REQUEST['id_criterio'];
         $this->cadena_sql = $this->miSql->getCadenaSql("cambiarEstadoCriterioTipoJurado", $parametro);
         $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso", $parametro, "actualizarEstadoCriterioTipoJurado");
-
-
 
         if($resultadoEstado){
             redireccion::redireccionar($_REQUEST['opcion'], $_REQUEST);

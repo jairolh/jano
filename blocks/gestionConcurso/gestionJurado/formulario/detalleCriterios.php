@@ -73,54 +73,40 @@ echo $this->miFormulario->division ( "inicio", $atributos );
         unset ( $atributos );
         {
 
-                        $items = array (
-                                        "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
-                                        "tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
-                        );
-                        $atributos ["items"] = $items;
-                        $atributos ["estilo"] = "jqueryui";
-                        $atributos ["pestañas"] = "true";
-                        echo $this->miFormulario->listaNoOrdenada ( $atributos );
-                        // unset ( $atributos );
-                        // ------------------Division para la pestaña 1-------------------------
-                        $atributos ["id"] = "tabCriterio";
-                        $atributos ["estilo"] = "";
-                        echo $this->miFormulario->division ( "inicio", $atributos );
-                      //  if(!isset($_REQUEST['consecutivo_evaluar']))
-                               //{
-																 include_once ($this->ruta . "formulario/tabs/consultarCriterio.php");
-                               include_once ($this->ruta . "formulario/tabs/datosCriterio.php");
-														 //}
-                        echo $this->miFormulario->division ( "fin" );
-                        unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 1-------------------------
-                        // ------------------Division para la pestaña 2-------------------------
-                        $atributos ["id"] = "tabJurados";
-                        $atributos ["estilo"] = "";
-                        echo $this->miFormulario->division ( "inicio", $atributos );
-                      //  if(!isset($_REQUEST['consecutivo_evaluar']))
-                               //{
-																 include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
-															 //}
-                               include_once ($this->ruta . "formulario/tabs/datosJurado.php");
-                        echo $this->miFormulario->division ( "fin" );
-                        unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 2-------------------------
+            $items = array (
+                    "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
+                    "tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
+            );
+            $atributos ["items"] = $items;
+            $atributos ["estilo"] = "jqueryui";
+            $atributos ["pestañas"] = "true";
+            echo $this->miFormulario->listaNoOrdenada ( $atributos );
+            // unset ( $atributos );
+            // ------------------Division para la pestaña 1-------------------------
+            $atributos ["id"] = "tabCriterio";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+          			include_once ($this->ruta . "formulario/tabs/consultarCriterio.php");
+                include_once ($this->ruta . "formulario/tabs/datosCriterio.php");
 
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 1-------------------------
+            // ------------------Division para la pestaña 2-------------------------
+            $atributos ["id"] = "tabJurados";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+								include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
+								include_once ($this->ruta . "formulario/tabs/datosJurado.php");
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 2-------------------------
 
         }
          echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
 	// ------------------Division para la pestaña 2-------------------------
-
-        /*
-        $atributos ["id"] = "tabRegistrarMasivo";
-	$atributos ["estilo"] = "";
-	echo $this->miFormulario->division ( "inicio", $atributos );
-	{
-		include ($this->ruta . "formulario/tabs/registro_masivo.php");
-	}*/
 
 	// -----------------Fin Division para la pestaña 2-------------------------
 	echo $this->miFormulario->division ( "fin" );

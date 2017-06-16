@@ -11,35 +11,35 @@ class consultarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
-    var $miSesion;
-    
+  var $miSesion;
+
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-		
+
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-		
+
 		$this->lenguaje = $lenguaje;
-		
+
 		$this->miFormulario = $formulario;
-		
+
 		$this->miSql = $sql;
-                
-        $this->miSesion = \Sesion::singleton();
+
+    $this->miSesion = \Sesion::singleton();
 	}
-	
+
 	function miForm() {
-		
+
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-                
-        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
-		
-        $directorio = $this->miConfigurador->getVariableConfiguracion("host");
-        $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
-        $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-                
+
+    $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+    $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+    $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+
+    $directorio = $this->miConfigurador->getVariableConfiguracion("host");
+    $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
+    $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
+
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -49,19 +49,19 @@ class consultarForm {
 		 * Si se utiliza esta técnica es necesario realizar un mezcla entre este arreglo y el específico en cada control:
 		 * $atributos= array_merge($atributos,$atributosGlobales);
 		 */
-		
+
 		$atributosGlobales ['campoSeguro'] = 'true';
-		
+
 		$_REQUEST ['tiempo'] = time ();
-		
+
 		// -------------------------------------------------------------------------------------------------
-        $conexion="estructura";
+    $conexion="estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-	
+
 		$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&opcion=nuevoTipoJurado";
-        $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-		
+    $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+
 		/**
 		 * SARA permite que los nombres de los campos sean dinámicos.
 		 * Para ello utiliza la hora en que es creado el formulario para
@@ -69,12 +69,12 @@ class consultarForm {
 		 * (a) invocando a la variable $_REQUEST ['tiempo'] que se ha declarado en ready.php o
 		 * (b) asociando el tiempo en que se está creando el formulario
 		 */
-                
+
 		$valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
 		$valorCodificado .= "&tiempo=" . time ();
 		// Paso 2: codificar la cadena resultante
         $variableNuevo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($valorCodificado, $directorio);
-		
+
         $cadena_sql = $this->miSql->getCadenaSql("consultaTiposJurado", "");
         $resultadoTiposJurado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             //var_dump($resultadoActividades);
@@ -108,7 +108,7 @@ class consultarForm {
                       </table></div> ";
 
                 if($resultadoTiposJurado)
-                {	
+                {
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoConsultaPerfiles";
                         $atributos["estilo"] = "jqueryui";
@@ -130,7 +130,7 @@ class consultarForm {
                             <tbody>";
 
                         foreach($resultadoTiposJurado as $key=>$value )
-                            { 
+                            {
                             	//enlace para consultar los criterios asociados al tipo sw jurado
                             	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableDetalle.= "&opcion=detalleCriterios";
@@ -140,12 +140,12 @@ class consultarForm {
                             	$variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
-                            	
+
                                 //enlace actualizar estado
                                 $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                 if($resultadoTiposJurado[$key]['estado']=='A')
                                     {$variableEstado.= "&opcion=inhabilitarTipoJurado";}
-                                else{$variableEstado.= "&opcion=habilitarTipoJurado";}    
+                                else{$variableEstado.= "&opcion=habilitarTipoJurado";}
                                 $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
                                 $variableEstado.= "&id_tipoJurado=" .$resultadoTiposJurado[$key]['id'];
                                 $variableEstado.= "&nombre_tipoJurado=" .$resultadoTiposJurado[$key]['nombre'];
@@ -159,14 +159,14 @@ class consultarForm {
                                 }else{
                                 	$resultadoTiposJurado[$key]['estado']="Inactivo";
                                 }
-                                
+
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoTiposJurado[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoTiposJurado[$key]['descripcion']."</td>		
+                                        <td align='left'>".$resultadoTiposJurado[$key]['descripcion']."</td>
                                         <td align='left'>".$resultadoTiposJurado[$key]['estado']."</td>
                                 ";
-                                
-                                
+
+
                                 $mostrarHtml .= "<td>";
                                 $esteCampo = "detalle";
                                 $atributos["id"]=$esteCampo;
@@ -178,15 +178,15 @@ class consultarForm {
                                 $atributos['ancho']='25';
                                 $atributos['alto']='25';
                                 $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-                                
+
                                 $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                 $mostrarHtml .= "</td>";
-                               
-                                
+
+
                                 $mostrarHtml .= "<td>";
 
                                         if($resultadoTiposJurado[$key]['estado']=='Activo')
-                                            {   
+                                            {
                                             	$esteCampo = "habilitar";
                                                 $atributos["id"]=$esteCampo;
                                                 $atributos['enlace']=$variableEstado;
@@ -198,7 +198,7 @@ class consultarForm {
                                                 $atributos['alto']='25';
                                                 $atributos['enlaceImagen']=$rutaBloque."/images/player_pause.png";
                                                 $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                unset($atributos);    
+                                                unset($atributos);
                                             }
                                         else{
                                                 //-------------Enlace-----------------------
@@ -213,9 +213,9 @@ class consultarForm {
                                                 $atributos['alto']='25';
                                                 $atributos['enlaceImagen']=$rutaBloque."/images/success.png";
                                                 $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                unset($atributos);    
-                                            }    
-                                
+                                                unset($atributos);
+                                            }
+
                                 $mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";
@@ -232,84 +232,26 @@ class consultarForm {
                         //echo $this->miFormulario->marcoAgrupacion("fin");
 
                 }
-                else{
-                        $nombreFormulario=$esteBloque["nombre"];
-                        include_once("core/crypto/Encriptador.class.php");
-                        $cripto=Encriptador::singleton();
-                        $directorio=$this->miConfigurador->getVariableConfiguracion("rutaUrlBloque")."/imagen/";
+								else{
+									$atributos["id"]="divNoEncontroModalidades";
+									$atributos["estilo"]="";
+									//$atributos["estiloEnLinea"]="display:none";
+									echo $this->miFormulario->division("inicio",$atributos);
 
-                        $miPaginaActual=$this->miConfigurador->getVariableConfiguracion("pagina");
+									//-------------Control Boton-----------------------
+									$esteCampo = "noEncontroTiposJurado";
+									$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+									$atributos["etiqueta"] = "";
+									$atributos["estilo"] = "centrar";
+									$atributos["tipo"] = 'error';
+									$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+									echo $this->miFormulario->cuadroMensaje($atributos);
+									unset($atributos);
+									//-------------Fin Control Boton----------------------
 
-                        $tab=1;
-                        //---------------Inicio Formulario (<form>)--------------------------------
-                        $atributos["id"]=$nombreFormulario;
-                        $atributos["tipoFormulario"]="multipart/form-data";
-                        $atributos["metodo"]="POST";
-                        $atributos["nombreFormulario"]=$nombreFormulario;
-                        $verificarFormulario="1";
-                        $atributos ['tipoEtiqueta'] = 'inicio';
-                        echo $this->miFormulario->formulario ( $atributos );
+								 echo $this->miFormulario->division("fin");
+									//------------------Division para los botones-------------------------
 
-                        $atributos["id"]="divNoEncontroEgresado";
-                        $atributos["estilo"]="marcoBotones";
-                   		//$atributos["estiloEnLinea"]="display:none"; 
-                        echo $this->miFormulario->division("inicio",$atributos);
-
-                        //-------------Control Boton-----------------------
-                        $esteCampo = "noEncontroProcesos";
-                        $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-                        $atributos["etiqueta"] = "";
-                        $atributos["estilo"] = "centrar";
-                        $atributos["tipo"] = 'error';
-                        $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-                        echo $this->miFormulario->cuadroMensaje($atributos);
-                    	unset($atributos); 
-
-                        $valorCodificado="pagina=".$miPaginaActual;
-                        $valorCodificado.="&bloque=".$esteBloque["id_bloque"];
-                        $valorCodificado.="&bloqueGrupo=".$esteBloque["grupo"];
-                        $valorCodificado=$cripto->codificar($valorCodificado);
-                        //-------------Fin Control Boton----------------------
-
-                        //------------------Fin Division para los botones-------------------------
-                        echo $this->miFormulario->division("fin");
-                        //------------------Division para los botones-------------------------
-                        $atributos["id"]="botones";
-                        $atributos["estilo"]="marcoBotones";
-                        echo $this->miFormulario->division("inicio",$atributos);
-
-                        //-------------Control Boton-----------------------
-                        $esteCampo = "regresar";
-                        $atributos["id"]=$esteCampo;
-                        $atributos["tabIndex"]=$tab++;
-                        $atributos["tipo"]="boton";
-                        $atributos["estilo"]="jquery";
-                        $atributos["verificar"]="true"; //Se coloca true si se desea verificar el formulario antes de pasarlo al servidor.
-                        $atributos["tipoSubmit"]="jquery"; //Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-                        $atributos ["estiloBoton"] = 'jqueryui';
-                        $atributos["valor"]=$this->lenguaje->getCadena($esteCampo);
-                        $atributos["nombreFormulario"]=$nombreFormulario;
-                        echo $this->miFormulario->campoBoton($atributos);
-                        unset($atributos);
-                        //-------------Fin Control Boton----------------------
-
-
-                        //------------------Fin Division para los botones-------------------------
-                        echo $this->miFormulario->division("fin");
-
-                        //-------------Control cuadroTexto con campos ocultos-----------------------
-                        //Para pasar variables entre formularios o enviar datos para validar sesiones
-                        $atributos["id"]="formSaraData"; //No cambiar este nombre
-                        $atributos["tipo"]="hidden";
-                        $atributos["obligatorio"]=false;
-                        $atributos["etiqueta"]="";
-                        $atributos["valor"]=$valorCodificado;
-                        echo $this->miFormulario->campoCuadroTexto($atributos);
-                        unset($atributos);
-
-                        //Fin del Formulario
-                        $atributos ['tipoEtiqueta'] = 'fin';
-                        echo $this->miFormulario->formulario ( $atributos );
                 }
 
             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
@@ -320,7 +262,7 @@ class consultarForm {
         }
         // ------------------Fin Division para los botones-------------------------
         echo $this->miFormulario->division ( "fin" );
-                
+
     }
 }
 

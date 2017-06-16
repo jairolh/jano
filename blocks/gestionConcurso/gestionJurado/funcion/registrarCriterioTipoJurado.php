@@ -29,7 +29,7 @@ class RegistradorCriterioTipoJurado{
 
     function procesarFormulario() {
         $conexion="estructura";
-		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+		    $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
         $arregloDatos = array('tipo_jurado'=>$_REQUEST['tipo_jurado'],
                               'criterio_evaluacion'=>$_REQUEST['criterio_evaluacion']

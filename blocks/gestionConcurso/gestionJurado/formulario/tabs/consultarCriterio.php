@@ -5,13 +5,13 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
+
 class consultarCriterio {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
 	var $miSesion;
-	var $rutaSoporte;
 
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
@@ -62,7 +62,6 @@ class consultarCriterio {
 			$parametro=array('id_jurado_tipo'=>$_REQUEST['id_tipoJurado']);
       $cadena_sql = $this->miSql->getCadenaSql("consultarCriteriosTipoJurado", $parametro);
       $resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-      //var_dump($resultadoCriterio);
 
       $esteCampo = "marcoListaCriterio";
       $atributos ['id'] = $esteCampo;
@@ -94,8 +93,6 @@ class consultarCriterio {
                 echo "    </td>
                         </tr>
                       </table></div> ";
-
-
 
                     if($resultadoCriterio)
                         {
@@ -129,7 +126,6 @@ class consultarCriterio {
                                         $variableEstado.= "&id_criterio=".$resultadoCriterio[$key]['id_criterio'];
                                         $variableEstado.= "&nombre_criterio=" .$resultadoCriterio[$key]['criterio'];
 
-
                                         $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEstado.= "&tiempo=" . time ();
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
@@ -162,7 +158,7 @@ class consultarCriterio {
                                                     unset($atributos);
                                                 }
                                             else{
-                                                        //-------------Enlace-----------------------
+                                                    //-------------Enlace-----------------------
                                                     $esteCampo = "habilitar";
                                                     $atributos["id"]=$esteCampo;
                                                     $atributos['enlace']=$variableEstado;
@@ -176,7 +172,7 @@ class consultarCriterio {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);
                                                 }
-                                        $mostrarHtml .= "</td>";
+																				$mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;
                                        unset($mostrarHtml);
@@ -190,7 +186,7 @@ class consultarCriterio {
                         {
                                 $atributos["id"]="divNoEncontroCriterio";
                                 $atributos["estilo"]="";
-                           //$atributos["estiloEnLinea"]="display:none";
+                           			//$atributos["estiloEnLinea"]="display:none";
                                 echo $this->miFormulario->division("inicio",$atributos);
 
                                 //-------------Control Boton-----------------------

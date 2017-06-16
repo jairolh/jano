@@ -40,20 +40,15 @@ class juradoForm {
 		// lineas para conectar base de d atos-------------------------------------------------------------------------------------------------
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-                $seccion ['tiempo'] = $tiempo;
-                $miSesion = \Sesion::singleton();
-                $usuario=$miSesion->idUsuario();
-                //identifca el usuario
+    $seccion ['tiempo'] = $tiempo;
+    $miSesion = \Sesion::singleton();
+    $usuario=$miSesion->idUsuario();
+    //identifca el usuario
 		$parametro['id_usuario']=$usuario;
-                $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
-                $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                if(isset($_REQUEST['id_tipoJurado']))
-                    {  $parametro=array('id_jurado_tipo'=>$_REQUEST['id_tipoJurado']
 
-                    );
-
-
-                    }
+    if(isset($_REQUEST['id_tipoJurado'])){
+			$parametro=array('id_jurado_tipo'=>$_REQUEST['id_tipoJurado']);
+		}
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
     $estefomulario= 'datosJurado';
@@ -224,9 +219,6 @@ class juradoForm {
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
                                     $valorCodificado .= "&opcion=guardarUsuarioTipoJurado";
                                     $valorCodificado .= "&id_usuario=".$usuario;
-                                    $valorCodificado .= "&tipo_jurado2=".$_REQUEST['tipo_jurado2'];
-                                    $valorCodificado .= "&usuario_jurado=".$_REQUEST['usuario_jurado'];
-                                    //$valorCodificado .= "&nombre_usuario=".$_REQUEST['nombre_usuario'];
 
 
                                     /**

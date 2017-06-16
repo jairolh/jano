@@ -43,13 +43,12 @@ class criterioForm {
 		// lineas para conectar base de d atos-------------------------------------------------------------------------------------------------
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-                $seccion ['tiempo'] = $tiempo;
-                $miSesion = \Sesion::singleton();
-                $usuario=$miSesion->idUsuario();
-                //identifca el usuario
+  	$seccion ['tiempo'] = $tiempo;
+    $miSesion = \Sesion::singleton();
+  	$usuario=$miSesion->idUsuario();
+    //identifca el usuario
 		$parametro['id_usuario']=$usuario;
-                $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
-                $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
                 if(isset($_REQUEST['consecutivo_evaluar']))
                     {  $parametro=array('consecutivo_evaluar'=>$_REQUEST['consecutivo_evaluar'],
                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
@@ -80,9 +79,9 @@ class criterioForm {
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-                        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-                        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -92,14 +91,14 @@ class criterioForm {
 			$esteCampo = "marcoCriterios";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
-                        if(!isset($_REQUEST['consecutivo_evaluar']))
-                            { $atributos ["estiloEnLinea"] = "display:none;"; }
+      if(!isset($_REQUEST['consecutivo_evaluar']))
+          { $atributos ["estiloEnLinea"] = "display:none;"; }
 			$atributos ['tipoEtiqueta'] = 'inicio';
 			$atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
-                               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+       	// ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_criterio";
 				$atributos ["estiloEnLinea"] = "display:block";
 				$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -197,14 +196,14 @@ class criterioForm {
                                         $atributos["tabIndex"]=$tab++;
                                         $atributos["valor"]=$this->lenguaje->getCadena($esteCampo);
                                         $atributos = array_merge ( $atributos, $atributosGlobales );
-                                      //  echo $this->miFormulario->campoBoton($atributos);
+                                      	//  echo $this->miFormulario->campoBoton($atributos);
                                         //-------------Fin Control Boton----------------------
 
-                                                                                // -----------------CONTROL: Botón ----------------------------------------------------------------
+                                        // -----------------CONTROL: Botón ----------------------------------------------------------------
                                         $pestanna='#tabCriterio';
                                         $variable= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variable.= "&opcion=detalle";
-                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        //$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
                                         $esteCampo = 'botonCancelar';
@@ -241,8 +240,8 @@ class criterioForm {
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
                                     $valorCodificado .= "&opcion=guardarCriterioTipoJurado";
                                     $valorCodificado .= "&id_usuario=".$usuario;
-																		$valorCodificado .= "&tipo_jurado=".$_REQUEST['tipo_jurado'];
-                                    $valorCodificado .= "&criterio_evaluacion=".$_REQUEST['criterio_evaluacion'];
+																		//$valorCodificado .= "&tipo_jurado=".$_REQUEST['id_tipoJurado'];
+                                    //$valorCodificado .= "&criterio_evaluacion=".$_REQUEST['criterio_evaluacion'];
 
                                     /**
                                      * SARA permite que los nombres de los campos sean dinámicos.

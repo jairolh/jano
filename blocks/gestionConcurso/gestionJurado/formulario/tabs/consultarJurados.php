@@ -10,8 +10,8 @@ class consultarJurados {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
-        var $miSesion;
-        var $rutaSoporte;
+	var $miSesion;
+
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 
@@ -23,7 +23,7 @@ class consultarJurados {
 
 		$this->miSql = $sql;
 
-                $this->miSesion = \Sesion::singleton();
+  	$this->miSesion = \Sesion::singleton();
 
 	}
 	function miForm() {
@@ -31,14 +31,14 @@ class consultarJurados {
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
 
-                $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-                $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-                $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+    $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+    $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+    $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
-                $directorio = $this->miConfigurador->getVariableConfiguracion("host");
-                $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
-                $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+    $directorio = $this->miConfigurador->getVariableConfiguracion("host");
+    $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
+    $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
+    $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
@@ -55,12 +55,12 @@ class consultarJurados {
 		$_REQUEST ['tiempo'] = time ();
 
 		// -------------------------------------------------------------------------------------------------
-            $conexion="estructura";
+      $conexion="estructura";
 			$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
 			$parametro=array('id_jurado_tipo'=>$_REQUEST['id_tipoJurado']);
-            $cadena_sql = $this->miSql->getCadenaSql("consultaUsuariosTipoJurado", $_REQUEST['id_tipoJurado']);
-            $resultadoJurados = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+      $cadena_sql = $this->miSql->getCadenaSql("consultaUsuariosTipoJurado", $_REQUEST['id_tipoJurado']);
+      $resultadoJurados = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
             $esteCampo = "marcoListaTipoJurado";
             $atributos ['id'] = $esteCampo;
@@ -138,8 +138,6 @@ class consultarJurados {
                                                 <td align='left'>".$resultadoJurados[$key]['nombre']."</td>
                                                 <td align='left'>".$resultadoJurados[$key]['tipo_jurado']."</td>
                                                 <td align='left'>".$resultadoJurados[$key]['estado']."</td>";
-
-
                                          $mostrarHtml .= "<td>";
 
                                             if($resultadoJurados[$key]['estado']=='Activo')
@@ -181,11 +179,11 @@ class consultarJurados {
                                 echo "</table></div>";
                                 //Fin de Conjunto de Controles
 
-                        }else
-                        {
+                        }
+												else{
                                 $atributos["id"]="divNoEncontroCriterio";
                                 $atributos["estilo"]="";
-                           //$atributos["estiloEnLinea"]="display:none";
+                           			//$atributos["estiloEnLinea"]="display:none";
                                 echo $this->miFormulario->division("inicio",$atributos);
 
                                 //-------------Control Boton-----------------------

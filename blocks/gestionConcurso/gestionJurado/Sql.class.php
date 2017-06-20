@@ -35,168 +35,92 @@ class Sql extends \Sql {
 			 case "consultaUsuariosTipoJurado":
 				 $cadenaSql=" SELECT u.id_usuario AS id_usuario, concat( u.nombre, ' ', u.apellido) AS nombre, id_jurado_tipo AS id_tipo, jt.nombre AS tipo_jurado, cj.estado AS estado";
 				 $cadenaSql.=" FROM jano_usuario_subsistema s, jano_usuario u, concurso.jurado cj, concurso.jurado_tipo jt";
-				 $cadenaSql.=" WHERE rol_id=3";
+				 $cadenaSql.=" WHERE rol_id=3";//rol de jurado
 				 $cadenaSql.=" AND u.id_usuario=s.id_usuario";
 				 $cadenaSql.=" AND cj.id_usuario=u.id_usuario";
 				 $cadenaSql.=" AND jt.id=cj.id_jurado_tipo";
 				 $cadenaSql.=" AND cj.id_jurado_tipo=".$variable;
 				 break;
 
-
 			case "consultaUsuariosJurado":
-				$cadenaSql = "SELECT u.id_usuario, concat( u.nombre, ' ', u.apellido) AS nombre ";
-				$cadenaSql .= "FROM jano_usuario_subsistema s, jano_usuario u ";
-				$cadenaSql .= "WHERE rol_id=3 ";
-				$cadenaSql .= "AND u.id_usuario=s.id_usuario";
-				break;
-
-			case "consultaUsuariosJurado2":
-					$cadenaSql = "SELECT distinct u.id_usuario, concat( u.nombre, ' ', u.apellido) AS nombre  ";
-					$cadenaSql .= "FROM jano_usuario_subsistema s, jano_usuario u, concurso.jurado j ";
+					$cadenaSql = "SELECT u.id_usuario, concat( u.nombre, ' ', u.apellido) AS nombre  ";
+					$cadenaSql .= "FROM jano_usuario_subsistema s, jano_usuario u ";
 					$cadenaSql .= "WHERE rol_id=3 ";//rol de jurado
 					$cadenaSql .= "AND u.id_usuario=s.id_usuario ";
-					$cadenaSql .= "AND j.id_usuario=u.id_usuario ";
-					$cadenaSql .= "AND j.id_usuario not in";
-					$cadenaSql .= "(SELECT j.id_usuario from concurso.jurado where id_jurado_tipo=".$variable.") ";
+					$cadenaSql .= "AND u.id_usuario not in";
+					$cadenaSql .= "(SELECT j.id_usuario from concurso.jurado j where j.id_jurado_tipo=".$variable.") ";
 					$cadenaSql .= "order by nombre";
-
 					break;
 
-            case "consultaTiposJurado":
-                $cadenaSql = "Select * from concurso.jurado_tipo ";
-                $cadenaSql .= "WHERE estado='A'";
-               	break;
+      case "consultaTiposJurado":
+          $cadenaSql = "Select id, nombre, descripcion, estado from concurso.jurado_tipo ";
+          //$cadenaSql .= "WHERE estado='A'";
+         	break;
 
-								case "consultaTiposJuradoId":
-		                $cadenaSql = "Select * from concurso.jurado_tipo ";
-		                $cadenaSql .= "WHERE id= ".$variable;
-		               	break;
+			case "consultaTiposJuradoId":
+          $cadenaSql = "Select id, nombre, descripcion, estado from concurso.jurado_tipo ";
+          $cadenaSql .= "WHERE id= ".$variable;
+         	break;
 
-           	case "consultaCriterios":
-              	$cadenaSql = "Select * from concurso.jurado_criterio";
-              	break;
+			case "consultaCriteriosEvaluacion":
+        	$cadenaSql = "Select consecutivo_criterio, nombre, estado from concurso.criterio_evaluacion ";
+					$cadenaSql .= "WHERE consecutivo_criterio not in";
+					$cadenaSql .= "(select id_criterio from concurso.jurado_criterio where id_jurado_tipo=".$variable.") ";
+					$cadenaSql .= "order by nombre";
+        	break;
 
-            case "consultaCriteriosEvaluacion":
-              	$cadenaSql = "Select consecutivo_criterio, nombre, estado from concurso.criterio_evaluacion";
-              	break;
+    	case "consultarCriteriosTipoJurado":
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" jt.id AS id_tipo, ";
+				$cadenaSql.=" jt.nombre AS tipo, ";
+				$cadenaSql.=" ce.consecutivo_criterio AS id_criterio, ";
+				$cadenaSql.=" ce.nombre AS criterio, ";
+				$cadenaSql.=" jc.estado ";
+				$cadenaSql.=" FROM ";
+				$cadenaSql.=" concurso.jurado_criterio jc, ";
+				$cadenaSql.=" concurso.jurado_tipo jt, ";
+				$cadenaSql.=" concurso.criterio_evaluacion ce ";
+				$cadenaSql.=" WHERE ";
+				$cadenaSql.=" jc.id_jurado_tipo=".$variable['id_jurado_tipo'];
+				$cadenaSql.=" and jc.id_jurado_tipo=jt.id ";
+				$cadenaSql.=" and jc.id_criterio=ce.consecutivo_criterio ";
+				$cadenaSql.=" ORDER BY ce.nombre ";
+        break;
 
-						case "consultaCriteriosEvaluacion2":
-              	$cadenaSql = "Select consecutivo_criterio, nombre, estado from concurso.criterio_evaluacion ";
-								$cadenaSql .= "WHERE consecutivo_criterio not in";
-								$cadenaSql .= "(select id_criterio from concurso.jurado_criterio where id_jurado_tipo=".$variable.") ";
-								$cadenaSql .= "order by nombre";
-              	break;
+    	case "registrarCriterioTipoJurado":
+      	$cadenaSql = "INSERT INTO concurso.jurado_criterio(id_jurado_tipo, id_criterio)";
+      	$cadenaSql .= " VALUES ( ";
+     		$cadenaSql .= " '".$variable['tipo_jurado']."', ";
+      	$cadenaSql .= " '".$variable['criterio_evaluacion']."' ";
+      	$cadenaSql .= " ) ";
+      	$cadenaSql .= " RETURNING id";
+       	break;
 
-          	case "consultarCriteriosTipoJurado":
-							$cadenaSql=" SELECT ";
-							$cadenaSql.=" jt.id AS id_tipo, ";
-							$cadenaSql.=" jt.nombre AS tipo, ";
-							$cadenaSql.=" ce.consecutivo_criterio AS id_criterio, ";
-							$cadenaSql.=" ce.nombre AS criterio, ";
-							$cadenaSql.=" jc.estado ";
-							$cadenaSql.=" FROM ";
-							$cadenaSql.=" concurso.jurado_criterio jc, ";
-							$cadenaSql.=" concurso.jurado_tipo jt, ";
-							$cadenaSql.=" concurso.criterio_evaluacion ce ";
-							$cadenaSql.=" WHERE ";
-							$cadenaSql.=" jc.id_jurado_tipo=".$variable['id_jurado_tipo'];
-							$cadenaSql.=" and jc.id_jurado_tipo=jt.id ";
-							$cadenaSql.=" and jc.id_criterio=ce.consecutivo_criterio ";
-							$cadenaSql.=" ORDER BY ce.nombre ";
-              break;
+	   	case "registrarUsuarioTipoJurado":
+      	$cadenaSql = "INSERT INTO concurso.jurado(id_jurado_tipo, id_usuario)";
+      	$cadenaSql .= " VALUES ( ";
+      	$cadenaSql .= " '".$variable['tipo_jurado']."', ";
+      	$cadenaSql .= " '".$variable['usuario_jurado']."' ";
+     		$cadenaSql .= " ) ";
+      	$cadenaSql .= " RETURNING id";
+      	break;
 
-          	case "registrarCriterioTipoJurado":
-              	$cadenaSql = "INSERT INTO concurso.jurado_criterio(id_jurado_tipo, id_criterio)";
-              	$cadenaSql .= " VALUES ( ";
-             		$cadenaSql .= " '".$variable['tipo_jurado']."', ";
-              	$cadenaSql .= " '".$variable['criterio_evaluacion']."' ";
-              	$cadenaSql .= " ) ";
-              	$cadenaSql .= " RETURNING id";
-             	break;
+     	case "registrarTipoJurado":
+     		$cadenaSql = "INSERT INTO concurso.jurado_tipo(nombre, descripcion)";
+     		$cadenaSql .= " VALUES ( ";
+     		$cadenaSql .= " '".$variable['nombre']."', ";
+     		$cadenaSql .= " '".$variable['descripcion']."' ";
+     		$cadenaSql .= " ) ";
+     		$cadenaSql .= " RETURNING id";
+     		break;
 
-	       	case "registrarUsuarioTipoJurado":
-            	$cadenaSql = "INSERT INTO concurso.jurado(id_jurado_tipo, id_usuario)";
-              	$cadenaSql .= " VALUES ( ";
-              	$cadenaSql .= " '".$variable['tipo_jurado']."', ";
-              	$cadenaSql .= " '".$variable['usuario_jurado']."' ";
-             	$cadenaSql .= " ) ";
-              	$cadenaSql .= " RETURNING id";
-              	break;
-
-
-
-            case "consultaModalidades":
-                $cadenaSql = "SELECT codigo_nivel_concurso, modalidad.nombre AS nombre, modalidad.estado AS estado, nivel.nombre AS nivel";
-                $cadenaSql .= " FROM concurso.modalidad_concurso modalidad, general.nivel nivel";
-                $cadenaSql .= " WHERE codigo_nivel_concurso=codigo_nivel";
-                break;
-
-            case "buscarNiveles":
-              	$cadenaSql = " SELECT * FROM general.nivel ";
-               	$cadenaSql .= " WHERE tipo_nivel ='TipoConcurso'";
-               	break;
-
-            case "buscarFactores":
-            	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
-            	$cadenaSql .= " WHERE estado ='A'";
-            	$cadenaSql .= " order by nombre";
-            	break;
-
-            case "consultarCriterios":
-				$cadenaSql = " SELECT * FROM concurso.criterio_evaluacion";
-				$cadenaSql .= " WHERE consecutivo_factor=".$variable;
-                break;
-
-         	case "registrarTipoJurado":
-         		$cadenaSql = "INSERT INTO concurso.jurado_tipo(nombre, descripcion)";
-         		$cadenaSql .= " VALUES ( ";
-         		$cadenaSql .= " '".$variable['nombre']."', ";
-         		$cadenaSql .= " '".$variable['descripcion']."' ";
-         		$cadenaSql .= " ) ";
-         		$cadenaSql .= " RETURNING id";
-         		break;
-
-         	case "registrarCriterio":
-         		$cadenaSql = "INSERT INTO concurso.criterio_evaluacion(consecutivo_factor, nombre)";
-         		$cadenaSql .= " VALUES ( ";
-         		$cadenaSql .= " '".$variable['factor']."', ";
-         		$cadenaSql .= " '".$variable['nombre']."' ";
-         		$cadenaSql .= " ) ";
-         		$cadenaSql .= " RETURNING consecutivo_criterio";
-         		break;
-
-        	case "registrarModalidad":
-        		$cadenaSql = "INSERT INTO concurso.modalidad_concurso(codigo_nivel_concurso, nombre)";
-        		$cadenaSql .= " VALUES ( ";
-        		$cadenaSql .= " ".$variable['nivel'].", ";
-        		$cadenaSql .= " '".$variable['nombre']."' ";
-        		$cadenaSql .= " ) ";
-        		$cadenaSql .= " RETURNING consecutivo_modalidad";
-        		break;
-
-        	case "registrarActividad":
-        		$cadenaSql = "INSERT INTO concurso.actividad_calendario(nombre, descripcion)";
-        		$cadenaSql .= " VALUES ( ";
-        		$cadenaSql .= " '".$variable['nombre']."', ";
-        		$cadenaSql .= " '".$variable['descripcion']."' ";
-        		$cadenaSql .= " ) ";
-        		$cadenaSql .= " RETURNING consecutivo_actividad";
-        		break;
-
-        case "cambiarEstadoCriterio":
-            $cadenaSql = "UPDATE concurso.criterio_evaluacion SET ";
-           	$cadenaSql .= " estado = '".$variable['estado']."'";
-            $cadenaSql .= " WHERE consecutivo_criterio = '".$variable['id_criterio']."' ";
-            $cadenaSql .= " RETURNING consecutivo_criterio";
-						break;
-
-					case "cambiarEstadoJurado":
-	            $cadenaSql = "UPDATE concurso.jurado SET ";
-	           	$cadenaSql .= " estado = '".$variable['estado']."'";
-	            $cadenaSql .= " WHERE id_jurado_tipo = ".$variable['id_tipo_jurado']."";
-							$cadenaSql .= " AND id_usuario = '".$variable['id_usuario']."'";
-	            $cadenaSql .= " RETURNING id";
-							break;
+			case "cambiarEstadoJurado":
+          $cadenaSql = "UPDATE concurso.jurado SET ";
+         	$cadenaSql .= " estado = '".$variable['estado']."'";
+          $cadenaSql .= " WHERE id_jurado_tipo = ".$variable['id_tipo_jurado']."";
+					$cadenaSql .= " AND id_usuario = '".$variable['id_usuario']."'";
+          $cadenaSql .= " RETURNING id";
+					break;
 
 			case "cambiarEstadoTipoJurado":
 				$cadenaSql = "UPDATE concurso.jurado_tipo SET ";
@@ -205,61 +129,13 @@ class Sql extends \Sql {
 				$cadenaSql .= " RETURNING id";
 				break;
 
-				case "cambiarEstadoCriterioTipoJurado":
-					$cadenaSql = "UPDATE concurso.jurado_criterio SET ";
-					$cadenaSql .= " estado = '".$variable['estado']."'";
-					$cadenaSql .= " WHERE id_jurado_tipo = ".$variable['id_tipo']." ";
-					$cadenaSql .= " AND id_criterio = ".$variable['id_criterio']." ";
-					$cadenaSql .= " RETURNING id";
-					break;
-
-
-
-			case "cambiarEstadoActividad":
-				$cadenaSql = "UPDATE concurso.actividad_calendario SET ";
+			case "cambiarEstadoCriterioTipoJurado":
+				$cadenaSql = "UPDATE concurso.jurado_criterio SET ";
 				$cadenaSql .= " estado = '".$variable['estado']."'";
-				$cadenaSql .= " WHERE consecutivo_actividad = '".$variable['id_actividad']."' ";
+				$cadenaSql .= " WHERE id_jurado_tipo = ".$variable['id_tipo']." ";
+				$cadenaSql .= " AND id_criterio = ".$variable['id_criterio']." ";
+				$cadenaSql .= " RETURNING id";
 				break;
-
-          	case "editarFactor":
-                $cadenaSql = "UPDATE concurso.factor_evaluacion ";
-                $cadenaSql .= " SET ";
-				$cadenaSql .= "nombre='".$variable['nombreFactor']."'";
-               	$cadenaSql .= " WHERE ";
-               	$cadenaSql .= " consecutivo_factor = '".$variable['id_factor']."' ";
-               	break;
-
-           	case "editarModalidad":
-           		$cadenaSql = "UPDATE concurso.modalidad_concurso ";
-           		$cadenaSql .= " SET ";
-           		$cadenaSql .= "nombre='".$variable['nombreModalidad']."',";
-           		$cadenaSql .= "codigo_nivel_concurso=".$variable['nivel']."";
-           		$cadenaSql .= " WHERE ";
-           		$cadenaSql .= " consecutivo_modalidad = '".$variable['id_modalidad']."' ";
-           		$cadenaSql .= " RETURNING consecutivo_modalidad";
-           		break;
-
-           	case "editarActividad":
-           		$cadenaSql = "UPDATE concurso.actividad_calendario ";
-           		$cadenaSql .= " SET ";
-           		$cadenaSql .= "nombre='".$variable['nombreActividad']."',";
-           		$cadenaSql .= "descripcion='".$variable['descripcionActividad']."'";
-           		$cadenaSql .= " WHERE ";
-           		$cadenaSql .= " consecutivo_actividad = '".$variable['id_actividad']."' ";
-           		$cadenaSql .= " RETURNING consecutivo_actividad";
-           		break;
-
-           	case "actividadEnConsurso":
-           		$cadenaSql = "Select * from concurso.concurso_calendario";
-           		$cadenaSql .= " WHERE ";
-           		$cadenaSql .= " consecutivo_actividad = ".$variable['id_actividad'];
-           		break;
-
-           	case "modalidadEnConsurso":
-           		$cadenaSql = "Select * from concurso.concurso";
-           		$cadenaSql .= " WHERE ";
-           		$cadenaSql .= " consecutivo_modalidad = ".$variable['id_modalidad'];
-           		break;
 
 			/**
 			 * Clausulas genéricas. se espera que estén en todos los formularios

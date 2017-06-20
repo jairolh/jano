@@ -43,8 +43,8 @@ class mensajeForm {
 
 		// -------------------------------------------------------------------------------------------------
 
-        $conexion="estructura";
-        $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+    $conexion="estructura";
+    $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -69,9 +69,9 @@ class mensajeForm {
 		{
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 
-            $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-            $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-            $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
@@ -83,18 +83,18 @@ class mensajeForm {
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 			$esteCampo = 'botonRegresar';
-            $atributos ['id'] = $esteCampo;
-            $atributos ['enlace'] = $variable;
-            $atributos ['tabIndex'] = 1;
-            $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-            $atributos ['estilo'] = 'textoPequenno textoGris';
-            $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
-            $atributos ['posicionImagen'] = "atras";//"adelante";
-            $atributos ['ancho'] = '30px';
-            $atributos ['alto'] = '30px';
-            $atributos ['redirLugar'] = true;
-            echo $this->miFormulario->enlace ( $atributos );
-            unset ( $atributos );
+      $atributos ['id'] = $esteCampo;
+      $atributos ['enlace'] = $variable;
+      $atributos ['tabIndex'] = 1;
+      $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+      $atributos ['estilo'] = 'textoPequenno textoGris';
+      $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+      $atributos ['posicionImagen'] = "atras";//"adelante";
+      $atributos ['ancho'] = '30px';
+      $atributos ['alto'] = '30px';
+      $atributos ['redirLugar'] = true;
+      echo $this->miFormulario->enlace ( $atributos );
+      unset ( $atributos );
 
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 

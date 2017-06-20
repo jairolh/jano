@@ -30,14 +30,6 @@ $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conex
 
 if(isset($_REQUEST['id_tipoJurado'])){
 		$parametro['id_tipoJurado']=$_REQUEST['id_tipoJurado'];
-        $cadena_sql = $this->sql->getCadenaSql("consultaCriterios", $parametro);
-        $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        /*$parametroSop = array('consecutivo'=>0,
-                             'tipo_dato'=>'datosConcurso',
-                             'nombre_soporte'=>'soporteAcuerdo',
-                             'consecutivo_dato'=>$_REQUEST['consecutivo_concurso']);
-        $cadenaSopAcu_sql = $this->sql->getCadenaSql("buscarSoporte", $parametroSop);
-        $resultadoSopAcu = $esteRecursoDB->ejecutarAcceso($cadenaSopAcu_sql, "busqueda");*/
     }
 
 // ------------------Division para las pestañas-------------------------
@@ -80,81 +72,41 @@ echo $this->miFormulario->division ( "inicio", $atributos );
         echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
         unset ( $atributos );
         {
-                if($resultadoConcurso){
-                	//llenar datos a mostrar en la tabla
-                	$datosCriterios=array(array('0'=>$resultadoConcurso[0]['nombre'],
-                			'Tipo'=>$resultadoConcurso[0]['nombre'],
 
-                	));
+            $items = array (
+                    "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
+                    "tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
+            );
+            $atributos ["items"] = $items;
+            $atributos ["estilo"] = "jqueryui";
+            $atributos ["pestañas"] = "true";
+            echo $this->miFormulario->listaNoOrdenada ( $atributos );
+            // unset ( $atributos );
+            // ------------------Division para la pestaña 1-------------------------
+            $atributos ["id"] = "tabCriterio";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+          			include_once ($this->ruta . "formulario/tabs/consultarCriterio.php");
+                include_once ($this->ruta . "formulario/tabs/datosCriterio.php");
 
-                        $items = array (
-                                        "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
-                                        "tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
-                        );
-                        $atributos ["items"] = $items;
-                        $atributos ["estilo"] = "jqueryui";
-                        $atributos ["pestañas"] = "true";
-                        echo $this->miFormulario->listaNoOrdenada ( $atributos );
-                        // unset ( $atributos );
-                        // ------------------Division para la pestaña 1-------------------------
-                        $atributos ["id"] = "tabCriterio";
-                        $atributos ["estilo"] = "";
-                        echo $this->miFormulario->division ( "inicio", $atributos );
-                      //  if(!isset($_REQUEST['consecutivo_evaluar']))
-                               //{
-																 include_once ($this->ruta . "formulario/tabs/consultarCriterio.php");
-                               include_once ($this->ruta . "formulario/tabs/datosCriterio.php");
-														 //}
-                        echo $this->miFormulario->division ( "fin" );
-                        unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 1-------------------------
-                        // ------------------Division para la pestaña 2-------------------------
-                        $atributos ["id"] = "tabJurados";
-                        $atributos ["estilo"] = "";
-                        echo $this->miFormulario->division ( "inicio", $atributos );
-                      //  if(!isset($_REQUEST['consecutivo_evaluar']))
-                               //{
-																 include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
-															 //}
-                               include_once ($this->ruta . "formulario/tabs/datosJurado.php");
-                        echo $this->miFormulario->division ( "fin" );
-                        unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 2-------------------------
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 1-------------------------
+            // ------------------Division para la pestaña 2-------------------------
+            $atributos ["id"] = "tabJurados";
+            $atributos ["estilo"] = "";
+            echo $this->miFormulario->division ( "inicio", $atributos );
+								include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
+								include_once ($this->ruta . "formulario/tabs/datosJurado.php");
+            echo $this->miFormulario->division ( "fin" );
+            unset ( $atributos );
+            // -----------------Fin Division para la pestaña 2-------------------------
 
-            }else
-                    {   $tab=1;
-                        //---------------Inicio Formulario (<form>)--------------------------------
-                        $atributos["id"]="divNoEncontroConcurso";
-                        $atributos["estilo"]="marcoBotones";
-                        //$atributos["estiloEnLinea"]="display:none";
-                            echo $this->miFormulario->division("inicio",$atributos);
-
-                            //-------------Control Boton-----------------------
-                            $esteCampo = "noEncontroDetalle";
-                            $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-                            $atributos["etiqueta"] = "";
-                            $atributos["estilo"] = "centrar";
-                            $atributos["tipo"] = 'error';
-                            $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-                            echo $this->miFormulario->cuadroMensaje($atributos);
-                            unset($atributos);
-                            //------------------Fin Division para los botones-------------------------
-                            echo $this->miFormulario->division("fin");
-                            //-------------Control cuadroTexto con campos ocultos-----------------------
-                    }
         }
          echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
 	// ------------------Division para la pestaña 2-------------------------
-
-        /*
-        $atributos ["id"] = "tabRegistrarMasivo";
-	$atributos ["estilo"] = "";
-	echo $this->miFormulario->division ( "inicio", $atributos );
-	{
-		include ($this->ruta . "formulario/tabs/registro_masivo.php");
-	}*/
 
 	// -----------------Fin Division para la pestaña 2-------------------------
 	echo $this->miFormulario->division ( "fin" );

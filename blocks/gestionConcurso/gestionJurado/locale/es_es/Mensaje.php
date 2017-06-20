@@ -120,7 +120,7 @@ $this->idioma["marcoListaTipoJurado"]="Asignación del Tipo de Jurado";
 
 $this->idioma["noEncontroCriterios"]="No hay criterios de evaluación asociados al Tipo de Jurado! ";
 $this->idioma["noEncontroJurados"]="No hay jurados asociados al Tipo de Jurado! ";
-
+$this->idioma["noEncontroTiposJurado"]="No hay tipos de jurados registrados";
 
 
 ?>

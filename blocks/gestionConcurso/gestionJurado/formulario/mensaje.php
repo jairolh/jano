@@ -70,12 +70,11 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
-            $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-            $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-            $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
 			$variable = "pagina=" . $miPaginaActual;
-
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 			$esteCampo = 'botonRegresar';
@@ -113,140 +112,138 @@ class registrarForm {
 					case "errorTipoJurado":
 						$tipo = 'error';
 						$mensaje = "No fue posible registrar el nuevo Tipo de Jurado <b>".$_REQUEST['nombreTipoJurado']."</b>. Por favor intente más tarde.";
-                        $boton = "regresar";
-                        $variable.="&opcion=consultar";
-                        break;
+            $boton = "regresar";
+            $variable.="&opcion=consultar";
+            break;
 
+					case "confirmaCriterioTipoJurado":
+              $tipo = 'success';
+              $mensaje = "Se registro con exito el Criterio al Tipo de Jurado <b>".$_REQUEST['tipo_jurado']."</b>.";
+              $boton = "continuar";
+              $variable.="&opcion=consultar";
+              break;
 
-												case "confirmaCriterioTipoJurado":
-		                        $tipo = 'success';
-		                        $mensaje = "Se registro con exito el Criterio al Tipo de Jurado <b>".$_REQUEST['tipo_jurado']."</b>.";
-		                        $boton = "continuar";
-		                        $variable.="&opcion=consultar";
-		                        break;
+         	case "errorCriterioTipoJurado":
+              $tipo = 'error';
+              $mensaje = "No fue posible registrar el Criterio al Tipo de Jurado <b>".$_REQUEST['tipo_jurado']."</b>. Por favor intente más tarde.";
+              $boton = "regresar";
+             	$variable.="&opcion=consultar";
+              break;
 
-		                   	case "errorCriterioTipoJurado":
-		                        $tipo = 'error';
-		                        $mensaje = "No fue posible registrar el Criterio al Tipo de Jurado <b>".$_REQUEST['tipo_jurado']."</b>. Por favor intente más tarde.";
-		                        $boton = "regresar";
-		                       	$variable.="&opcion=consultar";
-		                        break;
+        	case "confirmaUsuarioTipoJurado":
+              $tipo = 'success';
+              $mensaje = "Se registro con exito el Tipo de Jurado al usuario <b>".$_REQUEST['usuario']."</b>.";
+              $boton = "continuar";
+              $variable.="&opcion=consultar";
+              break;
 
+         	case "errorUsuarioTipoJurado":
+              $tipo = 'error';
+              $mensaje = "No fue posible registrar el Rol de Jurado al usuario <b>".$_REQUEST['usuario']."</b>. Por favor intente más tarde.";
+              $boton = "regresar";
+             	$variable.="&opcion=consultar";
+              break;
 
-                  	case "confirmaUsuarioTipoJurado":
-                        $tipo = 'success';
-                        $mensaje = "Se registro con exito el Tipo de Jurado al usuario <b>".$_REQUEST['usuario']."</b>.";
-                        $boton = "continuar";
-                        $variable.="&opcion=consultar";
-                        break;
+         	/*Mensaje para Habilitar o Deshabilitar el Tipo de Jurado*/
 
-                   	case "errorUsuarioTipoJurado":
-                        $tipo = 'error';
-                        $mensaje = "No fue posible registrar el Rol de Jurado al usuario <b>".$_REQUEST['usuario']."</b>. Por favor intente más tarde.";
-                        $boton = "regresar";
-                       	$variable.="&opcion=consultar";
-                        break;
+         	case "habilitarTipoJurado":
+         		$tipo = 'success';
+         		$mensaje = "El tipo de jurado <b>".$_REQUEST ["tipoJurado"]." </b> se habilitó con éxito.";
+         		$boton = "continuar";
+         		$variable.="&opcion=consultar";
+         		break;
 
-                   	/*Mensaje para Habilitar o Deshabilitar el Tipo de Jurado*/
+         	case "inhabilitoTipoJurado":
+         		$tipo = 'success';
+         		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> se inhabilitó con éxito.";
+         		$boton = "continuar";
+         		$variable.="&opcion=consultar";
+         		break;
 
-                   	case "habilitarTipoJurado":
-                   		$tipo = 'success';
-                   		$mensaje = "El tipo de jurado <b>".$_REQUEST ["tipoJurado"]." </b> se habilitó con éxito.";
-                   		$boton = "continuar";
-                   		$variable.="&opcion=consultar";
-                   		break;
+         	case "nohabilitarTipoJurado":
+         		$tipo = 'error';
+        		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> no se pudo habilitar. Por favor intente más tarde.";
+         		$boton = "regresar";
+         		$variable.="&opcion=consultar";
+        		break;
 
-                   	case "inhabilitoTipoJurado":
-                   		$tipo = 'success';
-                   		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> se inhabilitó con éxito.";
-                   		$boton = "continuar";
-                   		$variable.="&opcion=consultar";
-                   		break;
+         	case "noinhabilitarTipoJurado":
+         		$tipo = 'error';
+         		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+         		$boton = "regresar";
+         		$variable.="&opcion=consultar";
+        		break;
 
-                   	case "nohabilitarTipoJurado":
-                   		$tipo = 'error';
-                  		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> no se pudo habilitar. Por favor intente más tarde.";
-                   		$boton = "regresar";
-                   		$variable.="&opcion=consultar";
-                  		break;
+					/*Mensaje para Habilitar o Deshabilitar el Criterio del Tipo de Jurado*/
+	       	case "habilitarCriterioTipoJurado":
+	       		$tipo = 'success';
+	       		$mensaje = "El Criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> se habilitó con éxito.";
+	       		$boton = "continuar";
+	       		$variable.="&opcion=consultar";
+	       		break;
 
-                   	case "noinhabilitarTipoJurado":
-                   		$tipo = 'error';
-                   		$mensaje = "El tipo de Jurado <b>".$_REQUEST ["tipoJurado"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
-                   		$boton = "regresar";
-                   		$variable.="&opcion=consultar";
-                  		break;
+	       	case "inhabilitoCriterioTipoJurado":
+	       		$tipo = 'success';
+	       		$mensaje = "El Criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> se inhabilitó con éxito.";
+	       		$boton = "continuar";
+	       		$variable.="&opcion=consultar";
+	       		break;
 
-											/*Mensaje para Habilitar o Deshabilitar el Criterio del Tipo de Jurado*/
-	                   	case "habilitarCriterioTipoJurado":
-	                   		$tipo = 'success';
-	                   		$mensaje = "El Criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> se habilitó con éxito.";
-	                   		$boton = "continuar";
-	                   		$variable.="&opcion=consultar";
-	                   		break;
+	       	case "nohabilitarCriterioTipoJurado":
+	       		$tipo = 'error';
+	      		$mensaje = "El criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> no se pudo habilitar. Por favor intente más tarde.";
+	       		$boton = "regresar";
+	       		$variable.="&opcion=consultar";
+	      		break;
 
-	                   	case "inhabilitoCriterioTipoJurado":
-	                   		$tipo = 'success';
-	                   		$mensaje = "El Criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> se inhabilitó con éxito.";
-	                   		$boton = "continuar";
-	                   		$variable.="&opcion=consultar";
-	                   		break;
+         	case "noinhabilitarCriterioTipoJurado":
+         		$tipo = 'error';
+         		$mensaje = "El criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+         		$boton = "regresar";
+         		$variable.="&opcion=consultar";
+        		break;
 
-	                   	case "nohabilitarCriterioTipoJurado":
-	                   		$tipo = 'error';
-	                  		$mensaje = "El criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> no se pudo habilitar. Por favor intente más tarde.";
-	                   		$boton = "regresar";
-	                   		$variable.="&opcion=consultar";
-	                  		break;
+					/*Mensaje para Habilitar o Deshabilitar el Tipo de Jurado*/
+         	case "habilitarJurado":
+         		$tipo = 'success';
+         		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> se habilitó con éxito.";
+         		$boton = "continuar";
+         		$variable.="&opcion=consultar";
+         		break;
 
-	                   	case "noinhabilitarCriterioTipoJurado":
-	                   		$tipo = 'error';
-	                   		$mensaje = "El criterio de evaluación <b>".$_REQUEST ["nombre_criterio"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
-	                   		$boton = "regresar";
-	                   		$variable.="&opcion=consultar";
-	                  		break;
+         	case "inhabilitoJurado":
+         		$tipo = 'success';
+         		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> se inhabilitó con éxito.";
+         		$boton = "continuar";
+         		$variable.="&opcion=consultar";
+         		break;
 
-												/*Mensaje para Habilitar o Deshabilitar el Tipo de Jurado*/
-		                   	case "habilitarJurado":
-		                   		$tipo = 'success';
-		                   		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> se habilitó con éxito.";
-		                   		$boton = "continuar";
-		                   		$variable.="&opcion=consultar";
-		                   		break;
+         	case "nohabilitoJurado":
+         		$tipo = 'error';
+        		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> no se pudo habilitar. Por favor intente más tarde.";
+         		$boton = "regresar";
+         		$variable.="&opcion=consultar";
+        		break;
 
-		                   	case "inhabilitoJurado":
-		                   		$tipo = 'success';
-		                   		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> se inhabilitó con éxito.";
-		                   		$boton = "continuar";
-		                   		$variable.="&opcion=consultar";
-		                   		break;
+         	case "noinhabilitoJurado":
+         		$tipo = 'error';
+         		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
+         		$boton = "regresar";
+         		$variable.="&opcion=consultar";
+        		break;
 
-		                   	case "nohabilitoJurado":
-		                   		$tipo = 'error';
-		                  		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> no se pudo habilitar. Por favor intente más tarde.";
-		                   		$boton = "regresar";
-		                   		$variable.="&opcion=consultar";
-		                  		break;
+          }
 
-		                   	case "noinhabilitoJurado":
-		                   		$tipo = 'error';
-		                   		$mensaje = "El Tipo de jurado <b>".$_REQUEST ["nombre_tipo_jurado"]." </b> no se pudo inhabilitar. Por favor intente más tarde.";
-		                   		$boton = "regresar";
-		                   		$variable.="&opcion=consultar";
-		                  		break;
-
-            	}
-
-                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                $esteCampo = 'mensaje';
-                $atributos ['id'] = $esteCampo;
-                $atributos ['tipo'] = $tipo;
-                $atributos ['estilo'] = 'textoCentrar';
-                $atributos ['mensaje'] = $mensaje;
-                $tab ++;
-                // Aplica atributos globales al control
-                $atributos = array_merge ( $atributos, $atributosGlobales );
-                echo $this->miFormulario->cuadroMensaje ( $atributos );
+              // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+              $esteCampo = 'mensaje';
+              $atributos ['id'] = $esteCampo;
+              $atributos ['tipo'] = $tipo;
+              $atributos ['estilo'] = 'textoCentrar';
+              $atributos ['mensaje'] = $mensaje;
+              $tab ++;
+              // Aplica atributos globales al control
+              $atributos = array_merge ( $atributos, $atributosGlobales );
+              echo $this->miFormulario->cuadroMensaje ( $atributos );
             }
     	}
 			// ------------------Division para los botones-------------------------
@@ -254,10 +251,9 @@ class registrarForm {
 			$atributos ["estilo"] = "marcoBotones";
 			echo $this->miFormulario->division ( "inicio", $atributos );
 
+			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
-            $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-
-            $esteCampo = 'botonContinuar';
+      $esteCampo = 'botonContinuar';
 			$atributos ['id'] = $esteCampo;
 			$atributos ['enlace'] = $variable;
 			$atributos ['tabIndex'] = 1;
@@ -267,7 +263,7 @@ class registrarForm {
 			//$atributos ['alto'] = '10%';
 			$atributos ['redirLugar'] = true;
 			echo $this->miFormulario->enlace ( $atributos );
-            unset($atributos);
+      unset($atributos);
 
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 

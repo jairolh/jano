@@ -1,5 +1,5 @@
 <?php
-use gestionConcurso\gestionJurado\Sql;
+use gestionConcursante\concursosActivos\Sql;
 
 $conexion = "estructura";
 $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );

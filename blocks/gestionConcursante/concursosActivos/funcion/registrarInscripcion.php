@@ -60,7 +60,6 @@ class RegistradorInscripcion {
       $cadena_sql = $this->miSql->getCadenaSql("registrarInscripcion", $datos);
   		$resultadoInscripcion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroInscripcion");
 
-      //exit();
   		if($resultadoInscripcion){
   			redireccion::redireccionar('insertoInscripcion',$datos);  exit();
   		}else {

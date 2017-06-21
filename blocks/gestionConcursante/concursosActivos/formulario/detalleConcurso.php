@@ -98,9 +98,6 @@ class consultarForm {
 				$cadena_sql = $this->miSql->getCadenaSql("consultaPerfiles", $datos);
 				$resultadoPerfiles = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-				
-
-
 				$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 				$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 				$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
@@ -221,7 +218,7 @@ class consultarForm {
 									echo $this->miFormulario->division("inicio",$atributos);
 
 									//-------------Control Boton-----------------------
-									$esteCampo = "noEncontroConcursosActivos";
+									$esteCampo = "noEncontroPerfilesActivos";
 									$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
 									$atributos["etiqueta"] = "";
 									$atributos["estilo"] = "centrar";

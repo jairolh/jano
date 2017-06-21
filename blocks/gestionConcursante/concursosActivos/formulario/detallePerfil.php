@@ -108,7 +108,7 @@ class registrarForm {
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
 			$atributos ['tipoEtiqueta'] = 'inicio';
-			$atributos ["leyenda"] = "<b>Perfil de Concurso: ".$resultadoPerfil[0]['nombre']."</b>";
+			$atributos ["leyenda"] = "<b>Perfil de Concurso: ".$resultadoPerfil[0]['perfil']."</b>";
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
@@ -128,12 +128,12 @@ class registrarForm {
 
 								$mostrarHtml = "<tr align='center'>
 											<th class='textoAzul'>Concurso</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['consecutivo_concurso']."</td></tr>
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td></tr>
 								";
 
 								$mostrarHtml .= "<tr align='center'>
 											<th class='textoAzul'>Perfil</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['nombre']."</td></tr>
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td></tr>
 								";
 
 								$mostrarHtml .= "<tr align='center'>
@@ -257,7 +257,7 @@ class registrarForm {
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarInscripcion";
 			$valorCodificado .= "&perfil=".$resultadoPerfil[0]['consecutivo_perfil'];
-			$valorCodificado .= "&nombre_perfil=".$resultadoPerfil[0]['nombre'];
+			$valorCodificado .= "&nombre_perfil=".$resultadoPerfil[0]['perfil'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

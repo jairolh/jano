@@ -46,9 +46,10 @@ class Sql extends \Sql {
 		 		break;
 
 			case "consultaPerfil":
-			 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
-					$cadenaSql .= "from concurso.concurso_perfil ";
-			 		$cadenaSql .= "WHERE consecutivo_perfil=".$variable;
+			 		$cadenaSql = "Select p.consecutivo_perfil, p.consecutivo_concurso, p.nombre AS perfil, c.nombre AS concurso, p.descripcion, p.requisitos, p.dependencia, p.area, p.vacantes, p.estado ";
+					$cadenaSql .= "from concurso.concurso_perfil p, concurso.concurso c ";
+			 		$cadenaSql .= "WHERE consecutivo_perfil=".$variable." ";
+					$cadenaSql .= "AND p.consecutivo_concurso=c.consecutivo_concurso";
 			 		break;
 
 			case "consultaConsecutivo":
@@ -68,7 +69,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " '".$variable['fecha']."' ";
       	$cadenaSql .= " ) ";
       	$cadenaSql .= " RETURNING consecutivo_inscrito";
-				
+
        	break;
 
 

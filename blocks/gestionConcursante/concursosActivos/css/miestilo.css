@@ -1,0 +1,65 @@
+#tablaPerfiles {
+    border-collapse: collapse;
+    /*width: 80%;*/
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+/*th {
+    background-color: white;
+    text-align: right;
+    padding: 8px;
+}*/
+
+.estilo_tr {
+  font-size: 15px;
+	border-style: solid;
+	border-color: white;
+	/*text-align: center;*/
+}
+
+.destacado {
+  border-radius: 10px;
+   border: 2px solid #38AD21;
+   padding: 20px;
+   width: 200px;
+   /*height: 150px;*/
+}
+
+#scroll {
+     width:600px;
+     height:270px;
+     background-color:#F2F2F2;
+     overflow:auto;
+}
+
+.contenedor-tabla{
+
+display: table;
+
+}
+
+.contenedor-fila{
+
+display: table-row;
+
+}
+
+.contenedor-columna{
+
+display: table-cell;
+
+}
+
+#tablaCandidatos{	border: solid 1px #333;	width: 100%; }
+#tablaCandidatos tbody tr{ background: #E0F0FA; }
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }

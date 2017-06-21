@@ -170,8 +170,6 @@ class registrarForm {
 								echo "</tbody>";
 								echo "</table></div>";
 
-
-
 				}
 
 				else{

@@ -39,11 +39,26 @@ class Sql extends \Sql {
 					 $cadenaSql .= "AND fecha_fin::DATE";
            break;
 
-		 case "consultaPerfiles":
-		 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
-				$cadenaSql .= "from concurso.concurso_perfil ";
-		 		$cadenaSql .= "WHERE consecutivo_concurso=".$variable;
-		 		break;
+			 case "consultaPerfiles":
+			 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
+					$cadenaSql .= "from concurso.concurso_perfil ";
+			 		$cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
+					$cadenaSql .= "AND consecutivo_perfil not in  ";
+
+					$cadenaSql .= "(Select cp.consecutivo_perfil ";
+					$cadenaSql .= "from concurso.concurso_perfil cp, concurso.concurso_inscrito ci ";
+					$cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
+					$cadenaSql .= "AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
+					$cadenaSql .= "AND ci.consecutivo_persona=".$variable['usuario'].")";
+					//echo($cadenaSql);
+			 		break;
+
+			case "consultaPerfiles":
+ 		 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
+ 				$cadenaSql .= "from concurso.concurso_perfil ";
+ 		 		$cadenaSql .= "WHERE consecutivo_concurso=".$variable;
+ 		 		break;
+
 
 			case "consultaPerfil":
 			 		$cadenaSql = "Select p.consecutivo_perfil, p.consecutivo_concurso, p.nombre AS perfil, c.nombre AS concurso, p.descripcion, p.requisitos, p.dependencia, p.area, p.vacantes, p.estado ";

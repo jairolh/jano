@@ -75,8 +75,31 @@ class consultarForm {
 		$valorCodificado .= "&tiempo=" . time ();
 		// Paso 2: codificar la cadena resultante
 
-				$cadena_sql = $this->miSql->getCadenaSql("consultaPerfiles", $_REQUEST['id_concurso']);
+		$usuario=$this->miSesion->getSesionUsuarioId();
+
+		//buscar consecutivo_persona
+		$tipo=substr($usuario,0,2);
+		$id=substr($usuario,2);
+
+		$persona = array('tipo_identificacion'=> $tipo,
+				'identificacion'=> $id
+		);
+
+		//buscar el consecutivo de la persona
+		$cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
+		$resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+		$datos = array('concurso'=> $_REQUEST['id_concurso'],
+				'usuario'=> $resultadoPersona[0][0]
+		);
+
+
+				//concursos a los que se ha inscrito el usuario
+				$cadena_sql = $this->miSql->getCadenaSql("consultaPerfiles", $datos);
 				$resultadoPerfiles = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+				
+
 
 				$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 				$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";

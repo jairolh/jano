@@ -63,53 +63,15 @@ class Frontera {
 					include_once($this->ruta."formulario/consultarConcursosActivos.php");
 					break;
 
-
-
-
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;
 
-				case "nuevoTipo":
-					include_once($this->ruta."formulario/registrarTipoJurado.php");
-					break;
 
-					case "inhabilitarJurado":
-						include_once($this->ruta."formulario/cambiaEstadoJurado.php");
-						break;
-
-					case "habilitarJurado":
-						include_once($this->ruta."formulario/cambiaEstadoJurado.php");
-						break;
-
-					case "inhabilitarCriterio":
-						include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-						break;
-
-					case "habilitarCriterio":
-						include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-						break;
-
-				case "inhabilitarTipoJurado":
-					include_once($this->ruta."formulario/cambiaEstadoTipoJurado.php");
-					break;
-
-				case "habilitarTipoJurado":
-					include_once($this->ruta."formulario/cambiaEstadoTipoJurado.php");
-					break;
-
-				case "editarActividad":
-					include_once($this->ruta."formulario/actividades.php");
-					break;
-
-				case "nuevoTipoJurado":
-					include_once($this->ruta."formulario/registrarTipoJurado.php");
-					break;
-
-        		}
+    	}
 		} else {
 			$_REQUEST ['opcion'] = "mostrar";
-			include_once ($this->ruta . "/formulario/consultarConcursosActivos.php");
+			include_once ($this->ruta . "/formulario/consultarConcursosInscritos.php");
 		}
 	}
 }

@@ -70,26 +70,35 @@ class consultarForm {
 		$valorCodificado .= "&tiempo=" . time ();
 		// Paso 2: codificar la cadena resultante
 
-				//fecha
-				$parametro['fecha_actual'] = date("d") . "/" . date("m") . "/" . date("Y");
-				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
+		$miSesion = \Sesion::singleton();
+		$usuario=$miSesion->idUsuario();
+
+		$tipo=substr($usuario,0,2);
+		$id=substr($usuario,2);
+
+		$persona = array('tipo_identificacion'=> $tipo,
+				'identificacion'=> $id
+		);
+
+				//buscar el consecutivo de la persona
+				$cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
+				$resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+
+				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosInscritos", $resultadoPersona[0][0]);
 				$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-				//var_dump($resultadoConcursosActivos);
 
 
-			    //var_dump($resultadoActividades);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>Concursos Activos</b>";
+            $atributos ["leyenda"] = "<b>Concursos Inscritos</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
 
-
-                if($resultadoConcursosActivos)
-                {
+                if($resultadoConcursosActivos){
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoConsultaPerfiles";
                         $atributos["estilo"] = "jqueryui";
@@ -102,10 +111,9 @@ class consultarForm {
                         echo "<thead>
                                 <tr align='center'>
                                   <th>Concurso</th>
-                        					<th>Descripción</th>
+                        					<th>Perfil</th>
                                   <th>Estado</th>
-																	<th>Duración</th>
-                        					<th>Detalle</th>
+																	<th>Detalle</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -116,7 +124,7 @@ class consultarForm {
                             	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableDetalle.= "&opcion=detalleConcurso";
                             	//$variableDetalle.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                            	$variableDetalle.= "&id_concurso=" .$resultadoConcursosActivos[$key]['consecutivo_concurso'];
+                            	//$variableDetalle.= "&id_concurso=" .$resultadoConcursosActivos[$key]['consecutivo_concurso'];
                             	$variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
@@ -128,11 +136,10 @@ class consultarForm {
 															}
 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['descripcion']."</td>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['concurso']."</td>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['perfil']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>
-																				<td align='left'>".$resultadoConcursosActivos[$key]['fecha_inicio']." - ".$resultadoConcursosActivos[$key]['fecha_fin']."</td>
-                                ";
+																";
 
 
                                 $mostrarHtml .= "<td>";

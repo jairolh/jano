@@ -1,6 +1,6 @@
 <?php
 
-namespace gestionConcursante\concursosInscritos;;
+namespace gestionConcursante\concursosInscritos;
 
 // Evitar un acceso directo a este archivo
 if (! isset ( $GLOBALS ["autorizado"] )) {
@@ -31,7 +31,7 @@ include_once ("Lenguaje.class.php");
 
 include_once ('funcion/redireccionar.php');
 
-use gestionConcurso\gestionJurado\funcion\redireccion;
+use gestionConcursante\concursosInscritos\funcion\redireccion;
 // ------------------
 
 // Esta clase actua como control del bloque en un patron FCE

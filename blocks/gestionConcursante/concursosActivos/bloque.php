@@ -31,7 +31,7 @@ include_once ("Lenguaje.class.php");
 
 include_once ('funcion/redireccionar.php');
 
-use gestionConcurso\gestionJurado\funcion\redireccion;
+use gestionConcursante\concursosActivos\funcion\redireccion;
 // ------------------
 
 // Esta clase actua como control del bloque en un patron FCE

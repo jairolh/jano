@@ -114,14 +114,14 @@ class consultarCriterio {
                                     </thead>
                                     <tbody>";
                                 foreach($resultadoListaCriterio as $key=>$value )
-                                    {   $parametro['tipo']='unico';
+                                    {   /*$parametro['tipo']='unico';
                                         $parametroSop = array('consecutivo'=>$resultadoListaCriterio[$key]['consecutivo_persona'],
                                              'tipo_dato'=>'datosCriterio',
                                              'nombre_soporte'=>'soporteCriterio',
                                              'consecutivo_dato'=>$resultadoListaCriterio[$key]['consecutivo_actividad']
                                             );
                                         $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                                        $resultadoSact = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
+                                        $resultadoSact = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");*/
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
                                         $variableEditar.= "&opcion=detalle";
                                         $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();

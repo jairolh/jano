@@ -63,10 +63,10 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 	echo $this->miFormulario->division ( "inicio", $atributos );
 	{
 		include ($this->ruta . "formulario/tabs/registro_masivo.php");
-	}*/
+	}
 	
 	// -----------------Fin Division para la pestaña 2-------------------------
-	echo $this->miFormulario->division ( "fin" );
+	echo $this->miFormulario->division ( "fin" );*/
 	
 }
 

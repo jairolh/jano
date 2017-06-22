@@ -25,7 +25,7 @@ class Sql extends \Sql {
 		 */
 		$prefijo = $this->miConfigurador->getVariableConfiguracion ( "prefijo" );
 		$idSesion = $this->miConfigurador->getVariableConfiguracion ( "id_sesion" );
-		
+		$cadenaSql='';
 		switch ($tipo) {
 			
 			/**

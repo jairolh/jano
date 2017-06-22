@@ -21,12 +21,12 @@ if(isset($_REQUEST['id_usuario']))
     
 $enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );    
 //modalidad
-$cadenaACodificarMod .= $cadenaACodificar . "&funcion=consultarModalidad";
+$cadenaACodificarMod = $cadenaACodificar . "&funcion=consultarModalidad";
 $cadenaACodificarMod .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaMod = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarMod, $enlace );
 $urlFinalMod = $url . $cadenaMod;
 //criterio
-$cadenaACodificarCrit .= $cadenaACodificar . "&funcion=consultarCriterio";
+$cadenaACodificarCrit = $cadenaACodificar . "&funcion=consultarCriterio";
 $cadenaACodificarCrit .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaCrit = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarCrit, $enlace );
 $urlFinalCrit = $url . $cadenaCrit;
@@ -86,9 +86,6 @@ $(function () {
            }
      });
           
-});
-
-$(function () {
     $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
             consultarModalidad();
@@ -121,7 +118,7 @@ function consultarModalidad(elem, request, response){
 	            	$("<option value='"+data[ indice ].codigo+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('modalidad')?>");
 	            });
 	            $("#<?php echo $this->campoSeguro('modalidad')?>").removeAttr('disabled');
-	            $('#<?php echo $this->campoSeguro('modalidad')?>').width(210);
+	            $("#<?php echo $this->campoSeguro('modalidad')?>").width(210);
 	            $("#<?php echo $this->campoSeguro('modalidad')?>").select2();
 		        }
 	    }
@@ -142,7 +139,7 @@ function consultarCriterio(elem, request, response){
 	            	$("<option value='"+data[ indice ].codigo+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_criterio')?>");
 	            });
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").removeAttr('disabled');
-	            $('#<?php echo $this->campoSeguro('consecutivo_criterio')?>').width(450);
+	            $("'"#<?php echo $this->campoSeguro('consecutivo_criterio')?>").width(450);
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2();
 		        }
 	    }

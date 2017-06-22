@@ -105,7 +105,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                             $atributos ["id"]="acuerdo";
                                             $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
-                                            $atributos = array_merge ( $atributos, $atributosGlobales );
+                                            //$atributos = array_merge ( $atributos, $atributosGlobales );
                                             echo $this->miFormulario->division ( "inicio", $atributos );
                                             unset ( $atributos );
                                                     {// --------------- CONTROL : Cuadro de Texto --------------------------------------------------  
@@ -117,7 +117,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                                        $atributos ['marco'] = true;
                                                        $atributos ['columnas'] = 1;
                                                        $atributos ['dobleLinea'] = false;
-                                                       $atributos ['tabIndex'] = $tab;
+                                                       $atributos ['tabIndex'] = $tab=0;
                                                        $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                        $atributos ['obligatorio'] = false;
                                                        $atributos ['etiquetaObligatorio'] = false;

@@ -104,7 +104,7 @@ class registrarForm {
 			{
 			if (isset ( $_REQUEST ['mensaje'] ))
                             {
-			    $pestanna='';
+                            $pestanna='';
                             switch ($_REQUEST ['mensaje'])
                                 {   
                                     case "actualizoConcurso":

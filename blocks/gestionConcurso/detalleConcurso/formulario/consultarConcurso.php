@@ -304,17 +304,21 @@ class consultarForm {
                         $atributos["etiqueta"] = "";
                         $atributos["estilo"] = "centrar";
                         $atributos["tipo"] = 'error';
-                        $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);
+                        $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
                         echo $this->miFormulario->cuadroMensaje($atributos);
                         unset($atributos); 
                         //------------------Fin Division para los botones-------------------------
                         echo $this->miFormulario->division("fin");
                         //-------------Control cuadroTexto con campos ocultos-----------------------
                 }
+            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
+            // ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
+            // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
+            // Se debe declarar el mismo atributo de marco con que se inició el formulario.
         }
         // ------------------Fin Division para los botones-------------------------
-         echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+        echo $this->miFormulario->division ( "fin" );
                 
     }
 }

@@ -441,7 +441,7 @@ class registrarConcursoForm {
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				
-				
+				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 				
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
 				// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
@@ -450,7 +450,7 @@ class registrarConcursoForm {
 			
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 			// ------------------Fin Division para los botones-------------------------
-			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+			echo $this->miFormulario->division ( "fin" );
 			
 			// ------------------- SECCION: Paso de variables ------------------------------------------------
 			
@@ -502,11 +502,6 @@ class registrarConcursoForm {
 			
 			return true;
 		}
-                 // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
-                // Se debe declarar el mismo atributo de marco con que se inició el formulario.
-                $atributos ['tipoEtiqueta'] = 'fin';
-                echo $this->miFormulario->formulario ( $atributos );
-                return true;
 	}
 }
 

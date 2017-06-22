@@ -86,6 +86,9 @@ $(function () {
            }
      });
           
+});
+
+$(function () {
     $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
             consultarModalidad();
@@ -139,7 +142,7 @@ function consultarCriterio(elem, request, response){
 	            	$("<option value='"+data[ indice ].codigo+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_criterio')?>");
 	            });
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").removeAttr('disabled');
-	            $("'"#<?php echo $this->campoSeguro('consecutivo_criterio')?>").width(450);
+	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").width(450);
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2();
 		        }
 	    }

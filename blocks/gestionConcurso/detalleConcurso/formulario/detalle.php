@@ -105,7 +105,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                             $atributos ["id"]="acuerdo";
                                             $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
-                                            //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                            $atributos = array_merge ( $atributos );
                                             echo $this->miFormulario->division ( "inicio", $atributos );
                                             unset ( $atributos );
                                                     {// --------------- CONTROL : Cuadro de Texto --------------------------------------------------  

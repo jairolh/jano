@@ -115,7 +115,7 @@ class consultarCalendario {
                                     </thead>
                                     <tbody>";
                                 foreach($resultadoListaCalendario as $key=>$value )
-                                    {  /* $parametro['tipo']='unico';
+                                    {   /*$parametro['tipo']='unico';
                                         $parametroSop = array('consecutivo'=>$resultadoListaCalendario[$key]['consecutivo_persona'],
                                              'tipo_dato'=>'datosCalendario',
                                              'nombre_soporte'=>'soporteCalendario',

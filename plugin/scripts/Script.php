@@ -9,6 +9,8 @@ $estilo = array ();
 $funcion [$indice] = "funciones.js";
 $indice ++;
 
+
+
 if (isset ( $_REQUEST ['jquery'] )) {
     $funcion [$indice] = 'javascript/jquery.js';
     $indice ++;
@@ -21,27 +23,39 @@ if (isset ( $_REQUEST ['jquery'] )) {
     $indice ++;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+if (isset ( $_REQUEST ['jquery'] )) {
+	if($_REQUEST ['jquery'] != 'true'){//Se carga una versión de jquery en particular
+		$funcion [$indice] = 'javascript/jquery-'. $_REQUEST ['jquery'] . '.js';
+	} else {
+		$funcion [$indice] = 'javascript/jquery.js';
+	}
+	$indice ++;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 if(isset($_REQUEST['bootstrapjs'])){
 	$funcion [] = "javascript/boostrap/js/bootstrap.js";
-    
+
 }
 
 if(isset($_REQUEST['bootstrapcss'])){
-	
+
 	$estilo [] = 'javascript/bootstrap/css/bootstrap.css';
-    
+
 }
 
 if(isset($_REQUEST['bootstrap'])){
+
 	$estilo [] = 'javascript/bootstrap/css/bootstrap.css';
-	$funcion [] = "javascript/boostrap/js/bootstrap.js";
+	$funcion [] = "bootstrap/bootstrap-3.3.5-dist/js/bootstrap.js";
 }
 
 /*if(isset($_REQUEST['datatables'])){
 	$funcion [] = "javascript/datatables/jquery.dataTables.js";
 	$estilo [] = 'javascript/datatables/jquery.dataTables_themeroller.css';
 	$estilo [] = 'javascript/datatables/dataTables.responsive.css';
-    
+
 }
 */
 

@@ -202,6 +202,7 @@ class registrarForm {
 				unset ( $atributos );
 				{
 					// -----------------CONTROL: Botón ----------------------------------------------------------------
+					/*
 					$esteCampo = 'botonInscribir';
 					$atributos ["id"] = $esteCampo;
 					$atributos ["tabIndex"] = $tab;
@@ -220,12 +221,40 @@ class registrarForm {
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
 					echo $this->miFormulario->campoBoton ( $atributos );
+					*/
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
+
+					// -----------------CONTROL: Botón ----------------------------------------------------------------
+					$esteCampo = 'botonInscribir';
+					$atributos ["id"] = $esteCampo;
+					$atributos ["tabIndex"] = $tab;
+					$atributos ["tipo"] = '';
+					// submit: no se coloca si se desea un tipo button genérico
+					$atributos ["modal"] = 'myModal';
+					$atributos ['submit'] = false;
+					$atributos ["estiloMarco"] = '';
+					$atributos ["estiloBoton"] = 'jqueryui';
+					//$atributos ["estiloBoton"] = 'btn btn-link';
+					$atributos ['estiloEnLinea'] = 'padding: 2px; margin-right:15px';
+					// verificar: true para verificar el formulario antes de pasarlo al servidor.
+					$atributos ["verificar"] = '';
+					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+					$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+					$tab ++;
+
+					// Aplica atributos globales al control
+					$atributos = array_merge ( $atributos, $atributosGlobales );
+					echo $this->miFormulario->campoBoton ( $atributos );
+					unset ( $atributos );
+					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
+
 				}
 				echo $this->miFormulario->division ( 'fin' );
 
 				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-
+				include ("dialog.php");
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
 				// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
 				// Se debe declarar el mismo atributo de marco con que se inició el formulario.
@@ -234,6 +263,8 @@ class registrarForm {
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 			// ------------------Fin Division para los botones-------------------------
 			echo $this->miFormulario->division ( "fin" );
+
+
 
 			// ------------------- SECCION: Paso de variables ------------------------------------------------
 

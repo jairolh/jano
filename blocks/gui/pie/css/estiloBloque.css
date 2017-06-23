@@ -105,6 +105,7 @@ element.style {
     height: 50px;
     left: 0;
     margin: 0%;
+    color:#5FA6D7;
 }
 
 
@@ -114,6 +115,7 @@ element.style {
     display: block; 
     left: 0;
     margin-top: 0.1%;
+    color:#5FA6D7;
 }
 
 

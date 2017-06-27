@@ -76,7 +76,7 @@ class mensajeForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 				
 			$variable = "pagina=" . $miPaginaActual;
-                        $pestanna='#tabCriterio';
+                        $pestanna='#tabCalendario';
                         $variable.= "&opcion=detalle";
                         $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                         //$variable.= "&opcion=mostrar"; 
@@ -99,7 +99,6 @@ class mensajeForm {
                         unset ( $atributos );
 			
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
-			
 			$esteCampo = "marcoDatosBasicos";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -108,20 +107,10 @@ class mensajeForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
       			{
                                     $tipo = 'warning';
-                                    switch ($_REQUEST ['opcion']) {
-                                        case "inhabilitarCriterio": 
-                                                $mensaje = "Esta seguro de Inactivar el criterio de evaluación <b>".$_REQUEST ['nombre']."</b>, para el Concurso ?";
-                                                $estado = "I";
-                                                $boton = "inhabilitar";
-                                        break;        
-                                        case "habilitarCriterio": 
-                                                $mensaje = "Esta seguro de Activar el criterio de evaluación <b>".$_REQUEST ['nombre']."</b>, para el Concurso ?";
-                                                $estado= "A";
-                                                $boton = "habilitar";
-                                        break;
-                                    }
-                                    
-                                    $esteCampo = 'criterio';
+                                    $mensaje = "Esta seguro de Cerrar el proceso de registro de soportes de inscripciones al Concurso?";
+                                    $boton = "cerrar";
+
+                                    $esteCampo = 'calendario';
                                     $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
                                     $atributos["etiqueta"] = "";
                                     $atributos["estilo"] = "centrar";
@@ -201,10 +190,9 @@ class mensajeForm {
 		$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 		$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-		$valorCodificado .= "&opcion=".$boton.'Criterio';
-                $valorCodificado .= "&estadoCriterio=".$estado;
+		$valorCodificado .= "&opcion=cerrarSoporte";
                 $valorCodificado .= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
-                $valorCodificado .= "&consecutivo_evaluar=" .$_REQUEST['consecutivo_evaluar'];
+                $valorCodificado .= "&consecutivo_calendario=" .$_REQUEST['consecutivo_calendario'];
                 $valorCodificado .= "&nombre=" .$_REQUEST['nombre'];
                                                
                 

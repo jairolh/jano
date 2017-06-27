@@ -191,6 +191,119 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY prf.dependencia, prf.area,prf.nombre ";
                                 
                             break;   
+                            
+			case 'buscarSoporte' :
+				$cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" sop.consecutivo_soporte,";
+                                $cadenaSql.=" sop.consecutivo_persona,";
+                                $cadenaSql.=" sop.tipo_dato, ";
+                                $cadenaSql.=" sop.consecutivo_dato,";
+                                $cadenaSql.=" sop.nombre archivo,";
+                                $cadenaSql.=" sop.alias,";
+                                $cadenaSql.=" tsop.tipo_soporte,";
+                                $cadenaSql.=" tsop.nombre, ";
+                                $cadenaSql.=" tsop.ubicacion";
+                                $cadenaSql.=" FROM concurso.soporte sop";
+                                $cadenaSql.=" INNER JOIN general.tipo_soporte tsop";
+                                $cadenaSql.=" ON tsop.tipo_soporte=sop.tipo_soporte";
+                                $cadenaSql.=" AND tsop.estado=sop.estado";
+                                $cadenaSql.=" WHERE";
+                                $cadenaSql.=" tsop.estado='A' ";
+                                $cadenaSql.=" AND sop.tipo_dato='".$variable['tipo_dato']."'";
+                                $cadenaSql.=" AND sop.consecutivo_persona='".$variable['consecutivo']."'";
+                                $cadenaSql.=" AND tsop.nombre='".$variable['nombre_soporte']."'";
+                                if(isset($variable['consecutivo_dato']) && $variable['consecutivo_dato']!='')
+                                    {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
+                                $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
+                            break;                             
+                            
+                        case "concurso.persona":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" bas.consecutivo,";
+                                $cadenaSql.=" bas.tipo_identificacion, ";
+                                $cadenaSql.=" bas.identificacion, ";
+                                $cadenaSql.=" bas.nombre, ";
+                                $cadenaSql.=" bas.apellido,";
+                                $cadenaSql.=" bas.lugar_nacimiento, ";
+                                    $cadenaSql .= "(SELECT c.nombre ";
+                                    $cadenaSql .= "FROM general.ciudad c ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "c.id_ciudad = bas.lugar_nacimiento) ciudad, ";
+                                $cadenaSql.=" bas.fecha_nacimiento, ";
+                                $cadenaSql.=" bas.pais_nacimiento, ";
+                                    $cadenaSql .= "(SELECT nombre_pais ";
+                                    $cadenaSql .= "FROM general.pais ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "id_pais =bas.pais_nacimiento) pais, ";
+                                $cadenaSql.=" bas.departamento_nacimiento, ";
+                                    $cadenaSql .= "(SELECT dep.nombre ";
+                                    $cadenaSql .= "FROM general.departamento dep ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "dep.id_departamento = bas.departamento_nacimiento) departamento,";
+                                $cadenaSql.=" bas.sexo ";
+                                $cadenaSql.=" FROM concurso.persona bas ";
+                                $cadenaSql.=" WHERE bas.consecutivo='".$variable['consecutivo_persona']."'";
+                            break;
+                        
+                        case "concurso.contacto":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" cont.consecutivo_contacto, ";
+                                $cadenaSql.=" cont.consecutivo_persona, ";
+                                $cadenaSql.=" cont.pais_residencia, ";
+                                    $cadenaSql .= "(SELECT nombre_pais ";
+                                    $cadenaSql .= "FROM general.pais ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "id_pais =cont.pais_residencia) pais, ";
+                                $cadenaSql.=" cont.departamento_residencia, ";
+                                    $cadenaSql .= "(SELECT dep.nombre ";
+                                    $cadenaSql .= "FROM general.departamento dep ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "dep.id_departamento = cont.departamento_residencia) departamento,";
+                                $cadenaSql.=" cont.ciudad_residencia, ";
+                                    $cadenaSql .= "(SELECT c.nombre ";
+                                    $cadenaSql .= "FROM general.ciudad c ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "c.id_ciudad = cont.ciudad_residencia) ciudad, ";
+                                $cadenaSql.=" cont.direccion_residencia, ";
+                                $cadenaSql.=" cont.correo, ";
+                                $cadenaSql.=" cont.correo_secundario, ";
+                                $cadenaSql.=" cont.telefono, ";
+                                $cadenaSql.=" cont.celular";
+                                $cadenaSql.=" FROM concurso.contacto cont ";
+                                $cadenaSql.=" WHERE cont.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                            break;                        
+                        
+
+                        case "registroSoporteConcurso":
+                                $cadenaSql=" INSERT INTO concurso.soporte_inscrito(";
+                                $cadenaSql.=" consecutivo_soporte_ins,";
+                                $cadenaSql.=" consecutivo_inscrito, ";
+                                $cadenaSql.=" tipo_dato, ";
+                                $cadenaSql.=" consecutivo_dato,";
+                                $cadenaSql.=" fuente_dato, ";
+                                $cadenaSql.=" valor_dato, ";                                
+                                $cadenaSql.=" consecutivo_soporte, ";                                
+                                $cadenaSql.=" alias_soporte, ";
+                                $cadenaSql.=" nombre_soporte, ";                                
+                                $cadenaSql.=" fecha_registro, ";
+                                $cadenaSql.=" estado)";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['consecutivo_inscrito']."', ";
+                                $cadenaSql .= " '".$variable['tipo_dato']."', ";
+                                $cadenaSql .= " '".$variable['consecutivo_dato']."', ";
+                                $cadenaSql .= " '".$variable['fuente_dato']."', ";
+                                $cadenaSql .= " '".$variable['valor_dato']."', ";
+                                $cadenaSql .= " '".$variable['consecutivo_soporte']."', ";
+                                $cadenaSql .= " '".$variable['alias_soporte']."', ";
+                                $cadenaSql .= " '".$variable['nombre_soporte']."', ";
+                                $cadenaSql .= " '".$variable['fecha_registro']."', ";
+                                $cadenaSql .= " 'A' ";
+                                $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING consecutivo_soporte_ins";
+                        break;                        
+                        
+                            
 
 /***********/                            
                             

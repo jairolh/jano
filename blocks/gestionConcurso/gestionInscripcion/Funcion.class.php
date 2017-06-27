@@ -70,7 +70,15 @@ class Funcion {
                     {
                     
                      switch ($_REQUEST ['opcion'])
-                    {       case "guardarConcurso":
+                    {       
+                            case "cerrarSoporte":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->cerrarSoporte();
+                                break; 
+                         
+                         
+                            /**********/
+                            case "guardarConcurso":
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->guardarConcurso();
                                 break;
@@ -100,33 +108,7 @@ class Funcion {
                                     $_REQUEST["estado"]=1;
                                     $this->cambiarEstado(); 
                                 break;   
-                            case "inhabilitarCriterio":
-                                    $_REQUEST["estado"]='I';
-                                    $this->cambiarEstadoCriterio(); 
-                                break;     
-
-                            case "habilitarCriterio":
-                                    $_REQUEST["estado"]='A';
-                                    $this->cambiarEstadoCriterio(); 
-                                break;       
-                            case "inhabilitarCalendario":
-                                    $_REQUEST["estado"]='I';
-                                    $this->cambiarEstadoCalendario(); 
-                                break;     
-
-                            case "habilitarCalendario":
-                                    $_REQUEST["estado"]='A';
-                                    $this->cambiarEstadoCalendario(); 
-                                break;       
-                            case "inhabilitarPerfil":
-                                    $_REQUEST["estado"]='I';
-                                    $this->cambiarEstadoPerfil(); 
-                                break;     
-
-                            case "habilitarPerfil":
-                                    $_REQUEST["estado"]='A';
-                                    $this->cambiarEstadoPerfil(); 
-                                break;                              
+                                                        
                         }
                                        
 // 			if ($validacion == false) {
@@ -188,23 +170,17 @@ class Funcion {
 		}
 	}
 	
-	function guardarConcurso()
+	function cerrarSoporte()
 	{
-		include_once($this->ruta."/funcion/registrarConcurso.php");
+		include_once($this->ruta."/funcion/cerrarSoporteConcurso.php");
 	}	
         
-        function guardarCriterioConcurso()
-	{
-		include_once($this->ruta."/funcion/registrarCriterioConcurso.php");
-	}
+
         function guardarCalendarioConcurso()
 	{
 		include_once($this->ruta."/funcion/registrarCalendarioConcurso.php");
 	}
-        function guardarPerfilConcurso()
-	{
-		include_once($this->ruta."/funcion/registrarPerfilConcurso.php");
-	}        
+      
 	function borrarDatos()
 	{
 		include_once($this->ruta."/funcion/borrarRol.php");
@@ -219,17 +195,6 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/cambiarEstado.php");
 	}
-        function cambiarEstadoCriterio()
-	{
-		include_once($this->ruta."/funcion/cambiarEstadoCriterio.php");
-	} 
-        function cambiarEstadoCalendario()
-	{
-		include_once($this->ruta."/funcion/cambiarEstadoCalendario.php");
-	} 
-        function cambiarEstadoPerfil()
-	{
-		include_once($this->ruta."/funcion/cambiarEstadoPerfil.php");
-	}         
+
 }
 ?>

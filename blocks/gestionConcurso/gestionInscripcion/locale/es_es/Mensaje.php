@@ -99,6 +99,7 @@ $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
 $this->idioma["inhabilitar"]="Inactivar";
 $this->idioma["habilitar"]="Activar";
+$this->idioma["cerrar"]="Cerrar proceso";
 
 
 ?>

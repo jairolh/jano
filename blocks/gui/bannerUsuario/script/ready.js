@@ -1,6 +1,6 @@
 
 
-
+/*
 $(function() {
 	$("button").button().click(function(event) {
 		event.preventDefault();
@@ -10,3 +10,4 @@ $(function() {
 $( "#divLogoNotificador" ).click(function() {
 	  $( "#divContenidoNotificador" ).toggle( "slow");
 	});
+*/

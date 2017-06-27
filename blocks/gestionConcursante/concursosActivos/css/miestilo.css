@@ -1,3 +1,7 @@
+.justificado{
+  text-align: justify;
+}
+
 .popup {
     position: fixed;
     top: 0;

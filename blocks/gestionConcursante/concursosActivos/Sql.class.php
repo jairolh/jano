@@ -73,13 +73,15 @@ class Sql extends \Sql {
 			 		break;
 
 			case "registrarInscripcion":
-      	$cadenaSql = "INSERT INTO concurso.concurso_inscrito(consecutivo_perfil, consecutivo_persona, fecha_registro)";
+      	$cadenaSql = "INSERT INTO concurso.concurso_inscrito(consecutivo_perfil, consecutivo_persona, fecha_registro, autorizacion)";
       	$cadenaSql .= " VALUES ( ";
      		$cadenaSql .= " ".$variable['perfil'].", ";
       	$cadenaSql .= " '".$variable['consecutivo_persona']."', ";
-				$cadenaSql .= " '".$variable['fecha']."' ";
+				$cadenaSql .= " '".$variable['fecha']."', ";
+				$cadenaSql .= " '".$variable['autorizacion']."' ";
       	$cadenaSql .= " ) ";
       	$cadenaSql .= " RETURNING consecutivo_inscrito";
+				//exit;
        	break;
 
 

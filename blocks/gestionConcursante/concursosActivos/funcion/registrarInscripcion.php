@@ -51,10 +51,17 @@ class RegistradorInscripcion {
 
       $fecha=$parametro['fecha_actual'] = date("d") . "/" . date("m") . "/" . date("Y");
 
+      if (!isset($_REQUEST['autorizacion'])) {
+          $_REQUEST['autorizacion'] = false;
+      }else{
+        $_REQUEST['autorizacion'] = true;
+      }
+
       $datos = array('consecutivo_persona'=> $resultadoPersona[0][0],
           'perfil'=> $_REQUEST['perfil'],
           'nombre_perfil'=> $_REQUEST['nombre_perfil'],
-  				'fecha'=> $fecha
+  				'fecha'=> $fecha,
+          'autorizacion'=> $_REQUEST['autorizacion']
   		);
 
       $cadena_sql = $this->miSql->getCadenaSql("registrarInscripcion", $datos);

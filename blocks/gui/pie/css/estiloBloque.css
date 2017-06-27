@@ -3,7 +3,6 @@
     border: 0;
     height: 150px;
     display: block;
-    background-image: url(../imagen/piejano.jpg);
     background-size: 100% ;
     width: 100%
 }
@@ -21,7 +20,7 @@
 
 #ventana1{
 
-    opacity: 1;	
+    opacity: 1;
 
 }
 
@@ -30,7 +29,7 @@
 
 #ventana2{
 
-    opacity: 0.8;	
+    opacity: 0.8;
 
 }
 
@@ -45,7 +44,7 @@
     position: absolute;
     top: -215px;
     width: 500px;
-}	
+}
 
 
 
@@ -69,7 +68,7 @@
     height: 21px;
     position: absolute;
     width: 121px;
-    opacity: 0.8;	
+    opacity: 0.8;
 }
 #clockdigital div:last-child {
     bottom: 0;
@@ -87,21 +86,21 @@ element.style {
     text-align: right;
 }
 
-#colm1 { 
-    width: 10%; 
-    float: left; 
-    display: block; 
+#colm1 {
+    width: 10%;
+    float: left;
+    display: block;
     height: 50px;
     left: 0;
     margin: 0%;
 }
 
 
-#colm2{ 
+#colm2{
 
-    width: 65%; 
-    float: left; 
-    display: block; 
+    width: 65%;
+    float: left;
+    display: block;
     height: 50px;
     left: 0;
     margin: 0%;
@@ -109,18 +108,18 @@ element.style {
 
 
 #colm3 {
-    width: 25%; 
-    float: right; 
-    display: block; 
+    width: 25%;
+    float: right;
+    display: block;
     left: 0;
     margin-top: 0.1%;
 }
 
 
 #colm4 {
-    width: 15%; 
-    float: right; 
-    display: block; 
+    width: 15%;
+    float: right;
+    display: block;
     height: 50px;
     left: 0;
     right: 80%;
@@ -136,4 +135,3 @@ element.style {
     display: block;
     margin: auto;
 }
-

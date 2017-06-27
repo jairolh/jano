@@ -10,30 +10,47 @@
         </div>
         <div style="margin: 5px 5px 5px 20px;">
             <div class="alert alert-info">
-              <p style="text-align: justify;">
-              Acorde con el reglamento de Concursos Docentes, ARTÍCULO 20º - PARÁGRAFO 2, autoriza a la Universidad para publicar la información relacionada con su Hoja de Vida y que para tal efecto se cargará lo respectivo, en el sistema de información con las restricciones señaladas en la Ley
+
+              <?php
+              // ---------------- CONTROL: Checkbox -----------
+              $esteCampo = 'autorizacion';
+              $atributos ['id'] = $esteCampo;
+              $atributos ['nombre'] = $esteCampo;
+              $atributos ["etiquetaObligatorio"] = false;
+              $atributos ['columnas'] = 2;
+              $atributos ['tab'] = $tab ++;
+              $atributos ['anchoEtiqueta'] = 2;
+              $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+              $atributos ['seleccionado'] = false;
+              //$atributos ['evento'] = ' ';
+              $atributos ['estilo'] = 'justificado';
+              $atributos ['eventoFuncion'] = ' ';
+              $atributos ['validar'] = 'required';
+
+              //$atributos ['valor'] = '';
+              $atributos = array_merge ( $atributos, $atributosGlobales );
+              echo $this->miFormulario->campoCuadroSeleccion ( $atributos );
+              unset ( $atributos );
+              ?>
             </div>
+
         </div>
-
-        <?php
-          //check de aceptación
-          
-        ?>
-
 
         <div class="modal-footer">
           <?php
+
             // -----------------CONTROL: Botón ----------------------------------------------------------------
             $esteCampo = 'botonInscribir';
             $atributos ["id"] = $esteCampo;
             $atributos ["tabIndex"] = $tab;
-            $atributos ["tipo"] = 'boton';
+            $atributos ["tipo"] = '';
             // submit: no se coloca si se desea un tipo button genérico
             $atributos ['submit'] = true;
             $atributos ["estiloMarco"] = '';
             $atributos ["estiloBoton"] = 'jqueryui';
             // verificar: true para verificar el formulario antes de pasarlo al servidor.
             $atributos ["verificar"] = '';
+            $atributos ['deshabilitado'] = false;
             $atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
             $atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
             $atributos ['nombreFormulario'] = $esteBloque ['nombre'];
@@ -42,6 +59,8 @@
             $atributos = array_merge ( $atributos, $atributosGlobales );
             echo $this->miFormulario->campoBoton ( $atributos );
             // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
+
 
           ?>
         </div>

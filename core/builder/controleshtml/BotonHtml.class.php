@@ -143,6 +143,10 @@ class BotonHtml extends HtmlBase{
             $cadena .= "type='button' ";
         }
 
+        if (isset($this->atributos[self::DESHABILITADO]) && $this->atributos[self::DESHABILITADO]) {
+            $cadena .= "disabled ";
+        }
+
         if (! isset ( $this->atributos ["onsubmit"] )) {
             $this->atributos ["onsubmit"] = "";
         }

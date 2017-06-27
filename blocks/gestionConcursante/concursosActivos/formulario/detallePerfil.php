@@ -114,6 +114,12 @@ class registrarForm {
 			{
 
 				if($resultadoPerfil){
+					if($resultadoPerfil[0]['estado']=='A'){
+						$resultadoPerfil[0]['estado']="Activo";
+					}else{
+						$resultadoPerfil[0]['estado']="Inactivo";
+					}
+
 						//-----------------Inicio de Conjunto de Controles----------------------------------------
 								$esteCampo = "marcoConsultaPerfiles";
 								$atributos["estilo"] = "jqueryui";

@@ -173,8 +173,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" AND eval.estado='A' ";
                                 $cadenaSql.=" WHERE "; 
                                 $cadenaSql .= " eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' "; 
-                                if(isset($variable['consecutivo_criterio']) &&  $variable['consecutivo_criterio']!='' )
-                                   {$cadenaSql.=" AND crt_ev.consecutivo_criterio='".$variable['consecutivo_criterio']."' "; 
+                                if(isset($variable['consecutivo_criterio']) &&  $variable['consecutivo_criterio']>0 )
+                                   {$cadenaSql.=" AND eval.consecutivo_criterio='".$variable['consecutivo_criterio']."' "; 
                                    }
                                 $cadenaSql.=" ORDER BY crt.nombre ";
                             break;                            

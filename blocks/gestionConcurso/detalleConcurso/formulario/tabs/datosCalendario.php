@@ -246,8 +246,8 @@ class calendarioForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $parametroEval=array('consecutivo_evaluar'=>$_REQUEST['consecutivo_evaluar'],
-                                                     'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
+                                    $parametroEval=array('consecutivo_criterio'=>$resultadoCalendario[0]['consecutivo_evaluar'],
+                                                         'consecutivo_concurso'=>$resultadoCalendario[0]['consecutivo_concurso']);
                                     $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaCriterioCalendario",$parametroEval );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );

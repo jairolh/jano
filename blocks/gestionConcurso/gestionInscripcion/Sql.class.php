@@ -216,7 +216,7 @@ class Sql extends \Sql {
                                     {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
                                 $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
                             break;                             
-                            
+                        //busca datos basicos    
                         case "concurso.persona":
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" bas.consecutivo,";
@@ -244,7 +244,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" WHERE bas.consecutivo='".$variable['consecutivo_persona']."'";
                             break;
-                        
+                        //busca datos de contacto
                         case "concurso.contacto":
                                 $cadenaSql=" SELECT DISTINCT ";
                                 $cadenaSql.=" cont.consecutivo_contacto, ";
@@ -271,6 +271,33 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cont.celular";
                                 $cadenaSql.=" FROM concurso.contacto cont ";
                                 $cadenaSql.=" WHERE cont.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                            break;    
+                        //busca formacion academica
+                        case "concurso.formacion":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" form.consecutivo_formacion, ";
+                                $cadenaSql.=" form.consecutivo_persona, ";
+                                $cadenaSql.=" form.codigo_modalidad, ";
+                                $cadenaSql.=" modo.nombre modalidad,";
+                                $cadenaSql.=" form.codigo_nivel, ";
+                                $cadenaSql.=" nv.nombre nivel,";
+                                $cadenaSql.=" form.pais_formacion, ";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" form.codigo_institucion, ";
+                                $cadenaSql.=" form.nombre_institucion, ";
+                                $cadenaSql.=" form.codigo_programa, ";
+                                $cadenaSql.=" form.nombre_programa, ";
+                                $cadenaSql.=" form.cursos_aprobados, ";
+                                $cadenaSql.=" form.graduado, ";
+                                $cadenaSql.=" form.fecha_grado, ";
+                                $cadenaSql.=" form.promedio ";
+                                $cadenaSql.=" FROM concurso.formacion form ";
+                                $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
+                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
+                                $cadenaSql.=" WHERE form.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY form.codigo_nivel, ";
+                                $cadenaSql.=" form.fecha_grado";    
                             break;                        
                         
 

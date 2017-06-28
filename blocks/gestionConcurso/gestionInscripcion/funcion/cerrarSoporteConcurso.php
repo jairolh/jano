@@ -50,6 +50,7 @@ class cerrarSoporteConcurso {
             $this->cerrarDatosDocencia($parametro,$esteRecursoDB);
             $this->cerrarDatosActividadAcad($parametro,$esteRecursoDB);
             $this->cerrarDatosInvestigacion($parametro,$esteRecursoDB);
+            $this->cerrarDatosProduccion($parametro,$esteRecursoDB);
             
         }    
             
@@ -469,6 +470,60 @@ class cerrarSoporteConcurso {
                 $tipo_dato='datosInvestigacion';
                 $nombre_soporte=['soporteInvestigacion'];
                 $consecutivo_dato=$resultadoInvestigacion[$key]['consecutivo_investigacion'];
+                //busca soportes por registro
+                $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
+                foreach ($resParametro as $llave => $valor) {
+                    $arregloCierre[$llave]['consecutivo_inscrito']=$parametro['inscripcion'];
+                    $arregloCierre[$llave]['tipo_dato']=$tipo_dato;
+                    $arregloCierre[$llave]['consecutivo_dato']=$consecutivo_dato;
+                    $arregloCierre[$llave]['fuente_dato']=$parametro['tabla_ppal'];
+                    $arregloCierre[$llave]['valor_dato']=$arregloDatos;
+                    $arregloCierre[$llave]['consecutivo_soporte']=$resParametro[$llave]['consecutivo_soporte'];
+                    $arregloCierre[$llave]['alias_soporte']=$resParametro[$llave]['alias_soporte'];
+                    $arregloCierre[$llave]['nombre_soporte']=$resParametro[$llave]['nombre_soporte'];
+                    $arregloCierre[$llave]['fecha_registro']= $parametro['fecha_registro'];
+                }
+               //envia datos apara registro
+               $this->cerrarDatos($arregloCierre, $esteRecursoDB);
+               unset($arregloCierre);
+               unset($arregloDatos);
+            }
+    }    
+    
+    function cerrarDatosProduccion($parametro,$esteRecursoDB) {
+        //busca datos registrados
+        $parametro['tabla_ppal']='concurso.produccion_academica';
+        $cadena_sql = $this->miSql->getCadenaSql($parametro['tabla_ppal'], $parametro);
+        $resultadoProduccion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        //recorre los registros de formación encontrados
+        foreach ($resultadoProduccion as $key => $value) 
+            {   $arregloDatos = array('consecutivo_produccion' => $resultadoProduccion[$key]['consecutivo_produccion'],
+                                      'consecutivo_persona' => $resultadoProduccion[$key]['consecutivo_persona'],
+                                      'codigo_tipo_produccion' => $resultadoProduccion[$key]['codigo_tipo_produccion'],
+                                      'nombre_tipo_produccion' => $resultadoProduccion[$key]['nombre_tipo_produccion'],
+                                      'titulo_produccion' => $resultadoProduccion[$key]['titulo_produccion'],
+                                      'nombre_autor' => $resultadoProduccion[$key]['nombre_autor'],
+                                      'nombre_producto_incluye' => $resultadoProduccion[$key]['nombre_producto_incluye'],
+                                      'nombre_editorial' => $resultadoProduccion[$key]['nombre_editorial'],
+                                      'volumen' => $resultadoProduccion[$key]['volumen'],
+                                      'pagina' => $resultadoProduccion[$key]['pagina'],
+                                      'codigo_isbn' => $resultadoProduccion[$key]['codigo_isbn'],
+                                      'codigo_issn' => $resultadoProduccion[$key]['codigo_issn'],
+                                      'indexado' => $resultadoProduccion[$key]['indexado'],
+                                      'pais_produccion' => $resultadoProduccion[$key]['pais_produccion'],
+                                      'departamento_produccion' => $resultadoProduccion[$key]['departamento_produccion'],
+                                      'ciudad_produccion' => $resultadoProduccion[$key]['ciudad_produccion'],
+                                      'ciudad' => $resultadoProduccion[$key]['ciudad'],
+                                      'descripcion' => $resultadoProduccion[$key]['descripcion'],
+                                      'direccion_produccion' => $resultadoProduccion[$key]['direccion_produccion'],
+                                      'fecha_produccion' => $resultadoProduccion[$key]['fecha_produccion'],
+                                 );
+                $arregloDatos = json_encode ( $arregloDatos );
+                //busca soportes cargados
+                $consecutivo_persona=$resultadoProduccion[$key]['consecutivo_persona'];
+                $tipo_dato='datosProduccion';
+                $nombre_soporte=['soporteProduccion'];
+                $consecutivo_dato=$resultadoProduccion[$key]['consecutivo_produccion'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
                 foreach ($resParametro as $llave => $valor) {

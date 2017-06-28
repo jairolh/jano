@@ -403,7 +403,35 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=inv.pais_investigacion";
                                 $cadenaSql.=" WHERE inv.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" ORDER BY inv.fecha_inicio DESC";    
-                            break;                            
+                            break;       
+                        case "concurso.produccion_academica":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" prod.consecutivo_produccion,";
+                                $cadenaSql.=" prod.consecutivo_persona,";
+                                $cadenaSql.=" prod.codigo_tipo_produccion,";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prod.codigo_tipo_produccion) nombre_tipo_produccion,";
+                                $cadenaSql.=" prod.titulo_produccion,";
+                                $cadenaSql.=" prod.nombre_autor,";
+                                $cadenaSql.=" prod.nombre_producto_incluye,";
+                                $cadenaSql.=" prod.nombre_editorial,";
+                                $cadenaSql.=" prod.volumen,";
+                                $cadenaSql.=" prod.pagina,";
+                                $cadenaSql.=" prod.codigo_isbn,";
+                                $cadenaSql.=" prod.codigo_issn,";
+                                $cadenaSql.=" prod.indexado,";
+                                $cadenaSql.=" prod.pais_produccion,";
+                                $cadenaSql.=" prod.departamento_produccion,";
+                                $cadenaSql.=" prod.ciudad_produccion,";
+                                $cadenaSql.=" city.nombre ciudad,";
+                                $cadenaSql.=" prod.descripcion,";
+                                $cadenaSql.=" prod.direccion_produccion,";
+                                $cadenaSql.=" prod.fecha_produccion";
+                                $cadenaSql.=" FROM concurso.produccion_academica prod ";
+                                $cadenaSql.=" INNER JOIN general.ciudad city ON city.id_ciudad=prod.ciudad_produccion";
+                                $cadenaSql.=" WHERE prod.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY prod.fecha_produccion DESC";    
+                            break;                              
+                        
                         
                         case "registroSoporteConcurso":
                                 $cadenaSql=" INSERT INTO concurso.soporte_inscrito(";

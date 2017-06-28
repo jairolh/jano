@@ -326,7 +326,33 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY prof.fecha_inicio DESC";    
                             break;    
                         
-
+                        case "concurso.experiencia_docencia":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" doc.consecutivo_docencia,";
+                                $cadenaSql.=" doc.consecutivo_persona,";
+                                $cadenaSql.=" doc.codigo_nivel_docencia,";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=doc.codigo_nivel_docencia) nivel_docencia,";
+                                $cadenaSql.=" doc.pais_docencia,";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" doc.codigo_nivel_institucion,";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=doc.codigo_nivel_institucion) nivel_institucion,";
+                                $cadenaSql.=" doc.codigo_institucion,";
+                                $cadenaSql.=" doc.nombre_institucion,";
+                                $cadenaSql.=" doc.direccion_institucion,";
+                                $cadenaSql.=" doc.correo_institucion,";
+                                $cadenaSql.=" doc.telefono_institucion,";
+                                $cadenaSql.=" doc.codigo_vinculacion,";
+                                $cadenaSql.=" doc.nombre_vinculacion,";
+                                $cadenaSql.=" doc.descripcion_docencia,";
+                                $cadenaSql.=" doc.actual,";
+                                $cadenaSql.=" doc.fecha_inicio,";
+                                $cadenaSql.=" doc.fecha_fin";
+                                $cadenaSql.=" FROM concurso.experiencia_docencia doc ";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=doc.pais_docencia";
+                                $cadenaSql.=" WHERE doc.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY doc.fecha_inicio DESC";    
+                            break;   
+                        
                         case "registroSoporteConcurso":
                                 $cadenaSql=" INSERT INTO concurso.soporte_inscrito(";
                                 $cadenaSql.=" consecutivo_soporte_ins,";

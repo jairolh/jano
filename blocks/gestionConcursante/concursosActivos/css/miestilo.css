@@ -1,0 +1,97 @@
+.justificado{
+  text-align: justify;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*background: url("images/background/pop-bg.png") repeat scroll 0 0 transparent*/
+    z-index: 9000;
+    overflow: auto;
+}
+
+.popup_margin {
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
+    width: 800px;
+    height: auto;
+    z-index: 9999;
+    /*background: url("images/background/pop-bg.png") repeat 0 0 transparent;*/
+}
+
+.corner {
+    border-radius: 5px;
+}
+
+#tablaPerfiles {
+    border-collapse: collapse;
+    /*width: 80%;*/
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+/*th {
+    background-color: white;
+    text-align: right;
+    padding: 8px;
+}*/
+
+.estilo_tr {
+  font-size: 15px;
+	border-style: solid;
+	border-color: white;
+	/*text-align: center;*/
+}
+
+.destacado {
+  border-radius: 10px;
+   border: 2px solid #38AD21;
+   padding: 20px;
+   width: 200px;
+   /*height: 150px;*/
+}
+
+#scroll {
+     width:600px;
+     height:270px;
+     background-color:#F2F2F2;
+     overflow:auto;
+}
+
+.contenedor-tabla{
+
+display: table;
+
+}
+
+.contenedor-fila{
+
+display: table-row;
+
+}
+
+.contenedor-columna{
+
+display: table-cell;
+
+}
+
+#tablaCandidatos{	border: solid 1px #333;	width: 100%; }
+#tablaCandidatos tbody tr{ background: #E0F0FA; }
+.fila-base{ display: none; } /* fila base oculta */
+.eliminar{ cursor: pointer; color: #000; }

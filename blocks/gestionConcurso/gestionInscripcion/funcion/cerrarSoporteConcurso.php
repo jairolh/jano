@@ -51,6 +51,7 @@ class cerrarSoporteConcurso {
             $this->cerrarDatosActividadAcad($parametro,$esteRecursoDB);
             $this->cerrarDatosInvestigacion($parametro,$esteRecursoDB);
             $this->cerrarDatosProduccion($parametro,$esteRecursoDB);
+            $this->cerrarDatosIdioma($parametro,$esteRecursoDB);
             
         }    
             
@@ -145,6 +146,27 @@ class cerrarSoporteConcurso {
                               'sexo'  => $resultadoPersona[0]['sexo'],
                          );
         $arregloDatos = json_encode ( $arregloDatos );
+        
+        //busca soportes cargados
+        $consecutivo_persona=$resultadoPersona[0]['consecutivo'];
+        $tipo_dato='datosBasicos';
+        $nombre_soporte=['foto','soporteIdentificacion'];
+        $consecutivo_dato=$resultadoPersona[0]['consecutivo'];
+        //busca soportes por registro
+        $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
+        foreach ($resParametro as $llave => $valor) {
+            $arregloCierre[$llave]['consecutivo_inscrito']=$parametro['inscripcion'];
+            $arregloCierre[$llave]['tipo_dato']=$tipo_dato;
+            $arregloCierre[$llave]['consecutivo_dato']=$consecutivo_dato;
+            $arregloCierre[$llave]['fuente_dato']=$parametro['tabla_ppal'];
+            $arregloCierre[$llave]['valor_dato']=$arregloDatos;
+            $arregloCierre[$llave]['consecutivo_soporte']=$resParametro[$llave]['consecutivo_soporte'];
+            $arregloCierre[$llave]['alias_soporte']=$resParametro[$llave]['alias_soporte'];
+            $arregloCierre[$llave]['nombre_soporte']=$resParametro[$llave]['nombre_soporte'];
+            $arregloCierre[$llave]['fecha_registro']= $parametro['fecha_registro'];
+        }
+        
+        /*
         //busca soportes cargados
         $parametroSop = array(  'consecutivo'=>$resultadoPersona[0]['consecutivo'],
                                 'tipo_dato'=>'datosBasicos',
@@ -182,7 +204,7 @@ class cerrarSoporteConcurso {
                 $arregloCierre[$i]['alias_soporte']=$arregloSoporte[$i]['alias_soporte'];
                 $arregloCierre[$i]['nombre_soporte']=$arregloSoporte[$i]['nombre_soporte'];
                 $arregloCierre[$i]['fecha_registro']= $parametro['fecha_registro'];
-            }
+            }*/
             //se envian los datos para registro
             $this->cerrarDatos($arregloCierre, $esteRecursoDB);
     }    
@@ -524,6 +546,46 @@ class cerrarSoporteConcurso {
                 $tipo_dato='datosProduccion';
                 $nombre_soporte=['soporteProduccion'];
                 $consecutivo_dato=$resultadoProduccion[$key]['consecutivo_produccion'];
+                //busca soportes por registro
+                $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
+                foreach ($resParametro as $llave => $valor) {
+                    $arregloCierre[$llave]['consecutivo_inscrito']=$parametro['inscripcion'];
+                    $arregloCierre[$llave]['tipo_dato']=$tipo_dato;
+                    $arregloCierre[$llave]['consecutivo_dato']=$consecutivo_dato;
+                    $arregloCierre[$llave]['fuente_dato']=$parametro['tabla_ppal'];
+                    $arregloCierre[$llave]['valor_dato']=$arregloDatos;
+                    $arregloCierre[$llave]['consecutivo_soporte']=$resParametro[$llave]['consecutivo_soporte'];
+                    $arregloCierre[$llave]['alias_soporte']=$resParametro[$llave]['alias_soporte'];
+                    $arregloCierre[$llave]['nombre_soporte']=$resParametro[$llave]['nombre_soporte'];
+                    $arregloCierre[$llave]['fecha_registro']= $parametro['fecha_registro'];
+                }
+               //envia datos apara registro
+               $this->cerrarDatos($arregloCierre, $esteRecursoDB);
+               unset($arregloCierre);
+               unset($arregloDatos);
+            }
+    }    
+    
+    function cerrarDatosIdioma($parametro,$esteRecursoDB) {
+        //busca datos registrados
+        $parametro['tabla_ppal']='concurso.conocimiento_idioma';
+        $cadena_sql = $this->miSql->getCadenaSql($parametro['tabla_ppal'], $parametro);
+        $resultadoIdioma = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        //recorre los registros de formación encontrados
+        foreach ($resultadoIdioma as $key => $value) 
+            {   $arregloDatos = array('consecutivo_conocimiento' => $resultadoIdioma[$key]['consecutivo_conocimiento'],
+                                      'consecutivo_persona' => $resultadoIdioma[$key]['consecutivo_persona'],
+                                      'codigo_idioma' => $resultadoIdioma[$key]['codigo_idioma'],
+                                      'idioma' => $resultadoIdioma[$key]['idioma'],
+                                      'certificacion' => $resultadoIdioma[$key]['certificacion'],
+                                      'institucion_certificacion' => $resultadoIdioma[$key]['institucion_certificacion'],
+                                 );
+                $arregloDatos = json_encode ( $arregloDatos );
+                //busca soportes cargados
+                $consecutivo_persona=$resultadoIdioma[$key]['consecutivo_persona'];
+                $tipo_dato='datosIdioma';
+                $nombre_soporte=['soporteIdioma'];
+                $consecutivo_dato=$resultadoIdioma[$key]['consecutivo_conocimiento'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
                 foreach ($resParametro as $llave => $valor) {

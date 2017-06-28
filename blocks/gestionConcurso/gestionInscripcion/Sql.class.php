@@ -431,7 +431,25 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE prod.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" ORDER BY prod.fecha_produccion DESC";    
                             break;                              
-                        
+                        case "concurso.conocimiento_idioma":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" conidm.consecutivo_conocimiento,";
+                                $cadenaSql.=" conidm.consecutivo_persona, ";
+                                $cadenaSql.=" conidm.codigo_idioma, ";
+                                $cadenaSql.=" idm.nombre idioma, ";
+                                $cadenaSql.=" conidm.nivel_lee, ";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_lee,'99')) nombre_nivel_lee,";
+                                $cadenaSql.=" conidm.nivel_escribe,";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_escribe,'99')) nombre_nivel_escribe,";
+                                $cadenaSql.=" conidm.nivel_habla, ";
+                               // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_habla,'99')) nombre_nivel_habla,";
+                                $cadenaSql.=" conidm.certificacion,";
+                                $cadenaSql.=" conidm.institucion_certificacion";
+                                $cadenaSql.=" FROM concurso.conocimiento_idioma conidm ";    
+                                $cadenaSql.=" INNER JOIN general.idioma idm ON idm.codigo_idioma=conidm.codigo_idioma";
+                                $cadenaSql.=" WHERE conidm.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY idm.nombre DESC";   
+                            break;                          
                         
                         case "registroSoporteConcurso":
                                 $cadenaSql=" INSERT INTO concurso.soporte_inscrito(";

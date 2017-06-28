@@ -46,6 +46,7 @@ class cerrarSoporteConcurso {
             $this->cerrarDatosBasicos($parametro,$esteRecursoDB);
             $this->cerrarDatosContacto($parametro,$esteRecursoDB);
             $this->cerrarDatosFormacion($parametro,$esteRecursoDB);
+            $this->cerrarDatosExperiencia($parametro,$esteRecursoDB);
             
             
             
@@ -256,6 +257,59 @@ class cerrarSoporteConcurso {
                 $tipo_dato='datosFormacion';
                 $nombre_soporte=['soporteDiploma','soporteTprofesional'];
                 $consecutivo_dato=$resultadoFormacion[$key]['consecutivo_formacion'];
+                //busca soportes por registro
+                $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
+                foreach ($resParametro as $llave => $valor) {
+                    $arregloCierre[$llave]['consecutivo_inscrito']=$parametro['inscripcion'];
+                    $arregloCierre[$llave]['tipo_dato']=$tipo_dato;
+                    $arregloCierre[$llave]['consecutivo_dato']=$consecutivo_dato;
+                    $arregloCierre[$llave]['fuente_dato']=$parametro['tabla_ppal'];
+                    $arregloCierre[$llave]['valor_dato']=$arregloDatos;
+                    $arregloCierre[$llave]['consecutivo_soporte']=$resParametro[$llave]['consecutivo_soporte'];
+                    $arregloCierre[$llave]['alias_soporte']=$resParametro[$llave]['alias_soporte'];
+                    $arregloCierre[$llave]['nombre_soporte']=$resParametro[$llave]['nombre_soporte'];
+                    $arregloCierre[$llave]['fecha_registro']= $parametro['fecha_registro'];
+                }
+               //envia datos apara registro
+               $this->cerrarDatos($arregloCierre, $esteRecursoDB);
+               unset($arregloCierre);
+               unset($arregloDatos);
+            }
+    }    
+    
+    function cerrarDatosExperiencia($parametro,$esteRecursoDB) {
+        //busca datos registrados
+        $parametro['tabla_ppal']='concurso.experiencia_laboral';
+        $cadena_sql = $this->miSql->getCadenaSql($parametro['tabla_ppal'], $parametro);
+        $resultadoExperiencia = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        //recorre los registros de formación encontrados
+        foreach ($resultadoExperiencia as $key => $value) 
+            {   $arregloDatos = array('consecutivo_experiencia' => $resultadoExperiencia[$key]['consecutivo_experiencia'],
+                                      'consecutivo_persona' => $resultadoExperiencia[$key]['consecutivo_persona'],
+                                      'codigo_nivel_experiencia' => $resultadoExperiencia[$key]['codigo_nivel_experiencia'],
+                                      'nivel_experiencia' => $resultadoExperiencia[$key]['nivel_experiencia'],
+                                      'pais_experiencia' => $resultadoExperiencia[$key]['pais_experiencia'],
+                                      'pais' => $resultadoExperiencia[$key]['pais'],
+                                      'codigo_nivel_institucion' => $resultadoExperiencia[$key]['codigo_nivel_institucion'],
+                                      'nivel_institucion' => $resultadoExperiencia[$key]['nivel_institucion'],
+                                      'codigo_institucion' => $resultadoExperiencia[$key]['codigo_institucion'],
+                                      'nombre_institucion' => $resultadoExperiencia[$key]['nombre_institucion'],
+                                      'direccion_institucion' => $resultadoExperiencia[$key]['direccion_institucion'],
+                                      'correo_institucion' => $resultadoExperiencia[$key]['correo_institucion'],
+                                      'telefono_institucion' => $resultadoExperiencia[$key]['telefono_institucion'],
+                                      'cargo' => $resultadoExperiencia[$key]['cargo'],
+                                      'descripcion_cargo' => $resultadoExperiencia[$key]['descripcion_cargo'],
+                                      'actual' => $resultadoExperiencia[$key]['actual'],
+                                      'fecha_inicio' => $resultadoExperiencia[$key]['fecha_inicio'],
+                                      'fecha_fin' => $resultadoExperiencia[$key]['fecha_fin'],
+                                      
+                                 );
+                $arregloDatos = json_encode ( $arregloDatos );
+                //busca soportes cargados
+                $consecutivo_persona=$resultadoExperiencia[$key]['consecutivo_persona'];
+                $tipo_dato='datosExperiencia';
+                $nombre_soporte=['soporteExperiencia'];
+                $consecutivo_dato=$resultadoExperiencia[$key]['consecutivo_experiencia'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
                 foreach ($resParametro as $llave => $valor) {

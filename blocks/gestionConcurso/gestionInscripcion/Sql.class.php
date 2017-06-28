@@ -298,7 +298,33 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE form.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" ORDER BY form.codigo_nivel, ";
                                 $cadenaSql.=" form.fecha_grado";    
-                            break;                        
+                            break;                
+                        
+                        case "concurso.experiencia_laboral":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" prof.consecutivo_experiencia,";
+                                $cadenaSql.=" prof.consecutivo_persona,";
+                                $cadenaSql.=" prof.codigo_nivel_experiencia, ";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prof.codigo_nivel_experiencia) nivel_experiencia,";
+                                $cadenaSql.=" prof.pais_experiencia,";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" prof.codigo_nivel_institucion, ";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prof.codigo_nivel_institucion) nivel_institucion,";
+                                $cadenaSql.=" prof.codigo_institucion,";                                
+                                $cadenaSql.=" prof.nombre_institucion, ";
+                                $cadenaSql.=" prof.direccion_institucion,";
+                                $cadenaSql.=" prof.correo_institucion,";
+                                $cadenaSql.=" prof.telefono_institucion, ";
+                                $cadenaSql.=" prof.cargo,";
+                                $cadenaSql.=" prof.descripcion_cargo,";
+                                $cadenaSql.=" prof.actual,";
+                                $cadenaSql.=" prof.fecha_inicio,";
+                                $cadenaSql.=" prof.fecha_fin ";
+                                $cadenaSql.=" FROM concurso.experiencia_laboral prof ";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=prof.pais_experiencia";
+                                $cadenaSql.=" WHERE prof.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY prof.fecha_inicio DESC";    
+                            break;    
                         
 
                         case "registroSoporteConcurso":

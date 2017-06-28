@@ -376,7 +376,34 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=act.pais_actividad";
                                 $cadenaSql.=" WHERE act.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" ORDER BY act.fecha_inicio DESC";   
-                            break;                         
+                            break;      
+                        case "concurso.experiencia_investigacion":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" inv.consecutivo_investigacion,";
+                                $cadenaSql.=" inv.consecutivo_persona,";
+                                $cadenaSql.=" inv.pais_investigacion,";
+                                $cadenaSql.=" ps.nombre_pais pais,";
+                                $cadenaSql.=" inv.codigo_nivel_institucion,";
+                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=inv.codigo_nivel_institucion) nivel_institucion,";
+                                $cadenaSql.=" inv.codigo_institucion,";
+                                $cadenaSql.=" inv.nombre_institucion,";
+                                $cadenaSql.=" inv.direccion_institucion,";
+                                $cadenaSql.=" inv.correo_institucion,";
+                                $cadenaSql.=" inv.telefono_institucion,";
+                                $cadenaSql.=" inv.titulo_investigacion,";
+                                $cadenaSql.=" inv.jefe_investigacion,";
+                                $cadenaSql.=" inv.descripcion_investigacion,";
+                                $cadenaSql.=" inv.direccion_investigacion,";
+                                $cadenaSql.=" inv.actual,";
+                                $cadenaSql.=" inv.fecha_inicio,";
+                                $cadenaSql.=" inv.fecha_fin,";
+                                $cadenaSql.=" inv.grupo_investigacion,";
+                                $cadenaSql.=" inv.categoria_grupo ";
+                                $cadenaSql.=" FROM concurso.experiencia_investigacion inv";
+                                $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=inv.pais_investigacion";
+                                $cadenaSql.=" WHERE inv.consecutivo_persona='".$variable['consecutivo_persona']."'";
+                                $cadenaSql.=" ORDER BY inv.fecha_inicio DESC";    
+                            break;                            
                         
                         case "registroSoporteConcurso":
                                 $cadenaSql=" INSERT INTO concurso.soporte_inscrito(";

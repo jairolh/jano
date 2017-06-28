@@ -43,9 +43,8 @@ class Sql extends \Sql {
            $cadenaSql = "Select c.nombre AS concurso, cp.nombre AS perfil, ci.estado AS estado ";
 					 $cadenaSql .= "from concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.concurso c ";
            $cadenaSql .= "WHERE ci.consecutivo_persona= ".$variable;
-					 $cadenaSql .= " AND ci.consecutivo_perfil=ci.consecutivo_perfil ";
+					 $cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
 					 $cadenaSql .= "AND cp.consecutivo_concurso=c.consecutivo_concurso ";
-					
            break;
 
 			/**

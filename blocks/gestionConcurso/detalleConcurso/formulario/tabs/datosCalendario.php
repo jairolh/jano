@@ -115,8 +115,10 @@ class calendarioForm {
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = ' ';
                                     if (isset($resultadoCalendario[0]['consecutivo_actividad']))
-                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_actividad'];}
-                                    else {  $atributos ['seleccion'] = -1;}
+                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_actividad'];
+                                            $actividad=$resultadoCalendario[0]['consecutivo_actividad'];
+                                         }
+                                    else {  $atributos ['seleccion'] = -1;$actividad='';}
                                     if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
                                          {$atributos ['deshabilitado'] = true;}
                                     else { $atributos ['deshabilitado'] = false;}
@@ -127,7 +129,7 @@ class calendarioForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $parametroAct=array('consecutivo_actividad'=>$resultadoCalendario[0]['consecutivo_actividad'],
+                                    $parametroAct=array('consecutivo_actividad'=>$actividad,
                                                      'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
                                     $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaActividadCalendario",$parametroAct );
                                     $matrizItems = array (array (0,' '));
@@ -233,8 +235,10 @@ class calendarioForm {
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = ' ';
                                     if (isset ( $resultadoCalendario[0]['consecutivo_evaluar'] ) && $resultadoCalendario[0]['consecutivo_evaluar']>0 )
-                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_evaluar'];}
-                                    else {  $atributos ['seleccion'] = -1;}
+                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_evaluar'];
+                                            $criterio=$resultadoCalendario[0]['consecutivo_evaluar'];
+                                         }
+                                    else {  $atributos ['seleccion'] = -1;$criterio=0;}
                                     if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
                                          {$atributos ['deshabilitado'] = true;}
                                     else { $atributos ['deshabilitado'] = false;}
@@ -246,8 +250,8 @@ class calendarioForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $parametroEval=array('consecutivo_criterio'=>$resultadoCalendario[0]['consecutivo_evaluar'],
-                                                         'consecutivo_concurso'=>$resultadoCalendario[0]['consecutivo_concurso']);
+                                    $parametroEval=array('consecutivo_criterio'=>$criterio,
+                                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
                                     $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaCriterioCalendario",$parametroEval );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );

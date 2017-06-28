@@ -178,9 +178,9 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabCriterio";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/datosCriterio.php"); 
                         if(!isset($_REQUEST['consecutivo_evaluar']))
                                {include_once ($this->ruta . "formulario/tabs/consultarCriterio.php"); }
-                               include_once ($this->ruta . "formulario/tabs/datosCriterio.php"); 
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 1-------------------------
@@ -188,9 +188,10 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabCalendario";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/datosCalendario.php"); 
                         if(!isset($_REQUEST['consecutivo_calendario']))
                                {include_once ($this->ruta . "formulario/tabs/consultarCalendario.php"); }
-                               include_once ($this->ruta . "formulario/tabs/datosCalendario.php"); 
+                               
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 2-------------------------
@@ -198,9 +199,9 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabPerfil";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/datosPerfil.php"); 
                         if(!isset($_REQUEST['consecutivo_perfil']))
                                {include_once ($this->ruta . "formulario/tabs/consultarPerfil.php"); }
-                               include_once ($this->ruta . "formulario/tabs/datosPerfil.php"); 
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 3-------------------------                        

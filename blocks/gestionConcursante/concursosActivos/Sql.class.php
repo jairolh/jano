@@ -69,7 +69,7 @@ class Sql extends \Sql {
 			 		$cadenaSql = "Select consecutivo ";
 					$cadenaSql .= "from concurso.persona ";
 			 		$cadenaSql .= "WHERE tipo_identificacion='".$variable['tipo_identificacion']."' ";
-					$cadenaSql .= "AND identificacion=".$variable['identificacion'];
+					$cadenaSql .= "AND identificacion='".$variable['identificacion']."'";
 			 		break;
 
 			case "registrarInscripcion":

@@ -9,11 +9,28 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 class redireccion {
 	public static function redireccionar($opcion, $valor = "") {
 		$miConfigurador = \Configurador::singleton ();
-		//$miPaginaActual = $miConfigurador->getVariableConfiguracion ( "pagina" );
-                $miPaginaActual="detalleConcurso";
+		$miPaginaActual = $miConfigurador->getVariableConfiguracion ( "pagina" );
+                //$miPaginaActual="detalleConcurso";
 		
 		switch ($opcion) {
-                        
+
+                        case "Cerro":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=Cerro";
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                break;                                 
+
+                        case "noCerro":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noCerro";
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                break;   
+                            /*******/
+                    
                         case "existe":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";

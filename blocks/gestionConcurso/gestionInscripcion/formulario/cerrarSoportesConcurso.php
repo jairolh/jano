@@ -107,7 +107,7 @@ class mensajeForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
       			{
                                     $tipo = 'warning';
-                                    $mensaje = "Esta seguro de Cerrar el proceso de registro de soportes de inscripciones al Concurso?";
+                                    $mensaje = "Esta seguro de Cerrar el proceso de registro de soportes de inscripciones al Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";;
                                     $boton = "cerrar";
 
                                     $esteCampo = 'calendario';
@@ -194,6 +194,8 @@ class mensajeForm {
                 $valorCodificado .= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
                 $valorCodificado .= "&consecutivo_calendario=" .$_REQUEST['consecutivo_calendario'];
                 $valorCodificado .= "&nombre=" .$_REQUEST['nombre'];
+                $valorCodificado .= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                        
                                                
                 
 		/**

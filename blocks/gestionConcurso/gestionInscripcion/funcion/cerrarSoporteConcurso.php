@@ -33,45 +33,35 @@ class cerrarSoporteConcurso {
     function procesarFormulario() {
         $conexion="estructura";
         $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+        $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
         //consulta inscritos al concurso
         $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                         'nombre_concurso'=>$_REQUEST['nombre_concurso'],
                          'fecha_registro'=>date("Y-m-d H:m:s"));    
         $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
         $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
         // var_dump($resultadoListaInscrito);
-        //busca los datos de la hoja de vida y registra en soportes de inscripcion
-        foreach ($resultadoListaInscrito as $key => $value) {
-            $parametro['consecutivo_persona']=$resultadoListaInscrito[$key]['consecutivo_persona'];    
-            $parametro['inscripcion']=$resultadoListaInscrito[$key]['consecutivo_inscrito'];    
-            $this->cerrarDatosBasicos($parametro,$esteRecursoDB);
-            $this->cerrarDatosContacto($parametro,$esteRecursoDB);
-            $this->cerrarDatosFormacion($parametro,$esteRecursoDB);
-            $this->cerrarDatosExperiencia($parametro,$esteRecursoDB);
-            $this->cerrarDatosDocencia($parametro,$esteRecursoDB);
-            $this->cerrarDatosActividadAcad($parametro,$esteRecursoDB);
-            $this->cerrarDatosInvestigacion($parametro,$esteRecursoDB);
-            $this->cerrarDatosProduccion($parametro,$esteRecursoDB);
-            $this->cerrarDatosIdioma($parametro,$esteRecursoDB);
-            
-        }    
-            
-            
-            
-            
-        exit;
-        
-        
-        $arregloDatos = array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-                              'nombre'=>$_REQUEST['nombre'],
-                              'estado'=>$_REQUEST['estadoConcurso']
-            );
-        $this->cadena_sql = $this->miSql->getCadenaSql("actualizaEstadoConcurso", $arregloDatos);
-        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualiza", $arregloDatos, "actualizaEstadoConcurso" );
-	if($resultadoEstado)
-            {redireccion::redireccionar($_REQUEST['opcion'].'Concurso',$_REQUEST['nombre']);
+        if($resultadoListaInscrito)
+            {   //llama imagen progreso
+                $this->progreso($esteBloque);
+                //busca los datos de la hoja de vida y registra en soportes de inscripcion
+                foreach ($resultadoListaInscrito as $key => $value) {
+                    $parametro['consecutivo_persona']=$resultadoListaInscrito[$key]['consecutivo_persona'];    
+                    $parametro['inscripcion']=$resultadoListaInscrito[$key]['consecutivo_inscrito'];    
+                    $this->cerrarDatosBasicos($parametro,$esteRecursoDB);
+                    $this->cerrarDatosContacto($parametro,$esteRecursoDB);
+                    $this->cerrarDatosFormacion($parametro,$esteRecursoDB);
+                    $this->cerrarDatosExperiencia($parametro,$esteRecursoDB);
+                    $this->cerrarDatosDocencia($parametro,$esteRecursoDB);
+                    $this->cerrarDatosActividadAcad($parametro,$esteRecursoDB);
+                    $this->cerrarDatosInvestigacion($parametro,$esteRecursoDB);
+                    $this->cerrarDatosProduccion($parametro,$esteRecursoDB);
+                    $this->cerrarDatosIdioma($parametro,$esteRecursoDB);
+                    redireccion::redireccionar('Cerro',$parametro);
+                }
             }
         else
-            {redireccion::redireccionar('no'.$_REQUEST['opcion'].'Concurso',$_REQUEST['nombre']);
+            {redireccion::redireccionar('noCerro',$parametro);
              exit();
             }
     }
@@ -84,6 +74,21 @@ class cerrarSoporteConcurso {
             }
         }
     }
+
+    function progreso($esteBloque) {
+        // ------------------Inicio Division para progreso-------------------------
+        $url = $this->miConfigurador->getVariableConfiguracion ( "host" );
+        $url .= $this->miConfigurador->getVariableConfiguracion ( "site" );
+        $directorioImg = $url."/blocks/".$esteBloque ["grupo"]."".$esteBloque ["nombre"]."/images/";
+        echo '<div id="divcarga" style="color:#000;margin-top:20px; font-size:20px;font-weight:bold;text-align:center;height:300px;" >
+                  <span >Procesando la información, Espere por favor ...  </span>
+                  <img  src="'.$directorioImg.'load.gif">
+              </div>' ;
+            // ------------------Fin Division para progreso-------------------------    
+        //llama funcion para visualizar al div cuando termina de cargar
+        //echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},1000)  </script>";
+    }
+        
     
     function cerrarDatos($datosCierre,$esteRecursoDB) {
         foreach ($datosCierre as $clave => $valor) {
@@ -97,13 +102,12 @@ class cerrarSoporteConcurso {
                                 'nombre_soporte'=>$datosCierre[$clave]['nombre_soporte'],
                                 'fecha_registro'=>$datosCierre[$clave]['fecha_registro'],
                             );
-            echo $this->cadena_sql = $this->miSql->getCadenaSql("registroSoporteConcurso", $arregloDatos);
-            //exit;
-            $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreSoporteConcurso" );
+            $this->cadena_sql = $this->miSql->getCadenaSql("registroSoporteConcurso", $arregloDatos);
+            $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreSoporteConcurso" );
+            $retorno[$clave]=$resultadoCierre;
             }
-        
+        return $retorno;
     }  
-    
     
     function buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB){
         $arregloSoporte[0]['consecutivo_soporte']=0;
@@ -127,8 +131,6 @@ class cerrarSoporteConcurso {
         return ($arregloSoporte);  
     }
     
-    
-    
     function cerrarDatosBasicos($parametro,$esteRecursoDB) {
         //busca datos registrados
         $parametro['tabla_ppal']='concurso.persona';
@@ -146,7 +148,6 @@ class cerrarSoporteConcurso {
                               'sexo'  => $resultadoPersona[0]['sexo'],
                          );
         $arregloDatos = json_encode ( $arregloDatos );
-        
         //busca soportes cargados
         $consecutivo_persona=$resultadoPersona[0]['consecutivo'];
         $tipo_dato='datosBasicos';
@@ -165,48 +166,8 @@ class cerrarSoporteConcurso {
             $arregloCierre[$llave]['nombre_soporte']=$resParametro[$llave]['nombre_soporte'];
             $arregloCierre[$llave]['fecha_registro']= $parametro['fecha_registro'];
         }
-        
-        /*
-        //busca soportes cargados
-        $parametroSop = array(  'consecutivo'=>$resultadoPersona[0]['consecutivo'],
-                                'tipo_dato'=>'datosBasicos',
-                                'nombre_soporte'=>'foto');
-        $cadenaSopFoto_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-        $resultadoSopFoto = $esteRecursoDB->ejecutarAcceso($cadenaSopFoto_sql, "busqueda");                    
-        $parametroSop['nombre_soporte']='soporteIdentificacion';
-        $cadenaSopIden_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-        $resultadoSopIden = $esteRecursoDB->ejecutarAcceso($cadenaSopIden_sql, "busqueda");
-        $aux=0;
-        $arregloSoporte[$aux]['consecutivo_soporte']=0;
-        $arregloSoporte[$aux]['alias_soporte']='';
-        $arregloSoporte[$aux]['nombre_soporte']='';
-        if($resultadoSopFoto)
-            {   $arregloSoporte[$aux]['consecutivo_soporte']=$resultadoSopFoto[0]['consecutivo_soporte'];
-                $arregloSoporte[$aux]['alias_soporte']=$resultadoSopFoto[0]['alias'];
-                $arregloSoporte[$aux]['nombre_soporte']=$resultadoSopFoto[0]['ubicacion']."/".$resultadoSopFoto[0]['archivo'];
-            }
-        if($resultadoSopIden)
-            {
-            if($resultadoSopFoto){$aux++;}
-                $arregloSoporte[$aux]['consecutivo_soporte']=$resultadoSopIden[0]['consecutivo_soporte'];
-                $arregloSoporte[$aux]['alias_soporte']=$resultadoSopIden[0]['alias'];
-                $arregloSoporte[$aux]['nombre_soporte']=$resultadoSopIden[0]['ubicacion']."/".$resultadoSopIden[0]['archivo'];
-            }
-        //preparando cadena de datos para insertar
-        for($i=0;$i<=$aux;$i++)
-            {
-                $arregloCierre[$i]['consecutivo_inscrito']=$parametro['inscripcion'];
-                $arregloCierre[$i]['tipo_dato']='datosBasicos';
-                $arregloCierre[$i]['consecutivo_dato']=$resultadoPersona[0]['consecutivo'];
-                $arregloCierre[$i]['fuente_dato']=$parametro['tabla_ppal'];
-                $arregloCierre[$i]['valor_dato']=$arregloDatos;
-                $arregloCierre[$i]['consecutivo_soporte']=$arregloSoporte[$i]['consecutivo_soporte'];
-                $arregloCierre[$i]['alias_soporte']=$arregloSoporte[$i]['alias_soporte'];
-                $arregloCierre[$i]['nombre_soporte']=$arregloSoporte[$i]['nombre_soporte'];
-                $arregloCierre[$i]['fecha_registro']= $parametro['fecha_registro'];
-            }*/
-            //se envian los datos para registro
-            $this->cerrarDatos($arregloCierre, $esteRecursoDB);
+        //se envian los datos para registro
+        $this->cerrarDatos($arregloCierre, $esteRecursoDB);
     }    
 
     function cerrarDatosContacto($parametro,$esteRecursoDB) {
@@ -605,7 +566,6 @@ class cerrarSoporteConcurso {
                unset($arregloDatos);
             }
     }    
-    
     
 }
 

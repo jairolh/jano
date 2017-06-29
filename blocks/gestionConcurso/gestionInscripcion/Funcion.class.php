@@ -171,7 +171,7 @@ class Funcion {
 	}
 	
 	function cerrarSoporte()
-	{
+	{   
 		include_once($this->ruta."/funcion/cerrarSoporteConcurso.php");
 	}	
         

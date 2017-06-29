@@ -96,6 +96,7 @@ class consultarCalendario {
                                         $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
                                         $variableEstado.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
                                         $variableEstado.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario'];       
+                                        $variableEstado.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                         $variableEstado.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];
                                         $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEstado.= "&tiempo=" . time ();

@@ -49,7 +49,8 @@ class RegistradorInscripcion {
       $cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
       $resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-      $fecha=$parametro['fecha_actual'] = date("d") . "/" . date("m") . "/" . date("Y");
+      //$fecha=$parametro['fecha_actual'] = date("d") . "/" . date("m") . "/" . date("Y");
+      $fecha = date("Y-m-d H:i:s");
 
       if (!isset($_REQUEST['autorizacion'])) {
           $_REQUEST['autorizacion'] = false;

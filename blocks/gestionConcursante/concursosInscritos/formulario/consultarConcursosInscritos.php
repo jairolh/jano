@@ -145,7 +145,7 @@ class consultarForm {
                                 $mostrarHtml .= "<td>";
                                 $esteCampo = "detalle";
                                 $atributos["id"]=$esteCampo;
-                                $atributos['enlace']=$variableDetalle;
+                                //$atributos['enlace']=$variableDetalle;
                                 $atributos['tabIndex']=$esteCampo;
                                 $atributos['redirLugar']=true;
                                 $atributos['estilo']='clasico';

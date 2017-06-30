@@ -70,11 +70,9 @@ class consultarForm {
 		$valorCodificado .= "&tiempo=" . time ();
 		// Paso 2: codificar la cadena resultante
 
-		var_dump($_REQUEST);
-		exit;
 
-				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
-				$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+				//$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
+				//$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 				//var_dump($resultadoConcursosActivos);
 
 
@@ -83,111 +81,177 @@ class consultarForm {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>Concursos Activos</b>";
+            $atributos ["leyenda"] = "<b>Validar Requisitos</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
 
+									echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
+									echo "<thead>
+													<tr align='center'>
+															<th>N° Inscripción</th>
+															<th>Identificacion</th>
+															<th>Aspirante</th>
+															<th>Hoja de Vida</th>
+													</tr>
+											</thead>
+											<tbody>";
 
-                if($resultadoConcursosActivos)
-                {
-                    //-----------------Inicio de Conjunto de Controles----------------------------------------
-                        $esteCampo = "marcoConsultaPerfiles";
-                        $atributos["estilo"] = "jqueryui";
-                        $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
-                        //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
-                        unset($atributos);
+											$mostrarHtml = "<tr align='center'>
+															<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
+															<td align='left'>".$_REQUEST['usuario']."</td>
+															<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
+															$mostrarHtml .= "<td>";
 
-                        echo "<div class='cell-border'><table id='tablaProcesos' class='table table-striped table-bordered'>";
+																			//-------------Enlace-----------------------
+																					$esteCampo = "validar";
+																					$atributos["id"]=$esteCampo;
+																					//$atributos['enlace']=$variableEditar;
+																					$atributos['tabIndex']=$esteCampo;
+																					$atributos['redirLugar']=true;
+																					$atributos['estilo']='clasico';
+																					$atributos['enlaceTexto']='Ver hoja de vida';
+																					$atributos['ancho']='30';
+																					$atributos['alto']='30';
+																					//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+																					$mostrarHtml .= $this->miFormulario->enlace($atributos);
+																					unset($atributos);
 
-                        echo "<thead>
-                                <tr align='center'>
-                                  <th>Concurso</th>
-                        					<th>Descripción</th>
-                                  <th>Estado</th>
-																	<th>Duración</th>
-                        					<th>Detalle</th>
-                                </tr>
-                            </thead>
-                            <tbody>";
-
-                        foreach($resultadoConcursosActivos as $key=>$value )
-                            {
-                            	//enlace para consultar los criterios asociados al tipo de jurado
-                            	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                            	$variableDetalle.= "&opcion=detalleConcurso";
-                            	//$variableDetalle.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                            	$variableDetalle.= "&id_concurso=" .$resultadoConcursosActivos[$key]['consecutivo_concurso'];
-                            	$variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                            	$variableDetalle.= "&tiempo=" . time ();
-                            	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
-
-															if($resultadoConcursosActivos[$key]['estado']=='A'){
-																$resultadoConcursosActivos[$key]['estado']="Activo";
-															}else{
-																$resultadoConcursosActivos[$key]['estado']="Inactivo";
-															}
-
-                                $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['nombre']."</td>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['descripcion']."</td>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>
-																				<td align='left'>".$resultadoConcursosActivos[$key]['fecha_inicio']." - ".$resultadoConcursosActivos[$key]['fecha_fin']."</td>
-                                ";
+															 $mostrarHtml .= "</td>";
 
 
-                                $mostrarHtml .= "<td>";
-                                $esteCampo = "detalle";
-                                $atributos["id"]=$esteCampo;
-                                $atributos['enlace']=$variableDetalle;
-                                $atributos['tabIndex']=$esteCampo;
-                                $atributos['redirLugar']=true;
-                                $atributos['estilo']='clasico';
-                                $atributos['enlaceTexto']='';
-                                $atributos['ancho']='25';
-                                $atributos['alto']='25';
-                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+										 $mostrarHtml .= "</tr>";
+										 echo $mostrarHtml;
+										 unset($mostrarHtml);
+										 echo "</tbody>";
+										 echo "</table></div>";
 
-                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                $mostrarHtml .= "</td>";
-
+										 $parametro=array(
+											 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+											 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
+										 );
+										 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
+										 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+										 //var_dump($resultadoPerfil);
 
 
-                               $mostrarHtml .= "</tr>";
-                               echo $mostrarHtml;
-                               unset($mostrarHtml);
-                               unset($variable);
-                            }
+										 //mostrar listado de requisitos
+										 //$resultadoPerfil[0]['requisitos']
 
-                        echo "</tbody>";
+										 echo "<div style ='width: 80%; padding-left: 10%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
-                        echo "</table></div>";
+		 								echo "
+		 										<tbody>";
+
+		 								$mostrarHtml = "<tr align='center'>
+		 											<th >Concurso</th>
+		 											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td>
+													<th >Perfil</th>
+		 											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td></tr>
+		 								";
 
 
-                        //echo $this->miFormulario->marcoAgrupacion("fin");
+										$mostrarHtml .= "<tr align='center'>
+													<th >Requisitos</th>
+													<td class='table-tittle estilo_tr '>".'<div  >'.'<ul class="list-group">
+													  <li class="list-group-item">Cras justo odio</li>
+													  <li class="list-group-item">Dapibus ac facilisis in</li>
+													  <li class="list-group-item">Morbi leo risus</li>
+													</ul>'.'</div>'."</td>
 
-                }
-								else{
-									$atributos["id"]="divNoEncontroModalidades";
-									$atributos["estilo"]="";
-									//$atributos["estiloEnLinea"]="display:none";
-									echo $this->miFormulario->division("inicio",$atributos);
+													<th >Validar</th>
+													<td class='table-tittle estilo_tr '>"."¿El aspirante cumple con los requisitos exigidos para el perfil?".'<div><br><div class="btn-group btn-toggle" data-toggle="buttons">
+														<label class="btn btn-primary active">
+															<input type="radio" name="options" value="option1" checked="checked"> Si
+														</label>
+														<label class="btn btn-default">
+															<input type="radio" name="options" value="option2" > No
+														</label>
+													</div></div>
+												</div>'."</td></tr>
+																						";
 
-									//-------------Control Boton-----------------------
-									$esteCampo = "noEncontroConcursosActivos";
-									$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-									$atributos["etiqueta"] = "";
-									$atributos["estilo"] = "centrar";
-									$atributos["tipo"] = 'error';
-									$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-									echo $this->miFormulario->cuadroMensaje($atributos);
-									unset($atributos);
-									//-------------Fin Control Boton----------------------
 
-								 echo $this->miFormulario->division("fin");
-									//------------------Division para los botones-------------------------
+										echo $mostrarHtml;
+										unset($mostrarHtml);
 
-                }
+										echo "</tbody>";
+										echo "</table>";
+
+												$tab=1;
+
+
+
+												// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+												$esteCampo = 'descripcion';
+												$atributos ['id'] = $esteCampo;
+												$atributos ['nombre'] = $esteCampo;
+												$atributos ['tipo'] = 'text';
+												$atributos ['estilo'] = 'jqueryui';
+												$atributos ['marco'] = true;
+												$atributos ['estiloMarco'] = '';
+												$atributos ["etiquetaObligatorio"] = true;
+												$atributos ['columnas'] = 150;
+												$atributos ['filas'] = 4;
+												$atributos ['dobleLinea'] = 0;
+												$atributos ['tabIndex'] = $tab;
+												$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+												$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
+												$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+												$atributos ['deshabilitado'] = false;
+												$atributos ['tamanno'] = 60;
+												$atributos ['maximoTamanno'] = '';
+												$atributos ['anchoEtiqueta'] = 170;
+												$tab ++;
+
+												// Aplica atributos globales al control
+												$atributos = array_merge ( $atributos, $atributosGlobales );
+												echo $this->miFormulario->campoTextArea ( $atributos );
+												unset ( $atributos );
+												// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+													echo "</div>";
+
+
+
+													// ------------------Division para los botones-------------------------
+													$atributos ["id"] = "botones";
+													$atributos ["estilo"] = "marcoBotones";
+													echo $this->miFormulario->division ( "inicio", $atributos );
+													unset ( $atributos );
+													{
+
+
+														// -----------------CONTROL: Botón ----------------------------------------------------------------
+														$esteCampo = 'botonGuardar';
+														$atributos ["id"] = $esteCampo;
+														$atributos ["tabIndex"] = $tab;
+														$atributos ["tipo"] = '';
+														// submit: no se coloca si se desea un tipo button genérico
+														$atributos ["modal"] = 'myModal';
+														$atributos ['submit'] = false;
+														$atributos ["estiloMarco"] = '';
+														$atributos ["estiloBoton"] = 'jqueryui';
+														//$atributos ["estiloBoton"] = 'btn btn-link';
+														$atributos ['estiloEnLinea'] = 'padding: 2px; margin-right:15px';
+														// verificar: true para verificar el formulario antes de pasarlo al servidor.
+														$atributos ["verificar"] = '';
+														$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+														$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+														$tab ++;
+
+														// Aplica atributos globales al control
+														$atributos = array_merge ( $atributos, $atributosGlobales );
+														echo $this->miFormulario->campoBoton ( $atributos );
+														unset ( $atributos );
+														// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
+
+													}
+													echo $this->miFormulario->division ( 'fin' );
+
+
+
+
 
             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 

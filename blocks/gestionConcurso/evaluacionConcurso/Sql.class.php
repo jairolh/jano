@@ -34,6 +34,22 @@ class Sql extends \Sql {
                         case "idioma":
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
+
+
+			case "consultaPerfil":
+							$cadenaSql=" SELECT ";
+							$cadenaSql.=" c.nombre AS concurso, ";
+							$cadenaSql.=" p.nombre AS perfil, ";
+							$cadenaSql.=" p.requisitos ";
+							$cadenaSql.=" FROM concurso.concurso AS c, ";
+							$cadenaSql.=" concurso.concurso_perfil AS p ";
+							$cadenaSql.=" WHERE ";
+							$cadenaSql.=" c.consecutivo_concurso=".$variable['consecutivo_concurso'];
+							$cadenaSql.=" AND p.consecutivo_perfil=".$variable['consecutivo_perfil'];
+							$cadenaSql.=" AND c.consecutivo_concurso=p.consecutivo_concurso ";
+
+					break;
+
                         case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";

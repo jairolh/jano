@@ -107,11 +107,12 @@ class consultarInscrito {
                                         $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableEditar.= "&opcion=validar";
                                         $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
+																				$variableEditar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
                                         $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEditar.= "&tiempo=" . time ();
                                         $variableEditar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                         $variableEditar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				$variableEditar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabInscrito";
 

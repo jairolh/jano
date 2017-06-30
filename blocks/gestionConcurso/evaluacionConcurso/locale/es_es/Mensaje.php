@@ -21,22 +21,22 @@ $this->idioma["marcoListaInscrito"]="Aspirantes Inscritos al Concurso";
 
 
 //formularios
-$this->idioma["tipo"]="Tipo: "; 
+$this->idioma["tipo"]="Tipo: ";
 $this->idioma["tipoTitulo"]="Seleccione el tipo de Concurso";
-$this->idioma["modalidad"]="Modalidad: "; 
+$this->idioma["modalidad"]="Modalidad: ";
 $this->idioma["modalidadTitulo"]="Seleccione la modalidad del Concurso";
-$this->idioma["nombre"]="Nombre: "; 
+$this->idioma["nombre"]="Nombre: ";
 $this->idioma["nombreTitulo"]="Ingrese el Nombre del Concurso";
-$this->idioma["acuerdo"]="Acuerdo: "; 
+$this->idioma["acuerdo"]="Acuerdo: ";
 $this->idioma["acuerdoTitulo"]="Ingrese el Número del acuerdo del creación del Concurso ";
-$this->idioma["soporteAcuerdo"]="Soporte Acuerdo: "; 
+$this->idioma["soporteAcuerdo"]="Soporte Acuerdo: ";
 $this->idioma["soporteAcuerdoTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 
-$this->idioma["descripcion"]="Descripción: "; 
-$this->idioma["descripcionTitulo"]="Ingrese breve descripción del Concurso ";
-$this->idioma["fecha_inicio_concurso"]="Fecha Inicio"; 
+$this->idioma["descripcion"]="Observaciones: ";
+$this->idioma["descripcionTitulo"]="Ingrese las observacioes de la validación de requisitos";
+$this->idioma["fecha_inicio_concurso"]="Fecha Inicio";
 $this->idioma["fecha_inicio_concursoTitulo"]="Ingrese la fecha del Inicio del concurso";
-$this->idioma["fecha_fin_concurso"]="Fecha Terminación"; 
+$this->idioma["fecha_fin_concurso"]="Fecha Terminación";
 $this->idioma["fecha_fin_concursoTitulo"]="Ingrese la fecha del terminación del concurso";
 
 $this->idioma["nuevoCriterio"]="Registrar Criterio de Evaluación ";
@@ -50,27 +50,23 @@ $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
 $this->idioma["nuevoCalendario"]="Registrar nueva actividad al Calendario ";
 $this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";
 $this->idioma["consecutivo_actividad"]="Actividad: ";
-$this->idioma["descripcion"]="Descripción: "; 
-$this->idioma["descripcionTitulo"]="Ingrese breve descripción de la actividad";
-$this->idioma["fecha_inicio_calendario"]="Fecha Inicio"; 
+$this->idioma["fecha_inicio_calendario"]="Fecha Inicio";
 $this->idioma["fecha_inicio_calendarioTitulo"]="Ingrese la fecha del Inicio de la actividad";
-$this->idioma["fecha_fin_calendario"]="Fecha Terminación"; 
+$this->idioma["fecha_fin_calendario"]="Fecha Terminación";
 $this->idioma["fecha_fin_calendarioTitulo"]="Ingrese la fecha del terminación de la actividad";
 $this->idioma["consecutivo_evaluarTitulo"]="Seleccione el criterio de evaluación a aplicar";
 $this->idioma["consecutivo_evaluar"]="Criterio a evaluar: ";
 
 $this->idioma["nuevoPerfil"]="Registrar nuevo Perfil ";
-$this->idioma["nombrePerfil"]="Nombre: "; 
+$this->idioma["nombrePerfil"]="Nombre: ";
 $this->idioma["nombrePerfilTitulo"]="Ingrese el nombre del perfil";
-$this->idioma["descripcion"]="Descripción: "; 
-$this->idioma["descripcionTitulo"]="Ingrese breve descripción del perfil";
-$this->idioma["requisitos"]="Requisitos: "; 
+$this->idioma["requisitos"]="Requisitos: ";
 $this->idioma["requisitosTitulo"]="Ingrese los requisitos para el perfil";
-$this->idioma["dependencia"]="Dependencia / Facultad"; 
+$this->idioma["dependencia"]="Dependencia / Facultad";
 $this->idioma["dependenciaTitulo"]="Ingrese el nombre de la Dependencia o Facultad donde se ubica el perfil";
-$this->idioma["area"]="Área / Proyecto"; 
+$this->idioma["area"]="Área / Proyecto";
 $this->idioma["areaTitulo"]="Ingrese el nombre del Área o Proyecto Curricular donde se ubica el perfil";
-$this->idioma["vacantes"]="Vacantes: "; 
+$this->idioma["vacantes"]="Vacantes: ";
 $this->idioma["vacantesTitulo"]="Ingrese la cantidad de vacantes para el perfil";
 
 //botones

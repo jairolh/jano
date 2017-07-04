@@ -3,25 +3,22 @@
 //if(!isset($_REQUEST["opcion"])||(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]!="confirmar")){
 
 ?>
-$('.btn-toggle').click(function() {
-    $(this).find('.btn').toggleClass('active');
 
-    if ($(this).find('.btn-primary').size()>0) {
-    	$(this).find('.btn').toggleClass('btn-primary');
-    }
-    if ($(this).find('.btn-danger').size()>0) {
-    	$(this).find('.btn').toggleClass('btn-danger');
-    }
-    if ($(this).find('.btn-success').size()>0) {
-    	$(this).find('.btn').toggleClass('btn-success');
-    }
-    if ($(this).find('.btn-info').size()>0) {
-    	$(this).find('.btn').toggleClass('btn-info');
-    }
+var sel = $('#radioBtn a').data('title');
+$('#happy').val(sel);
+$('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
 
-    $(this).find('.btn').toggleClass('btn-default');
+$('#radioBtn a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
 
-});
+    $('#happy').val(sel);
+    $('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
+    $('#'+tog).prop('value', sel);
+
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+})
 
 
 $('#tablaConcursos').DataTable({

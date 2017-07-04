@@ -107,7 +107,6 @@ class registrarForm {
 			{
 
 
-
 				echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
@@ -156,9 +155,17 @@ class registrarForm {
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoPerfil);
 
+					 //consultar validación
+					 $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $_REQUEST['consecutivo_inscrito']);
+					 $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+					 //var_dump($resultadoValidacion);
 
-					 //mostrar listado de requisitos
-					 //$resultadoPerfil[0]['requisitos']
+					 if($resultadoValidacion[0]['cumple_requisito']=='S'){
+						 $resultadoValidacion[0]['cumple_requisito']="SI";
+					 }else{
+						 $resultadoValidacion[0]['cumple_requisito']="NO";
+					 }
+
 
 					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
@@ -181,14 +188,9 @@ class registrarForm {
 
 					$mostrarHtml .=  "<tr align='center'>".
 
-								"<th >Validar</th>
-								<td colspan='3'>"."¿El aspirante cumple con los requisitos exigidos para el perfil?".'<div><br>
-								<div id="radioBtn" class="btn-group">
-									<a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="S">SI</a>
-									<a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N">NO</a>
-								</div>
-								<input type="hidden" name="happy" id="happy">
-							</div>'."</td>";
+								"<th colspan='2'>¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
+								<td colspan='2'>".$resultadoValidacion[0]['cumple_requisito'].
+								"</td>";
 
 
 					echo $mostrarHtml;
@@ -199,8 +201,7 @@ class registrarForm {
 
 							$tab=1;
 
-
-
+//$resultadoValidacion[0]['cumple_requisito']
 							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 							$esteCampo = 'observaciones';
 							$atributos ['id'] = $esteCampo;
@@ -215,9 +216,10 @@ class registrarForm {
 							$atributos ['dobleLinea'] = 0;
 							$atributos ['tabIndex'] = $tab;
 							$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-							$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
+							$atributos ['validar'] = '';
+							$atributos ['valor'] = $resultadoValidacion[0]['observacion'];
 							$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-							$atributos ['deshabilitado'] = false;
+							$atributos ['deshabilitado'] = true;
 							$atributos ['tamanno'] = 60;
 							$atributos ['maximoTamanno'] = '';
 							$atributos ['anchoEtiqueta'] = 170;
@@ -229,60 +231,8 @@ class registrarForm {
 							unset ( $atributos );
 							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 
-							// Hidden para guardar la validacion
-							// ////////////////Hidden////////////
-							$esteCampo = 'validacion';
-							$atributos ["id"] = $esteCampo;
-							$atributos ["tipo"] = "hidden";
-							$atributos ['estilo'] = '';
-							$atributos ['validar'] = 'required';
-							$atributos ["obligatorio"] = true;
-							$atributos ['marco'] = true;
-							$atributos ["etiqueta"] = "";
-							//$atributos ['valor'] = $_REQUEST ['usuario'];
-							$atributos = array_merge ( $atributos, $atributosGlobales );
-							echo $this->miFormulario->campoCuadroTexto ( $atributos );
-							unset ( $atributos );
 
 								echo "</div>";
-
-
-
-								// ------------------Division para los botones-------------------------
-								$atributos ["id"] = "botones";
-								$atributos ["estilo"] = "marcoBotones";
-								echo $this->miFormulario->division ( "inicio", $atributos );
-								unset ( $atributos );
-								{
-
-
-									// -----------------CONTROL: Botón ----------------------------------------------------------------
-									$esteCampo = 'botonGuardar';
-									$atributos ["id"] = $esteCampo;
-									$atributos ["tabIndex"] = $tab;
-									$atributos ["tipo"] = 'boton';
-									// submit: no se coloca si se desea un tipo button genérico
-									$atributos ['submit'] = true;
-									$atributos ["estiloMarco"] = '';
-									$atributos ["estiloBoton"] = 'jqueryui';
-									// verificar: true para verificar el formulario antes de pasarlo al servidor.
-									$atributos ["verificar"] = '';
-									$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-									$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-									$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-									$tab ++;
-
-									// Aplica atributos globales al control
-									$atributos = array_merge ( $atributos, $atributosGlobales );
-									echo $this->miFormulario->campoBoton ( $atributos );
-									unset ( $atributos );
-									// -----------------FIN CONTROL: Botón -----------------------------------------------------------
-
-
-								}
-								echo $this->miFormulario->division ( 'fin' );
-
-
 
 
 			}

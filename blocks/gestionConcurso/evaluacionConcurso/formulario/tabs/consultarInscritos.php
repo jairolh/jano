@@ -138,8 +138,24 @@ class consultarInscrito {
                                                 <td align='left'>".$resultadoListaInscrito[$key]['consecutivo_inscrito']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['fecha_registro']."</td>";
                                         $mostrarHtml .= "<td>";
-                                            if($resultadoListaInscrito[$key]['estado']==0)
-                                                {
+
+																				//verificar si ya se realizó la validación de la inscripción
+														            $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
+														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+																				//var_dump($resultadoValidacion);
+
+																				$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variableVerValidacion .= "&opcion=consultarValidacion";
+																				$variableVerValidacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																				$variableVerValidacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+                                        $variableVerValidacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                        $variableVerValidacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				$variableVerValidacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+                                        $variableVerValidacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableVerValidacion .= "&tiempo=" . time ();
+                                        $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
+
+                                            if(!$resultadoValidacion){
                                                 //-------------Enlace-----------------------
                                                     $esteCampo = "validar";
                                                     $atributos["id"]=$esteCampo;
@@ -154,6 +170,20 @@ class consultarInscrito {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);
                                                 }
+																								else{
+																									$esteCampo = "validar";
+																									$atributos["id"]=$esteCampo;
+																									$atributos['enlace']=$variableVerValidacion;
+																									$atributos['tabIndex']=$esteCampo;
+																									$atributos['redirLugar']=true;
+																									$atributos['estilo']='clasico';
+																									$atributos['enlaceTexto']='Ver Validación';
+																									$atributos['ancho']='30';
+																									$atributos['alto']='30';
+																									//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+																									$mostrarHtml .= $this->miFormulario->enlace($atributos);
+																									unset($atributos);
+																								}
                                          $mostrarHtml .= "</td>";
 
                                        $mostrarHtml .= "</tr>";

@@ -76,6 +76,13 @@ class Funcion {
                                     $this->cerrarSoporte();
                                 break;
 
+																case "guardarValidacion":
+		                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+		                                    $this->validacion();
+		                                break;
+
+
+
 
                             /**********/
                             case "guardarConcurso":
@@ -173,6 +180,10 @@ class Funcion {
 	function cerrarSoporte()
 	{
 		include_once($this->ruta."/funcion/cerrarSoporteConcurso.php");
+	}
+
+	function validacion(){
+		include_once($this->ruta."/funcion/validar.php");
 	}
 
 

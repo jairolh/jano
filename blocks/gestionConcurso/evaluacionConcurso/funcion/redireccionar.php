@@ -14,20 +14,16 @@ class redireccion {
 
 		switch ($opcion) {
 
-                        case "Cerro":
+                        case "validoRequisito":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
-                                $variable.="&mensaje=Cerro";
-                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                $variable.="&mensaje=validoRequisito";
                                 break;
 
-                        case "noCerro":
+                        case "noValidoRequisito":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
-                                $variable.="&mensaje=noCerro";
-                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                $variable.="&mensaje=noValidoRequisito";
                                 break;
                             /*******/
 

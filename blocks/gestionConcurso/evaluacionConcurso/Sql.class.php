@@ -36,6 +36,39 @@ class Sql extends \Sql {
 			break;
 
 
+			case "registroValidacion":
+							$cadenaSql =" INSERT INTO concurso.valida_requisito (";
+							$cadenaSql .=" consecutivo_inscrito,";
+							$cadenaSql .=" cumple_requisito, ";
+							$cadenaSql .=" observacion,";
+							$cadenaSql .=" fecha_registro, ";
+							$cadenaSql .=" estado ";
+							$cadenaSql .=" )";
+							$cadenaSql .= " VALUES ( ";
+							$cadenaSql .= " '".$variable['consecutivo_inscrito']."', ";
+							$cadenaSql .= " '".$variable['validacion']."', ";
+							$cadenaSql .= " '".$variable['observaciones']."', ";
+							$cadenaSql .= " '".$variable['fecha']."', ";
+							$cadenaSql .= " 'A' ";
+							$cadenaSql .= " )";
+							$cadenaSql.=" RETURNING consecutivo_valida";
+			break;
+
+
+		case "consultarValidacion":
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" consecutivo_valida, ";
+				$cadenaSql.=" consecutivo_inscrito, ";
+				$cadenaSql.=" cumple_requisito, ";
+				$cadenaSql.=" observacion, ";
+				$cadenaSql.=" fecha_registro, ";
+				$cadenaSql.=" estado ";
+				$cadenaSql.=" FROM concurso.valida_requisito ";
+				$cadenaSql.=" WHERE ";
+				$cadenaSql.=" consecutivo_inscrito=".$variable;
+
+		break;
+
 			case "consultaPerfil":
 							$cadenaSql=" SELECT ";
 							$cadenaSql.=" c.nombre AS concurso, ";

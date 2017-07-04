@@ -1,5 +1,6 @@
 <?php
 $indice=0;
+$estilo[$indice++]="miestilo.css";
 $estilo[$indice++]="ui.jqgrid.css";
 $estilo[$indice++]="ui.multiselect.css";
 $estilo[$indice++]="timepicker.css";

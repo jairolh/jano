@@ -185,7 +185,7 @@ class registrarForm {
 										$esteCampo = "enlace1";
 										$atributos["id"]=$esteCampo;
 										$atributos["toogle"]="validar";
-										$atributos["toogletitle"]="S";
+										$atributos["toogletitle"]="SI";
 										$atributos['enlace']='';
 										$atributos['tabIndex']=$esteCampo;
 										$atributos['redirLugar']=false;
@@ -202,7 +202,7 @@ class registrarForm {
 											$esteCampo = "enlace2";
 											$atributos["id"]=$esteCampo;
 											$atributos["toogle"]="validar";
-											$atributos["toogletitle"]="N";
+											$atributos["toogletitle"]="NO";
 											//$atributos['enlace']=$variableEditar;
 											$atributos['tabIndex']=$esteCampo;
 											$atributos['redirLugar']=false;
@@ -215,7 +215,7 @@ class registrarForm {
 											unset($atributos);
 										//----------------------------------------
 
-										$mostrarHtml .= '<input type="hidden" name="validar" id="happy">';
+										//$mostrarHtml .= '<input type="hidden" name="validar" id="validar">';
 
 										$mostrarHtml .= '</div>';
 

@@ -90,6 +90,7 @@ class consultarInscrito {
 																						<th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Fecha</th>
+																						<th>Estado Validación</th>
                                             <th>Validar Requisitos</th>
                                         </tr>
                                     </thead>
@@ -129,6 +130,16 @@ class consultarInscrito {
                                         $variableEstado.= "&tiempo=" . time ();
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
+																				//verificar si ya se realizó la validación de la inscripción
+														            $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
+														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+																				if($resultadoValidacion){
+																					$validacion=$resultadoValidacion[0]['cumple_requisito'];
+																				}else{
+																					$validacion="PENDIENTE";
+																				}
+
                                         $mostrarHtml = "<tr align='center'>
 
                                                 <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']."</td>
@@ -136,13 +147,11 @@ class consultarInscrito {
                                                 <td align='left'>".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
 																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['consecutivo_inscrito']."</td>
-                                                <td align='left'>".$resultadoListaInscrito[$key]['fecha_registro']."</td>";
+                                                <td align='left'>".$resultadoListaInscrito[$key]['fecha_registro']."</td>
+																								<td align='left'>".$validacion."</td>";
                                         $mostrarHtml .= "<td>";
 
-																				//verificar si ya se realizó la validación de la inscripción
-														            $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
-														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-																				//var_dump($resultadoValidacion);
+
 
 																				$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerValidacion .= "&opcion=consultarValidacion";

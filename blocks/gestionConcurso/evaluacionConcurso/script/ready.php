@@ -5,14 +5,12 @@
 ?>
 
 var sel = $('#radioBtn a').data('title');
-$('#validar').val(sel);
 $('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
 
 $('#radioBtn a').on('click', function(){
     var sel = $(this).data('title');
     var tog = $(this).data('toggle');
 
-    $('#validar').val(sel);
     $('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
     $('#'+tog).prop('value', sel);
 

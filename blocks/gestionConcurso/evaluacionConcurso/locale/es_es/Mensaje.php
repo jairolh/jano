@@ -23,6 +23,8 @@ $this->idioma["marcoListaInscrito"]="Aspirantes Inscritos al Concurso";
 
 //formularios
 $this->idioma["tipo"]="Tipo: ";
+$this->idioma["radioBtn"]="¿El aspirante cumple con los requisitos exigidos para el perfil? ";
+
 $this->idioma["tipoTitulo"]="Seleccione el tipo de Concurso";
 $this->idioma["modalidad"]="Modalidad: ";
 $this->idioma["modalidadTitulo"]="Seleccione la modalidad del Concurso";

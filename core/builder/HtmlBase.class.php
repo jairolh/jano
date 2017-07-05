@@ -133,6 +133,11 @@ class HtmlBase {
     const SALTOLINEA = 'saltoLinea';
 
     const MODAL = 'modal';
+
+		const TOOGLE = 'toogle';
+
+		const TOOGLETITLE = 'toogletitle';
+
     /**
      * Atributos HTML
      * Se definen como constantes para evitar errores al duplicar

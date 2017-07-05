@@ -154,11 +154,7 @@ class registrarForm {
 					 );
 					 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-					 //var_dump($resultadoPerfil);
 
-
-					 //mostrar listado de requisitos
-					 //$resultadoPerfil[0]['requisitos']
 
 					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
@@ -180,16 +176,50 @@ class registrarForm {
 								</tr>";
 
 					$mostrarHtml .=  "<tr align='center'>".
-
 								"<th >Validar</th>
-								<td colspan='3'>"."¿El aspirante cumple con los requisitos exigidos para el perfil?".'<div><br>
-								<div id="radioBtn" class="btn-group">
-									<a class="btn btn-primary btn-sm active" data-toggle="happy" data-title="S">SI</a>
-									<a class="btn btn-primary btn-sm notActive" data-toggle="happy" data-title="N">NO</a>
-								</div>
-								<input type="hidden" name="happy" id="happy">
-							</div>'."</td>";
+								 <td colspan='3'>"."¿El aspirante cumple con los requisitos exigidos para el perfil?".'<div><br>';
 
+								$mostrarHtml .= '<div id="radioBtn" class="btn-group">';
+
+								//-------------Enlace-----------------------
+										$esteCampo = "enlace1";
+										$atributos["id"]=$esteCampo;
+										$atributos["toogle"]="validar";
+										$atributos["toogletitle"]="S";
+										$atributos['enlace']='';
+										$atributos['tabIndex']=$esteCampo;
+										$atributos['redirLugar']=false;
+										$atributos['estilo']='btn btn-primary btn-sm active';
+										$atributos['enlaceTexto']='SI';
+										$atributos['ancho']='30';
+										$atributos['alto']='30';
+										//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+										$mostrarHtml .= $this->miFormulario->enlace($atributos);
+										unset($atributos);
+									//----------------------------------------
+
+									//-------------Enlace-----------------------
+											$esteCampo = "enlace2";
+											$atributos["id"]=$esteCampo;
+											$atributos["toogle"]="validar";
+											$atributos["toogletitle"]="N";
+											//$atributos['enlace']=$variableEditar;
+											$atributos['tabIndex']=$esteCampo;
+											$atributos['redirLugar']=false;
+											$atributos['estilo']='btn btn-primary btn-sm notActive';
+											$atributos['enlaceTexto']='NO';
+											$atributos['ancho']='30';
+											$atributos['alto']='30';
+											//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+											$mostrarHtml .= $this->miFormulario->enlace($atributos);
+											unset($atributos);
+										//----------------------------------------
+
+										$mostrarHtml .= '<input type="hidden" name="validar" id="happy">';
+
+										$mostrarHtml .= '</div>';
+
+							$mostrarHtml .='</div>'."</td>";
 
 					echo $mostrarHtml;
 					unset($mostrarHtml);
@@ -197,8 +227,23 @@ class registrarForm {
 					echo "</tbody>";
 					echo "</table>";
 
-							$tab=1;
 
+					// Hidden para el toogle
+					// ////////////////Hidden////////////
+					$esteCampo = 'happy';
+					$atributos ["id"] = $esteCampo;
+					$atributos ["tipo"] = "hidden";
+					$atributos ['estilo'] = '';
+					$atributos ['validar'] = 'required';
+					$atributos ["obligatorio"] = true;
+					$atributos ['marco'] = true;
+					$atributos ["etiqueta"] = "";
+					//$atributos ['valor'] = $_REQUEST ['usuario'];
+					$atributos = array_merge ( $atributos, $atributosGlobales );
+					echo $this->miFormulario->campoCuadroTexto ( $atributos );
+					unset ( $atributos );
+
+							$tab=1;
 
 
 							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -252,7 +297,7 @@ class registrarForm {
 								$atributos ["id"] = "botones";
 								$atributos ["estilo"] = "marcoBotones";
 								echo $this->miFormulario->division ( "inicio", $atributos );
-								unset ( $atributos );
+								unset  ( $atributos );
 								{
 
 

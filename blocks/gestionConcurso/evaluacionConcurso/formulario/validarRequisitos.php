@@ -228,21 +228,6 @@ class registrarForm {
 					echo "</table>";
 
 
-					// Hidden para el toogle
-					// ////////////////Hidden////////////
-					$esteCampo = 'happy';
-					$atributos ["id"] = $esteCampo;
-					$atributos ["tipo"] = "hidden";
-					$atributos ['estilo'] = '';
-					$atributos ['validar'] = 'required';
-					$atributos ["obligatorio"] = true;
-					$atributos ['marco'] = true;
-					$atributos ["etiqueta"] = "";
-					//$atributos ['valor'] = $_REQUEST ['usuario'];
-					$atributos = array_merge ( $atributos, $atributosGlobales );
-					echo $this->miFormulario->campoCuadroTexto ( $atributos );
-					unset ( $atributos );
-
 							$tab=1;
 
 

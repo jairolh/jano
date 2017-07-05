@@ -46,12 +46,9 @@ class Funcion {
 	function procesarAjax() {
 		include_once ($this->ruta . "funcion/procesarAjax.php");
 	}
-	function registrar() {
-		include_once ($this->ruta . "funcion/registrar.php");
-	}
 	function action() {
 
-		// Evitar qu44444444rrrre se ingrese codigo HTML y PHP en los campos de texto
+		// Evitar que se ingrese codigo HTML y PHP en los campos de texto
 		// Campos que se quieren excluir de la limpieza de código. Formato: nombreCampo1|nombreCampo2|nombreCampo3
 		$excluir = "";
 		$_REQUEST = $this->miInspectorHTML->limpiarPHPHTML ( $_REQUEST );
@@ -62,72 +59,18 @@ class Funcion {
 		// en la carpeta funcion
 
 		// Importante: Es adecuado que sea una variable llamada opcion o action la que guie el procesamiento:
-		if (isset ( $_REQUEST ['procesarAjax'] ))
-                    {
-                        $this->procesarAjax ();
-                    }
-                elseif (isset ( $_REQUEST ["opcion"] ))
-                    {
+		if (isset ( $_REQUEST ['procesarAjax'] )){
+				$this->procesarAjax ();
+  	}	elseif (isset ( $_REQUEST ["opcion"] )){
 
-                     switch ($_REQUEST ['opcion'])
-                    {
-                            case "cerrarSoporte":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->cerrarSoporte();
-                                break;
+           switch ($_REQUEST ['opcion']){
 
-																case "guardarValidacion":
-		                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-		                                    $this->validacion();
-		                                break;
+							case "guardarValidacion":
+                      $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                      $this->validacion();
+                  break;
 
-
-
-
-                            /**********/
-                            case "guardarConcurso":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarConcurso();
-                                break;
-                            case "guardarCriterioConcurso":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarCriterioConcurso();
-                                break;
-                            case "guardarCalendarioConcurso":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarCalendarioConcurso();
-                                break;
-                            case "guardarPerfilConcurso":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarPerfilConcurso();
-                                break;
-
-                            case "borrar":
-                                    $this->borrarDatos();
-                                    break;
-
-                            case "inhabilitar":
-                                    $_REQUEST["estado"]=0;
-                                    $this->cambiarEstado();
-                                break;
-
-                            case "habilitar":
-                                    $_REQUEST["estado"]=1;
-                                    $this->cambiarEstado();
-                                break;
-
-                        }
-
-// 			if ($validacion == false) {
-// 				// Instanciar a la clase pagina con mensaje de correcion de datos
-// 				echo "Datos Incorrectos";
-// 			} else {
-// 				// Validar las variables para evitar un tipo insercion de SQL
-// 				$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-
-// 				$this->funcionEjemplo ();
-// 				$this->redireccionar ( "exito" );
-// 			}
+            }
 		}
 	}
 	function __construct() {
@@ -139,9 +82,9 @@ class Funcion {
 
 		$this->miMensaje = \Mensaje::singleton ();
 		$this->miLogger = \logger::singleton();
-                $this->miArchivo = \soporte::singleton();
+    $this->miArchivo = \soporte::singleton();
 
-                $conexion = "aplicativo";
+  	$conexion = "aplicativo";
 		$this->miRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
 		if (! $this->miRecursoDB) {
@@ -177,35 +120,11 @@ class Funcion {
 		}
 	}
 
-	function cerrarSoporte()
-	{
-		include_once($this->ruta."/funcion/cerrarSoporteConcurso.php");
-	}
 
 	function validacion(){
 		include_once($this->ruta."/funcion/validar.php");
 	}
 
-
-        function guardarCalendarioConcurso()
-	{
-		include_once($this->ruta."/funcion/registrarCalendarioConcurso.php");
-	}
-
-	function borrarDatos()
-	{
-		include_once($this->ruta."/funcion/borrarRol.php");
-	}
-
-        function editarDatos()
-	{
-		include_once($this->ruta."/funcion/editarRol.php");
-	}
-
-        function cambiarEstado()
-	{
-		include_once($this->ruta."/funcion/cambiarEstado.php");
-	}
 
 }
 ?>

@@ -49,62 +49,24 @@ class Frontera {
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;
-				 case "listar":
+
+				case "listar":
 					include_once ($this->ruta . "/formulario/consultarConcursoEjecuta.php");
 					break;
-                                case "detalle":
+
+				case "detalle":
 					include_once($this->ruta."formulario/detalleEjecucion.php");
 					break;
 
-					case "validar":
+				case "validar":
 					include_once($this->ruta."formulario/validarRequisitos.php");
 					break;
 
-					case "consultarValidacion":
+				case "consultarValidacion":
 					include_once($this->ruta."formulario/consultaValidacion.php");
 					break;
 
-                                case "cerrarSoportesConcurso":
-					include_once($this->ruta."formulario/cerrarSoportesConcurso.php");
-					break;
 
-                                    /******/
-				case "nuevo":
-					include_once($this->ruta."formulario/nuevo.php");
-					break;
-
-                                case "editar":
-					include_once($this->ruta."formulario/nuevo.php");
-					break;
-
-                                case "borrar":
-					include_once($this->ruta."formulario/borrar.php");
-					break;
-                                case "inhabilitar":
-					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
-					break;
-
-                                case "habilitar":
-					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
-					break;
-                                case "inhabilitarCriterio":
-					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-					break;
-                                case "habilitarCriterio":
-					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-					break;
-                                case "inhabilitarCalendario":
-					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
-					break;
-                                case "habilitarCalendario":
-					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
-					break;
-                                case "inhabilitarPerfil":
-					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;
-                                case "habilitarPerfil":
-					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;
         		}
 		} else {
 			$_REQUEST ['opcion'] = "listar";

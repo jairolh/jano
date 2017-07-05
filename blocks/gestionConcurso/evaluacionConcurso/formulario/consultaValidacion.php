@@ -11,6 +11,7 @@ class registrarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
+
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 
@@ -127,7 +128,7 @@ class registrarForm {
 														//-------------Enlace-----------------------
 																$esteCampo = "validar";
 																$atributos["id"]=$esteCampo;
-																//$atributos['enlace']=$variableEditar;
+																$atributos['enlace']=$variableVerHoja;
 																$atributos['tabIndex']=$esteCampo;
 																$atributos['redirLugar']=true;
 																$atributos['estilo']='clasico';

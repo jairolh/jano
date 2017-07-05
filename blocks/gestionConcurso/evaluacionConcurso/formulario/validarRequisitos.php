@@ -11,6 +11,7 @@ class registrarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
+	var $miSesion;
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
 
@@ -21,6 +22,8 @@ class registrarForm {
 		$this->miFormulario = $formulario;
 
 		$this->miSql = $sql;
+
+		$this->miSesion = \Sesion::singleton();
 	}
 	function miForm() {
 
@@ -125,19 +128,46 @@ class registrarForm {
 										<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
 										$mostrarHtml .= "<td>";
 
-														//-------------Enlace-----------------------
-																$esteCampo = "validar";
-																$atributos["id"]=$esteCampo;
-																//$atributos['enlace']=$variableEditar;
-																$atributos['tabIndex']=$esteCampo;
-																$atributos['redirLugar']=true;
-																$atributos['estilo']='clasico';
-																$atributos['enlaceTexto']='Ver hoja de vida';
-																$atributos['ancho']='30';
-																$atributos['alto']='30';
-																//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
-																$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																unset($atributos);
+										$variableVerHoja = "pagina=publicacion";
+										$variableVerHoja.= "&opcion=hojaVida";
+										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+										$variableVerHoja.= "&tiempo=" . time ();
+										$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+										$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+										$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+												//-------------Enlace-----------------------
+												$esteCampo = "verHojaVida";
+												$esteCampo = 'enlace_hoja';
+												$atributos ['id'] = $esteCampo;
+												$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+												$atributos ['tabIndex'] = 0;
+												$atributos ['columnas'] = 1;
+												$atributos ['enlaceTexto'] = 'Ver Curriculum';
+												$atributos ['estilo'] = 'clasico';
+												$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+												$atributos ['posicionImagen'] ="atras";//"adelante";
+												$atributos ['ancho'] = '20px';
+												$atributos ['alto'] = '20px';
+												$atributos ['redirLugar'] = false;
+												$atributos ['valor'] = '';
+												$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+												unset ( $atributos );
+												 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+												$esteCampo = 'ruta_enlace_hoja';
+												$atributos ['id'] = $esteCampo;
+												$atributos ['nombre'] = $esteCampo;
+												$atributos ['tipo'] = 'hidden';
+												$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+												$atributos ['obligatorio'] = false;
+												$atributos ['valor'] = $variableVerHoja;
+												$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+												$atributos ['deshabilitado'] = FALSE;
+												$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+												// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
 
 										 $mostrarHtml .= "</td>";
 

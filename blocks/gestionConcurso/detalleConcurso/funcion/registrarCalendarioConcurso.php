@@ -39,7 +39,7 @@ class RegistradorCalendarioConcurso {
                               'fecha_inicio'=>$_REQUEST['fecha_inicio_calendario'],
                               'fecha_fin'=>$_REQUEST['fecha_fin_calendario'],
                               'consecutivo_evaluar'=>!isset($_REQUEST['consecutivo_evaluar'])?0:$_REQUEST['consecutivo_evaluar'],
-                              'estado'=>$_REQUEST['estado']
+                              'estado'=> isset($_REQUEST['estado'])?$_REQUEST['estado']:''
             );
         if($arregloDatos['consecutivo_calendario']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroCalendarioConcurso',$arregloDatos );

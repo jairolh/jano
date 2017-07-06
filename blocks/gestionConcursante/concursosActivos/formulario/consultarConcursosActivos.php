@@ -71,7 +71,7 @@ class consultarForm {
 		// Paso 2: codificar la cadena resultante
 
 				//fecha
-				$parametro['fecha_actual'] = date("d") . "/" . date("m") . "/" . date("Y");
+				$parametro['fecha_actual'] = date("Y-m-d");
 				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
 				$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 				//var_dump($resultadoConcursosActivos);

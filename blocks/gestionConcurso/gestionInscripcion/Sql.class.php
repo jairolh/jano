@@ -176,7 +176,12 @@ class Sql extends \Sql {
                                 $cadenaSql.="per.tipo_identificacion, ";
                                 $cadenaSql.="per.identificacion, ";
                                 $cadenaSql.="per.nombre, ";
-                                $cadenaSql.="per.apellido ";
+                                $cadenaSql.="per.apellido, ";
+                                $cadenaSql.="(SELECT count(consecutivo_soporte_ins) sop ";
+                                $cadenaSql.="FROM concurso.soporte_inscrito ";
+                                $cadenaSql.="WHERE estado='A' ";
+                                $cadenaSql.="AND consecutivo_inscrito=insc.consecutivo_inscrito) soporte ";
+                                
                                 $cadenaSql.="FROM concurso.concurso_perfil prf ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ";
                                 $cadenaSql.="ON prf.consecutivo_perfil=insc.consecutivo_perfil ";

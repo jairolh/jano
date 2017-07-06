@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Se coloca esta condición para evitar cargar algunos scripts en el formulario de confirmación de entrada de datos.
 //if(!isset($_REQUEST["opcion"])||(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]!="confirmar")){
 
@@ -19,12 +19,12 @@
 		    }
         },
         "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
-        
-});       
-                      
+
+});
+
 // Asociar el widget de validación al formulario
 $("#caracterizaConcurso").validationEngine({
-    promptPosition : "centerRight", 
+    promptPosition : "centerRight",
     scroll: false
 });
 
@@ -37,7 +37,7 @@ $(function() {
         return false;
     });
 });
- 
+
 <?php /*?>
                $('#<?php echo $this->campoSeguro('fecha_final')?>').datepicker({
 		dateFormat: 'yy-mm-dd',
@@ -54,7 +54,7 @@ $(function() {
 			var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_final')?>').datepicker('getDate'));
 			$('input#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker('option', 'maxDate', lockDate);
 			 },
-			 onClose: function() { 
+			 onClose: function() {
 		 	    if ($('input#<?php echo $this->campoSeguro('fecha_final')?>').val()!='')
                     {
                         $('#<?php echo $this->campoSeguro('fecha_inicio')?>').attr("class", "cuadroTexto ui-widget ui-widget-content ui-corner-all   validate[required]");
@@ -62,11 +62,11 @@ $(function() {
                         $('#<?php echo $this->campoSeguro('fecha_inicio')?>').attr("class", "cuadroTexto ui-widget ui-widget-content ui-corner-all ");
                     }
 			  }
-			
+
 	   });
- <?php */?>        
-        
-        
+ <?php */?>
+
+
 <?php /*?>$('#<?php echo $this->campoSeguro('fechaFin')?>').datetimepicker({<?php */?>
 $('#<?php echo $this->campoSeguro('fechaFin')?>').datepicker({
 		<?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
@@ -81,16 +81,16 @@ $('#<?php echo $this->campoSeguro('fechaFin')?>').datepicker({
 		    dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
 		    dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
 		    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-		    
-			
-	   });
-               
 
-        
+
+	   });
+
+
+
         $(function() {
 		$(document).tooltip();
 	});
-	
+
 	// Asociar el widget tabs a la división cuyo id es tabs
 	$(function() {
 		$("#tabs").tabs();
@@ -101,10 +101,11 @@ $('#<?php echo $this->campoSeguro('fechaFin')?>').datepicker({
                     event.preventDefault();
             });
         });
+
 $('#<?php echo $this->campoSeguro('subsistema')?>').width(210);
-$("#<?php echo $this->campoSeguro('subsistema')?>").select2(); 
+$("#<?php echo $this->campoSeguro('subsistema')?>").select2();
 $('#<?php echo $this->campoSeguro('perfil')?>').width(210);
-$("#<?php echo $this->campoSeguro('perfil')?>").select2(); 
+$("#<?php echo $this->campoSeguro('perfil')?>").select2();
 $('#<?php echo $this->campoSeguro('estadoFactor')?>').width(210);
 $("#<?php echo $this->campoSeguro('estadoFactor')?>").select2();
 $('#<?php echo $this->campoSeguro('factor')?>').width(210);
@@ -122,14 +123,5 @@ $("#<?php echo $this->campoSeguro('seleccionNivel')?>").select2();
 $('#<?php echo $this->campoSeguro('nivel')?>').width(210);
 $("#<?php echo $this->campoSeguro('nivel')?>").select2();
 
-
-
-<?php 
-//}
-
-
-
-?>
-
-
-
+$('#<?php echo $this->campoSeguro('seleccionRol')?>').width(210);
+$("#<?php echo $this->campoSeguro('seleccionRol')?>").select2();

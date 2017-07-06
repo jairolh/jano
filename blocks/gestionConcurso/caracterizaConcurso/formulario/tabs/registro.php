@@ -11,24 +11,24 @@ class registrarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
-	
+
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-		
+
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-		
+
 		$this->lenguaje = $lenguaje;
-		
+
 		$this->miFormulario = $formulario;
-		
+
 		$this->miSql = $sql;
 	}
-	
+
 	function miForm() {
-		
+
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-		
+
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -39,15 +39,15 @@ class registrarForm {
 		 * $atributos= array_merge($atributos,$atributosGlobales);
 		 */
 		$atributosGlobales ['campoSeguro'] = 'true';
-		
+
 		$_REQUEST ['tiempo'] = time ();
 		$tiempo = $_REQUEST ['tiempo'];
-		
+
 		// lineas para conectar base de datos-------------------------------------------------------------------------------------------------
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 		$seccion ['tiempo'] = $tiempo;
-		
+
         // ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
 		$atributos ['id'] = $esteCampo;
@@ -64,29 +64,29 @@ class registrarForm {
 		$atributos ['marco'] = false;
 		$tab = 1;
 		// ---------------- FIN SECCION: de Parámetros Generales del Formulario ----------------------------
-		
+
 		// ----------------INICIAR EL FORMULARIO ------------------------------------------------------------
 		$atributos ['tipoEtiqueta'] = 'inicio';
 		echo $this->miFormulario->formulario ( $atributos );
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
-			
+
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
             $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
             $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
-                        
+
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-			
+
 			$variable = "pagina=" . $miPaginaActual;
 			//$variable.= "&opcion=mostrar";
             $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-            
+
 			$variableNvo = "pagina=" . $miPaginaActual;
 			$variableNvo.= "&opcion=nuevoCriterio";
-            
+
 			//if(isset($_REQUEST['subsistema'])){$variableNvo.= "&subsistema=".$_REQUEST['subsistema'];}
             $variableNvo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variableNvo, $directorio );
 			//enlace nuevo subsistema
@@ -94,7 +94,7 @@ class registrarForm {
 			$variableNvoSub.= "&opcion=nuevoFactor";
             $variableNvoSub = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variableNvoSub, $directorio );
             $tab=1;
-                        
+
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
             $esteCampo = 'botonRegresar';
             $atributos ['id'] = $esteCampo;
@@ -110,7 +110,7 @@ class registrarForm {
             $tab ++;
             echo $this->miFormulario->enlace ( $atributos );
             unset ( $atributos );
-                        
+
 			$esteCampo = "marcoPerfil";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -118,10 +118,8 @@ class registrarForm {
 			$atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			
-			
-			{ 
-                	
+			{
+
                 	// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                 	$esteCampo = 'seleccionFactor';
                 	$atributos ['columnas'] = 2;
@@ -151,7 +149,7 @@ class registrarForm {
                 	$atributos = array_merge ( $atributos, $atributosGlobales );
                 	echo $this->miFormulario->campoCuadroLista ( $atributos );
                 	unset ( $atributos );
-                	
+
                 	// ---------------- CONTROL: Enlace --------------------------------------------------------
 	                $esteCampo = 'nuevoSub';
 	                $atributos ['columnas'] = 2;
@@ -171,8 +169,8 @@ class registrarForm {
 					echo $this->miFormulario->enlace ( $atributos );
 					unset ( $atributos );
 	                // ---------------- Fin CONTROL: Enlace --------------------------------------------------------
-                	
-					
+
+
 					// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 					$esteCampo = 'nombreCriterio';
 					$atributos ['id'] = $esteCampo;
@@ -193,18 +191,48 @@ class registrarForm {
 					$atributos ['tamanno'] = 60;
 					$atributos ['maximoTamanno'] = '';
 					$atributos ['anchoEtiqueta'] = 170;
-					 
+
 					$tab ++;
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
 					echo $this->miFormulario->campoCuadroTexto ( $atributos );
 					unset ( $atributos );
 					// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-					         
-					         
-					
+
+
+					// ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+					$esteCampo = 'seleccionRol';
+					$atributos ['columnas'] = 2;
+					$atributos ['nombre'] = $esteCampo;
+					$atributos ['id'] = $esteCampo;
+					$atributos ['evento'] = '';
+					$atributos ['deshabilitado'] = false;
+					$atributos ["etiquetaObligatorio"] = true;
+					$atributos ['tab'] = $tab;
+					$atributos ['tamanno'] = 1;
+					$atributos ['estilo'] = 'jqueryui';
+					$atributos ['validar'] = 'required';
+					$atributos ['limitar'] = true;
+					$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+					$atributos ['anchoEtiqueta'] = 170;
+					$atributos ['anchoCaja'] = 60;
+					if (isset ( $_REQUEST [$esteCampo] ))
+					{$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
+					else {	$atributos ['seleccion'] = -1;}
+					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarRolEvaluacion" );
+					$matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+					$atributos ['matrizItems'] = $matrizItems;
+					// Utilizar lo siguiente cuando no se pase un arreglo:
+					// $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
+					// $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
+					$tab ++;
+					$atributos = array_merge ( $atributos, $atributosGlobales );
+					echo $this->miFormulario->campoCuadroLista ( $atributos );
+					unset ( $atributos );
+
+
                 	// ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                	
+
                 	// ------------------Division para los botones-------------------------
                 	$atributos ["id"] = "botones";
                 	$atributos ["estilo"] = "marcoBotones";
@@ -226,26 +254,26 @@ class registrarForm {
                 		$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
                 		$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
                 		$tab ++;
-                			
+
                 		// Aplica atributos globales al control
                 		$atributos = array_merge ( $atributos, $atributosGlobales );
                 		echo $this->miFormulario->campoBoton ( $atributos );
                 		// -----------------FIN CONTROL: Botón -----------------------------------------------------------
                 	}
                 	echo $this->miFormulario->division ( "fin" );
-                	
-               
+
+
                 // ------------------Fin CONTROL: Division -------------------------
-                
+
 			}
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			
+
 			// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
 			// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
 			// Se debe declarar el mismo atributo de marco con que se inició el formulario.
-			
+
 			// ------------------- SECCION: Paso de variables ------------------------------------------------
-			
+
 			/**
 			 * En algunas ocasiones es útil pasar variables entre las diferentes páginas.
 			 * SARA permite realizar esto a través de tres
@@ -257,13 +285,13 @@ class registrarForm {
 			 * (c) a través de campos ocultos en los formularios. (deprecated)
 			 */
 			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-			
+
 			$valorCodificado = "action=" . $esteBloque ["nombre"];
 			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarCriterio";
-			
+
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.
 			 * Para ello utiliza la hora en que es creado el formulario para
@@ -275,7 +303,7 @@ class registrarForm {
 			$valorCodificado .= "&tiempo=" . time ();
 			// Paso 2: codificar la cadena resultante
 			$valorCodificado = $this->miConfigurador->fabricaConexiones->crypto->codificar ( $valorCodificado );
-			
+
 			$atributos ["id"] = "formSaraData"; // No cambiar este nombre
 			$atributos ["tipo"] = "hidden";
 			$atributos ['estilo'] = '';
@@ -285,7 +313,7 @@ class registrarForm {
 			$atributos ["valor"] = $valorCodificado;
 			echo $this->miFormulario->campoCuadroTexto ( $atributos );
 			unset ( $atributos );
-			
+
 		}
 		$atributos ['marco'] = true;
 		$atributos ['tipoEtiqueta'] = 'fin';

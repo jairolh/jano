@@ -48,19 +48,18 @@ class consultarBasicos{
             $cadena_sql = $this->miSql->getCadenaSql("consultaSoportesInscripcion", $parametro);
             $resultadoListaBasicos= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $datos=json_decode ($resultadoListaBasicos[0]['valor_dato']);
-            foreach ($resultadoListaBasicos as $key => $value) {
-                
-                if($resultadoListaBasicos[$key]['consecutivo_soporte']>0 && $resultadoListaBasicos[$key]['nombre_tipo']=='foto' ){
-                    $foto=array('ruta'=> $this->rutaSoporte.$resultadoListaBasicos[$key]['nombre_soporte'],
-                                'alias'=> $resultadoListaBasicos[$key]['alias_soporte'],);
-                    }
-                if($resultadoListaBasicos[$key]['consecutivo_soporte']>0 && $resultadoListaBasicos[$key]['nombre_tipo']=='soporteIdentificacion' ){
-                    $identificacion=array('ruta'=> $this->rutaSoporte.$resultadoListaBasicos[$key]['nombre_soporte'],
-                                'alias'=> $resultadoListaBasicos[$key]['alias_soporte'],);
-                    }
-                
-                
-            }
+            if(isset($datos->soportes) && $datos->soportes!='')
+                {foreach ($datos->soportes as $key => $value) {
+                      if($value->tipo_soporte=='foto' ){
+                        $foto=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
+                                    'alias'=> $value->alias_soporte,);
+                        }
+                      if($value->tipo_soporte=='soporteIdentificacion' ){  
+                        $identificacion=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
+                                    'alias'=> $value->alias_soporte,);
+                        }
+                  }
+                }
             $esteCampo = "marcoBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -176,13 +175,13 @@ class consultarBasicos{
                         unset($mostrarHtml);
                     }else
                     {
-                            $atributos["id"]="divNoEncontroPerfil";
+                            $atributos["id"]="divNoEncontroBasicos";
                             $atributos["estilo"]="";
                        //$atributos["estiloEnLinea"]="display:none"; 
                             echo $this->miFormulario->division("inicio",$atributos);
 
                             //-------------Control Boton-----------------------
-                            $esteCampo = "noEncontroPerfil";
+                            $esteCampo = "noEncontroBasicos";
                             $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
                             $atributos["etiqueta"] = "";
                             $atributos["estilo"] = "centrar";

@@ -60,12 +60,14 @@ function soporte(archivo) {
   miPopup = window.open('about:blank','soporte','width=600,height=850,menubar=no') 
   //miPopup.location = $("#<?php echo $this->campoSeguro('rutasoporte')?>").val();
   miPopup.location = $("#"+archivo).val();
+  miPopup.focus();
 }
 
 function enlace(direccion) {
   var miVentana
   miVentana = window.open('about:blank','enlace','width=800,height=600,menubar=no,scrollbars=yes') 
   miVentana.location = $("#"+direccion).val();
+  miVentana.focus();
 }
 
 function marcar(obj) {

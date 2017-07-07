@@ -22,21 +22,16 @@ $atributos ["estilo"] = "";
 echo $this->miFormulario->division ( "inicio", $atributos );
 // unset ( $atributos );
 {
-	$atributos ["id"] = "tabPerfil";
+	$atributos ["id"] = "tabHoja";
 	$atributos ["estilo"] = "";
 	echo $this->miFormulario->division ( "inicio", $atributos );
             {
 	     include ($this->ruta . "formulario/tabs/perfil.php");
-            }
-	echo $this->miFormulario->division ( "fin" );
-	$atributos ["id"] = "tabbasicos";
-	$atributos ["estilo"] = "";
-	echo $this->miFormulario->division ( "inicio", $atributos );
-            {
-	     include ($this->ruta . "formulario/tabs/datosBasicos.php");
+             include ($this->ruta . "formulario/tabs/datosBasicos.php");
+             include ($this->ruta . "formulario/tabs/datosContacto.php");
+             include ($this->ruta . "formulario/tabs/datosFormacion.php");
             }
 	echo $this->miFormulario->division ( "fin" );	
-	
 	
 }
 

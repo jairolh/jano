@@ -9,24 +9,7 @@
       */  
     ?>    
         
-        $('#tablaProcesos').DataTable({
-	"language": {
-            "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
-            "zeroRecords": "No se encontraron registros coincidentes",
-            "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
-            "infoEmpty": "Ninguna hay datos registrados",
-            "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
-            "search": "Buscar:",
-            "paginate": {
-		        "first":      "Primera",
-		        "last":       "&Uacute;ltima",
-		        "next":       "Siguiente",
-		        "previous":   "Anterior"
-		    }
-        },
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
-        
-});
+        $('#tablaProcesos').DataTable({bFilter: false, bInfo: false}});
         
                       
                       

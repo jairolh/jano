@@ -1,5 +1,5 @@
 <?php
-use gestionConcursante\gestionHoja\funcion\redireccion;
+use gestionConcurso\gestionInscripcion\funcion\redireccion;
 
 if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");

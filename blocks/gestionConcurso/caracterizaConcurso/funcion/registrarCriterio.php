@@ -33,21 +33,34 @@ class RegistradorPerfil {
     function procesarFormulario() {
 
         $conexion="estructura";
-		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-        
-		$datos = array('nombre'=> $_REQUEST['nombreCriterio'],
-				'factor'=> $_REQUEST['seleccionFactor']
-		);
-		
-		$cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);
-		$resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroCriterio");
-		
-		if($resultadoCriterio){
-			redireccion::redireccionar('insertoCriterio',$datos);  exit();
-		}else {
-			redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
-		}
-  
+    		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+
+    		$datos = array('nombre'=> $_REQUEST['nombreCriterio'],
+    				'factor'=> $_REQUEST['seleccionFactor']
+    		);
+
+    		$cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);
+    		$resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroCriterio");
+
+        $datosJuradoCriterio = array(
+            'criterio'=> $resultadoCriterio,
+    				'rol'=> $_REQUEST['seleccionRol']
+    		);
+
+    		if($resultadoCriterio){
+          $cadena_sql = $this->miSql->getCadenaSql("registrarJuradoCriterio", $datosJuradoCriterio);
+      		$resultadoJuradoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datosJuradoCriterio, "registroJuradoCriterio");
+
+          if($resultadoJuradoCriterio){
+              redireccion::redireccionar('insertoCriterio',$datos);  exit();
+          }else {
+      			redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
+      		}
+
+    		}else {
+    			redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
+    		}
+
     }
 
     function resetForm() {

@@ -32,6 +32,19 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+					 case "buscarRolEvaluacion":
+							 $cadenaSql = "Select rol_id, rol_nombre, rol_alias, rol_descripcion, estado_registro_id, rol_fecha_registro";
+							 $cadenaSql .= " FROM jano_rol";
+							 $cadenaSql .= " WHERE rol_alias in ('Docencia', 'Jurado', 'ILUD')";
+							 break;
+
+					 case "consultaRolCriterio":
+							 $cadenaSql = "Select id, id_jurado_rol, id_criterio, estado, rol_id, rol_nombre";
+							 $cadenaSql .= " FROM concurso.jurado_criterio, jano_rol";
+							 $cadenaSql .= " WHERE id_criterio=".$variable;
+							 $cadenaSql .= " AND id_jurado_rol=rol_id";
+							 break;
+
 						case "consultaFactores":
                 $cadenaSql = "Select f.consecutivo_factor, f.nombre AS factor, f.estado AS estado_factor, c.consecutivo_criterio, c.nombre AS criterio, c.estado AS estado_criterio";
                 $cadenaSql .= " FROM concurso.factor_evaluacion f, concurso.criterio_evaluacion c";
@@ -80,6 +93,15 @@ class Sql extends \Sql {
          		$cadenaSql .= " ) ";
          		$cadenaSql .= " RETURNING consecutivo_criterio";
          		break;
+
+						case "registrarJuradoCriterio":
+	         		$cadenaSql = "INSERT INTO concurso.jurado_criterio(id_jurado_rol, id_criterio)";
+	         		$cadenaSql .= " VALUES ( ";
+	         		$cadenaSql .= " '".$variable['rol']."', ";
+	         		$cadenaSql .= " '".$variable['criterio']."' ";
+	         		$cadenaSql .= " ) ";
+	         		$cadenaSql .= " RETURNING id";
+	         		break;
 
         	case "registrarModalidad":
         		$cadenaSql = "INSERT INTO concurso.modalidad_concurso(codigo_nivel_concurso, nombre)";

@@ -17,7 +17,7 @@ require_once ("core/builder/controleshtml/TextArea.class.php");
 
 require_once ("core/builder/controleshtml/CrearTabla.class.php");
 class FormularioHtml extends Agregador{
-	
+
 	/*
 	 * Permite guardar los Id y el String de validación del atributo "validar"
 	 * de los componentes del formulario
@@ -26,7 +26,7 @@ class FormularioHtml extends Agregador{
     /*
      * Se codifican el Objeto que se le pase o el atributo $validadorCampos de manera
      * predeterminada. Esto permite que los objetos pasen de un formuario de origen a
-	 * un formulario destino por medio del $_REQUEST como un valor String.  
+	 * un formulario destino por medio del $_REQUEST como un valor String.
      */
     function codificarCampos($valor=''){
     	$valor=($valor=='')?$this->validadorCampos:'';
@@ -41,9 +41,9 @@ class FormularioHtml extends Agregador{
     function decodificarCampos($valor){
     	return unserialize(base64_decode($valor));
     }
-    
+
     function __construct(){
-    	       
+
         $this->aggregate('BotonHtml');
         $this->aggregate('CheckBoxHtml');
         $this->aggregate('Div');
@@ -58,10 +58,10 @@ class FormularioHtml extends Agregador{
         $this->aggregate('Select');
         $this->aggregate('TextArea');
         $this->aggregate('CrearTabla');
-        
+
     }
-    
-    
+
+
 
 }
 

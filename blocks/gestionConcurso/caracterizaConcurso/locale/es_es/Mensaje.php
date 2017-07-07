@@ -58,6 +58,8 @@ $this->idioma["botonAceptar"]="Guardar";
 
 $this->idioma["botonActualizar"]="Actualizar";
 $this->idioma["factor"]="Factor";
+$this->idioma["seleccionRol"]="Rol";
+
 
 $this->idioma["subsistemaTitulo"]="Seleccione el Subsistema ";
 

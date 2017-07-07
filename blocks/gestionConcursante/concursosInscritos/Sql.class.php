@@ -40,7 +40,7 @@ class Sql extends \Sql {
  			 		break;
 
 			case "consultaConcursosInscritos":
-           $cadenaSql = "Select c.nombre AS concurso, cp.nombre AS perfil, ci.estado AS estado ";
+           $cadenaSql = "Select c.consecutivo_concurso, c.nombre AS concurso, cp.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito, ci.estado AS estado ";
 					 $cadenaSql .= "from concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.concurso c ";
            $cadenaSql .= "WHERE ci.consecutivo_persona= ".$variable;
 					 $cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil ";

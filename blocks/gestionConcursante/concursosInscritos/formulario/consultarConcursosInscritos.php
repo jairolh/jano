@@ -11,6 +11,7 @@ class consultarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
+	var $miSesion;
 
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
@@ -22,6 +23,8 @@ class consultarForm {
 		$this->miFormulario = $formulario;
 
 		$this->miSql = $sql;
+
+		$this->miSesion = \Sesion::singleton();
 	}
 
 	function miForm() {
@@ -129,6 +132,18 @@ class consultarForm {
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
 
+
+															$variableVerHoja = "pagina=publicacion";
+															$variableVerHoja.= "&opcion=hojaVida";
+															$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+															$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+															$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+															$variableVerHoja.= "&tiempo=" . time ();
+															$variableVerHoja .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
+															$variableVerHoja .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
+															$variableVerHoja .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
+															$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
 															if($resultadoConcursosActivos[$key]['estado']=='A'){
 																$resultadoConcursosActivos[$key]['estado']="Activo";
 															}else{
@@ -141,20 +156,41 @@ class consultarForm {
                                         <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>
 																";
 
-
                                 $mostrarHtml .= "<td>";
-                                $esteCampo = "detalle";
-                                $atributos["id"]=$esteCampo;
-                                //$atributos['enlace']=$variableDetalle;
-                                $atributos['tabIndex']=$esteCampo;
-                                $atributos['redirLugar']=true;
-                                $atributos['estilo']='clasico';
-                                $atributos['enlaceTexto']='';
-                                $atributos['ancho']='25';
-                                $atributos['alto']='25';
-                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
 
-                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+
+
+																//-------------Enlace-----------------------
+																$esteCampo = "validar";
+																$esteCampo = 'enlace_hoja';
+																$atributos ['id'] = $esteCampo;
+																$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+																$atributos ['tabIndex'] = 0;
+																$atributos ['columnas'] = 1;
+																$atributos ['enlaceTexto'] = 'Ver Detalle';
+																$atributos ['estilo'] = 'clasico';
+																$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																$atributos ['posicionImagen'] ="atras";//"adelante";
+																$atributos ['ancho'] = '20px';
+																$atributos ['alto'] = '20px';
+																$atributos ['redirLugar'] = false;
+																$atributos ['valor'] = '';
+																$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+																unset ( $atributos );
+																 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+																$esteCampo = 'ruta_enlace_hoja';
+																$atributos ['id'] = $esteCampo;
+																$atributos ['nombre'] = $esteCampo;
+																$atributos ['tipo'] = 'hidden';
+																$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+																$atributos ['obligatorio'] = false;
+																$atributos ['valor'] = $variableVerHoja;
+																$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+																$atributos ['deshabilitado'] = FALSE;
+																$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+																// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+
+
                                 $mostrarHtml .= "</td>";
 
 

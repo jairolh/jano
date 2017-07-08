@@ -59,7 +59,7 @@ class consultarContacto{
                     if($datos)
                     {	$cajaNombre="width='15%'";
                         $cajaDato="width='35%'";
-                        $mostrarHtml= "<div style ='width: 95%; padding-left: 5%;' class='cell-border'>";
+                        $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
                         $mostrarHtml.= "<table id='tablaContacto' class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
                                 

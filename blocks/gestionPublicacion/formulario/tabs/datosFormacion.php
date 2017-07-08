@@ -14,15 +14,10 @@ class consultarFormacion {
         var $rutaSoporte;   
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-		
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-		
 		$this->lenguaje = $lenguaje;
-		
 		$this->miFormulario = $formulario;
-		
 		$this->miSql = $sql;
-                
                 $this->miSesion = \Sesion::singleton();
                 
 	}
@@ -30,14 +25,13 @@ class consultarFormacion {
 		
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-                
                 $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
                 $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
                 $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
                 $directorio = $this->miConfigurador->getVariableConfiguracion("host");
                 $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
                 $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";                
 		$atributosGlobales ['campoSeguro'] = 'true';
 		$_REQUEST ['tiempo'] = time ();
 		// -------------------------------------------------------------------------------------------------
@@ -79,7 +73,7 @@ class consultarFormacion {
                                             <th>Cursos aprobados</th>
                                             <th>Promedio</th>
                                             <th>Graduado</th>
-                                            <th>Fecha de grado</th>
+                                            <th>Fecha grado</th>
                                             <th>Diploma / Acta</th>
                                             <th>Tarjeta Profesional</th>
                                         </tr>
@@ -107,7 +101,7 @@ class consultarFormacion {
                                                 <td align='left'>".$datos->modalidad."</td>
                                                 <td align='left'>".$datos->cursos_aprobados."</td>
                                                 <td align='left'>".$datos->promedio."</td>
-                                                <td align='left'>".$datos->graduado."</td>
+                                                <td align='left'>".str_replace("S", "SI", str_replace("N", "NO", $datos->graduado))."</td>
                                                 <td align='left'>".$datos->fecha_grado."</td>";
                                         $mostrarHtml .= "<td> ";
                                                 if(isset($resultadoDip['alias']))

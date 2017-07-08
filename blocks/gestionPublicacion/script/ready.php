@@ -8,7 +8,7 @@
         });
       */  
     ?>    
-        
+        //sin cabecera ni pie
         $('#tablaProcesos').DataTable({bFilter: false, bInfo: false}});
         
                       

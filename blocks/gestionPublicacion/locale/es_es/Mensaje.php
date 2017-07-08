@@ -5,6 +5,8 @@ $this->idioma["marcoPerfil"]="Detalle Inscripción";
 $this->idioma["marcoBasicos"]="Datos Básicos";
 $this->idioma["marcoContacto"]="Datos de Contacto";
 $this->idioma["marcoFormacion"]="Formación Académica";
+$this->idioma["marcoProfesional"]="Experiencia Profesional";
+$this->idioma["marcoDocencia"]="Experiencia Docente Universitaria";
 
 $this->idioma["inscripcion"]="Número Inscripción:";
 $this->idioma["fecha_registro"]="Fecha Inscripción:";
@@ -42,7 +44,8 @@ $this->idioma ["noEncontroPerfil"] ="No existen datos Registrados de la inscripc
 $this->idioma ["noEncontroBasicos"] ="No existen datos básicos registrados. ";
 $this->idioma ["noEncontroContacto"] ="No existen datos de contacto registrados. ";
 $this->idioma ["noEncontroFormacion"] ="No existen datos de formación académica registrados. ";
-
+$this->idioma ["noEncontroProfesional"] ="No existen datos de experiencia profesional registrados. ";
+$this->idioma ["noEncontroDocencia"] ="No existen datos de experiencia docente universitaria registrados. ";
 
 //------------------Mensajes -----------------------------------
 

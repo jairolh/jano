@@ -32,6 +32,8 @@ echo $this->miFormulario->division ( "inicio", $atributos );
              include ($this->ruta . "formulario/tabs/datosFormacion.php");
              include ($this->ruta . "formulario/tabs/datosProfesional.php");
              include ($this->ruta . "formulario/tabs/datosDocencia.php");
+             include ($this->ruta . "formulario/tabs/datosActividad.php");
+             include ($this->ruta . "formulario/tabs/datosInvestigacion.php");
             }
 	echo $this->miFormulario->division ( "fin" );	
 	

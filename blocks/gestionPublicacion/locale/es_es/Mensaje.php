@@ -9,6 +9,8 @@ $this->idioma["marcoProfesional"]="Experiencia Profesional";
 $this->idioma["marcoDocencia"]="Experiencia Docente Universitaria";
 $this->idioma["marcoActividad"]="Actividades Académicas";
 $this->idioma["marcoInvestigacion"]="Experiencia en Investigación";
+$this->idioma["marcoProduccion"]="Producción Académica";
+$this->idioma["marcoIdioma"]="Lengua Extranjera a Concursar";
 
 $this->idioma["inscripcion"]="Número Inscripción:";
 $this->idioma["fecha_registro"]="Fecha Inscripción:";
@@ -50,6 +52,10 @@ $this->idioma ["noEncontroProfesional"] ="No existen datos de experiencia profes
 $this->idioma ["noEncontroDocencia"] ="No existen datos de experiencia docente universitaria registrados. ";
 $this->idioma ["noEncontroActividad"] ="No existen datos de Actividades Académicas registrados. ";
 $this->idioma ["noEncontroInvestigacion"] ="No existen datos de experiencia en investigación registrados. ";
+$this->idioma ["noEncontroProduccion"] ="No existen datos de producción académica registrados. ";
+$this->idioma ["noEncontroIdioma"] ="No existen datos de Lengua Extranjera registrados. ";
+
+
 
 //------------------Mensajes -----------------------------------
 

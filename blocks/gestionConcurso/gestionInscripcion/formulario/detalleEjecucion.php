@@ -71,7 +71,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
     echo $this->miFormulario->enlace ( $atributos );
     echo "<br><br>";
     unset ( $atributos );
-    
+
         $esteCampo = "marcoDetalleConcurso";
         $atributos ['id'] = $esteCampo;
         $atributos ["estilo"] = "jqueryui";
@@ -81,7 +81,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
         unset ( $atributos );
         {
                 if($resultadoConcurso)
-                    {       
+                    {
                     $_REQUEST['inicio_concurso']=$resultadoConcurso[0]['fecha_inicio'];
                     $_REQUEST['cierre_concurso']=$resultadoConcurso[0]['fecha_fin'];
                     $_REQUEST['nombre_concurso']=$resultadoConcurso[0]['nombre'];
@@ -108,10 +108,10 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                             $atributos = array_merge ( $atributos );
                                             echo $this->miFormulario->division ( "inicio", $atributos );
                                             unset ( $atributos );
-                                                    {// --------------- CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                       // --------------- CONTROL : Tabla --------------------------------------------------  
-                                                       echo $this->miFormulario->tablaReporte ($datosConcurso); 
-                                                       // --------------- Fin CONTROL : Tabla --------------------------------------------------  
+                                                    {// --------------- CONTROL : Cuadro de Texto --------------------------------------------------
+                                                       // --------------- CONTROL : Tabla --------------------------------------------------
+                                                       echo $this->miFormulario->tablaReporte ($datosConcurso);
+                                                       // --------------- Fin CONTROL : Tabla --------------------------------------------------
                                                   }
                                             echo $this->miFormulario->division( 'fin' );
                                             unset ( $atributos );
@@ -119,7 +119,8 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         // -------------------- Listado de Pestañas (Como lista No Ordenada) -------------------------------
                        $items = array ( "tabCalendario" => $this->lenguaje->getCadena ( "tabCalendario" ),
                                         "tabInscritos" => $this->lenguaje->getCadena ( "tabInscritos" ),
-                                        //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
+																				"tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
+                                        //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" )
                         );
                         $atributos ["items"] = $items;
                         $atributos ["estilo"] = "jqueryui";
@@ -130,7 +131,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabCalendario";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
-                        include_once ($this->ruta . "formulario/tabs/consultarCalendarioEjecuta.php"); 
+                        include_once ($this->ruta . "formulario/tabs/consultarCalendarioEjecuta.php");
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 1-------------------------
@@ -138,16 +139,24 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabInscritos";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
-                        include_once ($this->ruta . "formulario/tabs/consultarInscritos.php");  
+                        include_once ($this->ruta . "formulario/tabs/consultarInscritos.php");
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 2-------------------------                        
+                        // -----------------Fin Division para la pestaña 2-------------------------
+												// ------------------Division para la pestaña 3-------------------------
+                        $atributos ["id"] = "tabJurados";
+                        $atributos ["estilo"] = "";
+                        echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
+                        echo $this->miFormulario->division ( "fin" );
+                        unset ( $atributos );
+                        // -----------------Fin Division para la pestaña 3-------------------------
             }else
                     {   $tab=1;
                         //---------------Inicio Formulario (<form>)--------------------------------
                         $atributos["id"]="divNoEncontroConcurso";
                         $atributos["estilo"]="marcoBotones";
-                        //$atributos["estiloEnLinea"]="display:none"; 
+                        //$atributos["estiloEnLinea"]="display:none";
                             echo $this->miFormulario->division("inicio",$atributos);
 
                             //-------------Control Boton-----------------------
@@ -158,17 +167,17 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                             $atributos["tipo"] = 'error';
                             $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
                             echo $this->miFormulario->cuadroMensaje($atributos);
-                            unset($atributos); 
+                            unset($atributos);
                             //------------------Fin Division para los botones-------------------------
                             echo $this->miFormulario->division("fin");
                             //-------------Control cuadroTexto con campos ocultos-----------------------
-                    }            
-        }            
-         echo $this->miFormulario->marcoAgrupacion ( 'fin' );   
+                    }
+        }
+         echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
-	
+
 	// ------------------Division para la pestaña 2-------------------------
-	
+
         /*
         $atributos ["id"] = "tabRegistrarMasivo";
 	$atributos ["estilo"] = "";
@@ -176,10 +185,10 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 	{
 		include ($this->ruta . "formulario/tabs/registro_masivo.php");
 	}*/
-	
+
 	// -----------------Fin Division para la pestaña 2-------------------------
 	echo $this->miFormulario->division ( "fin" );
-	
+
 }
 
 echo $this->miFormulario->division ( "fin" );

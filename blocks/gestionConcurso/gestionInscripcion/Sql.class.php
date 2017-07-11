@@ -53,15 +53,15 @@ class Sql extends \Sql {
 
 				case 'consultarAspirantesValidados' :
 					$cadenaSql=" SELECT ";
-					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre ";
-					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p";
+					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
 					$cadenaSql.=" WHERE ";
-					$cadenaSql.=" p.consecutivo=vr.consecutivo_inscrito AND ";
+					$cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
 					$cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
-					$cadenaSql.=" cumple_requisito='SI' ";
-
+					$cadenaSql.=" cumple_requisito='SI' AND";
+					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
+					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
 					break;
-
 
 
                         case 'buscarSoporte' :
@@ -636,6 +636,23 @@ class Sql extends \Sql {
                             break;
 
 
+
+case "registroAspirantesJurado":
+				$cadenaSql=" INSERT INTO concurso.jurado_inscrito(";
+				$cadenaSql.=" id_usuario,";
+				$cadenaSql.=" id_inscrito, ";
+				$cadenaSql.=" id_jurado_tipo,";
+				$cadenaSql.=" fecha_registro ";
+				$cadenaSql.=" )";
+				$cadenaSql .= " VALUES ( ";
+				$cadenaSql .= " '".$variable['usuario']."', ";
+				$cadenaSql .= " '".$variable['inscrito']."', ";
+				$cadenaSql .= " '".$variable['jurado_tipo']."', ";
+				$cadenaSql .= " '".$variable['fecha']."' ";
+				$cadenaSql .= " )";
+				$cadenaSql.=" RETURNING id";
+				var_dump($cadenaSql);
+break;
 
                         case "registroConcurso":
                                 $cadenaSql=" INSERT INTO concurso.concurso(";

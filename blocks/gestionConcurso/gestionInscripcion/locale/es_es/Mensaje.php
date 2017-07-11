@@ -82,6 +82,7 @@ $this->idioma ["botonGuardar"] ="Guardar";
 $this->idioma ["botonCancelar"] ="Cancelar";
 $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
+$this->idioma ["botonAsignar"] ="Guardar jurado";
 
 $this->idioma ["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 $this->idioma ["botonCalendario"]="Guardar Datos de Calendario";

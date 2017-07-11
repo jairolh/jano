@@ -651,7 +651,6 @@ case "registroAspirantesJurado":
 				$cadenaSql .= " '".$variable['fecha']."' ";
 				$cadenaSql .= " )";
 				$cadenaSql.=" RETURNING id";
-				var_dump($cadenaSql);
 break;
 
                         case "registroConcurso":

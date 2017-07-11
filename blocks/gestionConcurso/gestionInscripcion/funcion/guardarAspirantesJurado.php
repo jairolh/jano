@@ -41,20 +41,17 @@ class AsignarAspirantes {
 
         $fecha = date("Y-m-d H:i:s");
 
-
         foreach ( $items as $key => $values ) {
           $arregloDatos = array('usuario'=>$_REQUEST['seleccionJurado'],
                             'inscrito'=>$items [$key],
                             'jurado_tipo'=>$_REQUEST['tipoJurado'],
-                            'fecha'=>$fecha
+                            'fecha'=>$fecha,
+                            'nombre_concurso'=>$_REQUEST['nombre_concurso']
           );
 
           $cadenaSql = $this->miSql->getCadenaSql ('registroAspirantesJurado',$arregloDatos);
           $resultadoAsignacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroAspirantesJurado" );
         };
-
-        var_dump($resultadoAsignacion);
-        exit;
 
             if($resultadoAsignacion){
                 redireccion::redireccionar('juradoAsignado',$arregloDatos);  exit();

@@ -331,8 +331,7 @@ class consultarJurado {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarAspirantesJurado";
-                      //  $valorCodificado .= "&id_usuario=".$usuario;
-                      //  $valorCodificado .= "&consecutivo_concurso=".$concurso;
+			$valorCodificado .= "&nombre_concurso=".$_REQUEST['nombre_concurso'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

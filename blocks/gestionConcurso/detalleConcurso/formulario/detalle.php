@@ -164,8 +164,8 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         // -------------------- Listado de Pestañas (Como lista No Ordenada) -------------------------------
 
                         $items = array (
-                                        "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
                                         "tabCalendario" => $this->lenguaje->getCadena ( "tabCalendario" ),
+                                        "tabCriterio" => $this->lenguaje->getCadena ( "tabCriterio" ),
                                         "tabPerfil" => $this->lenguaje->getCadena ( "tabPerfil" ),
                                         //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" ) 
                         );
@@ -174,17 +174,8 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["pestañas"] = "true";
                         echo $this->miFormulario->listaNoOrdenada ( $atributos );
                         // unset ( $atributos );
+                       
                         // ------------------Division para la pestaña 1-------------------------
-                        $atributos ["id"] = "tabCriterio";
-                        $atributos ["estilo"] = "";
-                        echo $this->miFormulario->division ( "inicio", $atributos );
-                        include_once ($this->ruta . "formulario/tabs/datosCriterio.php"); 
-                        if(!isset($_REQUEST['consecutivo_evaluar']))
-                               {include_once ($this->ruta . "formulario/tabs/consultarCriterio.php"); }
-                        echo $this->miFormulario->division ( "fin" );
-                        unset ( $atributos );
-                        // -----------------Fin Division para la pestaña 1-------------------------
-                        // ------------------Division para la pestaña 2-------------------------
                         $atributos ["id"] = "tabCalendario";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
@@ -192,6 +183,16 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         if(!isset($_REQUEST['consecutivo_calendario']))
                                {include_once ($this->ruta . "formulario/tabs/consultarCalendario.php"); }
                                
+                        echo $this->miFormulario->division ( "fin" );
+                        unset ( $atributos );
+                        // -----------------Fin Division para la pestaña 1-------------------------
+                        // ------------------Division para la pestaña 2-------------------------
+                        $atributos ["id"] = "tabCriterio";
+                        $atributos ["estilo"] = "";
+                        echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/datosCriterio.php"); 
+                        if(!isset($_REQUEST['consecutivo_evaluar']))
+                               {include_once ($this->ruta . "formulario/tabs/consultarCriterio.php"); }
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 2-------------------------

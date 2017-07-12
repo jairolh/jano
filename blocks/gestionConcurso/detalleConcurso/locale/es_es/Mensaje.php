@@ -14,8 +14,8 @@ $this->idioma["marcoListaConcurso"]="Concursos Registrados";
 $this->idioma["marcoDetalleConcurso"]="Detalle Concurso";
 $this->idioma["marcoCriterio"]="Registro Criterios de Evaluación";
 $this->idioma["marcoListaCriterio"]="Criterios de Evaluación para el Concurso";
-$this->idioma["marcoCalendario"]="Registro Calendario";
-$this->idioma["marcoListaCalendario"]="Calendario de actividades para el Concurso";
+$this->idioma["marcoCalendario"]="Registro Fase Calendario";
+$this->idioma["marcoListaCalendario"]="Calendario ejecución del Concurso";
 $this->idioma["marcoPerfil"]="Registro Perfil";
 $this->idioma["marcoListaPerfil"]="Perfiles del Concurso";
 
@@ -47,7 +47,7 @@ $this->idioma["consecutivo_criterio"]="Criterio: ";
 $this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
 $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
 
-$this->idioma["nuevoCalendario"]="Registrar nueva actividad al Calendario ";
+$this->idioma["nuevoCalendario"]="Registrar nueva fase al Calendario ";
 $this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";
 $this->idioma["consecutivo_actividad"]="Actividad: ";
 $this->idioma["descripcion"]="Descripción: "; 

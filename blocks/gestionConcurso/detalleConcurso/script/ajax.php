@@ -103,6 +103,23 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
                     }
           });
+
+    $("#<?php echo $this->campoSeguro('maximo_puntos')?>").change(function(){
+             $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('');
+          });              
+
+    $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").change(function(){
+        
+            var maximo = parseFloat($("#<?php echo $this->campoSeguro('maximo_puntos')?>").val());
+            var aprueba = parseFloat($("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val());
+            if(maximo<aprueba)
+                {alert('El puntaje de aprobación no puede ser mayor al puntaje máximo!' );
+                 $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('');
+                }
+            
+          });              
+
+             
           
           
 });

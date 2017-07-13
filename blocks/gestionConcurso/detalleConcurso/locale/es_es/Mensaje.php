@@ -46,6 +46,10 @@ $this->idioma["consecutivo_criterioTitulo"]="Seleccione el criterio de evaluaci�
 $this->idioma["consecutivo_criterio"]="Criterio: ";
 $this->idioma["maximo_puntosTitulo"]="Ingrese el Puntaje Máximo para el criterio";
 $this->idioma["maximo_puntos"]="Puntaje Máximo: ";
+$this->idioma["puntos_apruebaTitulo"]="Ingrese el Puntaje Minimo para aprobación para el criterio";
+$this->idioma["puntos_aprueba"]="Puntaje Aprueba: ";
+$this->idioma["consecutivo_calendarioTitulo"]="Seleccione la fase del concurso en que se evalua el criterio.";
+$this->idioma["consecutivo_calendario"]="Fase: ";
 
 $this->idioma["nuevoCalendario"]="Registrar nueva fase al Calendario ";
 $this->idioma["consecutivo_actividadTitulo"]="Seleccione la actividad para el calendario";

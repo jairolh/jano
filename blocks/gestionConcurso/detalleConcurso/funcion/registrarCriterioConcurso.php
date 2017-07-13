@@ -37,7 +37,9 @@ class RegistradorCriterioConcurso {
                               'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                               'consecutivo_criterio'=>$_REQUEST['consecutivo_criterio'],
                               'maximo_puntos'=>$_REQUEST['maximo_puntos'],
-                              'estado'=>$_REQUEST['estado']
+                              'puntos_aprueba'=>$_REQUEST['puntos_aprueba'],
+                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
+                              'estado'=>isset($_REQUEST['estado'])?$_REQUEST['estado']:''
             );
         
         if($arregloDatos['consecutivo_evaluar']==0)

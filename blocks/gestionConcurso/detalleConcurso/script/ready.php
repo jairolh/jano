@@ -36,7 +36,7 @@ $('#tablaConsultaCriterio').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });       
 
 $('#tablaConsultaCalendario').DataTable({
@@ -54,7 +54,7 @@ $('#tablaConsultaCalendario').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 }); 
 
 $('#tablaConsultaPerfil').DataTable({
@@ -72,7 +72,7 @@ $('#tablaConsultaPerfil').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 }); 
 
 // Asociar el widget de validación al formulario detalleConcurso
@@ -262,6 +262,8 @@ $('#<?php echo $this->campoSeguro('consecutivo_actividad')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_actividad')?>").select2(); 
 $('#<?php echo $this->campoSeguro('consecutivo_evaluar')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_evaluar')?>").select2(); 
+$('#<?php echo $this->campoSeguro('consecutivo_calendario')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_calendario')?>").select2(); 
     
     <?php 
 //}

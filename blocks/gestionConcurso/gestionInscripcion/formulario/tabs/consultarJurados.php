@@ -149,7 +149,7 @@ class consultarJurado {
 										 $atributos ['nombre'] = $esteCampo;
 										 $atributos ['id'] = $esteCampo;
 										 $atributos ['evento'] = '';
-										 $atributos ['deshabilitado'] = false;
+										 $atributos ['deshabilitado'] = true;
 										 $atributos ["etiquetaObligatorio"] = true;
 										 $atributos ['tab'] = $tab;
 										 $atributos ['tamanno'] = 1;
@@ -206,7 +206,7 @@ class consultarJurado {
 															 <td align='left'>";
 
 															 // ---------------- CONTROL: Checkbox -----------
-															 $esteCampo = 'seleccion'.$key;
+															 $esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
 															 $atributos ['id'] = $esteCampo;
 															 $atributos ['nombre'] = $esteCampo;
 															 $atributos ['marco'] = true;

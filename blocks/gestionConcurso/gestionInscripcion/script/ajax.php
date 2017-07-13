@@ -101,7 +101,7 @@ $(function () {
 
 $(function () {
       $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
-        
+
           if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
             consultarTipoJurado();
           }

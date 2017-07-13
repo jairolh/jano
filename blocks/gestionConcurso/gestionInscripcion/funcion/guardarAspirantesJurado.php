@@ -30,26 +30,29 @@ class AsignarAspirantes {
     }
 
     function procesarFormulario() {
+
         $conexion="estructura";
 	      $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
-        for($i=0; $i <= 100; $i ++) {
-    			if (isset ( $_REQUEST ['seleccion' . $i] )) {
-    				$items [] = $_REQUEST ['seleccion' . $i];
-    			}
-    		}
+        //arreglo de js
+        $items=$_REQUEST['aspirantes'];
+        //var_dump($items);
+
+        //obtener arreglo dividiendo por comas
+        $porciones = explode(",", $items);
 
         $fecha = date("Y-m-d H:i:s");
 
-        foreach ( $items as $key => $values ) {
+        foreach ( $porciones as $key => $values ) {
           $arregloDatos = array('usuario'=>$_REQUEST['seleccionJurado'],
-                            'inscrito'=>$items [$key],
+                            'inscrito'=>$values,
                             'jurado_tipo'=>$_REQUEST['tipoJurado'],
                             'fecha'=>$fecha,
                             'nombre_concurso'=>$_REQUEST['nombre_concurso']
           );
 
           $cadenaSql = $this->miSql->getCadenaSql ('registroAspirantesJurado',$arregloDatos);
+
           $resultadoAsignacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroAspirantesJurado" );
         };
 

@@ -3,13 +3,22 @@
 //if(!isset($_REQUEST["opcion"])||(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]!="confirmar")){
 
 ?>
+items=[];
+
+for(i=0; i <= 100; i ++) {
+  if ( $("#seleccion"+i).val() ) {
+    items.push($("#seleccion"+i).val());
+  }
+}
+
+$('#<?php echo $this->campoSeguro("aspirantes")?>').val(items);
 
 $('#tablaConsultaAspirante').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
     "zeroRecords": "No se encontraron registros coincidentes",
     "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
-    "infoEmpty": "Ninguna hay datos registrados",
+    "infoEmpty": "No hay datos registrados",
     "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
     "search": "Buscar:",
     "paginate": {

@@ -218,14 +218,13 @@ class consultarJurado {
 															 $atributos ['etiqueta'] = "";
 															 $atributos ['seleccionado'] = false;
 															 $atributos ['valor'] = $aspirantes[$key]['consecutivo_inscrito'];
+
 															 $atributos ['estilo'] = 'justificado';
 															 $atributos ['eventoFuncion'] = ' ';
 															 $atributos ['validar'] = 'required';
 															 $atributos ['deshabilitado'] = false;
 															 $tab ++;
-
-															 //$atributos ['valor'] = '';
-															 $atributos = array_merge ( $atributos, $atributosGlobales );
+															 //$atributos = array_merge ( $atributos, $atributosGlobales );
 															 $mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
 
 
@@ -244,6 +243,21 @@ class consultarJurado {
 										 }
 										 echo "</tbody>";
 										 echo "</table></div>";
+
+										 // ////////////////Hidden////////////
+										$esteCampo = 'aspirantes';
+										$atributos ["id"] = $esteCampo;
+										$atributos ["tipo"] = "hidden";
+										$atributos ['estilo'] = '';
+										$atributos ['validar'] = '';
+										$atributos ["obligatorio"] = true;
+										$atributos ['marco'] = true;
+										$atributos ["etiqueta"] = "";
+
+
+										$atributos = array_merge ( $atributos, $atributosGlobales );
+										echo $this->miFormulario->campoCuadroTexto ( $atributos );
+										unset ( $atributos );
 
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 										 unset ( $atributos );

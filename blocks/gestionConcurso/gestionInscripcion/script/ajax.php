@@ -101,6 +101,7 @@ $(function () {
 
 $(function () {
       $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
+        
           if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
             consultarTipoJurado();
           }
@@ -190,22 +191,20 @@ function consultarCriterio(elem, request, response){
   	            $.each(data , function(indice,valor){
   	            	$("<option value='"+data[ indice ].id_inscrito+"'>"+data[ indice ].id_inscrito+"</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
   	            });*/
-  	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
-  	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
 
-                //actualizar check aspirantes
-              //  $("#<?php echo $this->campoSeguro('seleccion0')?>").attr('checked','checked');
+
+                $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
+                $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
+
+                $('#<?php echo $this->campoSeguro("aspirantes")?>').val(data[0]);
+
                 $.each(data , function(indice,valor){
 
-                  console.log(valor.id_inscrito);
-                  var datos="seleccion"+valor.id_inscrito;
-                  alert(datos);
+                  $('#seleccion'+valor.id_inscrito).attr('checked','checked');
 
-  	            	$("#<?php echo $this->campoSeguro('.datos.')?>").attr('checked','checked');
+                });
 
 
-                  //$("#<?php //echo $this->campoSeguro('seleccion') . $variablephp?>").attr('checked','checked');
-  	            });
   		        }
             }else{
               $("#<?php echo $this->campoSeguro('tipoJurado')?>").removeAttr('disabled');

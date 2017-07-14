@@ -188,9 +188,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
                                 $cadenaSql.=" INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad";
                                 $cadenaSql.=" INNER JOIN general.estado est ON est.tipo=cal.estado ";
-
-                                $cadenaSql.=" LEFT OUTER JOIN concurso.concurso_evaluar eval ON eval.consecutivo_evaluar=cal.consecutivo_evaluar";
-                                $cadenaSql.=" LEFT OUTER JOIN concurso.criterio_evaluacion crt ON crt.consecutivo_criterio=eval.consecutivo_criterio";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql .= " cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
 

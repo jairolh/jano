@@ -7,6 +7,7 @@ items=[];
 
 for(i=0; i <= 100; i ++) {
   if ( $("#seleccion"+i).val() ) {
+    //document.getElementById("seleccion"+i).checked 
     items.push($("#seleccion"+i).val());
   }
 }

@@ -37,10 +37,14 @@ class Sql extends \Sql {
 
 			case 'consultaJurado' :
 				$cadenaSql=" SELECT ";
-				$cadenaSql.=" ji.id, ji.id_usuario, ji.id_inscrito, ji.id_jurado_tipo, ji.fecha_registro, ji.estado, jt.nombre AS tipo_jurado";
-				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt";
+				$cadenaSql.=" ji.id, ji.id_usuario, ji.id_inscrito, ji.id_jurado_tipo, ji.fecha_registro, ji.estado, jt.nombre AS tipo_jurado, ci.consecutivo_perfil, cp.consecutivo_concurso";
+				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt, concurso.concurso_inscrito ci, concurso.concurso_perfil cp";
 				$cadenaSql.=" WHERE ";
-				$cadenaSql.=" id_usuario='".$variable['usuario']."' ";
+				$cadenaSql.=" id_usuario='".$variable['usuario']."'";
+				$cadenaSql.=" AND ci.consecutivo_inscrito=ji.id_inscrito";
+				$cadenaSql.=" AND cp.consecutivo_perfil= ci.consecutivo_perfil";
+				//concurso
+				$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['concurso'];
 				$cadenaSql.=" AND jt.id=ji.id_jurado_tipo";
 
 				break;
@@ -52,7 +56,7 @@ class Sql extends \Sql {
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
-				$cadenaSql.=" r.rol_id=6";
+				$cadenaSql.=" r.rol_id=6";//rol:jurado
 				break;
 
 			case 'consultarTiposJurado' :

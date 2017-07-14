@@ -100,22 +100,6 @@ $(function () {
 });
 
 $(function () {
-
-      $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
-
-          if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
-            consultarTipoJurado();
-          }
-          else{
-            $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
-            $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
-          }
-
-    });
-});
-
-
-$(function () {
     $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
             consultarModalidad();
@@ -125,10 +109,10 @@ $(function () {
           });
     $("#<?php echo $this->campoSeguro('consecutivo_factor')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()!=''){
-            consultarCriterio();
+              consultarCriterio();
             }else{
-                    $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
-                    }
+              $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
+            }
           });
 });
 
@@ -175,19 +159,34 @@ function consultarCriterio(elem, request, response){
 	};
 
 
+  ///////////////////////////////////////////////////////
+
+  $(function () {
+
+        $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
+
+            if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
+              consultarTipoJurado();
+            }
+
+      });
+  });
+
   function consultarTipoJurado(elem, request, response){
 
   	  $.ajax({
   	    url: "<?php echo $urlFinalJurado?>",
   	    dataType: "json",
-  	    data: { valor:$("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()},
+  	    data: {
+          valor:$("#<?php echo $this->campoSeguro('seleccionJurado')?>").val(),
+          valor2:<?php echo $_REQUEST['consecutivo_concurso']?>
+      },
   	    success: function(data){
-
           if(data){
   	        if(data[0]!=""){
   	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
                 $("<option value='"+data[ 0 ].id_jurado_tipo+"'>"+data[ 0 ].tipo_jurado+"</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
-
+                $("#<?php echo $this->campoSeguro('tipoJurado')?>").attr('disabled','');
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
                 $('#<?php echo $this->campoSeguro("aspirantes")?>').val(data[0]);
@@ -208,34 +207,36 @@ function consultarCriterio(elem, request, response){
                 $("#seleccion"+i).removeAttr('checked');
               }
 
-              $("#<?php echo $this->campoSeguro('tipoJurado')?>").removeAttr('disabled');
-              $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
-              $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
+              consultarTodosTipoJurado();
             }
   	    }
 
   	   });
   	};
 
-/*
+
     function consultarTodosTipoJurado(elem, request, response){
 
     	  $.ajax({
-    	    url: "<?php //echo $urlFinalJurado2?>",
+    	    url: "<?php echo $urlFinalJurado2?>",
     	    dataType: "json",
     	    data: { },
     	    success: function(data){
+            console.log(data);
             if(data){
+              $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
+              $("#<?php echo $this->campoSeguro('tipoJurado')?>").val('');
+              $("<option value='' selected >Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
               $.each(data , function(indice,valor){
-	            	$("<option value='"+data[ indice ].id+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php //echo $this->campoSeguro('tipoJurado')?>");
+	            	$("<option value='"+data[ indice ].id+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
 	            });
-                $("#<?php //echo $this->campoSeguro('tipoJurado')?>").removeAttr('disabled');
-                $("#<?php //echo $this->campoSeguro('tipoJurado')?>").width(400);
-                $("#<?php //echo $this->campoSeguro('tipoJurado')?>").select2();
-              }
+              $("#<?php echo $this->campoSeguro('tipoJurado')?>").removeAttr('disabled');
+              $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
+              $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
+            }
     	    }
 
     	   });
     	};
-*/
+
 </script>

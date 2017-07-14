@@ -25,6 +25,7 @@ if ($_REQUEST ['funcion'] == 'consultarCriterio') {
 if ($_REQUEST ['funcion'] == 'consultarJurado') {
 
   $parametro['usuario']=$_REQUEST ['valor'];
+  $parametro['concurso']=$_REQUEST ['valor2'];
 	$cadenaSql = $this->sql->getCadenaSql ( 'consultaJurado', $parametro );
 	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
 	$resultado = json_encode ( $resultado );

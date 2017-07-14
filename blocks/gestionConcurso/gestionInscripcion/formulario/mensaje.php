@@ -109,13 +109,13 @@ class registrarForm {
                                 {
 																		case "juradoAsignado":
 																				$tipo = 'success';
-																				$mensaje = "Jurado asignado al concurso ".$_REQUEST['nombre_concurso'];
+																				$mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
 																				$boton = "continuar";
 																				break;
 
 																		case "noAsignoJurado":
 																				$tipo = 'error';
-																				$mensaje = "No se pudo asignar el Jurado al concurso ' ".$_REQUEST['nombre_concurso']." '. Por favor verifique los datos e intente mas tarde.";
+																				$mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
 																				$boton = "regresar";
 																				break;
 

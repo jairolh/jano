@@ -191,13 +191,6 @@ class registrarForm {
 					 $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoValidacion);
 
-					 if($resultadoValidacion[0]['cumple_requisito']=='S'){
-						 $resultadoValidacion[0]['cumple_requisito']="SI";
-					 }else{
-						 $resultadoValidacion[0]['cumple_requisito']="NO";
-					 }
-
-
 					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
 					echo "

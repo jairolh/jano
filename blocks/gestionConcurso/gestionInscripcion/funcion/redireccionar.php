@@ -11,8 +11,22 @@ class redireccion {
 		$miConfigurador = \Configurador::singleton ();
 		$miPaginaActual = $miConfigurador->getVariableConfiguracion ( "pagina" );
                 //$miPaginaActual="detalleConcurso";
-		
+
 		switch ($opcion) {
+
+								case "juradoAsignado":
+										$variable="pagina=".$miPaginaActual;
+										$variable.="&opcion=mensaje";
+										$variable.="&mensaje=juradoAsignado";
+										$variable.="&nombre_concurso=".$valor['nombre_concurso'];
+										break;
+
+										case "noAsignoJurado":
+												$variable="pagina=".$miPaginaActual;
+												$variable.="&opcion=mensaje";
+												$variable.="&mensaje=noAsignoJurado";
+												$variable.="&nombre_concurso=".$valor['nombre_concurso'];
+												break;
 
                         case "Cerro":
                                 $variable="pagina=".$miPaginaActual;
@@ -20,7 +34,7 @@ class redireccion {
                                 $variable.="&mensaje=Cerro";
                                 $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                 $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
-                                break;                                 
+                                break;
 
                         case "noCerro":
                                 $variable="pagina=".$miPaginaActual;
@@ -28,9 +42,9 @@ class redireccion {
                                 $variable.="&mensaje=noCerro";
                                 $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                 $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
-                                break;   
+                                break;
                             /*******/
-                    
+
                         case "existe":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -38,7 +52,7 @@ class redireccion {
                                 $variable.="&rol_alias=".$valor['rol_alias'];
                                 $variable.="&subsistema=".$valor['subsistema'];
                                 $variable.="&nroUser=".$valor['nroUser'];
-                                break;  
+                                break;
 
                         case "borrar":
                                 $variable="pagina=".$miPaginaActual;
@@ -46,7 +60,7 @@ class redireccion {
                                 $variable.="&mensaje=borro";
                                 $variable.="&rol_alias=".$valor['rol_alias'];
                                 $variable.="&subsistema=".$valor['subsistema'];
-                                break;                                 
+                                break;
 
                         case "noborrar":
                                 $variable="pagina=".$miPaginaActual;
@@ -54,17 +68,17 @@ class redireccion {
                                 $variable.="&mensaje=noborro";
                                 $variable.="&rol_alias=".$valor['rol_alias'];
                                 $variable.="&subsistema=".$valor['subsistema'];
-                                break;                                  
-                        
+                                break;
+
                         case "actualizoConcurso":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
                                 $variable.="&mensaje=actualizoConcurso";
                                 $variable.="&id_usuario=".$valor['id_usuario'];
                                 $variable.="&nombre=".$valor['nombre'];
-                                break;     
-                     
-                                                        
+                                break;
+
+
                         case "noActualizo":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -73,7 +87,7 @@ class redireccion {
                                     $variable.="&id_usuario=".$valor['id_usuario'];
                                     $variable.="&nombre=".$valor['nombre'];
                                     }
-                                break;       
+                                break;
                         case "noActualizoDetalle":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -83,7 +97,7 @@ class redireccion {
                                     $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
                                     }
                                 break;
-                                
+
                         case "inhabilitarConcurso":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
@@ -99,25 +113,25 @@ class redireccion {
                                 if($valor!=""){
                                         $variable.="&nombre=".$valor;
                                 }
-                                break;        
-                        
+                                break;
+
         		case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;
 				break;
 		}
-		
+
 		foreach ( $_REQUEST as $clave => $valor ) {
 			unset ( $_REQUEST [$clave] );
 		}
-		
+
 		$url = $miConfigurador->configuracion ["host"] . $miConfigurador->configuracion ["site"] . "/index.php?";
 		$enlace = $miConfigurador->configuracion ['enlace'];
 		$variable = $miConfigurador->fabricaConexiones->crypto->codificar ( $variable );
 		$_REQUEST [$enlace] = $enlace . '=' . $variable;
 		$redireccion = $url . $_REQUEST [$enlace];
-		
+
 		echo "<script>location.replace('" . $redireccion . "')</script>";
-		
+
 		// $enlace =$miConfigurador->getVariableConfiguracion("enlace");
 		// $variable = $miConfigurador->fabricaConexiones->crypto->codificar($variable);
 		// // echo $enlace;

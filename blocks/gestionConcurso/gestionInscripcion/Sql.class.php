@@ -176,8 +176,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.fecha_fin, ";
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
-                                $cadenaSql.=" cal.consecutivo_evaluar,";
-                                $cadenaSql.=" crt.nombre criterio,";
                                 $cadenaSql.=" (CASE WHEN act.nombre='Registro Soportes'  ";
                                 $cadenaSql.=" THEN 'S' ";
                                 $cadenaSql.=" ELSE 'N' END ) soporte,  ";
@@ -190,10 +188,12 @@ class Sql extends \Sql {
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
                                 $cadenaSql.=" INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad";
                                 $cadenaSql.=" INNER JOIN general.estado est ON est.tipo=cal.estado ";
+
                                 $cadenaSql.=" LEFT OUTER JOIN concurso.concurso_evaluar eval ON eval.consecutivo_evaluar=cal.consecutivo_evaluar";
                                 $cadenaSql.=" LEFT OUTER JOIN concurso.criterio_evaluacion crt ON crt.consecutivo_criterio=eval.consecutivo_criterio";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql .= " cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+
                                 if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
                                    {
                                     $cadenaSql.=" AND cal.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";

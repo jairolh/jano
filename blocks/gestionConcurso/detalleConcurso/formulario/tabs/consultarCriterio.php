@@ -94,8 +94,7 @@ class consultarCriterio {
                       </table></div> ";
 
                     if($resultadoListaCriterio)
-                        {	
-                            //-----------------Inicio de Conjunto de Controles----------------------------------------
+                        {   //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaCriterio";
                                 $atributos["estilo"] = "jqueryui";
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
@@ -107,6 +106,8 @@ class consultarCriterio {
                                             <th>Factor</th>
                                             <th>Criterio</th>                                            
                                             <th>Puntaje Máximo</th>                                            
+                                            <th>Puntaje Aprueba</th>                                            
+                                            <th>Fase</th>                                            
                                             <th>Estado</th>
                                             <th>Editar</th>
                                             <th>Actualizar Estado</th>
@@ -145,11 +146,12 @@ class consultarCriterio {
                                         $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEstado.= "&tiempo=" . time ();
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
-                                        
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaCriterio[$key]['factor']."</td>
                                                 <td align='left'>".$resultadoListaCriterio[$key]['criterio']."</td>
-                                                <td align='left'>".$resultadoListaCriterio[$key]['maximo_puntos']."</td>    
+                                                <td align='left'>".$resultadoListaCriterio[$key]['maximo_puntos']."</td>
+                                                <td align='left'>".$resultadoListaCriterio[$key]['puntos_aprueba']."</td>
+                                                <td align='left'>".$resultadoListaCriterio[$key]['fase']."</td>    
                                                 <td align='left'>".$resultadoListaCriterio[$key]['nom_estado']."</td>";
                                         $mostrarHtml .= "<td>";
                                                     //-------------Enlace-----------------------

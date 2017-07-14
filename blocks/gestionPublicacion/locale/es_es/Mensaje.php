@@ -1,10 +1,16 @@
 
 <?php
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
-$this->idioma["marcoPerfil"]="Detalle Inscripción";
+$this->idioma["marcoPerfil"]="Detalle Inscripción a Concurso";
 $this->idioma["marcoBasicos"]="Datos Básicos";
 $this->idioma["marcoContacto"]="Datos de Contacto";
 $this->idioma["marcoFormacion"]="Formación Académica";
+$this->idioma["marcoProfesional"]="Experiencia Profesional";
+$this->idioma["marcoDocencia"]="Experiencia Docente Universitaria";
+$this->idioma["marcoActividad"]="Actividades Académicas";
+$this->idioma["marcoInvestigacion"]="Experiencia en Investigación";
+$this->idioma["marcoProduccion"]="Producción Académica";
+$this->idioma["marcoIdioma"]="Lengua Extranjera a Concursar";
 
 $this->idioma["inscripcion"]="Número Inscripción:";
 $this->idioma["fecha_registro"]="Fecha Inscripción:";
@@ -42,6 +48,13 @@ $this->idioma ["noEncontroPerfil"] ="No existen datos Registrados de la inscripc
 $this->idioma ["noEncontroBasicos"] ="No existen datos básicos registrados. ";
 $this->idioma ["noEncontroContacto"] ="No existen datos de contacto registrados. ";
 $this->idioma ["noEncontroFormacion"] ="No existen datos de formación académica registrados. ";
+$this->idioma ["noEncontroProfesional"] ="No existen datos de experiencia profesional registrados. ";
+$this->idioma ["noEncontroDocencia"] ="No existen datos de experiencia docente universitaria registrados. ";
+$this->idioma ["noEncontroActividad"] ="No existen datos de Actividades Académicas registrados. ";
+$this->idioma ["noEncontroInvestigacion"] ="No existen datos de experiencia en investigación registrados. ";
+$this->idioma ["noEncontroProduccion"] ="No existen datos de producción académica registrados. ";
+$this->idioma ["noEncontroIdioma"] ="No existen datos de Lengua Extranjera registrados. ";
+
 
 
 //------------------Mensajes -----------------------------------

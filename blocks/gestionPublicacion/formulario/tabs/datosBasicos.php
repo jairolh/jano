@@ -71,13 +71,13 @@ class consultarBasicos{
                     if($datos)
                     {	$cajaNombre="width='15%'";
                         $cajaDato="width='35%'";
-                        $mostrarHtml= "<div style ='width: 95%; padding-left: 5%;' class='cell-border'>";
+                        $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
                         $mostrarHtml.= "<table id='tablaBasicos' class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombres')."</th>
-                                                        <td colspan=2 class='table-tittle estilo_tr '>".$datos->nombre."</td>
-                                                        <td rowspan=2 align='center'>";
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->nombre."</td>
+                                                        <td colspan=2 rowspan=2 align='center'>";
                                                         if(isset($foto))
                                                             {
                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -98,13 +98,13 @@ class consultarBasicos{
                                                 </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('apellidos')."</th>
-                                                        <td colspan=2 class='table-tittle estilo_tr '>".$datos->apellido."</td>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->apellido."</td>
                                                 </tr> ";
                                 
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
-                                                        <td colspan=2 class='table-tittle estilo_tr '>".$datos->tipo_identificacion."</td>
-                                                        <td rowspan=2 align='center'>";
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->tipo_identificacion."</td>
+                                                        <td colspan=2 rowspan=2 align='center'>";
                                                         if(isset($identificacion))
                                                             {
                                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -156,11 +156,11 @@ class consultarBasicos{
                                                 </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
-                                                        <td colspan=2 class='table-tittle estilo_tr '>".$datos->identificacion."</td>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->identificacion."</td>
                                                 </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('sexo')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->sexo."</td>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".str_replace("F", "Femenino", str_replace("M", "Masculino", $datos->sexo))."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_nacimiento')."</th>
                                                         <td class='table-tittle estilo_tr ' $cajaDato>".$datos->fecha_nacimiento."</td>  </tr> ";
                                 $mostrarHtml.= "<tr align='center'>

@@ -105,9 +105,8 @@ class consultarCalendario {
                                         <tr align='center'>
                                             <th>Fecha inicial</th>                                            
                                             <th>Fecha cierre</th> 
-                                            <th>Actividad</th>
+                                            <th>Fase</th>
                                             <th>Descripción</th>
-                                            <th>Criterio Evalua</th>                                            
                                             <th>Estado</th>
                                             <th>Editar</th>
                                             <th>Actualizar Estado</th>
@@ -152,7 +151,6 @@ class consultarCalendario {
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nombre']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['descripcion']."</td>
-                                                <td align='left'>".$resultadoListaCalendario[$key]['criterio']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nom_estado']."</td>";
                                         $mostrarHtml .= "<td>";
                                                     //-------------Enlace-----------------------

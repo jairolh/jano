@@ -225,42 +225,6 @@ class calendarioForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'consecutivo_evaluar';
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ["etiquetaObligatorio"] = false;
-                                    $atributos ['tab'] = $tab ++;
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos ['evento'] = ' ';
-                                    if (isset ( $resultadoCalendario[0]['consecutivo_evaluar'] ) && $resultadoCalendario[0]['consecutivo_evaluar']>0 )
-                                         {  $atributos ['seleccion'] = $resultadoCalendario[0]['consecutivo_evaluar'];
-                                            $criterio=$resultadoCalendario[0]['consecutivo_evaluar'];
-                                         }
-                                    else {  $atributos ['seleccion'] = -1;$criterio=0;}
-                                    if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
-                                         {$atributos ['deshabilitado'] = true;}
-                                    else { $atributos ['deshabilitado'] = false;}
-                                    
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['tamanno'] = 1;
-                                    $atributos ['estilo'] = "jqueryui";
-                                    $atributos ['validar'] = "";
-                                    $atributos ['limitar'] = true;
-                                    $atributos ['anchoCaja'] = 60;
-                                    $atributos ['evento'] = '';
-                                    $parametroEval=array('consecutivo_criterio'=>$criterio,
-                                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaCriterioCalendario",$parametroEval );
-                                    $matrizItems = array (array (0,' '));
-                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-                                    $atributos ['matrizItems'] = $matrizItems;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    
                                     
                                 }
 				echo $this->miFormulario->division ( "fin" );

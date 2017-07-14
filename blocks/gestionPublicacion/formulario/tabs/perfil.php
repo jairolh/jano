@@ -32,7 +32,7 @@ class consultarPerfil{
             $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
             $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
             $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-            $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+            $rutaBloque.= $esteBloque['grupo'] . $esteBloque['nombre'];
             $directorio = $this->miConfigurador->getVariableConfiguracion("host");
             $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
             $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
@@ -57,29 +57,48 @@ class consultarPerfil{
                 {
                     if($resultadoListaPerfil)
                     {	$cajaNombre="width='15%'";
-                        $mostrarHtml= "<div style ='width: 95%; padding-left: 5%;' class='cell-border'>";
+                        $cajaDato="width='35%'";
+                        $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
                         $mostrarHtml.= "<table id='tablaPerfiles' class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
-                                $mostrarHtml.= "<tr align='center'>
+                                $mostrarHtml.= "<tr align='center' valign='middle' >
+                                                        <td rowspan=2 colspan=2 align='center'>";
+                                                               // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                              $esteCampo = 'escudo';
+                                                              $atributos ['id'] = $esteCampo;
+                                                              $atributos['imagen']= $rutaBloque."/images/escudo_ud.png";
+                                                              $atributos['estilo']='campoImagen';
+                                                              $atributos['etiqueta']='Universidad Distrital Francisco José de Caldas';
+                                                              $atributos['borde']='';
+                                                              $atributos ['ancho'] = '100px';
+                                                              $atributos ['alto'] = '120px';
+                                                              $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                              $mostrarHtml.= $this->miFormulario->campoImagen( $atributos );
+                                                              unset ( $atributos );
+                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
+                                    $mostrarHtml.=     "</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('inscripcion' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['consecutivo_inscrito']."</td>
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['consecutivo_inscrito']."</td></tr> ";
+                                $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_registro' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['fecha_registro']."</td>  </tr> ";
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['fecha_registro']."</td></tr> ";    
+                                    
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nivel_concurso' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['nivel_concurso']."</td>
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['nivel_concurso']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('modalidad' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['modalidad']."</td>  </tr> ";
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['modalidad']."</td> </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombre' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['nombre']."</td>
+                                                        <td class='table-tittle estilo_tr'  $cajaDato>".$resultadoListaPerfil[0]['nombre']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('perfil' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['perfil']."</td>  </tr> ";
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['perfil']."</td> </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('dependencia' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['dependencia']."</td>
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['dependencia']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('area' )."</th>
-                                                        <td class='table-tittle estilo_tr '>".$resultadoListaPerfil[0]['area']."</td>  </tr> ";
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['area']."</td>  </tr> ";
+                                
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";
                         echo $mostrarHtml;

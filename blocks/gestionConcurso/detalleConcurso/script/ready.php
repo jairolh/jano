@@ -262,6 +262,8 @@ $('#<?php echo $this->campoSeguro('consecutivo_actividad')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_actividad')?>").select2(); 
 $('#<?php echo $this->campoSeguro('consecutivo_evaluar')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_evaluar')?>").select2(); 
+$('#<?php echo $this->campoSeguro('consecutivo_calendario')?>').width(450);
+$("#<?php echo $this->campoSeguro('consecutivo_calendario')?>").select2(); 
     
     <?php 
 //}

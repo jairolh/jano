@@ -41,6 +41,7 @@ $cadenaACodificarJurado2 = $cadenaACodificar . "&funcion=consultarTiposJurado";
 $cadenaACodificarJurado2 .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaJurado2 = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarJurado2, $enlace );
 $urlFinalJurado2 = $url . $cadenaJurado2;
+
 ?>
 
 <script type='text/javascript'>
@@ -100,23 +101,27 @@ $(function () {
 });
 
 $(function () {
+
     $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
-            if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
-            consultarModalidad();
-            }else{
-                    $("#<?php echo $this->campoSeguro('modalidad')?>").attr('disabled','');
-                    }
-          });
+      if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
+          consultarModalidad();
+      }else{
+          $("#<?php echo $this->campoSeguro('modalidad')?>").attr('disabled','');
+      }
+    });
+
     $("#<?php echo $this->campoSeguro('consecutivo_factor')?>").change(function(){
-            if($("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()!=''){
-              consultarCriterio();
-            }else{
-              $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
-            }
-          });
+      if($("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()!=''){
+        consultarCriterio();
+      }else{
+        $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
+      }
+    });
+
 });
 
 function consultarModalidad(elem, request, response){
+
 	  $.ajax({
 	    url: "<?php echo $urlFinalMod?>",
 	    dataType: "json",
@@ -162,9 +167,7 @@ function consultarCriterio(elem, request, response){
   ///////////////////////////////////////////////////////
 
   $(function () {
-
         $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
-
             if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
               consultarTipoJurado();
             }
@@ -173,7 +176,6 @@ function consultarCriterio(elem, request, response){
   });
 
   function consultarTipoJurado(elem, request, response){
-
   	  $.ajax({
   	    url: "<?php echo $urlFinalJurado?>",
   	    dataType: "json",
@@ -189,8 +191,6 @@ function consultarCriterio(elem, request, response){
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").attr('disabled','');
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
-                $('#<?php echo $this->campoSeguro("aspirantes")?>').val(data[0]);
-
                 for(i=0; i <= 100; i ++) {
                   $("#seleccion"+i).removeAttr('checked');
                 }
@@ -222,7 +222,6 @@ function consultarCriterio(elem, request, response){
     	    dataType: "json",
     	    data: { },
     	    success: function(data){
-            console.log(data);
             if(data){
               $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
               $("#<?php echo $this->campoSeguro('tipoJurado')?>").val('');

@@ -3,16 +3,6 @@
 //if(!isset($_REQUEST["opcion"])||(isset($_REQUEST["opcion"]) && $_REQUEST["opcion"]!="confirmar")){
 
 ?>
-items=[];
-
-for(i=0; i <= 100; i ++) {
-  if ( $("#seleccion"+i).val() ) {
-    //document.getElementById("seleccion"+i).checked 
-    items.push($("#seleccion"+i).val());
-  }
-}
-
-$('#<?php echo $this->campoSeguro("aspirantes")?>').val(items);
 
 $('#tablaConsultaAspirante').DataTable({
 "language": {
@@ -92,9 +82,27 @@ $("#detalleConcurso").validationEngine({
     scroll: false
 });
 
+// Asociar el widget de validación al formulario detalleConcurso
+$("#gestionInscripcion").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
+
 $(function() {
-    $("#detalleConcurso").submit(function() {
-        $resultado=$("#detalleConcurso").validationEngine("validate");
+    $("#gestionInscripcion").submit(function() {
+        items=[];
+
+          for(i=0; i <= 100; i ++) {
+            if( document.getElementById("seleccion"+i) != null){
+              if ( document.getElementById("seleccion"+i).checked ) {
+                items.push($("#seleccion"+i).val());
+              }
+            }
+          }
+          $('#<?php echo $this->campoSeguro("aspirantes")?>').val(items);
+
+
+        $resultado=$("#gestionInscripcion").validationEngine("validate");
         if ($resultado) {
             return true;
         }

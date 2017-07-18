@@ -91,6 +91,7 @@ $this->idioma ["botonPerfil"]="Guardar Datos de Perfil";
 $this->idioma ["noEncontroConcurso"] = "No existen concursos en Ejecución.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso en Ejecución.";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
+$this->idioma ["noEncontroJurados"] = "No se encontraron usuarios con rol de Jurado.";
 
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
 $this->idioma["noEncontroPerfil"]="No existe Perfiles registrados! ";

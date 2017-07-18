@@ -102,6 +102,11 @@ class consultarJurado {
 			unset ( $atributos );
 			{
 
+				$cadena_sql = $this->miSql->getCadenaSql("consultarJurados");
+				$resultadoJurado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+					if($resultadoJurado){
+
 								 //-----------------Inicio de Conjunto de Controles----------------------------------------
 										 $esteCampo = "marcoConsultaInscrito";
 										 $atributos["estilo"] = "jqueryui";
@@ -290,7 +295,32 @@ class consultarJurado {
 						 				}
 						 				echo $this->miFormulario->division ( 'fin' );
 									}
+
+								}else{
+										$tab=1;
+										//---------------Inicio Formulario (<form>)--------------------------------
+										$atributos["id"]="divNoEncontroConcurso";
+										$atributos["estilo"]="marcoBotones";
+										//$atributos["estiloEnLinea"]="display:none";
+										echo $this->miFormulario->division("inicio",$atributos);
+
+										//-------------Control Boton-----------------------
+										$esteCampo = "noEncontroJurados";
+										$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+										$atributos["etiqueta"] = "";
+										$atributos["estilo"] = "centrar";
+										$atributos["tipo"] = 'error';
+										$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+										echo $this->miFormulario->cuadroMensaje($atributos);
+										unset($atributos);
+										//------------------Fin Division para los botones-------------------------
+										echo $this->miFormulario->division("fin");
+										//-------------Control cuadroTexto con campos ocultos-----------------------
+								}
+
 				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
+
 
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
 				// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------

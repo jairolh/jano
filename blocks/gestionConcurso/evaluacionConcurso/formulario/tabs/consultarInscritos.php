@@ -105,30 +105,17 @@ class consultarInscrito {
                                             );
                                         $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
                                         $resultadoSact = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");*/
-                                        $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                        $variableEditar.= "&opcion=validar";
-                                        $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				$variableEditar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
-                                        $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                        $variableEditar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableEditar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-                                        $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
-                                        $variableEditar.= "#tabInscrito";
-
-                                        //enlace actualizar estado
-                                        $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                        if($resultadoListaInscrito[$key]['estado']=='A')
-                                            {$variableEstado.= "&opcion=inhabilitarInscrito";}
-                                        else{$variableEstado.= "&opcion=habilitarInscrito";}
-                                        $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEstado.= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                        $variableEstado.= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-                                        $variableEstado.= "&nombre=" .$resultadoListaInscrito[$key]['nombre'];
-                                        $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEstado.= "&tiempo=" . time ();
-                                        $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
+                                        $variableValidar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variableValidar.= "&opcion=validar";
+                                        $variableValidar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																				$variableValidar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+                                        $variableValidar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableValidar.= "&tiempo=" . time ();
+                                        $variableValidar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                        $variableValidar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				$variableValidar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+                                        $variableValidar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidar, $directorio);
+                                        $variableValidar.= "#tabInscrito";
 
 																				//verificar si ya se realizó la validación de la inscripción
 														            $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
@@ -151,11 +138,9 @@ class consultarInscrito {
 																								<td align='left'>".$validacion."</td>";
                                         $mostrarHtml .= "<td>";
 
-
-
 																				$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerValidacion .= "&opcion=consultarValidacion";
-																				$variableVerValidacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																				$variableVerValidacion .= "&aspirante=" . $resultadoListaInscrito[$key]['tipo_identificacion'].$resultadoListaInscrito[$key]['identificacion'];
 																				$variableVerValidacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
                                         $variableVerValidacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                         $variableVerValidacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
@@ -164,11 +149,12 @@ class consultarInscrito {
                                         $variableVerValidacion .= "&tiempo=" . time ();
                                         $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
 
+
                                             if(!$resultadoValidacion){
                                                 //-------------Enlace-----------------------
                                                     $esteCampo = "validar";
                                                     $atributos["id"]=$esteCampo;
-                                                    $atributos['enlace']=$variableEditar;
+                                                    $atributos['enlace']=$variableValidar;
                                                     $atributos['tabIndex']=$esteCampo;
                                                     $atributos['redirLugar']=true;
                                                     $atributos['estilo']='clasico';
@@ -225,6 +211,7 @@ class consultarInscrito {
                                echo $this->miFormulario->division("fin");
                                 //------------------Division para los botones-------------------------
                         }
+												
                 }
             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
             unset ( $atributos );

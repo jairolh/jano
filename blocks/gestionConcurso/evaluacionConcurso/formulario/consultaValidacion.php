@@ -115,7 +115,7 @@ class registrarForm {
 				echo "<thead>
 								<tr align='center'>
 										<th>N° Inscripción</th>
-										<th>Identificacion</th>
+										<th>Identificación</th>
 										<th>Aspirante</th>
 										<th>Hoja de Vida</th>
 								</tr>
@@ -135,7 +135,7 @@ class registrarForm {
 
 						$mostrarHtml = "<tr align='center'>
 										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
-										<td align='left'>".$_REQUEST['usuario']."</td>
+										<td align='left'>".$_REQUEST['aspirante']."</td>
 										<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
 										$mostrarHtml .= "<td>";
 
@@ -225,7 +225,6 @@ class registrarForm {
 
 							$tab=1;
 
-//$resultadoValidacion[0]['cumple_requisito']
 							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 							$esteCampo = 'observaciones';
 							$atributos ['id'] = $esteCampo;

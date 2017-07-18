@@ -151,18 +151,16 @@ class consultarInscrito {
 																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
                                         $mostrarHtml .= "<td>";
 
-
-
-																				$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                        $variableVerValidacion .= "&opcion=consultarValidacion";
-																				$variableVerValidacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																		//		$variableVerValidacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
-                                  //      $variableVerValidacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                      //  $variableVerValidacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				//$variableVerValidacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-                                        $variableVerValidacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableVerValidacion .= "&tiempo=" . time ();
-                                        $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
+																				$variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
+																				$variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																				//$variableVerEvaluacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+                                  			//$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                      	//$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				//$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+                                        $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableVerEvaluacion .= "&tiempo=" . time ();
+                                        $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
 
 																				//consultar grupo de concurso y jurado (con evaluador y perfil)
 																				$parametro=array(
@@ -198,11 +196,11 @@ class consultarInscrito {
 																								else{
 																									$esteCampo = "validar";
 																									$atributos["id"]=$esteCampo;
-																									$atributos['enlace']=$variableVerValidacion;
+																									$atributos['enlace']=$variableVerEvaluacion;
 																									$atributos['tabIndex']=$esteCampo;
 																									$atributos['redirLugar']=true;
 																									$atributos['estilo']='clasico';
-																									$atributos['enlaceTexto']='Ver Validación';
+																									$atributos['enlaceTexto']='Ver Evaluación';
 																									$atributos['ancho']='30';
 																									$atributos['alto']='30';
 																									//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";

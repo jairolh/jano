@@ -33,8 +33,19 @@ class RegistradorEvaluacion {
 
         $fecha = date("Y-m-d H:i:s");
 
+        //buscar si existe el grupo para el jurado y el perfil, sino existe hacer el registro
+        $parametro=array(
+          'jurado'=>$_REQUEST['usuario'],
+          'perfil'=>$_REQUEST['consecutivo_perfil'],
+          'fecha'=>$fecha
+        );
+
+        $cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
+        $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+        if($resultadoGrupo){
           for($i=0; $i<$_REQUEST['numeroCriterios']; $i++){
-              $arregloDatos = array('grupo'=>1,
+              $arregloDatos = array('grupo'=>$resultadoGrupo[0][0],
                                   'inscrito'=>$_REQUEST['consecutivo_inscrito'],
                                   'criterio'=>$_REQUEST['criterio'.$i],
                                   'puntaje'=>$_REQUEST['puntaje'.$i],
@@ -53,6 +64,33 @@ class RegistradorEvaluacion {
           else{
               redireccion::redireccionar('noregistroEvaluacion',$arregloDatos);  exit();
           }
+        }else{
+          //si no existe el grupo
+          $cadena_sql = $this->miSql->getCadenaSql("registrarGrupo", $parametro);
+      		$registroGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroGrupoEvaluacion");
+
+            for($i=0; $i<$_REQUEST['numeroCriterios']; $i++){
+                $arregloDatos = array('grupo'=>$registroGrupo[0][0],
+                                    'inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                    'criterio'=>$_REQUEST['criterio'.$i],
+                                    'puntaje'=>$_REQUEST['puntaje'.$i],
+                                    'observacion'=>$_REQUEST['observaciones'.$i],
+                                    'fecha'=> $fecha
+                  );
+
+              $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );
+              $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroEvaluacion" );
+
+            }
+
+            if($resultado){
+                redireccion::redireccionar('registroEvaluacion',$arregloDatos);  exit();
+            }
+            else{
+                redireccion::redireccionar('noregistroEvaluacion',$arregloDatos);  exit();
+            }
+          }
+
     }
 
     function resetForm() {

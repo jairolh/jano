@@ -109,8 +109,6 @@ class registrarForm {
 			unset ( $atributos );
 			{
 
-
-
 				echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
@@ -350,6 +348,9 @@ class registrarForm {
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarEvaluacion";
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$valorCodificado .= "&usuario=".$this->miSesion->getSesionUsuarioId();
+
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

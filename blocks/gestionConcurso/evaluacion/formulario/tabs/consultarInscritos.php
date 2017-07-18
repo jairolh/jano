@@ -164,7 +164,22 @@ class consultarInscrito {
                                         $variableVerValidacion .= "&tiempo=" . time ();
                                         $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
 
-																				$resultadoValidacion=false;
+																				//consultar grupo de concurso y jurado (con evaluador y perfil)
+																				$parametro=array(
+																					'jurado'=>$this->miSesion->getSesionUsuarioId(),
+																					'perfil'=>$resultadoListaInscrito[0]['consecutivo_perfil'],
+																				);
+																				$cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
+														            $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+																				//consultar si ya se hizo la evaluación parcial
+																				$parametro=array(
+																					'grupo'=>$resultadoGrupo[0]['id'],
+																					'inscrito'=>$resultadoListaInscrito[0]['id_inscrito'],
+																				);
+														            $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
+														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
                                             if(!$resultadoValidacion){
                                                 //-------------Enlace-----------------------
                                                     $esteCampo = "validar";

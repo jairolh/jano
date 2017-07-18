@@ -56,6 +56,20 @@ class Sql extends \Sql {
 
 							break;
 
+					case "registrarGrupo":
+									$cadenaSql =" INSERT INTO concurso.evaluacion_grupo (";
+									$cadenaSql .=" id_evaluador,";
+									$cadenaSql .=" id_perfil, ";
+									$cadenaSql .=" fecha_registro ";
+									$cadenaSql .=" )";
+									$cadenaSql .= " VALUES ( ";
+									$cadenaSql .= " '".$variable['jurado']."', ";
+									$cadenaSql .= " ".$variable['perfil'].", ";
+									$cadenaSql .= " '".$variable['fecha']."' ";
+									$cadenaSql .= " )";
+									$cadenaSql.=" RETURNING id";
+									break;
+
 
 		case "consultarValidacion":
 				$cadenaSql=" SELECT ";
@@ -81,6 +95,22 @@ class Sql extends \Sql {
 				$cadenaSql.=" AND ev.consecutivo_criterio=ce.consecutivo_criterio ";
 		break;
 
+
+		case "consultarEvaluacionParcial":
+				$cadenaSql=" SELECT ep.id, ep.id_grupo, ep.id_inscrito, ep.id_evaluar";
+				$cadenaSql.=" FROM concurso.evaluacion_parcial ep";
+				$cadenaSql.=" WHERE";
+				$cadenaSql.=" id_inscrito=".$variable['inscrito'];
+				$cadenaSql.=" AND id_grupo='".$variable['grupo']."'";
+		break;
+
+		case "consultarGrupo":
+				$cadenaSql=" SELECT eg.id, eg.id_evaluador, eg.id_perfil";
+				$cadenaSql.=" FROM concurso.evaluacion_grupo eg";
+				$cadenaSql.=" WHERE";
+				$cadenaSql.=" id_evaluador='".$variable['jurado']."'";
+				$cadenaSql.=" AND id_perfil=".$variable['perfil'];
+		break;
 
 			case "consultaPerfil":
 							$cadenaSql=" SELECT ";

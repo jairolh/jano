@@ -110,12 +110,20 @@ class registrarForm {
                                     case "validoRequisito":
                                         $tipo = 'success';
                                         $mensaje = "Requisitos de la inscripción validados correctamente.";
+																				$variable.= "&opcion=detalle";
+																				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																				$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
                                         break;
 
                                     case "noValidoRequisito":
                                         $tipo = 'error';
                                         $mensaje = "No fue posible realizar la validación de los requisitos de la inscripción.</b>.<br> Por favor intente mas tarde.";
-                                        $boton = "regresar";
+																				$variable.= "&opcion=detalle";
+																				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																				$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																				$boton = "regresar";
                                         break;
 
                                     /*****/
@@ -211,8 +219,10 @@ class registrarForm {
 
 			// -----------------CONTROL: Botón ----------------------------------------------------------------
 
-                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-                        $esteCampo = 'botonContinuar';
+      $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+
+      $esteCampo = 'botonContinuar';
+
 			$atributos ['id'] = $esteCampo;
 			$atributos ['enlace'] = $variable.$pestanna;
 			$atributos ['tabIndex'] = 1;
@@ -270,7 +280,13 @@ class registrarForm {
 		$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 		$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-		$valorCodificado .= "&opcion=paginaPrincipal";
+		$valorCodificado .= "&opcion=detalle";
+
+		//$valorCodificado.="&aspirante=". $_REQUEST['aspirante'];
+		//$valorCodificado.="&nombre_usuario=".$_REQUEST['nombre_usuario'];
+		//$valorCodificado.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+		//$valorCodificado.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+		//$valorCodificado.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 		/**
 		 * SARA permite que los nombres de los campos sean dinámicos.
 		 * Para ello utiliza la hora en que es creado el formulario para

@@ -33,32 +33,26 @@ class RegistradorEvaluacion {
 
         $fecha = date("Y-m-d H:i:s");
 
-      /*  $arregloDatos = array('grupo'=>$_REQUEST['grupo'],
-                              'inscrito'=>$_REQUEST['inscrito'],
-                              'criterio'=>$_REQUEST['criterio'],
-                              'puntaje'=>$_REQUEST['puntaje'],
-                              'observacion'=>$_REQUEST['observacion'],
-                              'fecha'=> $fecha
-            );*/
-
-            $arregloDatos = array('grupo'=>1,
-                                  'inscrito'=>4,
-                                  'criterio'=>2,
-                                  'puntaje'=>15,
-                                  'observacion'=>"Observacion",
+          for($i=0; $i<$_REQUEST['numeroCriterios']; $i++){
+              $arregloDatos = array('grupo'=>1,
+                                  'inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                  'criterio'=>$_REQUEST['criterio'.$i],
+                                  'puntaje'=>$_REQUEST['puntaje'.$i],
+                                  'observacion'=>$_REQUEST['observaciones'.$i],
                                   'fecha'=> $fecha
                 );
 
             $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );
             $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroEvaluacion" );
 
-            if($resultado){
-                redireccion::redireccionar('registroEvaluacion',$arregloDatos);  exit();
-            }
-            else{
-                redireccion::redireccionar('noregistroEvaluacion',$arregloDatos);  exit();
-            }
+          }
 
+          if($resultado){
+              redireccion::redireccionar('registroEvaluacion',$arregloDatos);  exit();
+          }
+          else{
+              redireccion::redireccionar('noregistroEvaluacion',$arregloDatos);  exit();
+          }
     }
 
     function resetForm() {
@@ -72,6 +66,6 @@ class RegistradorEvaluacion {
 
 }
 
-$miRegistrador = new RegistradorEvaluacion($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
-$resultado = $miRegistrador->procesarFormulario();
+  $miRegistrador = new RegistradorEvaluacion($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
+  $resultado = $miRegistrador->procesarFormulario();
 ?>

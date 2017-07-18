@@ -149,6 +149,9 @@ class registrarForm {
 	 					unset ( $atributos );
 	 					{
 
+
+							//consultar roles del usuario
+
 							$parametro=array(
 	 						 'rol'=>6
 	 					 );
@@ -160,7 +163,7 @@ class registrarForm {
 								$totalPuntos=0;
 								foreach($resultadoCriterios as $key=>$value ){
 									// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-									$esteCampo = 'criterio'.$key;
+									$esteCampo = 'puntaje'.$key;
 									$atributos ['id'] = $esteCampo;
 									$atributos ['nombre'] = $esteCampo;
 									$atributos ['tipo'] = 'text';
@@ -178,7 +181,7 @@ class registrarForm {
 									$atributos ['deshabilitado'] = false;
 									$atributos ['tamanno'] = 60;
 									$atributos ['maximoTamanno'] = '';
-									$atributos ['anchoEtiqueta'] = 200;
+									$atributos ['anchoEtiqueta'] = 230;
 									$tab ++;
 									// Aplica atributos globales al control
 									$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -189,6 +192,49 @@ class registrarForm {
 									echo "<div>/".$resultadoCriterios[$key]['maximo_puntos']."</div><br>";
 
 									$totalPuntos=$totalPuntos+$resultadoCriterios[$key]['maximo_puntos'];
+
+									// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+									$esteCampo = 'observaciones'.$key;
+									$atributos ['id'] = $esteCampo;
+									$atributos ['nombre'] = $esteCampo;
+									$atributos ['tipo'] = 'text';
+									$atributos ['estilo'] = 'jqueryui';
+									$atributos ['marco'] = true;
+									$atributos ['estiloMarco'] = '';
+									$atributos ["etiquetaObligatorio"] = true;
+									$atributos ['columnas'] = 140;
+									$atributos ['filas'] = 3;
+									$atributos ['dobleLinea'] = 0;
+									$atributos ['tabIndex'] = $tab;
+									$atributos ['etiqueta'] = "Observaciones";
+									$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
+									$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+									$atributos ['deshabilitado'] = false;
+									$atributos ['tamanno'] = 60;
+									$atributos ['maximoTamanno'] = '';
+									$atributos ['anchoEtiqueta'] = 170;
+									$tab ++;
+
+									// Aplica atributos globales al control
+									$atributos = array_merge ( $atributos, $atributosGlobales );
+									echo $this->miFormulario->campoTextArea ( $atributos );
+									unset ( $atributos );
+									// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+
+									// ////////////////Hidden////////////
+									$esteCampo = 'criterio'.$key;
+									$atributos ["id"] = $esteCampo;
+									$atributos ["tipo"] = "hidden";
+									$atributos ['estilo'] = '';
+									$atributos ['validar'] = 'required';
+									$atributos ["obligatorio"] = true;
+									$atributos ['marco'] = true;
+									$atributos ["etiqueta"] = "";
+									$atributos ['valor'] = $resultadoCriterios[$key]['consecutivo_criterio'];
+									$atributos = array_merge ( $atributos, $atributosGlobales );
+									echo $this->miFormulario->campoCuadroTexto ( $atributos );
+									unset ( $atributos );
+
 								}
 
 								// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -225,8 +271,22 @@ class registrarForm {
 							$tab=1;
 
 								echo "</div>";
+								//echo count($resultadoCriterios);
+								$valor=count($resultadoCriterios);
 
-
+								// ////////////////Hidden////////////
+								$esteCampo = 'numeroCriterios';
+								$atributos ["id"] = $esteCampo;
+								$atributos ["tipo"] = "hidden";
+								$atributos ['estilo'] = '';
+								$atributos ['validar'] = 'required';
+								$atributos ["obligatorio"] = true;
+								$atributos ['marco'] = true;
+								$atributos ["etiqueta"] = "";
+								$atributos ['valor'] = $valor;
+								$atributos = array_merge ( $atributos, $atributosGlobales );
+								echo $this->miFormulario->campoCuadroTexto ( $atributos );
+								unset ( $atributos );
 
 								// ------------------Division para los botones-------------------------
 								$atributos ["id"] = "botones";
@@ -289,7 +349,7 @@ class registrarForm {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarEvaluacion";
-												$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

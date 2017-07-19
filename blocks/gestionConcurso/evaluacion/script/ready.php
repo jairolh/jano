@@ -76,14 +76,14 @@ $('#tablaConsultaInscrito').DataTable({
 });
 
 // Asociar el widget de validación al formulario detalleConcurso
-$("#detalleConcurso").validationEngine({
+$("#evaluacion").validationEngine({
     promptPosition : "centerRight",
     scroll: false
 });
 
 $(function() {
     $("#detalleConcurso").submit(function() {
-        $resultado=$("#detalleConcurso").validationEngine("validate");
+        $resultado=$("#evaluacion").validationEngine("validate");
         if ($resultado) {
             return true;
         }

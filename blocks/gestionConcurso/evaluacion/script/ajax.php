@@ -18,8 +18,8 @@ $cadenaACodificar .= "&bloqueNombre=" . $esteBloque ["nombre"];
 $cadenaACodificar .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 if(isset($_REQUEST['id_usuario']))
     {$cadenaACodificar.= "&id_usuario=".$_REQUEST['id_usuario'];}
-    
-$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );    
+
+$enlace = $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 //modalidad
 $cadenaACodificarMod = $cadenaACodificar . "&funcion=consultarModalidad";
 $cadenaACodificarMod .= "&tiempo=" . $_REQUEST ['tiempo'];
@@ -36,16 +36,21 @@ $urlFinalCrit = $url . $cadenaCrit;
 
 <script type='text/javascript'>
 
+ $("#<?php echo $this->campoSeguro('puntaje0')?>").click(function(){
+   var total=parseInt($("#<?php echo $this->campoSeguro('puntaje0')?>").val())+parseInt($("#<?php echo $this->campoSeguro('puntaje1')?>").val())
+	$("#<?php echo $this->campoSeguro('total')?>").val(total);
+ });
+
 function soporte(archivo) {
   var miPopup
-  miPopup = window.open('about:blank','soporte','width=600,height=850,menubar=no') 
+  miPopup = window.open('about:blank','soporte','width=600,height=850,menubar=no')
   //miPopup.location = $("#<?php echo $this->campoSeguro('rutasoporte')?>").val();
   miPopup.location = $("#"+archivo).val();
 }
 
 function enlace(direccion) {
   var miVentana
-  miVentana = window.open('about:blank','enlace','width=800,height=600,menubar=no,scrollbars=yes') 
+  miVentana = window.open('about:blank','enlace','width=800,height=600,menubar=no,scrollbars=yes')
   miVentana.location = $("#"+direccion).val();
 }
 
@@ -54,25 +59,25 @@ function marcar(obj) {
     for (i=0;i<elem.length;i++)
         if (elem[i].type=="checkbox")
             elem[i].checked=true;
-} 
+}
 
 function desmarcar(obj) {
     elem=obj.elements;
     for (i=0;i<elem.length;i++)
         if (elem[i].type=="checkbox")
             elem[i].checked=false;
-} 
+}
 
 function show(bloq) {
     obj = document.getElementById(bloq);
     obj.style.display = (obj.style.display=='none') ? 'block' : 'none';
-}        
+}
 
 $(function () {
-// Controles de validacion de tipo de archivo          
+// Controles de validacion de tipo de archivo
     $("input[type='file']").bind('change',function(){
        var sizeByte = this.files[0].size;
-       var ext=$(this).val().substring($(this).val().lastIndexOf('.') + 1).toLowerCase();   
+       var ext=$(this).val().substring($(this).val().lastIndexOf('.') + 1).toLowerCase();
        var accept = $(this).attr('accept').toLowerCase();
        var siezekiloByte = parseInt(sizeByte / 1024);
        if(accept.indexOf(ext) >= 0){
@@ -85,7 +90,7 @@ $(function () {
             $(this).val('');
            }
      });
-          
+
 });
 
 $(function () {
@@ -103,8 +108,8 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").attr('disabled','');
                     }
           });
-          
-          
+
+
 });
 
 
@@ -113,7 +118,7 @@ function consultarModalidad(elem, request, response){
 	    url: "<?php echo $urlFinalMod?>",
 	    dataType: "json",
 	    data: { valor:$("#<?php echo $this->campoSeguro('tipo')?>").val()},
-	    success: function(data){ 
+	    success: function(data){
 	        if(data[0]!=" "){
 	            $("#<?php echo $this->campoSeguro('modalidad')?>").html('');
 	            $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('modalidad')?>");
@@ -125,7 +130,7 @@ function consultarModalidad(elem, request, response){
 	            $("#<?php echo $this->campoSeguro('modalidad')?>").select2();
 		        }
 	    }
-		                    
+
 	   });
 	};
 
@@ -134,7 +139,7 @@ function consultarCriterio(elem, request, response){
 	    url: "<?php echo $urlFinalCrit?>",
 	    dataType: "json",
 	    data: { valor:$("#<?php echo $this->campoSeguro('consecutivo_factor')?>").val()},
-	    success: function(data){ 
+	    success: function(data){
 	        if(data[0]!=" "){
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").html('');
 	            $("<option value=''>Seleccione  ....</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_criterio')?>");
@@ -146,7 +151,7 @@ function consultarCriterio(elem, request, response){
 	            $("#<?php echo $this->campoSeguro('consecutivo_criterio')?>").select2();
 		        }
 	    }
-		                    
+
 	   });
 	};
 

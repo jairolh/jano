@@ -109,26 +109,56 @@ class registrarForm {
 			unset ( $atributos );
 			{
 
+
+				$parametro=array(
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
+				);
+				//consultar datos de la inscripción
+				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
+				$resultadoInscripcion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+				//var_dump($resultadoInscripcion);
+
 				echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
 										<th>Concurso</th>
 										<th>Perfil</th>
+										<th>Modalidad</th>
 								</tr>
 						</thead>
 						<tbody>";
 
 						$mostrarHtml = "<tr align='center'>
-										<td align='left'>".$_REQUEST['consecutivo_concurso']."</td>
-										<td align='left'>".$_REQUEST['consecutivo_perfil']."</td>";
-
-
+										<td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
+										<td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
+										<td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
 
 					 $mostrarHtml .= "</tr>";
 					 echo $mostrarHtml;
 					 unset($mostrarHtml);
 					 echo "</tbody>";
 					 echo "</table></div>";
+
+
+					 echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+	 				echo "<thead>
+	 								<tr align='center'>
+	 										<th>Identificación</th>
+	 										<th>Aspirante</th>
+	 								</tr>
+	 						</thead>
+	 						<tbody>";
+
+	 						$mostrarHtml = "<tr align='center'>
+	 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
+	 										<td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
+
+	 					 $mostrarHtml .= "</tr>";
+	 					 echo $mostrarHtml;
+	 					 unset($mostrarHtml);
+	 					 echo "</tbody>";
+	 					 echo "</table></div>";
 
 					 $parametro=array(
 						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
@@ -159,6 +189,7 @@ class registrarForm {
 								//var_dump($resultadoCriterios);
 
 								$totalPuntos=0;
+								$tab=1;
 								foreach($resultadoCriterios as $key=>$value ){
 									// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 									$esteCampo = 'puntaje'.$key;
@@ -169,13 +200,13 @@ class registrarForm {
 									$atributos ['marco'] = true;
 									$atributos ['estiloMarco'] = '';
 									$atributos ["etiquetaObligatorio"] = true;
-								//	$atributos ['columnas'] = 1;
+									$atributos ['columnas'] = 2;
 									$atributos ['dobleLinea'] = 0;
 									$atributos ['tabIndex'] = $tab;
 									$atributos ['etiqueta'] = $resultadoCriterios[$key]['nombre'];
-									$atributos ['validar']="required, minSize[5], maxSize[100]";
+									$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
 									$atributos ['valor'] = '';
-									$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+									$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['nombre'];
 									$atributos ['deshabilitado'] = false;
 									$atributos ['tamanno'] = 60;
 									$atributos ['maximoTamanno'] = '';
@@ -205,7 +236,7 @@ class registrarForm {
 									$atributos ['dobleLinea'] = 0;
 									$atributos ['tabIndex'] = $tab;
 									$atributos ['etiqueta'] = "Observaciones";
-									$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
+									$atributos ['validar'] = 'maxSize[3000]';
 									$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 									$atributos ['deshabilitado'] = false;
 									$atributos ['tamanno'] = 60;
@@ -243,14 +274,14 @@ class registrarForm {
 								$atributos ['estilo'] = 'jqueryui';
 								$atributos ['marco'] = true;
 								$atributos ['estiloMarco'] = '';
-								$atributos ["etiquetaObligatorio"] = true;
+								$atributos ["etiquetaObligatorio"] = false;
 							//	$atributos ['columnas'] = 1;
 								$atributos ['dobleLinea'] = 0;
 								$atributos ['tabIndex'] = $tab;
 								$atributos ['etiqueta'] = "Total";
-								$atributos ['validar']="required, minSize[5], maxSize[100]";
+								$atributos ['validar']="";
 								$atributos ['valor'] = 0;
-								$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+								$atributos ['titulo'] = "Puntaje Total";
 								$atributos ['deshabilitado'] = true;
 								$atributos ['tamanno'] = 60;
 								$atributos ['maximoTamanno'] = '';
@@ -265,8 +296,6 @@ class registrarForm {
 								echo "<div>/".$totalPuntos." Puntos</div><br>";
 						}
 						echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-
-							$tab=1;
 
 								echo "</div>";
 								//echo count($resultadoCriterios);

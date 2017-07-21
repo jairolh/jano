@@ -235,7 +235,7 @@ class criterioForm {
                                       //  echo $this->miFormulario->campoBoton($atributos);
                                         //-------------Fin Control Boton---------------------- 
                                         
-                                                                                // -----------------CONTROL: Botón ----------------------------------------------------------------
+                                        // -----------------CONTROL: Botón ----------------------------------------------------------------
                                         $pestanna='#tabCriterio';
                                         $variable= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variable.= "&opcion=detalle";

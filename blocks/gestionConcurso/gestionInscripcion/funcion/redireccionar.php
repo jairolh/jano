@@ -14,19 +14,19 @@ class redireccion {
 
 		switch ($opcion) {
 
-								case "juradoAsignado":
-										$variable="pagina=".$miPaginaActual;
-										$variable.="&opcion=mensaje";
-										$variable.="&mensaje=juradoAsignado";
-										$variable.="&nombre_concurso=".$valor['nombre_concurso'];
-										break;
+                        case "juradoAsignado":
+                                        $variable="pagina=".$miPaginaActual;
+                                        $variable.="&opcion=mensaje";
+                                        $variable.="&mensaje=juradoAsignado";
+                                        $variable.="&nombre_concurso=".$valor['nombre_concurso'];
+                                        break;
 
-										case "noAsignoJurado":
-												$variable="pagina=".$miPaginaActual;
-												$variable.="&opcion=mensaje";
-												$variable.="&mensaje=noAsignoJurado";
-												$variable.="&nombre_concurso=".$valor['nombre_concurso'];
-												break;
+                        case "noAsignoJurado":
+                                        $variable="pagina=".$miPaginaActual;
+                                        $variable.="&opcion=mensaje";
+                                        $variable.="&mensaje=noAsignoJurado";
+                                        $variable.="&nombre_concurso=".$valor['nombre_concurso'];
+                                        break;
 
                         case "Cerro":
                                 $variable="pagina=".$miPaginaActual;
@@ -43,6 +43,24 @@ class redireccion {
                                 $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                 $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
                                 break;
+                            
+                        case "CerroFase":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=CerroFase";
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                $variable.="&nombre=".$_REQUEST['nombre'];
+                                break;
+
+                        case "noCerroFase":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noCerroFAse";
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&nombre_concurso=".$_REQUEST['nombre_concurso'];
+                                $variable.="&nombre=".$_REQUEST['nombre'];
+                                break;                            
                             /*******/
 
                         case "existe":

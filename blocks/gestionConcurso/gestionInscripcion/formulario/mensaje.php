@@ -107,17 +107,18 @@ class registrarForm {
                             $pestanna='';
                             switch ($_REQUEST ['mensaje'])
                                 {
-																		case "juradoAsignado":
-																				$tipo = 'success';
-																				$mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
-																				$boton = "continuar";
-																				break;
+                                    case "juradoAsignado":
+                                                    $tipo = 'success';
+                                                    $mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
+                                                    $boton = "continuar";
+                                                    break;
 
-																		case "noAsignoJurado":
-																				$tipo = 'error';
-																				$mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
-																				$boton = "regresar";
-																				break;
+                                    case "noAsignoJurado":
+                                                    $tipo = 'error';
+                                                    $mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
+                                                    $boton = "regresar";
+                                                    break;
+                                                
 
                                     case "Cerro":
                                         $tipo = 'success';
@@ -131,6 +132,24 @@ class registrarForm {
                                     case "noCerro":
                                         $tipo = 'error';
                                         $mensaje = "No fue posible Cerrar el registro de soportes al Concurso: <b>".$_REQUEST ['nombre_concurso']."</b>.<br> Por favor intente mas tarde.";
+                                        $boton = "regresar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+
+                                    case "CerroFase":
+                                        $tipo = 'success';
+                                        $mensaje = "Se Cerro correctamente la fase <b>".$_REQUEST ['nombre']."</b> del Concurso : <b>".$_REQUEST ['nombre_concurso']."</b>.";
+                                        $boton = "continuar";
+                                        $pestanna='#tabCalendario';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        break;
+
+                                    case "noCerro":
+                                        $tipo = 'error';
+                                        $mensaje = "No fue posible Cerrar la fase <b>".$_REQUEST ['nombre']."</b> del Concurso : <b>".$_REQUEST ['nombre_concurso']."</b>.<br> Por favor intente mas tarde.";
                                         $boton = "regresar";
                                         $pestanna='#tabCalendario';
                                         $variable.= "&opcion=detalle";

@@ -55,10 +55,18 @@ class Frontera {
                                 case "detalle":
 					include_once($this->ruta."formulario/detalleEjecucion.php");
 					break;        
-                                
-                                case "cerrarSoportesConcurso":
-					include_once($this->ruta."formulario/cerrarSoportesConcurso.php");
-					break;       
+                                case "cerrarFase":
+                                        switch($_REQUEST ['fase'])
+                                            {
+                                               case 'soporte':
+                                                  include_once($this->ruta."formulario/cerrarSoportesConcurso.php");
+                                                break; 
+                                                default:
+                                                  include_once($this->ruta."formulario/cerrarFase.php");
+                                                break; 
+                                            
+                                            }
+                                        break;       
                                     
                                     /******/
 				case "nuevo":

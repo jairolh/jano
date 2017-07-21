@@ -190,7 +190,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " 'es_es', ";
                                 $cadenaSql .= " 1, ";
                                 $cadenaSql .= " '".$variable['fechaIni']."', ";
-                                $cadenaSql .= " ".$variable['identificacion'].", ";
+                                $cadenaSql .= " '".$variable['identificacion']."', ";
                                 $cadenaSql .= " '".$variable['tipo_identificacion']."' ";
                                 $cadenaSql .= " )";
                                 

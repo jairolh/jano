@@ -100,7 +100,9 @@ $this->idioma["regresar"]="Regresar";
 $this->idioma["inhabilitar"]="Inactivar";
 $this->idioma["habilitar"]="Activar";
 $this->idioma["cerrar"]="Cerrar proceso";
+$this->idioma["cerrarFase"]="Cerrar Fase";
 $this->idioma["seleccionJurado"]="Jurado";
 $this->idioma["tipoJurado"]="Tipo Jurado";
+$this->idioma["etapaPasa"]="Aspirantes pasan a la Etapa: ";
 
 ?>

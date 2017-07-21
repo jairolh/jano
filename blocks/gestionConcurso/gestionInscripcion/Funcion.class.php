@@ -55,7 +55,6 @@ class Funcion {
 		// Campos que se quieren excluir de la limpieza de código. Formato: nombreCampo1|nombreCampo2|nombreCampo3
 		$excluir = "";
 		$_REQUEST = $this->miInspectorHTML->limpiarPHPHTML ( $_REQUEST );
-
 		// Aquí se coloca el código que procesará los diferentes formularios que pertenecen al bloque
 		// aunque el código fuente puede ir directamente en este script, para facilitar el mantenimiento
 		// se recomienda que aqui solo sea el punto de entrada para incluir otros scripts que estarán
@@ -75,7 +74,14 @@ class Funcion {
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->cerrarSoporte();
                                 break;
-
+                            case "cerrarFase":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    switch ($_REQUEST ['fase'])
+                                        {   case "requisito":
+                                                  $this->cerrarRequisitos();
+                                            break;
+                                        }
+                                break;
 
                             /**********/
                             case "guardarConcurso":
@@ -177,14 +183,16 @@ class Funcion {
 
 	function guardarAspirantesJurado(){
 		include_once($this->ruta."/funcion/guardarAspirantesJurado.php");
-}
-
+        }
 
 	function cerrarSoporte()
 	{
 		include_once($this->ruta."/funcion/cerrarSoporteConcurso.php");
 	}
-
+	function cerrarRequisitos()
+	{
+		include_once($this->ruta."/funcion/cerrarRequisitosPerfil.php");
+	}
 
         function guardarCalendarioConcurso()
 	{

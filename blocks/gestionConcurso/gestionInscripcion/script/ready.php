@@ -86,24 +86,8 @@ $('#tablaConsultaInscrito').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
 
-// Asociar el widget de validación al formulario detalleConcurso
-$("#detalleConcurso").validationEngine({
-    promptPosition : "centerRight",
-    scroll: false
-});
 
-$(function() {
-    $("#detalleConcurso").submit(function() {
-        $resultado=$("#detalleConcurso").validationEngine("validate");
-        if ($resultado) {
-            return true;
-        }
-        return false;
-    });
-
-
-});
-
+  
 $('#<?php echo $this->campoSeguro('fecha_inicio_concurso')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
@@ -194,7 +178,39 @@ $('#<?php echo $this->campoSeguro('fecha_fin_calendario')?>').datepicker({
             });
         });
 
+// Asociar el widget de validación al formulario detalleConcurso
+$("#detalleConcurso").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
 
+$(function() {
+    $("#detalleConcurso").submit(function() {
+        $resultado=$("#detalleConcurso").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+
+});
+
+// Asociar el widget de validación al formulario detalleConcurso
+$("#datosCierre").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
+
+$(function() {
+    $("#datosCierre").submit(function() {
+        $resultado=$("#datosCierre").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+ });
 
 
 $('#<?php echo $this->campoSeguro('tipo')?>').width(210);
@@ -213,3 +229,5 @@ $('#<?php echo $this->campoSeguro('seleccionJurado')?>').width(450);
 $("#<?php echo $this->campoSeguro('seleccionJurado')?>").select2();
 $('#<?php echo $this->campoSeguro('tipoJurado')?>').width(210);
 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
+$('#<?php echo $this->campoSeguro('etapaPasa')?>').width(450);
+$("#<?php echo $this->campoSeguro('etapaPasa')?>").select2();

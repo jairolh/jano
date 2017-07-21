@@ -9,6 +9,7 @@ $this->idioma["tabInscritos"]="Aspirantes";
 
 //marcos
 $this->idioma["marcoSubsistema"]="Evaluación de Competencias Profesionales y Comunicativas";
+$this->idioma["marcoCriteriosEvaluados"]="Criterios Evaluados";
 $this->idioma["marcoEvaluacionCriterios"]="Criterios a evaluar";
 
 $this->idioma["marcoEjecucion"]="<b>Concursos en ejecución</b> ";

@@ -75,7 +75,8 @@ class RegistradorEvaluacion {
                                     'criterio'=>$_REQUEST['criterio'.$i],
                                     'puntaje'=>$_REQUEST['puntaje'.$i],
                                     'observacion'=>$_REQUEST['observaciones'.$i],
-                                    'fecha'=> $fecha
+                                    'fecha'=> $fecha,
+                                    'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso']
                   );
 
               $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );

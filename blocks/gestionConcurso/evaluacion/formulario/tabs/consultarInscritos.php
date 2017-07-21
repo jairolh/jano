@@ -154,10 +154,9 @@ class consultarInscrito {
 																				$variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
 																				$variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				//$variableVerEvaluacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
-                                  			//$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                      	//$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				//$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+																				$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                      	$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
                                         $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableVerEvaluacion .= "&tiempo=" . time ();
                                         $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);

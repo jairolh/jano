@@ -36,8 +36,10 @@ $urlFinalCrit = $url . $cadenaCrit;
 
 <script type='text/javascript'>
 
- $("#<?php echo $this->campoSeguro('puntaje0')?>").click(function(){
-   var total=parseInt($("#<?php echo $this->campoSeguro('puntaje0')?>").val())+parseInt($("#<?php echo $this->campoSeguro('puntaje1')?>").val())
+ //$("#<?php echo $this->campoSeguro('puntaje0')?>").click(function(){
+var total=0;
+$("input[type='text']").click(function(){
+  total=parseInt($("#<?php echo $this->campoSeguro('puntaje0')?>").val())+parseInt($("#<?php echo $this->campoSeguro('puntaje1')?>").val())
 	$("#<?php echo $this->campoSeguro('total')?>").val(total);
  });
 

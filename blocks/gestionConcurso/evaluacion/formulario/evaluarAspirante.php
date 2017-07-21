@@ -83,6 +83,9 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
+			$variable.= "&opcion=detalle";
+			$variable.= "&usuario=".$_REQUEST['usuario'];
+			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -142,7 +145,7 @@ class registrarForm {
 
 
 					 echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
-	 				echo "<thead>
+	 				 echo "<thead>
 	 								<tr align='center'>
 	 										<th>Identificación</th>
 	 										<th>Aspirante</th>
@@ -176,14 +179,20 @@ class registrarForm {
 	 					echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 	 					unset ( $atributos );
 	 					{
-
-
 							//consultar roles del usuario
+							$cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario", $_REQUEST['usuario']);
+							$resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+							foreach($resultadoRoles as $key=>$value ){
+								if(($resultadoRoles[$key]['cod_rol']=='6')||($resultadoRoles[$key]['cod_rol']=='7')){
+									$rol=$resultadoRoles[$key]['cod_rol'];
+								}
+							}
 
 							$parametro=array(
-	 						 'rol'=>6
+	 						 'rol'=>$rol
 	 					 );
-								//Consultar criterios de evaluación asociados al rol de JURADO
+								//Consultar criterios de evaluación asociados al rol JURADO o ILUD
 								$cadena_sql = $this->miSql->getCadenaSql("consultaCriteriosRol", $parametro);
 		 					 	$resultadoCriterios= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 								//var_dump($resultadoCriterios);
@@ -210,7 +219,7 @@ class registrarForm {
 									$atributos ['deshabilitado'] = false;
 									$atributos ['tamanno'] = 60;
 									$atributos ['maximoTamanno'] = '';
-									$atributos ['anchoEtiqueta'] = 230;
+									$atributos ['anchoEtiqueta'] = 220;
 									$tab ++;
 									// Aplica atributos globales al control
 									$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -275,7 +284,7 @@ class registrarForm {
 								$atributos ['marco'] = true;
 								$atributos ['estiloMarco'] = '';
 								$atributos ["etiquetaObligatorio"] = false;
-							//	$atributos ['columnas'] = 1;
+								$atributos ['columnas'] = 2;
 								$atributos ['dobleLinea'] = 0;
 								$atributos ['tabIndex'] = $tab;
 								$atributos ['etiqueta'] = "Total";
@@ -285,7 +294,7 @@ class registrarForm {
 								$atributos ['deshabilitado'] = true;
 								$atributos ['tamanno'] = 60;
 								$atributos ['maximoTamanno'] = '';
-								$atributos ['anchoEtiqueta'] = 200;
+								$atributos ['anchoEtiqueta'] = 180;
 								$tab ++;
 								// Aplica atributos globales al control
 								$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -378,6 +387,7 @@ class registrarForm {
 			$valorCodificado .= "&opcion=guardarEvaluacion";
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$valorCodificado .= "&usuario=".$this->miSesion->getSesionUsuarioId();
 
 

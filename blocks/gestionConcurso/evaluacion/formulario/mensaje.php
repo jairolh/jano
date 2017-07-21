@@ -110,11 +110,17 @@ class registrarForm {
                                     case "registroEvaluacion":
                                         $tipo = 'success';
                                         $mensaje = "Evaluación registrada correctamente.";
+																				$variable.= "&opcion=detalle";
+																				$variable.= "&usuario=".$_REQUEST['usuario'];
+																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;
 
                                     case "noregistroEvaluacion":
                                         $tipo = 'error';
                                         $mensaje = "No fue posible realizar la evaluación.</b><br>Por favor intente más tarde.";
+																				$variable.= "&opcion=detalle";
+																				$variable.= "&usuario=".$_REQUEST['usuario'];
+																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         $boton = "regresar";
                                         break;
 

@@ -84,6 +84,9 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
+			$variable.= "&opcion=detalle";
+			$variable.= "&usuario=".$_REQUEST['usuario'];
+			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -110,73 +113,57 @@ class registrarForm {
 			unset ( $atributos );
 			{
 
+				$parametro=array(
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
+				);
+				//consultar datos de la inscripción
+				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
+				$resultadoInscripcion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-				echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
+				//var_dump($resultadoInscripcion);
+
+				echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
-										<th>N° Inscripción</th>
-										<th>Identificacion</th>
-										<th>Aspirante</th>
-										<th>Hoja de Vida</th>
+										<th>Concurso</th>
+										<th>Perfil</th>
+										<th>Modalidad</th>
 								</tr>
 						</thead>
 						<tbody>";
 
-						$variableVerHoja = "pagina=publicacion";
-						$variableVerHoja.= "&opcion=hojaVida";
-						$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-						$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-						$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-						$variableVerHoja.= "&tiempo=" . time ();
-						$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-						$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-						$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-						$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
-
 						$mostrarHtml = "<tr align='center'>
-										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
-										<td align='left'>".$_REQUEST['usuario']."</td>
-										<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
-										$mostrarHtml .= "<td>";
-
-										//-------------Enlace-----------------------
-										$esteCampo = "validar";
-										$esteCampo = 'enlace_hoja';
-										$atributos ['id'] = $esteCampo;
-										$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
-										$atributos ['tabIndex'] = 0;
-										$atributos ['columnas'] = 1;
-										$atributos ['enlaceTexto'] = 'Ver Curriculum';
-										$atributos ['estilo'] = 'clasico';
-										$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-										$atributos ['posicionImagen'] ="atras";//"adelante";
-										$atributos ['ancho'] = '20px';
-										$atributos ['alto'] = '20px';
-										$atributos ['redirLugar'] = false;
-										$atributos ['valor'] = '';
-										$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-										unset ( $atributos );
-										 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-										$esteCampo = 'ruta_enlace_hoja';
-										$atributos ['id'] = $esteCampo;
-										$atributos ['nombre'] = $esteCampo;
-										$atributos ['tipo'] = 'hidden';
-										$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-										$atributos ['obligatorio'] = false;
-										$atributos ['valor'] = $variableVerHoja;
-										$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-										$atributos ['deshabilitado'] = FALSE;
-										$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-										// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-
-										 $mostrarHtml .= "</td>";
-
+										<td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
+										<td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
+										<td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
 
 					 $mostrarHtml .= "</tr>";
 					 echo $mostrarHtml;
 					 unset($mostrarHtml);
 					 echo "</tbody>";
 					 echo "</table></div>";
+
+
+					 echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+	 				 echo "<thead>
+	 								<tr align='center'>
+	 										<th>Identificación</th>
+	 										<th>Aspirante</th>
+	 								</tr>
+	 						</thead>
+	 						<tbody>";
+
+	 						$mostrarHtml = "<tr align='center'>
+	 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
+	 										<td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
+
+	 					 $mostrarHtml .= "</tr>";
+	 					 echo $mostrarHtml;
+	 					 unset($mostrarHtml);
+	 					 echo "</tbody>";
+	 					 echo "</table></div>";
+
+
 
 					 $parametro=array(
 						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
@@ -191,72 +178,52 @@ class registrarForm {
 					 $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoValidacion);
 
-					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
-					echo "
-							<tbody>";
+					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
+					$resultado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+					//var_dump($resultado);
 
-					$mostrarHtml = "<tr >
-								<th>Concurso</th>
-								<td colspan='1'>".$resultadoPerfil[0]['concurso']."</td>
-								<th>Perfi</th>
-								<td colspan='1'>".$resultadoPerfil[0]['perfil']."</td>
-								</tr>
-					";
+					$esteCampo = "marcoCriteriosEvaluados";
+		 			$atributos ['id'] = $esteCampo;
+		 			$atributos ["estilo"] = "jqueryui";
+		 			$atributos ['tipoEtiqueta'] = 'inicio';
+		 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
+		 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+		 			unset ( $atributos );
+		 			{
+						echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+ 	 				 echo "<thead>
+ 	 								<tr align='center'>
+ 	 										<th>Criterio</th>
+ 	 										<th>Calificación</th>
+											<th>Observaciones</th>
+ 	 								</tr>
+ 	 						</thead>
+ 	 						<tbody>";
 
-					$mostrarHtml .= "<tr >
-								<th >Requisitos</th>
-								<td colspan='3'>".$resultadoPerfil[0]['requisitos']."</td>
+							$mostrarHtml ="";
+							foreach($resultado as $key=>$value ){
+								if($resultado[$key]['observacion']==""){
+									$resultado[$key]['observacion']="Sin Observaciones";
+								}
 
-								</tr>";
+							 $mostrarHtml .= "<tr align='center'>
+  	 										<td align='left'>".$resultado[$key]['criterio']."</td>
+  	 										<td align='left'>".$resultado[$key]['puntaje_parcial']."</td>
+												<td align='left'>".$resultado[$key]['observacion']."</td>";
 
-					$mostrarHtml .=  "<tr align='center'>".
-
-								"<th colspan='2'>¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-								<td colspan='2'>".$resultadoValidacion[0]['cumple_requisito'].
-								"</td>";
-
-
-					echo $mostrarHtml;
-					unset($mostrarHtml);
-
-					echo "</tbody>";
-					echo "</table>";
-
-							$tab=1;
-
-//$resultadoValidacion[0]['cumple_requisito']
-							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-							$esteCampo = 'observaciones';
-							$atributos ['id'] = $esteCampo;
-							$atributos ['nombre'] = $esteCampo;
-							$atributos ['tipo'] = 'text';
-							$atributos ['estilo'] = 'jqueryui';
-							$atributos ['marco'] = true;
-							$atributos ['estiloMarco'] = '';
-							$atributos ["etiquetaObligatorio"] = true;
-							$atributos ['columnas'] = 140;
-							$atributos ['filas'] = 4;
-							$atributos ['dobleLinea'] = 0;
-							$atributos ['tabIndex'] = $tab;
-							$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-							$atributos ['validar'] = '';
-							$atributos ['valor'] = $resultadoValidacion[0]['observacion'];
-							$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-							$atributos ['deshabilitado'] = true;
-							$atributos ['tamanno'] = 60;
-							$atributos ['maximoTamanno'] = '';
-							$atributos ['anchoEtiqueta'] = 170;
-							$tab ++;
-
-							// Aplica atributos globales al control
-							$atributos = array_merge ( $atributos, $atributosGlobales );
-							echo $this->miFormulario->campoTextArea ( $atributos );
-							unset ( $atributos );
-							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+  	 					 $mostrarHtml .= "</tr>";
+							}
 
 
-								echo "</div>";
+
+ 	 					 echo $mostrarHtml;
+ 	 					 unset($mostrarHtml);
+ 	 					 echo "</tbody>";
+ 	 					 echo "</table></div>";
+
+					}
+					echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
 			}

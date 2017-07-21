@@ -93,7 +93,6 @@ case "consultaInscripcion":
 		$cadenaSql.=" AND ci.consecutivo_persona=p.consecutivo ";
 		$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso ";
 		$cadenaSql.=" AND m.consecutivo_modalidad=c.consecutivo_modalidad ";
-
 break;
 
 		case "consultarValidacion":
@@ -107,7 +106,44 @@ break;
 				$cadenaSql.=" FROM concurso.valida_requisito ";
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" consecutivo_inscrito=".$variable;
+		break;
 
+		case "consultarEvaluacion":
+			$cadenaSql=" SELECT ";
+			$cadenaSql.=" id, ";
+			$cadenaSql.=" id_grupo, ";
+			$cadenaSql.=" id_inscrito, ";
+			$cadenaSql.=" ep.id_evaluar, ";
+			$cadenaSql.=" ep.puntaje_parcial, ";
+			$cadenaSql.=" ep.observacion, ";
+			$cadenaSql.=" ep.fecha_registro, ";
+			$cadenaSql.=" ep.estado, ";
+			//$cadenaSql.=" ep.id_evaluacion_final, ";
+			//$cadenaSql.=" ep.id_reclamacion, ";
+			$cadenaSql.=" ce.consecutivo_criterio, ";
+			$cadenaSql.=" ceval.consecutivo_criterio AS id_criterio, ";
+			$cadenaSql.=" ceval.nombre AS criterio";
+			$cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.concurso_evaluar ce, concurso.criterio_evaluacion ceval ";
+			$cadenaSql.=" WHERE ";
+			$cadenaSql.=" id_inscrito=".$variable;
+			$cadenaSql.=" AND ep.id_evaluar =ce.consecutivo_criterio ";
+			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio ";
+		break;
+
+		case "consultaRolesUsuario":
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" perfil.id_usuario usuario,";
+				$cadenaSql.=" perfil.id_subsistema cod_app,";
+				$cadenaSql.=" perfil.rol_id cod_rol,";
+				$cadenaSql.=" rol.rol_alias rol,";
+				$cadenaSql.=" perfil.fecha_caduca fecha_caduca,";
+				$cadenaSql.=" perfil.estado estado";
+				$cadenaSql.=" FROM jano_usuario_subsistema perfil";
+				$cadenaSql.=" INNER JOIN jano_rol rol";
+				$cadenaSql.=" ON rol.rol_id=perfil.rol_id";
+				$cadenaSql.=" AND rol.estado_registro_id=1";
+				$cadenaSql.=" WHERE";
+				$cadenaSql.=" id_usuario='".$variable."'";
 		break;
 
 		case "consultaCriteriosRol":

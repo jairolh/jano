@@ -56,7 +56,7 @@ class Sql extends \Sql {
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
-				$cadenaSql.=" r.rol_id=6";//rol:jurado
+				$cadenaSql.=" (r.rol_id=6 OR r.rol_id=7)";//rol:jurado
 				break;
 
 			case 'consultarTiposJurado' :

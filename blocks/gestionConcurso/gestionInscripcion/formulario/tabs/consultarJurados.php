@@ -102,8 +102,6 @@ class consultarJurado {
 			unset ( $atributos );
 			{
 
-				if($resultadoListaInscrito)
-						 {
 								 //-----------------Inicio de Conjunto de Controles----------------------------------------
 										 $esteCampo = "marcoConsultaInscrito";
 										 $atributos["estilo"] = "jqueryui";
@@ -198,8 +196,7 @@ class consultarJurado {
 														 </tr>
 												 </thead>
 												 <tbody>";
-
-
+												if($aspirantes){
 										 foreach($aspirantes as $key=>$value ){
 
 											 $mostrarHtml = "<tr align='center'>
@@ -221,7 +218,7 @@ class consultarJurado {
 
 															 $atributos ['estilo'] = 'justificado';
 															 $atributos ['eventoFuncion'] = ' ';
-															 $atributos ['validar'] = 'required';
+															 $atributos ['validar'] = '';
 															 $atributos ['deshabilitado'] = false;
 															 $tab ++;
 															 //$atributos = array_merge ( $atributos, $atributosGlobales );
@@ -241,6 +238,7 @@ class consultarJurado {
 											 unset($mostrarHtml);
 											 unset($variable);
 										 }
+									 }
 										 echo "</tbody>";
 										 echo "</table></div>";
 
@@ -262,6 +260,7 @@ class consultarJurado {
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 										 unset ( $atributos );
 
+								if($aspirantes){
 										 // ------------------Division para los botones-------------------------
 						 				$atributos ["id"] = "botones";
 						 				$atributos ["estilo"] = "marcoBotones";
@@ -290,32 +289,7 @@ class consultarJurado {
 						 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 						 				}
 						 				echo $this->miFormulario->division ( 'fin' );
-
-
-						 }else
-						 {
-										 $atributos["id"]="divNoEncontroInscrito";
-										 $atributos["estilo"]="";
-								//$atributos["estiloEnLinea"]="display:none";
-										 echo $this->miFormulario->division("inicio",$atributos);
-
-										 //-------------Control Boton-----------------------
-										 $esteCampo = "noEncontroInscrito";
-										 $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-										 $atributos["etiqueta"] = "";
-										 $atributos["estilo"] = "centrar";
-										 $atributos["tipo"] = 'error';
-										 $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-										 echo $this->miFormulario->cuadroMensaje($atributos);
-										 unset($atributos);
-										 //-------------Fin Control Boton----------------------
-
-										echo $this->miFormulario->division("fin");
-										 //------------------Division para los botones-------------------------
-						 }
-
-
-
+									}
 				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------

@@ -36,7 +36,6 @@ class AsignarAspirantes {
 
         //arreglo de js
         $items=$_REQUEST['aspirantes'];
-        //var_dump($items);
 
         //obtener arreglo dividiendo por comas
         $porciones = explode(",", $items);
@@ -52,7 +51,6 @@ class AsignarAspirantes {
           );
 
           $cadenaSql = $this->miSql->getCadenaSql ('registroAspirantesJurado',$arregloDatos);
-
           $resultadoAsignacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroAspirantesJurado" );
         };
 

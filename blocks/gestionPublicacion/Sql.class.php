@@ -82,6 +82,37 @@ class Sql extends \Sql {
                                 if(isset($variable['tipo_dato']) &&  $variable['tipo_dato']!='' )
                                    {$cadenaSql .= " AND ins.tipo_dato='".$variable['tipo_dato']."' ";} 
                             break; 
+                            
+                        case "consultaFaseCerroValida":
+                                $cadenaSql="SELECT DISTINCT  ";
+                                $cadenaSql.="prf4.consecutivo_concurso, ";
+                                $cadenaSql.="prf4.consecutivo_perfil, ";
+                                $cadenaSql.="prf4.nombre perfil, ";
+                                $cadenaSql.="prf4.descripcion,  ";
+                                $cadenaSql.="prf4.dependencia, ";
+                                $cadenaSql.="prf4.area, ";
+                                $cadenaSql.="insc4.consecutivo_inscrito,  ";
+                                $cadenaSql.="insc4.consecutivo_persona,  ";
+                                $cadenaSql.="bas.identificacion, ";
+                                $cadenaSql.="bas.nombre, ";
+                                $cadenaSql.="bas.apellido, ";
+                                $cadenaSql.="etapa2.consecutivo_etapa, ";
+                                $cadenaSql.="etapa2.fecha_registro,  ";
+                                $cadenaSql.="etapa2.estado, ";
+                                $cadenaSql.="etapa2.consecutivo_calendario_ant faseAprobo ";
+                                $cadenaSql.="FROM concurso.concurso_perfil prf4  ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc4 ON prf4.consecutivo_perfil=insc4.consecutivo_perfil  ";
+                                $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc4.consecutivo_persona ";
+                                $cadenaSql.="INNER JOIN concurso.etapa_inscrito etapa2 ON etapa2.consecutivo_inscrito=insc4.consecutivo_inscrito AND etapa2.estado='A' ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="prf4.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
+                                $cadenaSql.="AND etapa2.consecutivo_calendario_ant='".$variable['consecutivo_calendario']."'";
+                                if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
+                                   {$cadenaSql .= " AND prf4.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
+                                $cadenaSql.=" ORDER BY prf4.nombre, ";   
+                                $cadenaSql.=" insc4.consecutivo_inscrito  ";
+                                   
+                            break;                             
                     
                     
 				/**

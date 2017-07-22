@@ -69,49 +69,13 @@ class Funcion {
                     {
                     
                      switch ($_REQUEST ['opcion'])
-                    {       case "guardarDatos":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->guardarDatos();
-                                break;
-
-                            case "editarDatos":
-                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-                                    $this->editarDatos();
+                    {       
+                            case "resumenFaseValidado":
+                                    $this->resumenFaseValidado();
                                 break;
                             case "resumen":
                                     $this->resumen();
                                 break;
-
-                            case "borrar":
-                                    $this->borrarDatos();
-                                    break;    
-
-                            case "inhabilitar":
-                                    $_REQUEST["estado"]=0;
-                                    $this->cambiarEstado(); 
-                                break;     
-
-                            case "habilitar":
-                                    $_REQUEST["estado"]=1;
-                                    $this->cambiarEstado(); 
-                                break;       
-
-                            case "guardarDatosPerfil":
-                                    $this->guardarDatosPerfil();
-                                break;
-
-                            case "editarPerfil":
-                                    $this->editarDatosPerfil();
-                                break;
-
-                            case "inhabilitarPerfil":
-                                    $_REQUEST["estado"]=0;
-                                    $this->cambiarEstadoPerfil(); 
-                                break;        
-                            case "habilitarPerfil":
-                                    $_REQUEST["estado"]=1;
-                                    $this->cambiarEstadoPerfil(); 
-                                break;                                      
 
                         }
                                        
@@ -173,42 +137,10 @@ class Funcion {
 			return true;
 		}
 	}
-	
-	function guardarDatos()
+	function resumenFaseValidado()
 	{
-		include_once($this->ruta."/funcion/registrarUsuario.php");
+		include_once($this->ruta."/funcion/resumenFaseValidado.php");
 	}	
-	
-	function borrarDatos()
-	{
-		include_once($this->ruta."/funcion/borrarUsuario.php");
-	}	
-        
-        function editarDatos()
-	{
-		include_once($this->ruta."/funcion/editarUsuario.php");
-	}
-        
-	function cambiarEstado()
-	{
-		include_once($this->ruta."/funcion/cambiarEstado.php");
-	}	
-
-        function guardarDatosPerfil()
-	{
-		include_once($this->ruta."/funcion/registrarPerfil.php");
-	}
-
-        function editarDatosPerfil()
-	{
-		include_once($this->ruta."/funcion/editarPerfil.php");
-	}
-        
-        function cambiarEstadoPerfil()
-	{
-		include_once($this->ruta."/funcion/cambiarEstadoPerfil.php");
-	}
-        
 	function resumen()
 	{
 		include_once($this->ruta."/funcion/resumenUsuario.php");

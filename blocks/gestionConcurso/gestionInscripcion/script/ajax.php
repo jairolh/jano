@@ -181,9 +181,21 @@ function consultarCriterio(elem, request, response){
   	    dataType: "json",
   	    data: {
           valor:$("#<?php echo $this->campoSeguro('seleccionJurado')?>").val(),
-          valor2:<?php echo $_REQUEST['consecutivo_concurso']?>
+          valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
       },
   	    success: function(data){
+          var aux=$('#<?php echo $this->campoSeguro("numeroAspirantes")?>').val();
+          var inscripciones = aux.split(",");
+          var inicio=0;
+          var fin=0;
+          if(inscripciones.length===2){
+            inicio=inscripciones[0];
+            fin=inscripciones[1];
+          }else{
+            inicio=inscripciones[0];
+            fin=inscripciones[0];
+          }
+
           if(data){
   	        if(data[0]!=""){
   	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
@@ -191,7 +203,8 @@ function consultarCriterio(elem, request, response){
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").attr('disabled','');
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
-                for(i=0; i <= 100; i ++) {
+
+                for(i=inicio; i <= fin; i ++) {
                   $("#seleccion"+i).removeAttr('checked');
                 }
 
@@ -203,7 +216,7 @@ function consultarCriterio(elem, request, response){
   		        }
             }else{
 
-              for(i=0; i <= 100; i ++) {
+              for(i=inicio; i <= fin; i ++) {
                 $("#seleccion"+i).removeAttr('checked');
               }
 

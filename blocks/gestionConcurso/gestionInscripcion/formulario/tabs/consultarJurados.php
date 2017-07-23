@@ -202,6 +202,7 @@ class consultarJurado {
 												 </thead>
 												 <tbody>";
 												if($aspirantes){
+										 $primero=$aspirantes[0]['consecutivo_inscrito'];
 										 foreach($aspirantes as $key=>$value ){
 
 											 $mostrarHtml = "<tr align='center'>
@@ -243,6 +244,14 @@ class consultarJurado {
 											 unset($mostrarHtml);
 											 unset($variable);
 										 }
+
+										 if($key>0){
+											 $ultimo=$aspirantes[$key]['consecutivo_inscrito'];
+											 $valores= $primero . ",".$ultimo;
+										 }else{
+											 $valores= $primero;
+										 }
+
 									 }
 										 echo "</tbody>";
 										 echo "</table></div>";
@@ -257,6 +266,20 @@ class consultarJurado {
 										$atributos ['marco'] = true;
 										$atributos ["etiqueta"] = "";
 
+										$atributos = array_merge ( $atributos, $atributosGlobales );
+										echo $this->miFormulario->campoCuadroTexto ( $atributos );
+										unset ( $atributos );
+
+										 // ////////////////Hidden////////////
+										$esteCampo = 'numeroAspirantes';
+										$atributos ["id"] = $esteCampo;
+										$atributos ["tipo"] = "hidden";
+										$atributos ['estilo'] = '';
+										$atributos ['validar'] = '';
+										$atributos ["obligatorio"] = true;
+										$atributos ['marco'] = true;
+										$atributos ["etiqueta"] = "";
+										$atributos ['valor'] = $valores;
 
 										$atributos = array_merge ( $atributos, $atributosGlobales );
 										echo $this->miFormulario->campoCuadroTexto ( $atributos );

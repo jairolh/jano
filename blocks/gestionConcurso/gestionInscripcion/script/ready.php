@@ -92,7 +92,20 @@ $(function() {
     $("#gestionInscripcion").submit(function() {
         items=[];
 
-          for(i=0; i <= 100; i ++) {
+        var aux=$('#<?php echo $this->campoSeguro("numeroAspirantes")?>').val();
+        var inscripciones = aux.split(",");
+
+        var inicio=0;
+        var fin=0;
+        if(inscripciones.length===2){
+          inicio=inscripciones[0];
+          fin=inscripciones[1];
+        }else{
+          inicio=inscripciones[0];
+          fin=inscripciones[0];
+        }
+
+          for(i=inicio; i <= fin; i ++) {
             if( document.getElementById("seleccion"+i) != null){
               if ( document.getElementById("seleccion"+i).checked ) {
                 items.push($("#seleccion"+i).val());

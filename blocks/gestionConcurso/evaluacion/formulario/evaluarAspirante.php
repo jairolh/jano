@@ -184,7 +184,7 @@ class registrarForm {
 							$resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 							foreach($resultadoRoles as $key=>$value ){
-								if(($resultadoRoles[$key]['cod_rol']=='6')||($resultadoRoles[$key]['cod_rol']=='7')){
+								if(($resultadoRoles[$key]['rol']=='Jurado')||($resultadoRoles[$key]['rol']=='ILUD')){
 									$rol=$resultadoRoles[$key]['cod_rol'];
 								}
 							}

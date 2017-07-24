@@ -30,7 +30,7 @@ $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conex
 
 if(isset($_REQUEST['consecutivo_concurso']))
     {   $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
-        $cadena_sql = $this->sql->getCadenaSql("consultaConcurso", $parametro);
+        $cadena_sql = $this->sql->getCadenaSql("consultaConcurso2", $parametro);
         $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
         $parametroSop = array('consecutivo'=>0,
                              'tipo_dato'=>'datosConcurso',

@@ -12,7 +12,7 @@ $this->idioma["marcoSubsistema"]="Evaluación de Competencias Profesionales y Co
 $this->idioma["marcoCriteriosEvaluados"]="Criterios Evaluados";
 $this->idioma["marcoEvaluacionCriterios"]="Criterios a evaluar";
 
-$this->idioma["marcoEjecucion"]="<b>Concursos en ejecución</b> ";
+$this->idioma["marcoEjecucion"]="<b>Concursos en ejecución con aspirantes asignados para evaluar</b> ";
 $this->idioma["marcoConcurso"]="Nuevo Concurso";
 $this->idioma["marcoListaConcurso"]="Concursos Registrados";
 $this->idioma["marcoDetalleConcurso"]="Consulta Concurso en ejecución";
@@ -89,7 +89,7 @@ $this->idioma ["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 $this->idioma ["botonCalendario"]="Guardar Datos de Calendario";
 $this->idioma ["botonPerfil"]="Guardar Datos de Perfil";
 //------------------Mensajes -----------------------------------
-$this->idioma ["noEncontroConcurso"] = "No existen concursos en Ejecución.";
+$this->idioma ["noEncontroConcurso"] = "No tiene aspirantes asignados para evaluar en ninguno de los concursos activos.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso en Ejecución.";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
 

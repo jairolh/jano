@@ -53,7 +53,10 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            $parametro=array('hoy'=>date("Y-m-d"));
+            $parametro=array(
+							'hoy'=>date("Y-m-d"),
+							'jurado'=>$this->miSesion->getSesionUsuarioId()
+						);
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $esteCampo = "marcoEjecucion";
@@ -84,7 +87,6 @@ class consultarForm {
                                     <th>Fecha Fin</th>
                                     <th>Acuerdo</th>
                                     <th>Soporte</th>
-                                    <th>Inscritos</th>
                                     <th>Consulta</th>
                                 </tr>
                             </thead>
@@ -151,7 +153,6 @@ class consultarForm {
                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                                                 }
                         $mostrarHtml.= "</td>
-                                        <td>".$resultadoConcurso[$key]['inscritos']."</td>
                                         <td>";
                                                 $esteCampo = "detalle";
                                                 $atributos["id"]=$esteCampo;

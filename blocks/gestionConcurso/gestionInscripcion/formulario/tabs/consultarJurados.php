@@ -102,6 +102,11 @@ class consultarJurado {
 			unset ( $atributos );
 			{
 
+				$cadena_sql = $this->miSql->getCadenaSql("consultarJurados");
+				$resultadoJurado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+					if($resultadoJurado){
+
 								 //-----------------Inicio de Conjunto de Controles----------------------------------------
 										 $esteCampo = "marcoConsultaInscrito";
 										 $atributos["estilo"] = "jqueryui";
@@ -197,6 +202,7 @@ class consultarJurado {
 												 </thead>
 												 <tbody>";
 												if($aspirantes){
+										 $primero=$aspirantes[0]['consecutivo_inscrito'];
 										 foreach($aspirantes as $key=>$value ){
 
 											 $mostrarHtml = "<tr align='center'>
@@ -238,6 +244,14 @@ class consultarJurado {
 											 unset($mostrarHtml);
 											 unset($variable);
 										 }
+
+										 if($key>0){
+											 $ultimo=$aspirantes[$key]['consecutivo_inscrito'];
+											 $valores= $primero . ",".$ultimo;
+										 }else{
+											 $valores= $primero;
+										 }
+
 									 }
 										 echo "</tbody>";
 										 echo "</table></div>";
@@ -252,6 +266,20 @@ class consultarJurado {
 										$atributos ['marco'] = true;
 										$atributos ["etiqueta"] = "";
 
+										$atributos = array_merge ( $atributos, $atributosGlobales );
+										echo $this->miFormulario->campoCuadroTexto ( $atributos );
+										unset ( $atributos );
+
+										 // ////////////////Hidden////////////
+										$esteCampo = 'numeroAspirantes';
+										$atributos ["id"] = $esteCampo;
+										$atributos ["tipo"] = "hidden";
+										$atributos ['estilo'] = '';
+										$atributos ['validar'] = '';
+										$atributos ["obligatorio"] = true;
+										$atributos ['marco'] = true;
+										$atributos ["etiqueta"] = "";
+										$atributos ['valor'] = $valores;
 
 										$atributos = array_merge ( $atributos, $atributosGlobales );
 										echo $this->miFormulario->campoCuadroTexto ( $atributos );
@@ -290,7 +318,32 @@ class consultarJurado {
 						 				}
 						 				echo $this->miFormulario->division ( 'fin' );
 									}
+
+								}else{
+										$tab=1;
+										//---------------Inicio Formulario (<form>)--------------------------------
+										$atributos["id"]="divNoEncontroConcurso";
+										$atributos["estilo"]="marcoBotones";
+										//$atributos["estiloEnLinea"]="display:none";
+										echo $this->miFormulario->division("inicio",$atributos);
+
+										//-------------Control Boton-----------------------
+										$esteCampo = "noEncontroJurados";
+										$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+										$atributos["etiqueta"] = "";
+										$atributos["estilo"] = "centrar";
+										$atributos["tipo"] = 'error';
+										$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+										echo $this->miFormulario->cuadroMensaje($atributos);
+										unset($atributos);
+										//------------------Fin Division para los botones-------------------------
+										echo $this->miFormulario->division("fin");
+										//-------------Control cuadroTexto con campos ocultos-----------------------
+								}
+
 				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
+
 
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
 				// ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------

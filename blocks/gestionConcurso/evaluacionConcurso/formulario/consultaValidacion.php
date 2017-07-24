@@ -84,6 +84,13 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
+			$variable.= "&opcion=detalle";
+			$variable.= "&aspirante=" . $_REQUEST['aspirante'];
+			$variable.= "&nombre_usuario=". $_REQUEST['nombre_usuario'];
+			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$variable.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -115,7 +122,7 @@ class registrarForm {
 				echo "<thead>
 								<tr align='center'>
 										<th>N° Inscripción</th>
-										<th>Identificacion</th>
+										<th>Identificación</th>
 										<th>Aspirante</th>
 										<th>Hoja de Vida</th>
 								</tr>
@@ -135,7 +142,7 @@ class registrarForm {
 
 						$mostrarHtml = "<tr align='center'>
 										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
-										<td align='left'>".$_REQUEST['usuario']."</td>
+										<td align='left'>".$_REQUEST['aspirante']."</td>
 										<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
 										$mostrarHtml .= "<td>";
 
@@ -225,7 +232,6 @@ class registrarForm {
 
 							$tab=1;
 
-//$resultadoValidacion[0]['cumple_requisito']
 							// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 							$esteCampo = 'observaciones';
 							$atributos ['id'] = $esteCampo;

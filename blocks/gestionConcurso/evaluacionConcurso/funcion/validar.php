@@ -36,7 +36,12 @@ class RegistradorValidacion {
         $arregloDatos = array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
                               'validacion'=>$_REQUEST['validacion'],
                               'observaciones'=>$_REQUEST['observaciones'],
-                              'fecha'=> $fecha
+                              'fecha'=> $fecha,
+
+                              'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso'],
+                              'consecutivo_perfil'=> $_REQUEST['consecutivo_perfil'],
+                              'consecutivo_inscrito'=> $_REQUEST['consecutivo_inscrito']
+
             );
 
             $cadenaSql = $this->miSql->getCadenaSql ( 'registroValidacion',$arregloDatos );

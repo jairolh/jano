@@ -99,7 +99,6 @@ class cerrarForm{
                         $atributos ['redirLugar'] = true;
                         echo $this->miFormulario->enlace ( $atributos );
                         unset ( $atributos );                
-
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 			$esteCampo = "marcoCriterio";
 			$atributos ['id'] = $esteCampo;
@@ -109,7 +108,11 @@ class cerrarForm{
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{       $tipo = 'warning';
-                                $mensaje = "Esta seguro de Cerrar la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
+                                $mensaje = '';
+                                if($_REQUEST['inscrito']>0 && $_REQUEST['evaluado']<$_REQUEST['inscrito'] ){
+                                    $mensaje = "<b>Precaución para esta Fase, la cantidad de aspirantes evaluados (".$_REQUEST['evaluado'].") es menor a la cantidad de de aspirantes inscritos (".$_REQUEST['inscrito'].") !</b><br>";
+                                    }
+                                $mensaje .= "Esta seguro de Cerrar la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
                                 $mensaje .= "<br> Recuerde que una vez cerrada no se pueden registrar más evaluaciones.";
                                 $boton = "cerrarFase";
 

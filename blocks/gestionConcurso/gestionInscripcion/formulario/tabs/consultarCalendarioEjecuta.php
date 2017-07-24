@@ -103,6 +103,14 @@ class consultarCalendario {
                                         $variableEstado.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario'];       
                                         $variableEstado.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                         $variableEstado.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];
+                                        $variableEstado.= "&inscrito=" .$resultadoListaCalendario[$key]['clasifico'];  
+                                        if($resultadoListaCalendario[$key]['fase']=='soporte')
+                                              { $variableEstado.= "&inscrito=".$resultadoListaCalendario[$key]['inscrito']; } 
+                                        elseif($resultadoListaCalendario[$key]['fase']=='requisito')
+                                              { $variableEstado.= "&evaluado=".$resultadoListaCalendario[$key]['validado']; } 
+                                        elseif($resultadoListaCalendario[$key]['fase']=='evaluacion')
+                                              { $variableEstado.= "&evaluado=".$resultadoListaCalendario[$key]['evaluado']; } 
+                                              
                                         $variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEstado.= "&tiempo=" . time ();
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);

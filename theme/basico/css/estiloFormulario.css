@@ -368,7 +368,7 @@ div.campoTextoContenidoSolo {
 
 /* Examples for media queries */
 
-@media screen and (max-width: 52.75em) { 
+@media screen and (max-width: 52.75em) {
 
     div.campoTextoContenidoSolo {
         font-size: 70%;
@@ -377,14 +377,14 @@ div.campoTextoContenidoSolo {
 
 }
 
-@media screen and (max-width: 43em) { 
+@media screen and (max-width: 43em) {
     div.campoTextoContenidoSolo {
         font-size: 60%;
     }
 
 }
 
-@media screen and (max-width: 36em) { 
+@media screen and (max-width: 36em) {
     div.campoTextoContenidoSolo {
         font-size: 50%;
     }
@@ -604,6 +604,10 @@ div.espacioBlanco {
 
 .anchoColumna3 {
     width: 32% !important;
+}
+
+.anchoColumna4 {
+    width: 20% !important;
 }
 
 .botonEnlace {

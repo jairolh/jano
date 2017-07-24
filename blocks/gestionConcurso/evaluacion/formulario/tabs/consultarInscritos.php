@@ -89,7 +89,6 @@ class consultarInscrito {
                                 echo "<thead>
                                         <tr align='center'>
 
-                                            <th>Tipo Identificación</th>
                                             <th>Identificación</th>
                                             <th>Nombre</th>
 																						<th>Perfil</th>
@@ -145,8 +144,7 @@ class consultarInscrito {
 
                                         $mostrarHtml = "<tr align='center'>
 
-                                                <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']."</td>
-                                                <td align='left'>".$resultadoListaInscrito[$key]['identificacion']."</td>
+                                                <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion'].$resultadoListaInscrito[$key]['identificacion']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
 																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
                                         $mostrarHtml .= "<td>";

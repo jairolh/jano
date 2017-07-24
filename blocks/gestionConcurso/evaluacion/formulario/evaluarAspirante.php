@@ -209,7 +209,7 @@ class registrarForm {
 									$atributos ['marco'] = true;
 									$atributos ['estiloMarco'] = '';
 									$atributos ["etiquetaObligatorio"] = true;
-									$atributos ['columnas'] = 2;
+									$atributos ['columnas'] = 4;
 									$atributos ['dobleLinea'] = 0;
 									$atributos ['tabIndex'] = $tab;
 									$atributos ['etiqueta'] = $resultadoCriterios[$key]['nombre'];
@@ -217,7 +217,7 @@ class registrarForm {
 									$atributos ['valor'] = '';
 									$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['nombre'];
 									$atributos ['deshabilitado'] = false;
-									$atributos ['tamanno'] = 60;
+									$atributos ['tamanno'] = 6;
 									$atributos ['maximoTamanno'] = '';
 									$atributos ['anchoEtiqueta'] = 220;
 									$tab ++;
@@ -227,9 +227,7 @@ class registrarForm {
 									unset ( $atributos );
 									// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
 
-									echo "<div>/".$resultadoCriterios[$key]['maximo_puntos']."</div><br>";
-
-									$totalPuntos=$totalPuntos+$resultadoCriterios[$key]['maximo_puntos'];
+									echo "<label style='padding: 8px 5px;'>"."/ ".$resultadoCriterios[$key]['maximo_puntos']." puntos </label>";
 
 									// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 									$esteCampo = 'observaciones'.$key;
@@ -275,36 +273,8 @@ class registrarForm {
 
 								}
 
-								// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-								$esteCampo = 'total';
-								$atributos ['id'] = $esteCampo;
-								$atributos ['nombre'] = $esteCampo;
-								$atributos ['tipo'] = 'text';
-								$atributos ['estilo'] = 'jqueryui';
-								$atributos ['marco'] = true;
-								$atributos ['estiloMarco'] = '';
-								$atributos ["etiquetaObligatorio"] = false;
-								$atributos ['columnas'] = 2;
-								$atributos ['dobleLinea'] = 0;
-								$atributos ['tabIndex'] = $tab;
-								$atributos ['etiqueta'] = "Total";
-								$atributos ['validar']="";
-								$atributos ['valor'] = 0;
-								$atributos ['titulo'] = "Puntaje Total";
-								$atributos ['deshabilitado'] = true;
-								$atributos ['tamanno'] = 60;
-								$atributos ['maximoTamanno'] = '';
-								$atributos ['anchoEtiqueta'] = 180;
-								$tab ++;
-								// Aplica atributos globales al control
-								$atributos = array_merge ( $atributos, $atributosGlobales );
-								echo $this->miFormulario->campoCuadroTexto ( $atributos );
-								unset ( $atributos );
-								// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-
-								echo "<div>/".$totalPuntos." Puntos</div><br>";
 						}
-						echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
 
 								echo "</div>";
 								//echo count($resultadoCriterios);
@@ -358,11 +328,9 @@ class registrarForm {
 								}
 								echo $this->miFormulario->division ( 'fin' );
 
-
-
+								echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 			}
-
 
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 

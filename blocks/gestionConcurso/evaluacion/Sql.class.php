@@ -128,6 +128,7 @@ break;
 			$cadenaSql.=" id_inscrito=".$variable;
 			$cadenaSql.=" AND ep.id_evaluar =ce.consecutivo_criterio ";
 			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio ";
+			echo $cadenaSql;
 		break;
 
 		case "consultaRolesUsuario":
@@ -276,7 +277,7 @@ break;
                                 $cadenaSql.=" ORDER BY ";
                                 $cadenaSql.=" conc.fecha_inicio DESC, ";
                                 $cadenaSql.=" conc.fecha_fin DESC ";
-																
+
                             break;
 
 														case "consultaConcurso":

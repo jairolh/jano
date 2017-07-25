@@ -173,15 +173,9 @@ class registrarForm {
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoPerfil);
 
-					 //consultar validación
-					 $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $_REQUEST['consecutivo_inscrito']);
-					 $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-					 //var_dump($resultadoValidacion);
-
-
 					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
 					$resultado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-					//var_dump($resultado);
+					var_dump($resultado);
 
 					$esteCampo = "marcoCriteriosEvaluados";
 		 			$atributos ['id'] = $esteCampo;

@@ -126,9 +126,9 @@ break;
 			$cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.concurso_evaluar ce, concurso.criterio_evaluacion ceval ";
 			$cadenaSql.=" WHERE ";
 			$cadenaSql.=" id_inscrito=".$variable;
-			$cadenaSql.=" AND ep.id_evaluar =ce.consecutivo_criterio ";
+			$cadenaSql.=" AND ep.id_evaluar =ce.consecutivo_evaluar ";
 			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio ";
-			echo $cadenaSql;
+			//echo $cadenaSql;
 		break;
 
 		case "consultaRolesUsuario":

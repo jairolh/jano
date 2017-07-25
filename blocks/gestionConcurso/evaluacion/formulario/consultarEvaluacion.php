@@ -175,7 +175,7 @@ class registrarForm {
 
 					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
 					$resultado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-					var_dump($resultado);
+					//var_dump($resultado);
 
 					$esteCampo = "marcoCriteriosEvaluados";
 		 			$atributos ['id'] = $esteCampo;

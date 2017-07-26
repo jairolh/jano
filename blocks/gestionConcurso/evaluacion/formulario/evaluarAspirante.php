@@ -192,6 +192,7 @@ class registrarForm {
 							$parametro=array(
 	 						 'rol'=>$rol,
 							 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+							 'factor'=> 'Competencias profesionales y comunicativas'
 	 					 	);
 								//Consultar criterios de evaluación asociados al rol JURADO o ILUD
 								$cadena_sql = $this->miSql->getCadenaSql("consultaCriteriosRol", $parametro);
@@ -215,10 +216,10 @@ class registrarForm {
 										$atributos ['columnas'] = 4;
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
-										$atributos ['etiqueta'] = $resultadoCriterios[$key]['nombre'];
+										$atributos ['etiqueta'] = $resultadoCriterios[$key]['criterio'];
 										$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
 										$atributos ['valor'] = '';
-										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['nombre'];
+										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['criterio'];
 										$atributos ['deshabilitado'] = false;
 										$atributos ['tamanno'] = 6;
 										$atributos ['maximoTamanno'] = '';

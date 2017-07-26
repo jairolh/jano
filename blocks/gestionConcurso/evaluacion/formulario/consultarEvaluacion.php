@@ -173,12 +173,6 @@ class registrarForm {
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoPerfil);
 
-					 //consultar validación
-					 $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $_REQUEST['consecutivo_inscrito']);
-					 $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-					 //var_dump($resultadoValidacion);
-
-
 					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
 					$resultado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					//var_dump($resultado);
@@ -204,7 +198,7 @@ class registrarForm {
 							$mostrarHtml ="";
 							foreach($resultado as $key=>$value ){
 								if($resultado[$key]['observacion']==""){
-									$resultado[$key]['observacion']="Sin Observaciones";
+									$resultado[$key]['observacion']="Sin observaciones";
 								}
 
 							 $mostrarHtml .= "<tr align='center'>
@@ -214,8 +208,6 @@ class registrarForm {
 
   	 					 $mostrarHtml .= "</tr>";
 							}
-
-
 
  	 					 echo $mostrarHtml;
  	 					 unset($mostrarHtml);

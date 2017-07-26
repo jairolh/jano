@@ -51,7 +51,7 @@ class Sql extends \Sql {
 
 			case 'consultarJurados' :
 				$cadenaSql=" SELECT ";
-				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
+				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
 				$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";

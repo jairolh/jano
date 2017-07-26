@@ -170,7 +170,7 @@ class consultarInscrito {
 																				//consultar si ya se hizo la evaluación parcial
 																				$parametro=array(
 																					'grupo'=>$resultadoGrupo[0]['id'],
-																					'inscrito'=>$resultadoListaInscrito[0]['id_inscrito'],
+																					'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
 																				);
 														            $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
 														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");

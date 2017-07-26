@@ -192,7 +192,10 @@ class consultarJurado {
 										 echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
 										 echo "<thead>
 														 <tr align='center'>
-																 <th>Seleccionar</th>
+														 <th>
+														 	<input name='seleccionarTodo' id='seleccionarTodo' value='3' tabindex='4' class='justificado validate[]' type='checkbox'>
+																 Seleccionar
+															</th>
 																 <th>Inscripción</th>
 																 <th>Tipo Identificación</th>
 																 <th>Identificación</th>

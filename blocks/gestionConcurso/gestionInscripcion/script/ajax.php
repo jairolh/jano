@@ -101,6 +101,13 @@ $(function () {
 });
 
 $(function () {
+    $("#seleccionarTodo").click(function(){
+      //$("input[type='checkbox']").checked=true;
+      //document.querySelectorAll("input[type=text]");
+      //document.getElementsByTagName("input[type=checkbox]").checked=true;
+      $("input:checkbox").prop('checked', $(this).prop("checked"));
+      //document.getElementById("seleccion3").checked=true;
+    });
 
     $("#<?php echo $this->campoSeguro('tipo')?>").change(function(){
       if($("#<?php echo $this->campoSeguro('tipo')?>").val()!=''){
@@ -204,6 +211,7 @@ function consultarCriterio(elem, request, response){
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
 
+                $("#seleccionarTodo").removeAttr('checked');
                 for(i=inicio; i <= fin; i ++) {
                   $("#seleccion"+i).removeAttr('checked');
                 }
@@ -213,7 +221,7 @@ function consultarCriterio(elem, request, response){
                   //$('#seleccion'+valor.id_inscrito).prop('checked',"");
                 });
 
-  		        }
+  		        }$("#seleccion"+i).removeAttr('checked');
             }else{
 
               for(i=inicio; i <= fin; i ++) {

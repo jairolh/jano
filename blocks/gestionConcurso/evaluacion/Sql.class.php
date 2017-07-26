@@ -109,7 +109,7 @@ break;
 		break;
 
 		case "consultarEvaluacion":
-			$cadenaSql=" SELECT ";
+			$cadenaSql=" SELECT DISTINCT";
 			$cadenaSql.=" id, ";
 			$cadenaSql.=" id_grupo, ";
 			$cadenaSql.=" id_inscrito, ";
@@ -126,7 +126,7 @@ break;
 			$cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.concurso_evaluar ce, concurso.criterio_evaluacion ceval ";
 			$cadenaSql.=" WHERE ";
 			$cadenaSql.=" id_inscrito=".$variable;
-			$cadenaSql.=" AND ep.id_evaluar =ce.consecutivo_evaluar ";
+			$cadenaSql.=" AND ep.id_evaluar = ce.consecutivo_criterio ";
 			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio ";
 			//echo $cadenaSql;
 		break;
@@ -155,6 +155,8 @@ break;
 				$cadenaSql.=" id_jurado_rol=".$variable['rol'];
 				$cadenaSql.=" AND jc.id_criterio=ce.consecutivo_criterio ";
 				$cadenaSql.=" AND ev.consecutivo_criterio=ce.consecutivo_criterio ";
+				$cadenaSql.=" AND consecutivo_concurso=".$variable['consecutivo_concurso'];
+				//factor
 		break;
 
 

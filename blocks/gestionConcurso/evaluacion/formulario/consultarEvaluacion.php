@@ -198,7 +198,7 @@ class registrarForm {
 							$mostrarHtml ="";
 							foreach($resultado as $key=>$value ){
 								if($resultado[$key]['observacion']==""){
-									$resultado[$key]['observacion']="Sin Observaciones";
+									$resultado[$key]['observacion']="Sin observaciones";
 								}
 
 							 $mostrarHtml .= "<tr align='center'>
@@ -208,8 +208,6 @@ class registrarForm {
 
   	 					 $mostrarHtml .= "</tr>";
 							}
-
-
 
  	 					 echo $mostrarHtml;
  	 					 unset($mostrarHtml);

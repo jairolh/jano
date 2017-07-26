@@ -194,7 +194,7 @@ class consultarInscrito {
                         {
                                 $atributos["id"]="divNoEncontroInscrito";
                                 $atributos["estilo"]="";
-                           //$atributos["estiloEnLinea"]="display:none";
+                           			//$atributos["estiloEnLinea"]="display:none";
                                 echo $this->miFormulario->division("inicio",$atributos);
 
                                 //-------------Control Boton-----------------------
@@ -211,7 +211,7 @@ class consultarInscrito {
                                echo $this->miFormulario->division("fin");
                                 //------------------Division para los botones-------------------------
                         }
-												
+
                 }
             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
             unset ( $atributos );

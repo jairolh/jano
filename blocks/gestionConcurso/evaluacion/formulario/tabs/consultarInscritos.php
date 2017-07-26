@@ -149,16 +149,6 @@ class consultarInscrito {
 																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
                                         $mostrarHtml .= "<td>";
 
-																				$variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                        $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
-																				$variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                      	$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-                                        $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableVerEvaluacion .= "&tiempo=" . time ();
-                                        $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
-
 																				//consultar grupo de concurso y jurado (con evaluador y perfil)
 																				$parametro=array(
 																					'jurado'=>$this->miSesion->getSesionUsuarioId(),
@@ -166,6 +156,17 @@ class consultarInscrito {
 																				);
 																				$cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
 														            $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+																				$variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
+																				$variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																				$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                      	$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
+																				$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+																				$variableVerEvaluacion .= "&grupo=".$resultadoGrupo[0]['id'];
+                                        $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableVerEvaluacion .= "&tiempo=" . time ();
+                                        $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
 
 																				//consultar si ya se hizo la evaluación parcial
 																				$parametro=array(

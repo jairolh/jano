@@ -47,7 +47,7 @@ class RegistradorEvaluacion {
           for($i=0; $i<$_REQUEST['numeroCriterios']; $i++){
               $arregloDatos = array('grupo'=>$resultadoGrupo[0][0],
                                   'inscrito'=>$_REQUEST['consecutivo_inscrito'],
-                                  'criterio'=>$_REQUEST['criterio'.$i],
+                                  'id_evaluar'=>$_REQUEST['id_evaluar'.$i],
                                   'puntaje'=>$_REQUEST['puntaje'.$i],
                                   'observacion'=>$_REQUEST['observaciones'.$i],
                                   'fecha'=> $fecha

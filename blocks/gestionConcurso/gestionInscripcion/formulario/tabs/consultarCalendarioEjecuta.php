@@ -59,7 +59,7 @@ class consultarCalendario {
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 	
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);    
-            $cadena_sql = $this->miSql->getCadenaSql("consultarCalendarioConcurso", $parametro);
+            echo $cadena_sql = $this->miSql->getCadenaSql("consultarCalendarioConcurso", $parametro);
             $resultadoListaCalendario = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             
             $esteCampo = "marcoListaCalendario";

@@ -80,6 +80,9 @@ class Funcion {
                                         {   case "requisito":
                                                   $this->cerrarRequisitos();
                                             break;
+                                            case "evaluacion":
+                                                  $this->cerrarEvaluacion();
+                                            break;
                                         }
                                 break;
 
@@ -100,11 +103,10 @@ class Funcion {
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->guardarPerfilConcurso();
                                 break;
-
-																case "guardarAspirantesJurado":
-		                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-		                                    $this->guardarAspirantesJurado();
-		                                break;
+    			    case "guardarAspirantesJurado":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->guardarAspirantesJurado();
+                                break;
 
                             case "borrar":
                                     $this->borrarDatos();
@@ -193,7 +195,10 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/cerrarRequisitosPerfil.php");
 	}
-
+	function cerrarEvaluacion()
+	{
+		include_once($this->ruta."/funcion/cerrarEvaluacion.php");
+	}
         function guardarCalendarioConcurso()
 	{
 		include_once($this->ruta."/funcion/registrarCalendarioConcurso.php");

@@ -11,7 +11,7 @@ if (!isset($GLOBALS ["autorizado"])) {
     exit();
 }
 
-class cerrarRequisitosPerfil {
+class cerrarEvaluacion {
 
     var $miConfigurador;
     var $lenguaje;
@@ -34,23 +34,58 @@ class cerrarRequisitosPerfil {
         $conexion="estructura";
         $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
         $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
+        //busca inscritos a la etapa
         $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                         'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],    
                          'validacion'=>'SI',
                          'fecha_registro'=>date("Y-m-d H:m:s"),
                          'nombre_concurso'=>$_REQUEST['nombre_concurso'],
                          'nombre'=>$_REQUEST['nombre'],   
-                         'faseAct'=>$_REQUEST['consecutivo_calendario'],
                          'faseNueva'=>$_REQUEST['etapaPasa'],  );    
-        $cadena_sql = $this->miSql->getCadenaSql("consultarValidadoPerfilConcurso", $parametro);
-        $resultadoListaValidado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        if($resultadoListaValidado)
+        //$cadena_sql = $this->miSql->getCadenaSql("consultarCalculoEvaluacionParcial", $parametro);
+        echo $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoEtapa", $parametro);
+        $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        
+        if($resultadoListaInscrito)
             {   //llama imagen progreso
                 $this->progreso($esteBloque);
                 //recorre los registros de los que se validaron
-                foreach ($resultadoListaValidado as $key => $value) {
-                    $parametro['inscripcion']=$resultadoListaValidado[$key]['consecutivo_inscrito'];    
-                    $this->cerrarFase($parametro,$esteRecursoDB);
-                }
+                foreach ($resultadoListaInscrito as $key => $value)
+                    {
+                    $parametro['consecutivo_inscrito']=$resultadoListaInscrito[$key]['consecutivo_inscrito'];   
+                    echo "<br>".$cadena_sql = $this->miSql->getCadenaSql("consultarDetalleEvaluacionParcial", $parametro);
+                    $resultadoParcial = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                    var_dump($resultadoParcial);
+                    if($resultadoParcial)
+                        {$puntaje=0;
+                         foreach ($resultadoParcial as $parc => $value) 
+                            {   $puntaje+=$resultadoParcial[$parc]['puntaje_parcial'];
+                                $aprueba[$key]=$resultadoParcial[0]['puntos_aprueba'];
+                                $evaluar[$key]=$resultadoParcial[0]['id_evaluar'];
+                            }
+                            
+                            $puntosFinal=array( 'id_inscrito'=>$resultadoParcial[$key]['id_inscrito'],
+                                          'id_evaluar'=>$evaluar[$key],
+                                          'puntaje_final'=>$final,
+                                          'observacion'=>"Cálculo de puntaje final de evaluación, con puntaje minimo de aprobación de ".$aprueba[$key],
+                                          'fecha_registro'=>$parametro['fecha_registro'],
+                                          'aprobo'=>($final>=$aprueba[$key])?'SI':'NO',
+                                    );
+                            //registra puntaje final
+                           $this->cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionFinal", $puntosFinal);
+                           $resultadofinal = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $puntosFinal, "registroCalculoEvaluacionFinal" );
+                           
+                           $puntosParcial=array('id_inscrito'=>$puntosFinal['id_inscrito'],
+                                                'id_evaluar'=>$evaluar[$key],
+                                                'id_evaluacion_final'=>$resultadofinal,
+                                    );
+                           //registra relacion de evaluacion final con evaluación parcial
+                           $this->cadena_sql = $this->miSql->getCadenaSql("actualizarEvaluacionParcial", $puntosParcial);
+                           $resultadoParcial = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $puntosParcial, "actualizarEvaluacionParcial" );
+                        }
+                    }
+                   // $this->cerrarFase($parametro,$esteRecursoDB);
+                
                 redireccion::redireccionar('CerroFase',$parametro);
                 exit();
             }
@@ -89,7 +124,7 @@ class cerrarRequisitosPerfil {
                               'consecutivo_calendario' => $parametro['faseNueva'],
                               'observacion' => 'Cierre automatico fase '.$parametro['nombre'],
                               'fecha_registro' => $parametro['fecha_registro'],
-                              'consecutivo_calendario_ant' => $parametro['faseAct'],
+                              'consecutivo_calendario_ant' => $parametro['consecutivo_calendario'],
                             );
        $this->cadena_sql = $this->miSql->getCadenaSql("registroEtapaInscrito", $arregloDatos);
        $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreEtapaInscrito" );
@@ -97,7 +132,7 @@ class cerrarRequisitosPerfil {
     
 }
 
-$miRegistrador = new cerrarRequisitosPerfil($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
+$miRegistrador = new cerrarEvaluacion($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
 
 $resultado = $miRegistrador->procesarFormulario();
 ?>

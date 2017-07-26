@@ -148,15 +148,16 @@ break;
 		break;
 
 		case "consultaCriteriosRol":
-				$cadenaSql=" SELECT jc.id, jc.id_jurado_rol, jc.id_criterio, ";
-				$cadenaSql.=" ce.consecutivo_criterio, ce.consecutivo_factor, ce.nombre, ev.maximo_puntos";
-				$cadenaSql.=" FROM concurso.jurado_criterio jc, concurso.criterio_evaluacion ce, concurso.concurso_evaluar ev";
+				$cadenaSql=" SELECT jc.id, jc.id_jurado_rol, jc.id_criterio, f.nombre, ";
+				$cadenaSql.=" ce.consecutivo_criterio, ce.consecutivo_factor, ce.nombre AS criterio, ev.maximo_puntos";
+				$cadenaSql.=" FROM concurso.jurado_criterio jc, concurso.criterio_evaluacion ce, concurso.concurso_evaluar ev, concurso.factor_evaluacion f";
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" id_jurado_rol=".$variable['rol'];
 				$cadenaSql.=" AND jc.id_criterio=ce.consecutivo_criterio ";
 				$cadenaSql.=" AND ev.consecutivo_criterio=ce.consecutivo_criterio ";
+				$cadenaSql.=" AND ce.consecutivo_factor=f.consecutivo_factor ";
 				$cadenaSql.=" AND consecutivo_concurso=".$variable['consecutivo_concurso'];
-				//factor
+				$cadenaSql.=" AND f.nombre='".$variable['factor']."'";
 		break;
 
 

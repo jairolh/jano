@@ -146,18 +146,66 @@ class registrarForm {
 
 					 echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 	 				 echo "<thead>
-	 								<tr align='center'>
-	 										<th>Identificación</th>
-	 										<th>Aspirante</th>
-	 								</tr>
+	 						<tr align='center'>
+                                                            <th>Inscripción</th>
+                                                            <th>Identificación</th>
+                                                            <th>Aspirante</th>
+                                                            <th>Hoja de Vida</th>
+	 						</tr>
 	 						</thead>
 	 						<tbody>";
 
-	 						$mostrarHtml = "<tr align='center'>
-	 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
-	 										<td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
+					$mostrarHtml = "<tr align='center'>
+                                                            <td align='left'>".$resultadoInscripcion[0]['consecutivo_inscrito']."</td>                                            
+                                                            <td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
+                                                            <td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
+                                        $mostrarHtml .= "<td>";
 
-	 					 $mostrarHtml .= "</tr>";
+                                                                $variableVerHoja = "pagina=publicacion";
+                                                                $variableVerHoja.= "&opcion=hojaVida";
+                                                                $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                                $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                                $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                                $variableVerHoja.= "&tiempo=" . time ();
+                                                                $variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                                                $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                                $variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                                $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+                                                                                //-------------Enlace-----------------------
+                                                                                $esteCampo = "verHojaVida";
+                                                                                $esteCampo = 'enlace_hoja';
+                                                                                $atributos ['id'] = $esteCampo;
+                                                                                $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+                                                                                $atributos ['tabIndex'] = 0;
+                                                                                $atributos ['columnas'] = 1;
+                                                                                $atributos ['enlaceTexto'] = 'Ver Curriculum';
+                                                                                $atributos ['estilo'] = 'clasico';
+                                                                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                                $atributos ['ancho'] = '20px';
+                                                                                $atributos ['alto'] = '20px';
+                                                                                $atributos ['redirLugar'] = false;
+                                                                                $atributos ['valor'] = '';
+                                                                                $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                                                unset ( $atributos );
+                                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                                $esteCampo = 'ruta_enlace_hoja';
+                                                                                $atributos ['id'] = $esteCampo;
+                                                                                $atributos ['nombre'] = $esteCampo;
+                                                                                $atributos ['tipo'] = 'hidden';
+                                                                                $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                                $atributos ['obligatorio'] = false;
+                                                                                $atributos ['valor'] = $variableVerHoja;
+                                                                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                                $atributos ['deshabilitado'] = FALSE;
+                                                                                $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                                // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+
+                                                                 $mostrarHtml .= "</td>";
+
+
+					 $mostrarHtml .= "</tr>";
 	 					 echo $mostrarHtml;
 	 					 unset($mostrarHtml);
 	 					 echo "</tbody>";
@@ -184,8 +232,11 @@ class registrarForm {
 							$resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 							foreach($resultadoRoles as $key=>$value ){
-								if(($resultadoRoles[$key]['rol']=='Jurado')||($resultadoRoles[$key]['rol']=='ILUD')){
-									$rol=$resultadoRoles[$key]['cod_rol'];
+								if(($resultadoRoles[$key]['rol']=='Jurado')
+                                                                    ||($resultadoRoles[$key]['rol']=='ILUD')
+                                                                    ||($resultadoRoles[$key]['rol']=='Docencia')
+                                                                    ||($resultadoRoles[$key]['rol']=='Personal')){
+                                                                    $rol=$resultadoRoles[$key]['cod_rol'];
 								}
 							}
 
@@ -193,8 +244,8 @@ class registrarForm {
 	 						 'rol'=>$rol,
 							 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 							 'factor'=> 'Competencias profesionales y comunicativas'
-	 					 	);
-								//Consultar criterios de evaluación asociados al rol JURADO o ILUD
+	 					 	);      
+                                                               //Consultar criterios de evaluación asociados al rol JURADO o ILUD
 								$cadena_sql = $this->miSql->getCadenaSql("consultaCriteriosRol", $parametro);
 		 					 	$resultadoCriterios= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 								//var_dump($resultadoCriterios);

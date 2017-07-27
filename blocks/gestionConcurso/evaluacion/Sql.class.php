@@ -159,7 +159,7 @@ break;
 				$cadenaSql.=" AND ev.consecutivo_criterio=ce.consecutivo_criterio ";
 				$cadenaSql.=" AND ce.consecutivo_factor=f.consecutivo_factor ";
 				$cadenaSql.=" AND consecutivo_concurso=".$variable['consecutivo_concurso'];
-				$cadenaSql.=" AND f.nombre='".$variable['factor']."'";
+				//$cadenaSql.=" AND f.nombre='".$variable['factor']."'";
 				//echo $cadenaSql;
 		break;
 

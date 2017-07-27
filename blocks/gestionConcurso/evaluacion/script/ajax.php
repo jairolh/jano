@@ -45,7 +45,7 @@ function soporte(archivo) {
 
 function enlace(direccion) {
   var miVentana
-  miVentana = window.open('about:blank','enlace','width=800,height=600,menubar=no,scrollbars=yes')
+  miVentana = window.open('about:blank','enlace','width=1100,height=600,menubar=no,scrollbars=yes')
   miVentana.location = $("#"+direccion).val();
 }
 

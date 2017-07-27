@@ -131,32 +131,30 @@ class registrarForm {
 						</thead>
 						<tbody>";
 
-						$mostrarHtml = "<tr align='center'>
-										<td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
-
-					 $mostrarHtml .= "</tr>";
+				$mostrarHtml = "<tr align='center'>
+                                                    <td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
+                                                    <td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
+                                                    <td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
+				$mostrarHtml .= "</tr>";
 					 echo $mostrarHtml;
 					 unset($mostrarHtml);
 					 echo "</tbody>";
 					 echo "</table></div>";
-
-
 					 echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 	 				 echo "<thead>
-	 								<tr align='center'>
-	 										<th>Identificación</th>
-	 										<th>Aspirante</th>
-	 								</tr>
+	 						<tr align='center'>
+                                                            <th>Inscripción</th>
+                                                            <th>Identificación</th>
+                                                            <th>Aspirante</th>
+	 						</tr>
 	 						</thead>
 	 						<tbody>";
 
-	 						$mostrarHtml = "<tr align='center'>
-	 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
-	 										<td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
-
-	 					 $mostrarHtml .= "</tr>";
+                                     $mostrarHtml = "<tr align='center'>
+                                                            <td align='left'>".$resultadoInscripcion[0]['consecutivo_inscrito']."</td>                                            
+                                                            <td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
+                                                            <td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
+                                     $mostrarHtml .= "</tr>";
 	 					 echo $mostrarHtml;
 	 					 unset($mostrarHtml);
 	 					 echo "</tbody>";
@@ -165,7 +163,6 @@ class registrarForm {
 					 $parametro=array(
 						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 						 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
-
 					 );
 					 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");

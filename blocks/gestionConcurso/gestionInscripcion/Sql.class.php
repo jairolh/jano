@@ -57,7 +57,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" s.estado='1' AND";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
-				$cadenaSql.=" (r.rol_alias='Jurado' OR r.rol_alias='ILUD')";
+				$cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Jurado' OR r.rol_alias='ILUD' )";
 				break;
 
 			case 'consultarTiposJurado' :

@@ -61,9 +61,9 @@ class consultarInscrito {
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
             $parametro=array(
-							'concurso'=>$_REQUEST['consecutivo_concurso'],
-							'jurado'=>$this->miSesion->getSesionUsuarioId()
-						);
+                                'concurso'=>$_REQUEST['consecutivo_concurso'],
+                                'jurado'=>$this->miSesion->getSesionUsuarioId()
+                        );
             $cadena_sql = $this->miSql->getCadenaSql("consultarAspirantesAsignados", $parametro);
             $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
@@ -88,11 +88,10 @@ class consultarInscrito {
                                 echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>
-
+                                            <th>Inscripción</th>
                                             <th>Identificación</th>
                                             <th>Nombre</th>
-																						<th>Perfil</th>
-
+                                            <th>Perfil</th>
                                             <th>Evaluar</th>
                                         </tr>
                                     </thead>
@@ -143,8 +142,8 @@ class consultarInscrito {
 																				}*/
 
                                         $mostrarHtml = "<tr align='center'>
-
-                                                <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion'].$resultadoListaInscrito[$key]['identificacion']."</td>
+                                                <td align='left'>".$resultadoListaInscrito[$key]['id_inscrito']."</td>
+                                                <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']." ".$resultadoListaInscrito[$key]['identificacion']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
 																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
                                         $mostrarHtml .= "<td>";

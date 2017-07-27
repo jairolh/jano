@@ -8,7 +8,7 @@ $this->idioma["tabCalendario"]="Calendario";
 $this->idioma["tabInscritos"]="Aspirantes";
 
 //marcos
-$this->idioma["marcoSubsistema"]="Evaluación de Competencias Profesionales y Comunicativas";
+$this->idioma["marcoSubsistema"]="Evaluación de Aspirante";
 $this->idioma["marcoCriteriosEvaluados"]="Criterios Evaluados";
 $this->idioma["marcoEvaluacionCriterios"]="Criterios a evaluar";
 

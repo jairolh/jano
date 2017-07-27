@@ -54,6 +54,7 @@ class Sql extends \Sql {
 				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
 				$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
 				$cadenaSql.=" WHERE ";
+                                $cadenaSql.=" s.estado='1' AND";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
 				$cadenaSql.=" (r.rol_alias='Jurado' OR r.rol_alias='ILUD')";
@@ -385,7 +386,7 @@ class Sql extends \Sql {
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }
                                 if(isset($variable['gr.id_evaluador']) &&  $variable['gr.id_evaluador']!='' )
                                    {$cadenaSql.=" AND gr.id_evaluador='".$variable['gr.id_evaluador']."' "; }   
-                                $cadenaSql.=" ORDER BY parc.id_grupo ";
+                                $cadenaSql.=" ORDER BY parc.id_evaluar,parc.id_grupo ";
 
                             break;   
                             

@@ -262,7 +262,7 @@ class registrarForm {
 										// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 
 										// ////////////////Hidden////////////
-										$esteCampo = 'criterio'.$key;
+										$esteCampo = 'id_evaluar'.$key;
 										$atributos ["id"] = $esteCampo;
 										$atributos ["tipo"] = "hidden";
 										$atributos ['estilo'] = '';
@@ -270,7 +270,7 @@ class registrarForm {
 										$atributos ["obligatorio"] = true;
 										$atributos ['marco'] = true;
 										$atributos ["etiqueta"] = "";
-										$atributos ['valor'] = $resultadoCriterios[$key]['consecutivo_criterio'];
+										$atributos ['valor'] = $resultadoCriterios[$key]['id_evaluar'];
 										$atributos = array_merge ( $atributos, $atributosGlobales );
 										echo $this->miFormulario->campoCuadroTexto ( $atributos );
 										unset ( $atributos );

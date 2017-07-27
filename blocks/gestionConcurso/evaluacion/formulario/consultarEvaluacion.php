@@ -112,7 +112,6 @@ class registrarForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
-
 				$parametro=array(
 					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
 				);
@@ -163,17 +162,24 @@ class registrarForm {
 	 					 echo "</tbody>";
 	 					 echo "</table></div>";
 
-
-
 					 $parametro=array(
 						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 						 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
+
 					 );
 					 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					 //var_dump($resultadoPerfil);
 
-					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
+					 $parametro=array(
+						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+						 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil'],
+						  'grupo' =>$_REQUEST['grupo'],
+							'inscrito'=>$_REQUEST['consecutivo_inscrito']
+					 );
+
+
+					$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $parametro);
 					$resultado= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 					//var_dump($resultado);
 

@@ -62,7 +62,8 @@ class consultarInscrito {
 
             $parametro=array(
                                 'concurso'=>$_REQUEST['consecutivo_concurso'],
-                                'jurado'=>$this->miSesion->getSesionUsuarioId()
+                                'jurado'=>$this->miSesion->getSesionUsuarioId(),
+                                'hoy'=>date("Y-m-d")
                         );
             $cadena_sql = $this->miSql->getCadenaSql("consultarAspirantesAsignados", $parametro);
             $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");

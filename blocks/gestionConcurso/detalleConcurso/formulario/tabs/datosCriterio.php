@@ -191,7 +191,7 @@ class criterioForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,custom[onlyNumberSp],minSize[1],min[1],max[$puntosPermitido]";
+                                    $atributos ['validar']="required,custom[number],minSize[1],min[1],max[$puntosPermitido]";
                                     if (isset ( $resultadoCriterio[0]['maximo_puntos'] )) 
                                          {  $atributos ['valor'] = $resultadoCriterio[0]['maximo_puntos'];} 
                                     else {  $atributos ['valor'] = '';}
@@ -217,7 +217,7 @@ class criterioForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,custom[onlyNumberSp],minSize[1],min[1],max[100]";
+                                    $atributos ['validar']="required,custom[number],minSize[1],min[0],max[100]";
                                     if (isset ( $resultadoCriterio[0]['puntos_aprueba'] )) 
                                          {  $atributos ['valor'] = $resultadoCriterio[0]['puntos_aprueba'];} 
                                     else {  $atributos ['valor'] = '';}
@@ -251,7 +251,7 @@ class criterioForm {
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
                                     $parametroFase=array('consecutivo_concurso'=> $_REQUEST['consecutivo_concurso'],
-                                                         'fase_obligatorio'=>'N');
+                                                         'fase_obligatorio'=>'N','estado'=>'A');
                                     $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarCalendarioConcurso",$parametroFase );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );

@@ -271,6 +271,8 @@ class Sql extends \Sql {
                                    {
                                     $cadenaSql.=" AND cal.consecutivo_calendario='".$variable['consecutivo_calendario']."' "; 
                                    }
+                                if(isset($variable['estado']) &&  $variable['estado']!='' )
+                                   {$cadenaSql.=" AND cal.estado='A' "; }   
                                 if(isset($variable['fase_obligatorio']) &&  $variable['fase_obligatorio']=='S' )
                                    { $cadenaSql.=" AND act.nombre  IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
                                    }   

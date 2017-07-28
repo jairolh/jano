@@ -146,6 +146,7 @@ class registrarForm {
                                                             <th>Inscripción</th>
                                                             <th>Identificación</th>
                                                             <th>Aspirante</th>
+                                                            <th>Hoja de Vida</th>
 	 						</tr>
 	 						</thead>
 	 						<tbody>";
@@ -154,7 +155,51 @@ class registrarForm {
                                                             <td align='left'>".$resultadoInscripcion[0]['consecutivo_inscrito']."</td>                                            
                                                             <td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
                                                             <td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
-                                     $mostrarHtml .= "</tr>";
+                                        $mostrarHtml .= "<td>";
+
+                                                                $variableVerHoja = "pagina=publicacion";
+                                                                $variableVerHoja.= "&opcion=hojaVida";
+                                                                $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                                $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                                $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                                $variableVerHoja.= "&tiempo=" . time ();
+                                                                $variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                                                $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                                $variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                                $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+                                                                //-------------Enlace-----------------------
+                                                                $esteCampo = "verHojaVida";
+                                                                $esteCampo = 'enlace_hoja';
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+                                                                $atributos ['tabIndex'] = 0;
+                                                                $atributos ['columnas'] = 1;
+                                                                $atributos ['enlaceTexto'] = 'Ver Curriculum';
+                                                                $atributos ['estilo'] = 'clasico';
+                                                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                $atributos ['ancho'] = '20px';
+                                                                $atributos ['alto'] = '20px';
+                                                                $atributos ['redirLugar'] = false;
+                                                                $atributos ['valor'] = '';
+                                                                $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                                unset ( $atributos );
+                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                $esteCampo = 'ruta_enlace_hoja';
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['nombre'] = $esteCampo;
+                                                                $atributos ['tipo'] = 'hidden';
+                                                                $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['obligatorio'] = false;
+                                                                $atributos ['valor'] = $variableVerHoja;
+                                                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['deshabilitado'] = FALSE;
+                                                                $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+
+                                                 $mostrarHtml .= "</td>";
+                                         $mostrarHtml .= "</tr>";
 	 					 echo $mostrarHtml;
 	 					 unset($mostrarHtml);
 	 					 echo "</tbody>";

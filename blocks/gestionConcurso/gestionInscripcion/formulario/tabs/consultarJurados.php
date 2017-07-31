@@ -177,6 +177,7 @@ class consultarJurado {
 										 unset ( $atributos );
 										 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
 
+
 										 $esteCampo = "marcoListaAspirantes";
 										 $atributos ['id'] = $esteCampo;
 										 $atributos ["estilo"] = "jqueryui";
@@ -184,12 +185,49 @@ class consultarJurado {
 										 $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
 										 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 
-										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
-										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+										/* $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
+										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );*/
 										 //var_dump($aspirantes);
 
+										 echo "<table id='tablaConsultaAspirantesAsignados' class='display' width='100%'></table>";
+										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
+										 $variableNuevo="";
+										 echo "<div ><table width='100%' align='center'>
+		                         <tr align='center'>
+		                             <td align='center'>";
+		                                 $esteCampo = 'agregarAspirantes';
+		                                 $atributos ['id'] = $esteCampo;
+		                                 $atributos ['enlace'] = $variableNuevo;
+		                                 $atributos ['tabIndex'] = 1;
+		                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+		                                 $atributos ['estilo'] = 'textoPequenno textoGris';
+		                                 $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
+		                                 $atributos ['posicionImagen'] = "atras";//"adelante";
+		                                 $atributos ['ancho'] = '45px';
+		                                 $atributos ['alto'] = '45px';
+		                                 $atributos ['redirLugar'] = true;
+		                                 echo $this->miFormulario->enlace ( $atributos );
+		                                 unset ( $atributos );
+		                 echo "            </td>
+		                         </tr>
+		                       </table></div> ";
+
+/*
+
+										 $esteCampo = "marcoListaAspirantes";
+										 $atributos ['id'] = $esteCampo;
+										 $atributos ["estilo"] = "jqueryui";
+										 $atributos ['tipoEtiqueta'] = 'inicio';
+										 $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+										 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+*/
+										/* $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
+										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+										 *///var_dump($aspirantes);
+
 										 //listado con check de los aspirantes
-										 echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
+										 /*echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
 										 echo "<thead>
 														 <tr align='center'>
 														 <th>
@@ -234,6 +272,11 @@ class consultarJurado {
 															 $mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
 
 
+
+
+
+
+
 												 $mostrarHtml.="</td>";
 
 
@@ -258,9 +301,11 @@ class consultarJurado {
 									 }
 										 echo "</tbody>";
 										 echo "</table></div>";
+*/
+
 
 										 // ////////////////Hidden////////////
-										$esteCampo = 'aspirantes';
+									/*	$esteCampo = 'aspirantes';
 										$atributos ["id"] = $esteCampo;
 										$atributos ["tipo"] = "hidden";
 										$atributos ['estilo'] = '';
@@ -289,9 +334,9 @@ class consultarJurado {
 										unset ( $atributos );
 
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-										 unset ( $atributos );
+										 unset ( $atributos );*/
 
-								if($aspirantes){
+							/*	if($aspirantes){
 										 // ------------------Division para los botones-------------------------
 						 				$atributos ["id"] = "botones";
 						 				$atributos ["estilo"] = "marcoBotones";
@@ -321,7 +366,7 @@ class consultarJurado {
 						 				}
 						 				echo $this->miFormulario->division ( 'fin' );
 									}
-
+*/
 								}else{
 										$tab=1;
 										//---------------Inicio Formulario (<form>)--------------------------------
@@ -344,7 +389,7 @@ class consultarJurado {
 										//-------------Control cuadroTexto con campos ocultos-----------------------
 								}
 
-				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+				//echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
 

@@ -106,4 +106,7 @@ $this->idioma["seleccionJurado"]="Jurado";
 $this->idioma["tipoJurado"]="Tipo Jurado";
 $this->idioma["etapaPasa"]="Aspirantes pasan a la Etapa: ";
 
+$this->idioma["agregarAspirantes"]="Agregar aspirantes";
+
+
 ?>

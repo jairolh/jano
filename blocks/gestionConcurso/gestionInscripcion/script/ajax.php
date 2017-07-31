@@ -31,7 +31,7 @@ $cadenaACodificarCrit .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaCrit = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarCrit, $enlace );
 $urlFinalCrit = $url . $cadenaCrit;
 //jurado
-$cadenaACodificarJurado = $cadenaACodificar . "&funcion=consultarJurado";
+$cadenaACodificarJurado = $cadenaACodificar . "&funcion=consultarAspirantesAsignados";
 $cadenaACodificarJurado .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaJurado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarJurado, $enlace );
 $urlFinalJurado = $url . $cadenaJurado;
@@ -182,6 +182,9 @@ function consultarCriterio(elem, request, response){
       });
   });
 
+
+
+
   function consultarTipoJurado(elem, request, response){
   	  $.ajax({
   	    url: "<?php echo $urlFinalJurado?>",
@@ -191,6 +194,27 @@ function consultarCriterio(elem, request, response){
           valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
       },
   	    success: function(data){
+
+          console.log(data);
+          if(!data){
+            data=[];
+          }
+
+              $('#tablaConsultaAspirantesAsignados').DataTable( {
+
+                  data: data,
+                  columns: [
+                      { title: "Inscripción" },
+                      { title: "Identificación" },
+                      { title: "Aspirante" },
+                      { title: "Perfil" }
+                  ],
+                  destroy: true,
+                  paging: false,
+                  searching: false,
+              } );
+
+/*
           var aux=$('#<?php echo $this->campoSeguro("numeroAspirantes")?>').val();
           var inscripciones = aux.split(",");
           var inicio=0;
@@ -229,7 +253,7 @@ function consultarCriterio(elem, request, response){
               }
 
               consultarTodosTipoJurado();
-            }
+            }*/
   	    }
 
   	   });

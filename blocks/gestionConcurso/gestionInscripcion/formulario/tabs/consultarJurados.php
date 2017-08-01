@@ -192,26 +192,26 @@ class consultarJurado {
 										 echo "<table id='tablaConsultaAspirantesAsignados' class='display' width='100%'></table>";
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
-										 $variableNuevo="";
 										 echo "<div ><table width='100%' align='center'>
-		                         <tr align='center'>
-		                             <td align='center'>";
-		                                 $esteCampo = 'agregarAspirantes';
-		                                 $atributos ['id'] = $esteCampo;
-		                                 $atributos ['enlace'] = $variableNuevo;
-		                                 $atributos ['tabIndex'] = 1;
-		                                 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-		                                 $atributos ['estilo'] = 'textoPequenno textoGris';
-		                                 $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
-		                                 $atributos ['posicionImagen'] = "atras";//"adelante";
-		                                 $atributos ['ancho'] = '45px';
-		                                 $atributos ['alto'] = '45px';
-		                                 $atributos ['redirLugar'] = true;
-		                                 echo $this->miFormulario->enlace ( $atributos );
-		                                 unset ( $atributos );
-		                 echo "            </td>
-		                         </tr>
-		                       </table></div> ";
+                        <tr align='center'>
+                            <td align='center'>";
+										 $esteCampo = 'asignarAspirantes';
+										 $atributos ['id'] = $esteCampo;
+										 $atributos ['enlace'] = "#";//$variableNuevo;
+										 $atributos ['onClick'] ="show(\"marcoCriterio\")";
+										 $atributos ['tabIndex'] = 1;
+										 $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+										 $atributos ['estilo'] = 'textoPequenno textoGris';
+										 $atributos ['enlaceImagen'] = $rutaBloque."/images/new.png";
+										 $atributos ['posicionImagen'] = "atras";//"adelante";
+										 $atributos ['ancho'] = '45px';
+										 $atributos ['alto'] = '45px';
+										 $atributos ['redirLugar'] = true;
+										 echo $this->miFormulario->enlace ( $atributos );
+										 unset ( $atributos );
+										 echo "    </td>
+                        </tr>
+                      </table></div> ";
 
 /*
 

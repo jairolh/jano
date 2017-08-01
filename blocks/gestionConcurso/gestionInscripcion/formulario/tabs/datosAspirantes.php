@@ -3,9 +3,9 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
-use gestionConcursante\gestionHoja\funcion\redireccion;
+use gestionConcurso\gestionInscripcion\funcion\redireccion;
 
-class criterioForm {
+class aspirantesForm {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -48,18 +48,10 @@ class criterioForm {
                 $usuario=$miSesion->idUsuario();
                 //identifca el usuario
 		$parametro['id_usuario']=$usuario;
-                $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
-                $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                if(isset($_REQUEST['consecutivo_evaluar']))
-                    {  $parametro=array('consecutivo_evaluar'=>$_REQUEST['consecutivo_evaluar'],
-                                        'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
-                       $cadena_sql = $this->miSql->getCadenaSql("consultarCriterioConcurso", $parametro);
-                       $resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                       //var_dump($resultadoCriterio);
-                    }
+               
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
-                $estefomulario= 'datosCriterio';
+                $estefomulario= 'datosAspirantes';
 		$atributos ['id'] = $estefomulario;
 		$atributos ['nombre'] =$estefomulario;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
@@ -106,105 +98,154 @@ class criterioForm {
 				echo $this->miFormulario->division ( "inicio", $atributos );
 				unset ( $atributos );
 				{
-                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'consecutivo_factor';
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['tab'] = $tab ++;
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos ['evento'] = ' ';
-                                    if (isset ( $resultadoCriterio[0]['consecutivo_factor'] ))
-                                         {  $atributos ['seleccion'] = $resultadoCriterio[0]['consecutivo_factor'];}
-                                    else {	$atributos ['seleccion'] = -1;}
-                                    $atributos ['deshabilitado'] = false;
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['tamanno'] = 1;
-                                    $atributos ['estilo'] = "jqueryui";
-                                    $atributos ['validar'] = "required";
-                                    $atributos ['limitar'] = true;
-                                    $atributos ['anchoCaja'] = 60;
-                                    $atributos ['evento'] = '';
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaFactor" );
-                                    $matrizItems = array (array (0,' '));
-                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-                                    $atributos ['matrizItems'] = $matrizItems;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    $esteCampo = 'consecutivo_criterio';
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['tab'] = $tab ++;
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos ['evento'] = '';
-                                    if (isset($resultadoCriterio[0]['consecutivo_criterio']))
-                                         {  $atributos ['seleccion'] = $resultadoCriterio[0]['consecutivo_criterio'];
-                                             $atributos ['deshabilitado'] = false;
-                                         }
-                                    else {  $atributos ['seleccion'] = -1;
-                                             $atributos ['deshabilitado'] = true;
-                                         }
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['tamanno'] = 1;
-                                    $atributos ['estilo'] = "jqueryui";
-                                    $atributos ['validar'] = "required";
-                                    $atributos ['limitar'] = true;
-                                    $atributos ['anchoCaja'] = 60;
-                                    $atributos ['evento'] = '';
-                                    if (isset ( $resultadoCriterio[0]['consecutivo_factor'] ))
-                                         { $parametro=array('consecutivo_factor'=> $resultadoCriterio[0]['consecutivo_factor']);}
-                                    else { $parametro='';}
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaCriterio",$parametro );
-                                    $matrizItems = array (array (0,' '));
-                                    $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-                                    $atributos ['matrizItems'] = $matrizItems;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'maximo_puntos';
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['tipo'] = 'text';
-                                    $atributos ['estilo'] = 'jqueryui';
-                                    $atributos ['marco'] = true;
-                                    $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['dobleLinea'] = 0;
-                                    $atributos ['tabIndex'] = $tab;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,custom[onlyNumberSp],minSize[1],min[1],max[100]";
-                                    if (isset ( $resultadoCriterio[0]['maximo_puntos'] )) 
-                                         {  $atributos ['valor'] = $resultadoCriterio[0]['maximo_puntos'];} 
-                                    else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
-                                    $atributos ['tamanno'] = 60;
-                                    $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
-                                    
-                                }
+					$parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
+					$parametro['id_usuario']= 'CC111111';//cambiarlo por Ajax CC222222
+					
+					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
+					$aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+					//var_dump($aspirantes);
+					
+					if($aspirantes){
+						
+						echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
+						echo "<thead>
+														 <tr align='center'>
+														 <th>
+														 	<input name='seleccionarTodo' id='seleccionarTodo' value='3' tabindex='4' class='justificado validate[]' type='checkbox'>
+																 Seleccionar
+															</th>
+																 <th>Inscripción</th>
+																 <th>Tipo Identificación</th>
+																 <th>Identificación</th>
+																 <th>Nombre</th>
+																 <th>Perfil</th>
+														 </tr>
+												 </thead>
+												 <tbody>";
+						
+						if($aspirantes){
+							$primero=$aspirantes[0]['consecutivo_inscrito'];
+							foreach($aspirantes as $key=>$value ){
+						
+								$mostrarHtml = "<tr align='center'>
+															 <td align='left'>";
+						
+								// ---------------- CONTROL: Checkbox -----------
+								$esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
+								$atributos ['id'] = $esteCampo;
+								$atributos ['nombre'] = $esteCampo;
+								$atributos ['marco'] = true;
+								$atributos ['estiloMarco'] = true;
+								$atributos ["etiquetaObligatorio"] = true;
+								$atributos ['columnas'] = 1;
+								$atributos ['dobleLinea'] = 1;
+								$atributos ['tabIndex'] = $tab;
+								$atributos ['etiqueta'] = "";
+								$atributos ['seleccionado'] = false;
+								$atributos ['valor'] = $aspirantes[$key]['consecutivo_inscrito'];
+						
+								$atributos ['estilo'] = 'justificado';
+								$atributos ['eventoFuncion'] = ' ';
+								$atributos ['validar'] = '';
+								$atributos ['deshabilitado'] = false;
+								$tab ++;
+								//$atributos = array_merge ( $atributos, $atributosGlobales );
+								$mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
+						
+						
+								$mostrarHtml.="</td>";
+						
+						
+								$mostrarHtml .= "<td align='left'>".$aspirantes[$key]['consecutivo_inscrito']."</td>
+															 <td align='left'>".$aspirantes[$key]['tipo_identificacion']."</td>
+															 <td align='left'>".$aspirantes[$key]['identificacion']."</td>
+															 <td align='left'>".$aspirantes[$key]['nombre']."</td>
+															 <td align='left'>".$aspirantes[$key]['perfil']."</td>";
+								$mostrarHtml .= "</tr>";
+								echo $mostrarHtml;
+								unset($mostrarHtml);
+								unset($variable);
+							}
+						
+							if($key>0){
+								$ultimo=$aspirantes[$key]['consecutivo_inscrito'];
+								$valores= $primero . ",".$ultimo;
+							}else{
+								$valores= $primero;
+							}
+						
+						}
+						echo "</tbody>";
+						echo "</table></div>";
+						
+						// ////////////////Hidden////////////
+						$esteCampo = 'aspirantes';
+						$atributos ["id"] = $esteCampo;
+						$atributos ["tipo"] = "hidden";
+						$atributos ['estilo'] = '';
+						$atributos ['validar'] = '';
+						$atributos ["obligatorio"] = true;
+						$atributos ['marco'] = true;
+						$atributos ["etiqueta"] = "";
+						
+						$atributos = array_merge ( $atributos, $atributosGlobales );
+						echo $this->miFormulario->campoCuadroTexto ( $atributos );
+						unset ( $atributos );
+						
+						// ////////////////Hidden////////////
+						$esteCampo = 'numeroAspirantes';
+						$atributos ["id"] = $esteCampo;
+						$atributos ["tipo"] = "hidden";
+						$atributos ['estilo'] = '';
+						$atributos ['validar'] = '';
+						$atributos ["obligatorio"] = true;
+						$atributos ['marco'] = true;
+						$atributos ["etiqueta"] = "";
+						$atributos ['valor'] = $valores;
+						
+						$atributos = array_merge ( $atributos, $atributosGlobales );
+						echo $this->miFormulario->campoCuadroTexto ( $atributos );
+						unset ( $atributos );
+						
+						
+					}else
+                        {
+                                $atributos["id"]="divNoEncontroCriterio";
+                                $atributos["estilo"]="";
+                           //$atributos["estiloEnLinea"]="display:none"; 
+                                echo $this->miFormulario->division("inicio",$atributos);
+
+                                //-------------Control Boton-----------------------
+                                $esteCampo = "noEncontroAspirantes";
+                                $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                                $atributos["etiqueta"] = "";
+                                $atributos["estilo"] = "centrar";
+                                $atributos["tipo"] = 'error';
+                                $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                                echo $this->miFormulario->cuadroMensaje($atributos);
+                                unset($atributos); 
+                                //-------------Fin Control Boton----------------------
+
+                               echo $this->miFormulario->division("fin");
+                                //------------------Division para los botones-------------------------
+                        }
+					
+                                   
+                }
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+				
+				
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
 				echo $this->miFormulario->division ( "inicio", $atributos );
 				unset ( $atributos );
 				{
+					if($aspirantes){
+					
+					
 					// -----------------CONTROL: Botón ----------------------------------------------------------------
 					$esteCampo = 'botonCriterio';
 					$atributos ["id"] = $esteCampo;
@@ -299,6 +340,7 @@ class criterioForm {
                                     $atributos ["valor"] = $valorCodificado;
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
+					}
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Botones del Formulario -------------------------------------------
@@ -313,6 +355,6 @@ class criterioForm {
                 return true;
 	}
 }
-$miSeleccionador = new criterioForm ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new aspirantesForm ( $this->lenguaje, $this->miFormulario, $this->sql );
 $miSeleccionador->miForm ();
 ?>

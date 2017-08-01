@@ -95,6 +95,7 @@ $this->idioma ["noEncontroJurados"] = "No se encontraron usuarios con rol de Jur
 
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
 $this->idioma["noEncontroPerfil"]="No existe Perfiles registrados! ";
+$this->idioma["noEncontroAspirantes"]="No existen más aspirantes para asignar ";
 
 $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
@@ -106,7 +107,6 @@ $this->idioma["seleccionJurado"]="Jurado";
 $this->idioma["tipoJurado"]="Tipo Jurado";
 $this->idioma["etapaPasa"]="Aspirantes pasan a la Etapa: ";
 
-$this->idioma["agregarAspirantes"]="Agregar aspirantes";
-
+$this->idioma["asignarAspirantes"]="Asignar aspirantes al jurado";
 
 ?>

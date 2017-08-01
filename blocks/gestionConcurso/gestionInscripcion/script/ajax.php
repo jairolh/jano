@@ -76,8 +76,12 @@ function desmarcar(obj) {
 }
 
 function show(bloq) {
+	
     obj = document.getElementById(bloq);
+    console.log(obj);
     obj.style.display = (obj.style.display=='none') ? 'block' : 'none';
+	
+    
 }
 
 $(function () {
@@ -177,6 +181,7 @@ function consultarCriterio(elem, request, response){
         $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
               consultarTipoJurado();
+             
             }
 
       });
@@ -194,7 +199,7 @@ function consultarCriterio(elem, request, response){
           valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
       },
   	    success: function(data){
-
+  	    	
           console.log(data);
           if(!data){
             data=[];

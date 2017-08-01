@@ -92,6 +92,22 @@ class Sql extends \Sql {
 					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
 					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
 					break;
+					
+					
+				case 'consultarAspirantesNoAsignados' :
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
+					$cadenaSql.=" WHERE ";
+					$cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
+					$cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
+					$cadenaSql.=" cumple_requisito='SI' AND";
+					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
+					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
+					
+					$cadenaSql.="AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
+					break;
+					
 
                         case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";

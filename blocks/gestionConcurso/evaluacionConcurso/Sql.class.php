@@ -35,6 +35,26 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
 
+			case "consultaEtapaActiva":
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" calendar.consecutivo_calendario, ";
+					$cadenaSql.=" calendar.fecha_inicio, ";
+					$cadenaSql.=" calendar.fecha_fin ";
+
+					$cadenaSql.=" FROM concurso.concurso_calendario calendar, concurso.actividad_calendario actividad";
+					$cadenaSql.=" WHERE ";
+					$cadenaSql.=" actividad.nombre='Evaluar Requisitos' ";
+
+					if(isset($variable['hoy']) &&  $variable['hoy']!='' )
+						 {$cadenaSql.=" AND calendar.fecha_inicio <='".$variable['hoy']."' ";
+							$cadenaSql.=" AND calendar.fecha_fin>= '".$variable['hoy']."' ";
+						 }
+
+					$cadenaSql.=" AND calendar.consecutivo_actividad=actividad.consecutivo_actividad";
+					$cadenaSql.=" AND calendar.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
+					echo $cadenaSql;
+			break;
+
 			case "consultaInscripcion":
 					$cadenaSql=" SELECT ";
 					$cadenaSql.=" ci.consecutivo_inscrito, ";

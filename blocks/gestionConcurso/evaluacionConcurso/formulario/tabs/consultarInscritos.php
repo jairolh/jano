@@ -95,6 +95,15 @@ class consultarInscrito {
                                         </tr>
                                     </thead>
                                     <tbody>";
+
+																		//consulta para verificar que la etapa esté activa
+																		$hoy = date("Y-m-d");
+																		$parametro['hoy']=$hoy;
+																		$parametro['consecutivo_concurso']=$resultadoListaInscrito[0]['consecutivo_concurso'];
+																		$cadena_sql = $this->miSql->getCadenaSql("consultaEtapaActiva", $parametro);
+																		$resultadoEtapa = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+																		var_dump($resultadoEtapa);
+
                                 foreach($resultadoListaInscrito as $key=>$value )
                                     {   $parametro['tipo']='unico';
                                         /*
@@ -149,8 +158,7 @@ class consultarInscrito {
                                         $variableVerValidacion .= "&tiempo=" . time ();
                                         $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
 
-
-                                            if(!$resultadoValidacion){
+                                            if(!$resultadoValidacion && $resultadoEtapa){
                                                 //-------------Enlace-----------------------
                                                     $esteCampo = "validar";
                                                     $atributos["id"]=$esteCampo;
@@ -165,7 +173,7 @@ class consultarInscrito {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);
                                                 }
-																								else{
+																								else if ($resultadoValidacion){
 																									$esteCampo = "validar";
 																									$atributos["id"]=$esteCampo;
 																									$atributos['enlace']=$variableVerValidacion;
@@ -178,6 +186,8 @@ class consultarInscrito {
 																									//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 																									$mostrarHtml .= $this->miFormulario->enlace($atributos);
 																									unset($atributos);
+																								}else{
+																									$mostrarHtml .=  "Etapa Finalizada";
 																								}
                                          $mostrarHtml .= "</td>";
 

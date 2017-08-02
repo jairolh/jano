@@ -44,6 +44,7 @@ class calendarioForm {
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
                 $seccion ['tiempo'] = $tiempo;
+                $hoy=date("Y-m-d");
                 $miSesion = \Sesion::singleton();
                 $usuario=$miSesion->idUsuario();
                 //identifca el usuario
@@ -55,6 +56,13 @@ class calendarioForm {
                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
                        $cadena_sql = $this->miSql->getCadenaSql("consultarCalendarioConcurso", $parametro);
                        $resultadoCalendario = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       
+                       $parametroSop = array('consecutivo'=>0,
+                                             'tipo_dato'=>'autorizacionFecha',
+                                             'nombre_soporte'=>'soporteAutorizacion',
+                                             'consecutivo_dato'=>$_REQUEST['consecutivo_calendario']);
+                        $cadenaSopAut_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                        $resultadoSopAut = $esteRecursoDB->ejecutarAcceso($cadenaSopAut_sql, "busqueda");
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -257,6 +265,95 @@ class calendarioForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+                                
+                                // ---------------- CONTROL: Cuadro de division Soportes --------------------------------------------------------
+                                $atributos ["id"]="autorizacion";
+                                $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
+                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                echo $this->miFormulario->division ( "inicio", $atributos );
+                                unset ( $atributos );
+                                        {
+                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                            $esteCampo = 'soporteAutorizacion';
+                                            $atributos ['id'] = $esteCampo;
+                                            $atributos ['nombre'] = $esteCampo;
+                                            $atributos ['tipo'] = 'file';
+                                            $atributos ['estilo'] = 'jqueryui';
+                                            $atributos ['marco'] = true;
+                                            $atributos ['dobleLinea'] = false;
+                                            $atributos ['tabIndex'] = $tab;
+                                            $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                            $atributos ['etiquetaObligatorio'] = true;
+                                            $atributos ['tamanno'] = 1024;
+                                            $atributos ['evento'] = 'accept="pdf"';
+                                            $atributos ['columnas'] = 1;
+                                            $atributos ['validar'] = 'required,minSize[1]'; 
+                                            if (isset ( $_REQUEST [$esteCampo] )) 
+                                                 { $atributos ['valor'] = $_REQUEST [$esteCampo];}
+                                            else {  $atributos ['valor'] = '';}
+                                            $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            $atributos ['deshabilitado'] = FALSE;
+                                            $atributos ['anchoCaja'] = 60;
+                                            $atributos ['maximoTamanno'] = '';
+                                            $atributos ['anchoEtiqueta'] = 170;
+                                            $atributos = array_merge ( $atributos, $atributosGlobales );
+                                            if($hoy>$_REQUEST['inicio_concurso'])
+                                                {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
+                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                          if(is_array($resultadoSopAut))
+                                                {
+                                              foreach ($resultadoSopAut as $key => $value) 
+                                                    {
+                                                   // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                        $esteCampo = 'archivoAutorizacion'.$key;
+                                                        $atributos ['id'] = $esteCampo;
+                                                        $atributos ['enlace'] = 'javascript:soporte("ruta_autorizacion'.$key.'");';
+                                                        $atributos ['tabIndex'] = 0;
+                                                        $atributos ['marco'] = true;
+                                                        $atributos ['columnas'] = 1;
+                                                        $atributos ['enlaceTexto'] = $resultadoSopAut[$key]['alias'];
+                                                        $atributos ['estilo'] = 'textoGrande textoGris ';
+                                                        $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                        $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                        $atributos ['ancho'] = '25px';
+                                                        $atributos ['alto'] = '25px';
+                                                        $atributos ['redirLugar'] = false;
+                                                        $atributos ['valor'] = '';
+                                                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                        echo $this->miFormulario->enlace( $atributos );
+                                                        unset ( $atributos );
+                                                       // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                        $esteCampo = 'ruta_autorizacion'.$key;
+                                                        $atributos ['id'] = $esteCampo;
+                                                        $atributos ['nombre'] = $esteCampo;
+                                                        $atributos ['tipo'] = 'hidden';
+                                                        $atributos ['estilo'] = 'jqueryui';
+                                                        $atributos ['marco'] = true;
+                                                        $atributos ['columnas'] = 1;
+                                                        $atributos ['dobleLinea'] = false;
+                                                        $atributos ['tabIndex'] = $tab;
+                                                        $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                        $atributos ['obligatorio'] = false;
+                                                        $atributos ['etiquetaObligatorio'] = false;
+                                                        $atributos ['validar'] = '';
+                                                        $atributos ['valor'] = $this->rutaSoporte.$resultadoSopAut[$key]['ubicacion']."/".$resultadoSopAut[$key]['archivo'];
+                                                        $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                        $atributos ['deshabilitado'] = FALSE;
+                                                        $atributos ['tamanno'] = 30;
+                                                        $atributos ['anchoCaja'] = 60;
+                                                        $atributos ['maximoTamanno'] = '';
+                                                        $atributos ['anchoEtiqueta'] = 170;
+                                                        //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                                        echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                        // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                    }
+                                                }  
+                                    }
+                                echo $this->miFormulario->division( 'fin' );
+                                unset ( $atributos );
+                        // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------
+                                
+                                
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
@@ -272,6 +369,7 @@ class calendarioForm {
 					$atributos ['submit'] = true;
 					$atributos ["estiloMarco"] = '';
 					$atributos ["estiloBoton"] = 'jqueryui';
+                                        //$atributos ['columnas'] = 2;
 					// verificar: true para verificar el formulario antes de pasarlo al servidor.
 					$atributos ["verificar"] = '';
 					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
@@ -279,7 +377,10 @@ class calendarioForm {
 					$atributos ['nombreFormulario'] = $estefomulario;//$esteBloque ['nombre'];
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
-					echo $this->miFormulario->campoBoton ( $atributos );
+                                        
+                                        if($hoy<$_REQUEST['cierre_concurso'])
+                                            {echo $this->miFormulario->campoBoton ( $atributos );}
+                                        unset($atributos);    
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
                                         //-------------Control Boton-----------------------
                                         $esteCampo = "botonCancelar";
@@ -287,10 +388,12 @@ class calendarioForm {
                                         $atributos["tipo"]="boton";
                                         $atributos["id"]="botonCancelar";
                                         $atributos["tipoSubmit"] = "";
+                                        //$atributos ['columnas'] = 2;
                                         $atributos["tabIndex"]=$tab++;
                                         $atributos["valor"]=$this->lenguaje->getCadena($esteCampo);
                                         $atributos = array_merge ( $atributos, $atributosGlobales );
                                         //echo $this->miFormulario->campoBoton($atributos);
+                                        unset($atributos);
                                         //-------------Fin Control Boton---------------------- 
                                         
                                         // -----------------CONTROL: Botón ----------------------------------------------------------------
@@ -305,6 +408,7 @@ class calendarioForm {
                                         $atributos["tipo"]="boton";
                                         $atributos ['enlace'] = $variable.$pestanna;
                                         $atributos ['tabIndex'] = 1;
+                                        //$atributos ['columnas'] = 2;
                                         $atributos ['estilo'] = 'jqueryui';
                                         $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
                                         //$atributos ['ancho'] = '10%';

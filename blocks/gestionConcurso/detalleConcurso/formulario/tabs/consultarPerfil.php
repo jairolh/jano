@@ -57,7 +57,7 @@ class consultarPerfil {
 		// -------------------------------------------------------------------------------------------------
                 $conexion="estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-	
+            $hoy=date("Y-m-d");   
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);    
             $cadena_sql = $this->miSql->getCadenaSql("consultarPerfilConcurso", $parametro);
             $resultadoListaPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -86,7 +86,8 @@ class consultarPerfil {
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
                                 $atributos ['redirLugar'] = true;
-                                echo $this->miFormulario->enlace ( $atributos );
+                                if($hoy<$_REQUEST['inicio_concurso'])
+                                    {echo $this->miFormulario->enlace ( $atributos );}
                                 unset ( $atributos );
                 echo "    </td>
                         </tr>

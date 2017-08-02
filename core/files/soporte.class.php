@@ -56,7 +56,9 @@ class soporte extends soporteBase {
                         $resultadoSoporte = $this->miConexion->ejecutarAcceso($cadenaSql, self::BUSCAR);
                         if($resultadoSoporte)
                             {  //$nombreArchivo= $_REQUEST['consecutivo']. "_" . $_FILES [$key]['name'];
-                                $extension = end(explode(".", $_FILES [$key]['name']));
+                                //$extension = end(explode(".", $_FILES [$key]['name']));
+                                $extfile = explode(".", $_FILES [$key]['name']);
+                                $extension = end($extfile);
                                 $nombreArchivo= $_REQUEST['consecutivo']. "_" .$_REQUEST['consecutivo_dato']. "_" .time(). "." .$extension ;                              
                                 $destino[$key] = $rutaBloque .$resultadoSoporte[0]['ubicacion']."/".$nombreArchivo;
                                 $arregloSoporte = array('id_usuario'=>$_REQUEST['id_usuario'],

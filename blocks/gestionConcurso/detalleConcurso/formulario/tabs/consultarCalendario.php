@@ -67,7 +67,7 @@ class consultarCalendario {
             $atributos ['tipoEtiqueta'] = 'inicio';
             $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
-            
+            $hoy=date("Y-m-d");
             unset ( $atributos );
                 {
 
@@ -86,7 +86,8 @@ class consultarCalendario {
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
                                 $atributos ['redirLugar'] = true;
-                                echo $this->miFormulario->enlace ( $atributos );
+                                if($hoy<$_REQUEST['inicio_concurso'])
+                                    {echo $this->miFormulario->enlace ( $atributos );}
                                 unset ( $atributos );
                 echo "    </td>
                         </tr>
@@ -169,7 +170,7 @@ class consultarCalendario {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                          $mostrarHtml .= "</td> <td>";
-                                        if($resultadoListaCalendario[$key]['obligatoria']=='N')
+                                        if($resultadoListaCalendario[$key]['obligatoria']=='N' && $hoy<$_REQUEST['inicio_concurso'])
                                             { 
                                                 if($resultadoListaCalendario[$key]['estado']=='A')
                                                     {   $esteCampo = "habilitar";

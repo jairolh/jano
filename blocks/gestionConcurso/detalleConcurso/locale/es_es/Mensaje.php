@@ -68,6 +68,10 @@ $this->idioma["consecutivo_evaluarTitulo"]="Seleccione el criterio de evaluació
 $this->idioma["consecutivo_evaluar"]="Criterio a evaluar: ";
 $this->idioma["porc_aprueba_faseTitulo"]="Ingrese el Porcentaje de aprobación para la fase del concurso";
 $this->idioma["porc_aprueba_fase"]="Porcentaje Aprobación: ";
+$this->idioma["soporteAutorizacion"]="Soporte Autorización: "; 
+$this->idioma["soporteAutorizacionTitulo"]="Adjuntar Documento de autorización de cambio, en Formato PDF menor a 1 Mb";
+
+
 
 $this->idioma["nuevoPerfil"]="Registrar nuevo Perfil ";
 $this->idioma["nombrePerfil"]="Nombre: "; 

@@ -61,7 +61,7 @@ class consultarCriterio {
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);    
             $cadena_sql = $this->miSql->getCadenaSql("consultarCriterioConcurso", $parametro);
             $resultadoListaCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
+            $hoy=date("Y-m-d");
             $esteCampo = "marcoListaCriterio";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -87,7 +87,8 @@ class consultarCriterio {
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
                                 $atributos ['redirLugar'] = true;
-                                echo $this->miFormulario->enlace ( $atributos );
+                                if($hoy<$_REQUEST['inicio_concurso'])
+                                    {echo $this->miFormulario->enlace ( $atributos );}
                                 unset ( $atributos );
                 echo "    </td>
                         </tr>
@@ -154,6 +155,8 @@ class consultarCriterio {
                                                 <td align='left'>".$resultadoListaCriterio[$key]['fase']."</td>    
                                                 <td align='left'>".$resultadoListaCriterio[$key]['nom_estado']."</td>";
                                         $mostrarHtml .= "<td>";
+                                        if($hoy<$_REQUEST['inicio_concurso'])
+                                                {
                                                     //-------------Enlace-----------------------
                                                     $esteCampo = "editar";
                                                     $atributos["id"]=$esteCampo;
@@ -167,8 +170,10 @@ class consultarCriterio {
                                                     $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
+                                                 }
                                          $mostrarHtml .= "</td> <td>";
-
+                                        if($hoy<$_REQUEST['inicio_concurso'])
+                                            { 
                                             if($resultadoListaCriterio[$key]['estado']=='A')
                                                 {   $esteCampo = "habilitar";
                                                     $atributos["id"]=$esteCampo;
@@ -197,7 +202,8 @@ class consultarCriterio {
                                                     $atributos['enlaceImagen']=$rutaBloque."/images/success.png";
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
-                                                }    
+                                                } 
+                                            }    
                                         $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;

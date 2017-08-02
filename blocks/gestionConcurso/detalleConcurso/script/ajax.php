@@ -105,7 +105,7 @@ $(function () {
           });
 
     $("#<?php echo $this->campoSeguro('maximo_puntos')?>").change(function(){
-             $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('');
+             $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('0');
           });              
 
     $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").change(function(){
@@ -114,7 +114,7 @@ $(function () {
             var aprueba = parseFloat($("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val());
             if(maximo<aprueba)
                 {alert('El puntaje de aprobación no puede ser mayor al puntaje máximo!' );
-                 $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('');
+                 $("#<?php echo $this->campoSeguro('puntos_aprueba')?>").val('0');
                 }
             
           });              

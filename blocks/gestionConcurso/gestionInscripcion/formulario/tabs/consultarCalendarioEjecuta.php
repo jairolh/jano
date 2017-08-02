@@ -215,6 +215,7 @@ class consultarCalendario {
                                                         unset($atributos);    
                                                     }  
                                                 elseif($resultadoListaCalendario[$key]['fase']=='requisito' 
+                                                        && $resultadoListaCalendario[$key]['clasifico']>0
                                                         && $resultadoListaCalendario[$key]['validado']>0 
                                                         && $resultadoListaCalendario[$key]['proceso']==0
                                                         && $hoy>$resultadoListaCalendario[$key]['fecha_fin'])

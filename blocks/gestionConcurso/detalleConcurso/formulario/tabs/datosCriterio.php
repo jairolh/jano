@@ -58,14 +58,14 @@ class criterioForm {
                 $usuario=$miSesion->idUsuario();
                 //Se calcula el puntaje acumulado de los criterios
                 $this->setPuntaje($esteRecursoDB);
-                $puntosPermitido=(100-$this->acumulado);
+                $puntosPermitido=($_REQUEST['maximo_puntos_conc']-$this->acumulado);
                 if(isset($_REQUEST['consecutivo_evaluar']))
                     {  $parametro=array('consecutivo_evaluar'=>$_REQUEST['consecutivo_evaluar'],
                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
                        $cadena_sql = $this->miSql->getCadenaSql("consultarCriterioConcurso", $parametro);
                        $resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                        //var_dump($resultadoCriterio);
-                       $puntosPermitido=((100-$this->acumulado)+$resultadoCriterio[0]['maximo_puntos']);
+                       $puntosPermitido=(($_REQUEST['maximo_puntos_conc']-$this->acumulado)+$resultadoCriterio[0]['maximo_puntos']);
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -191,10 +191,10 @@ class criterioForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,custom[number],minSize[1],min[1],max[$puntosPermitido]";
+                                    $atributos ['validar']="required,custom[number],minSize[1],min[0],max[$puntosPermitido]";
                                     if (isset ( $resultadoCriterio[0]['maximo_puntos'] )) 
                                          {  $atributos ['valor'] = $resultadoCriterio[0]['maximo_puntos'];} 
-                                    else {  $atributos ['valor'] = '';}
+                                    else {  $atributos ['valor'] = '0';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -220,7 +220,7 @@ class criterioForm {
                                     $atributos ['validar']="required,custom[number],minSize[1],min[0],max[100]";
                                     if (isset ( $resultadoCriterio[0]['puntos_aprueba'] )) 
                                          {  $atributos ['valor'] = $resultadoCriterio[0]['puntos_aprueba'];} 
-                                    else {  $atributos ['valor'] = '';}
+                                    else {  $atributos ['valor'] = '0';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;

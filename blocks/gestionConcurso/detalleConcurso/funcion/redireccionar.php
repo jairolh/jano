@@ -43,7 +43,7 @@ class redireccion {
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
                                 $variable.="&mensaje=actualizoConcurso";
-                                $variable.="&id_usuario=".$valor['id_usuario'];
+                                //$variable.="&id_usuario=".$valor['id_usuario'];
                                 $variable.="&nombre=".$valor['nombre'];
                                 break;     
                             

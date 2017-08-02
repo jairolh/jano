@@ -411,7 +411,58 @@ class registrarConcursoForm {
 				echo $this->miFormulario->campoCuadroTexto ( $atributos );
 				unset ( $atributos );
 				// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-			
+                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                $esteCampo = 'maximo_puntos_conc';
+                                $atributos ['id'] = $esteCampo;
+                                $atributos ['nombre'] = $esteCampo;
+                                $atributos ['tipo'] = 'text';
+                                $atributos ['estilo'] = 'jqueryui';
+                                $atributos ['marco'] = true;
+                                $atributos ['estiloMarco'] = '';
+                                $atributos ["etiquetaObligatorio"] = true;
+                                $atributos ['columnas'] = 1;
+                                $atributos ['dobleLinea'] = 0;
+                                $atributos ['tabIndex'] = $tab;
+                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                $atributos ['validar']="required,custom[number],minSize[1],min[1]";
+                                if (isset ( $resultadoConcurso[0]['puntos_aprueba'] )) 
+                                     {  $atributos ['valor'] = $resultadoConcurso[0]['puntos_aprueba'];} 
+                                else {  $atributos ['valor'] = '100';}
+                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                $atributos ['deshabilitado'] = false;
+                                $atributos ['tamanno'] = 60;
+                                $atributos ['maximoTamanno'] = '';
+                                $atributos ['anchoEtiqueta'] = 170;
+                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                unset ( $atributos );
+                                // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
+                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                $esteCampo = 'porc_aprueba_conc';
+                                $atributos ['id'] = $esteCampo;
+                                $atributos ['nombre'] = $esteCampo;
+                                $atributos ['tipo'] = 'text';
+                                $atributos ['estilo'] = 'jqueryui';
+                                $atributos ['marco'] = true;
+                                $atributos ['estiloMarco'] = '';
+                                $atributos ["etiquetaObligatorio"] = true;
+                                $atributos ['columnas'] = 1;
+                                $atributos ['dobleLinea'] = 0;
+                                $atributos ['tabIndex'] = $tab;
+                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                $atributos ['validar']="required,custom[number],minSize[1],min[0],max[100]";
+                                if (isset ( $resultadoConcurso[0]['porcentaje_aprueba'] )) 
+                                     {  $atributos ['valor'] = $resultadoConcurso[0]['porcentaje_aprueba'];} 
+                                else {  $atributos ['valor'] = '70';}
+                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                $atributos ['deshabilitado'] = false;
+                                $atributos ['tamanno'] = 60;
+                                $atributos ['maximoTamanno'] = '';
+                                $atributos ['anchoEtiqueta'] = 170;
+                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                unset ( $atributos );
+                                // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                   
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";

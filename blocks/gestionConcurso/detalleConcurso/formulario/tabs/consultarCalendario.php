@@ -107,6 +107,7 @@ class consultarCalendario {
                                             <th>Fecha cierre</th> 
                                             <th>Fase</th>
                                             <th>Descripción</th>
+                                            <th>Puntos aprueba</th>                                            
                                             <th>Estado</th>
                                             <th>Editar</th>
                                             <th>Actualizar Estado</th>
@@ -151,6 +152,7 @@ class consultarCalendario {
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nombre']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['descripcion']."</td>
+                                                <td align='left'>".$resultadoListaCalendario[$key]['porcentaje_aprueba']." %</td>                                                    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nom_estado']."</td>";
                                         $mostrarHtml .= "<td>";
                                                     //-------------Enlace-----------------------

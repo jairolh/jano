@@ -41,9 +41,11 @@ class RegistradorConcurso {
                               'descripcion'=>$_REQUEST['descripcion'],
                               'fecha_inicio_concurso'=>$_REQUEST['fecha_inicio_concurso'],
                               'fecha_fin_concurso'=>$_REQUEST['fecha_fin_concurso'],
-                              'estado'=>$_REQUEST['estado']
+                              'estado'=>isset($_REQUEST['estado'])?$_REQUEST['estado']:'',
+                              'maximo_puntos'=>$_REQUEST['maximo_puntos'],
+                              'porcentaje_aprueba'=>$_REQUEST['porc_aprueba_conc'],
+                                
             );
-        
         if($arregloDatos['consecutivo_concurso']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
@@ -58,6 +60,7 @@ class RegistradorConcurso {
                                            'fecha_inicio'=> $_REQUEST['fecha_inicio_concurso'],
                                            'fecha_fin'=> $_REQUEST['fecha_fin_concurso'],
                                            'consecutivo_evaluar'=> 0,
+                                           'porcentaje_aprueba'=>0
                                         );
                     $cadenaSql = $this->miSql->getCadenaSql ('registroCalendarioConcurso',$datosCalendario);
                     $resultadoCalendario = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $datosCalendario, "registroCalendarioConcurso" );
@@ -69,7 +72,7 @@ class RegistradorConcurso {
         }
         
         if($resultadoConcurso)
-            {   $_REQUEST['consecutivo']=0;$_REQUEST['consecutivo_persona'];
+            {   $_REQUEST['consecutivo']=0;//$_REQUEST['consecutivo_persona'];
                 $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_concurso'];
                 $this->miArchivo->procesarArchivo('datosConcurso');
                 redireccion::redireccionar('actualizoConcurso',$arregloDatos);  exit();

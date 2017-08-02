@@ -84,6 +84,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                     {       
                     $_REQUEST['inicio_concurso']=$resultadoConcurso[0]['fecha_inicio'];
                     $_REQUEST['cierre_concurso']=$resultadoConcurso[0]['fecha_fin'];
+                    $_REQUEST['maximo_puntos_conc']=$resultadoConcurso[0]['maximo_puntos'];
                     $datosConcurso=array(array('0'=>$resultadoConcurso[0]['nivel_concurso'],
                                             'Tipo'=>$resultadoConcurso[0]['nivel_concurso'],
                                             '1'=>$resultadoConcurso[0]['modalidad'],
@@ -96,9 +97,13 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                             'Fecha inicial'=>$resultadoConcurso[0]['fecha_inicio'],
                                             '5'=>$resultadoConcurso[0]['fecha_fin'],
                                             'Fecha cierre'=>$resultadoConcurso[0]['fecha_fin'],
-                                            '6'=>$resultadoConcurso[0]['estado'],
+                                            '6'=>$resultadoConcurso[0]['maximo_puntos'],
+                                            'MÁximo puntos '=>$resultadoConcurso[0]['maximo_puntos'],
+                                            '7'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
+                                            'Porcentaje aprueba'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
+                                            '8'=>$resultadoConcurso[0]['estado'],
                                             'Estado'=>$resultadoConcurso[0]['estado'],
-                                            '7'=>$resultadoConcurso[0]['acuerdo'],
+                                            '9'=>$resultadoConcurso[0]['acuerdo'],
                                             'Acuerdo'=>$resultadoConcurso[0]['acuerdo'],
                                              ));
                     

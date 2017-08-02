@@ -134,7 +134,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" estado ";
                                 $cadenaSql.=" FROM concurso.actividad_calendario ";
                                 $cadenaSql.=" WHERE ";
-                                $cadenaSql.=" nombre IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
+                                $cadenaSql.=" nombre IN ('Inscripción','Registro Soportes','Evaluar Requisitos','Lista Elegibles') ";
                             break;         
                         case "consultaActividadCalendario":
                                 $cadenaSql=" SELECT DISTINCT ";
@@ -188,6 +188,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conc.descripcion,";
                                 $cadenaSql.=" conc.fecha_inicio,";
                                 $cadenaSql.=" conc.fecha_fin, ";
+                                $cadenaSql.=" conc.maximo_puntos, ";
+                                $cadenaSql.=" conc.porcentaje_aprueba, ";
                                 $cadenaSql.=" (CASE WHEN conc.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado, ";
                                 $cadenaSql.=" mdl.nombre modalidad, ";
                                 $cadenaSql.=" mdl.codigo_nivel_concurso,";
@@ -259,7 +261,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.fecha_fin, ";
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
-                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro Soportes' OR act.nombre='Evaluar Requisitos' ";
+                                $cadenaSql.=" cal.porcentaje_aprueba, ";
+                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro Soportes' OR act.nombre='Evaluar Requisitos'  OR act.nombre='Lista Elegibles' ";
                                 $cadenaSql.=" THEN 'S' ";
                                 $cadenaSql.=" ELSE 'N' END ) obligatoria  ";
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
@@ -321,7 +324,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" descripcion,";
                                 $cadenaSql.=" fecha_inicio,";
                                 $cadenaSql.=" fecha_fin, ";
-                                $cadenaSql.=" estado)";
+                                $cadenaSql.=" estado,";
+                                $cadenaSql.=" maximo_puntos, ";
+                                $cadenaSql.=" porcentaje_aprueba) ";
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " DEFAULT, ";
                                 $cadenaSql .= " '".$variable['codigo_modalidad']."', ";
@@ -330,7 +335,9 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['descripcion']."', ";
                                 $cadenaSql .= " '".$variable['fecha_inicio_concurso']."', ";
                                 $cadenaSql .= " '".$variable['fecha_fin_concurso']."', ";
-                                $cadenaSql .= " 'A' ";
+                                $cadenaSql .= " 'A' , ";
+                                $cadenaSql .= " '".$variable['maximo_puntos']."', ";
+                                $cadenaSql .= " '".$variable['porcentaje_aprueba']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_concurso";
                         break;  
@@ -364,7 +371,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" descripcion,";
                                 $cadenaSql.=" fecha_inicio,";
                                 $cadenaSql.=" fecha_fin,";
-                                $cadenaSql.=" estado)";
+                                $cadenaSql.=" estado,";
+                                $cadenaSql.=" porcentaje_aprueba) ";
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " DEFAULT, ";
                                 $cadenaSql .= " '".$variable['consecutivo_concurso']."', ";
@@ -372,7 +380,8 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['descripcion']."', ";
                                 $cadenaSql .= " '".$variable['fecha_inicio']."', ";
                                 $cadenaSql .= " '".$variable['fecha_fin']."', ";
-                                $cadenaSql .= " 'A' ";
+                                $cadenaSql .= " 'A', ";
+                                $cadenaSql .= " '".$variable['porcentaje_aprueba']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_calendario";
                         break; 
@@ -410,7 +419,9 @@ class Sql extends \Sql {
                                 $cadenaSql.= " acuerdo= '".$variable['acuerdo']."', ";
                                 $cadenaSql.= " descripcion= '".$variable['descripcion']."', ";
                                 $cadenaSql.= " fecha_inicio= '".$variable['fecha_inicio_concurso']."', ";
-                                $cadenaSql.= " fecha_fin= '".$variable['fecha_fin_concurso']."' ";
+                                $cadenaSql.= " fecha_fin= '".$variable['fecha_fin_concurso']."', ";
+                                $cadenaSql.=" maximo_puntos= '".$variable['maximo_puntos']."', ";
+                                $cadenaSql.=" porcentaje_aprueba= '".$variable['porcentaje_aprueba']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_concurso= '".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_concurso";
@@ -450,7 +461,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" consecutivo_actividad='".$variable['consecutivo_actividad']."', ";
                                 $cadenaSql.=" fecha_inicio='".$variable['fecha_inicio']."', ";
                                 $cadenaSql.=" fecha_fin='".$variable['fecha_fin']."', ";
-                                $cadenaSql.=" descripcion='".$variable['descripcion']."' ";
+                                $cadenaSql.=" descripcion='".$variable['descripcion']."', ";
+                                $cadenaSql.=" porcentaje_aprueba='".$variable['porcentaje_aprueba']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_calendario";

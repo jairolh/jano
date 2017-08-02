@@ -31,13 +31,17 @@ $this->idioma["acuerdo"]="Acuerdo: ";
 $this->idioma["acuerdoTitulo"]="Ingrese el Número del acuerdo del creación del Concurso ";
 $this->idioma["soporteAcuerdo"]="Soporte Acuerdo: "; 
 $this->idioma["soporteAcuerdoTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
-
 $this->idioma["descripcion"]="Descripción: "; 
 $this->idioma["descripcionTitulo"]="Ingrese breve descripción del Concurso ";
 $this->idioma["fecha_inicio_concurso"]="Fecha Inicio"; 
 $this->idioma["fecha_inicio_concursoTitulo"]="Ingrese la fecha del Inicio del concurso";
 $this->idioma["fecha_fin_concurso"]="Fecha Terminación"; 
 $this->idioma["fecha_fin_concursoTitulo"]="Ingrese la fecha del terminación del concurso";
+$this->idioma["maximo_puntos_concTitulo"]="Ingrese el Puntaje Máximo para evaluar el concurso";
+$this->idioma["maximo_puntos_conc"]="Puntaje Máximo: ";
+$this->idioma["porc_aprueba_concTitulo"]="Ingrese el Porcentaje de aprobación para ser incluido a la lista de elegibles del concurso";
+$this->idioma["porc_aprueba_conc"]="Porcentaje Aprobación: ";
+
 
 $this->idioma["nuevoCriterio"]="Registrar Criterio de Evaluación ";
 $this->idioma["consecutivo_factorTitulo"]="Seleccione el factor de evaluación";
@@ -62,6 +66,8 @@ $this->idioma["fecha_fin_calendario"]="Fecha Terminación";
 $this->idioma["fecha_fin_calendarioTitulo"]="Ingrese la fecha del terminación de la actividad";
 $this->idioma["consecutivo_evaluarTitulo"]="Seleccione el criterio de evaluación a aplicar";
 $this->idioma["consecutivo_evaluar"]="Criterio a evaluar: ";
+$this->idioma["porc_aprueba_faseTitulo"]="Ingrese el Porcentaje de aprobación para la fase del concurso";
+$this->idioma["porc_aprueba_fase"]="Porcentaje Aprobación: ";
 
 $this->idioma["nuevoPerfil"]="Registrar nuevo Perfil ";
 $this->idioma["nombrePerfil"]="Nombre: "; 

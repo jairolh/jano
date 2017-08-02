@@ -102,7 +102,6 @@ class consultarInscrito {
 																		$parametro['consecutivo_concurso']=$resultadoListaInscrito[0]['consecutivo_concurso'];
 																		$cadena_sql = $this->miSql->getCadenaSql("consultaEtapaActiva", $parametro);
 																		$resultadoEtapa = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-																		var_dump($resultadoEtapa);
 
                                 foreach($resultadoListaInscrito as $key=>$value )
                                     {   $parametro['tipo']='unico';
@@ -131,7 +130,12 @@ class consultarInscrito {
 														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 																				if($resultadoValidacion){
-																					$validacion=$resultadoValidacion[0]['cumple_requisito'];
+																					if($validacion=$resultadoValidacion[0]['cumple_requisito']=='SI'){
+																						$validacion="APROBADO";
+																					}else{
+																						$validacion="NO APROBADO";
+																					}
+
 																				}else{
 																					$validacion="PENDIENTE";
 																				}

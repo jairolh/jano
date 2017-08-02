@@ -52,7 +52,7 @@ class Sql extends \Sql {
 
 					$cadenaSql.=" AND calendar.consecutivo_actividad=actividad.consecutivo_actividad";
 					$cadenaSql.=" AND calendar.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
-					echo $cadenaSql;
+				
 			break;
 
 			case "consultaInscripcion":

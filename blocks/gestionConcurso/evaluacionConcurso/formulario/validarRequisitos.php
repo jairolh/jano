@@ -83,6 +83,9 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
+			$variable.= "&opcion=detalle";
+			$variable.= "&usuario=".$_REQUEST['usuario'];
+			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -109,13 +112,18 @@ class registrarForm {
 			unset ( $atributos );
 			{
 
-
+				$parametro=array(
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
+				);
+				//consultar datos de la inscripción
+				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
+				$resultadoInscripcion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 				echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
 										<th>N° Inscripción</th>
-										<th>Identificacion</th>
+										<th>Identificación</th>
 										<th>Aspirante</th>
 										<th>Hoja de Vida</th>
 								</tr>
@@ -124,7 +132,7 @@ class registrarForm {
 
 						$mostrarHtml = "<tr align='center'>
 										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
-										<td align='left'>".$_REQUEST['usuario']."</td>
+										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
 										<td align='left'>".$_REQUEST['nombre_usuario']."</td>";
 										$mostrarHtml .= "<td>";
 

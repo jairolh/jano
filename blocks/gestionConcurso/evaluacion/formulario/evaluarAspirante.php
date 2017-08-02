@@ -156,7 +156,7 @@ class registrarForm {
 	 						<tbody>";
 
 					$mostrarHtml = "<tr align='center'>
-                                                            <td align='left'>".$resultadoInscripcion[0]['consecutivo_inscrito']."</td>                                            
+                                                            <td align='left'>".$resultadoInscripcion[0]['consecutivo_inscrito']."</td>
                                                             <td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
                                                             <td align='left'>".$resultadoInscripcion[0]['nombre']." ". $resultadoInscripcion[0]['apellido']."</td>";
                                         $mostrarHtml .= "<td>";
@@ -230,19 +230,24 @@ class registrarForm {
 							$resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 							foreach($resultadoRoles as $key=>$value ){
-								if(($resultadoRoles[$key]['rol']=='Jurado')
+								if($resultadoRoles[$key]['rol']=='Jurado'){
+                    $rol=$resultadoRoles[$key]['cod_rol'];
+										$valorPuntaje="natural";
+								}
+								else if(($resultadoRoles[$key]['rol']=='Docencia')
                                                                     ||($resultadoRoles[$key]['rol']=='ILUD')
-                                                                    ||($resultadoRoles[$key]['rol']=='Docencia')
                                                                     ||($resultadoRoles[$key]['rol']=='Personal')){
                                                                     $rol=$resultadoRoles[$key]['cod_rol'];
+																																		$valorPuntaje="decimal";
 								}
+
 							}
 
 							$parametro=array(
 	 						 'rol'=>$rol,
 							 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 							 'factor'=> 'Competencias profesionales y comunicativas'
-	 					 	);      
+	 					 	);
                                                                //Consultar criterios de evaluación asociados al rol JURADO o ILUD
 								$cadena_sql = $this->miSql->getCadenaSql("consultaCriteriosRol", $parametro);
 		 					 	$resultadoCriterios= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -266,7 +271,13 @@ class registrarForm {
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
 										$atributos ['etiqueta'] = $resultadoCriterios[$key]['criterio'];
-										$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
+
+										if($valorPuntaje=='natural'){
+											$atributos ['validar']="required, custom[onlyNumberSp], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
+										}else{
+											$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
+										}
+
 										$atributos ['valor'] = '';
 										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['criterio'];
 										$atributos ['deshabilitado'] = false;
@@ -280,7 +291,7 @@ class registrarForm {
 										unset ( $atributos );
 										// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
 
-										echo "<label style='padding: 8px 5px;'>"."/ ".$resultadoCriterios[$key]['maximo_puntos']." puntos </label>";
+										echo "<label style='padding: 8px 5px;'>"."/ ".number_format($resultadoCriterios[$key]['maximo_puntos'],0)." puntos </label>";
 
 										// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 										$esteCampo = 'observaciones'.$key;

@@ -15,6 +15,20 @@ class redireccion {
 
 		switch ($opcion) {
 
+			case "registroReclamacion":
+      	$variable="pagina=".$miPaginaActual;
+      	$variable.="&opcion=mensaje";
+      	$variable.="&mensaje=confirmaReclamacion";
+				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+      	break;
+
+    	case "noRegistroReclamacion":
+    		$variable="pagina=".$miPaginaActual;
+    		$variable.="&opcion=mensaje";
+    		$variable.="&mensaje=errorReclamacion";
+				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+    		break;
+
       case "insertoInscripcion":
       	$variable="pagina=".$miPaginaActual;
       	$variable.="&opcion=mensaje";

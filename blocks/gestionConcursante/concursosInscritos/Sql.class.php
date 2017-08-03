@@ -32,6 +32,19 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+			 case "registroReclamacion":
+						$cadenaSql =" INSERT INTO concurso.evaluacion_reclamacion (";
+						$cadenaSql .=" observacion,";
+						$cadenaSql .=" fecha_registro";
+						$cadenaSql .=" )";
+						$cadenaSql .= " VALUES ( ";
+						$cadenaSql .= " '".$variable['observaciones']."', ";
+						$cadenaSql .= " '".$variable['fecha']."' ";
+						$cadenaSql .= " )";
+						$cadenaSql.=" RETURNING id";
+ 			break;
+
+
 			case "consultarEvaluacionFinal":
 			 $cadenaSql=" SELECT";
 			 $cadenaSql.=" criterio.nombre,";

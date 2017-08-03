@@ -206,7 +206,7 @@ class registrarForm {
 					$mostrarHtml = "<tr >
 								<th>Concurso</th>
 								<td colspan='1'>".$resultadoPerfil[0]['concurso']."</td>
-								<th>Perfi</th>
+								<th>Perfil</th>
 								<td colspan='1'>".$resultadoPerfil[0]['perfil']."</td>
 								</tr>
 					";

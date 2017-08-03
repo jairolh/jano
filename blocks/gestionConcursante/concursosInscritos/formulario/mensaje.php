@@ -102,6 +102,22 @@ class registrarForm {
 			if (isset ( $_REQUEST ['mensaje'] )){
 				switch ($_REQUEST ['mensaje']){
 
+					case "confirmaReclamacion":
+						$tipo = 'success';
+						$mensaje = "Reclamación realizada";
+						$boton = "continuar";
+						$variable.="&opcion=consulta";
+						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+						break;
+
+					case "errorReclamacion":
+						$tipo = 'error';
+						$mensaje = "No fue posible realizar la reclamación. Por favor intente más tarde.";
+            $boton = "regresar";
+            $variable.="&opcion=consulta";
+						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+            break;
+
 					case "confirmaInscripcion":
 						$tipo = 'success';
 						$mensaje = "Se ha realizado la inscripción al perfil <b>".$_REQUEST['nombre_perfil']."</b>.";

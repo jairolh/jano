@@ -227,7 +227,6 @@ echo '</div>';
 								<th>Puntaje</th>
 								<th>Observación</th>
 								<th>Aprobación</th>
-								<th>Reclamaciones</th>
 						</tr>
 				</thead>
 				<tbody> ";
@@ -241,16 +240,82 @@ echo '</div>';
 											<td align='left'>".$resultadoEvaluacionFinal[$key]['nombre']."</td>
 											<td align='left'>".$resultadoEvaluacionFinal[$key]['puntaje_final']."</td>
 											<td align='left'>".$resultadoEvaluacionFinal[$key]['observacion']."</td>
-											<td align='left'>".$resultadoEvaluacionFinal[$key]['aprobo']."</td>
-											<td align='left'>"."</td>";
+											<td align='left'>".$resultadoEvaluacionFinal[$key]['aprobo']."</td>";
 			$mostrarHtml .= "</tr>";
 		}
 		echo $mostrarHtml;
 		unset($mostrarHtml);
 
+
+
 		echo "</tbody>";
 
 		echo "</table>";
+
+		$esteCampo = "marcoConsultaPerfiles";
+		$atributos["estilo"] = "jqueryui";
+		$atributos["leyenda"] = "Reclamaciones";
+
+		echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+		unset($atributos);
+
+		//buscar reclamaciones realizadas
+		$reclamaciones=false;
+
+		if($reclamaciones){
+
+		}else{
+			$atributos["id"]="divNoEncontroPerfil";
+			$atributos["estilo"]="";
+			//$atributos["estiloEnLinea"]="display:none";
+			echo $this->miFormulario->division("inicio",$atributos);
+
+			//-------------Control Boton-----------------------
+			$esteCampo = "noEncontroPerfil";
+			$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+			$atributos["etiqueta"] = "";
+			$atributos["estilo"] = "centrar";
+			$atributos["tipo"] = 'error';
+			$atributos["mensaje"] = "No se han realizado reclamaciones para la inscripción";
+			echo $this->miFormulario->cuadroMensaje($atributos);
+			unset($atributos);
+			//-------------Fin Control Boton----------------------
+
+		 echo $this->miFormulario->division("fin");
+			//------------------Division para los botones-------------------------
+		}
+
+		// ------------------Division para los botones-------------------------
+		$atributos ["id"] = "botones";
+		$atributos ["estilo"] = "marcoBotones";
+		echo $this->miFormulario->division ( "inicio", $atributos );
+		unset ( $atributos );
+		{
+			// -----------------CONTROL: Botón ----------------------------------------------------------------
+			$esteCampo = 'botonSolicitarReclamacion';
+			$atributos ["id"] = $esteCampo;
+			$atributos ["tabIndex"] = $tab;
+			$atributos ["tipo"] = 'boton';
+			// submit: no se coloca si se desea un tipo button genérico
+			$atributos ['submit'] = true;
+			$atributos ["estiloMarco"] = '';
+			$atributos ["estiloBoton"] = 'jqueryui';
+			// verificar: true para verificar el formulario antes de pasarlo al servidor.
+			$atributos ["verificar"] = '';
+			$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+			$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+			$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+			$tab ++;
+
+			// Aplica atributos globales al control
+			$atributos = array_merge ( $atributos, $atributosGlobales );
+			echo $this->miFormulario->campoBoton ( $atributos );
+			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+		}
+		echo $this->miFormulario->division ( 'fin' );
+
+		echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
 	echo '</div>
 
 	</div> ';
@@ -270,7 +335,7 @@ echo '</div>';
 					$atributos["etiqueta"] = "";
 					$atributos["estilo"] = "centrar";
 					$atributos["tipo"] = 'error';
-					$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+					$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);
 					echo $this->miFormulario->cuadroMensaje($atributos);
 					unset($atributos);
 					//-------------Fin Control Boton----------------------
@@ -306,11 +371,12 @@ echo '</div>';
 			 */
 			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
 
-			$valorCodificado = "action=" . $esteBloque ["nombre"];
-			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			//$valorCodificado = "action=" . $esteBloque ["nombre"];
+			$valorCodificado = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-			$valorCodificado .= "&opcion=guardarInscripcion";
+			$valorCodificado .= "&opcion=solicitarReclamacion";
+			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			//$valorCodificado .= "&perfil=".$resultadoPerfil[0]['consecutivo_perfil'];
 			//$valorCodificado .= "&nombre_perfil=".$resultadoPerfil[0]['perfil'];
 

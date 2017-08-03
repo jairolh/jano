@@ -70,9 +70,9 @@ class Funcion {
 
 			switch ($_REQUEST ['opcion']){
 
-				case "guardarInscripcion":
+				case "guardarReclamacion":
 					$_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
-					$this->guardarInscripcion();
+					$this->guardarReclamacion();
 					break;
 
 			}
@@ -132,8 +132,8 @@ class Funcion {
 		}
 	}
 
-	function guardarInscripcion(){
-		include_once($this->ruta."/funcion/registrarInscripcion.php");
+	function guardarReclamacion(){
+		include_once($this->ruta."/funcion/guardarReclamacion.php");
 	}
 
 }

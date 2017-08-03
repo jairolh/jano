@@ -117,6 +117,7 @@ class consultarForm {
                         					<th>Perfil</th>
                                   <th>Estado</th>
 																	<th>Detalle</th>
+																	<th>Detalle2</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -158,8 +159,6 @@ class consultarForm {
 
                                 $mostrarHtml .= "<td>";
 
-
-
 																//-------------Enlace-----------------------
 																$esteCampo = "validar";
 																$esteCampo = 'enlace_hoja';
@@ -193,7 +192,34 @@ class consultarForm {
 
                                 $mostrarHtml .= "</td>";
 
+																$variableConsulta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+																$variableConsulta.= "&opcion=consulta";
+																$variableConsulta.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																$variableConsulta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+																$variableConsulta.= "&tiempo=" . time ();
+																$variableConsulta .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
+																$variableConsulta .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
+																$variableConsulta .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
+																$variableConsulta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableConsulta, $directorio);
 
+																$mostrarHtml .= "<td>";
+
+																//-------------Enlace-----------------------
+																$esteCampo = "validar";
+																$atributos["id"]=$esteCampo;
+																$atributos['enlace']=$variableConsulta;
+																$atributos['tabIndex']=$esteCampo;
+																$atributos['redirLugar']=true;
+																$atributos['estilo']='clasico';
+																$atributos['enlaceTexto']='Evaluaciones';
+																$atributos ['posicionImagen'] ="atras";//"adelante";
+																$atributos['ancho']='20px';
+																$atributos['alto']='20px';
+																$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																$mostrarHtml .= $this->miFormulario->enlace($atributos);
+																unset($atributos);
+
+																$mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";
                                echo $mostrarHtml;

@@ -140,6 +140,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conc.descripcion,";
                                 $cadenaSql.=" conc.fecha_inicio,";
                                 $cadenaSql.=" conc.fecha_fin, ";
+                                $cadenaSql.=" conc.maximo_puntos, ";
+                                $cadenaSql.=" conc.porcentaje_aprueba, ";
                                 $cadenaSql.=" (CASE WHEN conc.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado, ";
                                 $cadenaSql.=" mdl.nombre modalidad, ";
                                 $cadenaSql.=" mdl.codigo_nivel_concurso,";
@@ -174,6 +176,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.descripcion,";
                                 $cadenaSql.=" cal.fecha_inicio, ";
                                 $cadenaSql.=" cal.fecha_fin, ";
+                                $cadenaSql.=" cal.porcentaje_aprueba, ";
+                                $cadenaSql.=" cal.fecha_fin_reclamacion, ";
+                                $cadenaSql.=" cal.fecha_fin_resolver, ";
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";

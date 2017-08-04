@@ -234,6 +234,76 @@ class calendarioForm {
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'fecha_fin_reclamacion';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'texto';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
+                                         {$atributos ['deshabilitado'] = true;
+                                          $atributos ['validar']="custom[date]";
+                                          $atributos ["etiquetaObligatorio"] = false;
+                                         }
+                                    else { $atributos ['deshabilitado'] = false;
+                                           $atributos ['validar']="required,custom[date]";
+                                           $atributos ["etiquetaObligatorio"] = true;
+                                         }
+                                    if (isset ($resultadoCalendario[0]['fecha_fin_reclamacion']  )) 
+                                        { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_fin_reclamacion'] ;}
+                                    else{ $atributos ['valor'] = ''; }
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = true;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    // Aplica atributos globales al control
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'fecha_fin_resolver';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'texto';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                     if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
+                                         {$atributos ['deshabilitado'] = true;
+                                          $atributos ['validar']="custom[date]";
+                                          $atributos ["etiquetaObligatorio"] = false;
+                                         }
+                                    else { $atributos ['deshabilitado'] = false;
+                                           $atributos ['validar']="required,custom[date]";
+                                           $atributos ["etiquetaObligatorio"] = true;
+                                         }
+                                    if (isset ($resultadoCalendario[0]['fecha_fin_resolver']  )) 
+                                        { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_fin_resolver'] ;}
+                                    else{ $atributos ['valor'] = ''; }
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = true;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    // Aplica atributos globales al control
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'porc_aprueba_fase';
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['nombre'] = $esteCampo;
@@ -300,7 +370,7 @@ class calendarioForm {
                                             if($hoy>$_REQUEST['inicio_concurso'])
                                                 {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
                                             // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                          if(is_array($resultadoSopAut))
+                                          if(isset($resultadoSopAut) &&is_array($resultadoSopAut))
                                                 {
                                               foreach ($resultadoSopAut as $key => $value) 
                                                     {

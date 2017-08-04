@@ -36,7 +36,7 @@ $('#tablaConsultaCriterio').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
 });       
 
 $('#tablaConsultaCalendario').DataTable({
@@ -54,7 +54,7 @@ $('#tablaConsultaCalendario').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
 }); 
 
 $('#tablaConsultaPerfil').DataTable({
@@ -72,7 +72,7 @@ $('#tablaConsultaPerfil').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
 }); 
 
 // Asociar el widget de validación al formulario detalleConcurso
@@ -224,7 +224,8 @@ $('#<?php echo $this->campoSeguro('fecha_inicio_calendario')?>').datepicker({
 $('#<?php echo $this->campoSeguro('fecha_fin_calendario')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
-        maxDate: '<?php echo isset($_REQUEST['cierre_concurso'])?$_REQUEST['cierre_concurso']:''?>',
+         minDate: '<?php echo isset($_REQUEST['inicio_concurso'])?$_REQUEST['inicio_concurso']:''?>',
+         maxDate: '<?php echo isset($_REQUEST['cierre_concurso'])?$_REQUEST['cierre_concurso']:''?>',
         changeYear: true,
         changeMonth: true,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -233,8 +234,53 @@ $('#<?php echo $this->campoSeguro('fecha_fin_calendario')?>').datepicker({
             dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
             dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-        yearRange: '-50:+0'
-   });         
+        yearRange: '+0:+5',
+        <?php /*?>permite asirnara a otro campo como fecha minima */?>
+        onSelect: function(dateText, inst) {
+        var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_fin_calendario')?>').datepicker('getDate'));
+        //lockDate.setDate(lockDate.getDate() + 1);
+        $('input#<?php echo $this->campoSeguro('fecha_fin_reclamacion')?>').datepicker('option', 'minDate', lockDate);
+        $('input#<?php echo $this->campoSeguro('fecha_fin_resolver')?>').datepicker('option', 'minDate', lockDate);} 
+        
+   });    
+   
+   
+$('#<?php echo $this->campoSeguro('fecha_fin_reclamacion')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+         minDate: '<?php echo isset($_REQUEST['inicio_concurso'])?$_REQUEST['inicio_concurso']:''?>',
+         maxDate: '<?php echo isset($_REQUEST['cierre_concurso'])?$_REQUEST['cierre_concurso']:''?>',
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '+0:+5',
+        <?php /*?>permite asirnara a otro campo como fecha minima */?>
+        onSelect: function(dateText, inst) {
+        var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_fin_reclamacion')?>').datepicker('getDate'));
+        //lockDate.setDate(lockDate.getDate() + 1);
+        $('input#<?php echo $this->campoSeguro('fecha_fin_resolver')?>').datepicker('option', 'minDate', lockDate);} 
+   });     
+   
+$('#<?php echo $this->campoSeguro('fecha_fin_resolver')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
+         minDate: '<?php echo isset($_REQUEST['inicio_concurso'])?$_REQUEST['inicio_concurso']:''?>',
+         maxDate: '<?php echo isset($_REQUEST['cierre_concurso'])?$_REQUEST['cierre_concurso']:''?>',
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '+0:+5'
+   });        
    
         $(function() {
 		$(document).tooltip();

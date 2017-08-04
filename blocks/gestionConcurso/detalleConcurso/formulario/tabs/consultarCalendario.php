@@ -106,6 +106,8 @@ class consultarCalendario {
                                         <tr align='center'>
                                             <th>Fecha inicial</th>                                            
                                             <th>Fecha cierre</th> 
+                                            <th>Cierre Reclamaciones</th> 
+                                            <th>Resolver Reclamaciones</th> 
                                             <th>Fase</th>
                                             <th>Descripción</th>
                                             <th>Puntos aprueba</th>                                            
@@ -151,6 +153,8 @@ class consultarCalendario {
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_inicio']."</td>    
                                                 <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin']."</td>    
+                                                <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin_reclamacion']."</td>        
+                                                <td align='left'>".$resultadoListaCalendario[$key]['fecha_fin_resolver']."</td>        
                                                 <td align='left'>".$resultadoListaCalendario[$key]['nombre']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['descripcion']."</td>
                                                 <td align='left'>".$resultadoListaCalendario[$key]['porcentaje_aprueba']." %</td>                                                    

@@ -59,6 +59,8 @@ class RegistradorConcurso {
                                            'descripcion'=> 'Espacio tiempo para '.$resultadoActividad[$key]['descripcion'] ,
                                            'fecha_inicio'=> $_REQUEST['fecha_inicio_concurso'],
                                            'fecha_fin'=> $_REQUEST['fecha_fin_concurso'],
+                                           'fecha_fin_reclamacion'=>'',
+                                           'fecha_fin_resolver'=>'',
                                            'consecutivo_evaluar'=> 0,
                                            'porcentaje_aprueba'=>0
                                         );

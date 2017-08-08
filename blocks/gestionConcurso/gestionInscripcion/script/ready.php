@@ -114,11 +114,18 @@ $("#gestionInscripcion").validationEngine({
     scroll: false
 });
 
+
+
+
+
 $(function() {
-    $("#gestionInscripcion").submit(function() {
+
+      $("#agatha").submit(function() {
+
         items=[];
 
         var aux=$('#<?php echo $this->campoSeguro("numeroAspirantes")?>').val();
+
         var inscripciones = aux.split(",");
 
         var inicio=0;
@@ -131,25 +138,27 @@ $(function() {
           fin=inscripciones[0];
         }
 
-          for(i=inicio; i <= fin; i ++) {
-            if( document.getElementById("seleccion"+i) != null){
-              if ( document.getElementById("seleccion"+i).checked ) {
-                items.push($("#seleccion"+i).val());
+            for(i=inicio; i <= fin; i ++) {
+              if( document.getElementById("seleccion"+i) != null){
+                if ( document.getElementById("seleccion"+i).checked ) {
+                  items.push($("#seleccion"+i).val());
+                }
               }
             }
+            $('#<?php echo $this->campoSeguro("aspirantes")?>').val(items);
+
+          /*
+          $resultado=$("#gestionInscripcion").validationEngine("validate");
+          if ($resultado) {
+              return true;
           }
-          $('#<?php echo $this->campoSeguro("aspirantes")?>').val(items);
+          return false;
+          */
 
-
-        $resultado=$("#gestionInscripcion").validationEngine("validate");
-        if ($resultado) {
-            return true;
-        }
-        return false;
     });
 
-
 });
+
 
 $('#<?php echo $this->campoSeguro('fecha_inicio_concurso')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>

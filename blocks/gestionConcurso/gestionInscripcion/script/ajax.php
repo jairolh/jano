@@ -76,12 +76,12 @@ function desmarcar(obj) {
 }
 
 function show(bloq) {
-	
+
     obj = document.getElementById(bloq);
     console.log(obj);
     obj.style.display = (obj.style.display=='none') ? 'block' : 'none';
-	
-    
+
+
 }
 
 $(function () {
@@ -181,13 +181,11 @@ function consultarCriterio(elem, request, response){
         $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
               consultarTipoJurado();
-             
+
             }
 
       });
   });
-
-
 
 
   function consultarTipoJurado(elem, request, response){
@@ -199,7 +197,7 @@ function consultarCriterio(elem, request, response){
           valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
       },
   	    success: function(data){
-  	    	
+
           console.log(data);
           if(!data){
             data=[];
@@ -215,50 +213,35 @@ function consultarCriterio(elem, request, response){
                       { title: "Perfil" }
                   ],
                   destroy: true,
-                  paging: false,
-                  searching: false,
+                  language: {
+                      "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+                      "zeroRecords": "No se encontraron registros coincidentes",
+                      "info": "P&aacute;gina _PAGE_ de _PAGES_",
+                      "infoEmpty": "No hay datos registrados",
+                      "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+                      "search": "Buscar:",
+                      "paginate": {
+                                  "first":      "Primera",
+                                  "last":       "&Uacute;ltima",
+                                  "next":       "Siguiente",
+                                  "previous":   "Anterior"
+                              }
+                  },
+                  lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
               } );
 
-/*
-          var aux=$('#<?php echo $this->campoSeguro("numeroAspirantes")?>').val();
-          var inscripciones = aux.split(",");
-          var inicio=0;
-          var fin=0;
-          if(inscripciones.length===2){
-            inicio=inscripciones[0];
-            fin=inscripciones[1];
-          }else{
-            inicio=inscripciones[0];
-            fin=inscripciones[0];
-          }
-
-          if(data){
+          if(data!=false){
   	        if(data[0]!=""){
   	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
                 $("<option value='"+data[ 0 ].id_jurado_tipo+"'>"+data[ 0 ].tipo_jurado+"</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").attr('disabled','');
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
                 $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
-
-                $("#seleccionarTodo").removeAttr('checked');
-                for(i=inicio; i <= fin; i ++) {
-                  $("#seleccion"+i).removeAttr('checked');
-                }
-
-                $.each(data , function(indice,valor){
-                  document.getElementById("seleccion"+valor.id_inscrito).checked=true;
-                  //$('#seleccion'+valor.id_inscrito).prop('checked',"");
-                });
-
-  		        }$("#seleccion"+i).removeAttr('checked');
+  		        }
             }else{
-
-              for(i=inicio; i <= fin; i ++) {
-                $("#seleccion"+i).removeAttr('checked');
-              }
-
               consultarTodosTipoJurado();
-            }*/
+            }
   	    }
 
   	   });
@@ -272,6 +255,7 @@ function consultarCriterio(elem, request, response){
     	    dataType: "json",
     	    data: { },
     	    success: function(data){
+            console.log(data);
             if(data){
               $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
               $("#<?php echo $this->campoSeguro('tipoJurado')?>").val('');

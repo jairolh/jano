@@ -47,7 +47,8 @@ class AsignarAspirantes {
                             'inscrito'=>$values,
                             'jurado_tipo'=>$_REQUEST['tipoJurado'],
                             'fecha'=>$fecha,
-                            'nombre_concurso'=>$_REQUEST['nombre_concurso']
+                            'nombre_concurso'=>$_REQUEST['nombre_concurso'],
+                            'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
           );
 
           $cadenaSql = $this->miSql->getCadenaSql ('registroAspirantesJurado',$arregloDatos);

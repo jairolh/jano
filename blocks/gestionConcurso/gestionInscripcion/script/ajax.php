@@ -198,7 +198,6 @@ function consultarCriterio(elem, request, response){
       },
   	    success: function(data){
 
-          console.log(data);
           if(!data){
             data=[];
           }

@@ -152,6 +152,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["id"] = "tabJurados";
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
+                      //  include_once ($this->ruta . "formulario/tabs/datosAspirantes.php");
                         include_once ($this->ruta . "formulario/tabs/consultarJurados.php");
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );

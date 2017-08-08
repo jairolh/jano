@@ -72,7 +72,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
     echo "<br><br>";
     unset ( $atributos );
 
-        $esteCampo = "marcoDetalleConcurso";
+        $esteCampo = "marcoValidacion";
         $atributos ['id'] = $esteCampo;
         $atributos ["estilo"] = "jqueryui";
         $atributos ['tipoEtiqueta'] = 'inicio';

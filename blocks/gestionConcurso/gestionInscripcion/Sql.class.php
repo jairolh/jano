@@ -35,6 +35,21 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
 
+			case 'consultaJurado2' :
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" ji.id_inscrito AS Inscripción,  concat(p.tipo_identificacion, identificacion) AS Identificación, concat( p.nombre, ' ', p.apellido) AS Aspirante, cp.nombre AS Perfil, jt.nombre AS tipo_jurado";
+				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt, concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p";
+				$cadenaSql.=" WHERE ";
+				$cadenaSql.=" id_usuario='".$variable['usuario']."'";
+				$cadenaSql.=" AND ci.consecutivo_inscrito=ji.id_inscrito";
+				$cadenaSql.=" AND cp.consecutivo_perfil= ci.consecutivo_perfil";
+				//concurso
+				$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['concurso'];
+				$cadenaSql.=" AND ci.consecutivo_persona= p.consecutivo";
+				$cadenaSql.=" AND jt.id=ji.id_jurado_tipo";
+
+				break;
+
 			case 'consultaJurado' :
 				$cadenaSql=" SELECT ";
 				$cadenaSql.=" ji.id, ji.id_usuario, ji.id_inscrito, ji.id_jurado_tipo, ji.fecha_registro, ji.estado, jt.nombre AS tipo_jurado, ci.consecutivo_perfil, cp.consecutivo_concurso";
@@ -76,6 +91,19 @@ class Sql extends \Sql {
 					$cadenaSql.=" cumple_requisito='SI' AND";
 					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
 					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
+					break;
+
+				case 'consultarAspirantesNoAsignados' :
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
+					$cadenaSql.=" WHERE ";
+					$cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
+					$cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
+					$cadenaSql.=" cumple_requisito='SI' AND ";
+					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND ";
+					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
+					$cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
 					break;
 
                         case 'buscarSoporte' :
@@ -356,7 +384,7 @@ class Sql extends \Sql {
                                    }
                                 $cadenaSql.=" ORDER BY consecutivo_inscrito ";
 
-                            break;                            
+                            break;
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -395,11 +423,11 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }
                                 if(isset($variable['gr.id_evaluador']) &&  $variable['gr.id_evaluador']!='' )
-                                   {$cadenaSql.=" AND gr.id_evaluador='".$variable['gr.id_evaluador']."' "; }   
+                                   {$cadenaSql.=" AND gr.id_evaluador='".$variable['gr.id_evaluador']."' "; }
                                 $cadenaSql.=" ORDER BY parc.id_evaluar,parc.id_grupo ";
 
-                            break;   
-                            
+                            break;
+
                         case "consultarCalculoEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="parc.id_inscrito, ";
@@ -427,11 +455,11 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }
                                 if(isset($variable['gr.id_evaluador']) &&  $variable['gr.id_evaluador']!='' )
-                                   {$cadenaSql.=" AND gr.id_evaluador='".$variable['gr.id_evaluador']."' "; }   
+                                   {$cadenaSql.=" AND gr.id_evaluador='".$variable['gr.id_evaluador']."' "; }
                                 $cadenaSql.=" ORDER BY parc.id_inscrito ";
 
-                            break;   
-                            
+                            break;
+
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";
@@ -762,8 +790,8 @@ class Sql extends \Sql {
                                 $cadenaSql .= " 'A' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING id";
-                        break;                    
-                    
+                        break;
+
                         case "registroAspirantesJurado":
 				$cadenaSql=" INSERT INTO concurso.jurado_inscrito(";
 				$cadenaSql.=" id_usuario,";
@@ -795,9 +823,9 @@ class Sql extends \Sql {
                                 if(isset($variable['id_parcial']) && $variable['id_parcial']!='')
                                     {$cadenaSql.=" id='".$variable['id_parcial']."' ";}
                                 $cadenaSql.=" RETURNING id";
-                        break;      
-                    
-                    
+                        break;
+
+
 				/**
 				 * Clausulas genéricas. se espera que estén en todos los formularios
 				 * que utilicen esta plantilla

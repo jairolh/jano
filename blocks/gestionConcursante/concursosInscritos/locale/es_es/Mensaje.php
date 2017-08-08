@@ -128,5 +128,8 @@ $this->idioma ["noEncontroPerfilesActivos"] = "No hay perfiles activos para la f
 
 $this->idioma["noEncontroPerfil"]="No se encontró el perfil";
 
+$this->idioma["botonSolicitarReclamacion"]="Solicitar reclamación";
+$this->idioma["marcoReclamacion"]="Solicitar reclamación";
+
 
 ?>

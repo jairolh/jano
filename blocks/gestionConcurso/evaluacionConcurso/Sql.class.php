@@ -35,6 +35,51 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
 
+			case "consultaEtapaActiva":
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" calendar.consecutivo_calendario, ";
+					$cadenaSql.=" calendar.fecha_inicio, ";
+					$cadenaSql.=" calendar.fecha_fin ";
+
+					$cadenaSql.=" FROM concurso.concurso_calendario calendar, concurso.actividad_calendario actividad";
+					$cadenaSql.=" WHERE ";
+					$cadenaSql.=" actividad.nombre='Evaluar Requisitos' ";
+
+					if(isset($variable['hoy']) &&  $variable['hoy']!='' )
+						 {$cadenaSql.=" AND calendar.fecha_inicio <='".$variable['hoy']."' ";
+							$cadenaSql.=" AND calendar.fecha_fin>= '".$variable['hoy']."' ";
+						 }
+
+					$cadenaSql.=" AND calendar.consecutivo_actividad=actividad.consecutivo_actividad";
+					$cadenaSql.=" AND calendar.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
+
+			break;
+
+			case "consultaInscripcion":
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" ci.consecutivo_inscrito, ";
+					$cadenaSql.=" ci.consecutivo_perfil, ";
+					$cadenaSql.=" ci.consecutivo_persona, ";
+
+					$cadenaSql.=" c.consecutivo_concurso, ";
+					$cadenaSql.=" cp.nombre AS perfil, ";
+					$cadenaSql.=" c.nombre AS concurso, ";
+					$cadenaSql.=" p.tipo_identificacion, ";
+					$cadenaSql.=" p.identificacion, ";
+					$cadenaSql.=" p.nombre, ";
+					$cadenaSql.=" p.apellido, ";
+					$cadenaSql.=" m.nombre AS modalidad ";
+
+					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p, concurso.concurso c, concurso.modalidad_concurso m ";
+					$cadenaSql.=" WHERE ";
+					$cadenaSql.=" consecutivo_inscrito=".$variable['consecutivo_inscrito'];
+					$cadenaSql.=" AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
+
+					$cadenaSql.=" AND ci.consecutivo_persona=p.consecutivo ";
+					$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso ";
+					$cadenaSql.=" AND m.consecutivo_modalidad=c.consecutivo_modalidad ";
+			break;
+
 
 			case "registroValidacion":
 							$cadenaSql =" INSERT INTO concurso.valida_requisito (";

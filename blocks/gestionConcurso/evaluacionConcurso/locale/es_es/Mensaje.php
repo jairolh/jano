@@ -89,11 +89,11 @@ $this->idioma ["noEncontroConcurso"] = "No existen concursos en Ejecución.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso en Ejecución.";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
 
-
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
 $this->idioma["noEncontroPerfil"]="No existe Perfiles registrados! ";
 
-
+$this->idioma["marcoValidacion"]="<b>Validación de Requisitos</b>";
+$this->idioma["continuar"]="Continuar";
 $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
 $this->idioma["inhabilitar"]="Inactivar";

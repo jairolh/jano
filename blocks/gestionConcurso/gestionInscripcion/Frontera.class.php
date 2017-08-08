@@ -38,73 +38,77 @@ class Frontera {
 	}
 	function html() {
 		include_once ("core/builder/FormularioHtml.class.php");
-		
+
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
-		
+
 		$this->miFormulario = new \FormularioHtml ();
 		if (isset ( $_REQUEST ['opcion'] )) {
-			
+
 			switch ($_REQUEST ['opcion']) {
-				
+
+				case "agregarAspirantesJurado" :
+					include_once ($this->ruta . "/formulario/tabs/datosAspirantes.php");
+					break;
+
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;
 				 case "listar":
 					include_once ($this->ruta . "/formulario/consultarConcursoEjecuta.php");
-					break;   
+					break;
                                 case "detalle":
 					include_once($this->ruta."formulario/detalleEjecucion.php");
-					break;        
+					break;
                                 case "cerrarFase":
                                         switch($_REQUEST ['fase'])
                                             {
                                                case 'soporte':
                                                   include_once($this->ruta."formulario/cerrarSoportesConcurso.php");
-                                                break; 
+                                                break;
                                                 default:
                                                   include_once($this->ruta."formulario/cerrarFase.php");
-                                                break; 
-                                            
+                                                break;
+
                                             }
-                                        break;       
-                                    
+                                        break;
+
                                     /******/
 				case "nuevo":
 					include_once($this->ruta."formulario/nuevo.php");
 					break;
-    
+
                                 case "editar":
 					include_once($this->ruta."formulario/nuevo.php");
-					break;    
+					break;
 
                                 case "borrar":
 					include_once($this->ruta."formulario/borrar.php");
-					break;    
+					break;
                                 case "inhabilitar":
 					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
-					break;     
-                                    
+					break;
+
                                 case "habilitar":
 					include_once($this->ruta."formulario/cambiaEstadoConcurso.php");
-					break;                                    
+					break;
                                 case "inhabilitarCriterio":
 					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-					break;     
+					break;
                                 case "habilitarCriterio":
 					include_once($this->ruta."formulario/cambiaEstadoCriterio.php");
-					break;       
+					break;
                                 case "inhabilitarCalendario":
 					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
-					break;     
+					break;
                                 case "habilitarCalendario":
 					include_once($this->ruta."formulario/cambiaEstadoCalendario.php");
-					break;   
+					break;
                                 case "inhabilitarPerfil":
 					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;     
+					break;
                                 case "habilitarPerfil":
 					include_once($this->ruta."formulario/cambiaEstadoPerfil.php");
-					break;                                                                          
+					break;
         		}
 		} else {
 			$_REQUEST ['opcion'] = "listar";

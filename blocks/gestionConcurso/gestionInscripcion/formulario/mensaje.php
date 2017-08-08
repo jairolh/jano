@@ -108,17 +108,23 @@ class registrarForm {
                             switch ($_REQUEST ['mensaje'])
                                 {
                                     case "juradoAsignado":
-                                                    $tipo = 'success';
-                                                    $mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
-                                                    $boton = "continuar";
-                                                    break;
+                                        $tipo = 'success';
+                                        $mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
+                                        $boton = "continuar";
+																				$variable.= "&opcion=detalle";
+																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																				$pestanna='#tabJurados';
+                                        break;
 
                                     case "noAsignoJurado":
-                                                    $tipo = 'error';
-                                                    $mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
-                                                    $boton = "regresar";
-                                                    break;
-                                                
+                                        $tipo = 'error';
+                                        $mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
+                                        $boton = "regresar";
+																				$variable.= "&opcion=detalle";
+																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																				$pestanna='#tabJurados';
+                                        break;
+
 
                                     case "Cerro":
                                         $tipo = 'success';
@@ -250,8 +256,8 @@ class registrarForm {
 
 			// -----------------CONTROL: Botón ----------------------------------------------------------------
 
-                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-                        $esteCampo = 'botonContinuar';
+      $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+			$esteCampo = 'botonContinuar';
 			$atributos ['id'] = $esteCampo;
 			$atributos ['enlace'] = $variable.$pestanna;
 			$atributos ['tabIndex'] = 1;

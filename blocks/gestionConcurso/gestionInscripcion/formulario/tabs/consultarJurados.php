@@ -177,6 +177,7 @@ class consultarJurado {
 										 unset ( $atributos );
 										 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
 
+
 										 $esteCampo = "marcoListaAspirantes";
 										 $atributos ['id'] = $esteCampo;
 										 $atributos ["estilo"] = "jqueryui";
@@ -184,143 +185,42 @@ class consultarJurado {
 										 $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
 										 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 
-										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
-										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+										/* $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
+										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );*/
 										 //var_dump($aspirantes);
 
-										 //listado con check de los aspirantes
-										 echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
-										 echo "<thead>
-														 <tr align='center'>
-														 <th>
-														 	<input name='seleccionarTodo' id='seleccionarTodo' value='3' tabindex='4' class='justificado validate[]' type='checkbox'>
-																 Seleccionar
-															</th>
-																 <th>Inscripción</th>
-																 <th>Tipo Identificación</th>
-																 <th>Identificación</th>
-																 <th>Nombre</th>
-																 <th>Perfil</th>
-														 </tr>
-												 </thead>
-												 <tbody>";
-												if($aspirantes){
-										 $primero=$aspirantes[0]['consecutivo_inscrito'];
-										 foreach($aspirantes as $key=>$value ){
-
-											 $mostrarHtml = "<tr align='center'>
-															 <td align='left'>";
-
-															 // ---------------- CONTROL: Checkbox -----------
-															 $esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
-															 $atributos ['id'] = $esteCampo;
-															 $atributos ['nombre'] = $esteCampo;
-															 $atributos ['marco'] = true;
-															 $atributos ['estiloMarco'] = true;
-															 $atributos ["etiquetaObligatorio"] = true;
-															 $atributos ['columnas'] = 1;
-															 $atributos ['dobleLinea'] = 1;
-															 $atributos ['tabIndex'] = $tab;
-															 $atributos ['etiqueta'] = "";
-															 $atributos ['seleccionado'] = false;
-															 $atributos ['valor'] = $aspirantes[$key]['consecutivo_inscrito'];
-
-															 $atributos ['estilo'] = 'justificado';
-															 $atributos ['eventoFuncion'] = ' ';
-															 $atributos ['validar'] = '';
-															 $atributos ['deshabilitado'] = false;
-															 $tab ++;
-															 //$atributos = array_merge ( $atributos, $atributosGlobales );
-															 $mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
-
-
-												 $mostrarHtml.="</td>";
-
-
-											 $mostrarHtml .= "<td align='left'>".$aspirantes[$key]['consecutivo_inscrito']."</td>
-															 <td align='left'>".$aspirantes[$key]['tipo_identificacion']."</td>
-															 <td align='left'>".$aspirantes[$key]['identificacion']."</td>
-															 <td align='left'>".$aspirantes[$key]['nombre']."</td>
-															 <td align='left'>".$aspirantes[$key]['perfil']."</td>";
-											 $mostrarHtml .= "</tr>";
-											 echo $mostrarHtml;
-											 unset($mostrarHtml);
-											 unset($variable);
-										 }
-
-										 if($key>0){
-											 $ultimo=$aspirantes[$key]['consecutivo_inscrito'];
-											 $valores= $primero . ",".$ultimo;
-										 }else{
-											 $valores= $primero;
-										 }
-
-									 }
-										 echo "</tbody>";
-										 echo "</table></div>";
-
-										 // ////////////////Hidden////////////
-										$esteCampo = 'aspirantes';
-										$atributos ["id"] = $esteCampo;
-										$atributos ["tipo"] = "hidden";
-										$atributos ['estilo'] = '';
-										$atributos ['validar'] = '';
-										$atributos ["obligatorio"] = true;
-										$atributos ['marco'] = true;
-										$atributos ["etiqueta"] = "";
-
-										$atributos = array_merge ( $atributos, $atributosGlobales );
-										echo $this->miFormulario->campoCuadroTexto ( $atributos );
-										unset ( $atributos );
-
-										 // ////////////////Hidden////////////
-										$esteCampo = 'numeroAspirantes';
-										$atributos ["id"] = $esteCampo;
-										$atributos ["tipo"] = "hidden";
-										$atributos ['estilo'] = '';
-										$atributos ['validar'] = '';
-										$atributos ["obligatorio"] = true;
-										$atributos ['marco'] = true;
-										$atributos ["etiqueta"] = "";
-										$atributos ['valor'] = $valores;
-
-										$atributos = array_merge ( $atributos, $atributosGlobales );
-										echo $this->miFormulario->campoCuadroTexto ( $atributos );
-										unset ( $atributos );
+										 echo "<table id='tablaConsultaAspirantesAsignados' class='display' width='100%'></table>";
 
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-										 unset ( $atributos );
 
-								if($aspirantes){
-										 // ------------------Division para los botones-------------------------
-						 				$atributos ["id"] = "botones";
-						 				$atributos ["estilo"] = "marcoBotones";
-						 				echo $this->miFormulario->division ( "inicio", $atributos );
-						 				unset ( $atributos );
-						 				{
-						 					// -----------------CONTROL: Botón ----------------------------------------------------------------
-						 					$esteCampo = 'botonGuardar';
-						 					$atributos ["id"] = $esteCampo;
-						 					$atributos ["tabIndex"] = $tab;
-						 					$atributos ["tipo"] = 'boton';
-						 					// submit: no se coloca si se desea un tipo button genérico
-						 					$atributos ['submit'] = true;
-						 					$atributos ["estiloMarco"] = '';
-						 					$atributos ["estiloBoton"] = 'jqueryui';
-						 					// verificar: true para verificar el formulario antes de pasarlo al servidor.
-						 					$atributos ["verificar"] = '';
-						 					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-						 					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-						 					$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-						 					$tab ++;
+													 // ------------------Division para los botones-------------------------
+													$atributos ["id"] = "botones";
+													$atributos ["estilo"] = "marcoBotones";
+													echo $this->miFormulario->division ( "inicio", $atributos );
+													unset ( $atributos );
+													{
+														// -----------------CONTROL: Botón ----------------------------------------------------------------
+														$esteCampo = 'botonAsignarAspirantes';
+														$atributos ["id"] = $esteCampo;
+														$atributos ["tabIndex"] = $tab;
+														$atributos ["tipo"] = 'boton';
+														// submit: no se coloca si se desea un tipo button genérico
+														$atributos ['submit'] = true;
+														$atributos ["estiloMarco"] = '';
+														$atributos ["estiloBoton"] = 'jqueryui';
+														// verificar: true para verificar el formulario antes de pasarlo al servidor.
+														$atributos ["verificar"] = '';
+														$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+														$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+														$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+														$tab ++;
 
-						 					// Aplica atributos globales al control
-						 					$atributos = array_merge ( $atributos, $atributosGlobales );
-						 					echo $this->miFormulario->campoBoton ( $atributos );
-						 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
-						 				}
-						 				echo $this->miFormulario->division ( 'fin' );
-									}
+														// Aplica atributos globales al control
+														$atributos = array_merge ( $atributos, $atributosGlobales );
+														echo $this->miFormulario->campoBoton ( $atributos );
+														// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+													}
+													echo $this->miFormulario->division ( 'fin' );
 
 								}else{
 										$tab=1;
@@ -344,7 +244,7 @@ class consultarJurado {
 										//-------------Control cuadroTexto con campos ocultos-----------------------
 								}
 
-				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+				//echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
 
@@ -370,12 +270,15 @@ class consultarJurado {
 			 * (c) a través de campos ocultos en los formularios. (deprecated)
 			 */
 			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-			$valorCodificado = "action=" . $esteBloque ["nombre"];
-			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			//$valorCodificado = "action=" . $esteBloque ["nombre"];
+			$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-			$valorCodificado .= "&opcion=guardarAspirantesJurado";
+			$valorCodificado .= "&opcion=agregarAspirantesJurado";
+			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+			$valorCodificado .= "&consecutivo_concurso=" . $_REQUEST['consecutivo_concurso'];
 			$valorCodificado .= "&nombre_concurso=".$_REQUEST['nombre_concurso'];
+
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.
@@ -388,6 +291,7 @@ class consultarJurado {
 			$valorCodificado .= "&tiempo=" . time ();
 			// Paso 2: codificar la cadena resultante
 			$valorCodificado = $this->miConfigurador->fabricaConexiones->crypto->codificar ( $valorCodificado );
+			//var_dump($valorCodificado);
 
 			$atributos ["id"] = "formSaraData"; // No cambiar este nombre
 			$atributos ["tipo"] = "hidden";

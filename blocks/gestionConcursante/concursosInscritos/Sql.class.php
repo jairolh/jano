@@ -32,6 +32,26 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+			 case "reclamacionesValidacion":
+  			 $cadenaSql=" SELECT";
+  			 $cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario ";
+  			 $cadenaSql.=" FROM concurso.valida_requisito vr, concurso.evaluacion_reclamacion er";
+  			 $cadenaSql.=" WHERE";
+ 			 	 $cadenaSql.=" vr.id_reclamacion=".$variable['reclamacion'];
+  			 $cadenaSql.=" AND vr.consecutivo_inscrito=".$variable['consecutivo_inscrito'];
+ 			 	 //echo $cadenaSql;
+  			break;
+
+			case "actualizaValidacion" :
+				$cadenaSql = "UPDATE ";
+				$cadenaSql .= "concurso.valida_requisito ";
+				$cadenaSql .= "SET ";
+				$cadenaSql .= "id_reclamacion = " . $variable ["reclamacion"];
+				$cadenaSql .= "WHERE ";
+				$cadenaSql .= "consecutivo_inscrito =" . $variable ["consecutivo_inscrito"];
+				//echo $cadenaSql;
+				break;
+
 			case "consultaDatosInscripcion":
  			 $cadenaSql=" SELECT";
  			 $cadenaSql.=" calendario.consecutivo_calendario, c.nombre AS concurso, p.nombre AS perfil ";
@@ -41,7 +61,7 @@ class Sql extends \Sql {
  			 $cadenaSql.=" AND c.consecutivo_concurso=".$variable['consecutivo_concurso'];
  			 $cadenaSql.=" AND p.consecutivo_perfil=".$variable['consecutivo_perfil'];
  			 $cadenaSql.=" AND calendario.consecutivo_concurso=c.consecutivo_concurso";
-//echo $cadenaSql;
+			 //echo $cadenaSql;
  			break;
 
 			case "fechaFinReclamacion":
@@ -117,7 +137,8 @@ class Sql extends \Sql {
 	 				$cadenaSql.=" cumple_requisito, ";
 	 				$cadenaSql.=" observacion, ";
 	 				$cadenaSql.=" fecha_registro, ";
-	 				$cadenaSql.=" estado ";
+	 				$cadenaSql.=" estado, ";
+					$cadenaSql.=" id_reclamacion ";
 	 				$cadenaSql.=" FROM concurso.valida_requisito ";
 	 				$cadenaSql.=" WHERE ";
 	 				$cadenaSql.=" consecutivo_inscrito=".$variable;

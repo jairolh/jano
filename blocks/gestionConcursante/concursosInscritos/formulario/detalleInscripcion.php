@@ -86,6 +86,7 @@ class consultaForm {
 
 			$cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $_REQUEST['consecutivo_inscrito']);
 			$resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+			//var_dump($resultadoValidacion);
 
 			$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
 			$resultadoEvaluaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -196,8 +197,7 @@ echo '
 			$mostrarHtml = "<tr align='center'>
 											<td align='left'>".$resultadoValidacion[0]['cumple_requisito']."</td>
 											<td align='left'>".$resultadoValidacion[0]['observacion']."</td>
-											<td align='left'>".$resultadoValidacion[0]['fecha_registro']."</td>
-											<td align='left'>"."</td>";
+											<td align='left'>".$resultadoValidacion[0]['fecha_registro']."</td>";
 			$mostrarHtml .= "</tr>";
 
 			echo $mostrarHtml;
@@ -214,10 +214,41 @@ echo '
 			echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
 			unset($atributos);
 
-			//buscar reclamaciones realizadas
-			$reclamacionesValidacion=false;
+			//buscar reclamación
+			$parametro=array(
+				'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+				'reclamacion'=>$resultadoValidacion[0]['id_reclamacion']
+			);
+
+			$cadena_sql = $this->miSql->getCadenaSql("reclamacionesValidacion", $parametro);
+			$reclamacionesValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 			if($reclamacionesValidacion){
+
+				echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+				echo "<thead>
+								<tr align='center'>
+										<th>Reclamación</th>
+										<th>Observación</th>
+										<th>Fecha</th>
+										<th>Respuesta</th>
+								</tr>
+						</thead>
+						<tbody> ";
+
+				$mostrarHtml = "<tr align='center'>
+												<td align='left'>".$reclamacionesValidacion[0]['id']."</td>
+												<td align='left'>".$reclamacionesValidacion[0]['observacion']."</td>
+												<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>
+												<td align='left'>"."Pendiente"."</td>";
+				$mostrarHtml .= "</tr>";
+
+				echo $mostrarHtml;
+				unset($mostrarHtml);
+
+				echo "</tbody>";
+
+				echo "</table>";
 
 			}else{
 				$atributos["id"]="divNoEncontroPerfil";
@@ -238,40 +269,43 @@ echo '
 
 			 echo $this->miFormulario->division("fin");
 				//------------------Division para los botones-------------------------
-			}
 
-			$fecha = date("Y-m-d H:i:s");
-			if($fecha<=$fechaFinReclamacionValidacion[0]['fecha_fin_reclamacion']){
+				$fecha = date("Y-m-d H:i:s");
+				if($fecha<=$fechaFinReclamacionValidacion[0]['fecha_fin_reclamacion']){
 
-				// ------------------Division para los botones-------------------------
-				$atributos ["id"] = "botones";
-				$atributos ["estilo"] = "marcoBotones";
-				echo $this->miFormulario->division ( "inicio", $atributos );
-				unset ( $atributos );
-				{
-					// -----------------CONTROL: Botón ----------------------------------------------------------------
-					$esteCampo = 'botonSolicitarReclamacion';
-					$atributos ["id"] = $esteCampo;
-					$atributos ["tabIndex"] = $tab;
-					$atributos ["tipo"] = 'boton';
-					// submit: no se coloca si se desea un tipo button genérico
-					$atributos ['submit'] = true;
-					$atributos ["estiloMarco"] = '';
-					$atributos ["estiloBoton"] = 'jqueryui';
-					// verificar: true para verificar el formulario antes de pasarlo al servidor.
-					$atributos ["verificar"] = '';
-					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-					$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-					$tab ++;
+					// ------------------Division para los botones-------------------------
+					$atributos ["id"] = "botones";
+					$atributos ["estilo"] = "marcoBotones";
+					echo $this->miFormulario->division ( "inicio", $atributos );
+					unset ( $atributos );
+					{
+						// -----------------CONTROL: Botón ----------------------------------------------------------------
+						$esteCampo = 'botonSolicitarReclamacion';
+						$atributos ["id"] = $esteCampo;
+						$atributos ["tabIndex"] = $tab;
+						$atributos ["tipo"] = 'boton';
+						// submit: no se coloca si se desea un tipo button genérico
+						$atributos ['submit'] = true;
+						$atributos ["estiloMarco"] = '';
+						$atributos ["estiloBoton"] = 'jqueryui';
+						// verificar: true para verificar el formulario antes de pasarlo al servidor.
+						$atributos ["verificar"] = '';
+						$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+						$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+						$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+						$tab ++;
 
-					// Aplica atributos globales al control
-					$atributos = array_merge ( $atributos, $atributosGlobales );
-					echo $this->miFormulario->campoBoton ( $atributos );
-					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+						// Aplica atributos globales al control
+						$atributos = array_merge ( $atributos, $atributosGlobales );
+						echo $this->miFormulario->campoBoton ( $atributos );
+						// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+					}
+					echo $this->miFormulario->division ( 'fin' );
 				}
-				echo $this->miFormulario->division ( 'fin' );
+
 			}
+
+
 
 
 

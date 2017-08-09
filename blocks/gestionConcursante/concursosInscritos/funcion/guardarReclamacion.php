@@ -49,6 +49,8 @@ class RegistradorValidacion {
           //Para la Verificación de Requisitos
           if($_REQUEST['consecutivo_calendario']==3){
             $arregloDatos = array(
+                                  'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
+                                  'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                                   'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                                   'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
                                   'reclamacion'=>$resultado[0][0]

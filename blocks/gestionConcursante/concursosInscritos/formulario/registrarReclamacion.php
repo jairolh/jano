@@ -233,6 +233,8 @@ class registrarForm {
 			$valorCodificado .= "&opcion=guardarReclamacion";
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$valorCodificado .= "&consecutivo_calendario=".$_REQUEST['id_etapa'];
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

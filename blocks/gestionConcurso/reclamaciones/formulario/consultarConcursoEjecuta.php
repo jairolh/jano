@@ -1,0 +1,189 @@
+<?php
+namespace gestionConcurso\reclamaciones;
+
+if (! isset ( $GLOBALS ["autorizado"] )) {
+	include ("../index.php");
+	exit ();
+}
+class consultarForm {
+	var $miConfigurador;
+	var $lenguaje;
+	var $miFormulario;
+	var $miSql;
+        var $miSesion;
+        var $rutaSoporte;
+
+	function __construct($lenguaje, $formulario, $sql) {
+		$this->miConfigurador = \Configurador::singleton ();
+
+		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
+
+		$this->lenguaje = $lenguaje;
+
+		$this->miFormulario = $formulario;
+
+		$this->miSql = $sql;
+
+    $this->miSesion = \Sesion::singleton();
+	}
+	function miForm() {
+
+            // Rescatar los datos de este bloque
+            $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
+
+            $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+            $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+            $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+
+            $directorio = $this->miConfigurador->getVariableConfiguracion("host");
+            $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
+            $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
+            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+            // ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
+            /**
+             * Atributos que deben ser aplicados a todos los controles de este formulario.
+             * Se utiliza un arreglo
+             * independiente debido a que los atributos individuales se reinician cada vez que se declara un campo.
+             *
+             * Si se utiliza esta técnica es necesario realizar un mezcla entre este arreglo y el específico en cada control:
+             * $atributos= array_merge($atributos,$atributosGlobales);
+             */
+            $atributosGlobales ['campoSeguro'] = 'true';
+            $_REQUEST ['tiempo'] = time ();
+
+            // -------------------------------------------------------------------------------------------------
+            $conexion="estructura";
+            $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
+
+						//consulta de todas las reclamaciones
+						$parametro=array(
+							'hoy'=>date("Y-m-d"),
+							'jurado'=>$this->miSesion->getSesionUsuarioId()
+						);
+            $cadena_sql = $this->miSql->getCadenaSql("consultaReclamaciones", $parametro);
+            $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+            $esteCampo = "marcoEjecucion";
+            $atributos ['id'] = $esteCampo;
+            $atributos ["estilo"] = "jqueryui";
+            $atributos ['tipoEtiqueta'] = 'inicio';
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
+            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+            unset ( $atributos );
+                {
+                if($resultadoReclamaciones)
+                {
+                    //-----------------Inicio de Conjunto de Controles----------------------------------------
+                        $esteCampo = "marcoListaConcurso";
+                        $atributos["estilo"] = "jqueryui";
+                        $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
+                        //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+                        unset($atributos);
+
+                        echo "<div class='cell-border'><table id='tablaConcursos' class='table table-striped table-bordered'>";
+
+                        echo "<thead>
+                                <tr align='center'>
+                                    <th>Reclamación</th>
+                                    <th>Observación</th>
+                                    <th>Fecha</th>
+																		<th>Etapa</th>
+                                    <th>Respuesta</th>
+																		<th>Evaluación</th>
+                                </tr>
+                            </thead>
+                            <tbody>";
+
+                        foreach($resultadoReclamaciones as $key=>$value )
+                            {
+                                $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoReclamaciones[$key]['id']."</td>
+                                        <td align='left'>".$resultadoReclamaciones[$key]['observacion']."</td>
+                                        <td align='left'>".$resultadoReclamaciones[$key]['fecha_registro']."</td>
+																				<td align='left'>".$resultadoReclamaciones[$key]['consecutivo_calendario']."</td>
+                                        <td align='left'>".$resultadoReclamaciones[$key]['respuestas']."</td>";
+
+																				$mostrarHtml .= "<td>";
+
+																									$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+																									$variableVerHoja.= "&opcion=validacion";
+																									$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																									$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+																									$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+																									$variableVerHoja.= "&tiempo=" . time ();
+																									//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																									//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																									//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																									$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+																									//-------------Enlace-----------------------
+																									$esteCampo = "verHojaVida";
+																									$esteCampo = 'enlace_hoja';
+																									$atributos ['id'] = $esteCampo;
+																									$atributos ['enlace'] = $variableVerHoja;
+																									$atributos ['tabIndex'] = 0;
+																									$atributos ['columnas'] = 1;
+																									$atributos ['enlaceTexto'] = 'Evaluar';
+																									$atributos ['estilo'] = 'clasico';
+																									$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																									$atributos ['posicionImagen'] ="atras";//"adelante";
+																									$atributos ['ancho'] = '20px';
+																									$atributos ['alto'] = '20px';
+																									$atributos ['redirLugar'] = false;
+																									$atributos ['valor'] = '';
+																									$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+																									unset ( $atributos );
+
+																								 $mostrarHtml .= "</td>";
+
+                               $mostrarHtml .= "</tr>";
+                               echo $mostrarHtml;
+                               unset($mostrarHtml);
+                               unset($variable);
+                            }
+
+                        echo "</tbody>";
+
+                        echo "</table></div>";
+
+                        //Fin de Conjunto de Controles
+                        //echo $this->miFormulario->marcoAgrupacion("fin");
+
+                }else
+                {
+                    $tab=1;
+                    //---------------Inicio Formulario (<form>)--------------------------------
+                    $atributos["id"]="divNoEncontroConcurso";
+                    $atributos["estilo"]="marcoBotones";
+                    //$atributos["estiloEnLinea"]="display:none";
+                        echo $this->miFormulario->division("inicio",$atributos);
+
+                        //-------------Control Boton-----------------------
+                        $esteCampo = "noEncontroConcurso";
+                        $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                        $atributos["etiqueta"] = "";
+                        $atributos["estilo"] = "centrar";
+                        $atributos["tipo"] = 'error';
+                        $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                        echo $this->miFormulario->cuadroMensaje($atributos);
+                        unset($atributos);
+                        //------------------Fin Division para los botones-------------------------
+                        echo $this->miFormulario->division("fin");
+                        //-------------Control cuadroTexto con campos ocultos-----------------------
+                }
+            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+
+            // ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
+            // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
+            // Se debe declarar el mismo atributo de marco con que se inició el formulario.
+        }
+        // ------------------Fin Division para los botones-------------------------
+        echo $this->miFormulario->division ( "fin" );
+
+    }
+}
+
+$miSeleccionador = new consultarForm ( $this->lenguaje, $this->miFormulario, $this->sql );
+
+$miSeleccionador->miForm ();
+?>

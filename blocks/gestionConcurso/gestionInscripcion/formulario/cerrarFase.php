@@ -45,7 +45,7 @@ class cerrarForm{
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
                 $seccion ['tiempo'] = $tiempo;
                 
-
+                var_dump($_REQUEST);
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
                 $estefomulario= 'datosCierre';
@@ -112,8 +112,15 @@ class cerrarForm{
                                 if($_REQUEST['inscrito']>0 && $_REQUEST['evaluado']<$_REQUEST['inscrito'] ){
                                     $mensaje = "<b>Precaución para esta Fase, la cantidad de aspirantes evaluados (".$_REQUEST['evaluado'].") es menor a la cantidad de de aspirantes inscritos (".$_REQUEST['inscrito'].") !</b><br>";
                                     }
-                                $mensaje .= "Esta seguro de Cerrar la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
-                                $mensaje .= "<br> Recuerde que una vez cerrada no se pueden registrar más evaluaciones.";
+                                if($_REQUEST['tipo_cierre']=='parcial'){    
+                                        $mensaje = "<b>Se han registrado ".$_REQUEST['evaluado']." evaluaciones para esta fase!</b><br><br>";    
+                                    }
+                                elseif($_REQUEST['tipo_cierre']=='final'){    
+                                        $mensaje = "<b>Se han registrado ".$_REQUEST['reclamacion']." reclamaciones para esta fase!</b><br><br>";    
+                                    }
+                                    
+                                $mensaje .= "Esta seguro de realizar Cierre <b>".$_REQUEST['tipo_cierre']."</b> la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
+                                $mensaje .= "<br> Recuerde que una vez cerrada no se pueden registrar más datos.";
                                 $boton = "cerrarFase";
 
                                 $esteCampo = 'calendarioFase';
@@ -125,6 +132,7 @@ class cerrarForm{
                                 echo $this->miFormulario->cuadroMensaje($atributos);
                                 unset($atributos); 	      
                                 // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                /*
                                 $esteCampo = 'etapaPasa';
                                 $atributos ['nombre'] = $esteCampo;
                                 $atributos ['id'] = $esteCampo;
@@ -150,7 +158,7 @@ class cerrarForm{
                                 $atributos ['matrizItems'] = $matrizItems;
                                 $atributos = array_merge ( $atributos, $atributosGlobales );
                                 echo $this->miFormulario->campoCuadroLista ( $atributos );
-                                unset ( $atributos );
+                                unset ( $atributos );*/
                                 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
                                 // ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
@@ -196,6 +204,7 @@ class cerrarForm{
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
                                     $valorCodificado .= "&opcion=cerrarFase";
                                     $valorCodificado .= "&fase=" .$_REQUEST['fase'];
+                                    $valorCodificado .= "&tipo_cierre=" .$_REQUEST['tipo_cierre'];
                                     $valorCodificado .= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
                                     $valorCodificado .= "&consecutivo_calendario=" .$_REQUEST['consecutivo_calendario'];
                                     $valorCodificado .= "&nombre=" .$_REQUEST['nombre'];

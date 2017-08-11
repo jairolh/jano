@@ -207,6 +207,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.porcentaje_aprueba, ";
                                 $cadenaSql.=" cal.fecha_fin_reclamacion, ";
                                 $cadenaSql.=" cal.fecha_fin_resolver, ";
+                                $cadenaSql.=" cal.cierre, ";
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";
@@ -825,6 +826,14 @@ class Sql extends \Sql {
                                 $cadenaSql.=" RETURNING id";
                         break;
 
+                        case "actualizaCierreCalendario":
+                                $cadenaSql=" UPDATE concurso.concurso_calendario";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.= " cierre= '".$variable['cierre']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_calendario";
+                        break;                          
 
 				/**
 				 * Clausulas genéricas. se espera que estén en todos los formularios

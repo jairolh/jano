@@ -6,12 +6,47 @@
         $('#tablaProcesos').dataTable({bJQueryUI : true,
         "sPaginationType": "full_numbers"
         });
-      */  
-    ?>    
+       
         //sin cabecera ni pie
         $('#tablaProcesos').DataTable({bFilter: false, bInfo: false}});
-        
-                      
+         */  
+    ?>  
+
+$('#tablaListaGeneral').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "No hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+});
+
+$('#tablaListaParcial').DataTable({
+"language": {
+    "lengthMenu": "Mostrar _MENU_ registros por p&aacute;gina",
+    "zeroRecords": "No se encontraron registros coincidentes",
+    "info": "Mostrando _PAGE_ de _PAGES_ p&aacute;ginas",
+    "infoEmpty": "No hay datos registrados",
+    "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+    "search": "Buscar:",
+    "paginate": {
+                "first":      "Primera",
+                "last":       "&Uacute;ltima",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+},
+"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+});                      
                       
         // Asociar el widget de validación al formulario
         $("#gestionUsuarios").validationEngine({

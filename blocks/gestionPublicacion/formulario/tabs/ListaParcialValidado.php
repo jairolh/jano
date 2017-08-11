@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
-class faseCerrado{
+class faseParcial{
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -45,7 +45,7 @@ class faseCerrado{
             
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario']);    
-            $cadena_sql = $this->miSql->getCadenaSql("consultaFaseCerroValida", $parametro);
+            $cadena_sql = $this->miSql->getCadenaSql("listadoParcialRequisitos", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
             $cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
@@ -61,7 +61,8 @@ class faseCerrado{
                     $variableResumen.= "&action=".$esteBloque["nombre"];
                     $variableResumen.= "&bloque=" . $esteBloque["id_bloque"];
                     $variableResumen.= "&bloqueGrupo=" . $esteBloque["grupo"];
-                    $variableResumen.= "&opcion=resumenFaseValidado";
+                    $variableResumen.= "&opcion=resumenRequisitos";
+                    $variableResumen.= "&tipo_cierre=".$_REQUEST['tipo_cierre'];
                     $variableResumen.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                     $variableResumen.= "&consecutivo_calendario=".$_REQUEST['consecutivo_calendario']; 
                     $variableResumen.= "&fase=".$_REQUEST['fase'];  
@@ -75,21 +76,21 @@ class faseCerrado{
                     echo $this->miFormulario->division("inicio",$atributos);
 
                     $enlace = "<a href='".$variableResumen."'>";
-                    $enlace.="<img src='".$rutaBloque."/images/pdfImage.png' width='30px'><br>Descargar Listado ";
-                    $enlace.="</a><br><br>";       
+                    $enlace.="<img src='".$rutaBloque."/images/pdfImage.png' width='25px'> <u>Descargar Listado</u>";
+                    $enlace.="</a><br>";       
                     echo $enlace;
                     echo $this->miFormulario->division("fin");
                     //muestra la cabecera del reporte
                     $mostrarHtml=$this->cabecera($atributosGlobales,$rutaBloque,$cierre);
                     if($resultadoListaFase)
                     {   //-----------------Inicio de Conjunto de Controles----------------------------------------
-                                $esteCampo = "marcoFormacion";
-                                $atributos["estilo"] = "jqueryui";
-                                $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
-                                //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
-                                unset($atributos);
+                        $esteCampo = "marcoLista";
+                        $atributos["estilo"] = "jqueryui";
+                        $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
+                        //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+                        unset($atributos);
                          $mostrarHtml.="<div class='cell-border'>";
-                         $mostrarHtml.="<table id='tablaListaGeneral' class='table table-striped table-bordered'>";
+                         $mostrarHtml.="<table id='tablaListaParcial' class='table table-striped table-bordered'>";
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
                                             <th>Id</th>
@@ -98,17 +99,21 @@ class faseCerrado{
                                             <th>Identificación</th>
                                             <th>Nombres</th>
                                             <th>Apellidos</th>
+                                            <th>Cumple</th>
+                                            <th>Observacion</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
                                 foreach($resultadoListaFase as $key=>$value )
                                     {   $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['consecutivo_inscrito']."</td>
+                                                    <td align='justify' width='15%'>".$resultadoListaFase[$key]['perfil']."</td>
+                                                    <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['nombre']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>";
+                                                    <td align='left' width='10%' >".$resultadoListaFase[$key]['nombre']."</td>
+                                                    <td align='left' width='10%'>".$resultadoListaFase[$key]['apellido']."</td>
+                                                    <td align='left'>".$resultadoListaFase[$key]['cumple_requisito']."</td>
+                                                    <td align='justify' width='25%' >".$resultadoListaFase[$key]['observacion']."</td>";
                                            $mostrarHtml.= "</tr>";
                                            //echo $mostrarHtml;
                                            //unset($mostrarHtml);
@@ -148,7 +153,7 @@ class faseCerrado{
             {  $cajaNombre="width='15%'";
                         $cajaDato="width='35%'";
                         $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
-                        $mostrarHtml.= "<table id='tablaPerfiles' class='table table-striped table-bordered'>";
+                        $mostrarHtml.= "<table class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
                                 $mostrarHtml.= "<tr align='center' valign='middle' >
                                                         <td rowspan=3 colspan=2 align='center'>";
@@ -166,7 +171,7 @@ class faseCerrado{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA ASPIRANTES APROBARÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTADO RESULTADOS | FECHA CIERRE ".$cierre."</th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";
@@ -182,7 +187,7 @@ class faseCerrado{
     
 }
 
-$miSeleccionador = new faseCerrado( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new faseParcial( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

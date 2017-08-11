@@ -41,6 +41,7 @@ class Frontera {
 		
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
 		$this->miFormulario = new \FormularioHtml ();
+                //var_dump($_REQUEST);//exit;
 		if (isset ( $_REQUEST ['opcion'] )) {
 			
 			switch ($_REQUEST ['opcion']) {
@@ -50,6 +51,9 @@ class Frontera {
                                 case "faseProcesado" :
 					include_once ($this->ruta . "/formulario/faseProcesado.php");
 					break;                                    
+                                case "faseParcial" :
+                                        include_once ($this->ruta . "/formulario/listaParcial.php");
+				     break;                                    
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;

@@ -42,8 +42,20 @@ class cerrarSoporteConcurso {
         $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
          //var_dump($resultadoListaInscrito);exit;
         if($resultadoListaInscrito)
-            {   //llama imagen progreso
+            {   
+                //llama imagen progreso
                 $this->progreso($esteBloque);
+                //busca datos registrados
+                $parametro['nombre_fase']='Registro Soportes';
+                $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
+                $faseAnt = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                $parametro['nombre_fase']='Evaluar Requisitos';
+                $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
+                $fase = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                //asigna fases
+                $parametro['faseAct']=$faseAnt[0]['consecutivo_calendario'];
+                $parametro['faseNueva']=$fase[0]['consecutivo_calendario']; 
+                
                 //busca los datos de la hoja de vida y registra en soportes de inscripcion
                 foreach ($resultadoListaInscrito as $key => $value) {
                     $parametro['consecutivo_persona']=$resultadoListaInscrito[$key]['consecutivo_persona'];    
@@ -57,8 +69,9 @@ class cerrarSoporteConcurso {
                     $this->cerrarDatosInvestigacion($parametro,$esteRecursoDB);
                     $this->cerrarDatosProduccion($parametro,$esteRecursoDB);
                     $this->cerrarDatosIdioma($parametro,$esteRecursoDB);
-                    $this->cerrarFase($parametro,$esteRecursoDB);
+                    $this->pasaFase($parametro,$esteRecursoDB);
                 }
+                $this->cerrarFase($parametro,$esteRecursoDB);
                 redireccion::redireccionar('Cerro',$parametro);
                 exit();
             }
@@ -590,24 +603,26 @@ class cerrarSoporteConcurso {
         }    
     }    
 
+    function pasaFase($parametro,$esteRecursoDB) {
+        //busca datos registrados
+        $arregloDatos = array('consecutivo_inscrito' => $parametro['inscripcion'],
+                                'consecutivo_calendario' => $parametro['faseNueva'],
+                                'observacion' => 'Cierre automatico fase Inscripción y registro de soportes',
+                                'fecha_registro' => $parametro['fecha_registro'],
+                                'consecutivo_calendario_ant' => $parametro['faseAct'],
+                                );
+        $this->cadena_sql = $this->miSql->getCadenaSql("registroEtapaInscrito", $arregloDatos);
+        $resultadoEtapa = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreEtapaInscrito" );
+    }        
     function cerrarFase($parametro,$esteRecursoDB) {
         //busca datos registrados
-        $parametro['nombre_fase']='Registro Soportes';
-        $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
-        $faseAnt = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        $parametro['nombre_fase']='Evaluar Requisitos';
-        $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
-        $fase = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        $arregloDatos = array('consecutivo_inscrito' => $parametro['inscripcion'],
-                                      'consecutivo_calendario' => $fase[0]['consecutivo_calendario'],
-                                      'observacion' => 'Cierre automatico fase Inscripción y registro de soportes',
-                                      'fecha_registro' => $parametro['fecha_registro'],
-                                      'consecutivo_calendario_ant' => $faseAnt[0]['consecutivo_calendario'],
-                                      );
-        $this->cadena_sql = $this->miSql->getCadenaSql("registroEtapaInscrito", $arregloDatos);
-        $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreEtapaInscrito" );
-    }        
-    
+        $arregloCierre = array('consecutivo_inscrito' => $parametro['inscripcion'],
+                               'consecutivo_calendario' => $parametro['faseAct'],
+                               'cierre' => 'final',
+                              );        
+        $this->cadena_sql = $this->miSql->getCadenaSql("actualizaCierreCalendario", $arregloCierre);
+        $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualiza", $arregloCierre, "actualizaCierreCalendarioSoporte" );
+    }       
 }
 
 $miRegistrador = new cerrarSoporteConcurso($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);

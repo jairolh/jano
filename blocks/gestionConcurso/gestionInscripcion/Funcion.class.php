@@ -193,7 +193,16 @@ class Funcion {
 	}
 	function cerrarRequisitos()
 	{
-		include_once($this->ruta."/funcion/cerrarRequisitosPerfil.php");
+            switch ($_REQUEST ['tipo_cierre'])
+                {   case "parcial":
+                        include_once($this->ruta."/funcion/cerrarRequisitosPerfilParcial.php");
+                    break;
+                    case "final":
+                        include_once($this->ruta."/funcion/cerrarRequisitosPerfilFinal.php");
+                    break;
+                }
+                
+                
 	}
 	function cerrarEvaluacion()
 	{

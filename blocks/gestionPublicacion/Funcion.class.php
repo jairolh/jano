@@ -68,11 +68,14 @@ class Funcion {
                 elseif (isset ( $_REQUEST ["opcion"] ))
                     {
                     
-                     switch ($_REQUEST ['opcion'])
-                    {       
+                    switch ($_REQUEST ['opcion'])
+                        {       
                             case "resumenFaseValidado":
                                     $this->resumenFaseValidado();
                                 break;
+                            case "resumenRequisitos":
+                                    $this->resumenFaseRequisitos();
+                                break;                            
                             case "resumen":
                                     $this->resumen();
                                 break;
@@ -140,7 +143,18 @@ class Funcion {
 	function resumenFaseValidado()
 	{
 		include_once($this->ruta."/funcion/resumenFaseValidado.php");
-	}	
+	}
+	function resumenFaseRequisitos()
+	{
+            switch ($_REQUEST ['tipo_cierre'])
+                {       
+                    case "parcial":
+                            include_once($this->ruta."/funcion/resumenParcialRequisitos.php");
+                        break;
+ 
+                }
+	}        
+        
 	function resumen()
 	{
 		include_once($this->ruta."/funcion/resumenUsuario.php");

@@ -59,7 +59,7 @@ class consultarInscrito {
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 	
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);    
-            echo $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
+            $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
             $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             
             //var_dump($resultadoListaInscrito);

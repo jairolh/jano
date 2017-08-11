@@ -65,7 +65,7 @@ class Funcion {
 
            switch ($_REQUEST ['opcion']){
 
-							case "guardarEvaluacion":
+							case "guardarRespuestaEvaluacion":
                       $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                       $this->evaluacion();
                   break;

@@ -63,6 +63,9 @@ class consultarForm {
             $cadena_sql = $this->miSql->getCadenaSql("consultaReclamaciones", $parametro);
             $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+						$cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
+            $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
             $esteCampo = "marcoEjecucion";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -88,7 +91,7 @@ class consultarForm {
                                     <th>Observación</th>
                                     <th>Fecha</th>
 																		<th>Etapa</th>
-                                    <th>Respuesta</th>
+                                    <th>Aplica Reclamación (SI/NO)</th>
 																		<th>Evaluación</th>
                                 </tr>
                             </thead>
@@ -96,12 +99,19 @@ class consultarForm {
 
                         foreach($resultadoReclamaciones as $key=>$value )
                             {
+
+															if($resultadoRespuestaReclamaciones[$key]['respuesta']){
+																$respuesta=$resultadoRespuestaReclamaciones[$key]['respuesta'];
+															}else{
+																$respuesta="PENDIENTE";
+															}
+
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoReclamaciones[$key]['id']."</td>
                                         <td align='left'>".$resultadoReclamaciones[$key]['observacion']."</td>
                                         <td align='left'>".$resultadoReclamaciones[$key]['fecha_registro']."</td>
 																				<td align='left'>".$resultadoReclamaciones[$key]['consecutivo_calendario']."</td>
-                                        <td align='left'>".$resultadoReclamaciones[$key]['respuestas']."</td>";
+                                        <td align='left'>".$respuesta."</td>";
 
 																				$mostrarHtml .= "<td>";
 

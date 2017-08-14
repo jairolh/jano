@@ -35,6 +35,26 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+				case "guardarRespuestaEvaluacion":
+								$cadenaSql =" INSERT INTO concurso.respuesta_reclamacion (";
+								$cadenaSql .=" id_reclamacion,";
+								$cadenaSql .=" respuesta, ";
+								$cadenaSql .=" observacion, ";
+								$cadenaSql .=" fecha_registro, ";
+								$cadenaSql .=" id_evaluar_respuesta, ";
+								$cadenaSql .=" id_evaluador ";
+								$cadenaSql .=" )";
+								$cadenaSql .= " VALUES ( ";
+								$cadenaSql .= " ".$variable['reclamacion'].", ";
+								$cadenaSql .= " '".$variable['respuesta']."', ";
+								$cadenaSql .= " '".$variable['observacion']."', ";
+								$cadenaSql .= " '".$variable['fecha']."', ";
+								$cadenaSql .= " ".$variable['evaluar_respuesta'].", ";
+								$cadenaSql .= " '".$variable['evaluador']."' ";
+								$cadenaSql .= " )";
+								$cadenaSql.=" RETURNING id";
+								break;
+
 			case "consultarValidacion2":
 				$cadenaSql=" SELECT consecutivo_valida, consecutivo_inscrito, cumple_requisito, observacion, fecha_registro, estado, id_reclamacion ";
 				$cadenaSql.=" FROM concurso.valida_requisito ";
@@ -48,8 +68,15 @@ class Sql extends \Sql {
 						$cadenaSql.=" WHERE id_reclamacion=er.id";
 						$cadenaSql.=" AND estado='A') respuestas";
 						$cadenaSql.=" FROM concurso.evaluacion_reclamacion er";
-						//, concurso.concurso_calendario calendario
 				break;
+
+				case "consultaRespuestaReclamaciones":
+						$cadenaSql="SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, respuesta.id AS id_respuesta, respuesta.respuesta ";
+						$cadenaSql.="FROM concurso.evaluacion_reclamacion er, concurso.respuesta_reclamacion respuesta ";
+						$cadenaSql.="WHERE id_reclamacion=er.id ";
+						$cadenaSql.="AND id_reclamacion=9 AND respuesta.estado='A' ";
+
+						break;
 
 			case "registroEvaluacion":
 							$cadenaSql =" INSERT INTO concurso.evaluacion_parcial (";

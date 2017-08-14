@@ -226,14 +226,24 @@ class evaluarReclamacion {
 
 															//$mostrarHtml .= '<input type="hidden" name="validar" id="validar">';
 
+															// Hidden para guardar la validacion
+															// ////////////////Hidden////////////
+															$esteCampo = 'validacion';
+															$atributos ["id"] = $esteCampo;
+															$atributos ["tipo"] = "hidden";
+															$atributos ['estilo'] = '';
+															$atributos ['validar'] = 'required';
+															$atributos ["obligatorio"] = true;
+															$atributos ['marco'] = true;
+															$atributos ["etiqueta"] = "";
+															//$atributos ['valor'] = $_REQUEST ['usuario'];
+															$atributos = array_merge ( $atributos, $atributosGlobales );
+															echo $this->miFormulario->campoCuadroTexto ( $atributos );
+															unset ( $atributos );
+
 															$mostrarHtml .= '</div>';
 
 												$mostrarHtml .='</div>'."</tr>";
-
-
-
-
-
 
 
 										 echo $mostrarHtml;
@@ -364,6 +374,10 @@ class evaluarReclamacion {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarRespuestaEvaluacion";
+			$valorCodificado .= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
+			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+			$valorCodificado .= "&evaluar_respuesta=" .$resultadoValidacion[0]['consecutivo_valida'];//la validación
+
 			//$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			//$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			//$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];

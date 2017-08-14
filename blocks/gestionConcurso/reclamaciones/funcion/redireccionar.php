@@ -13,6 +13,22 @@ class redireccion {
 
 		switch ($opcion) {
 
+			case "evaluoReclamacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=registroEvaluacionReclamacion";
+				//$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.= "&usuario=".$_REQUEST['usuario'];
+				break;
+
+			case "noEvaluoReclamacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=noregistroEvaluacionReclamacion";
+				//$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.= "&usuario=".$_REQUEST['usuario'];
+				break;
+
 			case "registroEvaluacion":
 							$variable="pagina=".$miPaginaActual;
 							$variable.="&opcion=mensaje";

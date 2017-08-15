@@ -92,7 +92,7 @@ class consultarForm {
                                     <th>Fecha</th>
 																		<th>Etapa</th>
                                     <th>Aplica Reclamación (SI/NO)</th>
-																		<th>Evaluación</th>
+																		<th>Nueva Evaluación</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -111,40 +111,81 @@ class consultarForm {
                                         <td align='left'>".$resultadoReclamaciones[$key]['observacion']."</td>
                                         <td align='left'>".$resultadoReclamaciones[$key]['fecha_registro']."</td>
 																				<td align='left'>".$resultadoReclamaciones[$key]['consecutivo_calendario']."</td>
-                                        <td align='left'>".$respuesta."</td>";
+                                        <td align='left'>";
+
+																					if($respuesta=="PENDIENTE"){
+
+																											$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+																											$variableVerHoja.= "&opcion=validacion";
+																											$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																											$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+																											$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+																											$variableVerHoja.= "&tiempo=" . time ();
+																											//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																											//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																											//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																											$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+																											//-------------Enlace-----------------------
+																											$esteCampo = "verHojaVida";
+																											$esteCampo = 'enlace_hoja';
+																											$atributos ['id'] = $esteCampo;
+																											$atributos ['enlace'] = $variableVerHoja;
+																											$atributos ['tabIndex'] = 0;
+																											$atributos ['columnas'] = 1;
+																											$atributos ['enlaceTexto'] = 'Evaluar';
+																											$atributos ['estilo'] = 'clasico';
+																											$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																											$atributos ['posicionImagen'] ="atras";//"adelante";
+																											$atributos ['ancho'] = '20px';
+																											$atributos ['alto'] = '20px';
+																											$atributos ['redirLugar'] = false;
+																											$atributos ['valor'] = '';
+																											$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+																											unset ( $atributos );
+
+																					}else{
+																						$mostrarHtml .=$respuesta;
+																					}
+
+																				$mostrarHtml .="</td>";
 
 																				$mostrarHtml .= "<td>";
+																				if($respuesta=="PENDIENTE"){
+																					$mostrarHtml .="----------";
+																				}else{
+																										$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+																										$variableVerHoja.= "&opcion=validacion";
+																										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+																										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+																										$variableVerHoja.= "&tiempo=" . time ();
+																										//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																										//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																										//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
-																									$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																									$variableVerHoja.= "&opcion=validacion";
-																									$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																									$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																									$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																									$variableVerHoja.= "&tiempo=" . time ();
-																									//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																									//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																									//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																									$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+																										//-------------Enlace-----------------------
+																										$esteCampo = "verHojaVida";
+																										$esteCampo = 'enlace_hoja';
+																										$atributos ['id'] = $esteCampo;
+																										$atributos ['enlace'] = $variableVerHoja;
+																										$atributos ['tabIndex'] = 0;
+																										$atributos ['columnas'] = 1;
+																										$atributos ['enlaceTexto'] = 'Evaluar';
+																										$atributos ['estilo'] = 'clasico';
+																										$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																										$atributos ['posicionImagen'] ="atras";//"adelante";
+																										$atributos ['ancho'] = '20px';
+																										$atributos ['alto'] = '20px';
+																										$atributos ['redirLugar'] = false;
+																										$atributos ['valor'] = '';
+																										$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+																										unset ( $atributos );
 
-																									//-------------Enlace-----------------------
-																									$esteCampo = "verHojaVida";
-																									$esteCampo = 'enlace_hoja';
-																									$atributos ['id'] = $esteCampo;
-																									$atributos ['enlace'] = $variableVerHoja;
-																									$atributos ['tabIndex'] = 0;
-																									$atributos ['columnas'] = 1;
-																									$atributos ['enlaceTexto'] = 'Evaluar';
-																									$atributos ['estilo'] = 'clasico';
-																									$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																									$atributos ['posicionImagen'] ="atras";//"adelante";
-																									$atributos ['ancho'] = '20px';
-																									$atributos ['alto'] = '20px';
-																									$atributos ['redirLugar'] = false;
-																									$atributos ['valor'] = '';
-																									$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																									unset ( $atributos );
 
-																								 $mostrarHtml .= "</td>";
+																				}
+																				$mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";
                                echo $mostrarHtml;

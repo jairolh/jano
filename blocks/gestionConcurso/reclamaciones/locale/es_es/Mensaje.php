@@ -11,6 +11,7 @@ $this->idioma["tabInscritos"]="Aspirantes";
 $this->idioma["marcoSubsistema"]="Evaluación de Aspirante";
 $this->idioma["marcoCriteriosEvaluados"]="Criterios Evaluados";
 $this->idioma["marcoEvaluacionCriterios"]="Criterios a evaluar";
+$this->idioma["marcoNuevaEvaluacion"]="Nueva Evaluación";
 
 $this->idioma["marcoEjecucion"]="<b>Reclamaciones en la Validación de Requisitos</b> ";
 $this->idioma["marcoConcurso"]="Nuevo Concurso";
@@ -85,7 +86,6 @@ $this->idioma ["botonCancelar"] ="Cancelar";
 $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
 
-
 $this->idioma ["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 $this->idioma ["botonCalendario"]="Guardar Datos de Calendario";
 $this->idioma ["botonPerfil"]="Guardar Datos de Perfil";
@@ -94,16 +94,13 @@ $this->idioma ["noEncontroConcurso"] = "No tiene aspirantes asignados para evalu
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso en Ejecución.";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";
 
-
 $this->idioma["noEncontroCriterio"]="No existe Criterio de Evaluación registrado! ";
 $this->idioma["noEncontroPerfil"]="No existe Perfiles registrados! ";
-
 
 $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
 $this->idioma["inhabilitar"]="Inactivar";
 $this->idioma["habilitar"]="Activar";
 $this->idioma["cerrar"]="Cerrar proceso";
-
 
 ?>

@@ -74,9 +74,9 @@ class registrarForm {
 
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 
-                        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-                        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-                        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";

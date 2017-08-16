@@ -84,9 +84,15 @@ class evaluarReclamacion {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
+			//buscar reclamaciones para el concurso
 			$parametro=array(
-	              //'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
-									'consecutivo_inscrito'=>1
+	    		'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
+	    );
+			$cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
+	    $resultadoReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+			$parametro=array(
+	         'consecutivo_inscrito'=>$resultadoReclamacion[0]['id_inscrito']
 	    );
 	    $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion2", $parametro);
 	    $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -107,6 +113,78 @@ class evaluarReclamacion {
 											$atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
 											//echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
 											unset($atributos);
+
+											echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
+											echo "<thead>
+													<tr align='center'>
+															<th>N° Inscripción</th>
+															<th>Identificación</th>
+															<th>Aspirante</th>
+															<th>Hoja de Vida</th>
+													</tr>
+													</thead>
+													<tbody>";
+
+													foreach($resultadoReclamacion as $key=>$value )
+															{
+													$mostrarHtml = "<tr align='center'>
+																	<td align='left'>".$resultadoReclamacion[$key]['id_inscrito']."</td>
+																	<td align='left'>".$resultadoReclamacion[$key]['identificacion']."</td>
+																	<td align='left'>".$resultadoReclamacion[$key]['nombre_inscrito']."</td>";
+																	$mostrarHtml .= "<td>";
+
+																	$variableVerHoja = "pagina=publicacion";
+																	$variableVerHoja.= "&opcion=hojaVida";
+																	$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+																	$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+																	$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+																	$variableVerHoja.= "&tiempo=" . time ();
+																	$variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamacion[$key]['id_inscrito'];
+																	$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																	$variableVerHoja .= "&consecutivo_perfil=".$resultadoReclamacion[$key]['consecutivo_perfil'];
+																	$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+
+																			//-------------Enlace-----------------------
+																			$esteCampo = "verHojaVida";
+																			$esteCampo = 'enlace_hoja';
+																			$atributos ['id'] = $esteCampo;
+																			$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+																			$atributos ['tabIndex'] = 0;
+																			$atributos ['columnas'] = 1;
+																			$atributos ['enlaceTexto'] = 'Ver Curriculum';
+																			$atributos ['estilo'] = 'clasico';
+																			$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																			$atributos ['posicionImagen'] ="atras";//"adelante";
+																			$atributos ['ancho'] = '20px';
+																			$atributos ['alto'] = '20px';
+																			$atributos ['redirLugar'] = false;
+																			$atributos ['valor'] = '';
+																			$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+																			unset ( $atributos );
+																			 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+																			$esteCampo = 'ruta_enlace_hoja';
+																			$atributos ['id'] = $esteCampo;
+																			$atributos ['nombre'] = $esteCampo;
+																			$atributos ['tipo'] = 'hidden';
+																			$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+																			$atributos ['obligatorio'] = false;
+																			$atributos ['valor'] = $variableVerHoja;
+																			$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+																			$atributos ['deshabilitado'] = FALSE;
+																			$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+																			// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+
+																	 $mostrarHtml .= "</td>";
+
+												 $mostrarHtml .= "</tr>";
+											 }
+												 echo $mostrarHtml;
+												 unset($mostrarHtml);
+
+									echo "</tbody>";
+									echo "</table></div>";
+
+
 											echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
 											echo "<thead>
 															<tr align='center'>
@@ -175,7 +253,7 @@ class evaluarReclamacion {
 											echo "</tbody>";
 											echo "</table></div>";
 
-											echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+											echo "<div style ='width: 100%; padding-left: 10%; padding-right: 10%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
 										 echo "
 												 <tbody>";
@@ -253,7 +331,7 @@ class evaluarReclamacion {
 										 echo "</table>";
 											//Fin de Conjunto de Controles
 
-											echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+											echo "<div style ='width: 100%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
 										 echo "<tbody>";
 
@@ -269,7 +347,7 @@ class evaluarReclamacion {
 										$atributos ['marco'] = true;
 										$atributos ['estiloMarco'] = '';
 										$atributos ["etiquetaObligatorio"] = true;
-										$atributos ['columnas'] = 140;
+										$atributos ['columnas'] = 110;
 										$atributos ['filas'] = 4;
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;

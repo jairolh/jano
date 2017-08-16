@@ -44,7 +44,7 @@ class RegistradorEvaluacion {
 
         $cadena_sql = $this->miSql->getCadenaSql("guardarRespuestaEvaluacion", $parametro);
         $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda", $parametro, "registroEvaluacionReclamacion");
-      
+
         if($resultado){
             redireccion::redireccionar('evaluoReclamacion',$parametro);  exit();
         }

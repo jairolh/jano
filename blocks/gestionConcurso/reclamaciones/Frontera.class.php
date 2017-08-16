@@ -46,6 +46,18 @@ class Frontera {
 
 			switch ($_REQUEST ['opcion']) {
 
+				case "consutarReclamaciones" :
+					include_once($this->ruta."formulario/consultarReclamaciones.php");
+					break;
+
+				case "consultaValidacion" :
+					include_once($this->ruta."formulario/tabs/verValidacion.php");
+					break;
+
+				case "evaluar" :
+					include_once($this->ruta."formulario/nuevaEvaluacion.php");
+					break;
+
 				case "validacion" :
 					include_once($this->ruta."formulario/detalleEjecucion.php");
 					break;

@@ -10,8 +10,8 @@ class consultarForm {
 	var $lenguaje;
 	var $miFormulario;
 	var $miSql;
-        var $miSesion;
-        var $rutaSoporte;
+  var $miSesion;
+  var $rutaSoporte;
 
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
@@ -26,6 +26,7 @@ class consultarForm {
 
     $this->miSesion = \Sesion::singleton();
 	}
+
 	function miForm() {
 
             // Rescatar los datos de este bloque
@@ -54,18 +55,9 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-
-						//consulta de todas las reclamaciones
-						$parametro=array(
-							'hoy'=>date("Y-m-d"),
-							'jurado'=>$this->miSesion->getSesionUsuarioId()
-						);
-            $cadena_sql = $this->miSql->getCadenaSql("consultaReclamaciones", $parametro);
-            $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-						$cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
-            $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
+            $parametro=array('hoy'=>date("Y-m-d"));
+            $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
+            $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $esteCampo = "marcoEjecucion";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -74,7 +66,7 @@ class consultarForm {
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
-                if($resultadoReclamaciones)
+                if($resultadoConcurso)
                 {
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoListaConcurso";
@@ -87,105 +79,99 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                    <th>Reclamación</th>
-                                    <th>Observación</th>
-                                    <th>Fecha</th>
-																		<th>Etapa</th>
-                                    <th>Aplica Reclamación (SI/NO)</th>
-																		<th>Nueva Evaluación</th>
+                                    <th>Tipo Concurso</th>
+                                    <th>Modalidad</th>
+                                    <th>Nombre</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Acuerdo</th>
+                                    <th>Soporte</th>
+                                    <th>Reclamaciones</th>
                                 </tr>
                             </thead>
                             <tbody>";
 
-                        foreach($resultadoReclamaciones as $key=>$value )
-                            {
+                        foreach($resultadoConcurso as $key=>$value )
+                            {   $parametro['tipo']='unico';
+                                $parametroSop = array('consecutivo'=>0,
+                                     'tipo_dato'=>'datosConcurso',
+                                     'nombre_soporte'=>'soporteAcuerdo',
+                                     'consecutivo_dato'=>$resultadoConcurso[$key]['consecutivo_concurso']
+                                    );
+                                $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                                $resultadoSopCon = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");
 
-															if($resultadoRespuestaReclamaciones[$key]['respuesta']){
-																$respuesta=$resultadoRespuestaReclamaciones[$key]['respuesta'];
-															}else{
-																$respuesta="PENDIENTE";
-															}
+                                $variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                $variableDetalle.= "&opcion=consutarReclamaciones";
+                                $variableDetalle.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                $variableDetalle.= "&consecutivo_concurso=" .$resultadoConcurso[$key]['consecutivo_concurso'];
+                                $variableDetalle.= "&nombre=" .$resultadoConcurso[$key]['nombre'].' - '.$resultadoConcurso[$key]['modalidad'];
+                                $variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                $variableDetalle.= "&tiempo=" . time ();
+                                $variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
+
 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoReclamaciones[$key]['id']."</td>
-                                        <td align='left'>".$resultadoReclamaciones[$key]['observacion']."</td>
-                                        <td align='left'>".$resultadoReclamaciones[$key]['fecha_registro']."</td>
-																				<td align='left'>".$resultadoReclamaciones[$key]['consecutivo_calendario']."</td>
-                                        <td align='left'>";
+                                        <td align='left'>".$resultadoConcurso[$key]['nivel_concurso']."</td>
+                                        <td align='left'>".$resultadoConcurso[$key]['modalidad']."</td>
+                                        <td align='left'>".$resultadoConcurso[$key]['nombre']."</td>
+                                        <td align='left'>".$resultadoConcurso[$key]['fecha_inicio']."</td>
+                                        <td align='left'>".$resultadoConcurso[$key]['fecha_fin']."</td>
+                                        <td>".$resultadoConcurso[$key]['acuerdo']."</td>";
+                                $mostrarHtml .= "<td>";
+                                            if(isset($resultadoSopCon[0]['alias']))
+                                                {
+                                                  $esteCampo = 'archivoactividad'.$resultadoSopCon[0]['consecutivo_soporte'];
+                                                  $atributos ['id'] = $esteCampo;
+                                                  $atributos ['enlace'] = 'javascript:soporte("ruta_actividad'.$resultadoSopCon[0]['consecutivo_soporte'].'");';
+                                                  $atributos ['tabIndex'] = 0;
+                                                  $atributos ['columnas'] = 2;
+                                                  $atributos ['enlaceTexto'] = "";// $resultadoSopCon[0]['alias'];
+                                                  $atributos ['estilo'] = 'clasico';
+                                                  $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                  $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                  $atributos ['ancho'] = '25px';
+                                                  $atributos ['alto'] = '25px';
+                                                  $atributos ['redirLugar'] = false;
+                                                  $atributos ['valor'] = '';
+                                                  $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                  unset ( $atributos );
+                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                  $esteCampo = 'ruta_actividad'.$resultadoSopCon[0]['consecutivo_soporte'];
+                                                  $atributos ['id'] = $esteCampo;
+                                                  $atributos ['nombre'] = $esteCampo;
+                                                  $atributos ['tipo'] = 'hidden';
+                                                  $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                  $atributos ['obligatorio'] = false;
+                                                  $atributos ['valor'] = $this->rutaSoporte.$resultadoSopCon[0]['ubicacion']."/".$resultadoSopCon[0]['archivo'];
+                                                  $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                  $atributos ['deshabilitado'] = FALSE;
+                                                  $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                  // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                }
+                        $mostrarHtml.= "</td>
 
-																					if($respuesta=="PENDIENTE"){
+                                        <td>";
 
-																											$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																											$variableVerHoja.= "&opcion=validacion";
-																											$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																											$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																											$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																											$variableVerHoja.= "&tiempo=" . time ();
-																											//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																											//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																											//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																											$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+																				if($resultadoConcurso[$key]['reclamaciones']>=1){
+																					$esteCampo = "detalle";
+																					$atributos["id"]=$esteCampo;
+																					$atributos['enlace']=$variableDetalle;
+																					$atributos['tabIndex']=$esteCampo;
+																					$atributos['redirLugar']=true;
+																					$atributos['estilo']='clasico';
+																					$atributos['enlaceTexto']=$resultadoConcurso[$key]['reclamaciones'];
+																					$atributos['ancho']='25';
+																					$atributos['alto']='25';
+																					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																					$mostrarHtml .= $this->miFormulario->enlace($atributos);
+																					unset($atributos);
+																			 //-------------Enlace-----------------------
+																		 }else{
+																			 $mostrarHtml .= "0";
+																		 }
 
-																											//-------------Enlace-----------------------
-																											$esteCampo = "verHojaVida";
-																											$esteCampo = 'enlace_hoja';
-																											$atributos ['id'] = $esteCampo;
-																											$atributos ['enlace'] = $variableVerHoja;
-																											$atributos ['tabIndex'] = 0;
-																											$atributos ['columnas'] = 1;
-																											$atributos ['enlaceTexto'] = 'Evaluar';
-																											$atributos ['estilo'] = 'clasico';
-																											$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																											$atributos ['posicionImagen'] ="atras";//"adelante";
-																											$atributos ['ancho'] = '20px';
-																											$atributos ['alto'] = '20px';
-																											$atributos ['redirLugar'] = false;
-																											$atributos ['valor'] = '';
-																											$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																											unset ( $atributos );
-
-																					}else{
-																						$mostrarHtml .=$respuesta;
-																					}
-
-																				$mostrarHtml .="</td>";
-
-																				$mostrarHtml .= "<td>";
-																				if($respuesta=="PENDIENTE"){
-																					$mostrarHtml .="----------";
-																				}else{
-																										$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																										$variableVerHoja.= "&opcion=validacion";
-																										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																										$variableVerHoja.= "&tiempo=" . time ();
-																										//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																										//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																										//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
-
-																										//-------------Enlace-----------------------
-																										$esteCampo = "verHojaVida";
-																										$esteCampo = 'enlace_hoja';
-																										$atributos ['id'] = $esteCampo;
-																										$atributos ['enlace'] = $variableVerHoja;
-																										$atributos ['tabIndex'] = 0;
-																										$atributos ['columnas'] = 1;
-																										$atributos ['enlaceTexto'] = 'Evaluar';
-																										$atributos ['estilo'] = 'clasico';
-																										$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																										$atributos ['posicionImagen'] ="atras";//"adelante";
-																										$atributos ['ancho'] = '20px';
-																										$atributos ['alto'] = '20px';
-																										$atributos ['redirLugar'] = false;
-																										$atributos ['valor'] = '';
-																										$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																										unset ( $atributos );
-
-
-																				}
-																				$mostrarHtml .= "</td>";
+                                $mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";
                                echo $mostrarHtml;

@@ -65,6 +65,11 @@ class Funcion {
 
            switch ($_REQUEST ['opcion']){
 
+						 case "guardarValidacion":
+										 $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+										 $this->validacion();
+								 break;
+
 							case "guardarRespuestaEvaluacion":
                       $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                       $this->evaluacion();
@@ -123,6 +128,10 @@ class Funcion {
 
 	function evaluacion(){
 		include_once($this->ruta."/funcion/evaluar.php");
+	}
+
+	function validacion(){
+		include_once($this->ruta."/funcion/validar.php");
 	}
 
 

@@ -114,7 +114,7 @@ class Sql extends \Sql {
                                    
                             break;   
                             
-                        case "listadoParcialRequisitos":
+                        case "listadoCierreRequisitos":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="prf.consecutivo_concurso,  ";
                                 $cadenaSql.="prf.consecutivo_perfil,  ";
@@ -136,38 +136,50 @@ class Sql extends \Sql {
                                 $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                 $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona ";
-                                $cadenaSql.="INNER JOIN  concurso.valida_requisito req ON req.consecutivo_inscrito=insc.consecutivo_inscrito AND req.estado='A' AND req.id_reclamacion IS NULL ";
+                                
+                                if(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='final' )   
+                                    {$cadenaSql.="INNER JOIN  concurso.valida_requisito req ON req.consecutivo_inscrito=insc.consecutivo_inscrito AND req.estado='A' ";
+                                     $cadenaSql.="INNER JOIN concurso.etapa_inscrito etapa ON etapa.consecutivo_inscrito=insc.consecutivo_inscrito AND etapa.estado='A' ";
+                                    }
+                                else{$cadenaSql.="INNER JOIN  concurso.valida_requisito req ON req.consecutivo_inscrito=insc.consecutivo_inscrito AND req.estado='A' AND req.id_reclamacion IS NULL ";
+                                    }    
+                                
                                 $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
+                                
                                 if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
                                    {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
-                                $cadenaSql.="UNION ";
-                                $cadenaSql.="SELECT DISTINCT  ";
-                                $cadenaSql.="prf.consecutivo_concurso,  ";
-                                $cadenaSql.="prf.consecutivo_perfil,  ";
-                                $cadenaSql.="prf.nombre perfil,  ";
-                                $cadenaSql.="prf.descripcion,  ";
-                                $cadenaSql.="prf.dependencia,  ";
-                                $cadenaSql.="prf.area,  ";
-                                $cadenaSql.="insc.consecutivo_inscrito inscripcion,  ";
-                                $cadenaSql.="insc.consecutivo_persona,  ";
-                                $cadenaSql.="bas.identificacion,  ";
-                                $cadenaSql.="bas.nombre,  ";
-                                $cadenaSql.="bas.apellido,  ";
-                                $cadenaSql.="req.consecutivo_valida,  ";
-                                $cadenaSql.="req.cumple_requisito ,  ";
-                                $cadenaSql.="req.observacion,  ";
-                                $cadenaSql.="req.fecha_registro,  ";
-                                $cadenaSql.="req.estado estado_resultado,  ";
-                                $cadenaSql.="req.id_reclamacion ";
-                                $cadenaSql.="FROM concurso.concurso_perfil prf  ";
-                                $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
-                                $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona  ";
-                                $cadenaSql.="INNER JOIN  concurso.valida_requisito req ON req.consecutivo_inscrito=insc.consecutivo_inscrito AND req.estado='I' AND req.id_reclamacion IS NOT NULL ";
-                                $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
-                                if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
-                                   {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
-                                $cadenaSql.="ORDER BY perfil , cumple_requisito DESC, inscripcion ";
-                                  
+                               
+                                if(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='parcial' )   
+                                {
+                                    $cadenaSql.="UNION ";
+                                    $cadenaSql.="SELECT DISTINCT  ";
+                                    $cadenaSql.="prf.consecutivo_concurso,  ";
+                                    $cadenaSql.="prf.consecutivo_perfil,  ";
+                                    $cadenaSql.="prf.nombre perfil,  ";
+                                    $cadenaSql.="prf.descripcion,  ";
+                                    $cadenaSql.="prf.dependencia,  ";
+                                    $cadenaSql.="prf.area,  ";
+                                    $cadenaSql.="insc.consecutivo_inscrito inscripcion,  ";
+                                    $cadenaSql.="insc.consecutivo_persona,  ";
+                                    $cadenaSql.="bas.identificacion,  ";
+                                    $cadenaSql.="bas.nombre,  ";
+                                    $cadenaSql.="bas.apellido,  ";
+                                    $cadenaSql.="req.consecutivo_valida,  ";
+                                    $cadenaSql.="req.cumple_requisito ,  ";
+                                    $cadenaSql.="req.observacion,  ";
+                                    $cadenaSql.="req.fecha_registro,  ";
+                                    $cadenaSql.="req.estado estado_resultado,  ";
+                                    $cadenaSql.="req.id_reclamacion ";
+                                    $cadenaSql.="FROM concurso.concurso_perfil prf  ";
+                                    $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
+                                    $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona  ";
+                                    $cadenaSql.="INNER JOIN  concurso.valida_requisito req ON req.consecutivo_inscrito=insc.consecutivo_inscrito AND req.estado='I' AND req.id_reclamacion IS NOT NULL ";
+                                    $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
+                                    if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
+                                       {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
+
+                                }
+                                    $cadenaSql.="ORDER BY perfil , cumple_requisito DESC, inscripcion ";                                
                             break;                            
                     
                     

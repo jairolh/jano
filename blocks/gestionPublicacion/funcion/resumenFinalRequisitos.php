@@ -24,6 +24,7 @@ $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 $cadena_sql = $this->sql->getCadenaSql("listadoCierreRequisitos", $parametro);
 $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+
 //armar el contenido de la cabecera de la Página
 $paginaHeader= "<page_header>";
 $paginaHeader.= "<table align='center' border='0' width = '100%'>";
@@ -51,7 +52,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista de resultados de evaluación - Fecha Cierre ".$_REQUEST['cierre']."
+                             Listado final de Aspirantes que superarón la fase 
                             </span>
                         </td>
                     </tr> ";

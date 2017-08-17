@@ -199,7 +199,7 @@ class consultarCalendario {
                                                         $variableVer.= "&id_usuario=" .$_REQUEST['usuario'];
                                                         $variableVer.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                                         $variableVer.= "&tiempo=" . time ();
-                                                        $variableVer.= "&tipo_cierre=" . $resultadoListaCalendario[$key]['cierre'];
+                                                        $variableVer.= "&tipo_cierre=parcial";
                                                         $variableVer.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
                                                         $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
                                                         $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
@@ -207,12 +207,12 @@ class consultarCalendario {
                                                         $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
                                                         $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);
                                                         //-------------Enlace-----------------------
-                                                          $esteCampo = 'enlace_procesado'.$key;
+                                                          $esteCampo = 'enlace_listaParcial'.$key;
                                                           $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_ver'.$key.'");';
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_parcial'.$key.'");';
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['columnas'] = 1;
-                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
+                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado Parcial";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
                                                           $atributos ['estilo'] = 'clasico';
                                                           $atributos['enlaceImagen']=$rutaBloque."/images/lists.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -223,7 +223,7 @@ class consultarCalendario {
                                                           $mostrarHtml .= $this->miFormulario->enlace( $atributos );
                                                           unset ( $atributos );
                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_enlace_ver'.$key;
+                                                          $esteCampo = 'ruta_enlace_parcial'.$key;
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['nombre'] = $esteCampo;
                                                           $atributos ['tipo'] = 'hidden';
@@ -333,26 +333,26 @@ class consultarCalendario {
                                                     && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
                                                     && $resultadoListaCalendario[$key]['cierre']=='final' )
                                                       { //Muestra Listado de resultado de cierre de soporte
-                                                        $variableVer = "pagina=publicacion";                                                        
-                                                        $variableVer.= "&opcion=faseFinal";
-                                                        $variableVer.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                                        $variableVer.= "&id_usuario=" .$_REQUEST['usuario'];
-                                                        $variableVer.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                                        $variableVer.= "&tiempo=" . time ();
-                                                        $variableVer.= "&tipo_cierre=" . $resultadoListaCalendario[$key]['cierre'];
-                                                        $variableVer.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
-                                                        $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
-                                                        $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
-                                                        $variableVer.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
-                                                        $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
-                                                        $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);
+                                                        $variableVerFinal = "pagina=publicacion";                                                        
+                                                        $variableVerFinal.= "&opcion=faseFinal";
+                                                        $variableVerFinal.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                        $variableVerFinal.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                        $variableVerFinal.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                        $variableVerFinal.= "&tiempo=" . time ();
+                                                        $variableVerFinal.= "&tipo_cierre=final";
+                                                        $variableVerFinal.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
+                                                        $variableVerFinal.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
+                                                        $variableVerFinal.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
+                                                        $variableVerFinal.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                                                        $variableVerFinal.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
+                                                        $variableVerFinal = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerFinal, $directorio);
                                                         //-------------Enlace-----------------------
-                                                          $esteCampo = 'enlace_procesado'.$key;
+                                                          $esteCampo = 'enlace_listaFinal'.$key;
                                                           $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_ver'.$key.'");';
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_final'.$key.'");';
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['columnas'] = 1;
-                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
+                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado Final";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
                                                           $atributos ['estilo'] = 'clasico';
                                                           $atributos['enlaceImagen']=$rutaBloque."/images/lists.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -363,13 +363,13 @@ class consultarCalendario {
                                                           $mostrarHtml .= $this->miFormulario->enlace( $atributos );
                                                           unset ( $atributos );
                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_enlace_ver'.$key;
+                                                          $esteCampo = 'ruta_enlace_final'.$key;
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['nombre'] = $esteCampo;
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $variableVer;
+                                                          $atributos ['valor'] = $variableVerFinal;
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );

@@ -151,7 +151,9 @@ class Funcion {
                     case "parcial":
                             include_once($this->ruta."/funcion/resumenParcialRequisitos.php");
                         break;
- 
+                    case "final":
+                            include_once($this->ruta."/funcion/resumenFinalRequisitos.php");
+                        break; 
                 }
 	}        
         

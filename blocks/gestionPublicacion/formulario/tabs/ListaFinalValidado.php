@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
-class faseParcial{
+class faseFinal{
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -46,6 +46,8 @@ class faseParcial{
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                              'tipo_cierre'=>$_REQUEST['tipo_cierre']);    
+            
+            
             $cadena_sql = $this->miSql->getCadenaSql("listadoCierreRequisitos", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
@@ -172,7 +174,7 @@ class faseParcial{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS EVALUACIÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA FINAL DE ASPIRANTES SUPERARÓN FASE </th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";
@@ -188,7 +190,7 @@ class faseParcial{
     
 }
 
-$miSeleccionador = new faseParcial( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new faseFinal( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

@@ -20,6 +20,8 @@ class redireccion {
       	$variable.="&opcion=mensaje";
       	$variable.="&mensaje=confirmaReclamacion";
 				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
       	break;
 
     	case "noRegistroReclamacion":
@@ -27,6 +29,8 @@ class redireccion {
     		$variable.="&opcion=mensaje";
     		$variable.="&mensaje=errorReclamacion";
 				$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
     		break;
 
       case "insertoInscripcion":

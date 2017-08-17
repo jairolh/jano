@@ -108,6 +108,8 @@ class registrarForm {
 						$boton = "continuar";
 						$variable.="&opcion=consulta";
 						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+						$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+						$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 						break;
 
 					case "errorReclamacion":
@@ -116,6 +118,8 @@ class registrarForm {
             $boton = "regresar";
             $variable.="&opcion=consulta";
 						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+						$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+						$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
             break;
 
 					case "confirmaInscripcion":

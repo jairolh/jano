@@ -35,13 +35,30 @@ class RegistradorValidacion {
 
         $arregloDatos = array(
                               'observaciones'=>$_REQUEST['observaciones'],
-                              'fecha'=> $fecha
+                              'fecha'=> $fecha,
+                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario']
         );
 
         $cadenaSql = $this->miSql->getCadenaSql ( 'registroReclamacion',$arregloDatos );
         $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroReclamacion" );
 
         if($resultado){
+
+          //de acuerdo a la etapa, se debe referenciar la validación o la evaluación
+
+          //Para la Verificación de Requisitos
+          if($_REQUEST['consecutivo_calendario']==3){
+            $arregloDatos = array(
+                                  'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
+                                  'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                  'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
+                                  'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                  'reclamacion'=>$resultado[0][0]
+            );
+            //se referencia la reclamación en la tabla concurso.valida_requisito
+            $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaValidacion',$arregloDatos );
+            $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaValidacion" );
+          }
             redireccion::redireccionar('registroReclamacion',$arregloDatos);  exit();
         }
         else{

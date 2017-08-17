@@ -98,6 +98,16 @@ class registrarForm {
            	echo $this->miFormulario->enlace ( $atributos );
            	unset ( $atributos );
 
+						$parametro=array(
+							'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+							'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+							'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil'],
+							'consecutivo_calendario'=>$_REQUEST['id_etapa']
+						);
+						$cadena_sql = $this->miSql->getCadenaSql("consultaDatosInscripcion", $parametro);
+						$inscripcion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+						//var_dump($inscripcion);
+
 			$esteCampo = "marcoReclamacion";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -114,21 +124,15 @@ class registrarForm {
 
 			 $mostrarHtml = "<tr >
 						 <th>Concurso</th>
-						 <td colspan='1'>"./*$resultadoPerfil[0]['concurso'].*/"</td>
+						 <td colspan='1'>".$inscripcion[0]['concurso']."</td>
 						 <th>Perfil</th>
-						 <td colspan='1'>"./*$resultadoPerfil[0]['perfil'].*/"</td>
+						 <td colspan='1'>".$inscripcion[0]['perfil']."</td>
 						 </tr>
 			 ";
 
 			 $mostrarHtml .= "<tr >
 						 <th>Etapa</th>
-						 <td colspan='3'>"./*$resultadoPerfil[0]['concurso'].*/"</td>
-						 </tr>
-			 ";
-
-			 $mostrarHtml .= "<tr >
-						 <th>Criterios evaluados</th>
-						 <td colspan='3'>"./*$resultadoPerfil[0]['concurso'].*/"</td>
+						 <td colspan='3'>".$_REQUEST['etapa']."</td>
 						 </tr>
 			 ";
 
@@ -228,6 +232,9 @@ class registrarForm {
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarReclamacion";
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$valorCodificado .= "&consecutivo_calendario=".$_REQUEST['id_etapa'];
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

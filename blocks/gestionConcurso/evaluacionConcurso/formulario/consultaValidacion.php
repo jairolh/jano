@@ -108,7 +108,7 @@ class registrarForm {
                         echo $this->miFormulario->enlace ( $atributos );
                         unset ( $atributos );
 
-				$esteCampo = "marcoSubsistema";
+			$esteCampo = "marcoSubsistema";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
 			$atributos ['tipoEtiqueta'] = 'inicio';

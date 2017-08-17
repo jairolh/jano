@@ -38,8 +38,7 @@ class RegistradorEvaluacion {
           'validacion'=>$_REQUEST['evaluar_respuesta']
         );
         $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
-        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda", $parametro, "inactivarValidacion");
-        //ojo: error al guardar el log
+        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
 
         $parametro=array(
           'reclamacion'=>$_REQUEST['reclamacion'],
@@ -51,8 +50,7 @@ class RegistradorEvaluacion {
         );
 
         $cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionReclamacion", $parametro);
-        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda", $parametro, "registroEvaluacionReclamacion");
-        //ojo: error al guardar el log
+        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
 
         if($resultado){
             redireccion::redireccionar('evaluoReclamacion',$parametro);  exit();

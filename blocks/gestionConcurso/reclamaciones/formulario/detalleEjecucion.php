@@ -96,7 +96,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         $atributos ["estilo"] = "";
                         echo $this->miFormulario->division ( "inicio", $atributos );
                         include_once ($this->ruta . "formulario/tabs/consultarInscritos.php");
-												include_once ($this->ruta . "formulario/tabs/validarRequisitos.php");
+												//include_once ($this->ruta . "formulario/tabs/validarRequisitos.php");
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 2-------------------------

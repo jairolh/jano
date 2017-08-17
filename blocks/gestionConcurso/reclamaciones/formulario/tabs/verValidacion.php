@@ -94,8 +94,7 @@ class registrarForm {
 			{
 
 				$parametro=array(
-					//'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
-					'consecutivo_inscrito'=>1
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
 				);
 				//consultar datos de la inscripción
 				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
@@ -113,9 +112,9 @@ class registrarForm {
 						<tbody>";
 
 						$mostrarHtml = "<tr align='center'>
-										<td align='left'>"./*$_REQUEST['consecutivo_inscrito'].*/"</td>
+										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
-										<td align='left'>"./*$_REQUEST['nombre_usuario'].*/"</td>";
+										<td align='left'>".$resultadoInscripcion[0]['nombre'].$resultadoInscripcion[0]['apellido']."</td>";
 										$mostrarHtml .= "<td>";
 
 										$variableVerHoja = "pagina=publicacion";
@@ -124,9 +123,9 @@ class registrarForm {
 										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
 										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
 										$variableVerHoja.= "&tiempo=" . time ();
-										//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-										//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-										//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+										$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+										$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+										$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
 												//-------------Enlace-----------------------
@@ -169,27 +168,29 @@ class registrarForm {
 					 echo "</table></div>";
 
 					 $parametro=array(
-						// 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-						// 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
-						 'consecutivo_concurso'=>1,
-						'consecutivo_perfil'=>1
+						'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+						'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
 					 );
 					 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+					 $parametro=array(
+						 'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+						 'reclamacion'=>$_REQUEST['reclamacion']
+					 );
+					 $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion2", $parametro);
+					 $validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
-					echo "
-							<tbody>";
+					echo "<tbody>";
 
 					$mostrarHtml = "<tr >
 								<th>Concurso</th>
 								<td colspan='1'>".$resultadoPerfil[0]['concurso']."</td>
 								<th>Perfil</th>
 								<td colspan='1'>".$resultadoPerfil[0]['perfil']."</td>
-								</tr>
-					";
+								</tr>";
 
 					$mostrarHtml .= "<tr >
 								<th >Requisitos</th>
@@ -202,12 +203,12 @@ class registrarForm {
 
 					$mostrarHtml .= "<tr >
 								<th >¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-								<td colspan='3'>"."SI"."</td>
+								<td colspan='3'>".$validacion[0]['cumple_requisito']."</td>
 								</tr>";
 
 					$mostrarHtml .= "<tr >
 								<th >Observaciones</th>
-								<td colspan='3'>"."Observaciones"."</td>
+								<td colspan='3'>".$validacion[0]['observacion']."</td>
 								</tr>";
 								echo $mostrarHtml;
 								unset($mostrarHtml);
@@ -230,12 +231,12 @@ unset ( $atributos );
 
 								$mostrarHtml = "<tr >
 											<th >¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-											<td colspan='3'>"."SI"."</td>
+											<td colspan='3'>".$validacion[1]['cumple_requisito']."</td>
 											</tr>";
 
 								$mostrarHtml .= "<tr >
 											<th >Observaciones</th>
-											<td colspan='3'>"."Observaciones"."</td>
+											<td colspan='3'>".$validacion[1]['observacion']."</td>
 											</tr>";
 
 					echo $mostrarHtml;

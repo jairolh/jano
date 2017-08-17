@@ -94,8 +94,7 @@ class registrarForm {
 			{
 
 				$parametro=array(
-					//'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
-					'consecutivo_inscrito'=>1
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']
 				);
 				//consultar datos de la inscripción
 				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
@@ -113,9 +112,9 @@ class registrarForm {
 						<tbody>";
 
 						$mostrarHtml = "<tr align='center'>
-										<td align='left'>"./*$_REQUEST['consecutivo_inscrito'].*/"</td>
+										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
 										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
-										<td align='left'>"./*$_REQUEST['nombre_usuario'].*/"</td>";
+										<td align='left'>".$resultadoInscripcion[0]['nombre'].$resultadoInscripcion[0]['apellido']."</td>";
 										$mostrarHtml .= "<td>";
 
 										$variableVerHoja = "pagina=publicacion";
@@ -124,7 +123,7 @@ class registrarForm {
 										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
 										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
 										$variableVerHoja.= "&tiempo=" . time ();
-										//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+										$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 										//$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 										//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
@@ -169,10 +168,8 @@ class registrarForm {
 					 echo "</table></div>";
 
 					 $parametro=array(
-						// 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-						// 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
-						 'consecutivo_concurso'=>1,
-						'consecutivo_perfil'=>1
+						 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+						 'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil']
 					 );
 					 $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $parametro);
 					 $resultadoPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -215,17 +212,18 @@ class registrarForm {
 								echo "</tbody>";
 								echo "</table></div>";
 
-
+echo "<center>";
 $esteCampo = "marcoNuevaEvaluacion";
 $atributos ['id'] = $esteCampo;
 $atributos ["estilo"] = "jqueryui";
 $atributos ['tipoEtiqueta'] = 'inicio';
-//$atributos ["estiloEnLinea"] = "display:none;";
+$atributos ["estiloEnLinea"] = "width: 80%;";
 $atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 unset ( $atributos );
+
 {
-								echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
+								echo "<div style ='width: 100%; padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
 								echo "<tbody>";
 
 					$mostrarHtml =  "<tr align='center'>".
@@ -363,6 +361,7 @@ unset ( $atributos );
 
 							}
 						echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+						echo "</center>";
 
 			}
 
@@ -388,9 +387,10 @@ unset ( $atributos );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarValidacion";
-			//$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-			//$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-			//$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$valorCodificado .= "&reclamacion=".$_REQUEST['reclamacion'];
 
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.

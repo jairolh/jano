@@ -91,12 +91,6 @@ class evaluarReclamacion {
 			$cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
 	    $resultadoReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-			$parametro=array(
-	         'consecutivo_inscrito'=>$resultadoReclamacion[0]['id_inscrito']
-	    );
-	    $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion2", $parametro);
-	    $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
 			$esteCampo = "marcoEvaluacionReclamacion";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -105,7 +99,7 @@ class evaluarReclamacion {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
-				 if($resultadoValidacion)
+				 if($resultadoReclamacion)
 							{
 									//-----------------Inicio de Conjunto de Controles----------------------------------------
 											$esteCampo = "marcoConsultaInscrito";
@@ -127,7 +121,13 @@ class evaluarReclamacion {
 
 													foreach($resultadoReclamacion as $key=>$value )
 															{
-													$mostrarHtml = "<tr align='center'>
+																$parametro=array(
+														         'consecutivo_inscrito'=>$resultadoReclamacion[$key]['id_inscrito']
+														    );
+														    $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion2", $parametro);
+														    $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+																$mostrarHtml = "<tr align='center'>
 																	<td align='left'>".$resultadoReclamacion[$key]['id_inscrito']."</td>
 																	<td align='left'>".$resultadoReclamacion[$key]['identificacion']."</td>
 																	<td align='left'>".$resultadoReclamacion[$key]['nombre_inscrito']."</td>";
@@ -185,82 +185,70 @@ class evaluarReclamacion {
 									echo "</table></div>";
 
 
-											echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
-											echo "<thead>
-															<tr align='center'>
-																	<th>consecutivo_valida</th>
-																	<th>consecutivo_inscrito</th>
-																	<th>cumple_requisito</th>
-																	<th>Observación</th>
-																	<th>Fecha</th>
-																	<th>Reclamación</th>
-															</tr>
-													</thead>
-													<tbody>";
-
-											foreach($resultadoValidacion as $key=>$value )
-													{   $parametro['tipo']='unico';
-
-															$variableEvaluar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-															$variableEvaluar.= "&opcion=evaluar";
-															$variableEvaluar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-															//$variableEvaluar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
-															$variableEvaluar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-															$variableEvaluar.= "&tiempo=" . time ();
-													//    $variableEvaluar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-														//  $variableEvaluar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-															//$variableEvaluar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-															$variableEvaluar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEvaluar, $directorio);
-															//$variableEvaluar.= "#tabInscrito";
-
-															//enlace actualizar estado
-															$variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-															/*if($resultadoListaInscrito[$key]['estado']=='A')
-																	{$variableEstado.= "&opcion=inhabilitarInscrito";}
-															else{$variableEstado.= "&opcion=habilitarInscrito";}*/
-															$variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-													//    $variableEstado.= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-														//  $variableEstado.= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-															//$variableEstado.= "&nombre=" .$resultadoListaInscrito[$key]['nombre'];
-															$variableEstado.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-															$variableEstado.= "&tiempo=" . time ();
-															$variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
-
-															//verificar si ya se realizó la validación de la inscripción
-															/*$cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
-															$resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-															if($resultadoValidacion){
-																$validacion=$resultadoValidacion[0]['cumple_requisito'];
-															}else{
-																$validacion="PENDIENTE";
-															}*/
-
-															$mostrarHtml = "<tr align='center'>
-																			<td align='left'>".$resultadoValidacion[$key]['consecutivo_valida']."</td>
-																			<td align='left'>".$resultadoValidacion[$key]['consecutivo_inscrito']."</td>
-																			<td align='left'>".$resultadoValidacion[$key]['cumple_requisito']."</td>
-																			<td align='left'>".$resultadoValidacion[$key]['observacion']."</td>
-																			<td align='left'>".$resultadoValidacion[$key]['fecha_registro']."</td>
-																			<td align='left'>".$resultadoValidacion[$key]['id_reclamacion']."</td>";
+								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+			 					echo "<tbody>";
+			 					$mostrarHtml = "<tr>
+			 								<th>Concurso</th>
+			 								<td colspan='1'>".$resultadoReclamacion[$key]['concurso']."</td>
+			 								<th>Perfil</th>
+			 								<td colspan='1'>".$resultadoReclamacion[$key]['perfil']."</td>
+			 								</tr>";
+			 					$mostrarHtml .= "<tr>
+			 								<th >Requisitos</th>
+			 								<td colspan='3'>".$resultadoReclamacion[$key]['requisitos']."</td>
+			 								</tr>";
+								echo $mostrarHtml;
+								unset($mostrarHtml);
+								unset($variable);
+								echo "</tbody>";
+ 							 	echo "</table></div>";
 
 
-														 $mostrarHtml .= "</tr>";
-														 echo $mostrarHtml;
-														 unset($mostrarHtml);
-														 unset($variable);
-													}
-											echo "</tbody>";
-											echo "</table></div>";
+								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+								echo "<tbody>";
+									$mostrarHtml =  "<tr align='center'>".
+												"<th colspan='1'>Reclamación #".$resultadoReclamacion[0]['id']."</th>
+												</td>";
+									$mostrarHtml .=  "<tr align='center'>".
+												"<th colspan='1'>Fecha</th>
+												<td colspan='3'>".$resultadoReclamacion[0]['fecha_registro'].
+												"</td>";
 
-											echo "<div style ='width: 100%; padding-left: 10%; padding-right: 10%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+									$mostrarHtml .=  "<tr align='center'>".
+												"<th colspan='1'>Observación</th>
+												<td colspan='3'>".$resultadoReclamacion[0]['observacion'].
+												"</td>";
+								echo $mostrarHtml;
+								unset($mostrarHtml);
+								unset($variable);
+								echo "</tbody>";
+							  echo "</table></div>";
 
-										 echo "
-												 <tbody>";
+
+								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+								echo "<tbody>";
+					 					$mostrarHtml = "<tr>
+					 								<th colspan='3'>Evaluación Anterior</th>
+					 								</tr>";
+
+										$mostrarHtml .=  "<tr align='center'>".
+													"<th colspan='1'>¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
+													<td colspan='3'>".$resultadoValidacion[0]['cumple_requisito'].
+													"</td>";
+								 echo $mostrarHtml;
+								 unset($mostrarHtml);
+								 unset($variable);
+								 echo "</tbody>";
+								 echo "</table></div>";
+
+
+
+										echo "<div style ='width: 100%; padding-left: 10%; padding-right: 10%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+										echo "<tbody>";
 
 
 										 $mostrarHtml =  "<tr align='center'>".
-													 "<th >Reclamación</th></tr>";
+													 "<th>Respuesta Reclamación</th></tr>";
 
 
 										$mostrarHtml .="<td align='center' colspan='3'>"."¿Aplica la reclamación para la Validación de Requisitos?".'<div><br>';
@@ -374,8 +362,6 @@ class evaluarReclamacion {
 										echo $this->miFormulario->division ( "inicio", $atributos );
 										unset  ( $atributos );
 										{
-
-
 											// -----------------CONTROL: Botón ----------------------------------------------------------------
 											$esteCampo = 'botonGuardar';
 											$atributos ["id"] = $esteCampo;

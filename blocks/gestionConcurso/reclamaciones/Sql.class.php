@@ -35,6 +35,16 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+			case "inactivarValidacion" :
+					$cadenaSql = "UPDATE ";
+					$cadenaSql .= "concurso.valida_requisito ";
+					$cadenaSql .= "SET ";
+					$cadenaSql .= "estado = 'I' ";
+					$cadenaSql .= "WHERE ";
+					$cadenaSql .= "consecutivo_valida =" . $variable['validacion']  . " ";
+					$cadenaSql.=" RETURNING consecutivo_valida";
+					break;
+
 			case "consultaConcurso":
 							$cadenaSql=" SELECT conc.consecutivo_concurso, ";
 							$cadenaSql.=" conc.consecutivo_modalidad,";
@@ -85,6 +95,14 @@ class Sql extends \Sql {
 					$cadenaSql.=" AND id_reclamacion=".$variable['reclamacion'];
 					break;
 
+					case "consultaEvaluacionesReclamacion2":
+						$cadenaSql=" SELECT consecutivo_valida, consecutivo_inscrito, cumple_requisito, observacion, fecha_registro, estado, id_reclamacion";
+						$cadenaSql.=" FROM concurso.valida_requisito ";
+						$cadenaSql.=" WHERE consecutivo_inscrito=".$variable['consecutivo_inscrito'];
+						$cadenaSql.=" AND id_reclamacion=".$variable['reclamacion'];
+						$cadenaSql.=" ORDER BY consecutivo_valida ASC ";
+						break;
+
 				case "registroValidacion":
 								$cadenaSql =" INSERT INTO concurso.valida_requisito (";
 								$cadenaSql .=" consecutivo_inscrito,";
@@ -105,7 +123,7 @@ class Sql extends \Sql {
 								$cadenaSql.=" RETURNING consecutivo_valida";
 				break;
 
-				case "guardarRespuestaEvaluacion":
+				case "registroEvaluacionReclamacion":
 								$cadenaSql =" INSERT INTO concurso.respuesta_reclamacion (";
 								$cadenaSql .=" id_reclamacion,";
 								$cadenaSql .=" respuesta, ";
@@ -150,8 +168,8 @@ class Sql extends \Sql {
 				break;
 
 				case "consultarReclamaciones":
-						$cadenaSql=" SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, a.nombre, cp.consecutivo_perfil,";
-						$cadenaSql.=" er.id_inscrito, concat(p.nombre, ' ', p.apellido) AS nombre_inscrito, concat(p.tipo_identificacion, '', p.identificacion) AS identificacion";
+						$cadenaSql=" SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, a.nombre,c.consecutivo_concurso AS id_concurso, c.nombre AS concurso, cp.consecutivo_perfil, cp.nombre AS perfil,";
+						$cadenaSql.=" cp.requisitos, er.id_inscrito, concat(p.nombre, ' ', p.apellido) AS nombre_inscrito, concat(p.tipo_identificacion, '', p.identificacion) AS identificacion";
 						$cadenaSql.=" FROM concurso.evaluacion_reclamacion er, concurso.concurso_inscrito ci, ";
 						$cadenaSql.=" concurso.concurso_perfil cp, concurso.concurso c, concurso.concurso_calendario calendario,";
 						$cadenaSql.=" concurso.actividad_calendario a, concurso.persona p";

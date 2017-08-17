@@ -107,6 +107,26 @@ class registrarForm {
                             $pestanna='';
                             switch ($_REQUEST ['mensaje'])
                                 {
+
+																	case "validoRequisito":
+																			$tipo = 'success';
+																			$mensaje = "Requisitos de la inscripción validados correctamente.";
+																			$variable.= "&opcion=detalle";
+																			$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																			$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																			$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																			break;
+
+																	case "noValidoRequisito":
+																			$tipo = 'error';
+																			$mensaje = "No fue posible realizar la validación de los requisitos de la inscripción.</b>.<br> Por favor intente mas tarde.";
+																			$variable.= "&opcion=detalle";
+																			$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																			$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+																			$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+																			$boton = "regresar";
+																			break;
+
 																	case "registroEvaluacionReclamacion":
 																			$tipo = 'success';
 																			$mensaje = "Evaluación de la reclamación registrada correctamente.";

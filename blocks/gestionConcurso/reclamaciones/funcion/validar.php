@@ -33,18 +33,13 @@ class RegistradorValidacion {
 
         $fecha = date("Y-m-d H:i:s");
 
-        $arregloDatos = array(//'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
-                              'consecutivo_inscrito'=>1,
+        $arregloDatos = array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
                               'validacion'=>$_REQUEST['validacion'],
                               'observaciones'=>$_REQUEST['observaciones'],
                               'fecha'=> $fecha,
-                              //'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso'],
-                              //'consecutivo_perfil'=> $_REQUEST['consecutivo_perfil'],
-                              //'consecutivo_inscrito'=> $_REQUEST['consecutivo_inscrito']
-                              'consecutivo_concurso'=> 1,
-                              'consecutivo_perfil'=> 1,
-                              'consecutivo_inscrito'=> 1,
-                              'reclamacion'=> 9
+                              'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso'],
+                              'consecutivo_perfil'=> $_REQUEST['consecutivo_perfil'],
+                              'reclamacion'=> $_REQUEST['reclamacion']
 
             );
 

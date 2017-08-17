@@ -40,17 +40,38 @@ class cerrarRequisitosPerfil {
                          'nombre_concurso'=>$_REQUEST['nombre_concurso'],
                          'nombre'=>$_REQUEST['nombre'],   
                          'faseAct'=>$_REQUEST['consecutivo_calendario'],
-                         'faseNueva'=>$_REQUEST['etapaPasa'],  );    
-        $cadena_sql = $this->miSql->getCadenaSql("consultarValidadoPerfilConcurso", $parametro);
-        $resultadoListaValidado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        if($resultadoListaValidado)
+                         'faseNueva'=>isset($_REQUEST['etapaPasa'])?$_REQUEST['etapaPasa']:0,  );    
+        $cadena_sql = $this->miSql->getCadenaSql("consultarReclamacionesRequisitos", $parametro);
+        $resultadoListaReclamos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        //var_dump($resultadoListaReclamos);
+        if($resultadoListaReclamos)
             {   //llama imagen progreso
                 $this->progreso($esteBloque);
                 //recorre los registros de los que se validaron
-                foreach ($resultadoListaValidado as $key => $value) {
-                    $parametro['inscripcion']=$resultadoListaValidado[$key]['consecutivo_inscrito'];    
-                    $this->cerrarFase($parametro,$esteRecursoDB);
+                foreach ($resultadoListaReclamos as $key => $value) {
+                 
+                    if(strtoupper($resultadoListaReclamos[$key]['respuesta'])=='SI')
+                        { $parametroIns=array(  
+                         'consecutivo_calendario'=>$resultadoListaReclamos[$key]['consecutivo_calendario'],
+                         'consecutivo_inscrito'=>$resultadoListaReclamos[$key]['consecutivo_inscrito'] );  
+                        $cadena_sql = $this->miSql->getCadenaSql("consultarEtapaAprobo", $parametroIns);
+                        $resultadoinscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        if($resultadoinscrito)
+                                {   
+                                foreach ($resultadoinscrito as $llave => $value)
+                                    {   $parametroEtp=array(  
+                                            'consecutivo_etapa'=>$resultadoinscrito[$llave]['consecutivo_etapa'],
+                                            'estado'=>'I' );  
+                                        $cadena_sql = $this->miSql->getCadenaSql("actualizaEstadoEstapaInscrito", $parametroEtp);
+                                        $resultadoAct = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametroEtp, "actualizaEstadoEstapaInscrito" );
+                                    }
+                                }
+                        $parametro['inscripcion']=$resultadoListaReclamos[$key]['consecutivo_inscrito'];   
+                        $parametro['reclamacion']=$resultadoListaReclamos[$key]['reclamo'];   
+                        $this->pasaFase($parametro,$esteRecursoDB);   
+                        }
                 }
+                $this->cerrarFase($parametro,$esteRecursoDB);
                 redireccion::redireccionar('CerroFase',$parametro);
                 exit();
             }
@@ -83,17 +104,28 @@ class cerrarRequisitosPerfil {
         //echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},1000)  </script>";
     }
     
-    function cerrarFase($parametro,$esteRecursoDB) {
+    function pasaFase($parametro,$esteRecursoDB) {
         //busca datos registrados
         $arregloDatos = array('consecutivo_inscrito' => $parametro['inscripcion'],
                               'consecutivo_calendario' => $parametro['faseNueva'],
-                              'observacion' => 'Cierre automatico fase '.$parametro['nombre'],
+                              'observacion' => 'Cierre automatico fase '.$parametro['nombre'].', dando alcance a reclamación '.$parametro['reclamacion'],
                               'fecha_registro' => $parametro['fecha_registro'],
                               'consecutivo_calendario_ant' => $parametro['faseAct'],
                             );
        $this->cadena_sql = $this->miSql->getCadenaSql("registroEtapaInscrito", $arregloDatos);
        $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "registroCierreEtapaInscrito" );
-    }        
+    } 
+    
+    function cerrarFase($parametro,$esteRecursoDB) {
+        //busca datos registrados
+        $arregloCierre = array('consecutivo_inscrito' => $parametro['inscripcion'],
+                               'consecutivo_calendario' => $parametro['faseAct'],
+                               'cierre' => 'final',
+                              );        
+        $this->cadena_sql = $this->miSql->getCadenaSql("actualizaCierreCalendario", $arregloCierre);
+        $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualiza", $arregloCierre, "actualizaCierreCalendarioRequisito" );
+       
+    }      
     
 }
 

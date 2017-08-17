@@ -45,7 +45,7 @@ class cerrarForm{
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
                 $seccion ['tiempo'] = $tiempo;
                 
-                var_dump($_REQUEST);
+                //var_dump($_REQUEST);
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
                 $estefomulario= 'datosCierre';
@@ -116,7 +116,7 @@ class cerrarForm{
                                         $mensaje = "<b>Se han registrado ".$_REQUEST['evaluado']." evaluaciones para esta fase!</b><br><br>";    
                                     }
                                 elseif($_REQUEST['tipo_cierre']=='final'){    
-                                        $mensaje = "<b>Se han registrado ".$_REQUEST['reclamacion']." reclamaciones para esta fase!</b><br><br>";    
+                                        $mensaje = "<b>Se han registrado ".$_REQUEST['reclamos']." reclamaciones para esta fase!</b><br><br>";    
                                     }
                                     
                                 $mensaje .= "Esta seguro de realizar Cierre <b>".$_REQUEST['tipo_cierre']."</b> la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";

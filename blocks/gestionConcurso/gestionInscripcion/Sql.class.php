@@ -220,7 +220,7 @@ class Sql extends \Sql {
                                     $cadenaSql.="INNER JOIN concurso.soporte_inscrito sop ON sop.consecutivo_inscrito=insc.consecutivo_inscrito  ";
                                     $cadenaSql.="WHERE prf.consecutivo_concurso=cal.consecutivo_concurso  ";
                                 $cadenaSql.=" ) inscrito,  ";
-                                    $cadenaSql.="(SELECT count(val.consecutivo_valida) valido  ";
+                                    $cadenaSql.="(SELECT count(DISTINCT val.consecutivo_inscrito) valido  ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf2   ";
                                     $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc2 ON prf2.consecutivo_perfil=insc2.consecutivo_perfil   ";
                                     $cadenaSql.="INNER JOIN concurso.valida_requisito val ON val.consecutivo_inscrito=insc2.consecutivo_inscrito  ";
@@ -244,7 +244,12 @@ class Sql extends \Sql {
                                     $cadenaSql.="INNER JOIN concurso.etapa_inscrito etapa2 ON etapa2.consecutivo_inscrito=insc4.consecutivo_inscrito ";
                                     $cadenaSql.="WHERE prf4.consecutivo_concurso=cal.consecutivo_concurso  ";
                                     $cadenaSql.="AND etapa2.consecutivo_calendario_ant=cal.consecutivo_calendario ";
-                                $cadenaSql.=" ) proceso ";
+                                $cadenaSql.=" ) proceso, ";
+                                    $cadenaSql.="(SELECT count(DISTINCT recl.id_inscrito) reclama   ";
+                                    $cadenaSql.="FROM concurso.evaluacion_reclamacion recl ";
+                                    $cadenaSql.=" WHERE   recl.estado='A'  ";
+                                    $cadenaSql.="AND recl.consecutivo_calendario=cal.consecutivo_calendario ";
+                                $cadenaSql.=" ) reclamos ";
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
                                 $cadenaSql.=" INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad";
                                 $cadenaSql.=" INNER JOIN general.estado est ON est.tipo=cal.estado ";
@@ -366,6 +371,27 @@ class Sql extends \Sql {
 
                             break;
 
+                        case "consultarEtapaAprobo":
+                                $cadenaSql="SELECT DISTINCT ";
+                                $cadenaSql.="consecutivo_etapa, ";
+                                $cadenaSql.="consecutivo_inscrito, ";
+                                $cadenaSql.="consecutivo_calendario, ";
+                                $cadenaSql.="observacion, ";
+                                $cadenaSql.="fecha_registro, ";
+                                $cadenaSql.="estado, ";
+                                $cadenaSql.="consecutivo_calendario_ant ";
+                                $cadenaSql.="FROM ";
+                                $cadenaSql.="concurso.etapa_inscrito ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="consecutivo_calendario_ant='".$variable['consecutivo_calendario']."' ";
+                                if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
+                                   {
+                                    $cadenaSql.=" AND consecutivo_inscrito='".$variable['consecutivo_inscrito']."' ";
+                                   }
+                                $cadenaSql.=" ORDER BY consecutivo_inscrito ";
+
+                            break;
+                            
                         case "consultarInscritoEtapa":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="consecutivo_etapa, ";
@@ -385,7 +411,7 @@ class Sql extends \Sql {
                                    }
                                 $cadenaSql.=" ORDER BY consecutivo_inscrito ";
 
-                            break;
+                            break;                            
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -461,6 +487,33 @@ class Sql extends \Sql {
 
                             break;
 
+                        case "consultarReclamacionesRequisitos":
+                                $cadenaSql="SELECT DISTINCT ";
+                                $cadenaSql.="insc.consecutivo_inscrito, ";
+                                $cadenaSql.="prf.consecutivo_perfil,  ";
+                                $cadenaSql.="prf.consecutivo_concurso, ";
+                                $cadenaSql.="prf.nombre perfil, ";
+                                $cadenaSql.="recl.id reclamo, ";
+                                $cadenaSql.="recl.consecutivo_calendario, ";
+                                $cadenaSql.="recl.observacion , ";
+                                $cadenaSql.="recl.fecha_registro registro_recl , ";
+                                $cadenaSql.="rsta.id id_respuesta, ";
+                                $cadenaSql.="rsta.respuesta, ";
+                                $cadenaSql.="rsta.observacion justificacion, ";
+                                $cadenaSql.="rsta.fecha_registro registro_resp, ";
+                                $cadenaSql.="rsta.id_evaluar_respuesta, ";
+                                $cadenaSql.="rsta.id_evaluador ";
+                                $cadenaSql.="FROM concurso.concurso_perfil prf  ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil ";
+                                $cadenaSql.="INNER JOIN concurso.evaluacion_reclamacion recl ON recl.id_inscrito=insc.consecutivo_inscrito AND recl.estado='A' ";
+                                $cadenaSql.="INNER JOIN concurso.respuesta_reclamacion rsta ON rsta.id_reclamacion=recl.id AND recl.estado='A' ";
+                                $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                if(isset($variable['faseAct']) &&  $variable['faseAct']!='' )
+                                   { $cadenaSql.="AND recl.consecutivo_calendario='".$variable['faseAct']."' "; }
+                                $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
+
+                            break;                            
+                            
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";
@@ -835,6 +888,16 @@ class Sql extends \Sql {
                                 $cadenaSql.=" RETURNING consecutivo_calendario";
                         break;                          
 
+
+                        case "actualizaEstadoEstapaInscrito":
+                                $cadenaSql=" UPDATE concurso.etapa_inscrito";
+                                $cadenaSql.=" SET ";
+                                $cadenaSql.=" estado= '".$variable['estado']."' ";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_etapa= '".$variable['consecutivo_etapa']."' ";
+                                $cadenaSql.=" RETURNING consecutivo_etapa";                  
+                        break;                          
+                    
 				/**
 				 * Clausulas genéricas. se espera que estén en todos los formularios
 				 * que utilicen esta plantilla

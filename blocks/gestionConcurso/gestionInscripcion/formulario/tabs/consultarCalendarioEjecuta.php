@@ -104,7 +104,9 @@ class consultarCalendario {
                                         $variableEstado.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario'];       
                                         $variableEstado.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                         $variableEstado.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];
-                                        $variableEstado.= "&inscrito=" .$resultadoListaCalendario[$key]['clasifico'];  
+                                        $variableEstado.= "&inscrito=" .$resultadoListaCalendario[$key]['clasifico'];
+                                        $variableEstado.= "&reclamos=" .$resultadoListaCalendario[$key]['reclamos'];    
+                                        
                                         //tipo cierre
                                         if($resultadoListaCalendario[$key]['cierre']=='')
                                               { $variableEstado.= "&tipo_cierre=parcial"; } 
@@ -141,12 +143,21 @@ class consultarCalendario {
                                                     $atributos['ancho']='25';
                                                     $atributos['alto']='25';
                                                     $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
-                                                    if($hoy>$resultadoListaCalendario[$key]['fecha_fin']   )
+                                                    if(($resultadoListaCalendario[$key]['fecha_fin_resolver']=='' &&  $hoy>$resultadoListaCalendario[$key]['fecha_fin'])
+                                                        || ($resultadoListaCalendario[$key]['fecha_fin_resolver']!='' &&  $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver'])
+                                                       )             
                                                         { $atributos['enlaceImagen']=$rutaBloque."/images/success.png";  
                                                           $atributos['enlaceTexto']=' Terminado';}
-                                                    elseif($hoy>=$resultadoListaCalendario[$key]['fecha_inicio'] && $hoy<=$resultadoListaCalendario[$key]['fecha_fin'])
+    
+                                                    elseif($hoy>=$resultadoListaCalendario[$key]['fecha_inicio'] 
+                                                            && ((!isset($resultadoListaCalendario[$key]['fecha_fin_resolver']) 
+                                                            &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin']))
+                                                            || (isset($resultadoListaCalendario[$key]['fecha_fin_resolver']) 
+                                                            &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin_resolver'])
+                                                            )
                                                         { $atributos['enlaceImagen']=$rutaBloque."/images/goto.png";  
                                                           $atributos['enlaceTexto']=' En curso';}    
+                                                          
                                                     else{ $atributos['enlaceImagen']=$rutaBloque."/images/player_pause.png";  
                                                           $atributos['enlaceTexto']=' Pendiente';}
                                                     
@@ -180,7 +191,7 @@ class consultarCalendario {
                                                 elseif($resultadoListaCalendario[$key]['fase']!='registro' 
                                                     && $resultadoListaCalendario[$key]['fase']!='soporte' 
                                                     && $hoy>$resultadoListaCalendario[$key]['fecha_fin']
-                                                    && $resultadoListaCalendario[$key]['cierre']=='parcial' )
+                                                    && $resultadoListaCalendario[$key]['cierre']!='' )
                                                       { //Muestra Listado de resultado de cierre de soporte
                                                         $variableVer = "pagina=publicacion";                                                        
                                                         $variableVer.= "&opcion=faseParcial";
@@ -225,60 +236,12 @@ class consultarCalendario {
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
                                                       }                                                      
                                                     
-                                                    
-                                                    /*
-                                                if($resultadoListaCalendario[$key]['fase']!='registro'
-                                                   && $resultadoListaCalendario[$key]['fase']!='soporte'
-                                                   && $resultadoListaCalendario[$key]['proceso']>0)
-                                                      { $variableVer = "pagina=publicacion";                                                        
-                                                        $variableVer.= "&opcion=faseProcesado";
-                                                        $variableVer.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                                        $variableVer.= "&id_usuario=" .$_REQUEST['usuario'];
-                                                        $variableVer.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                                        $variableVer.= "&tiempo=" . time ();
-                                                        $variableVer.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
-                                                        $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
-                                                        $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
-                                                        $variableVer.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
-                                                        $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
-                                                        $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);
-                                                        //-------------Enlace-----------------------
-                                                          $esteCampo = 'enlace_procesado'.$key;
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_ver'.$key.'");';
-                                                          $atributos ['tabIndex'] = 0;
-                                                          $atributos ['columnas'] = 1;
-                                                          $atributos ['enlaceTexto'] = $resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
-                                                          $atributos ['estilo'] = 'clasico';
-                                                          $atributos['enlaceImagen']=$rutaBloque."/images/lists.png";
-                                                          $atributos ['posicionImagen'] ="adelante";//"atras";
-                                                          $atributos ['ancho'] = '25px';
-                                                          $atributos ['alto'] = '25px';
-                                                          $atributos ['redirLugar'] = false;
-                                                          $atributos ['valor'] = '';
-                                                          $mostrarHtml .= $this->miFormulario->enlace( $atributos );
-                                                          unset ( $atributos );
-                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_enlace_ver'.$key;
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['nombre'] = $esteCampo;
-                                                          $atributos ['tipo'] = 'hidden';
-                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                          $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $variableVer;
-                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                          $atributos ['deshabilitado'] = FALSE;
-                                                          $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                          // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
-                                                      } 
-                                                       */
                                         //resultados finales              
                                         $mostrarHtml .= "</td> <td>";
                                                 if($resultadoListaCalendario[$key]['fase']=='soporte' 
                                                    && $resultadoListaCalendario[$key]['inscrito']==0 
                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin']
-                                                   && $resultadoListaCalendario[$key]['cierre']=='' 
-                                                        )
+                                                   && $resultadoListaCalendario[$key]['cierre']=='')
                                                     { 
                                                         //-------------Enlace boton cerrar fase de soporte-----------------------
                                                         $esteCampo = "cerrar";
@@ -341,14 +304,15 @@ class consultarCalendario {
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
                                                       }                                                      
-                                                    
-                                                      /*
-                                                elseif($resultadoListaCalendario[$key]['fase']=='requisito' 
-                                                        && $resultadoListaCalendario[$key]['clasifico']>0
-                                                        && $resultadoListaCalendario[$key]['validado']>0 
-                                                        && $resultadoListaCalendario[$key]['proceso']==0
-                                                        && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver'])
-                                                    { 
+
+                                                elseif( $resultadoListaCalendario[$key]['fase']!='registro' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $resultadoListaCalendario[$key]['inscrito']>0
+                                                    && $resultadoListaCalendario[$key]['validado']>0 
+                                                    && $resultadoListaCalendario[$key]['proceso']>0
+                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
+                                                    && $resultadoListaCalendario[$key]['cierre']=='parcial')
+                                                      { 
                                                         //-------------Enlace-----------------------
                                                         $esteCampo = "cerrar";
                                                         $atributos["id"]=$esteCampo;
@@ -363,29 +327,54 @@ class consultarCalendario {
                                                         $atributos['enlaceImagen']=$rutaBloque."/images/exec.png";
                                                         $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                         unset($atributos);    
-                                                    }                                               
-                                                elseif( $resultadoListaCalendario[$key]['fase']!='registro' 
-                                                        && $resultadoListaCalendario[$key]['fase']!='soporte' 
-                                                        && $resultadoListaCalendario[$key]['fase']!='requisito'
-                                                        && $resultadoListaCalendario[$key]['clasifico']>0
-                                                        && $resultadoListaCalendario[$key]['proceso']<=0
-                                                        && $hoy>$resultadoListaCalendario[$key]['fecha_fin'])
-                                                    {   //-------------Enlace-----------------------
-                                                        $esteCampo = "cerrar";
-                                                        $atributos["id"]=$esteCampo;
-                                                        $atributos['enlace']=$variableEstado;
-                                                        $atributos['tabIndex']=$esteCampo;
-                                                        $atributos['redirLugar']=true;
-                                                        $atributos['estilo']='clasico';
-                                                        $atributos['posicionImagen'] = "atras";//"adelante";
-                                                        $atributos['enlaceTexto']=' Cerrar Fase';
-                                                        $atributos['ancho']='25';
-                                                        $atributos['alto']='25';
-                                                        $atributos['enlaceImagen']=$rutaBloque."/images/exec.png";
-                                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                        unset($atributos);
                                                     }
-                                                    */
+                                                elseif($resultadoListaCalendario[$key]['fase']!='registro' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
+                                                    && $resultadoListaCalendario[$key]['cierre']=='final' )
+                                                      { //Muestra Listado de resultado de cierre de soporte
+                                                        $variableVer = "pagina=publicacion";                                                        
+                                                        $variableVer.= "&opcion=faseFinal";
+                                                        $variableVer.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                        $variableVer.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                        $variableVer.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                        $variableVer.= "&tiempo=" . time ();
+                                                        $variableVer.= "&tipo_cierre=" . $resultadoListaCalendario[$key]['cierre'];
+                                                        $variableVer.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
+                                                        $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
+                                                        $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
+                                                        $variableVer.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                                                        $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
+                                                        $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);
+                                                        //-------------Enlace-----------------------
+                                                          $esteCampo = 'enlace_procesado'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_ver'.$key.'");';
+                                                          $atributos ['tabIndex'] = 0;
+                                                          $atributos ['columnas'] = 1;
+                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
+                                                          $atributos ['estilo'] = 'clasico';
+                                                          $atributos['enlaceImagen']=$rutaBloque."/images/lists.png";
+                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                          $atributos ['ancho'] = '30px';
+                                                          $atributos ['alto'] = '30px';
+                                                          $atributos ['redirLugar'] = false;
+                                                          $atributos ['valor'] = '';
+                                                          $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                          unset ( $atributos );
+                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                          $esteCampo = 'ruta_enlace_ver'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['nombre'] = $esteCampo;
+                                                          $atributos ['tipo'] = 'hidden';
+                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                          $atributos ['obligatorio'] = false;
+                                                          $atributos ['valor'] = $variableVer;
+                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                          $atributos ['deshabilitado'] = FALSE;
+                                                          $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
+                                                      }                                                          
                                                     
                                         $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";

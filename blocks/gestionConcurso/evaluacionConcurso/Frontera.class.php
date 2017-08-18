@@ -55,7 +55,7 @@ class Frontera {
 					break;
 
 				case "detalle":
-					include_once($this->ruta."formulario/consultarReclamaciones.php");
+					include_once($this->ruta."formulario/detalleEjecucion.php");
 					break;
 
 				case "validar":

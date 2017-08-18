@@ -58,6 +58,7 @@ class consultarForm {
             $parametro=array('hoy'=>date("Y-m-d"));
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+						//var_dump($resultadoConcurso);
             $esteCampo = "marcoEjecucion";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";

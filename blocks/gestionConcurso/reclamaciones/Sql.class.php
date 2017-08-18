@@ -59,20 +59,23 @@ class Sql extends \Sql {
 							$cadenaSql.=" nvl.nombre nivel_concurso,";
 
 							$cadenaSql.=" ( SELECT count(*)";
-							$cadenaSql.=" FROM concurso.evaluacion_reclamacion eval,";
+							$cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion,";
 							$cadenaSql.=" concurso.concurso_inscrito ci,";
-							$cadenaSql.=" concurso.concurso_perfil cp";
-							$cadenaSql.=" WHERE eval.consecutivo_calendario=3";
-							$cadenaSql.=" AND eval.id_inscrito=1";
-							$cadenaSql.=" AND eval.id_inscrito=ci.consecutivo_inscrito";
+							$cadenaSql.=" concurso.concurso_perfil cp,";
+							$cadenaSql.=" concurso.concurso_calendario calendar,";
+							$cadenaSql.=" concurso.concurso c";
+							$cadenaSql.=" WHERE calendar.consecutivo_actividad=3 ";//Actividad de verificación de requisitos del perfil
+							$cadenaSql.=" AND reclamacion.id_inscrito=ci.consecutivo_inscrito";
 							$cadenaSql.=" AND ci.consecutivo_perfil=cp.consecutivo_perfil";
-							$cadenaSql.=" AND conc.consecutivo_concurso=cp.consecutivo_concurso) reclamaciones";
+							$cadenaSql.=" AND conc.consecutivo_concurso=cp.consecutivo_concurso";
+							$cadenaSql.=" AND calendar.consecutivo_concurso=c.consecutivo_concurso";
+							$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso";
+							$cadenaSql.=" ) reclamaciones";
 
 							$cadenaSql.=" FROM concurso.concurso conc,";
 							$cadenaSql.=" concurso.modalidad_concurso mdl,";
 							$cadenaSql.=" general.nivel nvl";
 							$cadenaSql.=" WHERE ";
-
 							$cadenaSql.=" conc.estado='A' ";
 							$cadenaSql.=" AND nvl.tipo_nivel='TipoConcurso'";
 							$cadenaSql.=" AND mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
@@ -85,7 +88,7 @@ class Sql extends \Sql {
 							$cadenaSql.=" ORDER BY ";
 							$cadenaSql.=" conc.fecha_inicio DESC, ";
 							$cadenaSql.=" conc.fecha_fin DESC ";
-
+							//echo $cadenaSql;
 					break;
 
 				case "consultaEvaluacionesReclamacion":

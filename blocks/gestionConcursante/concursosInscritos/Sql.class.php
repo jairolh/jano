@@ -46,10 +46,10 @@ class Sql extends \Sql {
 				$cadenaSql = "UPDATE ";
 				$cadenaSql .= "concurso.valida_requisito ";
 				$cadenaSql .= "SET ";
-				$cadenaSql .= "id_reclamacion = " . $variable ["reclamacion"];
+				$cadenaSql .= "id_reclamacion = " . $variable ["reclamacion"]." ";
 				$cadenaSql .= "WHERE ";
 				$cadenaSql .= "consecutivo_inscrito =" . $variable ["consecutivo_inscrito"];
-				//echo $cadenaSql;
+				echo $cadenaSql;
 				break;
 
 			case "consultaDatosInscripcion":
@@ -79,12 +79,14 @@ class Sql extends \Sql {
 						$cadenaSql =" INSERT INTO concurso.evaluacion_reclamacion (";
 						$cadenaSql .=" consecutivo_calendario,";
 						$cadenaSql .=" observacion,";
-						$cadenaSql .=" fecha_registro";
+						$cadenaSql .=" fecha_registro,";
+						$cadenaSql .=" id_inscrito";
 						$cadenaSql .=" )";
 						$cadenaSql .= " VALUES ( ";
 						$cadenaSql .= " ".$variable['consecutivo_calendario'].", ";
 						$cadenaSql .= " '".$variable['observaciones']."', ";
-						$cadenaSql .= " '".$variable['fecha']."' ";
+						$cadenaSql .= " '".$variable['fecha']."', ";
+						$cadenaSql .= " ".$variable['id_inscrito']." ";
 						$cadenaSql .= " )";
 						$cadenaSql.=" RETURNING id";
  			break;

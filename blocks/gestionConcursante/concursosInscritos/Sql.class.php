@@ -32,6 +32,17 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+			 case "respuestaReclamacion":
+  			 $cadenaSql=" SELECT";
+  			 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
+				 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador";
+				 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion";
+  			 $cadenaSql.=" WHERE";
+ 			 	 $cadenaSql.=" reclamacion.id=respuesta.id_reclamacion";
+  			 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+ 			 	 //echo $cadenaSql;
+  			break;
+
 			 case "reclamacionesValidacion":
   			 $cadenaSql=" SELECT";
   			 $cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario ";
@@ -49,7 +60,7 @@ class Sql extends \Sql {
 				$cadenaSql .= "id_reclamacion = " . $variable ["reclamacion"]." ";
 				$cadenaSql .= "WHERE ";
 				$cadenaSql .= "consecutivo_inscrito =" . $variable ["consecutivo_inscrito"];
-				echo $cadenaSql;
+				//echo $cadenaSql;
 				break;
 
 			case "consultaDatosInscripcion":

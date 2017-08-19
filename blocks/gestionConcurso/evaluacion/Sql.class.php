@@ -285,7 +285,7 @@ break;
 
                             break;
 
-														case "consultaConcurso":
+			case "consultaConcurso":
 		                                $cadenaSql=" SELECT DISTINCT conc.consecutivo_concurso, ";
 		                                $cadenaSql.=" conc.consecutivo_modalidad,";
 		                                $cadenaSql.=" conc.nombre, ";
@@ -297,16 +297,15 @@ break;
 		                                $cadenaSql.=" mdl.nombre modalidad, ";
 		                                $cadenaSql.=" mdl.codigo_nivel_concurso,";
 		                                $cadenaSql.=" nvl.nombre nivel_concurso,";
-																		$cadenaSql.=" ci.consecutivo_perfil";
-
+                                                $cadenaSql.=" ci.consecutivo_perfil";
 		                                $cadenaSql.=" FROM";
 		                                $cadenaSql.=" concurso.modalidad_concurso mdl, concurso.concurso conc, general.nivel nvl,";
-																		$cadenaSql.=" concurso.jurado_inscrito ji, concurso.concurso_inscrito ci, concurso.concurso_perfil cp";
+                                                $cadenaSql.=" concurso.jurado_inscrito ji, concurso.concurso_inscrito ci, concurso.concurso_perfil cp";
 
-																		$cadenaSql .=" WHERE ";
-																		$cadenaSql .=" mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
-																		$cadenaSql .=" AND nvl.tipo_nivel='TipoConcurso'";
-																		$cadenaSql .=" AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
+                                                $cadenaSql .=" WHERE ";
+                                                $cadenaSql .=" mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
+                                                $cadenaSql .=" AND nvl.tipo_nivel='TipoConcurso'";
+                                                $cadenaSql .=" AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
 		                                $cadenaSql .=" AND conc.estado='A' ";
 
 		                                /*if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
@@ -317,12 +316,11 @@ break;
 		                                    $cadenaSql.=" AND conc.fecha_fin>= '".$variable['hoy']."' ";
 		                                   }
 
-																	 	$cadenaSql .=" AND ji.id_inscrito=ci.consecutivo_inscrito";
-																	  $cadenaSql .=" AND ji.id_usuario='".$variable['jurado']."'";
-																		$cadenaSql .=" AND ji.id_inscrito=ci.consecutivo_inscrito";
-																		$cadenaSql .=" AND conc.consecutivo_concurso = cp.consecutivo_concurso";
-
-		                                $cadenaSql.=" ORDER BY ";
+                                                $cadenaSql .=" AND cp.consecutivo_perfil=ci.consecutivo_perfil";
+                                                $cadenaSql .=" AND ji.id_inscrito=ci.consecutivo_inscrito";
+                                                $cadenaSql .=" AND conc.consecutivo_concurso = cp.consecutivo_concurso";
+                                                $cadenaSql .=" AND ji.id_usuario='".$variable['jurado']."'";
+                                                $cadenaSql.=" ORDER BY ";
 		                                $cadenaSql.=" conc.fecha_inicio DESC, ";
 		                                $cadenaSql.=" conc.fecha_fin DESC ";
 
@@ -366,6 +364,39 @@ break;
                             break;
 
 			case 'consultarAspirantesAsignados' :
+				$cadenaSql = "SELECT DISTINCT ji.id, ";
+				$cadenaSql .= " ji.id_usuario, ";
+				$cadenaSql .= " ji.id_inscrito, ";
+				$cadenaSql .= " ji.id_jurado_tipo, ";
+				$cadenaSql .= " ji.fecha_registro, ";
+				$cadenaSql .= " ji.estado, ";
+				$cadenaSql .= " cp.nombre AS perfil, ";
+				$cadenaSql .= " ci.consecutivo_persona, ";
+				$cadenaSql .= " p.consecutivo, ";
+				$cadenaSql .= " p.tipo_identificacion, ";
+				$cadenaSql .= " p.nombre, ";
+				$cadenaSql .= " p.apellido, ";
+				$cadenaSql .= " p.identificacion, ";
+				$cadenaSql .= " c.consecutivo_concurso, ";
+				$cadenaSql .= " cp.consecutivo_perfil, ";
+				$cadenaSql .= " ci.consecutivo_inscrito ";
+				$cadenaSql .= " FROM ";
+				$cadenaSql .= " concurso.jurado_inscrito ji ";
+				$cadenaSql .= " INNER JOIN  concurso.concurso_inscrito ci ON ji.id_inscrito=ci.consecutivo_inscrito ";
+				$cadenaSql .= " INNER JOIN  concurso.concurso_perfil cp ON ci.consecutivo_perfil = cp.consecutivo_perfil ";
+				$cadenaSql .= " INNER JOIN  concurso.concurso c ON cp.consecutivo_concurso=c.consecutivo_concurso ";
+				$cadenaSql .= " INNER JOIN  concurso.persona p ON p.consecutivo = ci.consecutivo_persona ";
+				$cadenaSql .= " INNER JOIN concurso.concurso_evaluar eval ON eval.consecutivo_concurso=c.consecutivo_concurso ";
+				$cadenaSql .= " INNER JOIN concurso.jurado_criterio jcrt ON jcrt.id_criterio=eval.consecutivo_criterio AND jcrt.estado=eval.estado ";
+				$cadenaSql .= " INNER JOIN public.jano_usuario_subsistema usu ON usu.rol_id=jcrt.id_jurado_rol AND usu.estado='1' AND usu.fecha_caduca>='".$variable['hoy']."' ";
+				$cadenaSql .= " WHERE ji.id_usuario='".$variable['jurado']."'";
+				$cadenaSql .= " AND eval.estado='A' ";
+				$cadenaSql .= " AND eval.consecutivo_concurso='".$variable['concurso']."'";
+	                               
+				break;
+                            
+                            
+			case 'consultarAspirantesAsignadosOLD_inscritos_fase' :
 				$cadenaSql = "SELECT DISTINCT ji.id, ";
 				$cadenaSql .= " ji.id_usuario, ";
 				$cadenaSql .= " ji.id_inscrito, ";

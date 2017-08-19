@@ -225,6 +225,13 @@ echo '
 
 			if($reclamacionesValidacion){
 
+				//buscar respuesta a la reclamación
+				$parametro=array(
+					'reclamacion'=>$resultadoValidacion[0]['id_reclamacion']
+				);
+				$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
+				$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
 				echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
@@ -239,8 +246,14 @@ echo '
 				$mostrarHtml = "<tr align='center'>
 												<td align='left'>".$reclamacionesValidacion[0]['id']."</td>
 												<td align='left'>".$reclamacionesValidacion[0]['observacion']."</td>
-												<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>
-												<td align='left'>"."Pendiente"."</td>";
+												<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>";
+
+				if($respuestaReclamacion){
+					$mostrarHtml .=	"<td align='left'>".$respuestaReclamacion[0]['respuesta']."</td>";
+				}else{
+					$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+				}
+
 				$mostrarHtml .= "</tr>";
 
 				echo $mostrarHtml;

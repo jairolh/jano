@@ -204,6 +204,7 @@ class cerrarForm{
                                     $valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
                                     $valorCodificado .= "&opcion=cerrarFase";
                                     $valorCodificado .= "&fase=" .$_REQUEST['fase'];
+                                    $valorCodificado .= "&porcentaje_aprueba=".$_REQUEST['porcentaje_aprueba'];
                                     $valorCodificado .= "&tipo_cierre=" .$_REQUEST['tipo_cierre'];
                                     $valorCodificado .= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
                                     $valorCodificado .= "&consecutivo_calendario=" .$_REQUEST['consecutivo_calendario'];

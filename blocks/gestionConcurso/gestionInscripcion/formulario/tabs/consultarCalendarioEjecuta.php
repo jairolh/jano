@@ -103,6 +103,7 @@ class consultarCalendario {
                                         $variableEstado.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
                                         $variableEstado.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario'];       
                                         $variableEstado.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                                        $variableEstado.= "&porcentaje_aprueba=" .$resultadoListaCalendario[$key]['porcentaje_aprueba'];
                                         $variableEstado.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];
                                         $variableEstado.= "&inscrito=" .$resultadoListaCalendario[$key]['clasifico'];
                                         $variableEstado.= "&reclamos=" .$resultadoListaCalendario[$key]['reclamos'];    

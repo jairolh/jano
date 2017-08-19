@@ -206,7 +206,15 @@ class Funcion {
 	}
 	function cerrarEvaluacion()
 	{
-		include_once($this->ruta."/funcion/cerrarEvaluacion.php");
+            switch ($_REQUEST ['tipo_cierre'])
+                {   case "parcial":
+                        include_once($this->ruta."/funcion/cerrarEvaluacionParcial.php");
+                    break;
+                    case "final":
+                        include_once($this->ruta."/funcion/cerrarEvaluacion.php");
+                    break;
+                }
+                
 	}
         function guardarCalendarioConcurso()
 	{

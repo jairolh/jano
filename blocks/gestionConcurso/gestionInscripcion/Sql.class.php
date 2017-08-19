@@ -392,7 +392,7 @@ class Sql extends \Sql {
 
                             break;
                             
-                        case "consultarInscritoEtapa":
+                        case "consultarInscritoEtapaOrg":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="consecutivo_etapa, ";
                                 $cadenaSql.="consecutivo_inscrito, ";
@@ -411,7 +411,36 @@ class Sql extends \Sql {
                                    }
                                 $cadenaSql.=" ORDER BY consecutivo_inscrito ";
 
-                            break;                            
+                            break;           
+                            
+                        case "consultarInscritoEtapa":
+                                $cadenaSql="SELECT DISTINCT ";
+                                $cadenaSql.="etp.consecutivo_inscrito ";
+                                $cadenaSql.="FROM concurso.etapa_inscrito etp ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON etp.consecutivo_inscrito=insc.consecutivo_inscrito ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_perfil prf ON prf.consecutivo_perfil=insc.consecutivo_perfil ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="prf.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="AND etp.estado='A' ";
+                                /*
+                                if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
+                                   {
+                                    $cadenaSql.=" AND consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
+                                   }*/
+                                $cadenaSql.="ORDER BY consecutivo_inscrito ";
+                            break;    
+                        
+                        case "consultarCriteriosEtapa":
+                                $cadenaSql="SELECT ";
+                                $cadenaSql.="COUNT(eval.consecutivo_criterio) criterios, ";
+                                $cadenaSql.="SUM(eval.maximo_puntos) maximo_fase ";
+                                $cadenaSql.="FROM concurso.concurso_evaluar eval ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
+                                $cadenaSql.="AND eval.estado='A' ";
+                                $cadenaSql.="GROUP BY eval.consecutivo_concurso ";
+                            break;                         
+                            
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";

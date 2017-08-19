@@ -110,6 +110,6 @@ $this->idioma["etapaPasa"]="Aspirantes pasan a la Etapa: ";
 $this->idioma["asignarAspirantes"]="Asignar aspirantes al jurado";
 $this->idioma["marcoAsignarAspirantes"]="Asignación de aspirantes al jurado";
 $this->idioma["botonGuardarAsignacion"]="Asignar aspirantes al jurado";
-$this->idioma["botonAsignarAspirantes"]="Asignar aspirantes al jurado";
+$this->idioma["botonAsignarAspirantes"]="Adicionar aspirantes al jurado";
 
 ?>

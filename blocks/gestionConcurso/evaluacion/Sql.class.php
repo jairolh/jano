@@ -383,6 +383,7 @@ break;
 				$cadenaSql .= " FROM ";
 				$cadenaSql .= " concurso.jurado_inscrito ji ";
 				$cadenaSql .= " INNER JOIN  concurso.concurso_inscrito ci ON ji.id_inscrito=ci.consecutivo_inscrito ";
+                                $cadenaSql .= " INNER JOIN  concurso.etapa_inscrito paso ON paso.consecutivo_inscrito = ci.consecutivo_inscrito AND paso.estado='A'  ";
 				$cadenaSql .= " INNER JOIN  concurso.concurso_perfil cp ON ci.consecutivo_perfil = cp.consecutivo_perfil ";
 				$cadenaSql .= " INNER JOIN  concurso.concurso c ON cp.consecutivo_concurso=c.consecutivo_concurso ";
 				$cadenaSql .= " INNER JOIN  concurso.persona p ON p.consecutivo = ci.consecutivo_persona ";

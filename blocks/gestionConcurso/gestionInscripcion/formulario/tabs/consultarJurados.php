@@ -177,6 +177,35 @@ class consultarJurado {
 										 unset ( $atributos );
 										 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
 
+                                                                                // ------------------Division para los botones-------------------------
+                                                                               $atributos ["id"] = "botones";
+                                                                               $atributos ["estilo"] = "marcoBotones";
+                                                                               echo $this->miFormulario->division ( "inicio", $atributos );
+                                                                               unset ( $atributos );
+                                                                               {
+                                                                                       // -----------------CONTROL: Botón ----------------------------------------------------------------
+                                                                                       $esteCampo = 'botonAsignarAspirantes';
+                                                                                       $atributos ["id"] = $esteCampo;
+                                                                                       $atributos ["tabIndex"] = $tab;
+                                                                                       $atributos ["tipo"] = 'boton';
+                                                                                       // submit: no se coloca si se desea un tipo button genérico
+                                                                                       $atributos ['submit'] = true;
+                                                                                       $atributos ["estiloMarco"] = '';
+                                                                                       $atributos ["estiloBoton"] = 'jqueryui';
+                                                                                       // verificar: true para verificar el formulario antes de pasarlo al servidor.
+                                                                                       $atributos ["verificar"] = '';
+                                                                                       $atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+                                                                                       $atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+                                                                                       $atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+                                                                                       $tab ++;
+
+                                                                                       // Aplica atributos globales al control
+                                                                                       $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                                       echo $this->miFormulario->campoBoton ( $atributos );
+                                                                                       // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                                                                               }
+                                                                               echo $this->miFormulario->division ( 'fin' );                                                                                 
+                                                                                 
 
 										 $esteCampo = "marcoListaAspirantes";
 										 $atributos ['id'] = $esteCampo;
@@ -193,34 +222,7 @@ class consultarJurado {
 
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
-													 // ------------------Division para los botones-------------------------
-													$atributos ["id"] = "botones";
-													$atributos ["estilo"] = "marcoBotones";
-													echo $this->miFormulario->division ( "inicio", $atributos );
-													unset ( $atributos );
-													{
-														// -----------------CONTROL: Botón ----------------------------------------------------------------
-														$esteCampo = 'botonAsignarAspirantes';
-														$atributos ["id"] = $esteCampo;
-														$atributos ["tabIndex"] = $tab;
-														$atributos ["tipo"] = 'boton';
-														// submit: no se coloca si se desea un tipo button genérico
-														$atributos ['submit'] = true;
-														$atributos ["estiloMarco"] = '';
-														$atributos ["estiloBoton"] = 'jqueryui';
-														// verificar: true para verificar el formulario antes de pasarlo al servidor.
-														$atributos ["verificar"] = '';
-														$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
-														$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-														$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-														$tab ++;
 
-														// Aplica atributos globales al control
-														$atributos = array_merge ( $atributos, $atributosGlobales );
-														echo $this->miFormulario->campoBoton ( $atributos );
-														// -----------------FIN CONTROL: Botón -----------------------------------------------------------
-													}
-													echo $this->miFormulario->division ( 'fin' );
 
 								}else{
 										$tab=1;

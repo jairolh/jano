@@ -232,13 +232,30 @@ echo '
 				$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
 				$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+				//enlace para consultar los criterios asociados al tipo de jurado
+				$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+				$variableDetalleRta.= "&opcion=consultarDetalleRta";
+				$variableDetalleRta.= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
+				$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+				$variableDetalleRta.= "&tiempo=" . time ();
+				$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
+
+				$parametro=array(
+					'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+					'reclamacion'=>$resultadoValidacion[0]['id_reclamacion']
+				);
+				$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
+				$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+				//var_dump($validacion);
+
 				echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
 										<th>Reclamación</th>
 										<th>Observación</th>
 										<th>Fecha</th>
-										<th>Respuesta</th>
+										<th>¿Aplica la reclamación?</th>
+										<th>Nueva Evaluación</th>
 								</tr>
 						</thead>
 						<tbody> ";
@@ -249,11 +266,61 @@ echo '
 												<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>";
 
 				if($respuestaReclamacion){
-					$mostrarHtml .=	"<td align='left'>".$respuestaReclamacion[0]['respuesta']."</td>";
+					$mostrarHtml .= "<td align='left'>";
+					$esteCampo = "detalle";
+					$atributos["id"]=$esteCampo;
+					$atributos['enlace']=$variableDetalleRta;
+					$atributos['tabIndex']=$esteCampo;
+					$atributos['redirLugar']=true;
+					$atributos['estilo']='clasico';
+					$atributos['enlaceTexto']=$respuestaReclamacion[0]['respuesta'];
+					$atributos['ancho']='25';
+					$atributos['alto']='25';
+					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+
+					$mostrarHtml .= $this->miFormulario->enlace($atributos);
+					$mostrarHtml .= "</td>";
 				}else{
 					$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
 				}
 
+
+				//$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+				$mostrarHtml .=	"<td align='left'>";
+				if($validacion[0][0]==2){
+					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+					$variableValidacion.= "&opcion=consultaNuevaEvaluacion";
+					//$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+					$variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
+					$variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+					$variableValidacion.= "&tiempo=" . time ();
+					$variableValidacion .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_concurso'];
+					//$variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
+					//$variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
+					$variableValidacion .= "&reclamacion=".$respuestaReclamacion[0]['id_reclamacion'];
+					$variableValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidacion, $directorio);
+
+					//-------------Enlace-----------------------
+					$esteCampo = "verEvaluacion";
+					$esteCampo = 'enlace_hoja';
+					$atributos ['id'] = $esteCampo;
+					$atributos ['enlace'] = $variableValidacion;
+					$atributos ['tabIndex'] = 0;
+					$atributos ['columnas'] = 1;
+					$atributos ['enlaceTexto'] = 'Ver Evaluación';
+					$atributos ['estilo'] = 'clasico';
+					$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+					$atributos ['posicionImagen'] ="atras";//"adelante";
+					$atributos ['ancho'] = '20px';
+					$atributos ['alto'] = '20px';
+					$atributos ['redirLugar'] = false;
+					$atributos ['valor'] = '';
+					$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+					unset ( $atributos );
+				}else{
+					$mostrarHtml .=	"Pendiente"."</td>";
+				}
+				$mostrarHtml .=	"</td>";
 				$mostrarHtml .= "</tr>";
 
 				echo $mostrarHtml;

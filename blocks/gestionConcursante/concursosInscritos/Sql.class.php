@@ -32,6 +32,52 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+			 case "consultaPerfil":
+ 							$cadenaSql=" SELECT ";
+ 							$cadenaSql.=" c.nombre AS concurso, ";
+ 							$cadenaSql.=" p.nombre AS perfil, ";
+ 							$cadenaSql.=" p.requisitos ";
+ 							$cadenaSql.=" FROM concurso.concurso AS c, ";
+ 							$cadenaSql.=" concurso.concurso_perfil AS p ";
+ 							$cadenaSql.=" WHERE ";
+ 							$cadenaSql.=" c.consecutivo_concurso=".$variable['consecutivo_concurso'];
+ 							$cadenaSql.=" AND p.consecutivo_perfil=".$variable['consecutivo_perfil'];
+ 							$cadenaSql.=" AND c.consecutivo_concurso=p.consecutivo_concurso ";
+
+ 					break;
+
+			 case "consultaInscripcion":
+			 		$cadenaSql=" SELECT ";
+			 		$cadenaSql.=" ci.consecutivo_inscrito, ";
+			 		$cadenaSql.=" ci.consecutivo_perfil, ";
+			 		$cadenaSql.=" ci.consecutivo_persona, ";
+
+			 		$cadenaSql.=" c.consecutivo_concurso, ";
+			 		$cadenaSql.=" cp.nombre AS perfil, ";
+			 		$cadenaSql.=" c.nombre AS concurso, ";
+			 		$cadenaSql.=" p.tipo_identificacion, ";
+			 		$cadenaSql.=" p.identificacion, ";
+			 		$cadenaSql.=" p.nombre, ";
+			 		$cadenaSql.=" p.apellido, ";
+			 		$cadenaSql.=" m.nombre AS modalidad ";
+
+			 		$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p, concurso.concurso c, concurso.modalidad_concurso m ";
+			 		$cadenaSql.=" WHERE ";
+			 		$cadenaSql.=" consecutivo_inscrito=".$variable['consecutivo_inscrito'];
+			 		$cadenaSql.=" AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
+
+			 		$cadenaSql.=" AND ci.consecutivo_persona=p.consecutivo ";
+			 		$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso ";
+			 		$cadenaSql.=" AND m.consecutivo_modalidad=c.consecutivo_modalidad ";
+			 break;
+
+			 case "consultaEvaluacionesReclamacion":
+				 $cadenaSql=" SELECT count(*) ";
+				 $cadenaSql.=" FROM concurso.valida_requisito ";
+				 $cadenaSql.=" WHERE consecutivo_inscrito=".$variable['consecutivo_inscrito'];
+				 $cadenaSql.=" AND id_reclamacion=".$variable['reclamacion'];
+				 break;
+
 			 case "respuestaReclamacion":
   			 $cadenaSql=" SELECT";
   			 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";

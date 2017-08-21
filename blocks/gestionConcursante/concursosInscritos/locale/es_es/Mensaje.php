@@ -19,7 +19,8 @@ $this->idioma ["botonConsultar"] ="Consultar";
 
 $this->idioma ["botonRegresar"] =" Regresar ";
 
-$this->idioma["marcoSubsistema"]="Nuevo Factor";
+$this->idioma["marcoSubsistema"]="Evaluación de Aspirante";
+$this->idioma["marcoNuevaEvaluacion"]="Nueva Evaluación";
 
 $this->idioma["nivel"]="Nivel";
 $this->idioma["seleccionNivel"]="Selección nivel";
@@ -28,6 +29,7 @@ $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
 
 $this->idioma["marcoEditaModalidad"]="Editar Datos de la Modalidad";
 $this->idioma["marcoEditaActividad"]="Editar Datos de la Actividad";
+$this->idioma["marcoConsultaReclamacion"]="Reclamación";
 
 $this->idioma["tabCriterios"]="Gestión de Criterios";
 $this->idioma["tabJurados"]="Jurados";

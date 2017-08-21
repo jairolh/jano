@@ -84,12 +84,10 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
-			$variable.= "&opcion=detalle";
-			/*$variable.= "&aspirante=" . $_REQUEST['aspirante'];
-			$variable.= "&nombre_usuario=". $_REQUEST['nombre_usuario'];
+			$variable.= "&opcion=consulta";
 			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$variable.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-			$variable.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];*/
 
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
@@ -143,7 +141,7 @@ class registrarForm {
 											<td align='left'>".$respuestaReclamacion[0]['fecha_registro']."</td>
 											<td align='left'>".$respuestaReclamacion[0]['respuesta']."</td>
 											<td align='left'>".$respuestaReclamacion[0]['observacion']."</td>
-											<td align='left'>".$respuestaReclamacion[0]['id_evaluador']."</td>";
+											<td align='left'>".$respuestaReclamacion[0]['evaluador']."</td>";
 
 						 $mostrarHtml .= "</tr>";
 						}

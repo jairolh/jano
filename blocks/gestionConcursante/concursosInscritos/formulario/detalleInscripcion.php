@@ -182,7 +182,7 @@ echo '<div class="panel-group" id="accordion">
       </div>';
 
 echo '
-      <div id="collapse1" class="panel-collapse collapse in">';
+      <div id="collapse1" class="panel-collapse collapse">';
 
 			echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 			echo "<thead>
@@ -235,6 +235,9 @@ echo '
 				//enlace para consultar los criterios asociados al tipo de jurado
 				$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 				$variableDetalleRta.= "&opcion=consultarDetalleRta";
+				$variableDetalleRta.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variableDetalleRta.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+				$variableDetalleRta.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 				$variableDetalleRta.= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
 				$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
 				$variableDetalleRta.= "&tiempo=" . time ();

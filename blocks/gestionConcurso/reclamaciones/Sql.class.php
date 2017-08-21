@@ -35,14 +35,26 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+			case "fechaFinResolver":
+			 $cadenaSql=" SELECT";
+			 $cadenaSql.=" calendario.consecutivo_calendario, calendario.fecha_fin_reclamacion, calendario.fecha_fin_resolver, actividad.nombre ";
+			 $cadenaSql.=" FROM concurso.concurso_calendario calendario, concurso.actividad_calendario actividad";
+			 $cadenaSql.=" WHERE";
+			 $cadenaSql.=" calendario.consecutivo_concurso=".$variable['consecutivo_concurso'];
+			 $cadenaSql.=" AND calendario.consecutivo_actividad=".$variable['consecutivo_actividad'];
+			 $cadenaSql.=" AND actividad.consecutivo_actividad=calendario.consecutivo_actividad";
+			// echo $cadenaSql;
+			break;
+
 			case "respuestaReclamacion":
  			 $cadenaSql=" SELECT";
  			 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
-			 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador";
-			 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion";
+			 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
+			 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion, jano_usuario us";
  			 $cadenaSql.=" WHERE";
 			 $cadenaSql.=" reclamacion.id=respuesta.id_reclamacion";
  			 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+			 $cadenaSql.="AND concat(us.tipo_identificacion, '', us.identificacion)=respuesta.id_evaluador";
 			 //echo $cadenaSql;
  			break;
 

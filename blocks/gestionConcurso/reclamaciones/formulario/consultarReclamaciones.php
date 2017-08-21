@@ -29,6 +29,7 @@ class consultarForm {
 	function miForm() {
 
             // Rescatar los datos de este bloque
+						$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
             $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
 
             $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
@@ -61,6 +62,24 @@ class consultarForm {
 						);
             $cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
             $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+						$variable = "pagina=" . $miPaginaActual;
+						$variable.= "&opcion=listar";
+						$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+						// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+            $esteCampo = 'botonRegresar';
+            $atributos ['id'] = $esteCampo;
+            $atributos ['enlace'] = $variable;
+            $atributos ['tabIndex'] = 1;
+            $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+            $atributos ['estilo'] = 'textoPequenno textoGris';
+            $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+            $atributos ['posicionImagen'] = "atras";//"adelante";
+            $atributos ['ancho'] = '30px';
+            $atributos ['alto'] = '30px';
+            $atributos ['redirLugar'] = true;
+            echo $this->miFormulario->enlace ( $atributos );
+            unset ( $atributos );
 
             $esteCampo = "marcoEjecucion";
             $atributos ['id'] = $esteCampo;
@@ -103,6 +122,7 @@ class consultarForm {
 
 													$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 													$variableDetalleRta.= "&opcion=consultarDetalleRta";
+													$variableDetalleRta.= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
 													$variableDetalleRta.= "&reclamacion=" .$resultadoReclamaciones[$key]['id'];
 													$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
 													$variableDetalleRta.= "&tiempo=" . time ();
@@ -128,7 +148,18 @@ class consultarForm {
 																				<td align='left'>".$resultadoReclamaciones[$key]['nombre']."</td>
                                         <td align='left'>";
 
+																				//consulta fecha máxima para dar respuesta a la reclamación: Fase de VALIDACION DE REQUISITOS
+																				$parametro=array(
+																					'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+																					'consecutivo_actividad'=>3
+																				);
+																				$cadena_sql = $this->miSql->getCadenaSql("fechaFinResolver", $parametro);
+																				$fechaFinResolver = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
 																					if($respuesta=="PENDIENTE"){
+
+																						$fecha = date("Y-m-d H:i:s");
+																						if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
 
 																											$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 																											$variableVerHoja.= "&opcion=validacion";
@@ -159,6 +190,9 @@ class consultarForm {
 																											$mostrarHtml .= $this->miFormulario->enlace( $atributos );
 																											unset ( $atributos );
 
+																						}else{
+																							$mostrarHtml .="RECLAMACIÓN SIN RESPUESTA";
+																						}
 																					}else{
 																						$esteCampo = "detalle";
 																						$atributos["id"]=$esteCampo;
@@ -183,6 +217,8 @@ class consultarForm {
 																					$mostrarHtml .="----------";
 
 																				}else if($respuesta && $validacion[0][0]==1){
+																					$fecha = date("Y-m-d H:i:s");
+																					if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
 																										$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 																										$variableVerHoja.= "&opcion=evaluar";
 																										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -212,7 +248,9 @@ class consultarForm {
 																										$atributos ['valor'] = '';
 																										$mostrarHtml .= $this->miFormulario->enlace( $atributos );
 																										unset ( $atributos );
-
+																									}else{
+																										$mostrarHtml .="EVALUACION NO REALIZADA";
+																									}
 
 																				}else if($validacion[0][0]==2){
 																					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );

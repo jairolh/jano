@@ -81,11 +81,12 @@ class Sql extends \Sql {
 			 case "respuestaReclamacion":
   			 $cadenaSql=" SELECT";
   			 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
-				 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador";
-				 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion";
+				 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
+				 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion, jano_usuario us";
   			 $cadenaSql.=" WHERE";
  			 	 $cadenaSql.=" reclamacion.id=respuesta.id_reclamacion";
   			 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+				 $cadenaSql.="AND concat(us.tipo_identificacion, '', us.identificacion)=respuesta.id_evaluador";
  			 	 //echo $cadenaSql;
   			break;
 

@@ -35,6 +35,17 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+			case "respuestaReclamacion":
+ 			 $cadenaSql=" SELECT";
+ 			 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
+			 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador";
+			 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion";
+ 			 $cadenaSql.=" WHERE";
+			 $cadenaSql.=" reclamacion.id=respuesta.id_reclamacion";
+ 			 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+			 //echo $cadenaSql;
+ 			break;
+
 			case "inactivarValidacion" :
 					$cadenaSql = "UPDATE ";
 					$cadenaSql .= "concurso.valida_requisito ";

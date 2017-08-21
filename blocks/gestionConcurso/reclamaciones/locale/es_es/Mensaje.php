@@ -23,6 +23,7 @@ $this->idioma["marcoCalendario"]="Calendario Concurso";
 $this->idioma["marcoListaCalendario"]="Calendario de actividades para el Concurso";
 $this->idioma["marcoInscrito"]="Registro Inscrito";
 $this->idioma["marcoEvaluacionReclamacion"]="Evaluar reclamación";
+$this->idioma["marcoConsultaReclamacion"]="Reclamación";
 
 $this->idioma["noEncontroInscrito"]="No tiene aspirantes asignados para evaluación";
 $this->idioma["noEncontroCriteriosParaEvaluar"]="No se encontraron criterios para la evaluación";

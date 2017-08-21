@@ -101,6 +101,13 @@ class consultarForm {
 							            $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 													//var_dump($resultadoRespuestaReclamaciones);
 
+													$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+													$variableDetalleRta.= "&opcion=consultarDetalleRta";
+													$variableDetalleRta.= "&reclamacion=" .$resultadoReclamaciones[$key]['id'];
+													$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+													$variableDetalleRta.= "&tiempo=" . time ();
+													$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
+
 													$parametro=array(
 														'consecutivo_inscrito'=>$resultadoReclamaciones[$key]['id_inscrito'],
 														'reclamacion'=>$resultadoReclamaciones[$key]['id']
@@ -153,7 +160,18 @@ class consultarForm {
 																											unset ( $atributos );
 
 																					}else{
-																						$mostrarHtml .=$respuesta;
+																						$esteCampo = "detalle";
+																						$atributos["id"]=$esteCampo;
+																						$atributos['enlace']=$variableDetalleRta;
+																						$atributos['tabIndex']=$esteCampo;
+																						$atributos['redirLugar']=true;
+																						$atributos['estilo']='clasico';
+																						$atributos['enlaceTexto']=$respuesta;
+																						$atributos['ancho']='25';
+																						$atributos['alto']='25';
+																						//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																						$mostrarHtml .= $this->miFormulario->enlace($atributos);
+
 																					}
 
 																				$mostrarHtml .="</td>";

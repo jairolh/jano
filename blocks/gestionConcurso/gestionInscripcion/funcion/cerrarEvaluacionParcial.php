@@ -83,6 +83,8 @@ class cerrarEvaluacion {
                             
                         //    var_dump($puntaje);exit;    
                         $fase=array('puntos'=>0,'Paprueba'=>0,'aprobo'=>array());
+                        $evaluacion=array();
+                        $promedio=0;
                         foreach ($puntaje as $eval => $value) 
                             {   $final=($puntaje[$eval]['puntos']/$puntaje[$eval]['jurados']);
                                 //se calcula los puntajes final de la fase y de aprobación
@@ -98,11 +100,14 @@ class cerrarEvaluacion {
                                array_push($fase['aprobo'],$puntosFinal['aprobo']);
                                //registra puntaje final
                                $this->cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionFinal", $puntosFinal);
-                               $resultadofinal= $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $puntosFinal, "registroCalculoEvaluacionFinal" );
+                               $resultadofinal=$esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $puntosFinal, "registroCalculoEvaluacionFinal" );
                                $puntosParcial=array('id_inscrito'=>$puntosFinal['id_inscrito'],
                                                     'id_evaluar'=>$puntosFinal['id_evaluar'],
                                                     'id_evaluacion_final'=>$resultadofinal,
+                                                    'puntaje_final'=>$final,
                                         );
+                                array_push($evaluacion,$puntosParcial);    
+                                $promedio+=$final;
                                //registra relacion de evaluacion final con evaluación parcial
                                $this->cadena_sql = $this->miSql->getCadenaSql("actualizarEvaluacionParcial", $puntosParcial);
                                $resultadoParcial = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $puntosParcial, "actualizarEvaluacionParcial" );
@@ -113,10 +118,27 @@ class cerrarEvaluacion {
                         unset($puntaje);
                            
                         }
+                        //se valida si pasa todos las evaluaciones y alcanza el porcentaje de aprobacion
+                        if(isset($fase))
+                            {  
+                            $parametroProm=array('id_inscrito'=>$resultadoListaInscrito[$key]['consecutivo_inscrito'] ,
+                                                 'id_calendario'=>$parametro['consecutivo_calendario'] ,
+                                                 'puntaje_promedio'=>$promedio ,
+                                                 'evaluaciones'=>json_encode($evaluacion),
+                                                 'fecha_registro'=>$parametro['fecha_registro'],
+                                                 'id_reclamacion'=>0,
+                                                );
+                            $this->cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionPromedio", $parametroProm);
+                            $resultadoPromedio = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $parametroProm, "registroEvaluacionPromedio" );
+                            unset($evaluacion);
+                            unset($promedio);
+                            }                        
+                        
                         
                         //se valida si pasa todos las evaluaciones y alcanza el porcentaje de aprobacion
                         if(isset($fase))
-                            {   $porcetaje_fase=($fase['puntos']*100)/$resultadoCriterio[0]['maximo_fase'];
+                            {  
+                            $porcetaje_fase=($fase['puntos']*100)/$resultadoCriterio[0]['maximo_fase'];
                                 $puntos_aprueba=($resultadoCriterio[0]['maximo_fase']*$_REQUEST['porcentaje_aprueba'])/100;
                                 if(!in_array("NO", $fase['aprobo']) && $porcetaje_fase>=$_REQUEST['porcentaje_aprueba'])
                                     { $parametro['faseDesc']= ',con '.$fase['puntos'].' puntos y un minimo para aprobar de '.$puntos_aprueba.' puntos';  

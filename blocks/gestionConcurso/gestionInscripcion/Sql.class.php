@@ -874,6 +874,32 @@ class Sql extends \Sql {
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING id";
                         break;
+                    
+                        case "registroEvaluacionPromedio":
+                                $cadenaSql=" INSERT INTO";
+                                $cadenaSql.=" concurso.evaluacion_promedio(";
+                                $cadenaSql.=" id,";
+                                $cadenaSql.=" id_inscrito,";
+                                $cadenaSql.=" id_calendario,";
+                                $cadenaSql.=" puntaje_promedio,";
+                                $cadenaSql.=" evaluaciones,";
+                                $cadenaSql.=" fecha_registro,";
+                                $cadenaSql.=" estado,";
+                                $cadenaSql.=" id_reclamacion)";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['id_inscrito']."', ";
+                                $cadenaSql .= " '".$variable['id_calendario']."', ";
+                                $cadenaSql .= " '".$variable['puntaje_promedio']."', ";
+                                $cadenaSql .= " '".$variable['evaluaciones']."', ";
+                                $cadenaSql .= " '".$variable['fecha_registro']."', ";
+                                $cadenaSql .= " 'A', ";
+                                $cadenaSql .= " '".$variable['id_reclamacion']."' ";
+                                $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id";
+                        break;                    
+                    
+                    
 
                         case "registroAspirantesJurado":
 				$cadenaSql=" INSERT INTO concurso.jurado_inscrito(";

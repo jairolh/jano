@@ -30,7 +30,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 					include ($this->ruta . "formulario/tabs/ListaParcialValidado.php");
 				    break;
                                 case 'evaluacion':    
-					include ($this->ruta . "formulario/tabs/faseEvaluado.php");
+					include ($this->ruta . "formulario/tabs/ListaParcialEvaluado.php");
 				    break;				                                  
         		}
                 

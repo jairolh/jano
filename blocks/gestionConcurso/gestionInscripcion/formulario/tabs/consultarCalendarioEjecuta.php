@@ -204,6 +204,7 @@ class consultarCalendario {
                                                         $variableVer.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
                                                         $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
                                                         $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
+                                                        $variableVer.= "&porcentaje_aprueba=".$resultadoListaCalendario[$key]['porcentaje_aprueba']; 
                                                         $variableVer.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                                         $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
                                                         $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);

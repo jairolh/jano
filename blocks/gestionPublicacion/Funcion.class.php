@@ -70,6 +70,9 @@ class Funcion {
                     
                     switch ($_REQUEST ['opcion'])
                         {       
+                            case "resumenFaseEvaluado":
+                                    $this->resumenFaseEvaluado();
+                                break;
                             case "resumenFaseValidado":
                                     $this->resumenFaseValidado();
                                 break;
@@ -156,7 +159,19 @@ class Funcion {
                         break; 
                 }
 	}        
-        
+
+	function resumenFaseEvaluado()
+	{
+            switch ($_REQUEST ['tipo_cierre'])
+                {       
+                    case "parcial":
+                            include_once($this->ruta."/funcion/resumenParcialEvaluacion.php");
+                        break;
+                    case "final":
+                            include_once($this->ruta."/funcion/resumenFinalEvaluacion.php");
+                        break; 
+                }
+	}          
 	function resumen()
 	{
 		include_once($this->ruta."/funcion/resumenUsuario.php");

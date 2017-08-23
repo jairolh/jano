@@ -32,6 +32,11 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
+			 case "consultaMensaje":
+			 		$cadenaSql = "Select * FROM jano_texto ";
+					$cadenaSql .= "WHERE tipo='mensaje' ";
+          break;
+
 			case "consultaConcursosActivos":
            $cadenaSql = "Select consecutivo_concurso, nombre, descripcion, estado, fecha_inicio, fecha_fin from concurso.concurso ";
            $cadenaSql .= "WHERE estado='A' ";

@@ -12,6 +12,9 @@
             <div class="alert alert-info">
 
               <?php
+          		$cadena_sql = $this->miSql->getCadenaSql("consultaMensaje");
+          		$resultadoMensaje = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
               // ---------------- CONTROL: Checkbox -----------
               $esteCampo = 'autorizacion';
               $atributos ['id'] = $esteCampo;
@@ -20,7 +23,7 @@
               $atributos ['columnas'] = 2;
               $atributos ['tab'] = $tab ++;
               $atributos ['anchoEtiqueta'] = 2;
-              $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+              $atributos ['etiqueta'] = $resultadoMensaje[0]['texto'];
               $atributos ['seleccionado'] = false;
               //$atributos ['evento'] = ' ';
               $atributos ['estilo'] = 'justificado';

@@ -45,6 +45,9 @@ class Frontera {
 		if (isset ( $_REQUEST ['opcion'] )) {
 
 			switch ($_REQUEST ['opcion']) {
+				case "consultarDetalleRta":
+					include_once($this->ruta."formulario/respuestaReclamacion.php");
+					break;
 
 				case "consutarReclamaciones" :
 					include_once($this->ruta."formulario/consultarReclamaciones.php");

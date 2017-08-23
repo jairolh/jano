@@ -117,7 +117,7 @@ class consultarForm {
                         					<th>Perfil</th>
                                   <th>Estado</th>
 																	<th>Detalle</th>
-																	<th>Detalle2</th>
+																	<th>Evaluaciones</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -165,7 +165,7 @@ class consultarForm {
 																$atributos ['id'] = $esteCampo;
 																$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
 																$atributos ['tabIndex'] = 0;
-																$atributos ['columnas'] = 1;
+																//$atributos ['columnas'] = 1;
 																$atributos ['enlaceTexto'] = 'Ver Detalle';
 																$atributos ['estilo'] = 'clasico';
 																$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
@@ -211,7 +211,7 @@ class consultarForm {
 																$atributos['tabIndex']=$esteCampo;
 																$atributos['redirLugar']=true;
 																$atributos['estilo']='clasico';
-																$atributos['enlaceTexto']='Evaluaciones';
+																$atributos['enlaceTexto']='Ver Evaluaciones';
 																$atributos ['posicionImagen'] ="atras";//"adelante";
 																$atributos['ancho']='20px';
 																$atributos['alto']='20px';

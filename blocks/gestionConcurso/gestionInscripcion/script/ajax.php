@@ -36,6 +36,12 @@ $cadenaACodificarJurado .= "&tiempo=" . $_REQUEST ['tiempo'];
 $cadenaJurado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarJurado, $enlace );
 $urlFinalJurado = $url . $cadenaJurado;
 
+//evaluador
+$cadenaACodificarJurado = $cadenaACodificar . "&funcion=consultarAspirantesEvaluador";
+$cadenaACodificarJurado .= "&tiempo=" . $_REQUEST ['tiempo'];
+$cadenaJurado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $cadenaACodificarJurado, $enlace );
+$urlFinalJurado = $url . $cadenaJurado;
+
 //jurado2
 $cadenaACodificarJurado2 = $cadenaACodificar . "&funcion=consultarTiposJurado";
 $cadenaACodificarJurado2 .= "&tiempo=" . $_REQUEST ['tiempo'];
@@ -178,6 +184,15 @@ function consultarCriterio(elem, request, response){
   ///////////////////////////////////////////////////////
 
   $(function () {
+        $("#<?php echo $this->campoSeguro('seleccionEvaluador')?>").change(function(){
+            if($("#<?php echo $this->campoSeguro('seleccionEvaluador')?>").val()!=''){
+              consultarAspirantes();
+            }
+
+      });
+  });
+
+  $(function () {
         $("#<?php echo $this->campoSeguro('seleccionJurado')?>").change(function(){
             if($("#<?php echo $this->campoSeguro('seleccionJurado')?>").val()!=''){
               consultarTipoJurado();
@@ -245,6 +260,64 @@ function consultarCriterio(elem, request, response){
 
   	   });
   	};
+
+    function consultarAspirantes(elem, request, response){
+    	  $.ajax({
+    	    url: "<?php echo $urlFinalJurado?>",
+    	    dataType: "json",
+    	    data: {
+            valor:$("#<?php echo $this->campoSeguro('seleccionEvaluador')?>").val(),
+            valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
+        },
+    	    success: function(data){
+
+            if(!data){
+              data=[];
+            }
+
+                $('#tablaConsultaAspirantesEvaluador').DataTable( {
+
+                    data: data,
+                    columns: [
+                        { title: "Inscripción" },
+                        { title: "Identificación" },
+                        { title: "Aspirante" },
+                        { title: "Perfil" }
+                    ],
+                    destroy: true,
+                    language: {
+                        "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
+                        "zeroRecords": "No se encontraron registros coincidentes",
+                        "info": "P&aacute;gina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay datos registrados",
+                        "infoFiltered": "(filtrado de un m&aacute;ximo de _MAX_)",
+                        "search": "Buscar:",
+                        "paginate": {
+                                    "first":      "Primera",
+                                    "last":       "&Uacute;ltima",
+                                    "next":       "Siguiente",
+                                    "previous":   "Anterior"
+                                }
+                    },
+                    lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+
+                } );
+
+            if(data!=false){
+    	        if(data[0]!=""){
+    	            $("#<?php echo $this->campoSeguro('tipoJurado')?>").html('');
+                  $("<option value='"+data[ 0 ].id_jurado_tipo+"'>"+data[ 0 ].tipo_jurado+"</option>").appendTo("#<?php echo $this->campoSeguro('tipoJurado')?>");
+                  $("#<?php echo $this->campoSeguro('tipoJurado')?>").attr('disabled','');
+                  $("#<?php echo $this->campoSeguro('tipoJurado')?>").width(450);
+                  $("#<?php echo $this->campoSeguro('tipoJurado')?>").select2();
+    		        }
+              }else{
+                consultarTodosTipoJurado();
+              }
+    	    }
+
+    	   });
+    	};
 
 
     function consultarTodosTipoJurado(elem, request, response){

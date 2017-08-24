@@ -153,6 +153,17 @@ class Sql extends \Sql {
 					//echo $cadenaSql;
 					break;
 
+				case "actualizaEvaluacionHojaVida" :
+					$cadenaSql = "UPDATE ";
+					$cadenaSql .= "concurso.evaluacion_parcial ";
+					$cadenaSql .= "SET ";
+					$cadenaSql .= "id_reclamacion = " . $variable ["reclamacion"]." ";
+					$cadenaSql .= "WHERE ";
+					$cadenaSql .= "id_inscrito =" . $variable ["consecutivo_inscrito"];
+					$cadenaSql .= " AND id_evaluar NOT IN (2,3,4)";
+					//echo $cadenaSql;
+					break;
+
 			case "consultaDatosInscripcion":
  			 $cadenaSql=" SELECT";
  			 $cadenaSql.=" calendario.consecutivo_calendario, c.nombre AS concurso, p.nombre AS perfil ";
@@ -286,7 +297,7 @@ class Sql extends \Sql {
 			 $cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 			 $cadenaSql.=" AND ep.id_grupo=eg.id";
 			 $cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
-			 //$cadenaSql.=" AND ce.consecutivo_criterio in (5,6)";
+			 $cadenaSql.=" AND ce.consecutivo_criterio NOT IN (5,6,7)";
 			 //echo $cadenaSql;
 		 break;
 

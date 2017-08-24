@@ -88,8 +88,11 @@ class consultaForm {
 			$resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 			//var_dump($resultadoValidacion);
 
-			$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacion", $_REQUEST['consecutivo_inscrito']);
+			$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionCompetencias", $_REQUEST['consecutivo_inscrito']);
 			$resultadoEvaluaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+			$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionHoja", $_REQUEST['consecutivo_inscrito']);
+			$resultadoEvaluacionesHoja = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 			$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionFinal", $_REQUEST['consecutivo_inscrito']);
 			$resultadoEvaluacionFinal = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -137,25 +140,17 @@ class consultaForm {
 */
 
 //consulta fecha máxima para realizar reclamación: Fase de VALIDACION DE REQUISITOS
-$parametro=array(
+/*$parametro=array(
 	'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 	'consecutivo_actividad'=>3
 );
 $cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
 $fechaFinReclamacionValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 $id_etapa=$fechaFinReclamacionValidacion[0]['consecutivo_calendario'];
-$etapa=$fechaFinReclamacionValidacion[0]['nombre'];
-
-//consulta fecha máxima para realizar reclamación: Fase de EVALUACION DE COMPETENCIAS
-$parametro=array(
-	'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-	'consecutivo_actividad'=>9
-);
-$cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
-$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-//var_dump($fechaFinReclamacionCompetencias);
+$etapa=$fechaFinReclamacionValidacion[0]['nombre'];*/
 
 //consulta fecha máxima para realizar reclamación: Fase de PRUEBA SEGUNDA LENGUA
+/*
 $parametro=array(
 	'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 	'consecutivo_actividad'=>6
@@ -164,15 +159,15 @@ $cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
 $fechaFinReclamacionSegundaLengua = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 //var_dump($fechaFinReclamacionSegundaLengua);
 $id_etapa=$fechaFinReclamacionSegundaLengua[0]['consecutivo_calendario'];
-$etapa=$fechaFinReclamacionSegundaLengua[0]['nombre'];
+$etapa=$fechaFinReclamacionSegundaLengua[0]['nombre'];*/
 
 //consulta fecha máxima para realizar reclamación: Fase de EVALUACIÓN HOJA DE VIDA
-$parametro=array(
+/*$parametro=array(
 	'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
 	'consecutivo_actividad'=>5
 );
 $cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
-$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");*/
 //var_dump($fechaFinReclamacionCompetencias);
 
 echo '<div class="panel-group" id="accordion">
@@ -251,7 +246,15 @@ echo '
 				);
 				$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
 				$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-				//var_dump($validacion);
+
+				$parametro=array(
+					'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+					'consecutivo_actividad'=>3
+				);
+				$cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
+				$fechaFinReclamacionValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+				//$id_etapa=$fechaFinReclamacionValidacion[0]['consecutivo_calendario'];
+				//$etapa=$fechaFinReclamacionValidacion[0]['nombre'];
 
 				echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
@@ -420,6 +423,17 @@ echo '<div class="panel panel-default">
 			<tbody> ";
 			$mostrarHtml = "";
 	if($resultadoEvaluacionILUD){
+
+		$parametro=array(
+			'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+			'consecutivo_actividad'=>6
+		);
+		$cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
+		$fechaFinReclamacionSegundaLengua = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+		//$id_etapa=$fechaFinReclamacionSegundaLengua[0]['consecutivo_calendario'];
+		//$etapa=$fechaFinReclamacionSegundaLengua[0]['nombre'];
+		//var_dump($validacion);
+
 		foreach($resultadoEvaluacionILUD as $key=>$value ){
 			if ($resultadoEvaluacionILUD[$key]['observacion']==""){
 				$resultadoEvaluacionILUD[$key]['observacion']="Sin observaciones";
@@ -627,63 +641,13 @@ echo '</div>
 
 </div> ';
 
-
-
-
-    echo '<div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Evaluación Competencias Profesionales y Comunicativas</a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse">';
-
-			echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
-			echo "<thead>
-							<tr align='center'>
-									<th>Criterio</th>
-									<th>Puntaje</th>
-									<th>Observación</th>
-									<th>Fecha</th>
-									<th>Evaluador</th>
-							</tr>
-					</thead>
-					<tbody> ";
-					$mostrarHtml = "";
-			if($resultadoEvaluaciones){
-				foreach($resultadoEvaluaciones as $key=>$value ){
-					if ($resultadoEvaluaciones[$key]['observacion']==""){
-						$resultadoEvaluaciones[$key]['observacion']="Sin observaciones";
-					}
-
-					$mostrarHtml .= "<tr align='center'>
-													<td align='left'>".$resultadoEvaluaciones[$key]['criterio']."</td>
-													<td align='left'>".$resultadoEvaluaciones[$key]['puntaje_parcial']."</td>
-													<td align='left'>".$resultadoEvaluaciones[$key]['observacion']."</td>
-													<td align='left'>".$resultadoEvaluaciones[$key]['fecha_registro']."</td>
-													<td align='left'>".$resultadoEvaluaciones[$key]['evaluador']."</td>
-													<td align='left'>"."</td>";
-					$mostrarHtml .= "</tr>";
-				}
-			}
-			echo $mostrarHtml;
-			unset($mostrarHtml);
-
-			echo "</tbody>";
-
-			echo "</table>";
-    echo '</div>
-
-  </div> ';
-
-
 	echo '<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Evaluación Competencias Profesionales y Comunicativas</a>
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Evaluación Competencias Profesionales y Comunicativas</a>
 			</h4>
 		</div>
-		<div id="collapse3" class="panel-collapse collapse">';
+		<div id="collapse4" class="panel-collapse collapse">';
 
 		echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 		echo "<thead>
@@ -691,22 +655,36 @@ echo '</div>
 								<th>Criterio</th>
 								<th>Puntaje</th>
 								<th>Observación</th>
-								<th>Aprobación</th>
+								<th>Fecha</th>
+								<th>Evaluador</th>
 						</tr>
 				</thead>
 				<tbody> ";
+
 				$mostrarHtml = "";
 				if($resultadoEvaluaciones){
-					foreach($resultadoEvaluacionFinal as $key=>$value ){
-						if ($resultadoEvaluacionFinal[$key]['observacion']==""){
-							$resultadoEvaluacionFinal[$key]['observacion']="Sin observaciones";
+					//consulta fecha máxima para realizar reclamación: Fase de EVALUACION DE COMPETENCIAS
+					$parametro=array(
+						'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+						'consecutivo_actividad'=>9
+					);
+					$cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
+					$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+					$id_etapa=$fechaFinReclamacionCompetencias[0]['consecutivo_calendario'];
+					$etapa=$fechaFinReclamacionCompetencias[0]['nombre'];
+					//var_dump($fechaFinReclamacionCompetencias);
+
+					foreach($resultadoEvaluaciones as $key=>$value ){
+						if ($resultadoEvaluaciones[$key]['observacion']==""){
+							$resultadoEvaluaciones[$key]['observacion']="Sin observaciones";
 						}
 
 						$mostrarHtml .= "<tr align='center'>
-														<td align='left'>".$resultadoEvaluacionFinal[$key]['nombre']."</td>
-														<td align='left'>".$resultadoEvaluacionFinal[$key]['puntaje_final']."</td>
-														<td align='left'>".$resultadoEvaluacionFinal[$key]['observacion']."</td>
-														<td align='left'>".$resultadoEvaluacionFinal[$key]['aprobo']."</td>";
+														<td align='left'>".$resultadoEvaluaciones[$key]['criterio']."</td>
+														<td align='left'>".$resultadoEvaluaciones[$key]['puntaje_parcial']."</td>
+														<td align='left'>".$resultadoEvaluaciones[$key]['observacion']."</td>
+														<td align='left'>".$resultadoEvaluaciones[$key]['fecha_registro']."</td>
+														<td align='left'>".$resultadoEvaluaciones[$key]['evaluador']."</td>";
 						$mostrarHtml .= "</tr>";
 					}
 				}
@@ -726,11 +704,128 @@ echo '</div>
 		echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
 		unset($atributos);
 
+		//buscar reclamación
+		$parametro=array(
+			'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+			'reclamacion'=>$resultadoEvaluaciones[0]['id_reclamacion']
+		);
 		//buscar reclamaciones realizadas
-		$reclamaciones=false;
+		$cadena_sql = $this->miSql->getCadenaSql("reclamacionesCompetencias", $parametro);
+		$reclamacionesCompetencias = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-		if($reclamaciones){
+		if($reclamacionesCompetencias){
+			//buscar respuesta a la reclamación
+			$parametro=array(
+				'reclamacion'=>$resultadoEvaluacionILUD[0]['id_reclamacion']
+			);
+			$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
+			$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+			//enlace para consultar los criterios asociados al tipo de jurado
+			$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			$variableDetalleRta.= "&opcion=consultarDetalleRta";
+			$variableDetalleRta.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$variableDetalleRta.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$variableDetalleRta.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$variableDetalleRta.= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
+			$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+			$variableDetalleRta.= "&tiempo=" . time ();
+			$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
+
+			$parametro=array(
+				'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+				'reclamacion'=>$resultadoValidacion[0]['id_reclamacion']
+			);
+			$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
+			$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+			//var_dump($validacion);
+
+			echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+			echo "<thead>
+							<tr align='center'>
+									<th>Reclamación</th>
+									<th>Observación</th>
+									<th>Fecha</th>
+									<th>¿Aplica la reclamación?</th>
+									<th>Nueva Evaluación</th>
+							</tr>
+					</thead>
+					<tbody> ";
+
+			$mostrarHtml ="";
+			foreach($resultadoEvaluaciones as $key=>$value ){
+
+			$mostrarHtml .= "<tr align='center'>
+											<td align='left'>".$reclamacionesCompetencias[$key]['id']."</td>
+											<td align='left'>".$reclamacionesCompetencias[$key]['observacion']."</td>
+											<td align='left'>".$reclamacionesCompetencias[$key]['fecha_registro']."</td>";
+
+			if($respuestaReclamacion){
+				$mostrarHtml .= "<td align='left'>";
+				$esteCampo = "detalle";
+				$atributos["id"]=$esteCampo;
+				$atributos['enlace']=$variableDetalleRta;
+				$atributos['tabIndex']=$esteCampo;
+				$atributos['redirLugar']=true;
+				$atributos['estilo']='clasico';
+				$atributos['enlaceTexto']=$respuestaReclamacion[0]['respuesta'];
+				$atributos['ancho']='25';
+				$atributos['alto']='25';
+				//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+
+				$mostrarHtml .= $this->miFormulario->enlace($atributos);
+				$mostrarHtml .= "</td>";
+			}else{
+				$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+			}
+
+
+			//$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+			$mostrarHtml .=	"<td align='left'>";
+			if($validacion[0][0]==2){
+				$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+				$variableValidacion.= "&opcion=consultaNuevaEvaluacion";
+				//$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+				$variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
+				$variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+				$variableValidacion.= "&tiempo=" . time ();
+				$variableValidacion .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_concurso'];
+				//$variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
+				//$variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
+				$variableValidacion .= "&reclamacion=".$respuestaReclamacion[0]['id_reclamacion'];
+				$variableValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidacion, $directorio);
+
+				//-------------Enlace-----------------------
+				$esteCampo = "verEvaluacion";
+				$esteCampo = 'enlace_hoja';
+				$atributos ['id'] = $esteCampo;
+				$atributos ['enlace'] = $variableValidacion;
+				$atributos ['tabIndex'] = 0;
+				$atributos ['columnas'] = 1;
+				$atributos ['enlaceTexto'] = 'Ver Evaluación';
+				$atributos ['estilo'] = 'clasico';
+				$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+				$atributos ['posicionImagen'] ="atras";//"adelante";
+				$atributos ['ancho'] = '20px';
+				$atributos ['alto'] = '20px';
+				$atributos ['redirLugar'] = false;
+				$atributos ['valor'] = '';
+				$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+				unset ( $atributos );
+			}else{
+				$mostrarHtml .=	"Pendiente"."</td>";
+			}
+			$mostrarHtml .=	"</td>";
+			$mostrarHtml .= "</tr>";
+
+		}
+
+			echo $mostrarHtml;
+			unset($mostrarHtml);
+
+			echo "</tbody>";
+
+			echo "</table>";
 		}else{
 			$atributos["id"]="divNoEncontroPerfil";
 			$atributos["estilo"]="";
@@ -786,6 +881,52 @@ echo '</div>
 	echo '</div>
 
 	</div> ';
+
+	echo '<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Evaluación Hoja de Vida</a>
+			</h4>
+		</div>
+		<div id="collapse3" class="panel-collapse collapse">';
+
+		echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+		echo "<thead>
+						<tr align='center'>
+								<th>Criterio</th>
+								<th>Puntaje</th>
+								<th>Observación</th>
+								<th>Fecha</th>
+								<th>Evaluador</th>
+						</tr>
+				</thead>
+				<tbody> ";
+				$mostrarHtml = "";
+		if($resultadoEvaluacionesHoja){
+
+			foreach($resultadoEvaluacionesHoja as $key=>$value ){
+				if ($resultadoEvaluacionesHoja[$key]['observacion']==""){
+					$resultadoEvaluacionesHoja[$key]['observacion']="Sin observaciones";
+				}
+
+				$mostrarHtml .= "<tr align='center'>
+												<td align='left'>".$resultadoEvaluacionesHoja[$key]['criterio']."</td>
+												<td align='left'>".$resultadoEvaluacionesHoja[$key]['puntaje_parcial']."</td>
+												<td align='left'>".$resultadoEvaluacionesHoja[$key]['observacion']."</td>
+												<td align='left'>".$resultadoEvaluacionesHoja[$key]['fecha_registro']."</td>
+												<td align='left'>".$resultadoEvaluacionesHoja[$key]['evaluador']."</td>";
+				$mostrarHtml .= "</tr>";
+			}
+		}
+		echo $mostrarHtml;
+		unset($mostrarHtml);
+
+		echo "</tbody>";
+
+		echo "</table>";
+	echo '</div>
+
+</div> ';
 
 
 				}
@@ -846,7 +987,17 @@ echo '</div>
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-			$valorCodificado .= "&consecutivo_actividad=".$fechaFinReclamacionSegundaLengua[0]['consecutivo_actividad'];
+
+			/*if(isset($fechaFinReclamacionValidacion)){
+				$actividad=$fechaFinReclamacionValidacion[0]['consecutivo_actividad'];
+			}
+			else if(isset($fechaFinReclamacionSegundaLengua)){
+				$actividad=$fechaFinReclamacionSegundaLengua[0]['consecutivo_actividad'];
+			}else{
+				$actividad=$fechaFinReclamacionCompetencias[0]['consecutivo_actividad'];
+			}*/
+			$actividad=$fechaFinReclamacionCompetencias[0]['consecutivo_actividad'];
+			$valorCodificado .= "&consecutivo_actividad=".$actividad;
 			if(isset($etapa)){
 				$valorCodificado .= "&id_etapa=".$id_etapa;
 				$valorCodificado .= "&etapa=".$etapa;

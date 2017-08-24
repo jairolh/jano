@@ -32,6 +32,8 @@ class RegistradorValidacion {
 	      $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
         $fecha = date("Y-m-d H:i:s");
+        /*var_dump($_REQUEST);
+        exit;*/
 
         $arregloDatos = array(
                               'observaciones'=>$_REQUEST['observaciones'],
@@ -73,9 +75,28 @@ class RegistradorValidacion {
                                   'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
                                   'reclamacion'=>$resultado
             );
-            //se referencia la reclamación en la tabla concurso.valida_requisito
+            //se referencia la reclamación en la tabla concurso.evaluacion_parcial
             $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaEvaluacion',$arregloDatos );
-            $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaValidacion" );
+            $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaEvaluacion" );
+
+            if($resultadoActualizacion){
+              redireccion::redireccionar('registroReclamacion',$arregloDatos);  exit();
+            }
+          }
+
+          //Para Competencias
+          else if($_REQUEST['consecutivo_actividad']==9){
+            $arregloDatos = array(
+                                  'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
+                                  'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                  'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
+                                  'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                  'reclamacion'=>$resultado
+            );
+            //se referencia la reclamación en la tabla concurso.evaluacion_parcial
+            $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaEvaluacionCompetencias',$arregloDatos );
+
+            $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaEvaluacion" );
 
             if($resultadoActualizacion){
               redireccion::redireccionar('registroReclamacion',$arregloDatos);  exit();

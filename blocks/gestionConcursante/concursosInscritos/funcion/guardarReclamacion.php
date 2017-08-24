@@ -47,7 +47,7 @@ class RegistradorValidacion {
           //de acuerdo a la etapa, se debe referenciar la validación o la evaluación
 
           //Para la Verificación de Requisitos
-          if($_REQUEST['consecutivo_calendario']==3){
+          if($_REQUEST['consecutivo_actividad']==3){
             $arregloDatos = array(
                                   'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
                                   'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
@@ -57,6 +57,24 @@ class RegistradorValidacion {
             );
             //se referencia la reclamación en la tabla concurso.valida_requisito
             $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaValidacion',$arregloDatos );
+            $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaValidacion" );
+
+            if($resultadoActualizacion){
+              redireccion::redireccionar('registroReclamacion',$arregloDatos);  exit();
+            }
+          }
+
+          //Para la Prueba idiomas
+          else if($_REQUEST['consecutivo_actividad']==6){
+            $arregloDatos = array(
+                                  'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
+                                  'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                  'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
+                                  'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                  'reclamacion'=>$resultado
+            );
+            //se referencia la reclamación en la tabla concurso.valida_requisito
+            $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaEvaluacion',$arregloDatos );
             $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaValidacion" );
 
             if($resultadoActualizacion){

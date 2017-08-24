@@ -163,6 +163,8 @@ $parametro=array(
 $cadena_sql = $this->miSql->getCadenaSql("fechaFinReclamacion", $parametro);
 $fechaFinReclamacionSegundaLengua = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 //var_dump($fechaFinReclamacionSegundaLengua);
+$id_etapa=$fechaFinReclamacionSegundaLengua[0]['consecutivo_calendario'];
+$etapa=$fechaFinReclamacionSegundaLengua[0]['nombre'];
 
 //consulta fecha máxima para realizar reclamación: Fase de EVALUACIÓN HOJA DE VIDA
 $parametro=array(
@@ -388,14 +390,245 @@ echo '
 
 			}
 
-
-
-
-
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 echo '</div>';
 echo '</div>';
+
+$cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionILUD", $_REQUEST['consecutivo_inscrito']);
+$resultadoEvaluacionILUD = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+//var_dump($resultadoEvaluacionILUD);
+
+echo '<div class="panel panel-default">
+	<div class="panel-heading">
+		<h4 class="panel-title">
+			<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Evaluación Segunda Lengua</a>
+		</h4>
+	</div>
+	<div id="collapse2" class="panel-collapse collapse">';
+
+	echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+	echo "<thead>
+					<tr align='center'>
+							<th>Criterio</th>
+							<th>Puntaje</th>
+							<th>Observación</th>
+							<th>Fecha</th>
+							<th>Evaluador</th>
+					</tr>
+			</thead>
+			<tbody> ";
+			$mostrarHtml = "";
+	if($resultadoEvaluacionILUD){
+		foreach($resultadoEvaluacionILUD as $key=>$value ){
+			if ($resultadoEvaluacionILUD[$key]['observacion']==""){
+				$resultadoEvaluacionILUD[$key]['observacion']="Sin observaciones";
+			}
+
+			$mostrarHtml .= "<tr align='center'>
+											<td align='left'>".$resultadoEvaluacionILUD[$key]['criterio']."</td>
+											<td align='left'>".$resultadoEvaluacionILUD[$key]['puntaje_parcial']."</td>
+											<td align='left'>".$resultadoEvaluacionILUD[$key]['observacion']."</td>
+											<td align='left'>".$resultadoEvaluacionILUD[$key]['fecha_registro']."</td>
+											<td align='left'>".$resultadoEvaluacionILUD[$key]['evaluador']."</td>
+											<td align='left'>"."</td>";
+			$mostrarHtml .= "</tr>";
+		}
+	}
+	echo $mostrarHtml;
+	unset($mostrarHtml);
+
+	echo "</tbody>";
+	echo "</table>";
+
+	$esteCampo = "marcoConsultaPerfiles";
+	$atributos["estilo"] = "jqueryui";
+	$atributos["leyenda"] = "Reclamaciones";
+
+	echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+	unset($atributos);
+
+	//buscar reclamación
+	$parametro=array(
+		'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+		'reclamacion'=>$resultadoEvaluacionILUD[0]['id_reclamacion']
+	);
+
+	$cadena_sql = $this->miSql->getCadenaSql("reclamacionesILUD", $parametro);
+	$reclamacionesValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+	if($reclamacionesValidacion){
+
+		//buscar respuesta a la reclamación
+		$parametro=array(
+			'reclamacion'=>$resultadoEvaluacionILUD[0]['id_reclamacion']
+		);
+		$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
+		$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+		//enlace para consultar los criterios asociados al tipo de jurado
+		$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+		$variableDetalleRta.= "&opcion=consultarDetalleRta";
+		$variableDetalleRta.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+		$variableDetalleRta.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+		$variableDetalleRta.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+		$variableDetalleRta.= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
+		$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+		$variableDetalleRta.= "&tiempo=" . time ();
+		$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
+
+		$parametro=array(
+			'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+			'reclamacion'=>$resultadoValidacion[0]['id_reclamacion']
+		);
+		$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
+		$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+		//var_dump($validacion);
+
+		echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
+		echo "<thead>
+						<tr align='center'>
+								<th>Reclamación</th>
+								<th>Observación</th>
+								<th>Fecha</th>
+								<th>¿Aplica la reclamación?</th>
+								<th>Nueva Evaluación</th>
+						</tr>
+				</thead>
+				<tbody> ";
+
+		$mostrarHtml = "<tr align='center'>
+										<td align='left'>".$reclamacionesValidacion[0]['id']."</td>
+										<td align='left'>".$reclamacionesValidacion[0]['observacion']."</td>
+										<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>";
+
+		if($respuestaReclamacion){
+			$mostrarHtml .= "<td align='left'>";
+			$esteCampo = "detalle";
+			$atributos["id"]=$esteCampo;
+			$atributos['enlace']=$variableDetalleRta;
+			$atributos['tabIndex']=$esteCampo;
+			$atributos['redirLugar']=true;
+			$atributos['estilo']='clasico';
+			$atributos['enlaceTexto']=$respuestaReclamacion[0]['respuesta'];
+			$atributos['ancho']='25';
+			$atributos['alto']='25';
+			//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+
+			$mostrarHtml .= $this->miFormulario->enlace($atributos);
+			$mostrarHtml .= "</td>";
+		}else{
+			$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+		}
+
+
+		//$mostrarHtml .=	"<td align='left'>"."Pendiente"."</td>";
+		$mostrarHtml .=	"<td align='left'>";
+		if($validacion[0][0]==2){
+			$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			$variableValidacion.= "&opcion=consultaNuevaEvaluacion";
+			//$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+			$variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
+			$variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+			$variableValidacion.= "&tiempo=" . time ();
+			$variableValidacion .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_concurso'];
+			//$variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
+			//$variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
+			$variableValidacion .= "&reclamacion=".$respuestaReclamacion[0]['id_reclamacion'];
+			$variableValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidacion, $directorio);
+
+			//-------------Enlace-----------------------
+			$esteCampo = "verEvaluacion";
+			$esteCampo = 'enlace_hoja';
+			$atributos ['id'] = $esteCampo;
+			$atributos ['enlace'] = $variableValidacion;
+			$atributos ['tabIndex'] = 0;
+			$atributos ['columnas'] = 1;
+			$atributos ['enlaceTexto'] = 'Ver Evaluación';
+			$atributos ['estilo'] = 'clasico';
+			$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+			$atributos ['posicionImagen'] ="atras";//"adelante";
+			$atributos ['ancho'] = '20px';
+			$atributos ['alto'] = '20px';
+			$atributos ['redirLugar'] = false;
+			$atributos ['valor'] = '';
+			$mostrarHtml .= $this->miFormulario->enlace( $atributos );
+			unset ( $atributos );
+		}else{
+			$mostrarHtml .=	"Pendiente"."</td>";
+		}
+		$mostrarHtml .=	"</td>";
+		$mostrarHtml .= "</tr>";
+
+		echo $mostrarHtml;
+		unset($mostrarHtml);
+
+		echo "</tbody>";
+
+		echo "</table>";
+
+	}else{
+		$atributos["id"]="divNoEncontroPerfil";
+		$atributos["estilo"]="";
+		//$atributos["estiloEnLinea"]="display:none";
+		echo $this->miFormulario->division("inicio",$atributos);
+
+		//-------------Control Boton-----------------------
+		$esteCampo = "noEncontroPerfil";
+		$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+		$atributos["etiqueta"] = "";
+		$atributos["estilo"] = "centrar";
+		$atributos["tipo"] = 'error';
+		$atributos["mensaje"] = "No se han realizado reclamaciones para la inscripción en la etapa de <b>".$fechaFinReclamacionSegundaLengua[0]['nombre']."</b>";
+		echo $this->miFormulario->cuadroMensaje($atributos);
+		unset($atributos);
+		//-------------Fin Control Boton----------------------
+
+	 echo $this->miFormulario->division("fin");
+		//------------------Division para los botones-------------------------
+
+		$fecha = date("Y-m-d H:i:s");
+		if($fecha<=$fechaFinReclamacionSegundaLengua[0]['fecha_fin_reclamacion']){
+
+			// ------------------Division para los botones-------------------------
+			$atributos ["id"] = "botones";
+			$atributos ["estilo"] = "marcoBotones";
+			echo $this->miFormulario->division ( "inicio", $atributos );
+			unset ( $atributos );
+			{
+				// -----------------CONTROL: Botón ----------------------------------------------------------------
+				$esteCampo = 'botonSolicitarReclamacion';
+				$atributos ["id"] = $esteCampo;
+				$atributos ["tabIndex"] = $tab;
+				$atributos ["tipo"] = 'boton';
+				// submit: no se coloca si se desea un tipo button genérico
+				$atributos ['submit'] = true;
+				$atributos ["estiloMarco"] = '';
+				$atributos ["estiloBoton"] = 'jqueryui';
+				// verificar: true para verificar el formulario antes de pasarlo al servidor.
+				$atributos ["verificar"] = '';
+				$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
+				$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+				$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+				$tab ++;
+
+				// Aplica atributos globales al control
+				$atributos = array_merge ( $atributos, $atributosGlobales );
+				echo $this->miFormulario->campoBoton ( $atributos );
+				// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+			}
+			echo $this->miFormulario->division ( 'fin' );
+		}
+
+	}
+
+	echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+echo '</div>
+
+</div> ';
+
+
+
 
     echo '<div class="panel panel-default">
       <div class="panel-heading">
@@ -613,6 +846,7 @@ echo '</div>';
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+			$valorCodificado .= "&consecutivo_actividad=".$fechaFinReclamacionSegundaLengua[0]['consecutivo_actividad'];
 			if(isset($etapa)){
 				$valorCodificado .= "&id_etapa=".$id_etapa;
 				$valorCodificado .= "&etapa=".$etapa;

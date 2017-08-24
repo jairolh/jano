@@ -212,7 +212,7 @@ function consultarCriterio(elem, request, response){
           valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
       },
   	    success: function(data){
-
+          //console.log(data);
           if(!data){
             data=[];
           }
@@ -270,7 +270,7 @@ function consultarCriterio(elem, request, response){
             valor2: "<?php echo $_REQUEST['consecutivo_concurso']?>"
         },
     	    success: function(data){
-
+            console.log(data);
             if(!data){
               data=[];
             }

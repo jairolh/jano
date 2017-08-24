@@ -83,6 +83,7 @@ class consultarEvaluador {
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			var_dump($miPaginaActual);
 			$rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
                         $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
                         $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];

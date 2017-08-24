@@ -93,7 +93,7 @@ class RegistradorValidacion {
             );
             //se referencia la reclamación en la tabla concurso.evaluacion_parcial
             $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaEvaluacionCompetencias',$arregloDatos );
-
+            var_dump($cadenaSql);
             $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaEvaluacionCompetencias" );
 
             if($resultadoActualizacion){

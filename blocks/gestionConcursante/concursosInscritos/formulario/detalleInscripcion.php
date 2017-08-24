@@ -503,6 +503,7 @@ echo '<div class="panel panel-default">
 		echo "<thead>
 						<tr align='center'>
 								<th>Reclamación</th>
+								<th>Criterio</th>
 								<th>Observación</th>
 								<th>Fecha</th>
 								<th>¿Aplica la reclamación?</th>
@@ -513,6 +514,7 @@ echo '<div class="panel panel-default">
 
 		$mostrarHtml = "<tr align='center'>
 										<td align='left'>".$reclamacionesValidacion[0]['id']."</td>
+										<td align='left'>".$reclamacionesValidacion[0]['nombre']."</td>
 										<td align='left'>".$reclamacionesValidacion[0]['observacion']."</td>
 										<td align='left'>".$reclamacionesValidacion[0]['fecha_registro']."</td>";
 
@@ -742,6 +744,7 @@ echo '</div>
 			echo "<thead>
 							<tr align='center'>
 									<th>Reclamación</th>
+									<th>Criterio</th>
 									<th>Observación</th>
 									<th>Fecha</th>
 									<th>¿Aplica la reclamación?</th>
@@ -755,6 +758,7 @@ echo '</div>
 
 			$mostrarHtml .= "<tr align='center'>
 											<td align='left'>".$reclamacionesCompetencias[$key]['id']."</td>
+											<td align='left'>".$reclamacionesCompetencias[$key]['nombre']."</td>
 											<td align='left'>".$reclamacionesCompetencias[$key]['observacion']."</td>
 											<td align='left'>".$reclamacionesCompetencias[$key]['fecha_registro']."</td>";
 
@@ -986,6 +990,7 @@ echo '</div>
 			echo "<thead>
 							<tr align='center'>
 									<th>Reclamación</th>
+									<th>Criterio</th>
 									<th>Observación</th>
 									<th>Fecha</th>
 									<th>¿Aplica la reclamación?</th>
@@ -999,6 +1004,7 @@ echo '</div>
 
 			$mostrarHtml .= "<tr align='center'>
 											<td align='left'>".$reclamacionesCompetencias[$key]['id']."</td>
+											<td align='left'>".$reclamacionesCompetencias[$key]['nombre']."</td>
 											<td align='left'>".$reclamacionesCompetencias[$key]['observacion']."</td>
 											<td align='left'>".$reclamacionesCompetencias[$key]['fecha_registro']."</td>";
 

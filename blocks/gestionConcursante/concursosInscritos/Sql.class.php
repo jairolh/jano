@@ -101,24 +101,33 @@ class Sql extends \Sql {
   			break;
 
 				case "reclamacionesILUD":
-   			 $cadenaSql=" SELECT";
-   			 $cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario ";
-   			 $cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.evaluacion_reclamacion er";
-   			 $cadenaSql.=" WHERE";
-  			 $cadenaSql.=" ep.id_reclamacion=".$variable['reclamacion'];
-   			 $cadenaSql.=" AND ep.id_inscrito=".$variable['consecutivo_inscrito'];
-				 $cadenaSql.=" AND ep.id_reclamacion=er.id";
-  			 //echo $cadenaSql;
-   			break;
+					$cadenaSql=" SELECT";
+					$cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario,";
+					$cadenaSql.=" ep.id_evaluar, ce.consecutivo_criterio, criterio.nombre";
+					$cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.evaluacion_reclamacion er,";
+					$cadenaSql.=" concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
+					$cadenaSql.=" WHERE";
+					$cadenaSql.=" ep.id_reclamacion=".$variable['reclamacion'];
+					$cadenaSql.=" AND ep.id_inscrito=".$variable['consecutivo_inscrito'];
+					$cadenaSql.=" AND ep.id_reclamacion=er.id";
+					$cadenaSql.=" AND ce.consecutivo_evaluar=ep.id_evaluar";
+					$cadenaSql.=" AND criterio.consecutivo_criterio=ce.consecutivo_criterio";
+	  			 //echo $cadenaSql;
+	   			break;
 
 				case "reclamacionesCompetencias":
    			 $cadenaSql=" SELECT";
-   			 $cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario ";
-   			 $cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.evaluacion_reclamacion er";
+   			 $cadenaSql.=" er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario,";
+				 $cadenaSql.=" ep.id_evaluar, ce.consecutivo_criterio, criterio.nombre";
+   			 $cadenaSql.=" FROM concurso.evaluacion_parcial ep, concurso.evaluacion_reclamacion er,";
+				 $cadenaSql.=" concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
    			 $cadenaSql.=" WHERE";
   			 $cadenaSql.=" ep.id_reclamacion=".$variable['reclamacion'];
    			 $cadenaSql.=" AND ep.id_inscrito=".$variable['consecutivo_inscrito'];
 				 $cadenaSql.=" AND ep.id_reclamacion=er.id";
+				 $cadenaSql.=" AND ce.consecutivo_evaluar=ep.id_evaluar";
+				 $cadenaSql.=" AND criterio.consecutivo_criterio=ce.consecutivo_criterio";
+				 //echo $cadenaSql;
    			break;
 
 			case "actualizaValidacion" :

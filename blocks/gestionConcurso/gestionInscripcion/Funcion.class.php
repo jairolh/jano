@@ -211,7 +211,7 @@ class Funcion {
                         include_once($this->ruta."/funcion/cerrarEvaluacionParcial.php");
                     break;
                     case "final":
-                        include_once($this->ruta."/funcion/cerrarEvaluacion.php");
+                        include_once($this->ruta."/funcion/cerrarEvaluacionFinal.php");
                     break;
                 }
                 

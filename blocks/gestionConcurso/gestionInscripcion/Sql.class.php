@@ -476,6 +476,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="WHERE";
                                 $cadenaSql.=" eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
+                                $cadenaSql.="AND parc.estado='A' ";
                                 if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }
                                 if(isset($variable['gr.id_evaluador']) &&  $variable['gr.id_evaluador']!='' )
@@ -542,6 +543,35 @@ class Sql extends \Sql {
                                 $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
 
                             break;                            
+
+                        case "consultarReclamacionesEvaluacion":
+                                $cadenaSql="SELECT DISTINCT ";
+                                $cadenaSql.="insc.consecutivo_inscrito, ";
+                                $cadenaSql.="prf.consecutivo_perfil,  ";
+                                $cadenaSql.="prf.consecutivo_concurso, ";
+                                $cadenaSql.="prf.nombre perfil, ";
+                                $cadenaSql.="recl.id reclamo, ";
+                                $cadenaSql.="recl.consecutivo_calendario, ";
+                                $cadenaSql.="recl.observacion , ";
+                                $cadenaSql.="recl.fecha_registro registro_recl  ";
+                                
+                                //$cadenaSql.="rsta.id id_respuesta, ";
+                                //$cadenaSql.="rsta.respuesta, ";
+                                //$cadenaSql.="rsta.observacion justificacion, ";
+                                //$cadenaSql.="rsta.fecha_registro registro_resp, ";
+                                //$cadenaSql.="rsta.id_evaluar_respuesta, ";
+                                //$cadenaSql.="rsta.id_evaluador ";
+                                
+                                $cadenaSql.="FROM concurso.concurso_perfil prf  ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil ";
+                                $cadenaSql.="INNER JOIN concurso.evaluacion_reclamacion recl ON recl.id_inscrito=insc.consecutivo_inscrito AND recl.estado='A' ";
+                                //$cadenaSql.="INNER JOIN concurso.respuesta_reclamacion rsta ON rsta.id_reclamacion=recl.id AND recl.estado='A' ";
+                                $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                if(isset($variable['faseAct']) &&  $variable['faseAct']!='' )
+                                   { $cadenaSql.="AND recl.consecutivo_calendario='".$variable['faseAct']."' "; }
+                                $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
+
+                            break;  
                             
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
@@ -926,14 +956,58 @@ class Sql extends \Sql {
                                     {$cadenaSql.="id_evaluacion_final='".$variable['id_evaluacion_final']."' ";}
                                 if(isset($variable['id_reclamacion']) && $variable['id_reclamacion']!='')
                                     {$cadenaSql.=" id_reclamacion='".$variable['id_reclamacion']."' ";}
+                                if(isset($variable['id_evaluacion_final_reclamo']) && $variable['id_evaluacion_final_reclamo']!='')
+                                    {$cadenaSql.="id_evaluacion_final_reclamo='".$variable['id_evaluacion_final_reclamo']."' ";}                                    
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" id_inscrito='".$variable['id_inscrito']."' ";
                                 $cadenaSql.=" AND id_evaluar='".$variable['id_evaluar']."' ";
                                 if(isset($variable['id_parcial']) && $variable['id_parcial']!='')
                                     {$cadenaSql.=" id='".$variable['id_parcial']."' ";}
+                                if(isset($variable['id_evaluacion_final_reclamo']) && $variable['id_evaluacion_final_reclamo']!='')
+                                    {$cadenaSql.=" AND estado='A' ";}    
                                 $cadenaSql.=" RETURNING id";
                         break;
+                        
+                        case "actualizarEvaluacionFinal":
+                                $cadenaSql.=" UPDATE concurso.evaluacion_final";
+                                $cadenaSql.=" SET ";
+                                if(isset($variable['estado']) && $variable['estado']!='')
+                                    {$cadenaSql.=" estado='".$variable['estado']."' ";}
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" id_inscrito='".$variable['id_inscrito']."' ";
+                                $cadenaSql.=" AND id_evaluar='".$variable['id_evaluar']."' ";
+                                if(isset($variable['id_final']) && $variable['id_final']!='')
+                                    {$cadenaSql.=" id='".$variable['id_final']."' ";}
+                                $cadenaSql.=" RETURNING id";
+                        break;                        
 
+                        case "actualizarEvaluacionPromedio":
+                                $cadenaSql.=" UPDATE concurso.evaluacion_promedio";
+                                $cadenaSql.=" SET ";
+                                if(isset($variable['estado']) && $variable['estado']!='')
+                                    {$cadenaSql.=" estado='".$variable['estado']."' ";}
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" id_inscrito='".$variable['id_inscrito']."' ";
+                                $cadenaSql.=" AND id_calendario='".$variable['id_calendario']."' ";
+                                if(isset($variable['id_promedio']) && $variable['id_promedio']!='')
+                                    {$cadenaSql.=" id='".$variable['id_promedio']."' ";}
+                                $cadenaSql.=" RETURNING id";
+                        break;   
+
+                        case "actualizarEtapaInscrito":
+                                $cadenaSql.=" UPDATE concurso.etapa_inscrito";
+                                $cadenaSql.=" SET ";
+                                if(isset($variable['estado']) && $variable['estado']!='')
+                                    {$cadenaSql.=" estado='".$variable['estado']."' ";}
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" consecutivo_inscrito='".$variable['consecutivo_inscrito']."' ";
+                                $cadenaSql.=" AND consecutivo_calendario_ant='".$variable['faseAct']."' ";
+                                if(isset($variable['consecutivo_etapa']) && $variable['consecutivo_etapa']!='')
+                                    {$cadenaSql.=" consecutivo_etapa='".$variable['consecutivo_etapa']."' ";}
+                                $cadenaSql.=" RETURNING consecutivo_etapa";
+                        break;   
+
+                        
                         case "actualizaCierreCalendario":
                                 $cadenaSql=" UPDATE concurso.concurso_calendario";
                                 $cadenaSql.=" SET ";

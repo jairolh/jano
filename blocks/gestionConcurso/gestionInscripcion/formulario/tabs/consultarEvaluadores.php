@@ -6,7 +6,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 
 use gestionConcurso\gestionInscripcion\funcion\redireccion;
 
-class consultarJurado {
+class consultarEvaluador {
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -83,6 +83,7 @@ class consultarJurado {
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+			var_dump($miPaginaActual);
 			$rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
                         $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
                         $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
@@ -93,7 +94,7 @@ class consultarJurado {
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 
-			$esteCampo = "marcoListaJurados";
+			$esteCampo = "marcoListaEvaluadores";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
 			$atributos ['tipoEtiqueta'] = 'inicio';
@@ -116,7 +117,7 @@ class consultarJurado {
 										 $tab=1;
 
 										 // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-										 $esteCampo = 'seleccionJurado';
+										 $esteCampo = 'seleccionEvaluador';
 										 $atributos ['columnas'] = 1;
 										 $atributos ['nombre'] = $esteCampo;
 										 $atributos ['id'] = $esteCampo;
@@ -134,38 +135,7 @@ class consultarJurado {
 										 if (isset ( $_REQUEST [$esteCampo] ))
 										 {$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
 										 else {	$atributos ['seleccion'] = -1;}
-										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarJurados" );
-										 $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-										 $atributos ['matrizItems'] = $matrizItems;
-										 // Utilizar lo siguiente cuando no se pase un arreglo:
-										 // $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
-										 // $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
-										 $tab ++;
-										 $atributos = array_merge ( $atributos, $atributosGlobales );
-										 echo $this->miFormulario->campoCuadroLista ( $atributos );
-										 unset ( $atributos );
-										 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
-
-										 // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-										 $esteCampo = 'tipoJurado';
-										 $atributos ['columnas'] = 1;
-										 $atributos ['nombre'] = $esteCampo;
-										 $atributos ['id'] = $esteCampo;
-										 $atributos ['evento'] = '';
-										 $atributos ['deshabilitado'] = true;
-										 $atributos ["etiquetaObligatorio"] = true;
-										 $atributos ['tab'] = $tab;
-										 $atributos ['tamanno'] = 1;
-										 $atributos ['estilo'] = 'jqueryui';
-										 $atributos ['validar'] = 'required';
-										 $atributos ['limitar'] = true;
-										 $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-										 $atributos ['anchoEtiqueta'] = 170;
-										 $atributos ['anchoCaja'] = 60;
-										 if (isset ( $_REQUEST [$esteCampo] ))
-										 {$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
-										 else {	$atributos ['seleccion'] = -1;}
-										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarTiposJurado" );
+										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarEvaluadores" );
 										 $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
 										 $atributos ['matrizItems'] = $matrizItems;
 										 // Utilizar lo siguiente cuando no se pase un arreglo:
@@ -184,7 +154,7 @@ class consultarJurado {
                                                                                unset ( $atributos );
                                                                                {
                                                                                        // -----------------CONTROL: Botón ----------------------------------------------------------------
-                                                                                       $esteCampo = 'botonAsignarAspirantes';
+                                                                                       $esteCampo = 'botonAsignarAspirantesEvaluador';
                                                                                        $atributos ["id"] = $esteCampo;
                                                                                        $atributos ["tabIndex"] = $tab;
                                                                                        $atributos ["tipo"] = 'boton';
@@ -218,7 +188,7 @@ class consultarJurado {
 										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );*/
 										 //var_dump($aspirantes);
 
-										 echo "<table id='tablaConsultaAspirantesAsignados' class='display' width='100%'></table>";
+										 echo "<table id='tablaConsultaAspirantesEvaluador' class='display' width='100%'></table>";
 
 										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
@@ -314,7 +284,7 @@ class consultarJurado {
 	}
 }
 
-$miSeleccionador = new consultarJurado ( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new consultarEvaluador ( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

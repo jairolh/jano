@@ -30,7 +30,6 @@ if ($_REQUEST ['funcion'] == 'consultarAspirantesAsignados') {
 
 	$cadenaSql = $this->sql->getCadenaSql ( 'consultaJurado2', $parametro );
 	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
-
   $resultado = json_encode ( $resultado );
 	echo $resultado;
 }
@@ -42,5 +41,16 @@ if ($_REQUEST ['funcion'] == 'consultarTiposJurado') {
 	echo $resultado;
 }
 
+if ($_REQUEST ['funcion'] == 'consultarAspirantesEvaluador') {
+
+  $parametro['usuario']=$_REQUEST ['valor'];
+  $parametro['concurso']=$_REQUEST ['valor2'];
+
+	$cadenaSql = $this->sql->getCadenaSql ( 'consultaJurado2', $parametro );
+	$resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
+
+  $resultado = json_encode ( $resultado );
+	echo $resultado;
+}
 
 ?>

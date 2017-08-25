@@ -162,7 +162,7 @@ class consultarForm {
 
                         echo "</table></div>";
 
-												
+
                         //echo $this->miFormulario->marcoAgrupacion("fin");
 
                 }

@@ -7,6 +7,7 @@ $this->idioma["tabConcurso"]="Registro Concurso";
 $this->idioma["tabCalendario"]="Calendario";
 $this->idioma["tabInscritos"]="Aspirantes";
 $this->idioma["tabJurados"]="Jurados";
+$this->idioma["tabEvaluadores"]="Evaluadores";
 
 //marcos
 $this->idioma["marcoEjecucion"]="<b>Concursos en ejecución</b> ";
@@ -20,6 +21,7 @@ $this->idioma["marcoListaCalendario"]="Calendario de actividades para el Concurs
 $this->idioma["marcoInscrito"]="Registro Inscrito";
 $this->idioma["marcoListaInscrito"]="Aspirantes Inscritos al Concurso";
 $this->idioma["marcoListaJurados"]="Jurados del concurso";
+$this->idioma["marcoListaEvaluadores"]="Evaluadores del concurso";
 $this->idioma["marcoListaAspirantes"]="Aspirantes a evaluar";
 
 //formularios
@@ -111,5 +113,7 @@ $this->idioma["asignarAspirantes"]="Asignar aspirantes al jurado";
 $this->idioma["marcoAsignarAspirantes"]="Asignación de aspirantes al jurado";
 $this->idioma["botonGuardarAsignacion"]="Asignar aspirantes al jurado";
 $this->idioma["botonAsignarAspirantes"]="Adicionar aspirantes al jurado";
+$this->idioma["botonAsignarAspirantesEvaluador"]="Adicionar aspirantes al evaluador";
 
+$this->idioma["seleccionEvaluador"]="Evaluador";
 ?>

@@ -242,7 +242,7 @@ class consultarForm {
 									echo $this->miFormulario->division("inicio",$atributos);
 
 									//-------------Control Boton-----------------------
-									$esteCampo = "noEncontroConcursosActivos";
+									$esteCampo = "noEncontroConcursosInscritos";
 									$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
 									$atributos["etiqueta"] = "";
 									$atributos["estilo"] = "centrar";

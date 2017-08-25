@@ -53,6 +53,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
     $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
     $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
     $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+
     $variable = "pagina=" . $miPaginaActual;
     $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
@@ -125,6 +126,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                        $items = array ( "tabCalendario" => $this->lenguaje->getCadena ( "tabCalendario" ),
                                         "tabInscritos" => $this->lenguaje->getCadena ( "tabInscritos" ),
 																				"tabJurados" => $this->lenguaje->getCadena ( "tabJurados" ),
+																				"tabEvaluadores" => $this->lenguaje->getCadena ( "tabEvaluadores" )
                                         //"tabRegistrarMasivo" => $this->lenguaje->getCadena ( "tabRegistrarMasivo" )
                         );
                         $atributos ["items"] = $items;
@@ -157,6 +159,14 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                         echo $this->miFormulario->division ( "fin" );
                         unset ( $atributos );
                         // -----------------Fin Division para la pestaña 3-------------------------
+												// ------------------Division para la pestaña 4-------------------------
+                        $atributos ["id"] = "tabEvaluadores";
+                        $atributos ["estilo"] = "";
+                        echo $this->miFormulario->division ( "inicio", $atributos );
+                        include_once ($this->ruta . "formulario/tabs/consultarEvaluadores.php");
+                        echo $this->miFormulario->division ( "fin" );
+                        unset ( $atributos );
+                        // -----------------Fin Division para la pestaña 4-------------------------
             }else
                     {   $tab=1;
                         //---------------Inicio Formulario (<form>)--------------------------------

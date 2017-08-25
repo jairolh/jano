@@ -69,11 +69,22 @@ class Sql extends \Sql {
 				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
 				$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
 				$cadenaSql.=" WHERE ";
-                                $cadenaSql.=" s.estado='1' AND";
+        $cadenaSql.=" s.estado='1' AND";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
-				$cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Jurado' OR r.rol_alias='ILUD' )";
+				$cadenaSql.=" (r.rol_alias='Jurado')";
 				break;
+
+				case 'consultarEvaluadores' :
+					$cadenaSql=" SELECT ";
+					$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
+					$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
+					$cadenaSql.=" WHERE ";
+	        $cadenaSql.=" s.estado='1' AND";
+					$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
+					$cadenaSql.=" s.rol_id=r.rol_id AND";
+					$cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Personal' OR r.rol_alias='ILUD' )";
+					break;
 
 			case 'consultarTiposJurado' :
 				$cadenaSql=" SELECT ";
@@ -391,7 +402,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ORDER BY consecutivo_inscrito ";
 
                             break;
-                            
+
                         case "consultarInscritoEtapaOrg":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="consecutivo_etapa, ";
@@ -411,8 +422,8 @@ class Sql extends \Sql {
                                    }
                                 $cadenaSql.=" ORDER BY consecutivo_inscrito ";
 
-                            break;           
-                            
+                            break;
+
                         case "consultarInscritoEtapa":
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="etp.consecutivo_inscrito ";
@@ -428,8 +439,8 @@ class Sql extends \Sql {
                                     $cadenaSql.=" AND consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
                                    }*/
                                 $cadenaSql.="ORDER BY consecutivo_inscrito ";
-                            break;    
-                        
+                            break;
+
                         case "consultarCriteriosEtapa":
                                 $cadenaSql="SELECT ";
                                 $cadenaSql.="COUNT(eval.consecutivo_criterio) criterios, ";
@@ -439,8 +450,8 @@ class Sql extends \Sql {
                                 $cadenaSql.="eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
                                 $cadenaSql.="AND eval.estado='A' ";
                                 $cadenaSql.="GROUP BY eval.consecutivo_concurso ";
-                            break;                         
-                            
+                            break;
+
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -554,14 +565,12 @@ class Sql extends \Sql {
                                 $cadenaSql.="recl.consecutivo_calendario, ";
                                 $cadenaSql.="recl.observacion , ";
                                 $cadenaSql.="recl.fecha_registro registro_recl  ";
-                                
                                 //$cadenaSql.="rsta.id id_respuesta, ";
                                 //$cadenaSql.="rsta.respuesta, ";
                                 //$cadenaSql.="rsta.observacion justificacion, ";
                                 //$cadenaSql.="rsta.fecha_registro registro_resp, ";
                                 //$cadenaSql.="rsta.id_evaluar_respuesta, ";
                                 //$cadenaSql.="rsta.id_evaluador ";
-                                
                                 $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil ";
                                 $cadenaSql.="INNER JOIN concurso.evaluacion_reclamacion recl ON recl.id_inscrito=insc.consecutivo_inscrito AND recl.estado='A' ";
@@ -572,7 +581,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
 
                             break;  
-                            
+
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";
@@ -904,7 +913,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING id";
                         break;
-                    
+
                         case "registroEvaluacionPromedio":
                                 $cadenaSql=" INSERT INTO";
                                 $cadenaSql.=" concurso.evaluacion_promedio(";
@@ -927,9 +936,9 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['id_reclamacion']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING id";
-                        break;                    
-                    
-                    
+                        break;
+
+
 
                         case "registroAspirantesJurado":
 				$cadenaSql=" INSERT INTO concurso.jurado_inscrito(";
@@ -1015,7 +1024,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_calendario= '".$variable['consecutivo_calendario']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_calendario";
-                        break;                          
+                        break;
 
 
                         case "actualizaEstadoEstapaInscrito":
@@ -1024,9 +1033,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" estado= '".$variable['estado']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_etapa= '".$variable['consecutivo_etapa']."' ";
-                                $cadenaSql.=" RETURNING consecutivo_etapa";                  
-                        break;                          
-                    
+                                $cadenaSql.=" RETURNING consecutivo_etapa";
+                        break;
+
 				/**
 				 * Clausulas genéricas. se espera que estén en todos los formularios
 				 * que utilicen esta plantilla

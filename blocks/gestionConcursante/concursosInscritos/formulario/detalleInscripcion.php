@@ -956,7 +956,7 @@ echo '</div>
 		//buscar reclamación
 		$parametro=array(
 			'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
-			'reclamacion'=>$resultadoEvaluacionesHoja[3]['id_reclamacion']
+			'reclamacion'=>$resultadoEvaluacionesHoja[0]['id_reclamacion']
 		);
 		//buscar reclamaciones realizadas
 		$cadena_sql = $this->miSql->getCadenaSql("reclamacionesCompetencias", $parametro);

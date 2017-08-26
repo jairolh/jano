@@ -149,7 +149,7 @@ class Sql extends \Sql {
 				$cadenaSql .= "id_inscrito =" . $variable ["consecutivo_inscrito"];
 				$cadenaSql .= " AND id_evaluar in ";
 
-				$cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+				$cadenaSql .= "(select distinct ce.consecutivo_evaluar from ";
 				$cadenaSql .= "concurso.concurso_evaluar ce, ";
 				$cadenaSql .= "concurso.criterio_evaluacion criterio, ";
 				$cadenaSql .= "concurso.evaluacion_parcial ep ";
@@ -170,7 +170,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "id_inscrito =" . $variable ["consecutivo_inscrito"];
 					$cadenaSql .= " AND id_evaluar in ";
 
-					$cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+					$cadenaSql .= "(select distinct ce.consecutivo_evaluar from ";
 					$cadenaSql .= "concurso.concurso_evaluar ce, ";
 					$cadenaSql .= "concurso.criterio_evaluacion criterio, ";
 					$cadenaSql .= "concurso.evaluacion_parcial ep ";
@@ -178,7 +178,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
 					$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
 					$cadenaSql .= "and id_inscrito= ".$variable ["consecutivo_inscrito"];
-					$cadenaSql .= " and (criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral'))";
+					$cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral')))";
 					break;
 
 				case "actualizaEvaluacionHojaVida" :
@@ -190,7 +190,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "id_inscrito =" . $variable ["consecutivo_inscrito"];
 					$cadenaSql .= " AND id_evaluar NOT IN ";
 
-					$cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+					$cadenaSql .= "(select distinct ce.consecutivo_evaluar from ";
 					$cadenaSql .= "concurso.concurso_evaluar ce, ";
 					$cadenaSql .= "concurso.criterio_evaluacion criterio, ";
 					$cadenaSql .= "concurso.evaluacion_parcial ep ";
@@ -198,7 +198,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
 					$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
 					$cadenaSql .= "and id_inscrito= ".$variable ["consecutivo_inscrito"];
-					$cadenaSql .= " and (criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral') or (criterio.nombre='Prueba de Lengua Extranjera'))";
+					$cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral') or (criterio.nombre='Prueba de Lengua Extranjera')))";
 					//echo $cadenaSql;
 					break;
 
@@ -279,7 +279,18 @@ class Sql extends \Sql {
 			 $cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 			 $cadenaSql.=" AND ep.id_grupo=eg.id";
 			 $cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
-			 $cadenaSql.=" AND ce.consecutivo_criterio=7";
+			 $cadenaSql.=" AND ce.consecutivo_criterio in ";
+
+			 $cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+			 $cadenaSql .= "concurso.concurso_evaluar ce, ";
+			 $cadenaSql .= "concurso.criterio_evaluacion criterio, ";
+			 $cadenaSql .= "concurso.evaluacion_parcial ep ";
+			 $cadenaSql .= "WHERE ";
+			 $cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
+			 $cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
+			 $cadenaSql .= "and id_inscrito= ".$variable;
+			 $cadenaSql .= " and (criterio.nombre='Prueba de Lengua Extranjera') )";
+
 			 //echo $cadenaSql;
 		 break;
 
@@ -307,7 +318,17 @@ class Sql extends \Sql {
 	 			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 	 			$cadenaSql.=" AND ep.id_grupo=eg.id";
 				$cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
-				$cadenaSql.=" AND ce.consecutivo_criterio in (5,6)";
+				$cadenaSql.=" AND ce.consecutivo_criterio IN";
+
+				$cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+				$cadenaSql .= "concurso.concurso_evaluar ce, ";
+				$cadenaSql .= "concurso.criterio_evaluacion criterio, ";
+				$cadenaSql .= "concurso.evaluacion_parcial ep ";
+				$cadenaSql .= "WHERE ";
+				$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
+				$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
+				$cadenaSql .= "and id_inscrito= ".$variable;
+				$cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral')))";
 	 			//echo $cadenaSql;
 	 		break;
 
@@ -335,7 +356,18 @@ class Sql extends \Sql {
 			 $cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 			 $cadenaSql.=" AND ep.id_grupo=eg.id";
 			 $cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
-			 $cadenaSql.=" AND ce.consecutivo_criterio NOT IN (5,6,7)";
+			 $cadenaSql.=" AND ce.consecutivo_criterio NOT IN ";
+
+			 $cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
+			 $cadenaSql .= "concurso.concurso_evaluar ce, ";
+			 $cadenaSql .= "concurso.criterio_evaluacion criterio, ";
+			 $cadenaSql .= "concurso.evaluacion_parcial ep ";
+			 $cadenaSql .= "WHERE ";
+			 $cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
+			 $cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
+			 $cadenaSql .= "and id_inscrito= ".$variable;
+			 $cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral') or (criterio.nombre='Prueba de Lengua Extranjera')))";
+
 			 //echo $cadenaSql;
 		 break;
 

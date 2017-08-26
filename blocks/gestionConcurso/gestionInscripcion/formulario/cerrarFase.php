@@ -112,7 +112,7 @@ class cerrarForm{
                                 if($_REQUEST['inscrito']>0 && $_REQUEST['evaluado']<$_REQUEST['inscrito'] ){
                                     $mensaje = "<b>Precaución para esta Fase, la cantidad de aspirantes evaluados (".$_REQUEST['evaluado'].") es menor a la cantidad de de aspirantes inscritos (".$_REQUEST['inscrito'].") !</b><br>";
                                     }
-                                if($_REQUEST['tipo_cierre']=='parcial'){    
+                                if($_REQUEST['tipo_cierre']=='parcial' && isset($_REQUEST['evaluado'])){    
                                         $mensaje = "<b>Se han registrado ".$_REQUEST['evaluado']." evaluaciones para esta fase!</b><br><br>";    
                                     }
                                 elseif($_REQUEST['tipo_cierre']=='final'){    
@@ -210,6 +210,7 @@ class cerrarForm{
                                     $valorCodificado .= "&consecutivo_calendario=" .$_REQUEST['consecutivo_calendario'];
                                     $valorCodificado .= "&nombre=" .$_REQUEST['nombre'];
                                     $valorCodificado .= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                                    $valorCodificado .= "&porcentaje_aprueba_concurso=".$_REQUEST['porcentaje_aprueba_concurso'];
                                     
                                     
                                     /**

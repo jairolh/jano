@@ -102,6 +102,7 @@ class consultarCalendario {
                                         $variableEstado.= "&fase=".$resultadoListaCalendario[$key]['fase'];
                                         $variableEstado.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
                                         $variableEstado.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
+                                        $variableEstado.= "&porcentaje_aprueba_concurso=".$_REQUEST['porcentaje_aprueba_conc'];
                                         $variableEstado.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario'];       
                                         $variableEstado.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                         $variableEstado.= "&porcentaje_aprueba=" .$resultadoListaCalendario[$key]['porcentaje_aprueba'];
@@ -243,6 +244,7 @@ class consultarCalendario {
                                         $mostrarHtml .= "</td> <td>";
                                                 if( $resultadoListaCalendario[$key]['fase']!='registro' 
                                                     && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='elegibles' 
                                                     && $resultadoListaCalendario[$key]['inscrito']>0
                                                     && $resultadoListaCalendario[$key]['validado']>0 
                                                     && $resultadoListaCalendario[$key]['proceso']>0
@@ -266,6 +268,7 @@ class consultarCalendario {
                                                     }
                                                 elseif($resultadoListaCalendario[$key]['fase']!='registro' 
                                                     && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='elegibles'  
                                                     && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
                                                     && $resultadoListaCalendario[$key]['cierre']=='final' )
                                                       { //Muestra Listado de resultado de cierre de soporte

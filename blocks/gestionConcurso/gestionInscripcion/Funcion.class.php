@@ -83,6 +83,9 @@ class Funcion {
                                             case "evaluacion":
                                                   $this->cerrarEvaluacion();
                                             break;
+                                            case "elegibles":
+                                                  $this->cerrarElegibles();
+                                            break;
                                         }
                                 break;
 
@@ -216,6 +219,10 @@ class Funcion {
                 }
                 
 	}
+	function cerrarElegibles()
+	{
+            include_once($this->ruta."/funcion/cerrarElegibles.php");
+	}        
         function guardarCalendarioConcurso()
 	{
 		include_once($this->ruta."/funcion/registrarCalendarioConcurso.php");

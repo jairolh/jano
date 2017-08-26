@@ -224,6 +224,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";
                                 $cadenaSql.=" WHEN act.nombre='Registro Soportes' THEN 'soporte' ";
                                 $cadenaSql.=" WHEN act.nombre='Evaluar Requisitos' THEN 'requisito' ";
+                                $cadenaSql.=" WHEN act.nombre='Lista Elegibles' THEN 'elegibles'  ";
                                 $cadenaSql.="  ELSE 'evaluacion' END ) fase, ";
                                     $cadenaSql.=" (SELECT count(DISTINCT sop.consecutivo_inscrito) soporte  ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
@@ -441,17 +442,59 @@ class Sql extends \Sql {
                                 $cadenaSql.="ORDER BY consecutivo_inscrito ";
                             break;
 
+                        case "consultarRegistradoEtapa":
+                                $cadenaSql="SELECT DISTINCT  ";
+                                $cadenaSql.=" etp.consecutivo_inscrito, ";
+                                $cadenaSql.="COUNT(DISTINCT etp.consecutivo_calendario_ant) aprobado ";
+                                $cadenaSql.="FROM ";
+                                $cadenaSql.="concurso.etapa_inscrito etp ";
+                                $cadenaSql.="INNER JOIN concurso.concurso_calendario cal ON etp.consecutivo_calendario_ant=cal.consecutivo_calendario AND cal.estado=etp.estado ";
+                                $cadenaSql.="INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="cal.estado='A' ";
+                                $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="AND act.nombre<>'Inscripción' ";
+                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="GROUP BY etp.consecutivo_inscrito ";
+                                $cadenaSql.="ORDER BY aprobado DESC ";
+                            break;                        
+                        
                         case "consultarCriteriosEtapa":
                                 $cadenaSql="SELECT ";
                                 $cadenaSql.="COUNT(eval.consecutivo_criterio) criterios, ";
                                 $cadenaSql.="SUM(eval.maximo_puntos) maximo_fase ";
                                 $cadenaSql.="FROM concurso.concurso_evaluar eval ";
                                 $cadenaSql.="WHERE ";
-                                $cadenaSql.="eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
-                                $cadenaSql.="AND eval.estado='A' ";
+                                $cadenaSql.=" eval.estado='A' ";
+                                if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
+                                   {
+                                    $cadenaSql.=" AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
+                                   }                                
+                                if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
+                                   {
+                                    $cadenaSql.=" AND eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                   }                                   
                                 $cadenaSql.="GROUP BY eval.consecutivo_concurso ";
                             break;
 
+                        case "consultarFasesEvaluacion":
+                                $cadenaSql="SELECT ";
+                                $cadenaSql.="cal.consecutivo_concurso, ";
+                                $cadenaSql.="COUNT(DISTINCT cal.consecutivo_calendario) fases_evalua ";
+                                $cadenaSql.="FROM ";
+                                $cadenaSql.="concurso.concurso_calendario cal  ";
+                                $cadenaSql.="INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="cal.estado='A' ";
+                                $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="AND act.nombre<>'Inscripción' ";
+                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="GROUP BY cal.consecutivo_concurso ";
+                            break;                            
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -486,8 +529,9 @@ class Sql extends \Sql {
                                 $cadenaSql.="INNER JOIN concurso.evaluacion_grupo gr ON gr.id=parc.id_grupo ";
                                 $cadenaSql.="WHERE";
                                 $cadenaSql.=" eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
-                                $cadenaSql.="AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
                                 $cadenaSql.="AND parc.estado='A' ";
+                                if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
+                                   { $cadenaSql.="AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' "; }
                                 if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }
                                 if(isset($variable['gr.id_evaluador']) &&  $variable['gr.id_evaluador']!='' )

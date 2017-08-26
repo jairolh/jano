@@ -87,6 +87,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                     $_REQUEST['cierre_concurso']=$resultadoConcurso[0]['fecha_fin'];
                     $_REQUEST['nombre_concurso']=$resultadoConcurso[0]['nombre'];
                     $_REQUEST['maximo_puntos_conc']=$resultadoConcurso[0]['maximo_puntos'];
+                    $_REQUEST['porcentaje_aprueba_conc']=$resultadoConcurso[0]['porcentaje_aprueba'];
                     $datosConcurso=array(array('0'=>$resultadoConcurso[0]['nivel_concurso'],
                                             'Tipo'=>$resultadoConcurso[0]['nivel_concurso'],
                                             '1'=>$resultadoConcurso[0]['modalidad'],

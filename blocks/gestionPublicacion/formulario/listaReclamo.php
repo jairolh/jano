@@ -24,13 +24,13 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 {	$atributos ["id"] = "tabParcial";
 	$atributos ["estilo"] = "";
 	echo $this->miFormulario->division ( "inicio", $atributos );
-            {
+            { 
                 switch ($_REQUEST ['fase']) {
                                 case 'requisito':    
-					include ($this->ruta . "formulario/tabs/ListaFinalValidado.php");
+					include ($this->ruta . "formulario/tabs/ListaReclamoValidado.php");
 				    break;
                                 case 'evaluacion':    
-					include ($this->ruta . "formulario/tabs/ListaFinalEvaluado.php");
+					include ($this->ruta . "formulario/tabs/ListaReclamoEvaluado.php");
 				    break;				                                  
         		}
                 

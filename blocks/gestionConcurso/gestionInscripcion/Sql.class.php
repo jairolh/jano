@@ -517,8 +517,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=") jurados ";
                                 $cadenaSql.="FROM concurso.evaluacion_parcial parc ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_evaluar eval ON eval.consecutivo_evaluar=parc.id_evaluar AND eval.estado='A' ";
-                                $cadenaSql.="WHERE";
-                                $cadenaSql.=" eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="WHERE parc.estado='A' ";
+                                $cadenaSql.="AND eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
                                 if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
                                    { $cadenaSql.="AND parc.id_inscrito='".$variable['consecutivo_inscrito']."' "; }

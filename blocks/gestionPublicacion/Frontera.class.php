@@ -54,14 +54,16 @@ class Frontera {
                                 case "faseParcial" :
                                         include_once ($this->ruta . "/formulario/listaParcial.php");
 				     break;                                    
+                                case "faseReclamo" :
+                                        include_once ($this->ruta . "/formulario/listaReclamo.php");
+				     break;                                    
                                 case "faseFinal" :
                                         include_once ($this->ruta . "/formulario/listaFinal.php");
 				     break;                                    
 				case "mensaje" :
 					include_once ($this->ruta . "/formulario/mensaje.php");
 					break;
-				
-				                                  
+			                                  
         		}
 		} else {
 			$_REQUEST ['opcion'] = "mostrar";

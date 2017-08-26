@@ -154,6 +154,9 @@ class Funcion {
                     case "parcial":
                             include_once($this->ruta."/funcion/resumenParcialRequisitos.php");
                         break;
+                    case "reclamo":
+                            include_once($this->ruta."/funcion/resumenReclamoRequisitos.php");
+                        break; 
                     case "final":
                             include_once($this->ruta."/funcion/resumenFinalRequisitos.php");
                         break; 
@@ -167,9 +170,13 @@ class Funcion {
                     case "parcial":
                             include_once($this->ruta."/funcion/resumenParcialEvaluacion.php");
                         break;
+                    case "reclamo":
+                            include_once($this->ruta."/funcion/resumenReclamoEvaluacion.php");
+                        break; 
                     case "final":
                             include_once($this->ruta."/funcion/resumenFinalEvaluacion.php");
                         break; 
+                    
                 }
 	}          
 	function resumen()

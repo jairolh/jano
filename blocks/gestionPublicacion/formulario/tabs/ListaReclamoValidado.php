@@ -5,7 +5,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	include ("../index.php");
 	exit ();
 }
-class faseEvaluado{
+class faseFinal{
 	var $miConfigurador;
 	var $lenguaje;
 	var $miFormulario;
@@ -42,22 +42,14 @@ class faseEvaluado{
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            //var_dump($_REQUEST);
             
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                              'tipo_cierre'=>$_REQUEST['tipo_cierre']);    
-            $cadena_sql = $this->miSql->getCadenaSql("listadoCierreEvaluacion", $parametro);
+            
+            
+            $cadena_sql = $this->miSql->getCadenaSql("listadoCierreRequisitos", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            //consulta los creterios de evaluación de la fase
-            $cadena_sql = $this->miSql->getCadenaSql("consultaCriterioFase", $parametro);
-            $criterioFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            $maximo_puntos=0;
-            foreach ($criterioFase as $crt => $criterio)
-                    {
-                     $maximo_puntos+=$criterioFase[$crt]['maximo_puntos'];
-                    }
-            $_REQUEST['puntos_aprueba']=(($maximo_puntos*$_REQUEST['porcentaje_aprueba'])/100);
             //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
             $cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
             $esteCampo = "marcoCerrado";
@@ -72,12 +64,11 @@ class faseEvaluado{
                     $variableResumen.= "&action=".$esteBloque["nombre"];
                     $variableResumen.= "&bloque=" . $esteBloque["id_bloque"];
                     $variableResumen.= "&bloqueGrupo=" . $esteBloque["grupo"];
-                    $variableResumen.= "&opcion=resumenFaseEvaluado";
+                    $variableResumen.= "&opcion=resumenRequisitos";
                     $variableResumen.= "&tipo_cierre=".$_REQUEST['tipo_cierre'];
                     $variableResumen.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                     $variableResumen.= "&consecutivo_calendario=".$_REQUEST['consecutivo_calendario']; 
                     $variableResumen.= "&fase=".$_REQUEST['fase'];  
-                    $variableResumen.= "&puntos_aprueba=".$_REQUEST['puntos_aprueba']; 
                     $variableResumen.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                     $variableResumen.= "&nombre=" .$_REQUEST['nombre'];      
                     $variableResumen.= "&cierre=" .$cierre;      
@@ -89,15 +80,14 @@ class faseEvaluado{
 
                     $enlace = "<a href='".$variableResumen."'>";
                     $enlace.="<img src='".$rutaBloque."/images/pdfImage.png' width='25px'> <u>Descargar Listado</u>";
-                    $enlace.="</a><br>";         
+                    $enlace.="</a><br>";       
                     echo $enlace;
                     echo $this->miFormulario->division("fin");
                     //muestra la cabecera del reporte
                     $mostrarHtml=$this->cabecera($atributosGlobales,$rutaBloque,$cierre);
                     if($resultadoListaFase)
-                    {   
-                        //-----------------Inicio de Conjunto de Controles----------------------------------------
-                        $esteCampo = "marcoFormacion";
+                    {   //-----------------Inicio de Conjunto de Controles----------------------------------------
+                        $esteCampo = "marcoLista";
                         $atributos["estilo"] = "jqueryui";
                         $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                         //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
@@ -106,46 +96,30 @@ class faseEvaluado{
                          $mostrarHtml.="<table id='tablaListaParcial' class='table table-striped table-bordered'>";
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
-                                            <th>Nro</th>
+                                            <th>Id</th>
                                             <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
                                             <th>Nombres</th>
-                                            <th>Apellidos</th>";
-                                        foreach ($criterioFase as $crt => $criterio)
-                                            {
-                                             $mostrarHtml.="<th>".$criterioFase[$crt]['nombre']."</th>";
-                                            }
-                         $mostrarHtml.="    <th>Total</th>
-                                            <th>Estado</th>
+                                            <th>Apellidos</th>
+                                            <th>Reclamación</th>
+                                            <th>Cumple</th>
+                                            <th>Observacion</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
-                        foreach($resultadoListaFase as $key=>$value )
-                            {   $mostrarHtml.= "<tr align='center'>
+                                foreach($resultadoListaFase as $key=>$value )
+                                    {   $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
+                                                    <td align='justify' width='15%'>".$resultadoListaFase[$key]['perfil']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['nombre']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>";
-                                //decodifica los puntaje de los criterios                    
-                                $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
-                                foreach ($puntajes as $pts => $puntos)
-                                    {
-                                     $mostrarHtml.="<td align='center'>";
-                                     foreach ($criterioFase as $crt => $criterio)
-                                        {if($criterioFase[$crt]['codigo']==$puntajes[$pts]->id_evaluar)
-                                            {$mostrarHtml.=$puntajes[$pts]->puntaje_final;}
-                                        }
-                                     $mostrarHtml.="</td>";
-                                    }
-                                    unset($puntajes);
-                                    
-                                $mostrarHtml.= "   <td align='right'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</td>";
-                                $mostrarHtml.= "   <td align='left'>".(($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])?'Aprobó':'No aprobó');
-                                $mostrarHtml.= "   </td>";    
-                                $mostrarHtml.= "</tr>";
+                                                    <td align='left' width='10%' >".$resultadoListaFase[$key]['nombre']."</td>
+                                                    <td align='left' width='10%'>".$resultadoListaFase[$key]['apellido']."</td>
+                                                    <td align='center'>".$resultadoListaFase[$key]['id_reclamacion']."</td>
+                                                    <td align='left'>".$resultadoListaFase[$key]['cumple_requisito']."</td>
+                                                    <td align='justify' width='25%' >".$resultadoListaFase[$key]['observacion']."</td>";
+                                           $mostrarHtml.= "</tr>";
                                            //echo $mostrarHtml;
                                            //unset($mostrarHtml);
                                     }
@@ -184,10 +158,10 @@ class faseEvaluado{
             {  $cajaNombre="width='15%'";
                         $cajaDato="width='35%'";
                         $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
-                        $mostrarHtml.= "<table id='tablaPerfiles' class='table table-striped table-bordered'>";
+                        $mostrarHtml.= "<table class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
                                 $mostrarHtml.= "<tr align='center' valign='middle' >
-                                                        <td rowspan=4 colspan=2 align='center'>";
+                                                        <td rowspan=3 colspan=2 align='center'>";
                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                                               $esteCampo = 'escudo';
                                                               $atributos ['id'] = $esteCampo;
@@ -202,16 +176,14 @@ class faseEvaluado{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS DE EVALUACIÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS EVALUACIÓN RECLAMACIONES </th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>FASE:</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre']."</td></tr> "; 
-                                $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>Puntaje Aprueba:</th>
-                                                        <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['puntos_aprueba']."</td></tr> "; 
+                                
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";
                         return $mostrarHtml;
@@ -220,7 +192,7 @@ class faseEvaluado{
     
 }
 
-$miSeleccionador = new faseEvaluado( $this->lenguaje, $this->miFormulario, $this->sql );
+$miSeleccionador = new faseFinal( $this->lenguaje, $this->miFormulario, $this->sql );
 
 $miSeleccionador->miForm ();
 ?>

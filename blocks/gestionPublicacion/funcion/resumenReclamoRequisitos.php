@@ -21,23 +21,21 @@ $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conex
 $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                 'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                 'tipo_cierre'=>$_REQUEST['tipo_cierre']);    
-$cadena_sql = $this->sql->getCadenaSql("listadoCierreEvaluacion", $parametro);
+$cadena_sql = $this->sql->getCadenaSql("listadoCierreRequisitos", $parametro);
 $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-//consulta los creterios de evaluación de la fase
-$cadena_sql = $this->sql->getCadenaSql("consultaCriterioFase", $parametro);
-$criterioFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-//armar el contenido de la cabecera de la Página - carta vert 120,450,120 - oficio HOR 120,1000,120
+
+//armar el contenido de la cabecera de la Página
 $paginaHeader= "<page_header>";
 $paginaHeader.= "<table align='center' border='0' width = '100%'>";
 $paginaHeader.= " <tbody>";
 $paginaHeader.= "   <tr valign='middle' >";
-$paginaHeader.= "       <td width='120' align='center' rowspan=5 >";
+$paginaHeader.= "       <td width='120' align='center' rowspan=4 >";
 $paginaHeader.= "            <img src='".$directorio."images/escudo_ud.png' alt='Universidad Distrital Francisco José de Caldas' height='100' width='92'>";
 $paginaHeader.= "       </td>
-                        <td width='1000'align='center'><b><span style='font-size:13.0pt;mso-bidi-font-size:11.0pt;line-height:107%'>".mb_strtoupper($aplicativo, 'UTF-8')."</span></b>
+                        <td width='450'align='center'><b><span style='font-size:13.0pt;mso-bidi-font-size:11.0pt;line-height:107%'>".mb_strtoupper($aplicativo, 'UTF-8')."</span></b>
                         </td>";
-$paginaHeader.= "       <td width='120' align='center' rowspan=5 >";
+$paginaHeader.= "       <td width='120' align='center' rowspan=4 >";
 $paginaHeader.= "            <img src='".$directorio."images/Jano.png' alt='Sistema Gestión de Concursos' height='51' width='120'>";
 $paginaHeader.= "       </td>";
 $paginaHeader.= " </tr> ";
@@ -54,13 +52,8 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista de resultados de evaluación - Fecha Cierre ".$_REQUEST['cierre']."
+                             Lista de resultados evaluación de reclamaciones 
                             </span>
-                        </td>
-                    </tr> ";
-$paginaHeader.= "   <tr>
-                        <td align='center'>  
-                            <span style='font-size:9.0pt;'> Puntaje Aprobación: ".$_REQUEST['puntos_aprueba']."</span>
                         </td>
                     </tr> ";
 $paginaHeader.= " </tbody>";
@@ -83,8 +76,7 @@ $paginafooter .= " </tr>";
 $paginafooter .= "</table>";
 $paginafooter .= "</page_footer>";
 
-//registra el contenido de la tabla - Tamaños carta  max: vert 680 - horz 940 ; Tamaños oficio  max: vert 680 - horz 1240
-$anchoCriterio=(650/(count($criterioFase)+1));
+//registra el contenido de la tabla - Tamaños carta  max: vert 680 - horz 940
 $contenido  = "<div align=center>";        
 $contenido .= "<table align='center' class=MsoTableGrid border='1' cellspacing='0' cellpadding='0' style='border-collapse:collapse;border:none;'>";        
 $contenido .= "   <tr align='center' style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>";        
@@ -102,47 +94,30 @@ $contenido .= "     <span style='font-size:9.0pt;'>Identificación</span>";
 $contenido .= "     </td>";        
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Nombre</span>";        
-$contenido .= "     </td>";       
-foreach ($criterioFase as $crt => $criterio)
-    {
-    $contenido .= "     <td width='".$anchoCriterio."' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
-    $contenido .= "     <span style='font-size:9.0pt;'>".$criterioFase[$crt]['nombre']."</span>";        
-    $contenido .= "     </td>"; 
-    }
+$contenido .= "     </td>";        
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
-$contenido .= "     <span style='font-size:9.0pt;'>Total</span>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Reclamación</span>";        
+$contenido .= "     </td>";   
+$contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Cumple</span>";        
 $contenido .= "     </td>"; 
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
-$contenido .= "     <span style='font-size:9.0pt;'>Estado</span>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Observaciones</span>";        
 $contenido .= "     </td>"; 
 $contenido .= "   </tr>";        
+
 
 foreach($resultadoListaFase as $key=>$value )
    {           
     $contenido .= "   <tr style='mso-yfti-irow:1' align='center' valign='middle'>";        
-    $contenido .= "   <td width='30'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
-    $contenido .= "   <td width='150' align='justify'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
-    $contenido .= "   <td width='60'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
-    $contenido .= "   <td width='80' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
-    $contenido .= "   <td width='150' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
-    //decodifica los puntaje de los criterios                    
-    $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
-    foreach ($puntajes as $pts => $puntos)
-        {
-         $contenido .="<td width='".$anchoCriterio."'  align='center'> ";
-         foreach ($criterioFase as $crt => $criterio)
-            {if($criterioFase[$crt]['codigo']==$puntajes[$pts]->id_evaluar)
-                {$contenido .= "<span style='font-size:7.5pt;'>".$puntajes[$pts]->puntaje_final."</span>";
-                }
-            }
-         $contenido .="</td>";
-        }
-        unset($puntajes);    
-    $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</span></td>";        
-    if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
-    else
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
+    $contenido .= "   <td width='25'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
+    $contenido .= "   <td width='140' align='justify'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
+    $contenido .= "   <td width='50'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
+    $contenido .= "   <td width='70' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
+    $contenido .= "   <td width='145' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
+    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['id_reclamacion']."</span></td>";        
+    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['cumple_requisito']."</span></td>";        
+    $contenido .= "   <td width='165' align='justify'><span style='font-size:6pt;'>".$resultadoListaFase[$key]['observacion']."</span></td>";        
     $contenido .= "   </tr>";
     }
 
@@ -168,7 +143,7 @@ $nombre= 'resumenFase_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).
 * @return HTML2PDF $this
 */
 //$html2pdf = new HTML2PDF('P','LETTER','es'); //Vertical
-$html2pdf = new HTML2PDF('L','LEGAL','es','true','UTF-8',array(0.5, 5, 0.5, 4)); //Horizontal
+$html2pdf = new HTML2PDF('P','LETTER','es','true','UTF-8',array(0.5, 5, 0.5, 4)); //Horizontal
 $res = $html2pdf->WriteHTML($contenidoPagina);
 $html2pdf->Output($nombre,'D');
 //$html2pdf->Output('certificado.pdf');

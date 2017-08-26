@@ -82,6 +82,7 @@ class faseEvaluado{
                     $variableResumen.= "&nombre=" .$_REQUEST['nombre'];      
                     $variableResumen.= "&cierre=" .$cierre;      
                     $variableResumen = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableResumen, $directorio);
+                    
                     //------------------Division para los botones-------------------------
                     $atributos["id"]="botones";
                     $atributos["estilo"]="marcoBotones";
@@ -111,7 +112,8 @@ class faseEvaluado{
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
                                             <th>Nombres</th>
-                                            <th>Apellidos</th>";
+                                            <th>Apellidos</th>
+                                            <th>Reclamación</th>";
                                         foreach ($criterioFase as $crt => $criterio)
                                             {
                                              $mostrarHtml.="<th>".$criterioFase[$crt]['nombre']."</th>";
@@ -128,7 +130,8 @@ class faseEvaluado{
                                                     <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['nombre']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>";
+                                                    <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>
+                                                    <td align='center'>".$resultadoListaFase[$key]['id_reclamacion']."</td>";
                                 //decodifica los puntaje de los criterios                    
                                 $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
                                 foreach ($puntajes as $pts => $puntos)
@@ -202,7 +205,7 @@ class faseEvaluado{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS DE EVALUACIÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS EVALUACIÓN RECLAMACIONES  </th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";

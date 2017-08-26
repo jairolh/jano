@@ -90,6 +90,7 @@ class consultarCalendario {
                                             <th>Puntos aprueba</th>                                            
                                             <th>Estado</th>
                                             <th>Resultado Parcial</th>                                            
+                                            <th>Resultado Reclamación</th>                                            
                                             <th>Resultado Final</th>      
                                         </tr>
                                     </thead>
@@ -238,6 +239,80 @@ class consultarCalendario {
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
                                                       }                                                      
                                                     
+                                        //resultados reclamacion              
+                                        $mostrarHtml .= "</td> <td>";
+                                                if( $resultadoListaCalendario[$key]['fase']!='registro' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $resultadoListaCalendario[$key]['inscrito']>0
+                                                    && $resultadoListaCalendario[$key]['validado']>0 
+                                                    && $resultadoListaCalendario[$key]['proceso']>0
+                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
+                                                    && $resultadoListaCalendario[$key]['cierre']=='parcial')
+                                                      { 
+                                                        //-------------Enlace-----------------------
+                                                        $esteCampo = "cerrar";
+                                                        $atributos["id"]=$esteCampo;
+                                                        $atributos['enlace']=$variableEstado;
+                                                        $atributos['tabIndex']=$esteCampo;
+                                                        $atributos['redirLugar']=true;
+                                                        $atributos['estilo']='clasico';
+                                                        $atributos['posicionImagen'] = "atras";//"adelante";
+                                                        $atributos['enlaceTexto']=' Cerrar Fase';
+                                                        $atributos['ancho']='25';
+                                                        $atributos['alto']='25';
+                                                        $atributos['enlaceImagen']=$rutaBloque."/images/exec.png";
+                                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                        unset($atributos);    
+                                                    }
+                                                elseif($resultadoListaCalendario[$key]['fase']!='registro' 
+                                                    && $resultadoListaCalendario[$key]['fase']!='soporte' 
+                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
+                                                    && $resultadoListaCalendario[$key]['cierre']=='final' )
+                                                      { //Muestra Listado de resultado de cierre de soporte
+                                                        $variableVerReclamo = "pagina=publicacion";                                                        
+                                                        $variableVerReclamo.= "&opcion=faseReclamo";
+                                                        $variableVerReclamo.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                        $variableVerReclamo.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                        $variableVerReclamo.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                        $variableVerReclamo.= "&tiempo=" . time ();
+                                                        $variableVerReclamo.= "&tipo_cierre=reclamo";
+                                                        $variableVerReclamo.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
+                                                        $variableVerReclamo.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
+                                                        $variableVerReclamo.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
+                                                        $variableVerReclamo.= "&porcentaje_aprueba=".$resultadoListaCalendario[$key]['porcentaje_aprueba']; 
+                                                        $variableVerReclamo.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
+                                                        $variableVerReclamo.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
+                                                        $variableVerReclamo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerReclamo, $directorio);
+                                                        //-------------Enlace-----------------------
+                                                          $esteCampo = 'enlace_listaReclamo'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_Reclamo'.$key.'");';
+                                                          $atributos ['tabIndex'] = 0;
+                                                          $atributos ['columnas'] = 1;
+                                                          $atributos ['enlaceTexto'] = "&nbsp;Listado Reclamaciones";//$resultadoListaCalendario[$key]['proceso']."&nbsp;&nbsp;";
+                                                          $atributos ['estilo'] = 'clasico';
+                                                          $atributos['enlaceImagen']=$rutaBloque."/images/lists.png";
+                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                          $atributos ['ancho'] = '30px';
+                                                          $atributos ['alto'] = '30px';
+                                                          $atributos ['redirLugar'] = false;
+                                                          $atributos ['valor'] = '';
+                                                          $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                          unset ( $atributos );
+                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                          $esteCampo = 'ruta_enlace_Reclamo'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['nombre'] = $esteCampo;
+                                                          $atributos ['tipo'] = 'hidden';
+                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                          $atributos ['obligatorio'] = false;
+                                                          $atributos ['valor'] = $variableVerReclamo;
+                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                          $atributos ['deshabilitado'] = FALSE;
+                                                          $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
+                                                      }   
+                                                      
                                         //resultados finales              
                                         $mostrarHtml .= "</td> <td>";
                                                 if($resultadoListaCalendario[$key]['fase']=='soporte' 
@@ -307,34 +382,11 @@ class consultarCalendario {
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
                                                       }                                                      
 
-                                                elseif( $resultadoListaCalendario[$key]['fase']!='registro' 
-                                                    && $resultadoListaCalendario[$key]['fase']!='soporte' 
-                                                    && $resultadoListaCalendario[$key]['inscrito']>0
-                                                    && $resultadoListaCalendario[$key]['validado']>0 
-                                                    && $resultadoListaCalendario[$key]['proceso']>0
-                                                    && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
-                                                    && $resultadoListaCalendario[$key]['cierre']=='parcial')
-                                                      { 
-                                                        //-------------Enlace-----------------------
-                                                        $esteCampo = "cerrar";
-                                                        $atributos["id"]=$esteCampo;
-                                                        $atributos['enlace']=$variableEstado;
-                                                        $atributos['tabIndex']=$esteCampo;
-                                                        $atributos['redirLugar']=true;
-                                                        $atributos['estilo']='clasico';
-                                                        $atributos['posicionImagen'] = "atras";//"adelante";
-                                                        $atributos['enlaceTexto']=' Cerrar Fase';
-                                                        $atributos['ancho']='25';
-                                                        $atributos['alto']='25';
-                                                        $atributos['enlaceImagen']=$rutaBloque."/images/exec.png";
-                                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
-                                                        unset($atributos);    
-                                                    }
                                                 elseif($resultadoListaCalendario[$key]['fase']!='registro' 
                                                     && $resultadoListaCalendario[$key]['fase']!='soporte' 
                                                     && $hoy>$resultadoListaCalendario[$key]['fecha_fin_resolver']
                                                     && $resultadoListaCalendario[$key]['cierre']=='final' )
-                                                      { //Muestra Listado de resultado de cierre de soporte
+                                                      {   //Muestra Listado de resultado de cierre de soporte
                                                         $variableVerFinal = "pagina=publicacion";                                                        
                                                         $variableVerFinal.= "&opcion=faseFinal";
                                                         $variableVerFinal.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -345,6 +397,7 @@ class consultarCalendario {
                                                         $variableVerFinal.= "&consecutivo_concurso=".$resultadoListaCalendario[$key]['consecutivo_concurso'];
                                                         $variableVerFinal.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
                                                         $variableVerFinal.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
+                                                        $variableVerFinal.= "&porcentaje_aprueba=".$resultadoListaCalendario[$key]['porcentaje_aprueba']; 
                                                         $variableVerFinal.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                                         $variableVerFinal.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
                                                         $variableVerFinal = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerFinal, $directorio);
@@ -376,9 +429,9 @@ class consultarCalendario {
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
-                                                      }                                                          
+                                                      }                                                         
                                                     
-                                        $mostrarHtml .= "</td>";
+                                       $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;
                                        unset($mostrarHtml);

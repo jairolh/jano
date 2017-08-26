@@ -82,6 +82,7 @@ class faseEvaluado{
                     $variableResumen.= "&nombre=" .$_REQUEST['nombre'];      
                     $variableResumen.= "&cierre=" .$cierre;      
                     $variableResumen = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableResumen, $directorio);
+                    
                     //------------------Division para los botones-------------------------
                     $atributos["id"]="botones";
                     $atributos["estilo"]="marcoBotones";
@@ -202,7 +203,7 @@ class faseEvaluado{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS DE EVALUACIÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA FINAL DE ASPIRANTES SUPERARÓN FASE </th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";

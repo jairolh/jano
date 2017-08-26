@@ -54,7 +54,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista de resultados de evaluación - Fecha Cierre ".$_REQUEST['cierre']."
+                             Listado final de Aspirantes que superarón la fase
                             </span>
                         </td>
                     </tr> ";

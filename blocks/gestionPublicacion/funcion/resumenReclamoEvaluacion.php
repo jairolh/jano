@@ -54,7 +54,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista de resultados de evaluación - Fecha Cierre ".$_REQUEST['cierre']."
+                             Lista de resultados evaluación de reclamaciones
                             </span>
                         </td>
                     </tr> ";
@@ -84,7 +84,7 @@ $paginafooter .= "</table>";
 $paginafooter .= "</page_footer>";
 
 //registra el contenido de la tabla - Tamaños carta  max: vert 680 - horz 940 ; Tamaños oficio  max: vert 680 - horz 1240
-$anchoCriterio=(650/(count($criterioFase)+1));
+$anchoCriterio=(650/(count($criterioFase)+2));
 $contenido  = "<div align=center>";        
 $contenido .= "<table align='center' class=MsoTableGrid border='1' cellspacing='0' cellpadding='0' style='border-collapse:collapse;border:none;'>";        
 $contenido .= "   <tr align='center' style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>";        
@@ -102,6 +102,9 @@ $contenido .= "     <span style='font-size:9.0pt;'>Identificación</span>";
 $contenido .= "     </td>";        
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Nombre</span>";        
+$contenido .= "     </td>";       
+$contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Reclamación</span>";        
 $contenido .= "     </td>";       
 foreach ($criterioFase as $crt => $criterio)
     {
@@ -125,6 +128,7 @@ foreach($resultadoListaFase as $key=>$value )
     $contenido .= "   <td width='60'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
     $contenido .= "   <td width='80' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
     $contenido .= "   <td width='150' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
+    $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['id_reclamacion']."</span></td>";        
     //decodifica los puntaje de los criterios                    
     $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
     foreach ($puntajes as $pts => $puntos)
@@ -140,9 +144,9 @@ foreach($resultadoListaFase as $key=>$value )
         unset($puntajes);    
     $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</span></td>";        
     if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
+        {$contenido .= "   <td width='75' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
     else
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
+        {$contenido .= "   <td width='75' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
     $contenido .= "   </tr>";
     }
 

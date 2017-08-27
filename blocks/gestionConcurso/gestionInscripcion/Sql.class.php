@@ -31,9 +31,24 @@ class Sql extends \Sql {
 			/**
 			 * Clausulas específicas
 			 */
-                        case "idioma":
+      case "idioma":
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
+
+			case 'consultaJurado3' :
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" ji.id_inscrito, ji.id_jurado_tipo";
+				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt, concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p";
+				$cadenaSql.=" WHERE ";
+				$cadenaSql.=" id_usuario='".$variable['usuario']."'";
+				$cadenaSql.=" AND ci.consecutivo_inscrito=ji.id_inscrito";
+				$cadenaSql.=" AND cp.consecutivo_perfil= ci.consecutivo_perfil";
+				//concurso
+				$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['concurso'];
+				$cadenaSql.=" AND ci.consecutivo_persona= p.consecutivo";
+				$cadenaSql.=" AND jt.id=ji.id_jurado_tipo";
+
+				break;
 
 			case 'consultaJurado2' :
 				$cadenaSql=" SELECT ";
@@ -459,8 +474,8 @@ class Sql extends \Sql {
                                 $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
                                 $cadenaSql.="GROUP BY etp.consecutivo_inscrito ";
                                 $cadenaSql.="ORDER BY aprobado DESC ";
-                            break;                        
-                        
+                            break;
+
                         case "consultarCriteriosEtapa":
                                 $cadenaSql="SELECT ";
                                 $cadenaSql.="COUNT(eval.consecutivo_criterio) criterios, ";
@@ -471,11 +486,11 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
                                    {
                                     $cadenaSql.=" AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
-                                   }                                
+                                   }
                                 if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
                                    {
                                     $cadenaSql.=" AND eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
-                                   }                                   
+                                   }
                                 $cadenaSql.="GROUP BY eval.consecutivo_concurso ";
                             break;
 
@@ -494,7 +509,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
                                 $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
                                 $cadenaSql.="GROUP BY cal.consecutivo_concurso ";
-                            break;                            
+                            break;
 
                         case "consultarDetalleEvaluacionParcial":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -597,7 +612,7 @@ class Sql extends \Sql {
                                    { $cadenaSql.="AND recl.consecutivo_calendario='".$variable['faseAct']."' "; }
                                 $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
 
-                            break;                            
+                            break;
 
                         case "consultarReclamacionesEvaluacion":
                                 $cadenaSql="SELECT DISTINCT ";
@@ -624,7 +639,7 @@ class Sql extends \Sql {
                                    { $cadenaSql.="AND recl.consecutivo_calendario='".$variable['faseAct']."' "; }
                                 $cadenaSql.="ORDER BY insc.consecutivo_inscrito, recl.id ";
 
-                            break;  
+                            break;
 
 			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
@@ -1010,17 +1025,17 @@ class Sql extends \Sql {
                                 if(isset($variable['id_reclamacion']) && $variable['id_reclamacion']!='')
                                     {$cadenaSql.=" id_reclamacion='".$variable['id_reclamacion']."' ";}
                                 if(isset($variable['id_evaluacion_final_reclamo']) && $variable['id_evaluacion_final_reclamo']!='')
-                                    {$cadenaSql.="id_evaluacion_final_reclamo='".$variable['id_evaluacion_final_reclamo']."' ";}                                    
+                                    {$cadenaSql.="id_evaluacion_final_reclamo='".$variable['id_evaluacion_final_reclamo']."' ";}
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" id_inscrito='".$variable['id_inscrito']."' ";
                                 $cadenaSql.=" AND id_evaluar='".$variable['id_evaluar']."' ";
                                 if(isset($variable['id_parcial']) && $variable['id_parcial']!='')
                                     {$cadenaSql.=" id='".$variable['id_parcial']."' ";}
                                 if(isset($variable['id_evaluacion_final_reclamo']) && $variable['id_evaluacion_final_reclamo']!='')
-                                    {$cadenaSql.=" AND estado='A' ";}    
+                                    {$cadenaSql.=" AND estado='A' ";}
                                 $cadenaSql.=" RETURNING id";
                         break;
-                        
+
                         case "actualizarEvaluacionFinal":
                                 $cadenaSql.=" UPDATE concurso.evaluacion_final";
                                 $cadenaSql.=" SET ";
@@ -1032,7 +1047,7 @@ class Sql extends \Sql {
                                 if(isset($variable['id_final']) && $variable['id_final']!='')
                                     {$cadenaSql.=" id='".$variable['id_final']."' ";}
                                 $cadenaSql.=" RETURNING id";
-                        break;                        
+                        break;
 
                         case "actualizarEvaluacionPromedio":
                                 $cadenaSql.=" UPDATE concurso.evaluacion_promedio";
@@ -1045,7 +1060,7 @@ class Sql extends \Sql {
                                 if(isset($variable['id_promedio']) && $variable['id_promedio']!='')
                                     {$cadenaSql.=" id='".$variable['id_promedio']."' ";}
                                 $cadenaSql.=" RETURNING id";
-                        break;   
+                        break;
 
                         case "actualizarEtapaInscrito":
                                 $cadenaSql.=" UPDATE concurso.etapa_inscrito";
@@ -1058,9 +1073,9 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_etapa']) && $variable['consecutivo_etapa']!='')
                                     {$cadenaSql.=" consecutivo_etapa='".$variable['consecutivo_etapa']."' ";}
                                 $cadenaSql.=" RETURNING consecutivo_etapa";
-                        break;   
+                        break;
 
-                        
+
                         case "actualizaCierreCalendario":
                                 $cadenaSql=" UPDATE concurso.concurso_calendario";
                                 $cadenaSql.=" SET ";

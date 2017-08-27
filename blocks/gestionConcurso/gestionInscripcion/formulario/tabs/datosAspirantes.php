@@ -46,7 +46,7 @@ class registrarForm {
 
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		//$esteCampo = $esteBloque ['nombre'];
-		$esteCampo = "agatha";
+		$esteCampo = "asignar";
 		$atributos ['id'] = $esteCampo;
 		$atributos ['nombre'] = $esteCampo;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
@@ -117,7 +117,13 @@ class registrarForm {
 				{
 
 					$parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
-					$parametro['id_usuario']= $_REQUEST['seleccionJurado'];
+					if(isset($_REQUEST['seleccionJurado'])){
+              $parametro['id_usuario']= $_REQUEST['seleccionJurado'];
+          }else if(isset($_REQUEST['seleccionEvaluador'])) {
+              $parametro['id_usuario']= $_REQUEST['seleccionEvaluador'];
+          }else{
+              $parametro['id_usuario']='';
+          }
 
 					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
 					$aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
@@ -276,7 +282,7 @@ if($aspirantes){
 					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
 
 					$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
-					$atributos ['nombreFormulario'] = "agatha";
+					$atributos ['nombreFormulario'] = "asignar";
 					$tab ++;
 
 					// Aplica atributos globales al control
@@ -317,10 +323,31 @@ if($aspirantes){
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarAspirantesJurado";
 			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-      $valorCodificado .= "&seleccionJurado=" . $_REQUEST ["seleccionJurado"];
+
+			if(isset($_REQUEST['seleccionJurado'])){
+          $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionJurado'];
+      }else if(isset($_REQUEST['seleccionEvaluador'])) {
+          $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionEvaluador'];
+      }
+
+      $parametro['concurso']=$_REQUEST['consecutivo_concurso'];
+      if(isset($_REQUEST['seleccionJurado'])){
+          $parametro['usuario']= $_REQUEST['seleccionJurado'];
+      }else if(isset($_REQUEST['seleccionEvaluador'])) {
+          $parametro['usuario']= $_REQUEST['seleccionEvaluador'];
+      }else{
+          $parametro['usuario']='';
+      }
+
+			//buscar tipo de jurado
+      $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaJurado3", $parametro);
+      $tipo = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+
 			if(isset($_REQUEST ["tipoJurado"])){
 				$valorCodificado .= "&tipoJurado=" . $_REQUEST ["tipoJurado"];
-			}
+			}else{
+          $valorCodificado .= "&tipoJurado=" . $tipo[0]['id_jurado_tipo'];
+      }
 
 			$valorCodificado .= "&nombre_concurso=" . $_REQUEST ["nombre_concurso"];
 

@@ -144,7 +144,23 @@ $("#gestionInscripcion").validationEngine({
 
 $(function() {
 
-      $("#agatha").submit(function() {
+    $("#gestionInscripcionJurados").submit(function() {
+      $resultado=$("#gestionInscripcionJurados").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+   $("#gestionInscripcionEvaluadores").submit(function() {
+      $resultado=$("#gestionInscripcionEvaluadores").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+      $("#asignar").submit(function() {
 
         items=[];
 

@@ -62,7 +62,7 @@ class consultarJurado {
 								$resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
-		$esteCampo = $esteBloque ['nombre'];
+		$esteCampo = $esteBloque ['nombre']."Jurados";
 		$atributos ['id'] = $esteCampo;
 		$atributos ['nombre'] = $esteCampo;
 		// Si no se coloca, entonces toma el valor predeterminado 'application/x-www-form-urlencoded'
@@ -196,7 +196,7 @@ class consultarJurado {
                                                                                        $atributos ["verificar"] = '';
                                                                                        $atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
                                                                                        $atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
-                                                                                       $atributos ['nombreFormulario'] = $esteBloque ['nombre'];
+                                                                                       $atributos ['nombreFormulario'] = $esteBloque['nombre']."Jurados";
                                                                                        $tab ++;
 
                                                                                        // Aplica atributos globales al control

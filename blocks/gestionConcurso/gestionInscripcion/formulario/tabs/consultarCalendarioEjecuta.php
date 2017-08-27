@@ -207,6 +207,7 @@ class consultarCalendario {
                                                         $variableVer.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
                                                         $variableVer.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
                                                         $variableVer.= "&porcentaje_aprueba=".$resultadoListaCalendario[$key]['porcentaje_aprueba']; 
+                                                        $variableVer.= "&porcentaje_aprueba_concurso=".$_REQUEST['porcentaje_aprueba_conc'];
                                                         $variableVer.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                                         $variableVer.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
                                                         $variableVer = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVer, $directorio);
@@ -401,6 +402,7 @@ class consultarCalendario {
                                                         $variableVerFinal.= "&consecutivo_calendario=".$resultadoListaCalendario[$key]['consecutivo_calendario']; 
                                                         $variableVerFinal.= "&fase=".$resultadoListaCalendario[$key]['fase'];  
                                                         $variableVerFinal.= "&porcentaje_aprueba=".$resultadoListaCalendario[$key]['porcentaje_aprueba']; 
+                                                        $variableVerFinal.= "&porcentaje_aprueba_concurso=".$_REQUEST['porcentaje_aprueba_conc'];
                                                         $variableVerFinal.= "&nombre_concurso=" . $_REQUEST ['nombre_concurso'];
                                                         $variableVerFinal.= "&nombre=" .$resultadoListaCalendario[$key]['nombre'];      
                                                         $variableVerFinal = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerFinal, $directorio);

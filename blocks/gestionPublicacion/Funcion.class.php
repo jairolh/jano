@@ -78,9 +78,9 @@ class Funcion {
                                 break;
                             case "resumenRequisitos":
                                     $this->resumenFaseRequisitos();
-                                break;                            
-                            case "resumen":
-                                    $this->resumen();
+                                break;
+                            case "resumenFaseElegible":
+                                    $this->resumenFaseElegible();
                                 break;
 
                         }
@@ -178,11 +178,20 @@ class Funcion {
                         break; 
                     
                 }
-	}          
-	function resumen()
+	}     
+        
+function resumenFaseElegible()
 	{
-		include_once($this->ruta."/funcion/resumenUsuario.php");
-	}	
-
+            switch ($_REQUEST ['tipo_cierre'])
+                {       
+                    case "parcial":
+                            include_once($this->ruta."/funcion/resumenParcialElegible.php");
+                        break;
+                    case "final":
+                            include_once($this->ruta."/funcion/resumenFinalElegible.php");
+                        break; 
+                    
+                }
+	}          
 }
 ?>

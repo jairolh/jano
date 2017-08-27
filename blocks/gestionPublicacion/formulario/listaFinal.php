@@ -32,6 +32,10 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                 case 'evaluacion':    
 					include ($this->ruta . "formulario/tabs/ListaFinalEvaluado.php");
 				    break;				                                  
+				    break;				                                  
+                                case 'elegibles':    
+					include ($this->ruta . "formulario/tabs/ListaFinalElegibles.php");
+				    break;                                  
         		}
                 
 	    

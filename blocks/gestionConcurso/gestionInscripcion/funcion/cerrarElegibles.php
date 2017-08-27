@@ -129,7 +129,7 @@ class cerrarElegibles {
                                                      'fecha_registro'=>$parametro['fecha_registro'],
                                                      'id_reclamacion'=>0,
                                                     );
-                                echo "<br>".$this->cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionPromedio", $parametroProm);
+                                $this->cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionPromedio", $parametroProm);
                                 $resultadoPromedio = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $parametroProm, "registroEvaluacionPromedio" );
                                 unset($evaluacion);
                                 unset($promedio);

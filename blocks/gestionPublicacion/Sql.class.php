@@ -46,7 +46,10 @@ class Sql extends \Sql {
                                 $cadenaSql.=" AND eval.estado='A' ";
                                 $cadenaSql.=" WHERE "; 
                                 $cadenaSql .= " eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' "; 
-                                $cadenaSql .= "AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' "; 
+                                if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
+                                   {
+                                    $cadenaSql.=" AND eval.consecutivo_calendario='".$variable['consecutivo_calendario']."' ";
+                                   } 
                                 if(isset($variable['consecutivo_criterio']) &&  $variable['consecutivo_criterio']>0 )
                                    {$cadenaSql.=" AND eval.consecutivo_criterio='".$variable['consecutivo_criterio']."' "; 
                                    }

@@ -345,9 +345,15 @@ if($aspirantes){
 
 			if(isset($_REQUEST ["tipoJurado"])){
 				$valorCodificado .= "&tipoJurado=" . $_REQUEST ["tipoJurado"];
-			}else{
+			}else if($tipo){
           $valorCodificado .= "&tipoJurado=" . $tipo[0]['id_jurado_tipo'];
-      }
+      }else{
+					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaTipoInterno", $parametro);
+					$tipoInterno = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+					if($tipoInterno){
+							$valorCodificado .= "&tipoJurado=" . $tipoInterno[0]['id'];
+					}
+			}
 
 			$valorCodificado .= "&nombre_concurso=" . $_REQUEST ["nombre_concurso"];
 

@@ -35,6 +35,14 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
 
+			case 'consultaTipoInterno' :
+				$cadenaSql=" SELECT ";
+				$cadenaSql.=" jt.id";
+				$cadenaSql.=" FROM concurso.jurado_tipo jt";
+				$cadenaSql.=" WHERE ";
+				$cadenaSql.=" jt.nombre ='Interno'";
+				break;
+
 			case 'consultaJurado3' :
 				$cadenaSql=" SELECT ";
 				$cadenaSql.=" ji.id_inscrito, ji.id_jurado_tipo";

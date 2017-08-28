@@ -91,6 +91,7 @@ $this->idioma ["botonCriterio"]="Guardar Datos de Criterio de Evaluación ";
 $this->idioma ["botonCalendario"]="Guardar Datos de Calendario";
 $this->idioma ["botonPerfil"]="Guardar Datos de Perfil";
 //------------------Mensajes -----------------------------------
+$this->idioma ["noEncontroReclamaciones"] = "No existen reclamaciones para la fase del concurso.";
 $this->idioma ["noEncontroConcurso"] = "No tiene aspirantes asignados para evaluar en ninguno de los concursos activos.";
 $this->idioma ["noEncontroDetalle"] = "No se pudo consultar el detalle del concurso en Ejecución.";
 $this->idioma["noEncontroCalendario"]="No existe Calendario de actividades registrado! ";

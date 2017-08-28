@@ -248,7 +248,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" doc.descripcion_docencia,";
                                 $cadenaSql.=" doc.actual,";
                                 $cadenaSql.=" doc.fecha_inicio,";
-                                $cadenaSql.=" doc.fecha_fin";
+                                $cadenaSql.=" doc.fecha_fin,";
+                                $cadenaSql.=" doc.horas_catedra";
                                 $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
                                 $cadenaSql.=" INNER JOIN concurso.experiencia_docencia doc ON doc.consecutivo_persona=bas.consecutivo";
@@ -584,7 +585,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" descripcion_docencia, ";
                                 $cadenaSql.=" actual, ";
                                 $cadenaSql.=" fecha_inicio, ";
-                                $cadenaSql.=" fecha_fin)";
+                                $cadenaSql.=" fecha_fin, ";
+                                $cadenaSql.=" horas_catedra)";
                                 $cadenaSql.=" VALUES (";
                                 $cadenaSql.=" DEFAULT,";
                                 $cadenaSql.=" '".$variable['consecutivo_persona']."',";
@@ -605,7 +607,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['descripcion_docencia']."',";
                                 $cadenaSql.=" '".$variable['docencia_actual']."',";
                                 $cadenaSql.=" '".$variable['fecha_inicio_docencia']."',";
-                                $cadenaSql.=" '".$variable['fecha_fin_docencia']."'";
+                                $cadenaSql.=" '".$variable['fecha_fin_docencia']."',";
+                                $cadenaSql.=" '".$variable['horas_catedra']."'";
                                 $cadenaSql.=" )";
                                 $cadenaSql.=" RETURNING consecutivo_docencia";
                             break;     
@@ -850,7 +853,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" descripcion_docencia='".$variable['descripcion_docencia']."', ";
                                 $cadenaSql.=" actual='".$variable['docencia_actual']."', ";
                                 $cadenaSql.=" fecha_inicio='".$variable['fecha_inicio_docencia']."', ";
-                                $cadenaSql.=" fecha_fin='".$variable['fecha_fin_docencia']."' ";
+                                $cadenaSql.=" fecha_fin='".$variable['fecha_fin_docencia']."', ";
+                                $cadenaSql.=" horas_catedra='".$variable['horas_catedra']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_docencia='".$variable['consecutivo_docencia']."' ";
                                 $cadenaSql.=  " RETURNING consecutivo_docencia ";

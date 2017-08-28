@@ -354,6 +354,7 @@ class cerrarSoporteConcurso {
                                       'actual' => $resultadoDocencia[$key]['actual'],
                                       'fecha_inicio' => $resultadoDocencia[$key]['fecha_inicio'],
                                       'fecha_fin' => $resultadoDocencia[$key]['fecha_fin'],
+                                      'horas_catedra' => $resultadoDocencia[$key]['horas_catedra'],
                                  );
                 //busca soportes cargados
                 $consecutivo_persona=$resultadoDocencia[$key]['consecutivo_persona'];

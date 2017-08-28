@@ -113,7 +113,13 @@ class registrarForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{   $atributos ['id'] = 'datos';
+                            $atributos ["estilo"] = "jqueryui";
+                            $atributos ['tipoEtiqueta'] = 'inicio';
+                            $atributos ["leyenda"] = '';
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {	      
                             // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                 $atributos ["id"]="fotografia";
                                 $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
@@ -570,6 +576,9 @@ class registrarForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+			}
+			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
@@ -641,14 +650,11 @@ class registrarForm {
                                     unset ( $atributos );
 
 				}
-                                
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Controles del Formulario -------------------------------------------
-				
-			}
+                       	}
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
-			// ------------------Fin Division para los botones-------------------------
 		}
                 $atributos ['tipoEtiqueta'] = 'fin';
                 echo $this->miFormulario->formulario ( $atributos );

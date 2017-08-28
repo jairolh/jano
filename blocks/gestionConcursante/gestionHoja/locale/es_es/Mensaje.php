@@ -167,6 +167,8 @@ $this->idioma["fecha_fin_docenciaTitulo"]="Indique la fecha de terminación";
 $this->idioma["fecha_fin_docencia"]="Fecha Terminación: ";
 $this->idioma["soporteDocenciaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
 $this->idioma["soporteDocencia"]="Soporte Certificación Docencia: "; 
+$this->idioma["soportehoras_catedra"]="Indique la cantidad de horas dictadas";
+$this->idioma["horas_catedra"]="Horas dictadas: "; 
 
 $this->idioma["nuevoActividad"]="Registrar Actividad Académica";
 $this->idioma["nivel_actividadTitulo"]="Selecciona el tipo de Experiencia Docente Universitaria";

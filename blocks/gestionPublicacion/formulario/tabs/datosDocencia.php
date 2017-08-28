@@ -68,6 +68,7 @@ class consultarDocencia {
                                             <th>Terminación</th>                                            
                                             <th>Nivel Programa</th>
                                             <th>Vinculación</th>
+                                            <th>Horas Dictadas</th>
                                             <th>Actividades</th>
                                             <th>Institución</th>
                                             <th>Tipo</th>
@@ -94,6 +95,7 @@ class consultarDocencia {
                                                 <td align='left'>".$datos->fecha_fin."</td>
                                                 <td align='left'>".$datos->nivel_docencia."</td>
                                                 <td align='left'>".$datos->nombre_vinculacion."</td>
+                                                <td align='left'>".$datos->horas_catedra."</td>
                                                 <td align='left'>".$datos->descripcion_docencia."</td>
                                                 <td align='left'>".$datos->nombre_institucion."</td>
                                                 <td align='left'>".$datos->nivel_institucion."</td>

@@ -803,7 +803,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" doc.descripcion_docencia,";
                                 $cadenaSql.=" doc.actual,";
                                 $cadenaSql.=" doc.fecha_inicio,";
-                                $cadenaSql.=" doc.fecha_fin";
+                                $cadenaSql.=" doc.fecha_fin,";
+                                $cadenaSql.=" doc.horas_catedra";
                                 $cadenaSql.=" FROM concurso.experiencia_docencia doc ";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=doc.pais_docencia";
                                 $cadenaSql.=" WHERE doc.consecutivo_persona='".$variable['consecutivo_persona']."'";

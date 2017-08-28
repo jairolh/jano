@@ -100,7 +100,13 @@ class profesionalForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{   $atributos ['id'] = 'datos';
+                            $atributos ["estilo"] = "jqueryui";
+                            $atributos ['tipoEtiqueta'] = 'inicio';
+                            $atributos ["leyenda"] = '';
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {	      
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_experiencia";
 				$atributos ["estiloEnLinea"] = "display:block";
@@ -478,7 +484,10 @@ class profesionalForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
-				// ------------------Division para los botones-------------------------
+                            }
+                            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+                            // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                            // ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
 				echo $this->miFormulario->division ( "inicio", $atributos );
@@ -559,9 +568,9 @@ class profesionalForm {
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Botones del Formulario -------------------------------------------
-			}
+                       	}
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+			// -----------------FIN CONTROL: Agupacion general -----------------------------------------------------------
 		}
                 // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
                 // Se debe declarar el mismo atributo de marco con que se inició el formulario.

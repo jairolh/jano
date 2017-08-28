@@ -99,7 +99,13 @@ class idiomaForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{   $atributos ['id'] = 'datos';
+                            $atributos ["estilo"] = "jqueryui";
+                            $atributos ['tipoEtiqueta'] = 'inicio';
+                            $atributos ["leyenda"] = '';
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {	      
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_idioma";
 				$atributos ["estiloEnLinea"] = "display:block";
@@ -394,13 +400,15 @@ class idiomaForm {
                                         echo $this->miFormulario->division( 'fin' );
                                         unset ( $atributos );
                                         // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------                                    
-                                    
-                                    
-                                    
+                                   
                                 }
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+                            }
+                            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+                            // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
@@ -481,9 +489,9 @@ class idiomaForm {
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Botones del Formulario -------------------------------------------
-			}
+                       	}
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+			// -----------------FIN CONTROL: Agupacion general -----------------------------------------------------------                                
 		}
                 // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
                 // Se debe declarar el mismo atributo de marco con que se inició el formulario.

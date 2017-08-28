@@ -100,7 +100,13 @@ class docenciaForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{   $atributos ['id'] = 'datos';
+                            $atributos ["estilo"] = "jqueryui";
+                            $atributos ['tipoEtiqueta'] = 'inicio';
+                            $atributos ["leyenda"] = '';
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {	      
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_docencia";
 				$atributos ["estiloEnLinea"] = "display:block";
@@ -367,7 +373,32 @@ class docenciaForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                      
-
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'horas_catedra';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="required,minSize[1],min[0],custom[number]";
+                                    if (isset ( $resultadoDocencia[0]['horas_catedra'] )) 
+                                         {  $atributos ['valor'] = $resultadoDocencia[0]['horas_catedra'];} 
+                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto -------------------------------------------------------- 
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'descripcion_docencia';
                                     $atributos ['id'] = $esteCampo;
@@ -570,6 +601,10 @@ class docenciaForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+                            }
+                            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+                            // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                        
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
@@ -585,7 +620,7 @@ class docenciaForm {
 					$atributos ['submit'] = true;
 					$atributos ["estiloMarco"] = '';
 					$atributos ["estiloBoton"] = 'jqueryui';
-					// verificar: true para verificar el formulario antes de pasarlo al servidor.
+                                        // verificar: true para verificar el formulario antes de pasarlo al servidor.
 					$atributos ["verificar"] = '';
 					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
 					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );

@@ -109,6 +109,7 @@ class consultarDocencia {
                                             <th>Nivel Programa</th>
                                             <th>Vinculación</th>
                                             <th>Actividades</th>
+                                            <th>Horas Dictadas</th>
                                             <th>Institución</th>
                                             <th>Tipo</th>
                                             <th>Telefono</th>
@@ -146,7 +147,8 @@ class consultarDocencia {
                                                 <td align='left'>".$resultadoListaDocencia[$key]['fecha_fin']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nivel_docencia']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nombre_vinculacion']."</td>
-                                                <td align='left'>".$resultadoListaDocencia[$key]['descripcion_docencia']."</td>                                                    
+                                                <td align='left'>".$resultadoListaDocencia[$key]['descripcion_docencia']."</td>
+                                                <td align='left'>".$resultadoListaDocencia[$key]['horas_catedra']."</td>                                                                                                        
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['telefono_institucion']."</td>

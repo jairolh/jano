@@ -53,6 +53,7 @@ class RegistradorDocencia {
                               'fecha_fin_docencia'=>$_REQUEST['fecha_fin_docencia'],
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
+                              'horas_catedra'=>$_REQUEST['horas_catedra'],
              );
         
         if($arregloDatos['consecutivo_docencia']==0)

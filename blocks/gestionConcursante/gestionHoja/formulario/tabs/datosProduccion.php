@@ -79,7 +79,7 @@ class produccionForm {
 		// ----------------INICIAR EL FORMULARIO ------------------------------------------------------------
 		$atributos ['tipoEtiqueta'] = 'inicio';
 		echo $this->miFormulario->formulario ( $atributos );
-		{
+		{   
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                         $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
@@ -100,7 +100,13 @@ class produccionForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{   $atributos ['id'] = 'datos';
+                            $atributos ["estilo"] = "jqueryui";
+                            $atributos ['tipoEtiqueta'] = 'inicio';
+                            $atributos ["leyenda"] = '';
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {	      
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_produccion";
 				$atributos ["estiloEnLinea"] = "display:block";
@@ -635,7 +641,7 @@ class produccionForm {
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['marco'] = true;
                                                           $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoSopInv[0]['alias'];
+                                                          $atributos ['enlaceTexto'] = $resultadoSopProd[0]['alias'];
                                                           $atributos ['estilo'] = 'textoGrande textoGris ';
                                                           $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
@@ -679,7 +685,11 @@ class produccionForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
-				// ------------------Division para los botones-------------------------
+                            }
+                            echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+                            // -----------------FIN CONTROL: Botón -----------------------------------------------------------
+
+                        // ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
 				echo $this->miFormulario->division ( "inicio", $atributos );
@@ -759,9 +769,9 @@ class produccionForm {
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Botones del Formulario -------------------------------------------
-			}
+                       	}
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+			// -----------------FIN CONTROL: Agupacion general -----------------------------------------------------------                                
 		}
                 // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
                 // Se debe declarar el mismo atributo de marco con que se inició el formulario.

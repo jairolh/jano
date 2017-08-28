@@ -31,6 +31,17 @@ class Sql extends \Sql {
 			/**
 			 * Clausulas específicas
 			 */
+			 case "actividadesConReclamacion":
+            $cadenaSql=" SELECT ";
+            $cadenaSql.=" consecutivo_actividad, ";
+            $cadenaSql.=" nombre ";
+            $cadenaSql.=" FROM concurso.actividad_calendario";
+            $cadenaSql.=" WHERE ";
+            $cadenaSql.=" nombre='Evaluar Requisitos'";
+            $cadenaSql.=" OR nombre='Evaluar Hoja de Vida'";
+            $cadenaSql.=" OR nombre='Prueba idioma extranjero'";
+            $cadenaSql.=" OR nombre='Pruebas de Competencias'";
+            break;
 
 			 case "consultaPerfil":
  							$cadenaSql=" SELECT ";

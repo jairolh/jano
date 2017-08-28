@@ -25,8 +25,8 @@ $this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación";
 $this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación";
 $this->idioma["marcoProduccion"]="Registro Producción Académica";
 $this->idioma["marcoListaProduccion"]="Producción Académica";
-$this->idioma["marcoIdioma"]="Registro Lengua Extranjera";
-$this->idioma["marcoListaIdioma"]="Lengua Extranjera";
+$this->idioma["marcoIdioma"]="Registro Lengua Extranjera para participación en concursos";
+$this->idioma["marcoListaIdioma"]="Lengua Extranjera con que participa en concursos";
 
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 $this->idioma ["botonAceptar"] ="Aceptar";

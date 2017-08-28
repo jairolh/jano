@@ -187,6 +187,6 @@ include_once 'my_scriptjs.php';
     unset ( $atributos );
     // ------------------Fin Division para progreso-------------------------    
 //llama funcion para visualizar al div cuando termina de cargar
-echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},1000)  </script>";
+echo "<script language='javascript'> setTimeout(function(){desbloquea('divcarga','tabs')},800)  </script>";
 
 ?>

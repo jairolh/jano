@@ -92,7 +92,7 @@ class consultarInscrito {
                                             <th>Inscripción</th>
                                             <th>Fecha</th>
                                             <th>Datos Inscripción</th>
-                                            <th>Actualizar Estado</th>
+                                            <th>Evaluaciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
@@ -106,17 +106,24 @@ class consultarInscrito {
                                             );
                                         $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
                                         $resultadoSact = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");*/
-                                        $variableVerHoja = "pagina=publicacion";                                                        
-                                        $variableVerHoja.= "&opcion=hojaVida";
-                                        $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-                                        $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableVerHoja.= "&tiempo=" . time ();
-                                        $variableVerHoja .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-                                        $variableVerHoja .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
-                                        $variableVerHoja .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];       
-                                        $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                        $variableVer = "pagina=publicacion";                                                        
+                                        $variableVer.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableVer.= "&id_usuario=" .$_REQUEST['usuario'];
+                                        $variableVer.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableVer.= "&tiempo=" . time ();
+                                        $variableVer.= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+                                        $variableVer.= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                        $variableVer.= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];       
                                         //$variableVerHoja.= "#tabInscrito";
+                                        
+                                        
+                                        $variableVerHoja = $variableVer;                                                        
+                                        $variableVerHoja.= "&opcion=hojaVida";
+                                        $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                        
+                                        $variableVerEval = $variableVer;                                                        
+                                        $variableVerEval.= "&opcion=evaluacion";
+                                        $variableVerEval = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEval, $directorio);
                                         
                                         //enlace actualizar estado
                                         $variableEstado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' ); 
@@ -174,6 +181,41 @@ class consultarInscrito {
                                                           // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
                                                 }
                                          $mostrarHtml .= "</td> <td>";
+                                             if($resultadoListaInscrito[$key]['soporte']>0)
+                                                { 
+                                                //-------------Enlace-----------------------
+                                                    $esteCampo = "verHojaVida";
+                                                          $esteCampo = 'enlace_hoja'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_resultado'.$key.'");';
+                                                          $atributos ['tabIndex'] = 0;
+                                                          $atributos ['columnas'] = 1;
+                                                          $atributos ['enlaceTexto'] = '';
+                                                          $atributos ['estilo'] = 'clasico';
+                                                          $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                          $atributos ['ancho'] = '25px';
+                                                          $atributos ['alto'] = '25px';
+                                                          $atributos ['redirLugar'] = false;
+                                                          $atributos ['valor'] = '';
+                                                          $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                          unset ( $atributos );
+                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                          $esteCampo = 'ruta_enlace_resultado'.$key;
+                                                          $atributos ['id'] = $esteCampo;
+                                                          $atributos ['nombre'] = $esteCampo;
+                                                          $atributos ['tipo'] = 'hidden';
+                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                          $atributos ['obligatorio'] = false;
+                                                          $atributos ['valor'] = $variableVerEval;
+                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                          $atributos ['deshabilitado'] = FALSE;
+                                                          $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto -------------------------------------------------- 
+                                                }
+                                         $mostrarHtml .= "</td>";
+                                         
+                                         /*
                                         if($resultadoListaInscrito[$key]['estado']==0)
                                             { 
                                                 if($resultadoListaInscrito[$key]['estado']=='A')
@@ -205,7 +247,7 @@ class consultarInscrito {
                                                         $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                         unset($atributos);    
                                                     }
-                                            }    
+                                            }   */ 
                                         $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;

@@ -48,6 +48,9 @@ class Frontera {
                                 case "hojaVida" :
 					include_once ($this->ruta . "/formulario/hojaVida.php");
 					break;
+                                case "evaluacion" :
+					include_once ($this->ruta . "/formulario/resultadosEvaluacion.php");
+					break;                                    
                                 case "faseProcesado" :
 					include_once ($this->ruta . "/formulario/faseProcesado.php");
 					break;                                    

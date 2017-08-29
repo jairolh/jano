@@ -48,13 +48,14 @@ class consultarBasicos{
             $cadena_sql = $this->miSql->getCadenaSql("consultaSoportesInscripcion", $parametro);
             $resultadoListaBasicos= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $datos=json_decode ($resultadoListaBasicos[0]['valor_dato']);
+            
             if(isset($datos->soportes) && $datos->soportes!='')
                 {foreach ($datos->soportes as $key => $value) {
-                      if($value->tipo_soporte=='foto' ){
+                      if(isset($value->tipo_soporte) && $value->tipo_soporte=='foto' ){
                         $foto=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
                                     'alias'=> $value->alias_soporte,);
                         }
-                      if($value->tipo_soporte=='soporteIdentificacion' ){  
+                      if(isset($value->tipo_soporte) && $value->tipo_soporte=='soporteIdentificacion' ){  
                         $identificacion=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
                                     'alias'=> $value->alias_soporte,);
                         }

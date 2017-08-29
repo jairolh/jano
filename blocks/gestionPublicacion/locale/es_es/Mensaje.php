@@ -12,6 +12,10 @@ $this->idioma["marcoInvestigacion"]="Experiencia en Investigación";
 $this->idioma["marcoProduccion"]="Producción Académica";
 $this->idioma["marcoIdioma"]="Lengua Extranjera a Concursar";
 
+$this->idioma["marcoEvaluacionPerfil"]="Resultados Evaluación Perfil";
+
+
+
 $this->idioma["inscripcion"]="Número Inscripción:";
 $this->idioma["fecha_registro"]="Fecha Inscripción:";
 $this->idioma["nombre"]="Nombre Concurso:";
@@ -55,6 +59,7 @@ $this->idioma ["noEncontroInvestigacion"] ="No existen datos de experiencia en i
 $this->idioma ["noEncontroProduccion"] ="No existen datos de producción académica registrados. ";
 $this->idioma ["noEncontroIdioma"] ="No existen datos de Lengua Extranjera registrados. ";
 
+$this->idioma ["noEncontroEvaluacion"] ="No existen datos Registrados de Evaluación. ";
 
 
 //------------------Mensajes -----------------------------------

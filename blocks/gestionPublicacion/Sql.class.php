@@ -226,7 +226,8 @@ class Sql extends \Sql {
                                 $cadenaSql.="prmd.puntaje_promedio, ";
                                 $cadenaSql.="prmd.evaluaciones, ";
                                 $cadenaSql.="prmd.fecha_registro,  ";
-                                $cadenaSql.="prmd.id_reclamacion ";
+                                $cadenaSql.="prmd.id_reclamacion,  ";
+                                $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
                                 $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                 $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona ";
@@ -238,12 +239,17 @@ class Sql extends \Sql {
                                     {$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' ";
                                      $cadenaSql.="INNER JOIN concurso.evaluacion_reclamacion reclamo ON reclamo.id_inscrito=insc.consecutivo_inscrito AND reclamo.consecutivo_calendario=prmd.id_calendario AND reclamo.estado='A' ";
                                     }    
-                                else{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' AND prmd.id_reclamacion=0  ";
+                                elseif(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='parcial' )   
+                                    {$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' AND prmd.id_reclamacion=0  ";
+                                    }
+                                else{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito   ";
                                     }    
                                 $cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
                                 $cadenaSql .= " AND prmd.id_calendario='".$variable['consecutivo_calendario']."' ";
                                 if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
                                    {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
+                                if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
+                                   {$cadenaSql .= " AND insc.consecutivo_inscrito='".$variable['consecutivo_inscrito']."' ";}    
                                 //consulta promedios inactivos para cierre parcial
                                 if(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='parcial' )   
                                 {
@@ -264,7 +270,8 @@ class Sql extends \Sql {
                                     $cadenaSql.="prmd.puntaje_promedio, ";
                                     $cadenaSql.="prmd.evaluaciones, ";
                                     $cadenaSql.="prmd.fecha_registro,  ";
-                                    $cadenaSql.="prmd.id_reclamacion ";
+                                    $cadenaSql.="prmd.id_reclamacion,  ";
+                                    $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                     $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                     $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona  ";
@@ -275,9 +282,77 @@ class Sql extends \Sql {
                                        {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
 
                                 }
-                                    $cadenaSql.="ORDER BY perfil , puntaje_promedio DESC, inscripcion ";                                
-                            break;                            
-                    
+                                    $cadenaSql.="ORDER BY perfil , puntaje_promedio DESC, inscripcion, estado_prom ";                                
+                            break;     
+                            
+                        case "consultarValidadoPerfilConcurso":
+                                $cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" val.consecutivo_valida,";
+                                $cadenaSql.=" val.consecutivo_inscrito,";
+                                $cadenaSql.=" (CASE WHEN val.cumple_requisito='SI' THEN 'Cumple' ELSE 'No cumple' END) cumple_requisito,";
+                                $cadenaSql.=" val.observacion,";
+                                $cadenaSql.=" val.fecha_registro,";
+                                $cadenaSql.=" (CASE WHEN val.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado,";
+                                $cadenaSql.=" val.id_reclamacion";
+                                $cadenaSql.=" FROM concurso.concurso_perfil prf2";
+                                $cadenaSql.=" INNER JOIN concurso.concurso_inscrito insc2 ON prf2.consecutivo_perfil=insc2.consecutivo_perfil";
+                                $cadenaSql.=" INNER JOIN concurso.valida_requisito val ON val.consecutivo_inscrito=insc2.consecutivo_inscrito";
+                                $cadenaSql.=" WHERE prf2.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql .= "AND insc2.consecutivo_inscrito='".$variable['consecutivo_inscrito']."' "; 
+                                //$cadenaSql.=" AND val.estado='A'   ";
+                                $cadenaSql.=" ORDER BY estado ASC ";
+                            break; 
+                        
+                        case "consultarReclamacionConcurso":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" recl.id, ";
+                                $cadenaSql.=" recl.consecutivo_calendario, ";
+                                $cadenaSql.=" recl.observacion reclamo , ";
+                                $cadenaSql.=" recl.fecha_registro, ";
+                                $cadenaSql.=" recl.id_inscrito, ";
+                                $cadenaSql.=" rsta.id id_rsta, ";
+                                $cadenaSql.=" (CASE WHEN rsta.respuesta='SI' THEN 'Aplica' ELSE 'No aplica' END) resultado,";
+                                $cadenaSql.=" rsta.observacion, ";
+                                $cadenaSql.=" rsta.fecha_registro, ";
+                                $cadenaSql.=" rsta.id_evaluar_respuesta, ";
+                                $cadenaSql.=" rsta.id_evaluador ";
+                                $cadenaSql.=" FROM concurso.evaluacion_reclamacion recl ";
+                                $cadenaSql.=" INNER JOIN concurso.respuesta_reclamacion rsta ON recl.id=rsta.id_reclamacion AND recl.estado=rsta.estado ";
+                                $cadenaSql.=" WHERE rsta.estado='A' ";
+                                $cadenaSql .= "AND recl.id_inscrito='".$variable['consecutivo_inscrito']."' "; 
+                                if(isset($variable['id_reclamacion']) &&  $variable['id_reclamacion']!='' )
+                                   {
+                                    $cadenaSql.=" AND recl.id='".$variable['id_reclamacion']."' ";
+                                   }
+                                if(isset($variable['id_evalua']) &&  $variable['id_evalua']!='' )
+                                   {
+                                    $cadenaSql .= "AND rsta.id_evaluar_respuesta='".$variable['id_evalua']."' "; 
+                                   }   
+                                
+                                
+                                //$cadenaSql.=" AND rsta.estado='A'   ";
+                                //$cadenaSql.=" ORDER BY estado ASC ";
+                            break;                                 
+
+                        case "consultarFasesEvaluacion":
+                                $cadenaSql="SELECT ";
+                                $cadenaSql.="cal.consecutivo_concurso, ";
+                                $cadenaSql.="cal.consecutivo_calendario, ";
+                                $cadenaSql.="cal.porcentaje_aprueba, ";
+                                $cadenaSql.="act.nombre ";
+                                $cadenaSql.="FROM ";
+                                $cadenaSql.="concurso.concurso_calendario cal  ";
+                                $cadenaSql.="INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad ";
+                                $cadenaSql.="WHERE ";
+                                $cadenaSql.="cal.estado='A' ";
+                                $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql.="AND act.nombre<>'Inscripción' ";
+                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="ORDER BY cal.fecha_inicio ";
+
+                            break;                        
                                         
 				/**
 				 * Clausulas genéricas. se espera que estén en todos los formularios

@@ -86,13 +86,16 @@ class Sql extends \Sql {
 							$cadenaSql.=" concurso.concurso_inscrito ci,";
 							$cadenaSql.=" concurso.concurso_perfil cp,";
 							$cadenaSql.=" concurso.concurso_calendario calendar,";
-							$cadenaSql.=" concurso.concurso c";
+							$cadenaSql.=" concurso.concurso c,";
+							$cadenaSql.=" concurso.actividad_calendario actividad";
 							$cadenaSql.=" WHERE calendar.consecutivo_actividad=3 ";//Actividad de verificación de requisitos del perfil
 							$cadenaSql.=" AND reclamacion.id_inscrito=ci.consecutivo_inscrito";
 							$cadenaSql.=" AND ci.consecutivo_perfil=cp.consecutivo_perfil";
 							$cadenaSql.=" AND conc.consecutivo_concurso=cp.consecutivo_concurso";
 							$cadenaSql.=" AND calendar.consecutivo_concurso=c.consecutivo_concurso";
 							$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso";
+							$cadenaSql.=" AND reclamacion.consecutivo_calendario=calendar.consecutivo_calendario";
+							$cadenaSql.=" and actividad.nombre='Evaluar Requisitos'";
 							$cadenaSql.=" ) reclamaciones";
 
 							$cadenaSql.=" FROM concurso.concurso conc,";
@@ -207,7 +210,7 @@ class Sql extends \Sql {
 						$cadenaSql.=" AND calendario.consecutivo_actividad=a.consecutivo_actividad";
 						$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['consecutivo_concurso'];
 						$cadenaSql.=" AND ci.consecutivo_persona=p.consecutivo";
-
+						$cadenaSql.=" and a.nombre='Evaluar Requisitos'";
 				break;
 
 				case "consultaRespuestaReclamaciones":

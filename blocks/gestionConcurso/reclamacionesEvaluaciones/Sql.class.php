@@ -35,6 +35,36 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+				/*case "consultarDetalleReclamacion":
+				 $cadenaSql=" SELECT * ";
+				 $cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion";
+				break;
+*/
+
+			case "respuestaReclamacion":
+					 $cadenaSql=" SELECT";
+					 $cadenaSql.=" respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
+					 $cadenaSql.=" respuesta.id_evaluar_respuesta, respuesta.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
+					 $cadenaSql.=" FROM concurso.respuesta_reclamacion respuesta, concurso.evaluacion_reclamacion reclamacion, jano_usuario us";
+					 $cadenaSql.=" WHERE";
+					 $cadenaSql.=" reclamacion.id=respuesta.id_reclamacion";
+					 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+					 $cadenaSql.="AND concat(us.tipo_identificacion, '', us.identificacion)=respuesta.id_evaluador";
+					 //echo $cadenaSql;
+					break;
+
+			case "consultarDetalleReclamacion":
+			 $cadenaSql=" SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
+			 $cadenaSql.=" evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ";
+			 $cadenaSql.=" evaluacion.fecha_registro, criterio.nombre nombre_criterio";
+			 $cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
+			 $cadenaSql.=" WHERE";
+			 $cadenaSql.=" reclamacion.id=evaluacion.id_reclamacion";
+			 $cadenaSql.=" and evaluacion.id_evaluar=ce.consecutivo_evaluar";
+			 $cadenaSql.=" and ce.consecutivo_criterio=criterio.consecutivo_criterio";
+			 $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+			break;
+
 			case "fechaFinResolver":
 			 $cadenaSql=" SELECT";
 			 $cadenaSql.=" calendario.consecutivo_calendario, calendario.fecha_fin_reclamacion, calendario.fecha_fin_resolver, actividad.nombre ";
@@ -88,7 +118,8 @@ class Sql extends \Sql {
 							$cadenaSql.=" concurso.concurso_calendario calendar,";
 							$cadenaSql.=" concurso.concurso c,";
 							$cadenaSql.=" concurso.actividad_calendario actividad";
-							$cadenaSql.=" WHERE calendar.consecutivo_actividad=3 ";//Actividad de verificación de requisitos del perfil
+							$cadenaSql.=" WHERE ";
+							$cadenaSql.=" calendar.consecutivo_actividad=9 ";//Actividad de pruebas de factor Competencias profesionales y comunicativas
 							$cadenaSql.=" AND reclamacion.id_inscrito=ci.consecutivo_inscrito";
 							$cadenaSql.=" AND ci.consecutivo_perfil=cp.consecutivo_perfil";
 							$cadenaSql.=" AND conc.consecutivo_concurso=cp.consecutivo_concurso";
@@ -210,7 +241,7 @@ class Sql extends \Sql {
 						$cadenaSql.=" AND calendario.consecutivo_actividad=a.consecutivo_actividad";
 						$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['consecutivo_concurso'];
 						$cadenaSql.=" AND ci.consecutivo_persona=p.consecutivo";
-						$cadenaSql.=" and a.nombre='Evaluar Requisitos'";
+						$cadenaSql.=" and a.nombre='Pruebas de Competencias'";
 				break;
 
 				case "consultaRespuestaReclamaciones":

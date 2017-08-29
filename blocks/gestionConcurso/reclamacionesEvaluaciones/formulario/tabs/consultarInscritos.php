@@ -228,16 +228,23 @@ class evaluarReclamacion {
 								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 								echo "<tbody>";
 					 					$mostrarHtml = "<tr>
-					 								<th colspan='3'>Evaluación Anterior</th>
+					 								<th colspan='4'>Evaluación Anterior</th>
 					 								</tr>";
 
+										$parametro=array(
+												 'reclamacion'=>$resultadoReclamacion[0]['id']
+										);
+										$cadena_sql = $this->miSql->getCadenaSql("consultarDetalleReclamacion", $parametro);
+										$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+										//var_dump($resultadoDetalleReclamacion);
+
 										$mostrarHtml .=  "<tr align='center'>".
-													"<th colspan='1'>¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-													<td colspan='3'>".$resultadoValidacion[0]['cumple_requisito'].
-													"</td>";
-								 echo $mostrarHtml;
-								 unset($mostrarHtml);
-								 unset($variable);
+													"<th colspan='1'>Criterio</th>
+													<th colspan='1'>Calificación</th>
+													<th colspan='1'>Aplica Reclamación?</th>
+													<th colspan='1'>Observaciones</th>";
+
+
 								 echo "</tbody>";
 								 echo "</table></div>";
 
@@ -438,9 +445,9 @@ class evaluarReclamacion {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarRespuestaEvaluacion";
-			$valorCodificado .= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
+			$valorCodificado .= "&reclamacion=" .//$resultadoValidacion[0]['id_reclamacion'];
 			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-			$valorCodificado .= "&evaluar_respuesta=" .$resultadoValidacion[0]['consecutivo_valida'];//la validación
+			$valorCodificado .= "&evaluar_respuesta=" .//$resultadoValidacion[0]['consecutivo_valida'];//la validación
 
 			//$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			//$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];

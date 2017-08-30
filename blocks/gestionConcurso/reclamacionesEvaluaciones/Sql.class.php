@@ -151,12 +151,27 @@ class Sql extends \Sql {
 				// echo $cadenaSql;
 				break;
 
-			case "consultaEvaluacionesReclamacion" :
+			case "consultaEvaluacionesReclamacionInactivas" :
 				$cadenaSql = " SELECT count(*) ";
-				$cadenaSql .= " FROM concurso.valida_requisito ";
-				$cadenaSql .= " WHERE consecutivo_inscrito=" . $variable ['consecutivo_inscrito'];
-				$cadenaSql .= " AND id_reclamacion=" . $variable ['reclamacion'];
+				$cadenaSql .= " FROM concurso.evaluacion_parcial evaluacion, concurso.evaluacion_grupo grupo";
+				$cadenaSql .= " WHERE";
+				$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
+				$cadenaSql .= " AND evaluacion.estado='I'";
+				$cadenaSql .= " AND evaluacion.id_grupo=grupo.id";
+				$cadenaSql .= " AND id_evaluador='".$variable ['usuario']."'";
+				//echo $cadenaSql;
 				break;
+
+				case "consultaEvaluacionesReclamacionActivas" :
+					$cadenaSql = " SELECT count(*) ";
+					$cadenaSql .= " FROM concurso.evaluacion_parcial evaluacion, concurso.evaluacion_grupo grupo";
+					$cadenaSql .= " WHERE";
+					$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
+					$cadenaSql .= " AND evaluacion.estado='A'";
+					$cadenaSql .= " AND evaluacion.id_grupo=grupo.id";
+					$cadenaSql .= " AND id_evaluador='".$variable ['usuario']."'";
+					//echo $cadenaSql;
+					break;
 
 			case "consultaEvaluacionesReclamacion2" :
 				$cadenaSql = " SELECT consecutivo_valida, consecutivo_inscrito, cumple_requisito, observacion, fecha_registro, estado, id_reclamacion";

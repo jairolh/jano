@@ -4,7 +4,7 @@ if (! isset ( $GLOBALS ["autorizado"] )) {
 	exit ();
 }
 
-use gestionConcurso\reclamacionesEvaluaciones;\funcion\redireccion;
+use gestionConcurso\reclamacionesEvaluaciones\funcion\redireccion;
 
 class registrarForm {
 	var $miConfigurador;

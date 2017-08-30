@@ -128,15 +128,22 @@ class consultarForm {
 													$variableDetalleRta.= "&tiempo=" . time ();
 													$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
 
+													/*buscar si existen evaluaciones parciales inactivas:
+														el # de inactivas = # de activas para la reclamación y el jurado
+ 													*/
 													$parametro=array(
-														'consecutivo_inscrito'=>$resultadoReclamaciones[$key]['id_inscrito'],
+														'usuario'=>$this->miSesion->getSesionUsuarioId (),
 														'reclamacion'=>$resultadoReclamaciones[$key]['id']
 													);
-													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
-													$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-															if($resultadoRespuestaReclamaciones[$key]['respuesta']){
-																$respuesta=$resultadoRespuestaReclamaciones[$key]['respuesta'];
+													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionInactivas", $parametro);
+													$evaluacionesInactivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionActivas", $parametro);
+													$evaluacionesActivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+															if($evaluacionesInactivas[0][0]!=$evaluacionesActivas[0][0]){
+																$respuesta="Respuesta (SI/NO)";
 															}else{
 																$respuesta="PENDIENTE";
 															}
@@ -216,7 +223,7 @@ class consultarForm {
 																				if($respuesta=="PENDIENTE"){
 																					$mostrarHtml .="----------";
 
-																				}else if($respuesta && $validacion[0][0]==1){
+																				}else if($respuesta && $evaluacionesInactivas[0][0]!=$evaluacionesActivas[0][0]){
 																					$fecha = date("Y-m-d H:i:s");
 																					if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
 																										$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
@@ -252,7 +259,7 @@ class consultarForm {
 																										$mostrarHtml .="EVALUACION NO REALIZADA";
 																									}
 
-																				}else if($validacion[0][0]==2){
+																				}else if($evaluacionesInactivas[0][0]==$evaluacionesActivas[0][0]){
 																					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 																					$variableValidacion.= "&opcion=consultaValidacion";
 																					$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();

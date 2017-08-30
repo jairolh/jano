@@ -4,14 +4,28 @@
 
 ?>
 
-var sel = $('#radioBtn a').data('title');
-$('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
+var sel = $('#radioBtn0 a').data('title');
+$('#<?php echo $this->campoSeguro("validacion0")?>').val(sel);
 
-$('#radioBtn a').on('click', function(){
+$('#radioBtn0 a').on('click', function(){
     var sel = $(this).data('title');
     var tog = $(this).data('toggle');
 
-    $('#<?php echo $this->campoSeguro("validacion")?>').val(sel);
+    $('#<?php echo $this->campoSeguro("validacion0")?>').val(sel);
+    $('#'+tog).prop('value', sel);
+
+    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
+})
+
+var sel = $('#radioBtn1 a').data('title');
+$('#<?php echo $this->campoSeguro("validacion1")?>').val(sel);
+
+$('#radioBtn1 a').on('click', function(){
+    var sel = $(this).data('title');
+    var tog = $(this).data('toggle');
+
+    $('#<?php echo $this->campoSeguro("validacion1")?>').val(sel);
     $('#'+tog).prop('value', sel);
 
     $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');

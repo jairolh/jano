@@ -70,7 +70,7 @@ class Funcion {
 										 $this->validacion();
 								 break;
 
-							case "guardarRespuestaEvaluacion":
+							case "guardarRespuestaAplicacionEvaluacion":
                       $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                       $this->evaluacion();
                   break;

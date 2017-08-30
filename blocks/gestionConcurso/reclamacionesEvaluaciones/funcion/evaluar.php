@@ -1,6 +1,6 @@
 <?php
 namespace gestionConcurso\reclamacionesEvaluaciones\funcion;
-use gestionConcurso\reclamaciones\funcion\redireccion;
+use gestionConcurso\reclamacionesEvaluaciones\funcion\redireccion;
 include_once ('redireccionar.php');
 
 if (!isset($GLOBALS ["autorizado"])) {
@@ -33,31 +33,45 @@ class RegistradorEvaluacion {
 
         $fecha = date("Y-m-d H:i:s");
 
-        //inactivar registro de la validación
-        $parametro=array(
-          'validacion'=>$_REQUEST['evaluar_respuesta']
+        $parametro = array (
+                'reclamacion' => $_REQUEST['reclamacion'],
+                'usuario' => $_REQUEST['usuario']
         );
-        $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
-        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
+        $cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion2", $parametro );
+        $resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+        
+        foreach ( $resultadoDetalleReclamacion as $key => $value ) {
+          if($_REQUEST['validacion'.$key]=='SI'){
+            //inactivar registro de la evaluación
+            $parametro=array(
+              'evaluacion'=>$resultadoDetalleReclamacion[$key]['evaluacion_id']
+            );
+            $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
+            var_dump($cadena_sql);
+            //$resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
 
-        $parametro=array(
-          'reclamacion'=>$_REQUEST['reclamacion'],
-          'respuesta'=>$_REQUEST['validacion'],
-          'observacion'=>$_REQUEST['observaciones'],
-          'fecha'=>$fecha,
-          'evaluar_respuesta'=>$_REQUEST['evaluar_respuesta'],
-          'evaluador'=>$_REQUEST['usuario']
-        );
+          }
 
-        $cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionReclamacion", $parametro);
-        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
+          $parametro=array(
+            'reclamacion'=>$_REQUEST['reclamacion'],
+            'respuesta'=>$_REQUEST['validacion0'],
+            'observacion'=>$_REQUEST['observaciones0'],
+            'fecha'=>$fecha,
+            'evaluar_respuesta'=>$resultadoDetalleReclamacion[$key]['evaluacion_id'],
+            'evaluador'=>$_REQUEST['usuario']
+          );
 
+          $cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionReclamacion", $parametro);
+          $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
+
+        }
         if($resultado){
             redireccion::redireccionar('evaluoReclamacion',$parametro);  exit();
         }
         else{
             redireccion::redireccionar('noEvaluoReclamacion',$parametro);  exit();
         }
+
 
     }
 

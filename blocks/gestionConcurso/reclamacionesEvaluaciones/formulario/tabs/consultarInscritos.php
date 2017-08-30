@@ -248,7 +248,7 @@ class evaluarReclamacion {
 						$atributos ['enlaceTexto'] = 'SI';
 						$atributos ['ancho'] = '30';
 						$atributos ['alto'] = '30';
-						$atributos ['onClick'] = "show(\"marcoSubsistema\")";
+						$atributos ['onClick'] = "";
 						// $atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 						$mostrarHtml .= $this->miFormulario->enlace ( $atributos );
 						unset ( $atributos );
@@ -401,9 +401,9 @@ class evaluarReclamacion {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarRespuestaAplicacionEvaluacion";
-			$valorCodificado .= "&reclamacion=" . // $resultadoValidacion[0]['id_reclamacion'];
-$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
-			$valorCodificado .= "&evaluar_respuesta=" . // $resultadoValidacion[0]['consecutivo_valida'];//la validación
+			$valorCodificado .= "&reclamacion=" . $resultadoReclamacion [0] ['id'];
+			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
+			//$valorCodificado .= "&evaluar_respuesta=" . // $resultadoValidacion[0]['consecutivo_valida'];//la validación
 
 			// $valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			                                            // $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];

@@ -13,22 +13,22 @@ class evaluarReclamacion {
 	var $miSesion;
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-		
+
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-		
+
 		$this->lenguaje = $lenguaje;
-		
+
 		$this->miFormulario = $formulario;
-		
+
 		$this->miSql = $sql;
-		
+
 		$this->miSesion = \Sesion::singleton ();
 	}
 	function miForm() {
-		
+
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-		
+
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -39,16 +39,16 @@ class evaluarReclamacion {
 		 * $atributos= array_merge($atributos,$atributosGlobales);
 		 */
 		$atributosGlobales ['campoSeguro'] = 'true';
-		
+
 		$_REQUEST ['tiempo'] = time ();
 		$tiempo = $_REQUEST ['tiempo'];
-		
+
 		// lineas para conectar base de d atos-------------------------------------------------------------------------------------------------
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-		
+
 		$seccion ['tiempo'] = $tiempo;
-		
+
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
 		$atributos ['id'] = $esteCampo;
@@ -70,24 +70,24 @@ class evaluarReclamacion {
 		echo $this->miFormulario->formulario ( $atributos );
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
-			
+
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-			
+
 			$rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$rutaBloque .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 			$rutaBloque .= $esteBloque ['grupo'] . "/" . $esteBloque ['nombre'];
-			
+
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-			
+
 			// buscar reclamaciones para el concurso
 			$parametro = array (
-					'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'] 
+					'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso']
 			);
 			$cadena_sql = $this->miSql->getCadenaSql ( "consultarReclamaciones", $parametro );
 			$resultadoReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-			
+
 			$esteCampo = "marcoEvaluacionReclamacion";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -103,7 +103,7 @@ class evaluarReclamacion {
 					$atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
 					// echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
 					unset ( $atributos );
-					
+
 					echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
 					echo "<thead>
 													<tr align='center'>
@@ -114,20 +114,20 @@ class evaluarReclamacion {
 													</tr>
 													</thead>
 													<tbody>";
-					
+
 					foreach ( $resultadoReclamacion as $key => $value ) {
 						$parametro = array (
-								'consecutivo_inscrito' => $resultadoReclamacion [$key] ['id_inscrito'] 
+								'consecutivo_inscrito' => $resultadoReclamacion [$key] ['id_inscrito']
 						);
 						$cadena_sql = $this->miSql->getCadenaSql ( "consultarValidacion2", $parametro );
 						$resultadoValidacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-						
+
 						$mostrarHtml = "<tr align='center'>
-																	<td align='left'>" . $resultadoReclamacion [$key] ['id_inscrito'] . "</td>
-																	<td align='left'>" . $resultadoReclamacion [$key] ['identificacion'] . "</td>
-																	<td align='left'>" . $resultadoReclamacion [$key] ['nombre_inscrito'] . "</td>";
+																<td align='left'>" . $resultadoReclamacion [$key] ['id_inscrito'] . "</td>
+																<td align='left'>" . $resultadoReclamacion [$key] ['identificacion'] . "</td>
+																<td align='left'>" . $resultadoReclamacion [$key] ['nombre_inscrito'] . "</td>";
 						$mostrarHtml .= "<td>";
-						
+
 						$variableVerHoja = "pagina=publicacion";
 						$variableVerHoja .= "&opcion=hojaVida";
 						$variableVerHoja .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
@@ -138,7 +138,7 @@ class evaluarReclamacion {
 						$variableVerHoja .= "&consecutivo_concurso=" . $_REQUEST ['consecutivo_concurso'];
 						$variableVerHoja .= "&consecutivo_perfil=" . $resultadoReclamacion [$key] ['consecutivo_perfil'];
 						$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variableVerHoja, $directorio );
-						
+
 						// -------------Enlace-----------------------
 						$esteCampo = "verHojaVida";
 						$esteCampo = 'enlace_hoja';
@@ -168,17 +168,17 @@ class evaluarReclamacion {
 						$atributos ['deshabilitado'] = FALSE;
 						$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
 						// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-						
+
 						$mostrarHtml .= "</td>";
-						
+
 						$mostrarHtml .= "</tr>";
 					}
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
-					
+
 					echo "</tbody>";
 					echo "</table></div>";
-					
+
 					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 					echo "<tbody>";
 					$mostrarHtml = "<tr>
@@ -187,20 +187,20 @@ class evaluarReclamacion {
 			 								<th>Perfil</th>
 			 								<td colspan='1'>" . $resultadoReclamacion [$key] ['perfil'] . "</td>
 			 								</tr>";
-					
+
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
 					unset ( $variable );
 					echo "</tbody>";
 					echo "</table></div>";
-					
+
 					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 					echo "<tbody>";
 					$mostrarHtml = "<tr align='center'>" . "<th colspan='2'>Reclamación #" . $resultadoReclamacion [0] ['id'] . "</th>
 												</td>";
 					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Fecha</th>
 												<td colspan='3'>" . $resultadoReclamacion [0] ['fecha_registro'] . "</td>";
-					
+
 					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Observación</th>
 												<td colspan='3'>" . $resultadoReclamacion [0] ['observacion'] . "</td>";
 					echo $mostrarHtml;
@@ -208,38 +208,38 @@ class evaluarReclamacion {
 					unset ( $variable );
 					echo "</tbody>";
 					echo "</table></div>";
-					
+
 					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 					echo "<tbody>";
 					$mostrarHtml = "<tr>
 					 								<th colspan='4'>Evaluación Reclamación</th>
 					 								</tr>";
-					
+
 					$parametro = array (
 							'reclamacion' => $resultadoReclamacion [0] ['id'],
-							'usuario' => $this->miSesion->getSesionUsuarioId () 
+							'usuario' => $this->miSesion->getSesionUsuarioId ()
 					);
 					$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
 					$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 					// var_dump($resultadoDetalleReclamacion);
-					
+
 					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
 													<th colspan='1'>Calificación</th>
                                                     <th colspan='1'>¿Aplica Reclamación?</th>
 													<th colspan='1'>Observaciones</th><tr>";
-					
+
 					foreach ( $resultadoDetalleReclamacion as $key => $value ) {
 						$mostrarHtml .= "<tr>
 			 								<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['requisitos'] . "</td>
                                             <td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['puntaje_parcial'] . "</td>
                                             <td colspan='1'>";
-						
-						$mostrarHtml .= '<div id="radioBtn" class="btn-group">';
-						
+
+						$mostrarHtml .= '<div id="radioBtn'.$key.'" class="btn-group">';
+
 						// -------------Enlace-----------------------
 						$esteCampo = "enlace1";
 						$atributos ["id"] = $esteCampo;
-						$atributos ["toogle"] = "validar";
+						$atributos ["toogle"] = "validar".$key;
 						$atributos ["toogletitle"] = "SI";
 						$atributos ['enlace'] = '';
 						$atributos ['tabIndex'] = $esteCampo;
@@ -253,11 +253,11 @@ class evaluarReclamacion {
 						$mostrarHtml .= $this->miFormulario->enlace ( $atributos );
 						unset ( $atributos );
 						// ----------------------------------------
-						
+
 						// -------------Enlace-----------------------
 						$esteCampo = "enlace2";
 						$atributos ["id"] = $esteCampo;
-						$atributos ["toogle"] = "validar";
+						$atributos ["toogle"] = "validar".$key;
 						$atributos ["toogletitle"] = "NO";
 						// $atributos['enlace']=$variableEditar;
 						$atributos ['tabIndex'] = $esteCampo;
@@ -270,16 +270,31 @@ class evaluarReclamacion {
 						$mostrarHtml .= $this->miFormulario->enlace ( $atributos );
 						unset ( $atributos );
 						// ----------------------------------------
-						
+
+						// ////////////////Hidden////////////
+						$esteCampo = 'validacion'.$key;
+						$atributos ["id"] = $esteCampo;
+						$atributos ["tipo"] = "hidden";
+						$atributos ['estilo'] = '';
+						$atributos ['validar'] = 'required';
+						$atributos ["obligatorio"] = true;
+						$atributos ['marco'] = true;
+						$atributos ["etiqueta"] = "";
+						//$atributos ['valor'] = $_REQUEST ['usuario'];
+						$atributos = array_merge ( $atributos, $atributosGlobales );
+						$mostrarHtml .=  $this->miFormulario->campoCuadroTexto ( $atributos );
+						unset ( $atributos );
+
+
 						$mostrarHtml .= '</div>';
-						
+
 						$mostrarHtml .=/*$resultadoDetalleReclamacion[$key]['puntaje_parcial'].*/"</td>"; /* $resultadoDetalleReclamacion[$key]['puntaje_parcial']. */
-						
+
 						$mostrarHtml .= "<td align='center' colspan='1'>";
-						
+
 						$tab = 1;
 						// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-						$esteCampo = 'observaciones';
+						$esteCampo = 'observaciones'.$key;
 						$atributos ['id'] = $esteCampo;
 						$atributos ['nombre'] = $esteCampo;
 						$atributos ['tipo'] = 'text';
@@ -299,20 +314,20 @@ class evaluarReclamacion {
 						$atributos ['maximoTamanno'] = '';
 						$atributos ['anchoEtiqueta'] = 0;
 						$tab ++;
-						
+
 						// Aplica atributos globales al control
 						$atributos = array_merge ( $atributos, $atributosGlobales );
 						$mostrarHtml .= $this->miFormulario->campoTextArea ( $atributos );
 						unset ( $atributos );
-						
+
 						$mostrarHtml .= "</td>";
 					}
-					
+
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
 					echo "</tbody>";
 					echo "</table></div>";
-					
+
 					// ------------------Division para los botones-------------------------
 					$atributos ["id"] = "botones";
 					$atributos ["estilo"] = "marcoBotones";
@@ -334,7 +349,7 @@ class evaluarReclamacion {
 						$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
 						$atributos ['nombreFormulario'] = $esteBloque ['nombre'];
 						$tab ++;
-						
+
 						// Aplica atributos globales al control
 						$atributos = array_merge ( $atributos, $atributosGlobales );
 						echo $this->miFormulario->campoBoton ( $atributos );
@@ -347,7 +362,7 @@ class evaluarReclamacion {
 					$atributos ["estilo"] = "";
 					// $atributos["estiloEnLinea"]="display:none";
 					echo $this->miFormulario->division ( "inicio", $atributos );
-					
+
 					// -------------Control Boton-----------------------
 					$esteCampo = "noEncontroInscrito";
 					$atributos ["id"] = $esteCampo; // Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
@@ -359,16 +374,16 @@ class evaluarReclamacion {
 					echo $this->miFormulario->cuadroMensaje ( $atributos );
 					unset ( $atributos );
 					// -------------Fin Control Boton----------------------
-					
+
 					echo $this->miFormulario->division ( "fin" );
 					// ------------------Division para los botones-------------------------
 				}
 			}
-			
+
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			
+
 			// ------------------- SECCION: Paso de variables ------------------------------------------------
-			
+
 			/**
 			 * En algunas ocasiones es útil pasar variables entre las diferentes páginas.
 			 * SARA permite realizar esto a través de tres
@@ -380,20 +395,20 @@ class evaluarReclamacion {
 			 * (c) a través de campos ocultos en los formularios. (deprecated)
 			 */
 			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-			
+
 			$valorCodificado = "action=" . $esteBloque ["nombre"];
 			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
-			$valorCodificado .= "&opcion=guardarRespuestaEvaluacion";
+			$valorCodificado .= "&opcion=guardarRespuestaAplicacionEvaluacion";
 			$valorCodificado .= "&reclamacion=" . // $resultadoValidacion[0]['id_reclamacion'];
 $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
 			$valorCodificado .= "&evaluar_respuesta=" . // $resultadoValidacion[0]['consecutivo_valida'];//la validación
-			                                            
+
 			// $valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			                                            // $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			                                            // $valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-			
+
 			/**
 			 * SARA permite que los nombres de los campos sean dinámicos.
 			 * Para ello utiliza la hora en que es creado el formulario para
@@ -405,7 +420,7 @@ $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
 			$valorCodificado .= "&tiempo=" . time ();
 			// Paso 2: codificar la cadena resultante
 			$valorCodificado = $this->miConfigurador->fabricaConexiones->crypto->codificar ( $valorCodificado );
-			
+
 			$atributos ["id"] = "formSaraData"; // No cambiar este nombre
 			$atributos ["tipo"] = "hidden";
 			$atributos ['estilo'] = '';
@@ -415,11 +430,11 @@ $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
 			$atributos ["valor"] = $valorCodificado;
 			echo $this->miFormulario->campoCuadroTexto ( $atributos );
 			unset ( $atributos );
-			
+
 			$atributos ['marco'] = true;
 			$atributos ['tipoEtiqueta'] = 'fin';
 			echo $this->miFormulario->formulario ( $atributos );
-			
+
 			return true;
 		}
 	}

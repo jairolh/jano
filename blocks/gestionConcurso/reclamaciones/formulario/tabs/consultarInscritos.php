@@ -250,15 +250,16 @@ class evaluarReclamacion {
 										 $mostrarHtml =  "<tr align='center'>".
 													 "<th>Respuesta Reclamación</th></tr>";
 
-
 										$mostrarHtml .="<td align='center' colspan='3'>"."¿Aplica la reclamación para la Validación de Requisitos?".'<div><br>';
 
+													//$mostrarHtml .= '<div id="radioBtn'.$var_num.'" class="btn-group">';
 													$mostrarHtml .= '<div id="radioBtn" class="btn-group">';
 
 													//-------------Enlace-----------------------
 															$esteCampo = "enlace1";
 															$atributos["id"]=$esteCampo;
 															$atributos["toogle"]="validar";
+															//$atributos["toogle"]="validar".$var_num;
 															$atributos["toogletitle"]="SI";
 															$atributos['enlace']='';
 															$atributos['tabIndex']=$esteCampo;
@@ -267,7 +268,7 @@ class evaluarReclamacion {
 															$atributos['enlaceTexto']='SI';
 															$atributos['ancho']='30';
 															$atributos['alto']='30';
-															$atributos['onClick'] ="show(\"marcoSubsistema\")";
+															$atributos['onClick'] ="";
 															//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 															$mostrarHtml .= $this->miFormulario->enlace($atributos);
 															unset($atributos);
@@ -276,6 +277,7 @@ class evaluarReclamacion {
 														//-------------Enlace-----------------------
 																$esteCampo = "enlace2";
 																$atributos["id"]=$esteCampo;
+																//$atributos["toogle"]="validar".$var_num;
 																$atributos["toogle"]="validar";
 																$atributos["toogletitle"]="NO";
 																//$atributos['enlace']=$variableEditar;

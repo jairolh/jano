@@ -33,12 +33,14 @@ class RegistradorEvaluacion {
 
         $fecha = date("Y-m-d H:i:s");
 
-        //inactivar registro de la validación
-        $parametro=array(
-          'validacion'=>$_REQUEST['evaluar_respuesta']
-        );
-        $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
-        $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
+        if($_REQUEST['validacion']=='SI'){
+          //inactivar registro de la validación
+          $parametro=array(
+            'validacion'=>$_REQUEST['evaluar_respuesta']
+          );
+          $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
+          $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
+        }
 
         $parametro=array(
           'reclamacion'=>$_REQUEST['reclamacion'],

@@ -39,7 +39,7 @@ class RegistradorEvaluacion {
         );
         $cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion2", $parametro );
         $resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-        
+
         foreach ( $resultadoDetalleReclamacion as $key => $value ) {
           if($_REQUEST['validacion'.$key]=='SI'){
             //inactivar registro de la evaluación
@@ -47,15 +47,14 @@ class RegistradorEvaluacion {
               'evaluacion'=>$resultadoDetalleReclamacion[$key]['evaluacion_id']
             );
             $cadena_sql = $this->miSql->getCadenaSql("inactivarValidacion", $parametro);
-            var_dump($cadena_sql);
-            //$resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
+            $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "actualiza", $parametro, "inactivarValidacion");
 
           }
 
           $parametro=array(
             'reclamacion'=>$_REQUEST['reclamacion'],
-            'respuesta'=>$_REQUEST['validacion0'],
-            'observacion'=>$_REQUEST['observaciones0'],
+            'respuesta'=>$_REQUEST['validacion'.$key],
+            'observacion'=>$_REQUEST['observaciones'.$key],
             'fecha'=>$fecha,
             'evaluar_respuesta'=>$resultadoDetalleReclamacion[$key]['evaluacion_id'],
             'evaluador'=>$_REQUEST['usuario']

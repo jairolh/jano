@@ -221,7 +221,7 @@ class evaluarReclamacion {
 					);
 					$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
 					$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-					// var_dump($resultadoDetalleReclamacion);
+					//var_dump($resultadoDetalleReclamacion);
 
 					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
 													<th colspan='1'>Calificación</th>
@@ -230,9 +230,9 @@ class evaluarReclamacion {
 
 					foreach ( $resultadoDetalleReclamacion as $key => $value ) {
 						$mostrarHtml .= "<tr>
-			 								<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['requisitos'] . "</td>
+			 								<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
                                             <td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['puntaje_parcial'] . "</td>
-                                            <td colspan='1'>";
+                                            <td align='center' colspan='1'>";
 
 						$mostrarHtml .= '<div id="radioBtn'.$key.'" class="btn-group">';
 
@@ -303,7 +303,7 @@ class evaluarReclamacion {
 						$atributos ['estiloMarco'] = '';
 						$atributos ["etiquetaObligatorio"] = false;
 						$atributos ['columnas'] = 80;
-						$atributos ['filas'] = 4;
+						$atributos ['filas'] = 2;
 						$atributos ['dobleLinea'] = 0;
 						$atributos ['tabIndex'] = $tab;
 						$atributos ['etiqueta'] = "";

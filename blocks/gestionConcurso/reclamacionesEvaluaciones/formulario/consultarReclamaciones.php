@@ -142,8 +142,12 @@ class consultarForm {
 													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionActivas", $parametro);
 													$evaluacionesActivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-															if($evaluacionesInactivas[0][0]!=$evaluacionesActivas[0][0]){
-																$respuesta="Respuesta (SI/NO)";
+                                                    //buscar en concurso.respuesta_reclamacion
+                                                    $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacion", $parametro);
+													$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+															if($respuestaReclamacion){
+																$respuesta="Ver Respuesta";
 															}else{
 																$respuesta="PENDIENTE";
 															}

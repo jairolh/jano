@@ -4,33 +4,34 @@
 
 ?>
 
-var sel = $('#radioBtn0 a').data('title');
-$('#<?php echo $this->campoSeguro("validacion0")?>').val(sel);
+var criterio=2
+var arr=[
+    '#<?php echo $this->campoSeguro('validacion0')?>',
+    '#<?php echo $this->campoSeguro('validacion1')?>',
+    '#<?php echo $this->campoSeguro('validacion2')?>',
+    '#<?php echo $this->campoSeguro('validacion3')?>',
+    '#<?php echo $this->campoSeguro('validacion4')?>',
+];
 
-$('#radioBtn0 a').on('click', function(){
-    var sel = $(this).data('title');
-    var tog = $(this).data('toggle');
+for (var i = 0; i < criterio; i++) {
+   var sel = $('#radioBtn'+i+' a').data('title');
+   $(arr[i]).val(sel);
+   addAEvent(i);
+}
 
-    $('#<?php echo $this->campoSeguro("validacion0")?>').val(sel);
-    $('#'+tog).prop('value', sel);
+function addAEvent(l){
+    $('#radioBtn'+l+' a').on('click', function(){
+        var sel = $(this).data('title');
+        var tog = $(this).data('toggle');
 
-    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
-    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
-})
+        $(arr[l]).val(sel);
+        $('#'+tog).prop('value', sel);
 
-var sel = $('#radioBtn1 a').data('title');
-$('#<?php echo $this->campoSeguro("validacion1")?>').val(sel);
+        $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
+        $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
 
-$('#radioBtn1 a').on('click', function(){
-    var sel = $(this).data('title');
-    var tog = $(this).data('toggle');
-
-    $('#<?php echo $this->campoSeguro("validacion1")?>').val(sel);
-    $('#'+tog).prop('value', sel);
-
-    $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
-    $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
-})
+    });
+}
 
 
 $('#tablaConcursos').DataTable({

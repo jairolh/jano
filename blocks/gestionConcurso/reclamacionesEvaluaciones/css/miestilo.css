@@ -1,5 +1,8 @@
 
-#radioBtn .notActive{
+#radioBtn0 .notActive, #radioBtn1 .notActive, #radioBtn2 .notActive, #radioBtn3 .notActive,
+#radioBtn4 .notActive, #radioBtn5 .notActive, #radioBtn6 .notActive, #radioBtn7 .notActive,
+#radioBtn8 .notActive, #radioBtn9 .notActive, #radioBtn10
+{
     color: #3276b1;
     background-color: #fff;
 }
@@ -7,7 +10,8 @@
 .anchoColumna1{
   width: 5%;
 }
-/*
-div.campoCuadroTexto{
-  width: 5%;
-}*/
+
+div.campoAreaTexto {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}

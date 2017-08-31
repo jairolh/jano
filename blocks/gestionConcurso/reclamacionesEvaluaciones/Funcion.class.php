@@ -75,6 +75,11 @@ class Funcion {
                       $this->evaluacion();
                   break;
 
+                   case "guardarRespuestaNuevaEvaluacion":
+                      $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                      $this->nuevaEvaluacion();
+                  break;
+
             }
 		}
 	}
@@ -129,6 +134,11 @@ class Funcion {
 	function evaluacion(){
 		include_once($this->ruta."/funcion/evaluar.php");
 	}
+
+    function nuevaEvaluacion(){
+		include_once($this->ruta."/funcion/nuevaEvaluacion.php");
+	}
+
 
 	function validacion(){
 		include_once($this->ruta."/funcion/validar.php");

@@ -37,7 +37,7 @@ class Sql extends \Sql {
 
 				case "consultarDetalleReclamacion2" :
 					$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
-					$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, ";
+					$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, grupo.id id_grupo,";
 					$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
 					$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
 					$cadenaSql .= " WHERE";
@@ -48,7 +48,7 @@ class Sql extends \Sql {
 					$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
 					$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 					$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
-					echo $cadenaSql;
+					//echo $cadenaSql;
 					break;
 
 			case "consultarDetalleReclamacion" :
@@ -189,6 +189,27 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND id_reclamacion=" . $variable ['reclamacion'];
 				$cadenaSql .= " ORDER BY consecutivo_valida ASC ";
 				break;
+
+            case "registroNuevaEvaluacion" :
+				$cadenaSql =" INSERT INTO concurso.evaluacion_parcial (";
+                $cadenaSql .=" id_grupo,";
+                $cadenaSql .=" id_inscrito, ";
+                $cadenaSql .=" id_evaluar, ";
+                $cadenaSql .=" puntaje_parcial,";
+                $cadenaSql .=" observacion, ";
+                $cadenaSql .=" fecha_registro ";
+                $cadenaSql .=" )";
+                $cadenaSql .= " VALUES ( ";
+                $cadenaSql .= " ".$variable['grupo'].", ";
+                $cadenaSql .= " ".$variable['inscrito'].", ";
+                $cadenaSql .= " ".$variable['id_evaluar'].", ";
+                $cadenaSql .= " ".$variable['puntaje'].", ";
+                $cadenaSql .= " '".$variable['observacion']."', ";
+                $cadenaSql .= " '".$variable['fecha']."' ";
+                $cadenaSql .= " )";
+                $cadenaSql.=" RETURNING id";
+
+                break;
 
 			case "registroValidacion" :
 				$cadenaSql = " INSERT INTO concurso.valida_requisito (";

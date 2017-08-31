@@ -224,9 +224,9 @@ class consultarForm {
 
 
 																				$mostrarHtml .= "<td>";
+
 																				if($respuesta=="PENDIENTE"){
 																					$mostrarHtml .="----------";
-
 																				}else if($respuesta && $evaluacionesInactivas[0][0]!=$evaluacionesActivas[0][0]){
 																					$fecha = date("Y-m-d H:i:s");
 																					if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
@@ -265,7 +265,7 @@ class consultarForm {
 
 																				}else if($evaluacionesInactivas[0][0]==$evaluacionesActivas[0][0]){
 																					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																					$variableValidacion.= "&opcion=consultaValidacion";
+																					$variableValidacion.= "&opcion=consultaEvaluacion";
 																					$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
 																					$variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
 																					$variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
@@ -285,7 +285,7 @@ class consultarForm {
 																					$atributos ['columnas'] = 1;
 																					$atributos ['enlaceTexto'] = 'Ver Evaluación';
 																					$atributos ['estilo'] = 'clasico';
-																					$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
 																					$atributos ['posicionImagen'] ="atras";//"adelante";
 																					$atributos ['ancho'] = '20px';
 																					$atributos ['alto'] = '20px';

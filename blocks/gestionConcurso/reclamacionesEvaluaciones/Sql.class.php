@@ -35,6 +35,30 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+				case "consultaEvaluacionParcialReclamacion" :
+					$cadenaSql=" SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
+					$cadenaSql.=" evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, ";
+					$cadenaSql.=" evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio";
+					$cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
+					$cadenaSql.=" WHERE";
+					$cadenaSql.=" reclamacion.id=evaluacion.id_reclamacion";
+					$cadenaSql.=" and evaluacion.id_evaluar=ce.consecutivo_evaluar";
+					$cadenaSql.=" and ce.consecutivo_criterio=criterio.consecutivo_criterio";
+					$cadenaSql.=" AND reclamacion.id=".$variable ['reclamacion'];
+					$cadenaSql.=" AND evaluacion.estado='A'";
+					break;
+
+				case "consultaEvaluacionReclamacion" :
+					$cadenaSql="SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
+					$cadenaSql.=" fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
+					$cadenaSql.=" id_evaluacion_final_reclamo";
+					$cadenaSql.=" FROM concurso.evaluacion_parcial";
+					$cadenaSql.=" WHERE id_reclamacion=".$variable ['reclamacion'];
+					$cadenaSql.=" AND estado='A'";
+					$cadenaSql.=" AND id_grupo=".$variable ['grupo'];
+					//echo $cadenaSql;
+					break;
+
 				case "consultarDetalleReclamacion2" :
 					$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
 					$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, grupo.id id_grupo,";
@@ -48,6 +72,7 @@ class Sql extends \Sql {
 					$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
 					$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 					$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
+					$cadenaSql .= " AND evaluacion.estado='A'";
 					//echo $cadenaSql;
 					break;
 
@@ -362,6 +387,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND c.consecutivo_concurso=cp.consecutivo_concurso ";
 				$cadenaSql .= " AND m.consecutivo_modalidad=c.consecutivo_modalidad ";
 				break;
+
 
 			case "consultarValidacion" :
 				$cadenaSql = " SELECT ";

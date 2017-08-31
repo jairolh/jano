@@ -197,7 +197,8 @@ class Sql extends \Sql {
                 $cadenaSql .=" id_evaluar, ";
                 $cadenaSql .=" puntaje_parcial,";
                 $cadenaSql .=" observacion, ";
-                $cadenaSql .=" fecha_registro ";
+                $cadenaSql .=" fecha_registro, ";
+								$cadenaSql .=" id_reclamacion ";
                 $cadenaSql .=" )";
                 $cadenaSql .= " VALUES ( ";
                 $cadenaSql .= " ".$variable['grupo'].", ";
@@ -205,7 +206,8 @@ class Sql extends \Sql {
                 $cadenaSql .= " ".$variable['id_evaluar'].", ";
                 $cadenaSql .= " ".$variable['puntaje'].", ";
                 $cadenaSql .= " '".$variable['observacion']."', ";
-                $cadenaSql .= " '".$variable['fecha']."' ";
+                $cadenaSql .= " '".$variable['fecha']."', ";
+								$cadenaSql .= " ".$variable['reclamacion']." ";
                 $cadenaSql .= " )";
                 $cadenaSql.=" RETURNING id";
 

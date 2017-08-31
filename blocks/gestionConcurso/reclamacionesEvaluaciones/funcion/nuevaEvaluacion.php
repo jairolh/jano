@@ -40,21 +40,22 @@ class RegistradorEvaluacion {
         $cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion2", $parametro );
         $resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
         //var_dump($resultadoDetalleReclamacion);
-        
+
         $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionInactivas", $parametro);
 		$evaluacionesInactivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
         foreach ( $resultadoDetalleReclamacion as $key => $value ) {
-            
+
           $parametro=array(
             'grupo'=>$resultadoDetalleReclamacion[$key]['id_grupo'],
             'inscrito'=>$_REQUEST['inscrito'],
             'id_evaluar'=>$resultadoDetalleReclamacion[$key]['id_evaluar'],
             'puntaje'=>$_REQUEST['puntaje'.$key],
-            'observacion'=>"oo",
+            'observacion'=>"Evaluación asociada a la reclamación #".$_REQUEST['reclamacion'],
             'fecha'=>$fecha,
+            'reclamacion'=>$_REQUEST['reclamacion']
           );
-            
+
           $cadena_sql = $this->miSql->getCadenaSql("registroNuevaEvaluacion", $parametro);
           $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
 

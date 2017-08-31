@@ -153,10 +153,8 @@ class consultarCalendario {
                                                           $atributos['enlaceTexto']=' Terminado';}
     
                                                     elseif($hoy>=$resultadoListaCalendario[$key]['fecha_inicio'] 
-                                                            && ((!isset($resultadoListaCalendario[$key]['fecha_fin_resolver']) 
-                                                            &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin']))
-                                                            || (isset($resultadoListaCalendario[$key]['fecha_fin_resolver']) 
-                                                            &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin_resolver'])
+                                                            && ((($resultadoListaCalendario[$key]['fecha_fin_resolver']=='' &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin']))
+                                                            || (($resultadoListaCalendario[$key]['fecha_fin_resolver']!=''  &&  $hoy<=$resultadoListaCalendario[$key]['fecha_fin_resolver'])))
                                                             )
                                                         { $atributos['enlaceImagen']=$rutaBloque."/images/goto.png";  
                                                           $atributos['enlaceTexto']=' En curso';}    

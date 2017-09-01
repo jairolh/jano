@@ -100,6 +100,23 @@ class registrarForm {
 				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
 				$resultadoInscripcion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+				//buscar grupo del evaluador
+				$parametro=array(
+					'reclamacion'=>$_REQUEST['reclamacion'],
+					'usuario'=>$_REQUEST['usuario']
+				);
+				$cadena_sql = $this->miSql->getCadenaSql("consultarDetalleReclamacion2", $parametro);
+				$evaluacionParcialReclamacion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+				//var_dump($evaluacionParcialReclamacion);
+
+				$parametro=array(
+					'reclamacion'=>$_REQUEST['reclamacion'],
+					'grupo'=> $evaluacionParcialReclamacion[0]['id_grupo']
+				);
+				//consultar evaluación parcial relacionada con la reclamacion
+				$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionReclamacion", $parametro);
+				$resultadoEvaluacionParcialReclamacion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
 				echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
 				echo "<thead>
 								<tr align='center'>
@@ -192,24 +209,6 @@ class registrarForm {
 								<td colspan='1'>".$resultadoPerfil[0]['perfil']."</td>
 								</tr>";
 
-					$mostrarHtml .= "<tr >
-								<th >Requisitos</th>
-								<td colspan='3'>".$resultadoPerfil[0]['requisitos']."</td>
-								</tr>";
-
-					$mostrarHtml .= "<tr >
-								<th colspan='4'>Evaluación Anterior</th>
-								</tr>";
-
-					$mostrarHtml .= "<tr >
-								<th >¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-								<td colspan='3'>".$validacion[0]['cumple_requisito']."</td>
-								</tr>";
-
-					$mostrarHtml .= "<tr >
-								<th >Observaciones</th>
-								<td colspan='3'>".$validacion[0]['observacion']."</td>
-								</tr>";
 								echo $mostrarHtml;
 								unset($mostrarHtml);
 
@@ -226,22 +225,52 @@ $atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 unset ( $atributos );
 {
+
+//###################################################################
+
 								echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
 								echo "<tbody>";
 
-								$mostrarHtml = "<tr >
-											<th >¿El aspirante cumple con los requisitos exigidos para el perfil?</th>
-											<td colspan='3'>".$validacion[1]['cumple_requisito']."</td>
-											</tr>";
+								$mostrarHtml = "<tr>
+																<th colspan='4'>Evaluación Reclamación</th>
+																</tr>";
 
-								$mostrarHtml .= "<tr >
-											<th >Observaciones</th>
-											<td colspan='3'>".$validacion[1]['observacion']."</td>
-											</tr>";
+								$parametro = array (
+										'reclamacion' => $_REQUEST['reclamacion'],
+										'usuario'=>$_REQUEST['usuario']
+								);
+								$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
+								$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
-					echo $mostrarHtml;
-					unset($mostrarHtml);
 
+								$cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
+								$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+								//var_dump($resultadoRespuestaReclamaciones);
+
+								$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
+																<th colspan='1'>Calificación Anterior</th>
+																													<th colspan='1'>¿Aplica Reclamación?</th>
+																<th colspan='1'>Nueva Calificación</th><tr>";
+
+								foreach ( $resultadoRespuestaReclamaciones as $key => $value ) {
+									$mostrarHtml .= "<tr>
+														<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
+																									<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['puntaje_parcial'] . "</td>
+																									<td colspan='1'>" . $resultadoRespuestaReclamaciones [$key] ['respuesta'] . "</td>";
+
+															if($resultadoRespuestaReclamaciones [$key] ['respuesta']=='SI'){
+																	$mostrarHtml .= "<td align='center' colspan='1'>".$evaluacionParcialReclamacion [$key] ['puntaje_parcial'];
+
+																	$mostrarHtml .= "</td>";
+															}
+
+								}
+
+								echo $mostrarHtml;
+								unset ( $mostrarHtml );
+
+
+//###########################################
 					echo "</tbody>";
 					echo "</table>";
 

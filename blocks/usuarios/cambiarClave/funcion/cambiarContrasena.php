@@ -48,17 +48,8 @@ class RegistradorUsuarios {
                 {   if ($resultadoUs && $_REQUEST ['contrasenaActual']==$resultadoUs[0]['clave'])
                       { $parametro['contrasena']=$_REQUEST ["contrasena"];
                         $cadena_sql = $this->miSql->getCadenaSql ( "modificaClave", $parametro );
-                        $resultado = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "acceso" );
+                        $resultado = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "actualizar", $arregloDatos, "actualizarContraseña" );
                         if ($resultado == true) {
-                            $log=array('accion'=>"ACTUALIZAR",
-                                        'id_registro'=>$resultadoUs[0]["id_usuario"],
-                                        'tipo_registro'=>"CAMBIO CLAVE",
-                                        'nombre_registro'=>"usuario=>".$parametro['id_usuario'].
-                                                           "|claveActual=>".$resultadoUs[0]["clave"].
-                                                           "|claveNueva=>".$parametro['contrasena'],
-                                        'descripcion'=>"Cambio de contraseña del Usuario ".$parametro['id_usuario'],
-                                       ); 
-                            $this->miLogger->log_usuario($log);
                             redireccion::redireccionar('actualizo',$_REQUEST);  exit();
                             $mensaje = " <p><b>...Su contraseña ha sido modificada exitosamente...</b></p>";
                             $error = "exito";

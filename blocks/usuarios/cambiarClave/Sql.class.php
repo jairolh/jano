@@ -72,6 +72,7 @@ class Sql extends \Sql {
 				 $cadenaSql .= "estado = 1 ";
 				 $cadenaSql .= "WHERE ";
 				 $cadenaSql .= "id_usuario = '".$variable['id_usuario']."' ";
+                                 $cadenaSql.=" RETURNING id_usuario";
 				break;
                             			
 			case "rescatarValorSesion" :

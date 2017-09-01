@@ -43,21 +43,9 @@ class RegistradorUsuarios {
                               'telefono'=>$_REQUEST['telefono'],  );
 
         $this->cadena_sql = $this->miSql->getCadenaSql("actualizarUsuario", $arregloDatos);
-        $resultadoUsuario = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoUsuario = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualizar",  $arregloDatos, "actualizarDatosUsuario" );
         if($resultadoUsuario)
-        {
-            $log=array('accion'=>"ACTUALIZAR",
-                        'id_registro'=>$_REQUEST['id_usuario'],
-                        'tipo_registro'=>"GESTION USUARIO",
-                        'nombre_registro'=>"id_usuario=>".$_REQUEST['id_usuario'].
-                                           "|nombres=>".$_REQUEST['nombres'].
-                                           "|apellidos=>".$_REQUEST['apellidos'].
-                                           "|correo=>".$_REQUEST['correo'].
-                                           "|telefono=>".$_REQUEST['telefono'],
-                        'descripcion'=>"Actualización de datos basicos del Usuario ".$_REQUEST['id_usuario'],
-                       ); 
-            $this->miLogger->log_usuario($log);
-            redireccion::redireccionar('actualizo',$arregloDatos);  exit();
+        {       redireccion::redireccionar('actualizo',$arregloDatos);  exit();
         }else
         {
                 redireccion::redireccionar('noactualizo',$arregloDatos);  exit();

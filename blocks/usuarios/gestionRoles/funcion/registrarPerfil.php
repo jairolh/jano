@@ -62,32 +62,19 @@ class RegistradorPerfil {
                                       'rol_fechaIni'  =>$hoy  );
                                   
                $this->cadena_sql = $this->miSql->getCadenaSql("insertarRol", $arregloDatos);
-               $resultadoRol = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
-               $log=array('accion'=>"REGISTRO",
-                        'id_registro'=>$arregloDatos['subsistema']."|".$arregloDatos['rol_id'],
-                        'tipo_registro'=>"GESTION ROLES",
-                        'nombre_registro'=>"subsistema=>".$arregloDatos['subsistema'].
-                                           "|rol_id=>".$arregloDatos['rol_id'].
-                                           "|rol_nombre=>".$arregloDatos['rol_nombre'].
-                                           "|rol_alias=>".$arregloDatos['rol_alias'].
-                                           "|rol_descripcion=>".$arregloDatos['rol_descripcion'].
-                                           "|rol_estado=>".$arregloDatos['rol_estado'].
-                                           "|rol_fechaIni=>".$arregloDatos['rol_fechaIni'],
-                       ); 
+               $resultadoRol = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "insertarRol" );
+               
             }
             
         if(isset($_REQUEST['perfil']) || $resultadoRol)
             {   $this->cadena_sql = $this->miSql->getCadenaSql("insertarRolSubsistema", $arregloDatos);
-                $resultadoRolSub = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+                $resultadoRolSub = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "insertarRolSubsistema" );
 
                 if($resultadoRolSub)
                     {    
                         $cadena_sql = $this->miSql->getCadenaSql("consultaPerfilesSistema", $arregloDatos);
                         $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-                        $log['descripcion']="Registro de nuevo Rol ".$resultadoPerfil[0]['rol_alias']." al Subsistema ".$resultadoPerfil[0]['etiketa'];
-
-                        $this->miLogger->log_usuario($log);
                         $arregloDatos['perfilUs']=$resultadoPerfil[0]['rol_alias'];
                         $arregloDatos['perfilSub']=$resultadoPerfil[0]['etiketa'];
                         redireccion::redireccionar('insertoPerfil',$arregloDatos);  exit();

@@ -41,21 +41,10 @@ class CambiarEstado {
         $parametro['usuario']=$_REQUEST['id_usuario'];
 	$parametro['estado']=$_REQUEST['estado'];
         $this->cadena_sql = $this->miSql->getCadenaSql("CambiarEstadoUsuario", $parametro);
-	$resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+	$resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualizar",  $parametro, "CambiarEstadoUsuario" );
 	
         if($resultadoEstado)
 	{	
-            $log=array('accion'=>"ACTUALIZAR",
-                        'id_registro'=>$parametro['usuario'],
-                        'tipo_registro'=>"GESTION USUARIO",
-                        'nombre_registro'=>"id_usuario=>".$parametro['usuario'].
-                                           "|identificacion=>".$_REQUEST ["identificacion"].
-                                           "|nombre=>".$_REQUEST ["nombre"].
-                                           "|apellido=>".$_REQUEST ["apellido"].
-                                           "|estado=>".$parametro['estado'],
-                        'descripcion'=>"Cambiar el estado del usuario ".$_REQUEST ["nombre"]." ".$_REQUEST ["apellido"]." con identificación ".$_REQUEST ["identificacion"],
-                       ); 
-            $this->miLogger->log_usuario($log);
             redireccion::redireccionar($_REQUEST['opcion'],$_REQUEST['id_usuario']);
             
 	}else

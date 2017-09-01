@@ -55,7 +55,7 @@ class RegistradorUsuarios {
         $password = $this->miConfigurador->fabricaConexiones->crypto->codificarClave ( $pass );
         $hoy = date("Y-m-d");   
 	$arregloDatos = array(
-                              'id_usuario'=>$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'],
+                              'id_usuario'=>strtolower($_REQUEST['tipo_identificacion']).$_REQUEST['identificacion'],
                               'nombres'=>$_REQUEST['nombres'],
                               'apellidos'=>$_REQUEST['apellidos'],
                               'correo'=>$_REQUEST['correo'],
@@ -74,32 +74,15 @@ class RegistradorUsuarios {
         if(!$resultadoUsuario)
 	{
             $this->cadena_sql = $this->miSql->getCadenaSql("insertarUsuario", $arregloDatos);
-            $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+            $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "RegistroUsuario" );
             if($resultadoEstado)
             {	$this->cadena_sql = $this->miSql->getCadenaSql("insertarPerfilUsuario", $arregloDatos);
-                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "RegistroPerfilUsuario" );
                 
                 $parametro['id_usuario']=$arregloDatos['id_usuario'];
                 $cadena_sql = $this->miSql->getCadenaSql("consultarPerfilUsuario", $parametro);
                 $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                
-                $log=array('accion'=>"REGISTRO",
-                            'id_registro'=>$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'],
-                            'tipo_registro'=>"GESTION USUARIO",
-                            'nombre_registro'=>"id_usuario=>".$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'].
-                                               "|identificacion=>".$_REQUEST['identificacion'].
-                                               "|tipo_identificacion=>".$_REQUEST['tipo_identificacion'].
-                                               "|nombres=>".$_REQUEST['nombres'].
-                                               "|apellidos=>".$_REQUEST['apellidos'].
-                                               "|correo=>".$_REQUEST['correo'].
-                                               "|telefono=>".$_REQUEST['telefono'].
-                                               "|subsistema=>".$_REQUEST['subsistema'].
-                                               "|perfil=>".$_REQUEST['perfil'].
-                                               "|fechaIni=>".$hoy.
-                                               "|fechaFin=>".$_REQUEST['fechaFin'],
-                            'descripcion'=>"Registro de nuevo Usuario ".$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion']." con perfil ".$resultadoPerfil[0]['rol_alias'],
-                           ); 
-                $this->miLogger->log_usuario($log);
+
                 $arregloDatos['perfilUs']=$resultadoPerfil[0]['rol_alias'];
                 redireccion::redireccionar('inserto',$arregloDatos);  exit();
             }else

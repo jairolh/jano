@@ -43,24 +43,11 @@ class RegistradorSubsistema {
                                       'descripcion'  =>$_REQUEST['descripcionSub'],
                                       'pagina'  =>$_REQUEST['paginaSub']);
                $this->cadena_sql = $this->miSql->getCadenaSql("insertarSubsistema", $arregloDatos);
-               $resultadoSub = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+               $resultadoSub = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "insertarSubsistema" );
                
         if($resultadoSub)
             {   
-                $log=array('accion'=>"REGISTRO",
-                        'id_registro'=>$arregloDatos['id_subsistema'],
-                        'tipo_registro'=>"GESTION ROLES",
-                        'nombre_registro'=>"id_subsistema=>".$arregloDatos['id_subsistema'].
-                                           "|nombre=>".$arregloDatos['nombre'].
-                                           "|etiqueta=>".$arregloDatos['etiqueta'].
-                                           "|descripcion=>".$arregloDatos['descripcion'].
-                                           "|id_pagina=>".$arregloDatos['pagina'],
-                        'descripcion'=>"Registro de nuevo Subsistema al Subsistema ".$arregloDatos['nombre']
-                          );
-            
-                        $this->miLogger->log_usuario($log);
-                        redireccion::redireccionar('insertoSub',$arregloDatos);  exit();
-                    
+                redireccion::redireccionar('insertoSub',$arregloDatos);  exit();
             }
         else
             {

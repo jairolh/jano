@@ -49,18 +49,10 @@ class BorrarUsuario {
             } 
         else{
                 $this->cadena_sql = $this->miSql->getCadenaSql("borrarRol", $parametro);
-                $resultadoBorra = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+                $resultadoBorra = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "elimina", $parametro, "borrarRol" );
 
                 if($resultadoBorra)
                 {	
-                    $log=array('accion'=>"BORRAR",
-                                'id_registro'=>$_REQUEST ["id_subsistema"]."|".$_REQUEST ["rol_id"],
-                                'tipo_registro'=>"GESTION ROLES",
-                                'nombre_registro'=>"id_subsistema=>".$_REQUEST ["id_subsistema"].
-                                                   "|rol_id=>".$_REQUEST ["rol_id"],
-                                'descripcion'=>"Borrar el Rol ".$_REQUEST ["rol_alias"]." del Subsistema ".$_REQUEST ["subsistema"],
-                               ); 
-                    $this->miLogger->log_usuario($log);
                     redireccion::redireccionar($_REQUEST['opcion'],$_REQUEST);
                     }    
                 else

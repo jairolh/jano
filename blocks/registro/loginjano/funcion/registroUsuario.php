@@ -101,7 +101,7 @@ class FormProcessor {
         $this->cadena_sql = $this->miSql->getCadenaSql("consultaPerfilesSistema", 'Concursante');
 	$resultadoRol = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "busqueda");
         $arregloDatos = array(
-                              'id_usuario'=>$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'],
+                              'id_usuario'=> strtolower($_REQUEST['tipo_identificacion']).$_REQUEST['identificacion'],
                               'nombres'=>$_REQUEST['nombres'],
                               'apellidos'=>$_REQUEST['apellidos'],
                               'correo'=>$_REQUEST['correo'],
@@ -120,37 +120,14 @@ class FormProcessor {
         if(!$resultadoUsuario)
 	{
             $this->cadena_sql = $this->miSql->getCadenaSql("insertarUsuario", $arregloDatos);
-            $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+            $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "AutoRegistroUsuario" );
             if($resultadoEstado)
             {	$this->cadena_sql = $this->miSql->getCadenaSql("insertarPerfilUsuario", $arregloDatos);
-                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro");
+                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "AutoregistroPerfilUsuario" );
             
                 $this->cadena_sql = $this->miSql->getCadenaSql("insertarConcursante", $arregloDatos);
-                $resultadoConcursante = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro");
-                
-                $log=array('accion'=>"REGISTRO",
-                            'id_registro'=>$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'],
-                            'tipo_registro'=>"AUTOREGISTRO USUARIO",
-                            'nombre_registro'=>"id_usuario=>".$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion'].
-                                               "|identificacion=>".$_REQUEST['identificacion'].
-                                               "|tipo_identificacion=>".$_REQUEST['tipo_identificacion'].
-                                               "|nombres=>".$_REQUEST['nombres'].
-                                               "|apellidos=>".$_REQUEST['apellidos'].
-                                               "|correo=>".$_REQUEST['correo'].
-                                               "|telefono=>".$_REQUEST['telefono'].
-                                               "|subsistema=>".$resultadoRol[0]['id_subsistema'].
-                                               "|perfil=>".$resultadoRol[0]['rol_id'].
-                                               "|fechaIni=>".$hoy.
-                                               "|fechaFin=>".$fechafin,
-                            'descripcion'=>"Auto-Registro de nuevo Usuario ".$_REQUEST['tipo_identificacion'].$_REQUEST['identificacion']." con perfil ".$resultadoRol[0]['rol_alias'],
-                           ); 
+                $resultadoConcursante = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $arregloDatos, "AutoregistroConcursante" );
 
-                    $log['id_usuario']=$arregloDatos['id_usuario'];
-                    $log['fecha_log']=date("F j, Y, g:i:s a");         
-                    $log['host']=$this->miLogger->obtenerIP(); 
-                    $cadenaSql = $this->miSql->getCadenaSql("registroLogUsuario", $log);
-                    $resultado = $esteRecursoDB->ejecutarAcceso($cadenaSql, "acceso");
-                
                     Redireccionador::redireccionar('insertoUsuario',$arregloDatos);  exit();
             }else
             {

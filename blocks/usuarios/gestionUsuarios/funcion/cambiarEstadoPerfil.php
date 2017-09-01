@@ -43,20 +43,10 @@ class CambiarEstado {
         $parametro['id_subsistema']=$_REQUEST['id_subsistema'];
         $parametro['rol_id']=$_REQUEST['rol_id'];
         $this->cadena_sql = $this->miSql->getCadenaSql("CambiarEstadoPerfil", $parametro);
-	$resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+	$resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualizar",  $parametro, "CambiarEstadoPerfil" );
 	
         if($resultadoEstado)
 	{	
-            $log=array('accion'=>"ACTUALIZAR",
-                        'id_registro'=>$parametro['id_usuario']."|".$_REQUEST ["id_subsistema"]."|".$_REQUEST ["rol_id"],
-                        'tipo_registro'=>"GESTION USUARIO",
-                        'nombre_registro'=>"id_usuario=>".$parametro['id_usuario'].
-                                           "|id_subsistema=>".$_REQUEST ["id_subsistema"].
-                                           "|rol_id=>".$_REQUEST ["rol_id"].
-                                           "|estado=>".$parametro['estado'],
-                        'descripcion'=>"Cambiar el estado del perfil ".$_REQUEST ["rol_alias"]." del usuario ".$_REQUEST ["id_usuario"]." - ".$_REQUEST ["nombre"]." ".$_REQUEST ["apellido"],
-                       ); 
-            $this->miLogger->log_usuario($log);
             redireccion::redireccionar($_REQUEST['opcion'],$_REQUEST['id_usuario']);
             
 	}else

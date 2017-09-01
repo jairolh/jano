@@ -44,7 +44,7 @@ class RegistradorPerfil {
                               'fechaFin'  =>$_REQUEST['fechaFin'], );
 
         $this->cadena_sql = $this->miSql->getCadenaSql("insertarPerfilUsuario", $arregloDatos);
-        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro",  $arregloDatos, "insertarPerfilUsuario" );
 
         if($resultadoPerfil)
             {    
@@ -53,17 +53,6 @@ class RegistradorPerfil {
                 $cadena_sql = $this->miSql->getCadenaSql("consultarPerfilUsuario", $parametro);
                 $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-                $log=array('accion'=>"REGISTRO",
-                            'id_registro'=>$_REQUEST['id_usuario']."|".$_REQUEST['subsistema']."|".$_REQUEST['perfil'],
-                            'tipo_registro'=>"GESTION USUARIO",
-                            'nombre_registro'=>"id_usuario=>".$_REQUEST['id_usuario'].
-                                               "|subsistema=>".$_REQUEST['subsistema'].
-                                               "|perfil=>".$_REQUEST['perfil'].
-                                               "|fechaIni=>".$hoy.
-                                               "|fechaFin=>".$_REQUEST['fechaFin'],
-                            'descripcion'=>"Registro de nuevo perfil ".$resultadoPerfil[0]['rol_alias']." al Usuario ".$_REQUEST['id_usuario'],
-                           ); 
-                $this->miLogger->log_usuario($log);
                 $arregloDatos['perfilUs']=$resultadoPerfil[0]['rol_alias'];
                 redireccion::redireccionar('insertoPerfil',$arregloDatos);  exit();
             }

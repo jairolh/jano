@@ -147,6 +147,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['pagina']."', ";
                                 $cadenaSql .= " '".$variable['descripcion']."' ";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id_subsistema";
                         break;                    
                             
                         case "insertarRol":
@@ -160,6 +161,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['rol_estado']."', ";
                                 $cadenaSql .= " '".$variable['rol_fechaIni']."' ";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING rol_id";
                         break;                    
                         
                             
@@ -171,6 +173,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['subsistema']."',";
                                 $cadenaSql .= " '1'";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING rol_id";
                                 
 			break;   
                     
@@ -180,6 +183,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " estado = '".$variable['estado']."'";
                                 $cadenaSql .= " WHERE id_subsistema = '".$variable['id_subsistema']."' ";
                                 $cadenaSql .= " AND rol_id = '".$variable['rol_id']."' ";
+                                $cadenaSql.=" RETURNING rol_id";
 			break; 
                     
                         case "EditarSubsistema":
@@ -191,6 +195,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= "observacion='".$variable['descripcionSub']."'";
                                 $cadenaSql .= " WHERE  ";
                                 $cadenaSql .= " id_subsistema = '".$variable['id_subsistema']."' ";
+                                $cadenaSql.=" RETURNING id_subsistema";
                         break;                    
                             
                         case "EditarRol":
@@ -202,12 +207,14 @@ class Sql extends \Sql {
                                 $cadenaSql .= "rol_descripcion='".$variable['rol_descripcion']."'";
                                 $cadenaSql .= " WHERE ";
                                 $cadenaSql .= " rol_id = '".$variable['rol_id']."' ";
+                                $cadenaSql.=" RETURNING rol_id";
                         break; 
                     
                         case "borrarRol":
 				$cadenaSql = "DELETE FROM ".$prefijo."rol_subsistema ";
                                 $cadenaSql .= " WHERE id_subsistema = '".$variable['id_subsistema']."' ";
                                 $cadenaSql .= " AND rol_id = '".$variable['rol_id']."' ";
+                                $cadenaSql.=" RETURNING id_subsistema";
 			break;
                     
 				/**

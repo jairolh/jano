@@ -47,30 +47,13 @@ class FormProcessor {
                 $clave = $this->miConfigurador->fabricaConexiones->crypto->codificarClave($_REQUEST['nuevaClave']);
 
                 //--------------------COMPROBACION DE EXISTENCIA DEL USUARIO-----------------------------------
-                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ("cambiarClave",
-                        array('usuario'=>$usuario,'clave'=>$clave));
+                $arregloDatos=array('usuario'=>$usuario,'clave'=>$clave);
+                
+                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ("cambiarClave",$arregloDatos);
                 //echo "Cadena: ".$atributos ['cadena_sql']."<br>";
                 //echo "Clave: ".$this->miConfigurador->fabricaConexiones->crypto->decodificarClave($clave)."<br>";
-                $matrizItems = $primerRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "acceso" );
-
+                $matrizItems = $primerRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "actualiza", $arregloDatos, "cambiarClave" );
                 if($matrizItems != null){
-                    $arregloLogin = array('SolicitudRecuperacionClave',$usuario,$_SERVER ['REMOTE_ADDR'],$_SERVER ['HTTP_USER_AGENT']);
-                    $argumento = json_encode($arregloLogin);
-                    $arreglo = array($usuario,$argumento);
-
-                    $sesionActiva = "".  date('Y-m-d H:i:s');
-                    $log=array('accion'=>"CAMBIOCLAVE",
-                                'id_registro'=>$usuario."|".$sesionActiva,
-                                'tipo_registro'=>"RECUPERACIONCLAVE",
-                                'nombre_registro'=>$arreglo[1],
-                                'descripcion'=>"Recuperacion de clave por ".$usuario." a las ".$sesionActiva,
-                               ); 
-
-                    $log['id_usuario']=$usuario;
-                    $log['fecha_log']=date("F j, Y, g:i:s a");         
-                    $log['host']=$this->miLogger->obtenerIP(); 
-                    $cadenaSql = $this->miSql->getCadenaSql("registroLogUsuario", $log);
-                    $resultado = $primerRecursoDB->ejecutarAcceso($cadenaSql, "acceso");
                     
                     Redireccionador::redireccionar('claveCambiada', array('nombre'=>$_REQUEST['nombreUsuario']));
                 }else{

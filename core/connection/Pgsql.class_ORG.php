@@ -182,21 +182,32 @@ class Pgsql extends ConectorDb {
 		$miInstancia = new logger ();
 		if ($nombreAccion != 'registroLogUsuario') {
 			if ($nombreAccion != 'actualizarSesion') {
-                                $datos2=array();
+                                $datos2='';
                                 foreach ($datos as $key => $value) {
-                                    $datos2[$key]=$value;    
+                                    $datos2.=$key."=>".$value.";";    
                                     }
-                                if (! isset ( $parametros ['opcion'] ) == true) {
+                            
+				if (is_array ( $datos2 ) == true) {
+					$registro = str_replace ( "'", " ", implode ( ";", $datos2 ) );
+				} else {
+					
+					$registro = str_replace ( "'", " ", $datos2 );
+				}
+                                
+
+				if (! isset ( $parametros ['opcion'] ) == true) {
 					$parametros ['opcion'] = $parametros ['funcion'];
-                                    }
-				$registroAccion = json_encode($datos2);
+				}
+				
+				$registroAccion = $nombreAccion . "(" . $registro . ")";
+				
 				switch ($evento) {
 					case 'REGISTRO' :
 						
 						$log = array (
 								'accion' => $evento,
 								'id_registro' => $parametros ['id_registro'],
-								'tipo_registro' => $nombreAccion,
+								'tipo_registro' => $parametros ['opcion'],
 								'nombre_registro' => $registroAccion,
 								'descripcion' => $parametros ['pagina'] . " - " . $parametros ['opcion'] 
 						);
@@ -211,7 +222,7 @@ class Pgsql extends ConectorDb {
 						$log = array (
 								'accion' => $evento,
 								'id_registro' => $parametros ['id_registro'],
-								'tipo_registro' => $nombreAccion,
+								'tipo_registro' => $parametros ['opcion'],
 								'nombre_registro' => $registroAccion,
 								'descripcion' => $parametros ['pagina'] . " - " . $parametros ['opcion'] 
 						);
@@ -223,7 +234,7 @@ class Pgsql extends ConectorDb {
 						$log = array (
 								'accion' => $evento,
 								'id_registro' => $parametros ['usuario'],
-								'tipo_registro' => $nombreAccion,
+								'tipo_registro' => $parametros ['opcion'],
 								'nombre_registro' => $registroAccion,
 								'descripcion' => $parametros ['pagina'] . " - " . $parametros ['opcion'] 
 						);
@@ -260,9 +271,9 @@ class Pgsql extends ConectorDb {
 			
 			if (!$regitro_invalidos) {
 				
-				$registro = stristr ( $cadena, 'INSERT' );
+				$regitro = stristr ( $cadena, 'INSERT' );
 				
-				if ($registro) {
+				if ($regitro) {
                                         $_REQUEST['id_registro']=$esteRegistro;
 					$this->registro_log ( 'REGISTRO', $arregloDatos, $_REQUEST, $nombre_accion );
 				}

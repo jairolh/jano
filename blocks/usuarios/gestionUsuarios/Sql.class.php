@@ -197,6 +197,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['identificacion']."', ";
                                 $cadenaSql .= " '".$variable['tipo_identificacion']."' ";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id_usuario";
                                 
 			break;
 
@@ -211,6 +212,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['fechaFin']."', ";
                                 $cadenaSql .= " '1'";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id_usuario";
                                 
 			break;                    
                     
@@ -222,6 +224,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " correo = '".$variable['correo']."', ";
                                 $cadenaSql .= " telefono = '".$variable['telefono']."' ";
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;
                     
                         case "CambiarEstadoUsuario":
@@ -229,6 +232,7 @@ class Sql extends \Sql {
 				$cadenaSql = "UPDATE ".$prefijo."usuario SET ";
                                 $cadenaSql .= " estado = '".$variable['estado']."'";
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;
                     
                         case "editarPerfilUsuario":
@@ -239,6 +243,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
                                 $cadenaSql .= " AND id_subsistema = '".$variable['id_subsistema']."' ";
                                 $cadenaSql .= " AND rol_id = '".$variable['rol_id']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;      
 
                         case "CambiarEstadoPerfil":
@@ -248,16 +253,19 @@ class Sql extends \Sql {
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
                                 $cadenaSql .= " AND id_subsistema = '".$variable['id_subsistema']."' ";
                                 $cadenaSql .= " AND rol_id = '".$variable['rol_id']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;      
                     
                         case "borrarPerfil":
 				$cadenaSql = "DELETE FROM ".$prefijo."usuario_subsistema ";
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;                          
 
                         case "borrarUsuario":
 				$cadenaSql = "DELETE FROM ".$prefijo."usuario ";
                                 $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
 			break;                          
                     
                     

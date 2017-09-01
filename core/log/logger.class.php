@@ -45,8 +45,17 @@ class logger extends loggerBase {
      */
     function log_usuario($log) {
        
-        $miSesion = Sesion::singleton();
-        $log['id_usuario']=trim($miSesion->idUsuario());
+       $miSesion = Sesion::singleton();
+       $usuario=trim($miSesion->idUsuario());
+        
+       if(!isset($usuario) || $usuario=='')
+           {$datos=json_decode($log['nombre_registro']);
+            if(isset($datos->id_usuario))
+               {$usuario=$datos->id_usuario;}
+            else{$usuario=$log['id_registro'];}   
+           }
+       
+        $log['id_usuario']=$usuario;
         $log['fecha_log']=date("F j, Y, g:i:s a");         
         $log['host']=$this->obtenerIP(); 
         $cadenaSql = $this->miSql->getCadenaSql("registroLogUsuario", $log);

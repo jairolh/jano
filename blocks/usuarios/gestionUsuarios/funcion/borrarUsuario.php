@@ -50,29 +50,15 @@ class BorrarUsuario {
                 $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
                 $this->cadena_sql = $this->miSql->getCadenaSql("borrarPerfil", $parametro);
-                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql,"eliminar",  $parametro, "borrarPerfilUsuario" );
                 
                 if($resultadoPerfil)
                         {
                          $this->cadena_sql = $this->miSql->getCadenaSql("borrarUsuario", $parametro);
-                         $resultadoBorra = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+                         $resultadoBorra = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "eliminar",  $parametro, "borrarUsuario" );
 
                         if($resultadoBorra)
-                        {	
-                            $log=array('accion'=>"BORRAR",
-                                        'id_registro'=>$resultadoUsuarios[0]['id_usuario'],
-                                        'tipo_registro'=>"GESTION USUARIO",
-                                        'nombre_registro'=> "id_usuario=>".$resultadoUsuarios[0]['id_usuario'].
-                                                            "|identificacion=>".$resultadoUsuarios[0]['identificacion'].
-                                                            "|tipo_identificacion=>".$resultadoUsuarios[0]['tipo_identificacion'].
-                                                            "|nombres=>".$resultadoUsuarios[0]['nombre'].
-                                                            "|apellidos=>".$resultadoUsuarios[0]['apellido'].
-                                                            "|correo=>".$resultadoUsuarios[0]['correo'].
-                                                            "|telefono=>".$resultadoUsuarios[0]['telefono'].
-                                                            "|fecha_registro=>".$resultadoUsuarios[0]['fecha_registro'],
-                                        'descripcion'=>"Borrar del usuario ".$_REQUEST['id_usuario']." - ".$_REQUEST ["nombre"]." ".$_REQUEST ["apellido"],
-                                       ); 
-                            $this->miLogger->log_usuario($log);
+                        {
                             redireccion::redireccionar($_REQUEST['opcion'],$_REQUEST);
 
                         }else

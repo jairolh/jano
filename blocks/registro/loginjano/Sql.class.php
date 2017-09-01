@@ -45,6 +45,7 @@ class Sql extends \Sql {
                             $cadenaSql .= "clave = '".trim ( $variable ["clave"] )."' ";
                             $cadenaSql .= "WHERE ";
                             $cadenaSql .= "id_usuario = '".trim ( $variable ["usuario"] )."' ";
+                            $cadenaSql.=" RETURNING id_usuario";
                             break;
                         
                         case "registroLogUsuario" :
@@ -193,6 +194,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['identificacion']."', ";
                                 $cadenaSql .= " '".$variable['tipo_identificacion']."' ";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id_usuario";
                                 
 			break;
 
@@ -207,6 +209,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['fechaFin']."', ";
                                 $cadenaSql .= " '1'";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING id_usuario";
                                 
 			break;                        
                     
@@ -221,6 +224,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['nombres']."', ";
                                 $cadenaSql .= " '".$variable['apellidos']."' ";
                                 $cadenaSql .= " )";
+                                $cadenaSql.=" RETURNING consecutivo";
                                 
 			break;                       
                     

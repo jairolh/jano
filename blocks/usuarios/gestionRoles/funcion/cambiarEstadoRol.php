@@ -43,19 +43,10 @@ class CambiarEstado {
         $parametro['rol_id']=$_REQUEST['rol_id'];
         $this->cadena_sql = $this->miSql->getCadenaSql("CambiarEstadoRol", $parametro);
 	
-        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoEstado = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualizar", $parametro, "CambiarEstadoRol" );
 	
         if($resultadoEstado)
 	{	
-            $log=array('accion'=>"ACTUALIZAR",
-                        'id_registro'=>$_REQUEST ["id_subsistema"]."|".$_REQUEST ["rol_id"],
-                        'tipo_registro'=>"GESTION ROLES",
-                        'nombre_registro'=>"id_subsistema=>".$_REQUEST ["id_subsistema"].
-                                           "|rol_id=>".$_REQUEST ["rol_id"].
-                                           "|estado=>".$parametro['estado'],
-                        'descripcion'=>"Cambiar el estado del Rol ".$_REQUEST ["rol_alias"]." del Subsistema ".$_REQUEST ["subsistema"],
-                       ); 
-            $this->miLogger->log_usuario($log);
             redireccion::redireccionar($_REQUEST['opcion'],$_REQUEST);
             
 	}else

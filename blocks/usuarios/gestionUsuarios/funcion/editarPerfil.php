@@ -43,7 +43,7 @@ class RegistradorPerfil {
                               'estado'  => 1,  );
 
         $this->cadena_sql = $this->miSql->getCadenaSql("editarPerfilUsuario", $arregloDatos);
-        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "acceso");
+        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "actualizar",  $arregloDatos, "editarPerfilUsuario" );
         if($resultadoPerfil)
             {    
                 $parametro['id_usuario']=$arregloDatos['id_usuario'];
@@ -51,16 +51,6 @@ class RegistradorPerfil {
                 $cadena_sql = $this->miSql->getCadenaSql("consultarPerfilUsuario", $parametro);
                 $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-                $log=array('accion'=>"ACTUALIZAR",
-                            'id_registro'=>$_REQUEST['id_usuario']."|".$_REQUEST['subsistema']."|".$_REQUEST['perfil'],
-                            'tipo_registro'=>"GESTION USUARIO",
-                            'nombre_registro'=>"id_usuario=>".$_REQUEST['id_usuario'].
-                                               "|subsistema=>".$_REQUEST['subsistema'].
-                                               "|perfil=>".$_REQUEST['perfil'].
-                                               "|fechaFin=>".$_REQUEST['fechaFin'],
-                            'descripcion'=>"Actualizar perfil ".$resultadoPerfil[0]['rol_alias']." al Usuario ".$_REQUEST['id_usuario'],
-                           ); 
-                $this->miLogger->log_usuario($log);
                 $arregloDatos['perfilUs']=$resultadoPerfil[0]['rol_alias'];
                 redireccion::redireccionar('editoPerfil',$arregloDatos);  exit();
             }

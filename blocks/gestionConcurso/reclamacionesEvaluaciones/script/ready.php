@@ -4,7 +4,7 @@
 
 ?>
 
-var criterio=2
+var criterio=$('#<?php echo $this->campoSeguro('criterios')?>').val();
 var arr=[
     '#<?php echo $this->campoSeguro('validacion0')?>',
     '#<?php echo $this->campoSeguro('validacion1')?>',

@@ -39,7 +39,6 @@ class RegistradorEvaluacion {
         );
         $cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion2", $parametro );
         $resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-        //var_dump($resultadoDetalleReclamacion);
 
         $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionInactivas", $parametro);
 		$evaluacionesInactivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");

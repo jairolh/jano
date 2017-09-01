@@ -285,6 +285,20 @@ class evaluarReclamacion {
 						$mostrarHtml .=  $this->miFormulario->campoCuadroTexto ( $atributos );
 						unset ( $atributos );
 
+                        // ////////////////Hidden////////////
+						$esteCampo = 'criterios';
+						$atributos ["id"] = $esteCampo;
+						$atributos ["tipo"] = "hidden";
+						$atributos ['estilo'] = '';
+						$atributos ['validar'] = 'required';
+						$atributos ["obligatorio"] = true;
+						$atributos ['marco'] = true;
+						$atributos ["etiqueta"] = "";
+						$atributos ['valor'] = count($resultadoDetalleReclamacion);
+						$atributos = array_merge ( $atributos, $atributosGlobales );
+						$mostrarHtml .=  $this->miFormulario->campoCuadroTexto ( $atributos );
+						unset ( $atributos );
+
 
 						$mostrarHtml .= '</div>';
 

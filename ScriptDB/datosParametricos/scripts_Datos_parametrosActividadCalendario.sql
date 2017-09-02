@@ -8,6 +8,8 @@ INSERT INTO concurso.actividad_calendario(consecutivo_actividad, nombre, descrip
 VALUES (DEFAULT,'Registro Soportes','Actividad Registro de soportes de hoja de vida','A');
 INSERT INTO concurso.actividad_calendario(consecutivo_actividad, nombre, descripcion, estado)
 VALUES (DEFAULT,'Evaluar Requisitos','Actividad de verificación de requisitos del perfil','A');
+INSERT INTO concurso.actividad_calendario(consecutivo_actividad, nombre, descripcion, estado)
+VALUES (DEFAULT,'Lista Elegibles','Actividad de Generar el listado de aspirantes que aprueban el concurso','A');
 
 /**opcionales**/
 INSERT INTO concurso.actividad_calendario(consecutivo_actividad, nombre, descripcion, estado)

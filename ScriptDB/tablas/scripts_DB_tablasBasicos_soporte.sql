@@ -38,7 +38,7 @@ CREATE TABLE concurso.persona
 (
   consecutivo serial NOT NULL,
   tipo_identificacion character varying(10) NOT NULL,
-  identificacion numeric(15,0) NOT NULL,
+  identificacion character varying(25) NOT NULL DEFAULT '0'::character varying,
   nombre character varying(50) NOT NULL DEFAULT ''::character varying,
   apellido character varying(50) NOT NULL DEFAULT ''::character varying,
   lugar_nacimiento numeric(10,0),

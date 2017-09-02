@@ -26,3 +26,16 @@ VALUES ((SELECT (max(tipo_soporte)+1) cod from general.tipo_soporte),'soporteIdi
 INSERT INTO general.tipo_soporte(tipo_soporte, nombre, ubicacion, descripcion, estado, extencion_permitida)
 VALUES ((SELECT (max(tipo_soporte)+1) cod from general.tipo_soporte),'soporteAcuerdo','soportes/acuerdos','Copia de acuerdo de creación y ejecución de concurso','A','pdf');
 
+
+INSERT INTO general.tipo_soporte(tipo_soporte, nombre, ubicacion, descripcion, estado, extencion_permitida)
+VALUES ((SELECT (max(tipo_soporte)+1) cod from general.tipo_soporte),'soporteAutorizacion','soportes/autorizacion','Copia de autorizacion para modificar fecha de fase del concurso','A','pdf');
+
+
+/*sOPORTES EVALUACION*/
+
+INSERT INTO general.tipo_soporte(tipo_soporte, nombre, ubicacion, descripcion, estado, extencion_permitida)
+VALUES ((SELECT (max(tipo_soporte)+1) cod from general.tipo_soporte),'soporteEvaluacion','soportes/evaluacion','Documento detallado evaluacion de criterios','A','pdf');
+
+INSERT INTO general.tipo_soporte(tipo_soporte, nombre, ubicacion, descripcion, estado, extencion_permitida)
+VALUES ((SELECT (max(tipo_soporte)+1) cod from general.tipo_soporte),'soporteReclamacion','soportes/reclamacion','Documento referente a la reclamación del concursante','A','pdf');
+

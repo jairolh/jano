@@ -68,9 +68,13 @@ CREATE TABLE concurso.valida_requisito
   observacion character varying(3000) DEFAULT ''::character varying NOT NULL,
   fecha_registro character varying(20) ,
   estado character varying,
+  id_reclamacion integer,
   CONSTRAINT pk_valida_requisito PRIMARY KEY (consecutivo_valida),
-  CONSTRAINT fk_soporte__relations_inscrito FOREIGN KEY (consecutivo_inscrito)
+  CONSTRAINT fk_valida_relations_inscrito FOREIGN KEY (consecutivo_inscrito)
       REFERENCES concurso.concurso_inscrito (consecutivo_inscrito) MATCH SIMPLE
+      ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_valida_relations_reclamo FOREIGN KEY (id_reclamacion)
+      REFERENCES concurso.evaluacion_reclamacion (id) MATCH SIMPLE
       ON UPDATE RESTRICT ON DELETE RESTRICT
 )
 WITH (
@@ -80,8 +84,8 @@ ALTER TABLE concurso.valida_requisito
   OWNER TO jano_admin;
 
 
--- Table: concurso.valida_requisito
--- DROP TABLE concurso.valida_requisito;
+-- Table: concurso.etapa_inscrito
+-- DROP TABLE concurso.etapa_inscrito;
 
 CREATE TABLE concurso.etapa_inscrito
 ( consecutivo_etapa serial NOT NULL,
@@ -90,6 +94,7 @@ CREATE TABLE concurso.etapa_inscrito
   observacion character varying(2000) DEFAULT ''::character varying NOT NULL,
   fecha_registro character varying(20) ,
   estado character varying,
+  consecutivo_calendario_ant integer NOT NULL,
   CONSTRAINT pk_etapa_inscrito PRIMARY KEY (consecutivo_etapa),
   CONSTRAINT fk_etapa__relations_inscrito FOREIGN KEY (consecutivo_inscrito)
       REFERENCES concurso.concurso_inscrito (consecutivo_inscrito) MATCH SIMPLE
@@ -101,7 +106,7 @@ CREATE TABLE concurso.etapa_inscrito
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE concurso.valida_requisito
+ALTER TABLE concurso.etapa_inscrito
   OWNER TO jano_admin;
 
 

@@ -72,7 +72,7 @@ class Sql extends \Sql {
 					$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
 					$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 					$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
-					$cadenaSql .= " AND evaluacion.estado='A'";
+					//$cadenaSql .= " AND evaluacion.estado='A'";
 					//echo $cadenaSql;
 					break;
 
@@ -235,7 +235,7 @@ class Sql extends \Sql {
 								$cadenaSql .= " ".$variable['reclamacion']." ";
                 $cadenaSql .= " )";
                 $cadenaSql.=" RETURNING id";
-
+                echo $cadenaSql;
                 break;
 
 			case "registroValidacion" :

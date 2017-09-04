@@ -90,7 +90,7 @@ class Sql extends \Sql {
 
 			case "consultarDetalleReclamacion" :
 				$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion observacion_reclamacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario,";
-				$cadenaSql .= " evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ";
+				$cadenaSql .= " evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ce.maximo_puntos,";
 				$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
 				$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
 				$cadenaSql .= " WHERE";
@@ -102,7 +102,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 				$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
                 $cadenaSql .= " AND evaluacion.estado='A'";
-				//echo $cadenaSql;
+				echo $cadenaSql;
 				break;
 
 			case "fechaFinResolver" :

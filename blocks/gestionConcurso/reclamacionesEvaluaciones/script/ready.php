@@ -84,14 +84,14 @@ $('#tablaConsultaCalendario').DataTable({
 
 
 // Asociar el widget de validación al formulario detalleConcurso
-$("#evaluacion").validationEngine({
+$("#reclamacionesEvaluaciones").validationEngine({
     promptPosition : "centerRight",
     scroll: false
 });
 
 $(function() {
-    $("#detalleConcurso").submit(function() {
-        $resultado=$("#evaluacion").validationEngine("validate");
+    $("#reclamacionesEvaluaciones").submit(function() {
+        $resultado=$("#reclamacionesEvaluaciones").validationEngine("validate");
         if ($resultado) {
             return true;
         }

@@ -322,7 +322,6 @@ class evaluarReclamacion {
 						$atributos ['dobleLinea'] = 0;
 						$atributos ['tabIndex'] = $tab;
 						$atributos ['etiqueta'] = "";
-						$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
 						$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 						$atributos ['deshabilitado'] = false;
 						$atributos ['tamanno'] = 60;
@@ -349,6 +348,7 @@ class evaluarReclamacion {
                         //$atributos ['columnas'] = 3;
                         $atributos ['dobleLinea'] = 0;
                         $atributos ['tabIndex'] = $tab;
+												$atributos ['validar'] = "required, min[0], max[".$resultadoDetalleReclamacion[$key]['maximo_puntos']."]";
                         $atributos ['etiqueta'] = "Nueva Calificación";
                         $atributos ['valor'] = '';
                         $atributos ['titulo'] = "";

@@ -194,9 +194,9 @@ class consultarForm {
 																											$atributos ['enlace'] = $variableVerHoja;
 																											$atributos ['tabIndex'] = 0;
 																											$atributos ['columnas'] = 1;
-																											$atributos ['enlaceTexto'] = 'Verificar Reclamación';
+																											$atributos ['enlaceTexto'] = ' Verificar Reclamación';
 																											$atributos ['estilo'] = 'clasico';
-																											$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																											$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 																											$atributos ['posicionImagen'] ="atras";//"adelante";
 																											$atributos ['ancho'] = '20px';
 																											$atributos ['alto'] = '20px';
@@ -230,7 +230,7 @@ class consultarForm {
 																					$atributos ['columnas'] = 1;
 																					$atributos ['enlaceTexto'] = 'Ver Evaluación';
 																					$atributos ['estilo'] = 'clasico';
-																					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+																					$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
 																					$atributos ['posicionImagen'] ="atras";//"adelante";
 																					$atributos ['ancho'] = '20px';
 																					$atributos ['alto'] = '20px';

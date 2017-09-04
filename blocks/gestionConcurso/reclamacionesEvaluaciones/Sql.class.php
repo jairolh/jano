@@ -102,7 +102,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 				$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
                 $cadenaSql .= " AND evaluacion.estado='A'";
-				echo $cadenaSql;
+				//echo $cadenaSql;
 				break;
 
 			case "fechaFinResolver" :

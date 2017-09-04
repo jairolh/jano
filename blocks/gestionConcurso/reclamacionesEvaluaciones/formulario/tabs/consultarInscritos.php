@@ -145,7 +145,7 @@ class evaluarReclamacion {
 						$atributos ['id'] = $esteCampo;
 						$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
 						$atributos ['tabIndex'] = 0;
-						$atributos ['columnas'] = 1;
+						//$atributos ['columnas'] = 1;
 						$atributos ['enlaceTexto'] = 'Ver Curriculum';
 						$atributos ['estilo'] = 'clasico';
 						$atributos ['enlaceImagen'] = $rutaBloque . "/images/xmag.png";
@@ -198,10 +198,10 @@ class evaluarReclamacion {
 					echo "<tbody>";
 					$mostrarHtml = "<tr align='center'>" . "<th colspan='2'>Reclamación #" . $resultadoReclamacion [0] ['id'] . "</th>
 												</td>";
-					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Fecha</th>
+					$mostrarHtml .= "<tr>" . "<th colspan='1'>Fecha</th>
 												<td colspan='3'>" . $resultadoReclamacion [0] ['fecha_registro'] . "</td>";
 
-					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Observación</th>
+					$mostrarHtml .= "<tr>" . "<th colspan='1'>Observación</th>
 												<td colspan='3'>" . $resultadoReclamacion [0] ['observacion'] . "</td>";
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
@@ -240,15 +240,15 @@ class evaluarReclamacion {
 						$esteCampo = "enlace1";
 						$atributos ["id"] = $esteCampo;
 						$atributos ["toogle"] = "validar".$key;
-						$atributos ["toogletitle"] = "SI";
+						$atributos ["toogletitle"] = "NO";
 						$atributos ['enlace'] = '';
 						$atributos ['tabIndex'] = $esteCampo;
 						$atributos ['redirLugar'] = false;
 						$atributos ['estilo'] = 'btn btn-primary btn-sm active';
-						$atributos ['enlaceTexto'] = 'SI';
+						$atributos ['enlaceTexto'] = 'NO';
 						$atributos ['ancho'] = '30';
 						$atributos ['alto'] = '30';
-						$atributos ['onClick'] = "";
+						//$atributos ['onClick'] ="show2(\"puntaje".$key."\")";
 						// $atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 						$mostrarHtml .= $this->miFormulario->enlace ( $atributos );
 						unset ( $atributos );
@@ -258,20 +258,21 @@ class evaluarReclamacion {
 						$esteCampo = "enlace2";
 						$atributos ["id"] = $esteCampo;
 						$atributos ["toogle"] = "validar".$key;
-						$atributos ["toogletitle"] = "NO";
+						$atributos ["toogletitle"] = "SI";
 						// $atributos['enlace']=$variableEditar;
 						$atributos ['tabIndex'] = $esteCampo;
 						$atributos ['redirLugar'] = false;
 						$atributos ['estilo'] = 'btn btn-primary btn-sm notActive';
-						$atributos ['enlaceTexto'] = 'NO';
+						$atributos ['enlaceTexto'] = 'SI';
 						$atributos ['ancho'] = '30';
 						$atributos ['alto'] = '30';
+                        //$atributos ['onClick'] ="show2(\"puntaje".$key."\")";
 						// $atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
 						$mostrarHtml .= $this->miFormulario->enlace ( $atributos );
 						unset ( $atributos );
 						// ----------------------------------------
 
-						// ////////////////Hidden////////////
+						//////////////////Hidden////////////
 						$esteCampo = 'validacion'.$key;
 						$atributos ["id"] = $esteCampo;
 						$atributos ["tipo"] = "hidden";
@@ -335,6 +336,34 @@ class evaluarReclamacion {
 						unset ( $atributos );
 
 						$mostrarHtml .= "</td>";
+
+                        $mostrarHtml .= "<tr id='puntaje".$key."' style='display:none;'><td colspan='4'>";
+                        $esteCampo = 'puntaje'.$key;
+                        $atributos ['id'] = $esteCampo;
+                        $atributos ['nombre'] = $esteCampo;
+                        $atributos ['tipo'] = 'text';
+                        $atributos ['estilo'] = 'jqueryui';
+                        $atributos ['marco'] = true;
+                        $atributos ['estiloMarco'] = '';
+                        $atributos ["etiquetaObligatorio"] = true;
+                        //$atributos ['columnas'] = 3;
+                        $atributos ['dobleLinea'] = 0;
+                        $atributos ['tabIndex'] = $tab;
+                        $atributos ['etiqueta'] = "Nueva Calificación";
+                        $atributos ['valor'] = '';
+                        $atributos ['titulo'] = "";
+                        $atributos ['deshabilitado'] = false;
+                        $atributos ['tamanno'] = 8;
+                        $atributos ['maximoTamanno'] = '';
+                        $atributos ['anchoEtiqueta'] = 180;
+                        $atributos ["estiloEnLinea"] = "padding: 5px";
+                        $tab ++;
+                        // Aplica atributos globales al control
+                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                        $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                        unset ( $atributos );
+                        $mostrarHtml .= "</td></tr>";
+
 					}
 
 					echo $mostrarHtml;
@@ -419,7 +448,7 @@ class evaluarReclamacion {
 			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId ();
 			//$valorCodificado .= "&evaluar_respuesta=" . // $resultadoValidacion[0]['consecutivo_valida'];//la validación
 
-			// $valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			                                            // $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			                                            // $valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 

@@ -27,12 +27,22 @@ function addAEvent(l){
         $(arr[l]).val(sel);
         $('#'+tog).prop('value', sel);
 
+        obj = document.getElementById('puntaje'+l);
+        if(sel==='SI'){
+            if (obj.style.display=='none'){
+                  obj.style.display = '';
+            }
+        } else if(sel==='NO'){
+            if (obj.style.display==''){
+                  obj.style.display = 'none';
+            }
+        }
+
         $('a[data-toggle="'+tog+'"]').not('[data-title="'+sel+'"]').removeClass('active').addClass('notActive');
         $('a[data-toggle="'+tog+'"][data-title="'+sel+'"]').removeClass('notActive').addClass('active');
 
     });
 }
-
 
 $('#tablaConcursos').DataTable({
 "language": {

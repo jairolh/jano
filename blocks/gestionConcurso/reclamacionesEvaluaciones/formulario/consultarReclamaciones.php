@@ -106,7 +106,6 @@ class consultarForm {
                                     <th>Fecha</th>
 																		<th>Etapa</th>
                                     <th>Aplica Reclamación</th>
-																		<th>Nueva Evaluación</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -142,6 +141,10 @@ class consultarForm {
 													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionActivas", $parametro);
 													$evaluacionesActivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+                                                    $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
+													$evaluacionesReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                                    //var_dump($evaluacionesReclamacion);
+
                                                     //buscar en concurso.respuesta_reclamacion
                                                     $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacion", $parametro);
 													$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -172,16 +175,17 @@ class consultarForm {
 																						$fecha = date("Y-m-d H:i:s");
 																						if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
 
-																											$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																											$variableVerHoja.= "&opcion=validacion";
-																											$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																											$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																											$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																											$variableVerHoja.= "&tiempo=" . time ();
-																											//$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																											$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																											//$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																											$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                                                        $variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                                                        $variableVerHoja.= "&opcion=validacion";
+                                                                        $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                                        $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                                        $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                                        $variableVerHoja.= "&tiempo=" . time ();
+
+                                                                        $variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
+                                                                        $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                                        //$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                                        $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
 																											//-------------Enlace-----------------------
 																											$esteCampo = "verHojaVida";
@@ -204,66 +208,7 @@ class consultarForm {
 																						}else{
 																							$mostrarHtml .="RECLAMACIÓN SIN RESPUESTA";
 																						}
-																					}else{
-																						$esteCampo = "detalle";
-																						$atributos["id"]=$esteCampo;
-																						$atributos['enlace']=$variableDetalleRta;
-																						$atributos['tabIndex']=$esteCampo;
-																						$atributos['redirLugar']=true;
-																						$atributos['estilo']='clasico';
-																						$atributos['enlaceTexto']=$respuesta;
-																						$atributos['ancho']='25';
-																						$atributos['alto']='25';
-																						//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																						$mostrarHtml .= $this->miFormulario->enlace($atributos);
-
-																					}
-
-																				$mostrarHtml .="</td>";
-
-
-
-																				$mostrarHtml .= "<td>";
-
-																				if($respuesta=="PENDIENTE"){
-																					$mostrarHtml .="----------";
-																				}else if($respuesta && $evaluacionesInactivas[0][0]!=$evaluacionesActivas[0][0]){
-																					$fecha = date("Y-m-d H:i:s");
-																					if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
-																										$variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																										$variableVerHoja.= "&opcion=evaluar";
-																										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																										$variableVerHoja.= "&tiempo=" . time ();
-																										$variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
-																										$variableVerHoja .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
-																										$variableVerHoja .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
-																										$variableVerHoja .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
-																										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
-
-																										//-------------Enlace-----------------------
-																										$esteCampo = "verHojaVida";
-																										$esteCampo = 'enlace_hoja';
-																										$atributos ['id'] = $esteCampo;
-																										$atributos ['enlace'] = $variableVerHoja;
-																										$atributos ['tabIndex'] = 0;
-																										$atributos ['columnas'] = 1;
-																										$atributos ['enlaceTexto'] = 'Evaluar';
-																										$atributos ['estilo'] = 'clasico';
-																										$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																										$atributos ['posicionImagen'] ="atras";//"adelante";
-																										$atributos ['ancho'] = '20px';
-																										$atributos ['alto'] = '20px';
-																										$atributos ['redirLugar'] = false;
-																										$atributos ['valor'] = '';
-																										$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																										unset ( $atributos );
-																									}else{
-																										$mostrarHtml .="EVALUACION NO REALIZADA";
-																									}
-
-																				}else if($evaluacionesInactivas[0][0]==$evaluacionesActivas[0][0]){
+																					}else if($evaluacionesReclamacion){
 																					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 																					$variableValidacion.= "&opcion=consultaEvaluacion";
 																					$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -294,7 +239,12 @@ class consultarForm {
 																					$mostrarHtml .= $this->miFormulario->enlace( $atributos );
 																					unset ( $atributos );
 																				}
-																				$mostrarHtml .= "</td>";
+
+																				$mostrarHtml .="</td>";
+
+
+
+
 
                                $mostrarHtml .= "</tr>";
                                echo $mostrarHtml;

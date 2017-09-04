@@ -63,6 +63,22 @@ class RegistradorEvaluacion {
           $cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionReclamacion", $parametro);
           $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
 
+            if($_REQUEST['validacion'.$key]=="SI"){
+                $parametro=array(
+                    'grupo'=>$resultadoDetalleReclamacion[$key]['id_grupo'],
+                    'inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                    'id_evaluar'=>$resultadoDetalleReclamacion[$key]['id_evaluar'],
+                    'puntaje'=>$_REQUEST['puntaje'.$key],
+                    'observacion'=>"Evaluación asociada a la reclamación #".$_REQUEST['reclamacion'],
+                    'fecha'=>$fecha,
+                    'reclamacion'=>$_REQUEST['reclamacion']
+                  );
+
+                  $cadena_sql = $this->miSql->getCadenaSql("registroNuevaEvaluacion", $parametro);
+                  $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroEvaluacionReclamacion");
+            }
+
+
         }
         if($resultado){
             redireccion::redireccionar('evaluoReclamacion',$parametro);  exit();

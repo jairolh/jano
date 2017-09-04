@@ -450,7 +450,7 @@ class evaluarReclamacion {
 			//$valorCodificado .= "&evaluar_respuesta=" . // $resultadoValidacion[0]['consecutivo_valida'];//la validación
 
 			$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-			                                            // $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			                                            // $valorCodificado .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
 
 			/**

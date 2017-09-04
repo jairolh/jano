@@ -71,7 +71,8 @@ class RegistradorEvaluacion {
                     'puntaje'=>$_REQUEST['puntaje'.$key],
                     'observacion'=>"Evaluación asociada a la reclamación #".$_REQUEST['reclamacion'],
                     'fecha'=>$fecha,
-                    'reclamacion'=>$_REQUEST['reclamacion']
+                    'reclamacion'=>$_REQUEST['reclamacion'],
+                    'consecutivo_concurso='.$_REQUEST['consecutivo_concurso']
                   );
 
                   $cadena_sql = $this->miSql->getCadenaSql("registroNuevaEvaluacion", $parametro);

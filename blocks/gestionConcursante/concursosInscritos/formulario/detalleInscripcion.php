@@ -89,6 +89,7 @@ class consultaForm {
 
 			$cadena_sql = $this->miSql->getCadenaSql ( "consultarEvaluacionCompetencias", $_REQUEST ['consecutivo_inscrito'] );
 			$resultadoEvaluaciones = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+			//var_dump($resultadoEvaluaciones);
 
 			$cadena_sql = $this->miSql->getCadenaSql ( "consultarEvaluacionHoja", $_REQUEST ['consecutivo_inscrito'] );
 			$resultadoEvaluacionesHoja = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
@@ -586,7 +587,7 @@ class consultaForm {
 							$atributos ["estilo"] = "";
 							// $atributos["estiloEnLinea"]="display:none";
 							echo $this->miFormulario->division ( "inicio", $atributos );
-							echo "<br></br>";
+							echo "";
 
 							// -------------Control Boton-----------------------
 							$esteCampo = "noEncontroPerfil";
@@ -648,14 +649,15 @@ class consultaForm {
 					}
 
 					// echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-					echo '</div>
+					echo '</div></div>
+
 
 </div> ';
 					// ########################################################################################//
 
-					// ############################# Evaluación de Competencias ###############################//
+// ############################# Evaluación de Competencias ###############################//
 
-					echo '<div class="panel panel-default">
+	echo '<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Evaluación Competencias Profesionales y Comunicativas</a>
@@ -671,24 +673,24 @@ class consultaForm {
 					$cadena_sql = $this->miSql->getCadenaSql ( "fechaFinReclamacion", $parametro );
 					$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
+
 					if ($resultadoEvaluaciones) {
 						echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 						echo "<thead>
 						<tr align='center'>
+								<th>Grupo</th>
 								<th>Criterio</th>
 								<th>Puntaje</th>
 								<th>Observación</th>
-								<th>Fecha</th>
-								<th>Evaluador</th>
+								<th>Fecha de la Evaluación</th>
 						</tr>
                     </thead>
                     <tbody> ";
 
 						$mostrarHtml = "";
 
-						// $id_etapa=$fechaFinReclamacionCompetencias[0]['consecutivo_calendario'];
-						// $etapa=$fechaFinReclamacionCompetencias[0]['nombre'];
-						// var_dump($fechaFinReclamacionCompetencias);
+
+							//var_dump($resultadoEvaluaciones)
 
 						foreach ( $resultadoEvaluaciones as $key => $value ) {
 							if ($resultadoEvaluaciones [$key] ['observacion'] == "") {
@@ -696,11 +698,11 @@ class consultaForm {
 							}
 
 							$mostrarHtml .= "<tr align='center'>
+														<td align='left'>" . $resultadoEvaluaciones [$key] ['id_grupo'] . "</td>
 														<td align='left'>" . $resultadoEvaluaciones [$key] ['criterio'] . "</td>
 														<td align='left'>" . $resultadoEvaluaciones [$key] ['puntaje_parcial'] . "</td>
 														<td align='left'>" . $resultadoEvaluaciones [$key] ['observacion'] . "</td>
-														<td align='left'>" . $resultadoEvaluaciones [$key] ['fecha_registro'] . "</td>
-														<td align='left'>" . $resultadoEvaluaciones [$key] ['evaluador'] . "</td>";
+														<td align='left'>" . $resultadoEvaluaciones [$key] ['fecha_registro'] . "</td>";
 							$mostrarHtml .= "</tr>";
 						}
 						echo $mostrarHtml;
@@ -739,16 +741,24 @@ class consultaForm {
 						echo $this->miFormulario->marcoAgrupacion ( "inicio", $atributos );
 						unset ( $atributos );
 
+						//fecha evaluacion
+						$parametro = array (
+								'reclamacion' => $resultadoEvaluaciones [0] ['id_reclamacion']
+						);
+						$cadena_sql = $this->miSql->getCadenaSql ( "consultarDatosReclamacion", $parametro );
+						$resultadoDatosReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+						//var_dump($resultadoDatosReclamacion);
+
 						// buscar reclamación
 						$parametro = array (
 								'consecutivo_inscrito' => $_REQUEST ['consecutivo_inscrito'],
 								'reclamacion' => $resultadoEvaluaciones [0] ['id_reclamacion']
 						);
 
-
 						$parametro = array (
 								'reclamacion' => $resultadoEvaluaciones [0] ['id_reclamacion'],
-								'grupo'=>2//$_REQUEST['usuario']
+								'grupo'=>2
+								//'grupo'=>$resultadoDatosReclamacion[]['']
 						);
 						$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
 						$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
@@ -758,25 +768,30 @@ class consultaForm {
 						$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 						//var_dump($resultadoRespuestaReclamaciones);
 
-						echo "Reclamación # <br>";
-						echo "Fecha de realización<br></br>";
+
+/*listado cierre fase
+						$parametro=array(
+							'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+              'consecutivo_calendario'=>9,
+							'tipo_cierre'=>"parcial");
+            $cadena_sql = $this->miSql->getCadenaSql("listadoCierreEvaluacion", $parametro);
+            $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+						var_dump($resultadoListaFase);
+*/
+	if($resultadoDetalleReclamacion){
+						echo "Reclamación # ".$resultadoEvaluaciones [0] ['id_reclamacion']."<br>";
+						echo "Fecha de realización: ".$resultadoEvaluaciones [0] ['fecha_registro']."<br></br>";
 
 						echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tablaResultadoReclamacion' class='table table-striped table-bordered'>";
 						echo "<tbody>";
 
 						$mostrarHtml = "";
-						/*$mostrarHtml = "<tr>
-														<th colspan='4'>Evaluación Reclamación</th>
-														</tr>";*/
-
 
 						$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Grupo</th>
 														<th colspan='1'>Criterio</th>
 														<th colspan='1'>Calificación Anterior</th>
 														<th colspan='1'>¿Aplica Reclamación?</th>
 														<th colspan='1'>Nueva Calificación</th><tr>";
-
-
 
 
 														foreach ( $resultadoDetalleReclamacion as $key => $value ) {
@@ -790,18 +805,24 @@ class consultaForm {
 						                    $cadena_sql = $this->miSql->getCadenaSql("consultaPuntajeInactivo", $parametro);
 														    $resultadoPuntajeInactivo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-						                                    if($resultadoPuntajeInactivo){
-																									//var_dump($key);
-						                                        $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
-						                                        $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-						                                    }else{
-						                                        $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-						                                    }
+                                if($resultadoPuntajeInactivo){
+                                    $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
+                                    $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                                }else{
+                                    $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                                }
+
+																if($resultadoRespuestaReclamaciones [$key] ['respuesta']=='SI'){
+																	$respuesta=$resultadoRespuestaReclamaciones [$key] ['respuesta'];
+																}else{
+																	$respuesta="Pendiente";
+																}
+
 															$mostrarHtml .= "<tr>
 																				<td colspan='1'>" .$resultadoDetalleReclamacion [$key] ['id_grupo']. "</td>
 																				<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
 																															<td colspan='1'>" . $puntajeInactivo . "</td>
-																															<td colspan='1'>" . $resultadoRespuestaReclamaciones [$key] ['respuesta'] . "</td>";
+																															<td colspan='1'>" . $respuesta . "</td>";
 
 																					$mostrarHtml .= "<td align='center' colspan='1'>";
 																					if($resultadoRespuestaReclamaciones [$key] ['respuesta']=='SI'){
@@ -811,21 +832,6 @@ class consultaForm {
 																					}
 																					$mostrarHtml .= "</td>";
 														}
-
-
-														$mostrarHtml .= "<tr>
-																			<td colspan='1'>" . "3" . "</td>
-																			<td colspan='1'>" . "Prueba Escrita" . "</td>
-																			<td colspan='1'>" . "16" . "</td>
-																			<td colspan='1'>" . "Pendiente" . "</td>
-																			<td colspan='1'>" . "Pendiente" . "</td></tr>";
-
-																			$mostrarHtml .= "<tr>
-																								<td colspan='1'>" . "3" . "</td>
-																								<td colspan='1'>" . "Prueba Oral" . "</td>
-																								<td colspan='1'>" . "9" . "</td>
-																								<td colspan='1'>" . "Pendiente" . "</td>
-																								<td colspan='1'>" . "Pendiente" . "</td></tr>";
 
 														echo $mostrarHtml;
 														unset ( $mostrarHtml );
@@ -838,8 +844,7 @@ class consultaForm {
 
 														echo "</div>";
 
-
-
+													}
 
 
 						$parametro = array (
@@ -902,6 +907,7 @@ class consultaForm {
 						}
 
 						$fecha = date ( "Y-m-d H:i:s" );
+						//var_dump($reclamacionesCompetencias);
 
 						if ($fecha <= $fechaFinReclamacionCompetencias [0] ['fecha_fin_reclamacion'] && ! $reclamacionesCompetencias) {
 
@@ -949,7 +955,7 @@ class consultaForm {
 
 					// echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
-					echo '</div>
+					echo '</div></div>
 
 	</div> ';
 					// ########################################################################################//

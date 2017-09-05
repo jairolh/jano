@@ -44,7 +44,7 @@ function addAEvent(l){
     });
 }
 
-$('#tablaConcursos').DataTable({
+$('#tablaResultadoReclamacion').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
     "zeroRecords": "No se encontraron registros coincidentes",

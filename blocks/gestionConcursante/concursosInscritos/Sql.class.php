@@ -31,6 +31,46 @@ class Sql extends \Sql {
 			/**
 			 * Clausulas específicas
 			 */
+
+			 case "consultarDetalleReclamacion" :
+			 	$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion observacion_reclamacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario,";
+			 	$cadenaSql .= " evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ce.maximo_puntos,";
+			 	$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador, grupo.id id_grupo";
+			 	$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
+			 	$cadenaSql .= " WHERE";
+			 	$cadenaSql .= " reclamacion.id=evaluacion.id_reclamacion";
+			 	$cadenaSql .= " and evaluacion.id_evaluar=ce.consecutivo_evaluar";
+			 	$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
+			 	$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
+			 	$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
+			 	$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
+			 	$cadenaSql .= " AND grupo.id='" . $variable ['grupo'] . "'";
+			 	$cadenaSql .= " AND evaluacion.estado='A'";
+			 	//echo $cadenaSql;
+			 	break;
+
+				case "consultaRespuestaReclamaciones" :
+					$cadenaSql = "SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, respuesta.id AS id_respuesta, respuesta.respuesta, ";
+					$cadenaSql .= "respuesta.id_evaluar_respuesta, ep.id_evaluar ";
+					$cadenaSql .= "FROM concurso.evaluacion_reclamacion er, concurso.respuesta_reclamacion respuesta, concurso.evaluacion_parcial ep ";
+					$cadenaSql .= "WHERE respuesta.id_reclamacion=er.id ";
+					$cadenaSql .= "AND respuesta.id_evaluar_respuesta=ep.id ";
+					$cadenaSql .= "AND respuesta.estado='A' ";
+					$cadenaSql .= "AND respuesta.id_reclamacion=" . $variable ['reclamacion'];
+					//echo $cadenaSql;
+					break;
+
+					case "consultaPuntajeInactivo" :
+		$cadenaSql="SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
+		$cadenaSql.=" fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
+		$cadenaSql.=" id_evaluacion_final";
+		$cadenaSql.=" FROM concurso.evaluacion_parcial";
+		$cadenaSql.=" WHERE id_reclamacion=".$variable ['reclamacion'];
+		$cadenaSql.=" AND estado='I'";
+		$cadenaSql.=" AND id_evaluar=".$variable ['criterio'];
+		//echo $cadenaSql;
+		break;
+
 			 case "actividadesConReclamacion":
             $cadenaSql=" SELECT ";
             $cadenaSql.=" consecutivo_actividad, ";

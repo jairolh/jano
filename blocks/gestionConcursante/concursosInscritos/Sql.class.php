@@ -32,88 +32,21 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
-			 case "listadoCierreEvaluacion":
-								//consulta promedios activos para cierre parcial y final
-								$cadenaSql="SELECT DISTINCT ";
-								$cadenaSql.="prf.consecutivo_concurso,  ";
-								$cadenaSql.="prf.consecutivo_perfil,  ";
-								$cadenaSql.="prf.nombre perfil,  ";
-								$cadenaSql.="prf.descripcion,  ";
-								$cadenaSql.="prf.dependencia,  ";
-								$cadenaSql.="prf.area,  ";
-								$cadenaSql.="insc.consecutivo_inscrito inscripcion,  ";
-								$cadenaSql.="insc.consecutivo_persona,  ";
-								$cadenaSql.="bas.identificacion,  ";
-								$cadenaSql.="bas.nombre,  ";
-								$cadenaSql.="bas.apellido, ";
-								$cadenaSql.="prmd.id_calendario fase, ";
-								$cadenaSql.="prmd.puntaje_promedio, ";
-								$cadenaSql.="prmd.evaluaciones, ";
-								$cadenaSql.="prmd.fecha_registro,  ";
-								$cadenaSql.="prmd.id_reclamacion,  ";
-								$cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
-								$cadenaSql.="FROM concurso.concurso_perfil prf  ";
-								$cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
-								$cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona ";
-								if(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='final' )
-										{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' ";
-										 $cadenaSql.="INNER JOIN concurso.etapa_inscrito etapa ON etapa.consecutivo_inscrito=insc.consecutivo_inscrito AND etapa.consecutivo_calendario_ant=prmd.id_calendario AND etapa.estado='A' ";
-										}
-								elseif(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='reclamo' )
-										{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' ";
-										 $cadenaSql.="INNER JOIN concurso.evaluacion_reclamacion reclamo ON reclamo.id_inscrito=insc.consecutivo_inscrito AND reclamo.consecutivo_calendario=prmd.id_calendario AND reclamo.estado='A' ";
-										}
-								elseif(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='parcial' )
-										{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='A' AND prmd.id_reclamacion=0  ";
-										}
-								else{$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito   ";
-										}
-								$cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
-								$cadenaSql .= " AND prmd.id_calendario='".$variable['consecutivo_calendario']."' ";
-								if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
-									 {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";}
-								if(isset($variable['consecutivo_inscrito']) &&  $variable['consecutivo_inscrito']!='' )
-									 {$cadenaSql .= " AND insc.consecutivo_inscrito='".$variable['consecutivo_inscrito']."' ";}
-								//consulta promedios inactivos para cierre parcial
-								if(isset($variable['tipo_cierre']) &&  $variable['tipo_cierre']=='parcial' )
-								{
-										$cadenaSql.="UNION ";
-										$cadenaSql.="SELECT DISTINCT  ";
-										$cadenaSql.="prf.consecutivo_concurso,  ";
-										$cadenaSql.="prf.consecutivo_perfil,  ";
-										$cadenaSql.="prf.nombre perfil,  ";
-										$cadenaSql.="prf.descripcion,  ";
-										$cadenaSql.="prf.dependencia,  ";
-										$cadenaSql.="prf.area,  ";
-										$cadenaSql.="insc.consecutivo_inscrito inscripcion,  ";
-										$cadenaSql.="insc.consecutivo_persona,  ";
-										$cadenaSql.="bas.identificacion,  ";
-										$cadenaSql.="bas.nombre,  ";
-										$cadenaSql.="bas.apellido,  ";
-										$cadenaSql.="prmd.id_calendario fase, ";
-										$cadenaSql.="prmd.puntaje_promedio, ";
-										$cadenaSql.="prmd.evaluaciones, ";
-										$cadenaSql.="prmd.fecha_registro,  ";
-										$cadenaSql.="prmd.id_reclamacion,  ";
-										$cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
-										$cadenaSql.="FROM concurso.concurso_perfil prf  ";
-										$cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
-										$cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona  ";
-										$cadenaSql.="INNER JOIN concurso.evaluacion_promedio prmd ON prmd.id_inscrito=insc.consecutivo_inscrito AND prmd.estado='I' AND prmd.id_reclamacion=0 ";
-										$cadenaSql.="WHERE prf.consecutivo_concurso='".$variable['consecutivo_concurso']."'";
-										$cadenaSql .= " AND prmd.id_calendario='".$variable['consecutivo_calendario']."' ";
-										if(isset($variable['consecutivo_perfil']) &&  $variable['consecutivo_perfil']!='' )
-											 {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";}
-
-								}
-										$cadenaSql.="ORDER BY perfil , puntaje_promedio DESC, inscripcion, estado_prom ";
-										echo $cadenaSql;
-						break;
+            case "consultarGruposReclamacion" :
+                $cadenaSql=" SELECT distinct grupo.id id_grupo ";
+                $cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion, ";
+                $cadenaSql.=" concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, ";
+                $cadenaSql.=" concurso.evaluacion_grupo grupo, jano_usuario us ";
+                $cadenaSql.=" WHERE reclamacion.id=evaluacion.id_reclamacion and evaluacion.id_evaluar=ce.consecutivo_evaluar and ";
+                $cadenaSql.=" ce.consecutivo_criterio=criterio.consecutivo_criterio";
+                $cadenaSql.=" AND reclamacion.id=".$variable['reclamacion'];
+                $cadenaSql.=" AND grupo.id=evaluacion.id_grupo AND evaluacion.estado='A'";
+                break;
 
 			 case "consultarDetalleReclamacion" :
 			 	$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion observacion_reclamacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario,";
 			 	$cadenaSql .= " evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ce.maximo_puntos,";
-			 	$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador, grupo.id id_grupo";
+			 	$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador, grupo.id id_grupo, evaluacion.id evaluacion_parcial";
 			 	$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
 			 	$cadenaSql .= " WHERE";
 			 	$cadenaSql .= " reclamacion.id=evaluacion.id_reclamacion";
@@ -135,6 +68,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "AND respuesta.id_evaluar_respuesta=ep.id ";
 					$cadenaSql .= "AND respuesta.estado='A' ";
 					$cadenaSql .= "AND respuesta.id_reclamacion=" . $variable ['reclamacion'];
+                    $cadenaSql .= " AND respuesta.id_evaluar_respuesta=" . $variable ['evaluacion_parcial'];
 					//echo $cadenaSql;
 					break;
 
@@ -146,6 +80,7 @@ class Sql extends \Sql {
 		$cadenaSql.=" WHERE id_reclamacion=".$variable ['reclamacion'];
 		$cadenaSql.=" AND estado='I'";
 		$cadenaSql.=" AND id_evaluar=".$variable ['criterio'];
+        $cadenaSql.=" AND id_grupo=".$variable ['grupo'];
 		//echo $cadenaSql;
 		break;
 

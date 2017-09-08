@@ -117,7 +117,7 @@ class registrarForm {
 			unset ( $atributos );
 			{
 
-				echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+				echo "<div style =' padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
 			 echo "
 					 <tbody>";
@@ -153,7 +153,7 @@ class registrarForm {
 				$atributos ['marco'] = true;
 				$atributos ['estiloMarco'] = '';
 				$atributos ["etiquetaObligatorio"] = true;
-				$atributos ['columnas'] = 140;
+				$atributos ['columnas'] = 100;
 				$atributos ['filas'] = 3;
 				$atributos ['dobleLinea'] = 0;
 				$atributos ['tabIndex'] = $tab;

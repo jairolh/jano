@@ -12,6 +12,7 @@ $estilo[$indice++]="select2.css";
 $estilo[$indice++]="jquery_switch.css";
 $estilo[$indice++]="jquery-ui_smoot.css";
 $estilo[$indice++]="jquery-ui.css";
+//$estilo[$indice++]="font-awesome.min.css";
 
 // Tablas
 $estilo[$indice++]="demo_page.css";
@@ -34,4 +35,5 @@ if($unBloque["grupo"]==""){
 foreach ($estilo as $nombre){
 	echo "<link rel='stylesheet' type='text/css' href='".$rutaBloque."/css/".$nombre."'>\n";
 }
+echo "<link href='//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css' rel='stylesheet'>";
 ?>

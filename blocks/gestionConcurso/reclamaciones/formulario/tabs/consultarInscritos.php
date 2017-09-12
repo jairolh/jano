@@ -99,8 +99,7 @@ class evaluarReclamacion {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
-				 if($resultadoReclamacion)
-							{
+				 if($resultadoReclamacion){
 									//-----------------Inicio de Conjunto de Controles----------------------------------------
 											$esteCampo = "marcoConsultaInscrito";
 											$atributos["estilo"] = "jqueryui";
@@ -119,8 +118,7 @@ class evaluarReclamacion {
 													</thead>
 													<tbody>";
 
-													foreach($resultadoReclamacion as $key=>$value )
-															{
+													foreach($resultadoReclamacion as $key=>$value ){
 																$parametro=array(
 														         'consecutivo_inscrito'=>$resultadoReclamacion[$key]['id_inscrito']
 														    );
@@ -185,7 +183,7 @@ class evaluarReclamacion {
 									echo "</table></div>";
 
 
-								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+								echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 			 					echo "<tbody>";
 			 					$mostrarHtml = "<tr>
 			 								<th>Concurso</th>
@@ -204,17 +202,17 @@ class evaluarReclamacion {
  							 	echo "</table></div>";
 
 
-								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+								echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 								echo "<tbody>";
-									$mostrarHtml =  "<tr align='center'>".
+									$mostrarHtml =  "<tr>".
 												"<th colspan='1'>Reclamación #".$resultadoReclamacion[0]['id']."</th>
 												</td>";
-									$mostrarHtml .=  "<tr align='center'>".
+									$mostrarHtml .=  "<tr>".
 												"<th colspan='1'>Fecha</th>
 												<td colspan='3'>".$resultadoReclamacion[0]['fecha_registro'].
 												"</td>";
 
-									$mostrarHtml .=  "<tr align='center'>".
+									$mostrarHtml .=  "<tr>".
 												"<th colspan='1'>Observación</th>
 												<td colspan='3'>".$resultadoReclamacion[0]['observacion'].
 												"</td>";
@@ -225,7 +223,7 @@ class evaluarReclamacion {
 							  echo "</table></div>";
 
 
-								echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+								echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 								echo "<tbody>";
 					 					$mostrarHtml = "<tr>
 					 								<th colspan='3'>Evaluación Anterior</th>
@@ -243,7 +241,7 @@ class evaluarReclamacion {
 
 
 
-										echo "<div style ='width: 100%; padding-left: 10%; padding-right: 10%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+										echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 										echo "<tbody>";
 
 
@@ -396,11 +394,10 @@ class evaluarReclamacion {
 										 echo "</tbody>";
 										 echo "</table>";
 
-							}else
-							{
+							}else{
 											$atributos["id"]="divNoEncontroInscrito";
 											$atributos["estilo"]="";
-								 //$atributos["estiloEnLinea"]="display:none";
+								            //$atributos["estiloEnLinea"]="display:none";
 											echo $this->miFormulario->division("inicio",$atributos);
 
 											//-------------Control Boton-----------------------
@@ -414,7 +411,7 @@ class evaluarReclamacion {
 											unset($atributos);
 											//-------------Fin Control Boton----------------------
 
-										 echo $this->miFormulario->division("fin");
+										    echo $this->miFormulario->division("fin");
 											//------------------Division para los botones-------------------------
 							}
 			}

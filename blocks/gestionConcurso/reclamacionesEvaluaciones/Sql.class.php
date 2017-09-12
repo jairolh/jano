@@ -35,6 +35,22 @@ class Sql extends \Sql {
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
 
+                case "consultaRolesUsuario":
+                    $cadenaSql=" SELECT ";
+                    $cadenaSql.=" perfil.id_usuario usuario,";
+                    $cadenaSql.=" perfil.id_subsistema cod_app,";
+                    $cadenaSql.=" perfil.rol_id cod_rol,";
+                    $cadenaSql.=" rol.rol_alias rol,";
+                    $cadenaSql.=" perfil.fecha_caduca fecha_caduca,";
+                    $cadenaSql.=" perfil.estado estado";
+                    $cadenaSql.=" FROM jano_usuario_subsistema perfil";
+                    $cadenaSql.=" INNER JOIN jano_rol rol";
+                    $cadenaSql.=" ON rol.rol_id=perfil.rol_id";
+                    $cadenaSql.=" AND rol.estado_registro_id=1";
+                    $cadenaSql.=" WHERE";
+                    $cadenaSql.=" id_usuario='".$variable."'";
+                break;
+
 				case "consultaEvaluacionParcialReclamacion" :
 					$cadenaSql=" SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
 					$cadenaSql.=" evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, ";
@@ -160,14 +176,16 @@ class Sql extends \Sql {
 				$cadenaSql .= " concurso.concurso c,";
 				$cadenaSql .= " concurso.actividad_calendario actividad";
 				$cadenaSql .= " WHERE ";
-				$cadenaSql .= " calendar.consecutivo_actividad=9 "; // Actividad de pruebas de factor Competencias profesionales y comunicativas
+				$cadenaSql .= " calendar.consecutivo_actividad= ".$variable ['actividad']; // Actividad (6,9)
 				$cadenaSql .= " AND reclamacion.id_inscrito=ci.consecutivo_inscrito";
 				$cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil";
 				$cadenaSql .= " AND conc.consecutivo_concurso=cp.consecutivo_concurso";
 				$cadenaSql .= " AND calendar.consecutivo_concurso=c.consecutivo_concurso";
 				$cadenaSql .= " AND c.consecutivo_concurso=cp.consecutivo_concurso";
 				$cadenaSql .= " AND reclamacion.consecutivo_calendario=calendar.consecutivo_calendario";
-				$cadenaSql .= " and actividad.nombre='Evaluar Requisitos'";
+				//$cadenaSql .= " and actividad.nombre='Evaluar Requisitos'";
+                $cadenaSql .= " and actividad.nombre='Prueba idioma extranjero'";
+
 				$cadenaSql .= " ) reclamaciones";
 
 				$cadenaSql .= " FROM concurso.concurso conc,";
@@ -336,7 +354,9 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND calendario.consecutivo_actividad=a.consecutivo_actividad";
 				$cadenaSql .= " AND cp.consecutivo_concurso=" . $variable ['consecutivo_concurso'];
 				$cadenaSql .= " AND ci.consecutivo_persona=p.consecutivo";
-				$cadenaSql .= " and a.nombre='Pruebas de Competencias'";
+				//$cadenaSql .= " and a.nombre='Pruebas de Competencias'";
+        //$cadenaSql .= " and a.nombre='Prueba idioma extranjero'";
+        $cadenaSql .= " and a.nombre='Evaluar Hoja de Vida'";
 				break;
 
 			case "consultaRespuestaReclamaciones" :

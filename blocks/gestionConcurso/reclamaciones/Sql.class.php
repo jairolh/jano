@@ -95,7 +95,8 @@ class Sql extends \Sql {
 							$cadenaSql.=" AND calendar.consecutivo_concurso=c.consecutivo_concurso";
 							$cadenaSql.=" AND c.consecutivo_concurso=cp.consecutivo_concurso";
 							$cadenaSql.=" AND reclamacion.consecutivo_calendario=calendar.consecutivo_calendario";
-							$cadenaSql.=" and actividad.nombre='Evaluar Requisitos'";
+							//$cadenaSql.=" and actividad.nombre='Evaluar Requisitos'";
+							$cadenaSql.=" AND actividad.consecutivo_actividad=calendar.consecutivo_actividad";
 							$cadenaSql.=" ) reclamaciones";
 
 							$cadenaSql.=" FROM concurso.concurso conc,";
@@ -114,7 +115,7 @@ class Sql extends \Sql {
 							$cadenaSql.=" ORDER BY ";
 							$cadenaSql.=" conc.fecha_inicio DESC, ";
 							$cadenaSql.=" conc.fecha_fin DESC ";
-							//echo $cadenaSql;
+
 					break;
 
 				case "consultaEvaluacionesReclamacion":

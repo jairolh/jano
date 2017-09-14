@@ -19,6 +19,7 @@
                 },
                 "minNumberChars": {"regex":  /^(?=.*\d{2})/,"alertText": "* Requiere al menos dos números"},
                 "minLowerAlphaChars": {"regex": /^(.*[a-zA-Z].*){2}/,"alertText": "* Requiere al menos dos caracteres alfabéticos"},
+                "minUpperAlphaChars": {"regex": /^(.*[A-Z].*){1}/,"alertText": "* Requiere al menos un caracter alfabético en mayúscula"},
                 "passwordEquals": {"regex":"none","alertText":"* Las contraseñas no coinciden"},
                 "minSize": {
                     "regex": "none",

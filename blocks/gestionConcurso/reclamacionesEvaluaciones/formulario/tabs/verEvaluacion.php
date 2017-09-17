@@ -229,65 +229,63 @@ unset ( $atributos );
 
 //###################################################################
 
+        $parametro = array (
+          'reclamacion' => $_REQUEST['reclamacion'],
+          'usuario'=>$_REQUEST['usuario']
+        );
+				$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
+				$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+
+                echo "Reclamación # " . $_REQUEST['reclamacion'] . "<br>";
+							  echo "Fecha de la respuesta: " . $resultadoDetalleReclamacion [0] ['evaluacion_fecha'] . "<br><br>";
+
 								echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
 								echo "<tbody>";
 
-								$mostrarHtml = "<tr>
-																<th colspan='4'>Evaluación Reclamación</th>
-																</tr>";
-
-								$parametro = array (
-										'reclamacion' => $_REQUEST['reclamacion'],
-										'usuario'=>$_REQUEST['usuario']
-								);
-								$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
-								$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-                                //var_dump($resultadoDetalleReclamacion);
-
-
-								$cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
-								$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-
+								$mostrarHtml = "";
 								$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
 																<th colspan='1'>Calificación Anterior</th>
-																													<th colspan='1'>¿Aplica Reclamación?</th>
+                                <th colspan='1'>¿Aplica Reclamación?</th>
 																<th colspan='1'>Nueva Calificación</th><tr>";
 
-								foreach ( $resultadoDetalleReclamacion as $key => $value ) {
+                foreach ( $resultadoDetalleReclamacion as $key => $value ) {
 
                     $parametro = array (
-											'reclamacion' => $_REQUEST['reclamacion'],
-											'criterio'=>$resultadoRespuestaReclamaciones[$key]['id_evaluar']
-								    );
+                            'reclamacion' => $_REQUEST['reclamacion'],
+                            'criterio'=>$resultadoDetalleReclamacion[$key]['id_evaluar']
+                    );
+                    $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacionCriterio", $parametro);
+										$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
                     // buscar datos Inactivos del criterio
                     $cadena_sql = $this->miSql->getCadenaSql("consultaPuntajeInactivo", $parametro);
-								    $resultadoPuntajeInactivo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                    $resultadoPuntajeInactivo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-                                    if($resultadoPuntajeInactivo){
-																			//var_dump($key);
-                                        $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
-                                        $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-                                    }else{
-                                        $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-                                    }
-									$mostrarHtml .= "<tr>
-														<td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
-																									<td colspan='1'>" . $puntajeInactivo . "</td>
-																									<td colspan='1'>" . $resultadoRespuestaReclamaciones [$key] ['respuesta'] . "</td>";
+                    //var_dump($resultadoPuntajeInactivo);
+                    $puntajeActivo = "NN";
+                    if($resultadoPuntajeInactivo){
+                        $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
+                        $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                    }else{
+                        $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                    }
 
-															$mostrarHtml .= "<td align='center' colspan='1'>";
-															if($resultadoRespuestaReclamaciones [$key] ['respuesta']=='SI'){
-																	$mostrarHtml .= $puntajeActivo;
-															}else{
-																  $mostrarHtml .= "No Aplica";
-															}
-															$mostrarHtml .= "</td>";
-								}
+                    $mostrarHtml .= "<tr>
+                    <td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
+                    <td colspan='1'>" . $puntajeInactivo . "</td>
+                    <td colspan='1'>" . $resultadoRespuestaReclamaciones[0]['respuesta'] . "</td>";
 
-								echo $mostrarHtml;
-								unset ( $mostrarHtml );
+                        $mostrarHtml .= "<td colspan='1'>";
+                        if($resultadoRespuestaReclamaciones[0]['respuesta']=='SI'){
+                                $mostrarHtml .= $puntajeActivo;
+                        }else{
+                              $mostrarHtml .= "No Aplica";
+                        }
+                        $mostrarHtml .= "</td>";
+                }
+
+                echo $mostrarHtml;
+                unset ( $mostrarHtml );
 
 
 //###########################################

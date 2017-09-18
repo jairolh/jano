@@ -56,10 +56,33 @@ class consultarForm {
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
-						//consulta de todas las reclamaciones
-						$parametro=array(
-							'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
-						);
+            /*
+                asignar actividad de acuerdo al rol:
+                    Jurado: Pruebas de Competencias,
+                    ILUD: Prueba idioma extranjero,
+                    Docencia: Evaluar Hoja de Vida
+            */
+
+            //consultar roles del usuario
+            $cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario", $_REQUEST['usuario']);
+            $resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
+            $actividad="";
+            foreach($resultadoRoles as $key=>$value ){
+                if($resultadoRoles[$key]['rol']=='Docencia'){
+                    $actividad='Evaluar Hoja de Vida';
+                }else if($resultadoRoles[$key]['rol']=='ILUD'){
+                    $actividad='Prueba idioma extranjero';
+                }else if($resultadoRoles[$key]['rol']=='Jurado'){
+                    $actividad='Pruebas de Competencias';
+                }
+            }
+
+            //consulta de todas las reclamaciones
+            $parametro=array(
+                'actividad'=>$actividad,
+                'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
+            );
             $cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
             $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
@@ -159,13 +182,13 @@ class consultarForm {
                                         <td align='left'>".$resultadoReclamaciones[$key]['id']."</td>
                                         <td align='left'>".$resultadoReclamaciones[$key]['observacion']."</td>
                                         <td align='left'>".$resultadoReclamaciones[$key]['fecha_registro']."</td>
-																				<td align='left'>".$resultadoReclamaciones[$key]['nombre']."</td>
+                                        <td align='left'>".$resultadoReclamaciones[$key]['nombre']."</td>
                                         <td align='left'>";
 
 																				//consulta fecha máxima para dar respuesta a la reclamación: Fase de VALIDACION DE REQUISITOS
 																				$parametro=array(
 																					'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-																					'consecutivo_actividad'=>3
+																					'actividad'=>$actividad
 																				);
 																				$cadena_sql = $this->miSql->getCadenaSql("fechaFinResolver", $parametro);
 																				$fechaFinResolver = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -184,7 +207,7 @@ class consultarForm {
 
                                                                         $variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
                                                                         $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-                                                                        //$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                                        $variableVerHoja .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
                                                                         $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
 																											//-------------Enlace-----------------------

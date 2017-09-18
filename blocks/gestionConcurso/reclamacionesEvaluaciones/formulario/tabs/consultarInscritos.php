@@ -83,7 +83,8 @@ class evaluarReclamacion {
 
 			// buscar reclamaciones para el concurso
 			$parametro = array (
-					'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso']
+				'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'],
+        'reclamacion' => $_REQUEST ['reclamacion']
 			);
 			$cadena_sql = $this->miSql->getCadenaSql ( "consultarReclamaciones", $parametro );
 			$resultadoReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );

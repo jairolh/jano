@@ -230,14 +230,14 @@ unset ( $atributos );
 //###################################################################
 
         $parametro = array (
-          'reclamacion' => $_REQUEST['reclamacion'],
-          'usuario'=>$_REQUEST['usuario']
+                'reclamacion' => $_REQUEST['reclamacion'],
+                'usuario'=>$_REQUEST['usuario']
         );
-				$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
-				$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+								$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
+								$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
-                echo "Reclamación # " . $_REQUEST['reclamacion'] . "<br>";
-							  echo "Fecha de la respuesta: " . $resultadoDetalleReclamacion [0] ['evaluacion_fecha'] . "<br><br>";
+                                echo "Reclamación # " . $_REQUEST['reclamacion'] . "<br>";
+							    echo "Fecha de la respuesta: " . $resultadoDetalleReclamacion [0] ['evaluacion_fecha'] . "<br><br>";
 
 								echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
 								echo "<tbody>";
@@ -245,7 +245,7 @@ unset ( $atributos );
 								$mostrarHtml = "";
 								$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
 																<th colspan='1'>Calificación Anterior</th>
-                                <th colspan='1'>¿Aplica Reclamación?</th>
+                                                                <th colspan='1'>¿Aplica Reclamación?</th>
 																<th colspan='1'>Nueva Calificación</th><tr>";
 
                 foreach ( $resultadoDetalleReclamacion as $key => $value ) {
@@ -255,7 +255,7 @@ unset ( $atributos );
                             'criterio'=>$resultadoDetalleReclamacion[$key]['id_evaluar']
                     );
                     $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacionCriterio", $parametro);
-										$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+					$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
                     // buscar datos Inactivos del criterio
                     $cadena_sql = $this->miSql->getCadenaSql("consultaPuntajeInactivo", $parametro);

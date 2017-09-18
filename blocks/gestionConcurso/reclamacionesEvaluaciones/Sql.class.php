@@ -18,7 +18,7 @@ class Sql extends \Sql {
 		$this->miConfigurador = \Configurador::singleton ();
 	}
 	function getCadenaSql($tipo, $variable = "") {
-		
+
 		/**
 		 * 1.
 		 * Revisar las variables para evitar SQL Injection
@@ -27,82 +27,82 @@ class Sql extends \Sql {
 		$idSesion = $this->miConfigurador->getVariableConfiguracion ( "id_sesion" );
 		$cadenaSql = '';
 		switch ($tipo) {
-			
+
 			/**
 			 * Clausulas específicas
 			 */
 			case "idioma" :
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 				break;
-			
-			case "consultaRolesUsuario" :
-				$cadenaSql = " SELECT ";
-				$cadenaSql .= " perfil.id_usuario usuario,";
-				$cadenaSql .= " perfil.id_subsistema cod_app,";
-				$cadenaSql .= " perfil.rol_id cod_rol,";
-				$cadenaSql .= " rol.rol_alias rol,";
-				$cadenaSql .= " perfil.fecha_caduca fecha_caduca,";
-				$cadenaSql .= " perfil.estado estado";
-				$cadenaSql .= " FROM jano_usuario_subsistema perfil";
-				$cadenaSql .= " INNER JOIN jano_rol rol";
-				$cadenaSql .= " ON rol.rol_id=perfil.rol_id";
-				$cadenaSql .= " AND rol.estado_registro_id=1";
-				$cadenaSql .= " WHERE";
-				$cadenaSql .= " id_usuario='" . $variable . "'";
-				break;
-			
-			case "consultaEvaluacionParcialReclamacion" :
-				$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
-				$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, ";
-				$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio";
-				$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
-				$cadenaSql .= " WHERE";
-				$cadenaSql .= " reclamacion.id=evaluacion.id_reclamacion";
-				$cadenaSql .= " and evaluacion.id_evaluar=ce.consecutivo_evaluar";
-				$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
-				$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND evaluacion.estado='A'";
-				break;
-			
-			case "consultaEvaluacionReclamacion" :
-				$cadenaSql = "SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
-				$cadenaSql .= " fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
-				$cadenaSql .= " id_evaluacion_final";
-				$cadenaSql .= " FROM concurso.evaluacion_parcial";
-				$cadenaSql .= " WHERE id_reclamacion=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND estado='A'";
-				$cadenaSql .= " AND id_grupo=" . $variable ['grupo'];
-				// echo $cadenaSql;
-				break;
-			
-			case "consultaPuntajeInactivo" :
-				$cadenaSql = "SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
-				$cadenaSql .= " fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
-				$cadenaSql .= " id_evaluacion_final";
-				$cadenaSql .= " FROM concurso.evaluacion_parcial";
-				$cadenaSql .= " WHERE id_reclamacion=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND estado='I'";
-				$cadenaSql .= " AND id_evaluar=" . $variable ['criterio'];
-				// echo $cadenaSql;
-				break;
-			
-			case "consultarDetalleReclamacion2" :
-				$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
-				$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, grupo.id id_grupo,";
-				$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
-				$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
-				$cadenaSql .= " WHERE";
-				$cadenaSql .= " reclamacion.id=evaluacion.id_reclamacion";
-				$cadenaSql .= " and evaluacion.id_evaluar=ce.consecutivo_evaluar";
-				$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
-				$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
-				$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
-				$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
-				// $cadenaSql .= " AND evaluacion.estado='A'";
-				// echo $cadenaSql;
-				break;
-			
+
+      case "consultaRolesUsuario":
+          $cadenaSql=" SELECT ";
+          $cadenaSql.=" perfil.id_usuario usuario,";
+          $cadenaSql.=" perfil.id_subsistema cod_app,";
+          $cadenaSql.=" perfil.rol_id cod_rol,";
+          $cadenaSql.=" rol.rol_alias rol,";
+          $cadenaSql.=" perfil.fecha_caduca fecha_caduca,";
+          $cadenaSql.=" perfil.estado estado";
+          $cadenaSql.=" FROM jano_usuario_subsistema perfil";
+          $cadenaSql.=" INNER JOIN jano_rol rol";
+          $cadenaSql.=" ON rol.rol_id=perfil.rol_id";
+          $cadenaSql.=" AND rol.estado_registro_id=1";
+          $cadenaSql.=" WHERE";
+          $cadenaSql.=" id_usuario='".$variable."'";
+      break;
+
+				case "consultaEvaluacionParcialReclamacion" :
+					$cadenaSql=" SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
+					$cadenaSql.=" evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, ";
+					$cadenaSql.=" evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio";
+					$cadenaSql.=" FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio";
+					$cadenaSql.=" WHERE";
+					$cadenaSql.=" reclamacion.id=evaluacion.id_reclamacion";
+					$cadenaSql.=" and evaluacion.id_evaluar=ce.consecutivo_evaluar";
+					$cadenaSql.=" and ce.consecutivo_criterio=criterio.consecutivo_criterio";
+					$cadenaSql.=" AND reclamacion.id=".$variable ['reclamacion'];
+					$cadenaSql.=" AND evaluacion.estado='A'";
+					break;
+
+				case "consultaEvaluacionReclamacion" :
+					$cadenaSql="SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
+					$cadenaSql.=" fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
+					$cadenaSql.=" id_evaluacion_final";
+					$cadenaSql.=" FROM concurso.evaluacion_parcial";
+					$cadenaSql.=" WHERE id_reclamacion=".$variable ['reclamacion'];
+					$cadenaSql.=" AND estado='A'";
+					$cadenaSql.=" AND id_grupo=".$variable ['grupo'];
+					//echo $cadenaSql;
+					break;
+
+        case "consultaPuntajeInactivo" :
+					$cadenaSql="SELECT id, id_grupo, id_inscrito, id_evaluar, puntaje_parcial, observacion, ";
+					$cadenaSql.=" fecha_registro, estado, id_evaluacion_final, id_reclamacion, ";
+					$cadenaSql.=" id_evaluacion_final";
+					$cadenaSql.=" FROM concurso.evaluacion_parcial";
+					$cadenaSql.=" WHERE id_reclamacion=".$variable ['reclamacion'];
+					$cadenaSql.=" AND estado='I'";
+					$cadenaSql.=" AND id_evaluar=".$variable ['criterio'];
+					//echo $cadenaSql;
+					break;
+
+				case "consultarDetalleReclamacion2" :
+					$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario, reclamacion.id_inscrito,";
+					$cadenaSql .= " evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion observacion_evaluacion, evaluacion.id evaluacion_id, grupo.id id_grupo,";
+					$cadenaSql .= " evaluacion.fecha_registro evaluacion_fecha, criterio.nombre nombre_criterio, grupo.id_evaluador, concat(us.nombre, ' ', us.apellido) AS evaluador";
+					$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion, concurso.evaluacion_parcial evaluacion, concurso.concurso_evaluar ce, concurso.criterio_evaluacion criterio, concurso.evaluacion_grupo grupo, jano_usuario us";
+					$cadenaSql .= " WHERE";
+					$cadenaSql .= " reclamacion.id=evaluacion.id_reclamacion";
+					$cadenaSql .= " and evaluacion.id_evaluar=ce.consecutivo_evaluar";
+					$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
+					$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
+					$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
+					$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
+					$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
+					//$cadenaSql .= " AND evaluacion.estado='A'";
+					//echo $cadenaSql;
+					break;
+
 			case "consultarDetalleReclamacion" :
 				$cadenaSql = " SELECT reclamacion.id id_reclamacion, reclamacion.observacion observacion_reclamacion, reclamacion.fecha_registro, reclamacion.consecutivo_calendario,";
 				$cadenaSql .= " evaluacion.id_inscrito, evaluacion.id_evaluar, evaluacion.puntaje_parcial, evaluacion.observacion, ce.maximo_puntos,";
@@ -116,21 +116,24 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
 				$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
 				$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
-				$cadenaSql .= " AND evaluacion.estado='A'";
-				// echo $cadenaSql;
+                $cadenaSql .= " AND evaluacion.estado='A'";
+				//echo $cadenaSql;
 				break;
-			
+
 			case "fechaFinResolver" :
 				$cadenaSql = " SELECT";
 				$cadenaSql .= " calendario.consecutivo_calendario, calendario.fecha_fin_reclamacion, calendario.fecha_fin_resolver, actividad.nombre ";
 				$cadenaSql .= " FROM concurso.concurso_calendario calendario, concurso.actividad_calendario actividad";
 				$cadenaSql .= " WHERE";
 				$cadenaSql .= " calendario.consecutivo_concurso=" . $variable ['consecutivo_concurso'];
-				$cadenaSql .= " AND calendario.consecutivo_actividad=" . $variable ['consecutivo_actividad'];
+				//$cadenaSql .= " AND calendario.consecutivo_actividad=" . $variable ['consecutivo_actividad'];
+                if(isset($variable ['actividad'])){
+                    $cadenaSql .= " AND actividad.nombre='" . $variable ['actividad']."'";
+                }
 				$cadenaSql .= " AND actividad.consecutivo_actividad=calendario.consecutivo_actividad";
-				// echo $cadenaSql;
+				//echo $cadenaSql;
 				break;
-			
+
 			case "respuestaReclamacion" :
 				$cadenaSql = " SELECT";
 				$cadenaSql .= " respuesta.id, respuesta.id_reclamacion, respuesta.respuesta, respuesta.observacion, respuesta.fecha_registro, respuesta.estado, ";
@@ -142,7 +145,7 @@ class Sql extends \Sql {
 				$cadenaSql .= "AND concat(us.tipo_identificacion, '', us.identificacion)=respuesta.id_evaluador";
 				// echo $cadenaSql;
 				break;
-			
+
 			case "inactivarValidacion" :
 				$cadenaSql = "UPDATE ";
 				$cadenaSql .= "concurso.evaluacion_parcial ";
@@ -151,9 +154,9 @@ class Sql extends \Sql {
 				$cadenaSql .= "WHERE ";
 				$cadenaSql .= "id =" . $variable ['evaluacion'] . " ";
 				$cadenaSql .= " RETURNING id";
-				// echo $cadenaSql;
+				//echo $cadenaSql;
 				break;
-			
+
 			case "consultaConcurso" :
 				$cadenaSql = " SELECT conc.consecutivo_concurso, ";
 				$cadenaSql .= " conc.consecutivo_modalidad,";
@@ -166,7 +169,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " mdl.nombre modalidad, ";
 				$cadenaSql .= " mdl.codigo_nivel_concurso,";
 				$cadenaSql .= " nvl.nombre nivel_concurso,";
-				
+
 				$cadenaSql .= " ( SELECT count(*)";
 				$cadenaSql .= " FROM concurso.evaluacion_reclamacion reclamacion,";
 				$cadenaSql .= " concurso.concurso_inscrito ci,";
@@ -175,18 +178,18 @@ class Sql extends \Sql {
 				$cadenaSql .= " concurso.concurso c,";
 				$cadenaSql .= " concurso.actividad_calendario actividad";
 				$cadenaSql .= " WHERE ";
-				$cadenaSql .= " calendar.consecutivo_actividad= " . $variable ['actividad']; // Actividad (6,9)
+				$cadenaSql .= " calendar.consecutivo_actividad= ".$variable ['actividad']; // Actividad (6,9)
 				$cadenaSql .= " AND reclamacion.id_inscrito=ci.consecutivo_inscrito";
 				$cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil";
 				$cadenaSql .= " AND conc.consecutivo_concurso=cp.consecutivo_concurso";
 				$cadenaSql .= " AND calendar.consecutivo_concurso=c.consecutivo_concurso";
 				$cadenaSql .= " AND c.consecutivo_concurso=cp.consecutivo_concurso";
 				$cadenaSql .= " AND reclamacion.consecutivo_calendario=calendar.consecutivo_calendario";
-				// $cadenaSql .= " and actividad.nombre='Evaluar Requisitos'";
-				$cadenaSql .= " and actividad.nombre='Prueba idioma extranjero'";
-				
+				//$cadenaSql .= " and actividad.nombre='Evaluar Requisitos'";
+                $cadenaSql .= " and actividad.nombre='Prueba idioma extranjero'";
+
 				$cadenaSql .= " ) reclamaciones";
-				
+
 				$cadenaSql .= " FROM concurso.concurso conc,";
 				$cadenaSql .= " concurso.modalidad_concurso mdl,";
 				$cadenaSql .= " general.nivel nvl";
@@ -195,7 +198,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND nvl.tipo_nivel='TipoConcurso'";
 				$cadenaSql .= " AND mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
 				$cadenaSql .= " AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
-				
+
 				if (isset ( $variable ['hoy'] ) && $variable ['hoy'] != '') {
 					$cadenaSql .= " AND conc.fecha_inicio <='" . $variable ['hoy'] . "' ";
 					$cadenaSql .= " AND conc.fecha_fin>= '" . $variable ['hoy'] . "' ";
@@ -205,16 +208,16 @@ class Sql extends \Sql {
 				$cadenaSql .= " conc.fecha_fin DESC ";
 				// echo $cadenaSql;
 				break;
-			
-			case "consultaRespuestaReclamacion" :
+
+            case "consultaRespuestaReclamacion" :
 				$cadenaSql = " SELECT * ";
 				$cadenaSql .= " FROM concurso.respuesta_reclamacion respuesta";
 				$cadenaSql .= " WHERE";
 				$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND id_evaluador='" . $variable ['usuario'] . "'";
-				// echo $cadenaSql;
+				$cadenaSql .= " AND id_evaluador='".$variable ['usuario']."'";
+				//echo $cadenaSql;
 				break;
-			
+
 			case "consultaEvaluacionesReclamacionInactivas" :
 				$cadenaSql = " SELECT count(*) ";
 				$cadenaSql .= " FROM concurso.evaluacion_parcial evaluacion, concurso.evaluacion_grupo grupo";
@@ -222,28 +225,28 @@ class Sql extends \Sql {
 				$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
 				$cadenaSql .= " AND evaluacion.estado='I'";
 				$cadenaSql .= " AND evaluacion.id_grupo=grupo.id";
-				$cadenaSql .= " AND id_evaluador='" . $variable ['usuario'] . "'";
-				// echo $cadenaSql;
+				$cadenaSql .= " AND id_evaluador='".$variable ['usuario']."'";
+				//echo $cadenaSql;
 				break;
-			
-			case "consultaEvaluacionesReclamacionActivas" :
-				$cadenaSql = " SELECT count(*) ";
-				$cadenaSql .= " FROM concurso.evaluacion_parcial evaluacion, concurso.evaluacion_grupo grupo";
-				$cadenaSql .= " WHERE";
-				$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
-				$cadenaSql .= " AND evaluacion.estado='A'";
-				$cadenaSql .= " AND evaluacion.id_grupo=grupo.id";
-				$cadenaSql .= " AND id_evaluador='" . $variable ['usuario'] . "'";
-				// echo $cadenaSql;
-				break;
-			
-			case "consultaEvaluacionesReclamacion" :
+
+				case "consultaEvaluacionesReclamacionActivas" :
+					$cadenaSql = " SELECT count(*) ";
+					$cadenaSql .= " FROM concurso.evaluacion_parcial evaluacion, concurso.evaluacion_grupo grupo";
+					$cadenaSql .= " WHERE";
+					$cadenaSql .= " id_reclamacion=" . $variable ['reclamacion'];
+					$cadenaSql .= " AND evaluacion.estado='A'";
+					$cadenaSql .= " AND evaluacion.id_grupo=grupo.id";
+					$cadenaSql .= " AND id_evaluador='".$variable ['usuario']."'";
+					//echo $cadenaSql;
+					break;
+
+            case "consultaEvaluacionesReclamacion" :
 				$cadenaSql = " SELECT id, id_reclamacion, respuesta, observacion, fecha_registro, estado,
                 id_evaluar_respuesta, id_evaluador";
 				$cadenaSql .= " FROM concurso.respuesta_reclamacion ";
 				$cadenaSql .= " WHERE id_reclamacion=" . $variable ['reclamacion'];
 				break;
-			
+
 			case "consultaEvaluacionesReclamacion2" :
 				$cadenaSql = " SELECT consecutivo_valida, consecutivo_inscrito, cumple_requisito, observacion, fecha_registro, estado, id_reclamacion";
 				$cadenaSql .= " FROM concurso.valida_requisito ";
@@ -251,30 +254,30 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND id_reclamacion=" . $variable ['reclamacion'];
 				$cadenaSql .= " ORDER BY consecutivo_valida ASC ";
 				break;
-			
-			case "registroNuevaEvaluacion" :
-				$cadenaSql = " INSERT INTO concurso.evaluacion_parcial (";
-				$cadenaSql .= " id_grupo,";
-				$cadenaSql .= " id_inscrito, ";
-				$cadenaSql .= " id_evaluar, ";
-				$cadenaSql .= " puntaje_parcial,";
-				$cadenaSql .= " observacion, ";
-				$cadenaSql .= " fecha_registro, ";
-				$cadenaSql .= " id_reclamacion ";
-				$cadenaSql .= " )";
-				$cadenaSql .= " VALUES ( ";
-				$cadenaSql .= " " . $variable ['grupo'] . ", ";
-				$cadenaSql .= " " . $variable ['inscrito'] . ", ";
-				$cadenaSql .= " " . $variable ['id_evaluar'] . ", ";
-				$cadenaSql .= " " . $variable ['puntaje'] . ", ";
-				$cadenaSql .= " '" . $variable ['observacion'] . "', ";
-				$cadenaSql .= " '" . $variable ['fecha'] . "', ";
-				$cadenaSql .= " " . $variable ['reclamacion'] . " ";
-				$cadenaSql .= " )";
-				$cadenaSql .= " RETURNING id";
-				// echo $cadenaSql;
-				break;
-			
+
+            case "registroNuevaEvaluacion" :
+				$cadenaSql =" INSERT INTO concurso.evaluacion_parcial (";
+                $cadenaSql .=" id_grupo,";
+                $cadenaSql .=" id_inscrito, ";
+                $cadenaSql .=" id_evaluar, ";
+                $cadenaSql .=" puntaje_parcial,";
+                $cadenaSql .=" observacion, ";
+                $cadenaSql .=" fecha_registro, ";
+								$cadenaSql .=" id_reclamacion ";
+                $cadenaSql .=" )";
+                $cadenaSql .= " VALUES ( ";
+                $cadenaSql .= " ".$variable['grupo'].", ";
+                $cadenaSql .= " ".$variable['inscrito'].", ";
+                $cadenaSql .= " ".$variable['id_evaluar'].", ";
+                $cadenaSql .= " ".$variable['puntaje'].", ";
+                $cadenaSql .= " '".$variable['observacion']."', ";
+                $cadenaSql .= " '".$variable['fecha']."', ";
+								$cadenaSql .= " ".$variable['reclamacion']." ";
+                $cadenaSql .= " )";
+                $cadenaSql.=" RETURNING id";
+                //echo $cadenaSql;
+                break;
+
 			case "registroValidacion" :
 				$cadenaSql = " INSERT INTO concurso.valida_requisito (";
 				$cadenaSql .= " consecutivo_inscrito,";
@@ -294,7 +297,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING consecutivo_valida";
 				break;
-			
+
 			case "registroEvaluacionReclamacion" :
 				$cadenaSql = " INSERT INTO concurso.respuesta_reclamacion (";
 				$cadenaSql .= " id_reclamacion,";
@@ -314,13 +317,13 @@ class Sql extends \Sql {
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING id";
 				break;
-			
+
 			case "consultarValidacion2" :
 				$cadenaSql = " SELECT consecutivo_valida, consecutivo_inscrito, cumple_requisito, observacion, fecha_registro, estado, id_reclamacion ";
 				$cadenaSql .= " FROM concurso.valida_requisito ";
 				$cadenaSql .= " WHERE consecutivo_inscrito=" . $variable ['consecutivo_inscrito'];
 				break;
-			
+
 			case "consultaReclamaciones" :
 				$cadenaSql = " SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, a.nombre,";
 				$cadenaSql .= " (SELECT COUNT(*) ";
@@ -338,7 +341,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND calendario.consecutivo_actividad=a.consecutivo_actividad";
 				$cadenaSql .= " AND cp.consecutivo_concurso=" . $variable ['consecutivo_concurso'];
 				break;
-			
+
 			case "consultarReclamaciones" :
 				$cadenaSql = " SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, a.nombre,c.consecutivo_concurso AS id_concurso, c.nombre AS concurso, cp.consecutivo_perfil, cp.nombre AS perfil,";
 				$cadenaSql .= " cp.requisitos, er.id_inscrito, concat(p.nombre, ' ', p.apellido) AS nombre_inscrito, concat(p.tipo_identificacion, '', p.identificacion) AS identificacion";
@@ -352,12 +355,16 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND calendario.consecutivo_calendario=er.consecutivo_calendario";
 				$cadenaSql .= " AND calendario.consecutivo_actividad=a.consecutivo_actividad";
 				$cadenaSql .= " AND cp.consecutivo_concurso=" . $variable ['consecutivo_concurso'];
+
+                if(isset($variable ['reclamacion'])){
+                    $cadenaSql .= " AND er.id=" . $variable ['reclamacion'];
+                }
 				$cadenaSql .= " AND ci.consecutivo_persona=p.consecutivo";
-				// $cadenaSql .= " and a.nombre='Pruebas de Competencias'";
-				// $cadenaSql .= " and a.nombre='Prueba idioma extranjero'";
-				$cadenaSql .= " and a.nombre='Evaluar Hoja de Vida'";
+                if(isset($variable ['actividad'])){
+                    $cadenaSql .= " and a.nombre='".$variable ['actividad']."'";
+                }
 				break;
-			
+
 			case "consultaRespuestaReclamaciones" :
 				$cadenaSql = "SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, respuesta.id AS id_respuesta, respuesta.respuesta, ";
 				$cadenaSql .= "respuesta.id_evaluar_respuesta, ep.id_evaluar ";
@@ -366,10 +373,10 @@ class Sql extends \Sql {
 				$cadenaSql .= "AND respuesta.id_evaluar_respuesta=ep.id ";
 				$cadenaSql .= "AND respuesta.estado='A' ";
 				$cadenaSql .= "AND respuesta.id_reclamacion=" . $variable ['reclamacion'];
-				// echo $cadenaSql;
+				//echo $cadenaSql;
 				break;
-			
-			case "consultaRespuestaReclamacionCriterio" :
+
+            case "consultaRespuestaReclamacionCriterio" :
 				$cadenaSql = "SELECT er.id, er.observacion, er.fecha_registro, er.estado, er.consecutivo_calendario, respuesta.id AS id_respuesta, respuesta.respuesta, ";
 				$cadenaSql .= "respuesta.id_evaluar_respuesta, ep.id_evaluar ";
 				$cadenaSql .= "FROM concurso.evaluacion_reclamacion er, concurso.respuesta_reclamacion respuesta, concurso.evaluacion_parcial ep ";
@@ -377,10 +384,10 @@ class Sql extends \Sql {
 				$cadenaSql .= "AND respuesta.id_evaluar_respuesta=ep.id ";
 				$cadenaSql .= "AND respuesta.estado='A' ";
 				$cadenaSql .= "AND respuesta.id_reclamacion=" . $variable ['reclamacion'];
-				$cadenaSql .= "AND ep.id_evaluar=" . $variable ['criterio'];
-				// echo $cadenaSql;
+                $cadenaSql .= "AND ep.id_evaluar=" . $variable ['criterio'];
+				//echo $cadenaSql;
 				break;
-			
+
 			case "registroEvaluacion" :
 				$cadenaSql = " INSERT INTO concurso.evaluacion_parcial (";
 				$cadenaSql .= " id_grupo,";
@@ -399,9 +406,9 @@ class Sql extends \Sql {
 				$cadenaSql .= " '" . $variable ['fecha'] . "' ";
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING id";
-				
+
 				break;
-			
+
 			case "registrarGrupo" :
 				$cadenaSql = " INSERT INTO concurso.evaluacion_grupo (";
 				$cadenaSql .= " id_evaluador,";
@@ -415,13 +422,13 @@ class Sql extends \Sql {
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING id";
 				break;
-			
+
 			case "consultaInscripcion" :
 				$cadenaSql = " SELECT ";
 				$cadenaSql .= " ci.consecutivo_inscrito, ";
 				$cadenaSql .= " ci.consecutivo_perfil, ";
 				$cadenaSql .= " ci.consecutivo_persona, ";
-				
+
 				$cadenaSql .= " c.consecutivo_concurso, ";
 				$cadenaSql .= " cp.nombre AS perfil, ";
 				$cadenaSql .= " c.nombre AS concurso, ";
@@ -430,17 +437,18 @@ class Sql extends \Sql {
 				$cadenaSql .= " p.nombre, ";
 				$cadenaSql .= " p.apellido, ";
 				$cadenaSql .= " m.nombre AS modalidad ";
-				
+
 				$cadenaSql .= " FROM concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p, concurso.concurso c, concurso.modalidad_concurso m ";
 				$cadenaSql .= " WHERE ";
 				$cadenaSql .= " consecutivo_inscrito=" . $variable ['consecutivo_inscrito'];
 				$cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
-				
+
 				$cadenaSql .= " AND ci.consecutivo_persona=p.consecutivo ";
 				$cadenaSql .= " AND c.consecutivo_concurso=cp.consecutivo_concurso ";
 				$cadenaSql .= " AND m.consecutivo_modalidad=c.consecutivo_modalidad ";
 				break;
-			
+
+
 			case "consultarValidacion" :
 				$cadenaSql = " SELECT ";
 				$cadenaSql .= " consecutivo_valida, ";
@@ -453,7 +461,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " WHERE ";
 				$cadenaSql .= " consecutivo_inscrito=" . $variable;
 				break;
-			
+
 			case "consultarEvaluacion" :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " ep.id, ";
@@ -478,23 +486,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND ep.id_grupo=" . $variable ['grupo'];
 				// echo $cadenaSql;
 				break;
-			
-			case "consultaRolesUsuario" :
-				$cadenaSql = " SELECT ";
-				$cadenaSql .= " perfil.id_usuario usuario,";
-				$cadenaSql .= " perfil.id_subsistema cod_app,";
-				$cadenaSql .= " perfil.rol_id cod_rol,";
-				$cadenaSql .= " rol.rol_alias rol,";
-				$cadenaSql .= " perfil.fecha_caduca fecha_caduca,";
-				$cadenaSql .= " perfil.estado estado";
-				$cadenaSql .= " FROM jano_usuario_subsistema perfil";
-				$cadenaSql .= " INNER JOIN jano_rol rol";
-				$cadenaSql .= " ON rol.rol_id=perfil.rol_id";
-				$cadenaSql .= " AND rol.estado_registro_id=1";
-				$cadenaSql .= " WHERE";
-				$cadenaSql .= " id_usuario='" . $variable . "'";
-				break;
-			
+
 			case "consultaCriteriosRol" :
 				$cadenaSql = " SELECT jc.id, jc.id_jurado_rol, jc.id_criterio, f.nombre, ";
 				$cadenaSql .= " ce.consecutivo_criterio, ce.consecutivo_factor, ev.consecutivo_evaluar AS id_evaluar, ce.nombre AS criterio, ev.maximo_puntos";
@@ -508,7 +500,7 @@ class Sql extends \Sql {
 				// $cadenaSql.=" AND f.nombre='".$variable['factor']."'";
 				// echo $cadenaSql;
 				break;
-			
+
 			case "consultarEvaluacionParcial" :
 				$cadenaSql = " SELECT ep.id, ep.id_grupo, ep.id_inscrito, ep.id_evaluar";
 				$cadenaSql .= " FROM concurso.evaluacion_parcial ep";
@@ -516,7 +508,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " id_inscrito=" . $variable ['inscrito'];
 				$cadenaSql .= " AND id_grupo='" . $variable ['grupo'] . "'";
 				break;
-			
+
 			case "consultarGrupo" :
 				$cadenaSql = " SELECT eg.id, eg.id_evaluador, eg.id_perfil";
 				$cadenaSql .= " FROM concurso.evaluacion_grupo eg";
@@ -524,7 +516,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " id_evaluador='" . $variable ['jurado'] . "'";
 				$cadenaSql .= " AND id_perfil=" . $variable ['perfil'];
 				break;
-			
+
 			case "consultaPerfil" :
 				$cadenaSql = " SELECT ";
 				$cadenaSql .= " c.nombre AS concurso, ";
@@ -536,9 +528,9 @@ class Sql extends \Sql {
 				$cadenaSql .= " c.consecutivo_concurso=" . $variable ['consecutivo_concurso'];
 				$cadenaSql .= " AND p.consecutivo_perfil=" . $variable ['consecutivo_perfil'];
 				$cadenaSql .= " AND c.consecutivo_concurso=p.consecutivo_concurso ";
-				
+
 				break;
-			
+
 			case 'buscarSoporte' :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " sop.consecutivo_soporte,";
@@ -598,7 +590,7 @@ class Sql extends \Sql {
 				} else {
 					$cadenaSql .= " ORDER BY nombre ";
 				}
-				
+
 				break;
 			case "consultaConcurso2" :
 				$cadenaSql = " SELECT conc.consecutivo_concurso, ";
@@ -622,7 +614,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " INNER JOIN general.nivel nvl ON nvl.tipo_nivel='TipoConcurso' AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
 				$cadenaSql .= " WHERE ";
 				$cadenaSql .= " conc.estado='A' ";
-				
+
 				if (isset ( $variable ['consecutivo_concurso'] ) && $variable ['consecutivo_concurso'] != '') {
 					$cadenaSql .= " AND conc.consecutivo_concurso='" . $variable ['consecutivo_concurso'] . "' ";
 				}
@@ -633,9 +625,9 @@ class Sql extends \Sql {
 				$cadenaSql .= " ORDER BY ";
 				$cadenaSql .= " conc.fecha_inicio DESC, ";
 				$cadenaSql .= " conc.fecha_fin DESC ";
-				
+
 				break;
-			
+
 			case "consultaConcurso" :
 				$cadenaSql = " SELECT DISTINCT conc.consecutivo_concurso, ";
 				$cadenaSql .= " conc.consecutivo_modalidad,";
@@ -649,17 +641,17 @@ class Sql extends \Sql {
 				$cadenaSql .= " mdl.codigo_nivel_concurso,";
 				$cadenaSql .= " nvl.nombre nivel_concurso,";
 				$cadenaSql .= " ci.consecutivo_perfil";
-				
+
 				$cadenaSql .= " FROM";
 				$cadenaSql .= " concurso.modalidad_concurso mdl, concurso.concurso conc, general.nivel nvl,";
 				$cadenaSql .= " concurso.jurado_inscrito ji, concurso.concurso_inscrito ci, concurso.concurso_perfil cp";
-				
+
 				$cadenaSql .= " WHERE ";
 				$cadenaSql .= " mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
 				$cadenaSql .= " AND nvl.tipo_nivel='TipoConcurso'";
 				$cadenaSql .= " AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
 				$cadenaSql .= " AND conc.estado='A' ";
-				
+
 				/*
 				 * if(isset($variable['consecutivo_concurso']) && $variable['consecutivo_concurso']!='' )
 				 * {$cadenaSql .= " AND conc.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
@@ -669,18 +661,18 @@ class Sql extends \Sql {
 					$cadenaSql .= " AND conc.fecha_inicio <='" . $variable ['hoy'] . "' ";
 					$cadenaSql .= " AND conc.fecha_fin>= '" . $variable ['hoy'] . "' ";
 				}
-				
+
 				$cadenaSql .= " AND ji.id_inscrito=ci.consecutivo_inscrito";
 				$cadenaSql .= " AND ji.id_usuario='" . $variable ['jurado'] . "'";
 				$cadenaSql .= " AND ji.id_inscrito=ci.consecutivo_inscrito";
 				$cadenaSql .= " AND conc.consecutivo_concurso = cp.consecutivo_concurso";
-				
+
 				$cadenaSql .= " ORDER BY ";
 				$cadenaSql .= " conc.fecha_inicio DESC, ";
 				$cadenaSql .= " conc.fecha_fin DESC ";
-				
+
 				break;
-			
+
 			case "consultarCalendarioConcurso" :
 				$cadenaSql = " SELECT DISTINCT ";
 				$cadenaSql .= " cal.consecutivo_calendario, ";
@@ -714,9 +706,9 @@ class Sql extends \Sql {
 					$cadenaSql .= " AND cal.consecutivo_calendario='" . $variable ['consecutivo_calendario'] . "' ";
 				}
 				$cadenaSql .= " ORDER BY  cal.fecha_inicio ASC, cal.fecha_fin ASC ";
-				
+
 				break;
-			
+
 			case 'consultarAspirantesAsignados' :
 				$cadenaSql = "SELECT DISTINCT ji.id, ";
 				$cadenaSql .= " ji.id_usuario, ";
@@ -752,7 +744,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " AND eval.estado='A' ";
 				$cadenaSql .= " AND eval.consecutivo_concurso='" . $variable ['concurso'] . "') ";
 				break;
-			
+
 			case 'buscarSoporte' :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " sop.consecutivo_soporte,";
@@ -861,7 +853,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " ORDER BY form.codigo_nivel, ";
 				$cadenaSql .= " form.fecha_grado";
 				break;
-			
+
 			case "concurso.experiencia_laboral" :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " prof.consecutivo_experiencia,";
@@ -887,7 +879,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " WHERE prof.consecutivo_persona='" . $variable ['consecutivo_persona'] . "'";
 				$cadenaSql .= " ORDER BY prof.fecha_inicio DESC";
 				break;
-			
+
 			case "concurso.experiencia_docencia" :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " doc.consecutivo_docencia,";
@@ -914,7 +906,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " WHERE doc.consecutivo_persona='" . $variable ['consecutivo_persona'] . "'";
 				$cadenaSql .= " ORDER BY doc.fecha_inicio DESC";
 				break;
-			
+
 			case "concurso.actividad_academica" :
 				$cadenaSql = " SELECT DISTINCT";
 				$cadenaSql .= " act.consecutivo_actividad,";
@@ -1012,7 +1004,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " WHERE conidm.consecutivo_persona='" . $variable ['consecutivo_persona'] . "'";
 				$cadenaSql .= " ORDER BY idm.nombre DESC";
 				break;
-			
+
 			case "registroSoporteConcurso" :
 				$cadenaSql = " INSERT INTO concurso.soporte_inscrito(";
 				$cadenaSql .= " consecutivo_soporte_ins,";
@@ -1041,11 +1033,11 @@ class Sql extends \Sql {
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING consecutivo_soporte_ins";
 				break;
-			
+
 			/**
 			 * ********
 			 */
-			
+
 			case "consultaModalidad" :
 				$cadenaSql = " SELECT DISTINCT  ";
 				$cadenaSql .= " consecutivo_modalidad codigo, ";
@@ -1136,7 +1128,7 @@ class Sql extends \Sql {
 				}
 				$cadenaSql .= " ORDER BY crt.nombre ";
 				break;
-			
+
 			case "consultarCriterioConcurso" :
 				$cadenaSql = " SELECT DISTINCT ";
 				$cadenaSql .= " crt_ev.consecutivo_evaluar, ";
@@ -1159,7 +1151,7 @@ class Sql extends \Sql {
 				}
 				$cadenaSql .= " ORDER BY fac.nombre, crt.nombre ";
 				break;
-			
+
 			case "registroConcurso" :
 				$cadenaSql = " INSERT INTO concurso.concurso(";
 				$cadenaSql .= " consecutivo_concurso,";
@@ -1247,7 +1239,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " )";
 				$cadenaSql .= " RETURNING consecutivo_perfil";
 				break;
-			
+
 			case "actualizaConcurso" :
 				$cadenaSql = " UPDATE concurso.concurso";
 				$cadenaSql .= " SET ";
@@ -1331,33 +1323,33 @@ class Sql extends \Sql {
 				$cadenaSql .= " RETURNING consecutivo_perfil";
 				break;
 			case "CambiarEstadoRol" :
-				
+
 				$cadenaSql = "UPDATE " . $prefijo . "rol_subsistema SET ";
 				$cadenaSql .= " estado = '" . $variable ['estado'] . "'";
 				$cadenaSql .= " WHERE id_subsistema = '" . $variable ['id_subsistema'] . "' ";
 				$cadenaSql .= " AND rol_id = '" . $variable ['rol_id'] . "' ";
 				break;
-			
+
 			case "borrarRol" :
 				$cadenaSql = "DELETE FROM " . $prefijo . "rol_subsistema ";
 				$cadenaSql .= " WHERE id_subsistema = '" . $variable ['id_subsistema'] . "' ";
 				$cadenaSql .= " AND rol_id = '" . $variable ['rol_id'] . "' ";
 				break;
-			
+
 			/**
 			 * Clausulas genéricas.
 			 * se espera que estén en todos los formularios
 			 * que utilicen esta plantilla
 			 */
-			
+
 			case "iniciarTransaccion" :
 				$cadenaSql = "START TRANSACTION";
 				break;
-			
+
 			case "finalizarTransaccion" :
 				$cadenaSql = "COMMIT";
 				break;
-			
+
 			case "cancelarTransaccion" :
 				$cadenaSql = "ROLLBACK";
 				break;

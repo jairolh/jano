@@ -788,9 +788,9 @@ class consultaForm {
 							</tr>
 						</table>";
 						}
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 					}
 
-					echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 					echo '</div>
 </div> ';
             // ########################################################################################//
@@ -1203,9 +1203,8 @@ class consultaForm {
 							</tr>
 						</table>";
 						}
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 					}
-
-					echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 					echo '</div>
 
@@ -1254,11 +1253,11 @@ class consultaForm {
                                 }
 
                                 $mostrarHtml .= "<tr align='center'>
+                                                    <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['id_grupo'] . "</td>
                                                     <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['criterio'] . "</td>
                                                     <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['puntaje_parcial'] . "</td>
                                                     <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['observacion'] . "</td>
-                                                    <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['fecha_registro'] . "</td>
-                                                    <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['evaluador'] . "</td>";
+                                                    <td align='left'>" . $resultadoEvaluacionesHoja [$key] ['fecha_registro'] . "</td>";
                                 $mostrarHtml .= "</tr>";
                             }
                             echo $mostrarHtml;
@@ -1517,21 +1516,21 @@ class consultaForm {
 						unset ( $mostrarHtml );
 						echo "</tbody>";
 						echo "</table>";
-						echo "</div>";
+						//echo "</div>";
 
 						$parametro = array (
 								'consecutivo_inscrito' => $_REQUEST ['consecutivo_inscrito'],
-								'reclamacion' => $resultadoEvaluaciones [0] ['id_reclamacion']
+								'reclamacion' => $resultadoEvaluacionesHoja [0] ['id_reclamacion']
 						);
 
 						// buscar reclamaciones realizadas
 						$cadena_sql = $this->miSql->getCadenaSql ( "reclamacionesCompetencias", $parametro );
-						$reclamacionesCompetencias = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+                        $reclamacionesHoja = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
-						if ($reclamacionesCompetencias) {
+						if ($reclamacionesHoja) {
 							// buscar respuesta a la reclamación
 							$parametro = array (
-									'reclamacion' => $resultadoEvaluacionILUD [0] ['id_reclamacion']
+									'reclamacion' => $reclamacionesHoja [0] ['id']
 							);
 							$cadena_sql = $this->miSql->getCadenaSql ( "respuestaReclamacion", $parametro );
 							$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
@@ -1566,7 +1565,7 @@ class consultaForm {
 							$atributos ["etiqueta"] = "";
 							$atributos ["estilo"] = "centrar";
 							$atributos ["tipo"] = 'error';
-							$atributos ["mensaje"] = "No se han realizado reclamaciones para la inscripción en la etapa de <b>" . $fechaFinReclamacionCompetencias [0] ['nombre'] . "</b>";
+							$atributos ["mensaje"] = "No se han realizado reclamaciones para la inscripción en la etapa de <b>" . $fechaFinReclamacionHoja [0] ['nombre'] . "</b>";
 							echo $this->miFormulario->cuadroMensaje ( $atributos );
 							unset ( $atributos );
 							// -------------Fin Control Boton----------------------
@@ -1578,10 +1577,10 @@ class consultaForm {
 						$fecha = date ( "Y-m-d H:i:s" );
 						// var_dump($reclamacionesCompetencias);
 
-						if ($fecha <= $fechaFinReclamacionCompetencias [0] ['fecha_fin_reclamacion'] && ! $reclamacionesCompetencias) {
+                        if ($fecha <= $fechaFinReclamacionHoja [0] ['fecha_fin_reclamacion'] && !$reclamacionesHoja) {
 
-							$id_etapa = $fechaFinReclamacionCompetencias [0] ['consecutivo_calendario'];
-							$etapa = $fechaFinReclamacionCompetencias [0] ['nombre'];
+                            $id_etapa = $fechaFinReclamacionHoja [0] ['consecutivo_calendario'];
+ 							$etapa = $fechaFinReclamacionHoja [0] ['nombre'];
 
 							$variableNuevo = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 							$variableNuevo .= "&bloque=" . $esteBloque ['nombre'];
@@ -1591,9 +1590,9 @@ class consultaForm {
 							$variableNuevo .= "&consecutivo_concurso=" . $_REQUEST ['consecutivo_concurso'];
 							$variableNuevo .= "&consecutivo_perfil=" . $_REQUEST ['consecutivo_perfil'];
 
-							$variableNuevo .= "&consecutivo_actividad=" . $fechaFinReclamacionCompetencias [0] ['consecutivo_actividad'];
-							$variableNuevo .= "&id_etapa=" . $id_etapa;
-							$variableNuevo .= "&etapa=" . $etapa;
+							$variableNuevo .= "&consecutivo_actividad=" . $fechaFinReclamacionHoja [0] ['consecutivo_actividad'];
+ 							$variableNuevo .= "&id_etapa=" . $id_etapa;
+ 							$variableNuevo .= "&etapa=" . $etapa;
 
 							$variableNuevo .= "&campoSeguro=" . $_REQUEST ['tiempo'];
 							$variableNuevo .= "&tiempo=" . time ();
@@ -1620,9 +1619,10 @@ class consultaForm {
 							</tr>
 						</table>";
 						}
+
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 					}
 
-					// echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 					echo '</div>
 	</div> ';
 				}

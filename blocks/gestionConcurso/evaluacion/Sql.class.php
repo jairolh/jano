@@ -393,10 +393,9 @@ break;
 				$cadenaSql .= " WHERE ji.id_usuario='".$variable['jurado']."'";
 				$cadenaSql .= " AND eval.estado='A' ";
 				$cadenaSql .= " AND eval.consecutivo_concurso='".$variable['concurso']."'";
-	                               
+
 				break;
-                            
-                            
+
 			case 'consultarAspirantesAsignadosOLD_inscritos_fase' :
 				$cadenaSql = "SELECT DISTINCT ji.id, ";
 				$cadenaSql .= " ji.id_usuario, ";

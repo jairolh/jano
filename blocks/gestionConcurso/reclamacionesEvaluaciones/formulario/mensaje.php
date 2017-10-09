@@ -132,12 +132,12 @@ class registrarForm {
 																			$mensaje = "Evaluación de la reclamación registrada correctamente.";
 																			$variable.= "&opcion=listar";
 																			$variable.= "&usuario=".$_REQUEST['usuario'];
-																			//$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+																			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 																			break;
 
 																	case "noregistroEvaluacionReclamacion":
 																			$tipo = 'error';
-																			$mensaje = "No fue posible realizar la evaluación de la reclamación.</b><br>Por favor intente más tarde.";
+																			$mensaje = "No fue posible realizar la evaluación de la reclamación.</b><br> Por favor intente más tarde.";
 																			$variable.= "&opcion=listar";
 																			$variable.= "&usuario=".$_REQUEST['usuario'];
 																			//$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];

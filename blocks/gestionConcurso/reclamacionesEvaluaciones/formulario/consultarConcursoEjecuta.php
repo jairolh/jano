@@ -24,7 +24,7 @@ class consultarForm {
 
 		$this->miSql = $sql;
 
-    $this->miSesion = \Sesion::singleton();
+        $this->miSesion = \Sesion::singleton();
 	}
 
 	function miForm() {
@@ -55,10 +55,35 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            $parametro=array('hoy'=>date("Y-m-d"));
+
+            //consultar roles del usuario
+            $cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario", $_REQUEST['usuario']);
+            $resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //var_dump($resultadoRoles);
+
+						foreach($resultadoRoles as $key=>$value ){
+                if($resultadoRoles[$key]['rol']=='Jurado'){
+                    $rol=$resultadoRoles[$key]['cod_rol'];
+                    $actividad=9;
+                }else if($resultadoRoles[$key]['rol']=='ILUD'){
+                    $rol=$resultadoRoles[$key]['cod_rol'];
+                    $actividad=6;
+                }else if($resultadoRoles[$key]['rol']=='Docencia'){
+                    $rol=$resultadoRoles[$key]['cod_rol'];
+                    $actividad=5;
+                }else{
+                    $actividad=0;
+                }
+            }
+
+            $parametro=array(
+                'hoy'=>date("Y-m-d"),
+                'actividad'=>$actividad
+            );
+
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-						//var_dump($resultadoConcurso);
+
             $esteCampo = "marcoEjecucion";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";

@@ -62,7 +62,7 @@ class consultarForm {
 						);
             $cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
             $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
+						
 						$variable = "pagina=" . $miPaginaActual;
 						$variable.= "&opcion=listar";
 						$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
@@ -135,8 +135,8 @@ class consultarForm {
 													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
 													$validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-															if($resultadoRespuestaReclamaciones[$key]['respuesta']){
-																$respuesta=$resultadoRespuestaReclamaciones[$key]['respuesta'];
+															if($resultadoRespuestaReclamaciones[0]['respuesta']){
+																$respuesta=$resultadoRespuestaReclamaciones[0]['respuesta'];
 															}else{
 																$respuesta="PENDIENTE";
 															}

@@ -37,7 +37,7 @@ class redireccion {
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=registroEvaluacionReclamacion";
-				//$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 				$variable.= "&usuario=".$_REQUEST['usuario'];
 				break;
 

@@ -182,7 +182,7 @@ class registrarForm {
 					 $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $_REQUEST['consecutivo_inscrito']);
 					 $validacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-					 echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+					 echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 
 					echo "<tbody>";
 
@@ -198,7 +198,16 @@ class registrarForm {
 								<td colspan='3'>".$resultadoPerfil[0]['requisitos']."</td>
 								</tr>";
 
-					$mostrarHtml .= "<tr >
+                    echo $mostrarHtml;
+                    unset($mostrarHtml);
+                    echo "</tbody>";
+                    echo "</table></div>";
+
+                    echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+
+					echo "<tbody>";
+
+					$mostrarHtml = "<tr >
 								<th colspan='4'>Evaluación Anterior</th>
 								</tr>";
 
@@ -211,11 +220,11 @@ class registrarForm {
 								<th >Observaciones</th>
 								<td colspan='3'>".$validacion[0]['observacion']."</td>
 								</tr>";
-								echo $mostrarHtml;
-								unset($mostrarHtml);
 
-								echo "</tbody>";
-								echo "</table></div>";
+                    echo $mostrarHtml;
+                    unset($mostrarHtml);
+                    echo "</tbody>";
+                    echo "</table></div>";
 
 
 $esteCampo = "marcoNuevaEvaluacion";

@@ -70,7 +70,7 @@ class Frontera {
 					break;
 
 				case "listar":
-					include_once ($this->ruta . "/formulario/consultarConcursoEjecuta.php");
+					include_once ($this->ruta . "/formulario/consultarReclamaciones.php");
 					break;
 
 				case "detalle":

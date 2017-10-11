@@ -121,10 +121,9 @@ class consultarForm {
                         echo "<thead>
                                 <tr align='center'>
                                   <th>Tipo de Jurado</th>
-                        					<th>Descripción</th>
+                                  <th>Descripción</th>
                                   <th>Estado</th>
-                        					<th>Detalle</th>
-                                  <th>Actualizar Estado</th>
+                        	  <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -166,7 +165,7 @@ class consultarForm {
                                         <td align='left'>".$resultadoTiposJurado[$key]['estado']."</td>
                                 ";
 
-
+                                /*
                                 $mostrarHtml .= "<td>";
                                 $esteCampo = "detalle";
                                 $atributos["id"]=$esteCampo;
@@ -181,7 +180,7 @@ class consultarForm {
 
                                 $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                 $mostrarHtml .= "</td>";
-
+                                */
 
                                 $mostrarHtml .= "<td>";
 

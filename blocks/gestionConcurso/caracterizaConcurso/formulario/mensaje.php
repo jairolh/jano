@@ -117,18 +117,18 @@ class registrarForm {
                         $variable.="&opcion=nuevo";
                         break;
 					
-					case "confirmaCriterio":
-						$tipo = 'success';
-						$mensaje = "Se registro con éxito el Criterio de Evaluación <b>".$_REQUEST['nombreCriterio']."</b>.";
-						$boton = "continuar";
-                        $variable.="&opcion=nuevo";
+                        case "confirmaCriterio":
+                                $tipo = 'success';
+                                $mensaje = "Se registro con éxito el Criterio de Evaluación <b>".$_REQUEST['nombreCriterio']."</b>.";
+                                $boton = "continuar";
+                        //$variable.="&opcion=nuevo";
                         break;
                   	
                   	case "errorCriterio":
                   		$tipo = 'error';
                   		$mensaje = "No fue posible registrar el nuevo Criterio de evaluación <b>".$_REQUEST['nombreCriterio']."</b>. Por favor intente más tarde.";
                         $boton = "regresar";
-                        $variable.="&opcion=nuevo";
+                        //$variable.="&opcion=nuevo";
                         break;
                         
 					case "confirmaModalidad":
@@ -138,27 +138,27 @@ class registrarForm {
                        	$variable.="&opcion=gestionModalidad";
                        	break;
                         	 
-					case "errorModalidad":
-                        $tipo = 'error';
-                       	$mensaje = "No fue posible registrar el la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>. Por favor intente más tarde.";
-                       	$boton = "regresar";
-                       	$variable.="&opcion=gestionModalidad";
-                       	break;
+			case "errorModalidad":
+                                $tipo = 'error';
+                                $mensaje = "No fue posible registrar el la Modalidad de Consurso <b>".$_REQUEST['nombreModalidad']."</b>. Por favor intente más tarde.";
+                                $boton = "regresar";
+                                $variable.="&opcion=gestionModalidad";
+                                break;
                         
                        	
-					case "confirmaActividad":
-                       	$tipo = 'success';
-                       	$mensaje = "Se registro con éxito la Actividad <b>".$_REQUEST['nombreActividad']."</b>.";
-                      	$boton = "continuar";
-                      	$variable.="&opcion=gestionActividades";
-                      	break;
+			case "confirmaActividad":
+                                $tipo = 'success';
+                                $mensaje = "Se registro con éxito la Actividad <b>".$_REQUEST['nombreActividad']."</b>.";
+                                $boton = "continuar";
+                                $variable.="&opcion=gestionActividades";
+                                break;
                    	
                    	case "errorActividad":
-                       	$tipo = 'error';
-                       	$mensaje = "No fue posible registrar la Actividad <b>".$_REQUEST['nombreActividad']."</b>. Por favor intente más tarde.";
-                      	$boton = "regresar";
-                      	$variable.="&opcion=gestionActividades";
-                      	break;
+                                $tipo = 'error';
+                                $mensaje = "No fue posible registrar la Actividad <b>".$_REQUEST['nombreActividad']."</b>. Por favor intente más tarde.";
+                                $boton = "regresar";
+                                $variable.="&opcion=gestionActividades";
+                                break;
                  	
                  	case "confirmaEditaFactor":
                  		$tipo = 'success';
@@ -299,6 +299,52 @@ class registrarForm {
                    		$boton = "regresar";
                    		$variable.="&opcion=gestionActividades";
                   		break;
+                	/*Mensaje para Habilitar o Deshabilitar las Cevaluaciones*/
+                  		
+                   	case "habilitoCevaluacion":
+                   		$tipo = 'success';
+                   		$mensaje = "El rol <b>".$_REQUEST ['rol']."</b> del criterio <b>".$_REQUEST ['criterio']."</b> se habilitó con éxito.";
+                   		$boton = "continuar";
+                                $variable.= "&opcion=rolesCriterio";    
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+                                                                
+                  		break;
+                   		
+                   	case "inhabilitoCevaluacion":
+                   		$tipo = 'success';
+                   		$mensaje = "El rol <b>".$_REQUEST ['rol']."</b> del criterio <b>".$_REQUEST ['criterio']."</b> se inhabilitó con éxito.";
+                   		$boton = "continuar";
+                                $variable.= "&opcion=rolesCriterio";    
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+
+                   		break;
+                   	
+                   	case "nohabilitoCevaluacion":
+                   		$tipo = 'error';
+                   		$mensaje = "El rol <b>".$_REQUEST ['rol']."</b> del criterio <b>".$_REQUEST ['criterio']."</b> no se pudo habilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
+                                $variable.= "&opcion=rolesCriterio";    
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+
+                   		break;
+                   	
+                   	case "noinhabilitoCevaluacion":
+                   		$tipo = 'error';
+                   		$mensaje = "El rol <b>".$_REQUEST ['rol']."</b> del criterio <b>".$_REQUEST ['criterio']."</b> no se pudo inhabilitar. Por favor intente más tarde.";
+                   		$boton = "regresar";
+                                $variable.= "&opcion=rolesCriterio";    
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+
+                  		break;                            
+                            
             	}
             	
                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------

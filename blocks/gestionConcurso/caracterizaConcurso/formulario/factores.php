@@ -53,6 +53,8 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 				break;
 			case "nuevoFactor":
 				include ($this->ruta . "formulario/tabs/registroFactor.php");
+			case "nuevoRol":
+				include ($this->ruta . "formulario/tabs/registroCriterioRol.php");
                 break; 
             case "editar":
             	include ($this->ruta . "formulario/tabs/edita.php");

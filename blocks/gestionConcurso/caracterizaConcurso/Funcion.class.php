@@ -132,8 +132,17 @@ class Funcion {
                		$this->cambiarEstadoActividad();
                		break;
 
-			}
-                                       
+               	case "inhabilitarCevaluacion":
+               		$_REQUEST["estado"]="I";
+               		$this->cambiarEstadoCevaluacion();
+               		break;
+               	
+               	case "habilitarCevaluacion":
+               		$_REQUEST["estado"]="A";
+               		$this->cambiarEstadoCevaluacion();
+               		break;
+
+			}                                       
 		}
 	}
 	
@@ -227,7 +236,12 @@ class Funcion {
  	
 	function cambiarEstadoActividad(){
 		include_once($this->ruta."/funcion/cambiarEstadoActividad.php");
+                
 	}
 
+       	function cambiarEstadoCevaluacion(){
+		include_once($this->ruta."/funcion/cambiarEstadoCevaluacion.php");
+                }
+        
 }
 ?>

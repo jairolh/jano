@@ -101,7 +101,56 @@ class redireccion {
 				$variable.="&actividad=".$valor['nombre_actividad'];
 				break;
 			/*Fin Mensajes actualización estado de la Actividad*/
+
+			/*Mensajes actualización estado de la Cevaluacion*/
+			case "inhabilitarCevaluacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=inhabilitoCevaluacion";
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&id_Cevaluacion=" .$_REQUEST['id_Cevaluacion'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+                                $variable.= "&rol=" .$_REQUEST['rol'];
+                
+				break;
 			
+			case "habilitarCevaluacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=habilitoCevaluacion";
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&id_Cevaluacion=" .$_REQUEST['id_Cevaluacion'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+                                $variable.= "&rol=" .$_REQUEST['rol'];
+
+				break;
+				
+			case "noinhabilitarCevaluacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=noinhabilitoCevaluacion";
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&id_Cevaluacion=" .$_REQUEST['id_Cevaluacion'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+                                $variable.= "&rol=" .$_REQUEST['rol'];
+
+				break;
+				
+			case "nohabilitarCevaluacion":
+				$variable="pagina=".$miPaginaActual;
+				$variable.="&opcion=mensaje";
+				$variable.="&mensaje=nohabilitoCevaluacion";
+                                $variable.= "&id_criterio=" .$_REQUEST['id_criterio'];
+                                $variable.= "&id_Cevaluacion=" .$_REQUEST['id_Cevaluacion'];
+                                $variable.= "&factor=" .$_REQUEST['factor'];
+                                $variable.= "&criterio=" .$_REQUEST['criterio'];
+                                $variable.= "&rol=" .$_REQUEST['rol'];
+
+				break;
+			/*Fin Mensajes actualización estado de la Cevaluacion*/                            
 			case "insertoFactor":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";

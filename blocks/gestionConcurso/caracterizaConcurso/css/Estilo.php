@@ -2,8 +2,8 @@
 $indice=0;
 $estilo[$indice++]="ui.jqgrid.css";
 $estilo[$indice++]="ui.multiselect.css";
-$estilo[$indice++]="timepicker.css";
-$estilo[$indice++]="jquery-te.css";
+//$estilo[$indice++]="timepicker.css";
+//$estilo[$indice++]="jquery-te.css";
 $estilo[$indice++]="validationEngine.jquery.css";
 $estilo[$indice++]="autocomplete.css";
 $estilo[$indice++]="chosen.css";

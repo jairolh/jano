@@ -32,30 +32,35 @@ class RegistradorPerfil {
 
     function procesarFormulario() {
 
-        $conexion="estructura";
+                $conexion="estructura";
     		$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
-    		$datos = array('nombre'=> $_REQUEST['nombreCriterio'],
-    				'factor'=> $_REQUEST['seleccionFactor']
-    		);
+                if(isset($_REQUEST['id_criterio']) && $_REQUEST['id_criterio']!='' )
+                    {$datos = array('nombre'=> $_REQUEST['criterio'],
+                                    'factor'=> $_REQUEST['factor']);
+                     $resultadoCriterio= $_REQUEST['id_criterio']; }
+                else{
+                    $datos = array('nombre'=> $_REQUEST['nombreCriterio'],
+                                   'factor'=> $_REQUEST['seleccionFactor']);
 
-    		$cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);
-    		$resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroCriterio");
-
-        $datosJuradoCriterio = array(
-            'criterio'=> $resultadoCriterio,
-    				'rol'=> $_REQUEST['seleccionRol']
-    		);
-
-    		if($resultadoCriterio){
-          $cadena_sql = $this->miSql->getCadenaSql("registrarJuradoCriterio", $datosJuradoCriterio);
+                    $cadena_sql = $this->miSql->getCadenaSql("registrarCriterio", $datos);
+                    $resultadoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datos, "registroCriterio");
+                    }
+                        
+  		
+                if($resultadoCriterio){
+                    $datosJuradoCriterio = array(
+                            'criterio'=> $resultadoCriterio,
+                            'rol'=> $_REQUEST['seleccionRol']
+                            );
+                $cadena_sql = $this->miSql->getCadenaSql("registrarJuradoCriterio", $datosJuradoCriterio);
       		$resultadoJuradoCriterio = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $datosJuradoCriterio, "registroJuradoCriterio");
-
-          if($resultadoJuradoCriterio){
-              redireccion::redireccionar('insertoCriterio',$datos);  exit();
-          }else {
-      			redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
-      		}
+                
+                    if($resultadoJuradoCriterio){
+                        redireccion::redireccionar('insertoCriterio',$datos);  exit();
+                    }else {
+                                  redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
+                          }
 
     		}else {
     			redireccion::redireccionar('noInsertoCriterio',$datos);  exit();
@@ -64,7 +69,7 @@ class RegistradorPerfil {
     }
 
     function resetForm() {
-        foreach ($_REQUEST as $clave => $valor) {
+        foreach ($_REQUEST as $clave => $valor) {   
 
             if ($clave != 'pagina' && $clave != 'development' && $clave != 'jquery' && $clave != 'tiempo') {
                 unset($_REQUEST [$clave]);

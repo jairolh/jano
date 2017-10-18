@@ -32,50 +32,50 @@ class Sql extends \Sql {
 			 * Clausulas específicas
 			 */
 
-					 case "buscarRolEvaluacion":
-							 $cadenaSql = "Select rol_id, rol_nombre, rol_alias, rol_descripcion, estado_registro_id, rol_fecha_registro";
-							 $cadenaSql .= " FROM jano_rol";
-							 $cadenaSql .= " WHERE rol_alias in ('Docencia', 'Jurado', 'ILUD')";
-							 break;
+                case "buscarRolEvaluacion":
+                                $cadenaSql = "Select rol_id, rol_nombre, rol_alias, rol_descripcion, estado_registro_id, rol_fecha_registro";
+                                $cadenaSql .= " FROM jano_rol";
+                                $cadenaSql .= " WHERE rol_alias in ('Docencia', 'Jurado', 'ILUD', 'Personal')";
+                                break;
 
-					 case "consultaRolCriterio":
-							 $cadenaSql = "Select id, id_jurado_rol, id_criterio, estado, rol_id, rol_nombre";
-							 $cadenaSql .= " FROM concurso.jurado_criterio, jano_rol";
-							 $cadenaSql .= " WHERE id_criterio=".$variable;
-							 $cadenaSql .= " AND id_jurado_rol=rol_id";
-							 break;
+                case "consultaRolCriterio":
+                                $cadenaSql = "Select id, id_jurado_rol, id_criterio, estado, rol_id, rol_nombre, rol_alias";
+                                $cadenaSql .= " FROM concurso.jurado_criterio, jano_rol";
+                                $cadenaSql .= " WHERE id_criterio=".$variable;
+                                $cadenaSql .= " AND id_jurado_rol=rol_id";
+                                break;
 
-						case "consultaFactores":
-                $cadenaSql = "Select f.consecutivo_factor, f.nombre AS factor, f.estado AS estado_factor, c.consecutivo_criterio, c.nombre AS criterio, c.estado AS estado_criterio";
-                $cadenaSql .= " FROM concurso.factor_evaluacion f, concurso.criterio_evaluacion c";
-                $cadenaSql .= " WHERE f.consecutivo_factor=c.consecutivo_factor order by f.nombre";
-                break;
+                case "consultaFactores":
+                                $cadenaSql = "Select f.consecutivo_factor, f.nombre AS factor, f.estado AS estado_factor, c.consecutivo_criterio, c.nombre AS criterio, c.estado AS estado_criterio";
+                                $cadenaSql .= " FROM concurso.factor_evaluacion f, concurso.criterio_evaluacion c";
+                                $cadenaSql .= " WHERE f.consecutivo_factor=c.consecutivo_factor order by f.nombre";
+                                break;
 
-            case "consultaActividades":
-                $cadenaSql = "Select * from concurso.actividad_calendario";
-               	break;
+                case "consultaActividades":
+                                $cadenaSql = "Select * from concurso.actividad_calendario";
+                                break;
 
-						case "consultaModalidades":
-                $cadenaSql = "SELECT consecutivo_modalidad, codigo_nivel_concurso, modalidad.nombre AS nombre, modalidad.estado AS estado, nivel.nombre AS nivel";
-                $cadenaSql .= " FROM concurso.modalidad_concurso modalidad, general.nivel nivel";
-                $cadenaSql .= " WHERE codigo_nivel_concurso=codigo_nivel";
-                break;
+		case "consultaModalidades":
+                                $cadenaSql = "SELECT consecutivo_modalidad, codigo_nivel_concurso, modalidad.nombre AS nombre, modalidad.estado AS estado, nivel.nombre AS nivel";
+                                $cadenaSql .= " FROM concurso.modalidad_concurso modalidad, general.nivel nivel";
+                                $cadenaSql .= " WHERE codigo_nivel_concurso=codigo_nivel";
+                                break;
 
-            case "buscarNiveles":
-              	$cadenaSql = " SELECT * FROM general.nivel ";
-               	$cadenaSql .= " WHERE tipo_nivel ='TipoConcurso'";
-               	break;
+                case "buscarNiveles":
+                                $cadenaSql = " SELECT * FROM general.nivel ";
+                                $cadenaSql .= " WHERE tipo_nivel ='TipoConcurso'";
+                                break;
 
-            case "buscarFactores":
-            	$cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
-            	$cadenaSql .= " WHERE estado ='A'";
-            	$cadenaSql .= " order by nombre";
-            	break;
+                case "buscarFactores":
+                                $cadenaSql = " SELECT * FROM concurso.factor_evaluacion ";
+                                $cadenaSql .= " WHERE estado ='A'";
+                                $cadenaSql .= " order by nombre";
+                                break;
 
-            case "consultarCriterios":
-				$cadenaSql = " SELECT * FROM concurso.criterio_evaluacion";
-				$cadenaSql .= " WHERE consecutivo_factor=".$variable;
-                break;
+                case "consultarCriterios":
+                                $cadenaSql = " SELECT * FROM concurso.criterio_evaluacion";
+                                $cadenaSql .= " WHERE consecutivo_factor=".$variable;
+                                break;
 
          	case "registrarFactor":
          		$cadenaSql = "INSERT INTO concurso.factor_evaluacion(nombre)";
@@ -94,7 +94,7 @@ class Sql extends \Sql {
          		$cadenaSql .= " RETURNING consecutivo_criterio";
          		break;
 
-						case "registrarJuradoCriterio":
+		case "registrarJuradoCriterio":
 	         		$cadenaSql = "INSERT INTO concurso.jurado_criterio(id_jurado_rol, id_criterio)";
 	         		$cadenaSql .= " VALUES ( ";
 	         		$cadenaSql .= " '".$variable['rol']."', ";
@@ -121,25 +121,32 @@ class Sql extends \Sql {
         		$cadenaSql .= " RETURNING consecutivo_actividad";
         		break;
 
-            case "cambiarEstadoCriterio":
-                $cadenaSql = "UPDATE concurso.criterio_evaluacion SET ";
-               	$cadenaSql .= " estado = '".$variable['estado']."'";
-                $cadenaSql .= " WHERE consecutivo_criterio = '".$variable['id_criterio']."' ";
-                $cadenaSql .= " RETURNING consecutivo_criterio";
-				break;
+                case "cambiarEstadoCriterio":
+                    $cadenaSql = "UPDATE concurso.criterio_evaluacion SET ";
+                    $cadenaSql .= " estado = '".$variable['estado']."'";
+                    $cadenaSql .= " WHERE consecutivo_criterio = '".$variable['id_criterio']."' ";
+                    $cadenaSql .= " RETURNING consecutivo_criterio";
+                                    break;
 
-			case "cambiarEstadoModalidad":
-				$cadenaSql = "UPDATE concurso.modalidad_concurso SET ";
-				$cadenaSql .= " estado = '".$variable['estado']."'";
-				$cadenaSql .= " WHERE consecutivo_modalidad = '".$variable['id_modalidad']."' ";
-				$cadenaSql .= " RETURNING consecutivo_modalidad";
-				break;
+                case "cambiarEstadoModalidad":
+                        $cadenaSql = "UPDATE concurso.modalidad_concurso SET ";
+                        $cadenaSql .= " estado = '".$variable['estado']."'";
+                        $cadenaSql .= " WHERE consecutivo_modalidad = '".$variable['id_modalidad']."' ";
+                        $cadenaSql .= " RETURNING consecutivo_modalidad";
+                        break;
 
-			case "cambiarEstadoActividad":
-				$cadenaSql = "UPDATE concurso.actividad_calendario SET ";
-				$cadenaSql .= " estado = '".$variable['estado']."'";
-				$cadenaSql .= " WHERE consecutivo_actividad = '".$variable['id_actividad']."' ";
-				break;
+                case "cambiarEstadoActividad":
+                        $cadenaSql = "UPDATE concurso.actividad_calendario SET ";
+                        $cadenaSql .= " estado = '".$variable['estado']."'";
+                        $cadenaSql .= " WHERE consecutivo_actividad = '".$variable['id_actividad']."' ";
+                        break;
+                    
+                case "cambiarEstadoCevaluacion":
+                        $cadenaSql = "UPDATE concurso.jurado_criterio SET ";
+                        $cadenaSql .= " estado = '".$variable['estado']."' ";
+                        $cadenaSql .= " WHERE id = '".$variable['id_Cevaluacion']."' ";
+                        break;
+                    
 
           	case "editarFactor":
                 $cadenaSql = "UPDATE concurso.factor_evaluacion ";

@@ -82,7 +82,7 @@ class consultarForm {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>GESTIÓN DE CRITERIOS</b>";
+            $atributos ["leyenda"] = "<b>Gestión de criterios</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -121,9 +121,10 @@ class consultarForm {
                         echo "<thead>
                                 <tr align='center'>
                                     <th>Factor</th>
-                        						<th>Criterio</th>
-																		<th>Rol</th>
+                 		    <th>Criterio</th>
+                                    <th>Rol</th>
                                     <th>Estado</th>
+                                    <th>Actualizar Roles</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
@@ -149,23 +150,52 @@ class consultarForm {
                                 }else{
                                 	$resultadoFactores[$key]['estado_criterio']="Inactivo";
                                 }
-
-																//buscar el jurado del criterio
-																$cadena_sql = $this->miSql->getCadenaSql("consultaRolCriterio", $resultadoFactores[$key]['consecutivo_criterio']);
-												        $resultadoRol = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-																if(!$resultadoRol){
-																	$resultadoRol[0][5]="false";
-																}
-
+                                                               
+                                //enlace actualizar perfil
+                                $variablePerfil = "pagina=".$this->miConfigurador->getVariableConfiguracion ( 'pagina' ); //pendiente la pagina para modificar parametro      
+                                $variablePerfil.= "&opcion=rolesCriterio";    
+                                $variablePerfil.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                $variablePerfil.= "&id_criterio=" .$resultadoFactores[$key]['consecutivo_criterio'];
+                                $variablePerfil.= "&criterio=" .$resultadoFactores[$key]['criterio'];
+                                $variablePerfil.= "&factor=" .$resultadoFactores[$key]['factor'];
+                                $variablePerfil.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                $variablePerfil.= "&tiempo=" . time ();
+                                $variablePerfil = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variablePerfil, $directorio);
+                                
+                                //buscar el jurado del criterio
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaRolCriterio", $resultadoFactores[$key]['consecutivo_criterio']);
+                                $resultadoRol = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                $resultadoFactores[$key]['roles']='';
+                                if($resultadoRol){
+                                    foreach($resultadoRol as $rol=>$value )
+                                            {   if($rol>0){$resultadoFactores[$key]['roles'].= "<br>";}
+                                                $resultadoFactores[$key]['roles'].= $value['rol_alias'];
+                                            }
+                                    }
+                                
+                            
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoFactores[$key]['factor']."</td>
                                         <td align='left'>".$resultadoFactores[$key]['criterio']."</td>
-																				<td align='left'>".$resultadoRol[0][5]."</td>
+					<td align='left'>".$resultadoFactores[$key]['roles']."</td>
                                         <td align='left'>".$resultadoFactores[$key]['estado_criterio']."</td>";
-
-		                        		$mostrarHtml .= "<td>";
-
+                                
+                                $mostrarHtml.= "<td>";
+                                                $esteCampo = "perfil";
+                                                $atributos["id"]=$esteCampo;
+                                                $atributos['enlace']=$variablePerfil;
+                                                $atributos['tabIndex']=$esteCampo;
+                                                $atributos['redirLugar']=true;
+                                                $atributos['estilo']='clasico';
+                                                $atributos['enlaceTexto']='';
+                                                $atributos['ancho']='25';
+                                                $atributos['alto']='25';
+                                                $atributos['enlaceImagen']=$rutaBloque."/images/folder_user.png";
+                                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                unset($atributos);    
+                                $mostrarHtml.= "</td>";
+                                
+                       		$mostrarHtml .= "<td>";
                                         if($resultadoFactores[$key]['estado_criterio']=='Activo')
                                             {
                                             	$esteCampo = "habilitar";

@@ -33,7 +33,7 @@ $this->idioma["tabModalidades"]="Modalidades";
 $this->idioma["tabActividades"]="Actividades";
 
 $this->idioma["marcoPerfil"]="Nuevo Criterio de Evaluación";
-
+$this->idioma["marcoRol"]="Nuevo Rol a Criterio de Evaluación";
 $this->idioma["marcoCriterio"]="Criterios de Evaluación";
 $this->idioma["marcoModalidad"]="Registrar Modalidad";
 $this->idioma["marcoActividad"]="Registrar Actividad";
@@ -41,6 +41,7 @@ $this->idioma["marcoActividad"]="Registrar Actividad";
 $this->idioma["registrarCriterio"]="<br><b>Registrar Nuevo <br> Criterio</b>";
 $this->idioma["nuevaActividad"]="<br><b>Registrar Nueva <br> Actividad</b>";
 $this->idioma["nuevaModalidad"]="<br><b>Registrar Nueva <br> Modalidad</b>";
+$this->idioma["registrarRol"]="<br><b>Registrar Nuevo <br> Rol</b>";
 
 $this->idioma["nuevoSub"]="Nuevo Factor";
 
@@ -80,20 +81,16 @@ $this->idioma["descripcionActividadTitulo"]="Ingrese la descripción de la activ
 $this->idioma["nombreModalidad"]="Nombre modalidad";
 $this->idioma["nombreModalidadTitulo"]="Ingrese el nombre de la modalidad";
 
+$this->idioma["nombre_factor"]="Factor: ";
+
 $this->idioma["estadoFactor"]="Estado del Factor: ";
-
 $this->idioma["estadoCriterio"]="Estado del Criterio: ";
-
 $this->idioma["seleccionFactor"]="Factor: ";
-
 $this->idioma["etiqueta"]="Etiqueta : ";
-
 $this->idioma["paginaSub"]="Pagina : ";
 
 $this->idioma["paginaSubTitulo"]="Seleccione la pagina Principal del Subsistema";
-
 $this->idioma["descripcionSub"]="Descripción : ";
-
 $this->idioma["id_perfil"]="Perfil: ";
 
 //------------------Mensajes -----------------------------------
@@ -102,6 +99,7 @@ $this->idioma["continuar"]="Continuar";
 
 $this->idioma["regresar"]="Regresar";
 $this->idioma["noEncontroModalidades"]="No hay modalidades registradas";
+$this->idioma["noEncontroRoles"]="No hay roles registrados";
 
 
 ?>

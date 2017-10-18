@@ -1,7 +1,7 @@
 <?php
 $indice = 0;
 $funcion [$indice ++] = "jquery.easing.1.3.js";
-$funcion [$indice ++] = "jquery-1.11.0.min.js";
+//$funcion [$indice ++] = "jquery-1.11.0.min.js";
 $funcion [$indice ++] = "jqueryui.js";
 $funcion [$indice ++] = "jquery.validationEngine.js";
 $funcion [$indice ++] = "jquery.validationEngine-es.js";

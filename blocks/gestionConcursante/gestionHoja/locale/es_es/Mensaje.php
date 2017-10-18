@@ -11,8 +11,8 @@ $this->idioma["tabInvestigacion"]="Experiencia Investigación";
 $this->idioma["tabProduccion"]="Producción Académica";
 $this->idioma["tabIdiomas"]="Lengua Extranjera";
 
-$this->idioma["marcoBasicos"]="Registro datos básicos";
-$this->idioma["marcoContacto"]="Registro datos de Contacto";
+$this->idioma["marcoBasicos"]="Registro Datos Básicos";
+$this->idioma["marcoContacto"]="Registro Datos de Contacto";
 $this->idioma["marcoFormacion"]="Registro datos de Formación Académica";
 $this->idioma["marcoListaFormacion"]="Formación Académica";
 $this->idioma["marcoProfesional"]="Registro datos de Experiencia Profesional";

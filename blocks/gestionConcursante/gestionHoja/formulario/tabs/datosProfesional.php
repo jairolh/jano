@@ -358,7 +358,7 @@ class profesionalForm {
                                     if (isset ( $resultadoProfesional[0]['fecha_inicio'] )) 
                                         {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_inicio'];}
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -384,7 +384,7 @@ class profesionalForm {
                                     if (isset ( $resultadoProfesional[0]['fecha_fin'] )) 
                                         {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_fin'];}
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] =  '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

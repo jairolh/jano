@@ -354,7 +354,7 @@ class formacionForm {
                                     $atributos ['estilo'] = 'jqueryui';
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ["etiquetaObligatorio"] = false;
                                     $atributos ['columnas'] = 1;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
@@ -416,7 +416,7 @@ class formacionForm {
                                     if (isset ( $resultadoFormacion[0]['fecha_grado'] )) 
                                         {   $atributos ['valor'] = $resultadoFormacion[0]['fecha_grado'];}
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] =  '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

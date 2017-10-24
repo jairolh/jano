@@ -53,7 +53,18 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            $parametro=array('hoy'=>date("Y-m-d"));
+            
+            //identifica el tipo de rol para buscar el concurso a administrar
+            $roles=  $this->miSesion->RolesSesion();
+            $admin='';
+            if($roles){
+                foreach ($roles as $key => $value) 
+                    {   if($key>0){$admin.=",";}
+                        $admin.= "'".$roles[$key]['nom_app']."'";  
+                    }
+            }
+            
+            $parametro=array('hoy'=>date("Y-m-d"),'tipo_concurso'=>$admin);
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $esteCampo = "marcoEjecucion";
@@ -77,6 +88,7 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
+                                    <th>Código</th>
                                     <th>Tipo Concurso</th>
                                     <th>Modalidad</th>
                                     <th>Nombre</th>
@@ -112,6 +124,7 @@ class consultarForm {
 
                                 
                                 $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoConcurso[$key]['codigo']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['nivel_concurso']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['modalidad']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['nombre']."</td>

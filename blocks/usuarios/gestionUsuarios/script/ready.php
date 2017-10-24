@@ -113,9 +113,9 @@ $('#<?php echo $this->campoSeguro('fechaFin')?>').datepicker({
         });
 $('#<?php echo $this->campoSeguro('tipo_identificacion')?>').width(210);
 $("#<?php echo $this->campoSeguro('tipo_identificacion')?>").select2(); 
-$('#<?php echo $this->campoSeguro('subsistema')?>').width(210);
+$('#<?php echo $this->campoSeguro('subsistema')?>').width(350);
 $("#<?php echo $this->campoSeguro('subsistema')?>").select2(); 
-$('#<?php echo $this->campoSeguro('perfil')?>').width(210);
+$('#<?php echo $this->campoSeguro('perfil')?>').width(350);
 $("#<?php echo $this->campoSeguro('perfil')?>").select2(); 
 
 <?php 

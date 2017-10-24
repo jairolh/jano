@@ -55,25 +55,27 @@ class consultarForm {
 		// -------------------------------------------------------------------------------------------------
                 $conexion="estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-	
 		$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&opcion=nuevo";
                 $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-		/**
-		 * SARA permite que los nombres de los campos sean dinámicos.
-		 * Para ello utiliza la hora en que es creado el formulario para
-		 * codificar el nombre de cada campo. Si se utiliza esta técnica es necesario pasar dicho tiempo como una variable:
-		 * (a) invocando a la variable $_REQUEST ['tiempo'] que se ha declarado en ready.php o
-		 * (b) asociando el tiempo en que se está creando el formulario
-		 */
-                
 		$valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
 		$valorCodificado .= "&tiempo=" . time ();
 		// Paso 2: codificar la cadena resultante
                 $variableNuevo = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($valorCodificado, $directorio);
-		$cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", "");
-                $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                //var_dump($resultadoConcurso);
+            $hoy=date("Y-m-d");    
+            //identifica el tipo de rol para buscar el concurso a administrar
+            $roles=  $this->miSesion->RolesSesion();
+            $admin='';
+            if($roles){
+                foreach ($roles as $key => $value) 
+                    {   if($key>0){$admin.=",";}
+                        $admin.= "'".$roles[$key]['nom_app']."'";  
+                    }
+            }
+            $parametro= array('tipo_concurso'=>$admin);
+            $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
+            $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //var_dump($resultadoConcurso);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -116,6 +118,7 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
+                                    <th>Código</th>
                                     <th>Tipo Concurso</th>
                                     <th>Modalidad</th>
                                     <th>Nombre</th>
@@ -175,6 +178,7 @@ class consultarForm {
 
                                 
                                 $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoConcurso[$key]['codigo']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['nivel_concurso']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['modalidad']."</td>
                                         <td align='left'>".$resultadoConcurso[$key]['nombre']."</td>
@@ -241,8 +245,10 @@ class consultarForm {
                                                 $atributos['ancho']='25';
                                                 $atributos['alto']='25';
                                                 $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
-                                                if(isset($resultadoConcurso[$key]['perfiles']) && $resultadoConcurso[$key]['perfiles']==0)
+                                                if($hoy<$resultadoConcurso[$key]['fecha_fin'])
+                                                //if(isset($resultadoConcurso[$key]['perfiles']) && $resultadoConcurso[$key]['perfiles']==0)
                                                     { $mostrarHtml .= $this->miFormulario->enlace($atributos);}
+                                                    
                                                 unset($atributos);    
                                         $mostrarHtml .= "</td> <td>";
                                         if($resultadoConcurso[$key]['estado']=='Activo')

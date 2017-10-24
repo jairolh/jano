@@ -83,11 +83,14 @@ class SesionSql {
                 $this->cadena_sql [$indice].= " perfil.id_usuario usuario, ";
                 $this->cadena_sql [$indice].= " perfil.id_subsistema cod_app, ";
                 $this->cadena_sql [$indice].= " perfil.rol_id cod_rol, ";
-                $this->cadena_sql [$indice].= " rol.rol_alias rol ";
+                $this->cadena_sql [$indice].= " rol.rol_alias rol, ";
+                $this->cadena_sql [$indice].= " subs.nombre nom_app ";
                 $this->cadena_sql [$indice].= " FROM " . $this->prefijoTablas . "usuario_subsistema perfil ";
                 $this->cadena_sql [$indice].= " INNER JOIN " . $this->prefijoTablas . "rol rol  ";
                 $this->cadena_sql [$indice].= " ON rol.rol_id=perfil.rol_id  ";
                 $this->cadena_sql [$indice].= " AND rol.estado_registro_id=1 ";
+                $this->cadena_sql [$indice].= " INNER JOIN " . $this->prefijoTablas . "subsistema subs  ";
+                $this->cadena_sql [$indice].= " ON subs.id_subsistema=perfil.id_subsistema  ";
                 $this->cadena_sql [$indice].= " WHERE ";
                 $this->cadena_sql [$indice].= " id_usuario='" . $parametro . "' ";
                 $this->cadena_sql [$indice].= " AND perfil.fecha_caduca>=current_date ";

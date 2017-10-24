@@ -70,6 +70,10 @@ class Sql extends \Sql {
                                 $cadenaSql.=" estado='A'";
                                 if(isset($variable['tipo_nivel']) && $variable['tipo_nivel']!='')
                                     {$cadenaSql.=" AND tipo_nivel='".$variable['tipo_nivel']."' ";}
+                                if(isset($variable['tipo_concurso']) &&  $variable['tipo_concurso']!='' )
+                                   {$cadenaSql.=" AND "; 
+                                    $cadenaSql .= " nombre IN (".$variable['tipo_concurso'].") "; 
+                                   }    
                                 if(isset($variable['codigo_nivel']) && $variable['codigo_nivel']>0)
                                     {$cadenaSql.=" AND codigo_nivel='".$variable['codigo_nivel']."' ";}
                                 if(isset($variable['nombre']) && $variable['nombre']!='')
@@ -179,10 +183,16 @@ class Sql extends \Sql {
                                    {$cadenaSql.=" AND eval.consecutivo_criterio='".$variable['consecutivo_criterio']."' "; 
                                    }
                                 $cadenaSql.=" ORDER BY crt.nombre ";
-                            break;                            
+                            break;   
+                        case "consultaCodigoConcurso":
+                                $cadenaSql=" SELECT (MAX(substring(codigo from 8 for 3))::int+1) secuencia";
+                                $cadenaSql.=" FROM concurso.concurso";
+                                $cadenaSql.=" WHERE codigo LIKE '".$variable['codigo']."%' "; 
+                            break;                              
                         case "consultaConcurso":
                                 $cadenaSql=" SELECT conc.consecutivo_concurso, ";
                                 $cadenaSql.=" conc.consecutivo_modalidad,";
+                                $cadenaSql.=" conc.codigo, ";
                                 $cadenaSql.=" conc.nombre, ";
                                 $cadenaSql.=" conc.acuerdo, ";
                                 $cadenaSql.=" conc.descripcion,";
@@ -201,9 +211,14 @@ class Sql extends \Sql {
                                 $cadenaSql.=" FROM concurso.concurso conc ";
                                 $cadenaSql.=" INNER JOIN concurso.modalidad_concurso mdl ON mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
                                 $cadenaSql.=" INNER JOIN general.nivel nvl ON nvl.tipo_nivel='TipoConcurso' AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
+                                $cadenaSql.=" WHERE 1=1 ";
                                 if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
-                                   {$cadenaSql.=" WHERE "; 
+                                   {$cadenaSql.=" AND "; 
                                     $cadenaSql .= " conc.consecutivo_concurso='".$variable['consecutivo_concurso']."' "; 
+                                   }
+                                if(isset($variable['tipo_concurso']) &&  $variable['tipo_concurso']!='' )
+                                   {$cadenaSql.=" AND "; 
+                                    $cadenaSql .= " nvl.nombre IN (".$variable['tipo_concurso'].") "; 
                                    }
                                 $cadenaSql.=" ORDER BY ";
                                 $cadenaSql.=" conc.fecha_inicio DESC, ";
@@ -320,6 +335,7 @@ class Sql extends \Sql {
                         case "registroConcurso":
                                 $cadenaSql=" INSERT INTO concurso.concurso(";
                                 $cadenaSql.=" consecutivo_concurso,";
+                                $cadenaSql.=" codigo,";
                                 $cadenaSql.=" consecutivo_modalidad, ";
                                 $cadenaSql.=" nombre,";
                                 $cadenaSql.=" acuerdo, ";
@@ -331,6 +347,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" porcentaje_aprueba) ";
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " DEFAULT, ";
+                                $cadenaSql .= " '".$variable['codigo']."', ";
                                 $cadenaSql .= " '".$variable['codigo_modalidad']."', ";
                                 $cadenaSql .= " '".$variable['nombre']."', ";
                                 $cadenaSql .= " '".$variable['acuerdo']."', ";

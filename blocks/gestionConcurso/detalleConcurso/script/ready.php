@@ -194,7 +194,7 @@ $('#<?php echo $this->campoSeguro('fecha_fin_concurso')?>').datepicker({
             dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
             dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-        yearRange: '-50:+0'
+        yearRange: '-0:+5'
    });                
            
 

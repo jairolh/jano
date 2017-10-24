@@ -197,6 +197,7 @@ class Sql extends \Sql {
                         case "consultaConcurso":
                                 $cadenaSql=" SELECT conc.consecutivo_concurso, ";
                                 $cadenaSql.=" conc.consecutivo_modalidad,";
+                                $cadenaSql.=" conc.codigo, ";
                                 $cadenaSql.=" conc.nombre, ";
                                 $cadenaSql.=" conc.acuerdo, ";
                                 $cadenaSql.=" conc.descripcion,";
@@ -218,9 +219,13 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN general.nivel nvl ON nvl.tipo_nivel='TipoConcurso' AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" conc.estado='A' ";
-                              if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
+                                if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
                                    {$cadenaSql .= " AND conc.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                    }
+                                if(isset($variable['tipo_concurso']) &&  $variable['tipo_concurso']!='' )
+                                   {$cadenaSql.=" AND "; 
+                                    $cadenaSql .= " nvl.nombre IN (".$variable['tipo_concurso'].") "; 
+                                   }   
                                 if(isset($variable['hoy']) &&  $variable['hoy']!='' )
                                    {$cadenaSql.=" AND conc.fecha_inicio <='".$variable['hoy']."' ";
                                     $cadenaSql.=" AND conc.fecha_fin>= '".$variable['hoy']."' ";

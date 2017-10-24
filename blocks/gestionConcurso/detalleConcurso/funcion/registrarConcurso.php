@@ -42,15 +42,28 @@ class RegistradorConcurso {
                               'fecha_inicio_concurso'=>$_REQUEST['fecha_inicio_concurso'],
                               'fecha_fin_concurso'=>$_REQUEST['fecha_fin_concurso'],
                               'estado'=>isset($_REQUEST['estado'])?$_REQUEST['estado']:'',
-                              'maximo_puntos'=>$_REQUEST['maximo_puntos'],
+                              'maximo_puntos'=>$_REQUEST['maximo_puntos_conc'],
                               'porcentaje_aprueba'=>$_REQUEST['porc_aprueba_conc'],
-                                
             );
+        
+        
         if($arregloDatos['consecutivo_concurso']==0)
-             {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
+             {  
+                $parametro=array('tipo_nivel'=> 'TipoConcurso','codigo_nivel'=>$_REQUEST['tipo']);
+                $cadena_sql = $this->miSql->getCadenaSql("consultarNivel", $parametro);
+                $resultadoNivel = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                //Genera el codigo del concurso
+                $codigo=date('Y').strtoupper(substr($resultadoNivel[0]['nombre'],0,3));
+                $parametroCod=array('codigo'=>$codigo);
+                $cadena_sql = $this->miSql->getCadenaSql("consultaCodigoConcurso", $parametroCod);
+                $resultadoCod = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                $codigo.=str_pad($resultadoCod[0]['secuencia'],  3, "0",STR_PAD_LEFT);
+                $arregloDatos['codigo']=$codigo;
+                
+                $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
                 $_REQUEST['consecutivo_concurso']=$resultadoConcurso;
-                
+            
                 $cadenaSql = $this->miSql->getCadenaSql ( 'consultaActividadObligatoria',$arregloDatos );
                 $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
                 foreach ($resultadoActividad as $key => $value) {

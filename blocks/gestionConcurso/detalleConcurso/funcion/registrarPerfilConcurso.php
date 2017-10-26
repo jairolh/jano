@@ -32,7 +32,6 @@ class RegistradorPerfilConcurso {
     function procesarFormulario() {
         $conexion="estructura";
 	$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-        //var_dump($_REQUEST);
         $arregloDatos = array('consecutivo_perfil'=>$_REQUEST['consecutivo_perfil'],
                               'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                               'nombre'=>$_REQUEST['nombrePerfil'],
@@ -41,11 +40,19 @@ class RegistradorPerfilConcurso {
                               'dependencia'=>$_REQUEST['dependencia'],
                               'area'=>$_REQUEST['area'],
                               'vacantes'=>$_REQUEST['vacantes'],
-                              'estado'=>$_REQUEST['estado']
+                              'estado'=>isset($_REQUEST['estado'])?$_REQUEST['estado']:''
             );
         
+        
         if($arregloDatos['consecutivo_perfil']==0)
-             {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroPerfilConcurso',$arregloDatos );
+             {  //genera codigo de concurso
+                $codigo=$_REQUEST['codigo_concurso'];
+                $parametroCod=array('codigo'=>$codigo);
+                $cadena_sql = $this->miSql->getCadenaSql("consultaCodigoPerfil", $parametroCod);
+                $resultadoCod = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                $codigo.=str_pad(($resultadoCod[0]['secuencia']>0?$resultadoCod[0]['secuencia']:1),  4, "0",STR_PAD_LEFT);
+                $arregloDatos['codigo']=$codigo;
+                $cadenaSql = $this->miSql->getCadenaSql ( 'registroPerfilConcurso',$arregloDatos );
                 $resultadoPerfil = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroPerfilConcurso" );
                 $_REQUEST['consecutivo_perfil']=$resultadoPerfil;
              }

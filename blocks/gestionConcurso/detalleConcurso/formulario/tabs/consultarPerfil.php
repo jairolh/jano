@@ -106,6 +106,7 @@ class consultarPerfil {
                                         <tr align='center'>
                                             <th>Dependencia</th>                                            
                                             <th>Área</th> 
+                                            <th>Código</th>                                            
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Requisitos</th>
@@ -153,6 +154,7 @@ class consultarPerfil {
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaPerfil[$key]['dependencia']."</td>    
                                                 <td align='left'>".$resultadoListaPerfil[$key]['area']."</td>    
+                                                <td align='left'>".$resultadoListaPerfil[$key]['codigo']."</td>    
                                                 <td align='left'>".$resultadoListaPerfil[$key]['nombre']."</td>
                                                 <td align='left'>".$resultadoListaPerfil[$key]['descripcion']."</td>
                                                 <td align='left'>".$resultadoListaPerfil[$key]['requisitos']."</td>

@@ -173,7 +173,7 @@ class perfilForm {
                                     $atributos ['estiloMarco'] = '';
                                     $atributos ["etiquetaObligatorio"] = true;
                                     $atributos ['columnas'] = 74;
-                                    $atributos ['filas'] = 8;
+                                    $atributos ['filas'] = 15;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
@@ -359,6 +359,7 @@ class perfilForm {
                                     $valorCodificado .= "&opcion=guardarPerfilConcurso";
                                     $valorCodificado .= "&id_usuario=".$usuario;
                                     $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                    $valorCodificado .= "&codigo_concurso=".$_REQUEST['codigo_concurso'];
                                     $valorCodificado .= "&consecutivo_perfil=".$perfil;
                                     
                                     if (isset($resultadoPerfil[0]['obligatoria']) && $resultadoPerfil[0]['obligatoria']=='S' )

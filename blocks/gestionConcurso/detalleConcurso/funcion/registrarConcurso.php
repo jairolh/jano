@@ -57,7 +57,7 @@ class RegistradorConcurso {
                 $parametroCod=array('codigo'=>$codigo);
                 $cadena_sql = $this->miSql->getCadenaSql("consultaCodigoConcurso", $parametroCod);
                 $resultadoCod = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                $codigo.=str_pad($resultadoCod[0]['secuencia'],  3, "0",STR_PAD_LEFT);
+                $codigo.=str_pad(($resultadoCod[0]['secuencia']>0?$resultadoCod[0]['secuencia']:1),  3, "0",STR_PAD_LEFT);
                 $arregloDatos['codigo']=$codigo;
                 
                 $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );

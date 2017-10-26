@@ -301,11 +301,18 @@ class Sql extends \Sql {
                                    }     
                                 $cadenaSql.=" ORDER BY  cal.fecha_inicio ASC, cal.fecha_fin ASC ";
                             break;     
+
+                        case "consultaCodigoPerfil":
+                                $cadenaSql=" SELECT (MAX(substring(codigo from 11 for 4))::int+1) secuencia";
+                                $cadenaSql.=" FROM concurso.concurso_perfil";
+                                $cadenaSql.=" WHERE codigo LIKE '".$variable['codigo']."%' "; 
+                            break;                               
                             
                         case "consultarPerfilConcurso":
                                 $cadenaSql=" SELECT DISTINCT ";
                                 $cadenaSql.=" prf.consecutivo_perfil, ";
                                 $cadenaSql.=" prf.consecutivo_concurso, ";
+                                $cadenaSql.=" prf.codigo, ";
                                 $cadenaSql.=" prf.nombre, ";
                                 $cadenaSql.=" prf.descripcion,  ";
                                 $cadenaSql.=" prf.requisitos, ";
@@ -414,6 +421,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" concurso.concurso_perfil(";
                                 $cadenaSql.=" consecutivo_perfil,";
                                 $cadenaSql.=" consecutivo_concurso,";
+                                $cadenaSql.=" codigo,";
                                 $cadenaSql.=" nombre,";
                                 $cadenaSql.=" descripcion,";
                                 $cadenaSql.=" requisitos,";
@@ -424,6 +432,7 @@ class Sql extends \Sql {
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " DEFAULT, ";
                                 $cadenaSql .= " '".$variable['consecutivo_concurso']."', ";
+                                $cadenaSql .= " '".$variable['codigo']."', ";
                                 $cadenaSql .= " '".$variable['nombre']."', ";
                                 $cadenaSql .= " '".$variable['descripcion']."', ";
                                 $cadenaSql .= " '".$variable['requisitos']."', ";

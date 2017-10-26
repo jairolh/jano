@@ -85,26 +85,29 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                     $_REQUEST['inicio_concurso']=$resultadoConcurso[0]['fecha_inicio'];
                     $_REQUEST['cierre_concurso']=$resultadoConcurso[0]['fecha_fin'];
                     $_REQUEST['maximo_puntos_conc']=$resultadoConcurso[0]['maximo_puntos'];
+                    $_REQUEST['codigo_concurso']=$resultadoConcurso[0]['codigo'];
                     $hoy=date("Y-m-d");
-                    $datosConcurso=array(array('0'=>$resultadoConcurso[0]['nivel_concurso'],
+                    $datosConcurso=array(array('0'=>$resultadoConcurso[0]['codigo'],
+                                            'CÓdigo'=>$resultadoConcurso[0]['codigo'],
+                                            '1'=>$resultadoConcurso[0]['nivel_concurso'],
                                             'Tipo'=>$resultadoConcurso[0]['nivel_concurso'],
-                                            '1'=>$resultadoConcurso[0]['modalidad'],
+                                            '2'=>$resultadoConcurso[0]['modalidad'],
                                             'Modalidad'=>$resultadoConcurso[0]['modalidad'],
-                                            '2'=>$resultadoConcurso[0]['nombre'],
+                                            '3'=>$resultadoConcurso[0]['nombre'],
                                             'Nombre'=>$resultadoConcurso[0]['nombre'],
-                                            '3'=>$resultadoConcurso[0]['descripcion'],
+                                            '4'=>$resultadoConcurso[0]['descripcion'],
                                             'Descripcion'=>$resultadoConcurso[0]['descripcion'],
-                                            '4'=>$resultadoConcurso[0]['fecha_inicio'],
+                                            '5'=>$resultadoConcurso[0]['fecha_inicio'],
                                             'Fecha inicial'=>$resultadoConcurso[0]['fecha_inicio'],
-                                            '5'=>$resultadoConcurso[0]['fecha_fin'],
+                                            '6'=>$resultadoConcurso[0]['fecha_fin'],
                                             'Fecha cierre'=>$resultadoConcurso[0]['fecha_fin'],
-                                            '6'=>$resultadoConcurso[0]['maximo_puntos'],
+                                            '7'=>$resultadoConcurso[0]['maximo_puntos'],
                                             'MÁximo puntos '=>$resultadoConcurso[0]['maximo_puntos'],
-                                            '7'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
+                                            '8'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
                                             'Porcentaje aprueba'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
-                                            '8'=>$resultadoConcurso[0]['estado'],
+                                            '9'=>$resultadoConcurso[0]['estado'],
                                             'Estado'=>$resultadoConcurso[0]['estado'],
-                                            '9'=>$resultadoConcurso[0]['acuerdo'],
+                                            '10'=>$resultadoConcurso[0]['acuerdo'],
                                             'Acuerdo'=>$resultadoConcurso[0]['acuerdo'],
                                              ));
                     

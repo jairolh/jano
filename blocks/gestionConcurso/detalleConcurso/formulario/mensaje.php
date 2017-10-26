@@ -136,7 +136,7 @@ class registrarForm {
                                         break;   
                                     case "actualizoPerfilConcurso":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos del perfil se registraron exitosamente pera el Concurso.";
+                                        $mensaje = "Los datos del perfil se registraron exitosamente para el Concurso.";
                                         $boton = "continuar";
                                         $pestanna='#tabPerfil';
                                         $variable.= "&opcion=detalle";

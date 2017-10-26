@@ -8,7 +8,7 @@ $estilo = array ();
 
 $funcion [$indice] = "funciones.js";
 $indice ++;
-
+$funcion[$indice++]="tinymce/tinymce.min.js";
 
 
 if (isset ( $_REQUEST ['jquery'] )) {

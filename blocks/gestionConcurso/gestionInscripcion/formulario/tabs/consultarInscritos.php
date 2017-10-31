@@ -85,6 +85,7 @@ class consultarInscrito {
                                         <tr align='center'>
                                             <th>Dependencia</th>                                            
                                             <th>Área</th> 
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Tipo Identificación</th>
                                             <th>Identificación</th>
@@ -141,6 +142,7 @@ class consultarInscrito {
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['dependencia']."</td>    
                                                 <td align='left'>".$resultadoListaInscrito[$key]['area']."</td>    
+                                                <td align='left'>".$resultadoListaInscrito[$key]['codigo']."</td>  
                                                 <td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['identificacion']."</td>

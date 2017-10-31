@@ -20,6 +20,7 @@ $this->idioma["inscripcion"]="Número Inscripción:";
 $this->idioma["fecha_registro"]="Fecha Inscripción:";
 $this->idioma["nombre"]="Nombre Concurso:";
 $this->idioma["modalidad"]="Modalidad Concurso:";
+$this->idioma["codigo"]="Código perfil:";
 $this->idioma["perfil"]="Perfil:";
 $this->idioma["dependencia"]="Dependencia / Facultad:";
 $this->idioma["area"]="Área / Proyecto:";

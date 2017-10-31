@@ -60,6 +60,7 @@ class Sql extends \Sql {
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="insc.consecutivo_inscrito, ";
                                 $cadenaSql.="insc.fecha_registro, ";
+                                $cadenaSql.="prf.codigo , ";
                                 $cadenaSql.="prf.nombre perfil, ";
                                 $cadenaSql.="prf.dependencia, ";
                                 $cadenaSql.="prf.area, ";

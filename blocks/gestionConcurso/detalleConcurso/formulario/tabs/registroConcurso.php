@@ -508,7 +508,7 @@ class registrarConcursoForm {
                                             $atributos ['maximoTamanno'] = '';
                                             $atributos ['anchoEtiqueta'] = 170;
                                             $atributos = array_merge ( $atributos, $atributosGlobales );
-                                            if($hoy>$resultadoConcurso[0]['fecha_inicio'])
+                                            if(isset($resultadoConcurso[0]['fecha_inicio']) && $hoy>$resultadoConcurso[0]['fecha_inicio'])
                                                 {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
                                             // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                                           if(isset($resultadoSopAut) &&is_array($resultadoSopAut))
@@ -589,9 +589,8 @@ class registrarConcursoForm {
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
                                         //imprime boton si no ha llegado al fin de concurso
-                                         if($hoy<=$resultadoConcurso[0]['fecha_fin_concurso'])
-                                                {echo $this->miFormulario->campoBoton ( $atributos );}
-					
+                                    if(isset($resultadoConcurso[0]['fecha_inicio']) && $hoy<=$resultadoConcurso[0]['fecha_fin_concurso'])
+                                        {echo $this->miFormulario->campoBoton ( $atributos );}
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 				}
 				echo $this->miFormulario->division ( 'fin' );

@@ -40,13 +40,13 @@ class consultarPerfil{
             $atributosGlobales ['campoSeguro'] = 'true';
             $_REQUEST ['tiempo'] = time ();
             // -------------------------------------------------------------------------------------------------
-            $conexion="estructura";
+            //$conexion="estructura";
+            $conexion="reportes";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-        	//identifca lo roles para la busqueda de subsistemas
+            //identifca lo roles para la busqueda de subsistemas
             $parametro=array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito']);    
             $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
             $resultadoListaPerfil= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            
             $esteCampo = "marcoPerfil";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -62,7 +62,7 @@ class consultarPerfil{
                         $mostrarHtml.= "<table id='tablaPerfiles' class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
                                 $mostrarHtml.= "<tr align='center' valign='middle' >
-                                                        <td rowspan=2 colspan=2 align='center'>";
+                                                        <td rowspan=3 colspan=2 align='center'>";
                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                                               $esteCampo = 'escudo';
                                                               $atributos ['id'] = $esteCampo;
@@ -76,21 +76,23 @@ class consultarPerfil{
                                                               $mostrarHtml.= $this->miFormulario->campoImagen( $atributos );
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
-                                    $mostrarHtml.=     "</td>
+                                $mostrarHtml.=     "</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('inscripcion' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['consecutivo_inscrito']."</td></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_registro' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['fecha_registro']."</td></tr> ";    
-                                    
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombre' )."</th>
+                                                        <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['nombre']."</td></tr> ";                                        
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nivel_concurso' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['nivel_concurso']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('modalidad' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['modalidad']."</td> </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombre' )."</th>
-                                                        <td class='table-tittle estilo_tr'  $cajaDato>".$resultadoListaPerfil[0]['nombre']."</td>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('codigo' )."</th>
+                                                        <td class='table-tittle estilo_tr'  $cajaDato>".$resultadoListaPerfil[0]['codigo']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('perfil' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['perfil']."</td> </tr> ";
                                 $mostrarHtml.= "<tr align='center'>

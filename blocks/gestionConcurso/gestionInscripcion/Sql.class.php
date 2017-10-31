@@ -384,6 +384,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="insc.estado, ";
                                 $cadenaSql.="prf.consecutivo_perfil, ";
                                 $cadenaSql.="prf.consecutivo_concurso, ";
+                                $cadenaSql.="prf.codigo, ";
                                 $cadenaSql.="prf.nombre perfil, ";
                                 $cadenaSql.="prf.dependencia, ";
                                 $cadenaSql.="prf.area, ";

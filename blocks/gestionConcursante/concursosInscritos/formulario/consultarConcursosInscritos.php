@@ -83,13 +83,12 @@ class consultarForm {
 				'identificacion'=> $id
 		);
 
-				//buscar el consecutivo de la persona
-				$cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
-				$resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-
-				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosInscritos", $resultadoPersona[0][0]);
-				$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //buscar el consecutivo de la persona
+            $cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
+            $resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //buscar perfiles inscritos
+            $cadena_sql = $this->miSql->getCadenaSql("consultaConcursosInscritos", $resultadoPersona[0][0]);
+            $resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 
             $esteCampo = "marcoDatosBasicos";
@@ -113,11 +112,13 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
+                                  <th>Código</th>
                                   <th>Concurso</th>
-                        					<th>Perfil</th>
+                                  <th>Código Perfil</th>
+                                  <th>Perfil</th>
                                   <th>Estado</th>
-																	<th>Detalle</th>
-																	<th>Evaluaciones</th>
+                                  <th>Detalle</th>
+                                  <th>Evaluaciones</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -134,28 +135,29 @@ class consultarForm {
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
 
 
-															$variableVerHoja = "pagina=publicacion";
-															$variableVerHoja.= "&opcion=hojaVida";
-															$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-															$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-															$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-															$variableVerHoja.= "&tiempo=" . time ();
-															$variableVerHoja .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
-															$variableVerHoja .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
-															$variableVerHoja .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
-															$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                $variableVerHoja = "pagina=publicacion";
+                                $variableVerHoja.= "&opcion=hojaVida";
+                                $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                $variableVerHoja.= "&tiempo=" . time ();
+                                $variableVerHoja .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
+                                $variableVerHoja .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
+                                $variableVerHoja .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
+                                $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
-															if($resultadoConcursosActivos[$key]['estado']=='A'){
-																$resultadoConcursosActivos[$key]['estado']="Activo";
-															}else{
-																$resultadoConcursosActivos[$key]['estado']="Inactivo";
-															}
+                                if($resultadoConcursosActivos[$key]['estado']=='A'){
+                                        $resultadoConcursosActivos[$key]['estado']="Activo";
+                                }else{
+                                        $resultadoConcursosActivos[$key]['estado']="Inactivo";
+                                }
 
                                 $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['codigo_concurso']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['concurso']."</td>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['codigo_perfil']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['perfil']."</td>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>
-																";
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>";
 
                                 $mostrarHtml .= "<td>";
 

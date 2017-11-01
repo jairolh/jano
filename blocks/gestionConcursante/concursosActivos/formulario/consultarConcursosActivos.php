@@ -52,7 +52,7 @@ class consultarForm {
 		$_REQUEST ['tiempo'] = time ();
 
 		// -------------------------------------------------------------------------------------------------
-    $conexion="estructura";
+                $conexion="estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
 		$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
@@ -66,18 +66,18 @@ class consultarForm {
 		 * (b) asociando el tiempo en que se está creando el formulario
 		 */
 
-		$valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
-		$valorCodificado .= "&tiempo=" . time ();
-		// Paso 2: codificar la cadena resultante
+            $valorCodificado .= "&campoSeguro=" . $_REQUEST ['tiempo'];
+            $valorCodificado .= "&tiempo=" . time ();
+            // Paso 2: codificar la cadena resultante
 
-				//fecha
-				$parametro['fecha_actual'] = date("Y-m-d");
-				$cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
-				$resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-				//var_dump($resultadoConcursosActivos);
+            //fecha
+            $parametro['fecha_actual'] = date("Y-m-d");
+            $cadena_sql = $this->miSql->getCadenaSql("consultaConcursosActivos", $parametro);
+            $resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            //var_dump($resultadoConcursosActivos);
 
 
-			    //var_dump($resultadoActividades);
+        //var_dump($resultadoActividades);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -101,11 +101,12 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                  <th>Concurso</th>
-                        					<th>Descripción</th>
+                                  <th>Código</th>
+                        	  <th>Concurso</th>
+                        	  <th>Descripción</th>
                                   <th>Estado</th>
-																	<th>Duración</th>
-                        					<th>Detalle</th>
+			  	  <th>Duración</th>
+                        	  <th>Detalle</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -121,17 +122,18 @@ class consultarForm {
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
 
-															if($resultadoConcursosActivos[$key]['estado']=='A'){
-																$resultadoConcursosActivos[$key]['estado']="Activo";
-															}else{
-																$resultadoConcursosActivos[$key]['estado']="Inactivo";
-															}
+                                if($resultadoConcursosActivos[$key]['estado']=='A'){
+                                        $resultadoConcursosActivos[$key]['estado']="Activo";
+                                }else{
+                                        $resultadoConcursosActivos[$key]['estado']="Inactivo";
+                                }
 
                                 $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['codigo']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['nombre']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['descripcion']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>
-																				<td align='left'>".$resultadoConcursosActivos[$key]['fecha_inicio']." - ".$resultadoConcursosActivos[$key]['fecha_fin']."</td>
+                                        <td align='left'>".$resultadoConcursosActivos[$key]['fecha_inicio']." - ".$resultadoConcursosActivos[$key]['fecha_fin']."</td>
                                 ";
 
 

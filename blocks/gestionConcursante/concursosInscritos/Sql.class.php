@@ -467,12 +467,19 @@ class Sql extends \Sql {
  			 		break;
 
 			case "consultaConcursosInscritos":
-           $cadenaSql = "Select c.consecutivo_concurso, c.nombre AS concurso, cp.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito, ci.estado AS estado ";
-					 $cadenaSql .= "from concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.concurso c ";
-           $cadenaSql .= "WHERE ci.consecutivo_persona= ".$variable;
-					 $cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
-					 $cadenaSql .= "AND cp.consecutivo_concurso=c.consecutivo_concurso ";
-           break;
+                            $cadenaSql = "Select c.consecutivo_concurso,  ";
+                            $cadenaSql .= "c.codigo AS codigo_concurso,  ";
+                            $cadenaSql .= "c.nombre AS concurso,  ";
+                            $cadenaSql .= "cp.consecutivo_perfil,  ";
+                            $cadenaSql .= "cp.codigo AS codigo_perfil,  ";
+                            $cadenaSql .= "cp.nombre AS perfil,  ";
+                            $cadenaSql .= "ci.consecutivo_inscrito,  ";
+                            $cadenaSql .= "ci.estado AS estado ";
+                            $cadenaSql .= " FROM concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.concurso c ";
+                            $cadenaSql .= " WHERE ci.consecutivo_persona= ".$variable;
+                            $cadenaSql .= " AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
+                            $cadenaSql .= "AND cp.consecutivo_concurso=c.consecutivo_concurso ";
+                            break;
 
 			/**
 			 * Clausulas genéricas. se espera que estén en todos los formularios

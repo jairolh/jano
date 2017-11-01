@@ -33,17 +33,25 @@ class Sql extends \Sql {
 			 */
 
 			 case "consultaMensaje":
-			 		$cadenaSql = "Select id, tipo, texto, estado FROM jano_texto ";
-					$cadenaSql .= "WHERE tipo='mensaje' ";
-					$cadenaSql .= "AND estado='A' ";
-          break;
+                                $cadenaSql = "Select id, tipo, texto, estado FROM jano_texto ";
+                                $cadenaSql .= "WHERE tipo='mensaje' ";
+                                $cadenaSql .= "AND estado='A' ";
+                            break;
 
 			case "consultaConcursosActivos":
-           $cadenaSql = "Select consecutivo_concurso, nombre, descripcion, estado, fecha_inicio, fecha_fin from concurso.concurso ";
-           $cadenaSql .= "WHERE estado='A' ";
-					 $cadenaSql .= "AND '".$variable['fecha_actual']."'::DATE BETWEEN fecha_inicio::DATE ";
-					 $cadenaSql .= "AND fecha_fin::DATE";
-           break;
+                                $cadenaSql = "Select  ";
+                                $cadenaSql .= "consecutivo_concurso, ";
+                                $cadenaSql .= "codigo, ";
+                                $cadenaSql .= "nombre,  ";
+                                $cadenaSql .= "descripcion,  ";
+                                $cadenaSql .= "estado,  ";
+                                $cadenaSql .= "fecha_inicio,  ";
+                                $cadenaSql .= "fecha_fin  ";
+                                $cadenaSql .= "FROM concurso.concurso ";
+                                $cadenaSql .= "WHERE estado='A' ";
+                                $cadenaSql .= "AND '".$variable['fecha_actual']."'::DATE BETWEEN fecha_inicio::DATE ";
+                                $cadenaSql .= "AND fecha_fin::DATE";
+                                break;
 
 			 case "consultaPerfiles":
 			 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";

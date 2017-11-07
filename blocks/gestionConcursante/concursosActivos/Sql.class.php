@@ -54,37 +54,58 @@ class Sql extends \Sql {
                                 break;
 
 			 case "consultaPerfiles":
-			 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
-					$cadenaSql .= "from concurso.concurso_perfil ";
-			 		$cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
-					$cadenaSql .= "AND consecutivo_perfil not in  ";
+                                $cadenaSql = "Select ";
+                                $cadenaSql .= " consecutivo_perfil, ";
+                                $cadenaSql .= " consecutivo_concurso, ";
+                                $cadenaSql .= " codigo, ";
+                                $cadenaSql .= " nombre, ";
+                                $cadenaSql .= " descripcion, ";
+                                $cadenaSql .= " requisitos, ";
+                                $cadenaSql .= " dependencia, ";
+                                $cadenaSql .= " area, ";
+                                $cadenaSql .= " vacantes, ";
+                                $cadenaSql .= " estado ";
+                                $cadenaSql .= "FROM concurso.concurso_perfil ";
+                                $cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
+                                $cadenaSql .= "AND consecutivo_perfil not in  ";
 
-					$cadenaSql .= "(Select cp.consecutivo_perfil ";
-					$cadenaSql .= "from concurso.concurso_perfil cp, concurso.concurso_inscrito ci ";
-					$cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
-					$cadenaSql .= "AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
-					$cadenaSql .= "AND ci.consecutivo_persona=".$variable['usuario'].")";
-			 		break;
-
+                                $cadenaSql .= "(Select cp.consecutivo_perfil ";
+                                $cadenaSql .= "from concurso.concurso_perfil cp, concurso.concurso_inscrito ci ";
+                                $cadenaSql .= "WHERE consecutivo_concurso=".$variable['concurso']." ";
+                                $cadenaSql .= "AND ci.consecutivo_perfil=cp.consecutivo_perfil ";
+                                $cadenaSql .= "AND ci.consecutivo_persona=".$variable['usuario'].")";
+                                break;
+/*
 			case "consultaPerfiles":
  		 		$cadenaSql = "Select consecutivo_perfil, consecutivo_concurso, nombre, descripcion, requisitos, dependencia, area, vacantes, estado ";
  				$cadenaSql .= "from concurso.concurso_perfil ";
  		 		$cadenaSql .= "WHERE consecutivo_concurso=".$variable;
- 		 		break;
+ 		 		break;*/
 
 			case "consultaPerfil":
-			 		$cadenaSql = "Select p.consecutivo_perfil, p.consecutivo_concurso, p.nombre AS perfil, c.nombre AS concurso, p.descripcion, p.requisitos, p.dependencia, p.area, p.vacantes, p.estado ";
-					$cadenaSql .= "from concurso.concurso_perfil p, concurso.concurso c ";
-			 		$cadenaSql .= "WHERE consecutivo_perfil=".$variable." ";
-					$cadenaSql .= "AND p.consecutivo_concurso=c.consecutivo_concurso";
-			 		break;
+                                $cadenaSql = "Select ";
+                                $cadenaSql .= " p.consecutivo_perfil, ";
+                                $cadenaSql .= " p.consecutivo_concurso, ";
+                                $cadenaSql .= " p.codigo, ";
+                                $cadenaSql .= " p.nombre AS perfil, ";
+                                $cadenaSql .= " c.nombre AS concurso, ";
+                                $cadenaSql .= " p.descripcion, ";
+                                $cadenaSql .= " p.requisitos, ";
+                                $cadenaSql .= " p.dependencia, ";
+                                $cadenaSql .= " p.area, ";
+                                $cadenaSql .= " p.vacantes, ";
+                                $cadenaSql .= " p.estado ";
+                                $cadenaSql .= "from concurso.concurso_perfil p, concurso.concurso c ";
+                                $cadenaSql .= "WHERE consecutivo_perfil=".$variable." ";
+                                $cadenaSql .= "AND p.consecutivo_concurso=c.consecutivo_concurso";
+                                break;
 
 			case "consultaConsecutivo":
-			 		$cadenaSql = "Select consecutivo ";
-					$cadenaSql .= "from concurso.persona ";
-			 		$cadenaSql .= "WHERE tipo_identificacion='".$variable['tipo_identificacion']."' ";
-					$cadenaSql .= "AND identificacion='".$variable['identificacion']."'";
-			 		break;
+                                $cadenaSql = "Select consecutivo ";
+                                $cadenaSql .= "from concurso.persona ";
+                                $cadenaSql .= "WHERE tipo_identificacion='".$variable['tipo_identificacion']."' ";
+                                $cadenaSql .= "AND identificacion='".$variable['identificacion']."'";
+                                break;
 
 			case "registrarInscripcion":
       	$cadenaSql = "INSERT INTO concurso.concurso_inscrito(consecutivo_perfil, consecutivo_persona, fecha_registro, autorizacion)";

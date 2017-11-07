@@ -40,7 +40,8 @@ class consultarContacto{
             $atributosGlobales ['campoSeguro'] = 'true';
             $_REQUEST ['tiempo'] = time ();
             // -------------------------------------------------------------------------------------------------
-            $conexion="estructura";
+            //$conexion="estructura";
+            $conexion="reportes";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
         	//identifca lo roles para la busqueda de subsistemas
             $parametro=array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],

@@ -70,22 +70,22 @@ class registrarForm {
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 
-			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+	$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
-			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
-			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
-			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+        $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+        $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
+        $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
-			$variable = "pagina=" . $miPaginaActual;
-			$variable .= "&opcion=detalleConcurso";
-			$variable .= "&id_concurso=".$_REQUEST['id_concurso'];
-			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+        $variable = "pagina=" . $miPaginaActual;
+        $variable .= "&opcion=detalleConcurso";
+        $variable .= "&id_concurso=".$_REQUEST['id_concurso'];
+        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
-			$cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $_REQUEST['id_perfil']);
-			$resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+        $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $_REQUEST['id_perfil']);
+        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
@@ -128,54 +128,44 @@ class registrarForm {
 								unset($atributos);
 
 								echo "<div style ='width: 80%; padding-left: 10%;' class='cell-border'><table id='tablaPerfiles' class='table table-striped table-bordered'>";
-
-								echo "
-										<tbody>";
-
+								echo "<tbody>";
 								$mostrarHtml = "<tr align='center'>
 											<th class='textoAzul'>Concurso</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td></tr>
-								";
-
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td>
+                                                                               </tr>";
+								$mostrarHtml .= "<tr align='center'>
+											<th class='textoAzul'>Código Perfil</th>
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['codigo']."</td>
+                                                                               </tr>";
 								$mostrarHtml .= "<tr align='center'>
 											<th class='textoAzul'>Perfil</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td></tr>
-								";
-
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Descripción</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['descripcion']."</td></tr>
-								";
-
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Requisitos</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['requisitos']."</td></tr>
-								";
-
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td>
+                                                                               </tr>";
 								$mostrarHtml .= "<tr align='center'>
 											<th class='textoAzul'>Dependencia</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['dependencia']."</td></tr>
-								";
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['dependencia']."</td>
+                                                                               </tr>";
 								$mostrarHtml .= "<tr align='center'>
 											<th class='textoAzul'>Area</td>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['area']."</td></tr>
-								";
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['area']."</td>
+                                                                               </tr>";
 								$mostrarHtml .= "<tr align='center'>
 											<th class='textoAzul'>Vacantes</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['vacantes']."</td></tr>
-								";
-
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['vacantes']."</td>
+                                                                               </tr>";
 								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Estado</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['estado']."</td></tr>
-								";
+											<th class='textoAzul'>Descripción</th>
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['descripcion']."</td>
+                                                                               </tr>";
+								$mostrarHtml .= "<tr align='center'>
+											<th class='textoAzul'>Requisitos</th>
+											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['requisitos']."</td>
+                                                                               </tr>";
 
 								echo $mostrarHtml;
 								unset($mostrarHtml);
-
 								echo "</tbody>";
 								echo "</table></div>";
-
 				}
 
 				else{
@@ -195,9 +185,8 @@ class registrarForm {
 					unset($atributos);
 					//-------------Fin Control Boton----------------------
 
-				 echo $this->miFormulario->division("fin");
+                                         echo $this->miFormulario->division("fin");
 					//------------------Division para los botones-------------------------
-
 				}
 
 

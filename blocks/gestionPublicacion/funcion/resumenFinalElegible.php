@@ -15,7 +15,8 @@ $aplicativo=$this->miConfigurador->getVariableConfiguracion("nombreAplicativo");
 $url = $this->miConfigurador->configuracion ["host"] . $this->miConfigurador->configuracion ["site"];
 $correo=$this->miConfigurador->getVariableConfiguracion("correoAdministrador");
 
-$conexion="estructura";
+//$conexion="estructura";
+$conexion="reportes";
 $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
 $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],

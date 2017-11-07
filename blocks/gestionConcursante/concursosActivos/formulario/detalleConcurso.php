@@ -56,12 +56,12 @@ class consultarForm {
 		$tab = 1;
 
 		// -------------------------------------------------------------------------------------------------
-    $conexion="estructura";
+                $conexion="estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 
 		$valorCodificado = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 		$valorCodificado .= "&opcion=nuevoTipoJurado";
-    $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                 $valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
 
 		/**
 		 * SARA permite que los nombres de los campos sean dinámicos.
@@ -92,34 +92,32 @@ class consultarForm {
 		$datos = array('concurso'=> $_REQUEST['id_concurso'],
 				'usuario'=> $resultadoPersona[0][0]
 		);
+                //concursos a los que se ha inscrito el usuario
+                $cadena_sql = $this->miSql->getCadenaSql("consultaPerfiles", $datos);
+                $resultadoPerfiles = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
+                $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+                $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
+                $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+                $variable = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                $variable .= "&opcion=consultar";
+                $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
-				//concursos a los que se ha inscrito el usuario
-				$cadena_sql = $this->miSql->getCadenaSql("consultaPerfiles", $datos);
-				$resultadoPerfiles = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-				$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
-				$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
-				$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-				$variable = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-				$variable .= "&opcion=consultar";
-				$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-
-					// ---------------- CONTROL: Enlace --------------------------------------------------------
-		      $esteCampo = 'botonRegresar';
-		      $atributos ['id'] = $esteCampo;
-		      $atributos ['enlace'] = $variable;
-		      $atributos ['tabIndex'] = $tab;
-		      $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-		      $atributos ['estilo'] = 'textoPequenno textoGris';
-		      $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
-		      $atributos ['posicionImagen'] = "atras";//"adelante";
-		      $atributos ['ancho'] = '30px';
-		      $atributos ['alto'] = '30px';
-		      $atributos ['redirLugar'] = true;
-		      $tab ++;
-		      echo $this->miFormulario->enlace ( $atributos );
-		      unset ( $atributos );
+                                // ---------------- CONTROL: Enlace --------------------------------------------------------
+              $esteCampo = 'botonRegresar';
+              $atributos ['id'] = $esteCampo;
+              $atributos ['enlace'] = $variable;
+              $atributos ['tabIndex'] = $tab;
+              $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+              $atributos ['estilo'] = 'textoPequenno textoGris';
+              $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+              $atributos ['posicionImagen'] = "atras";//"adelante";
+              $atributos ['ancho'] = '30px';
+              $atributos ['alto'] = '30px';
+              $atributos ['redirLugar'] = true;
+              $tab ++;
+              echo $this->miFormulario->enlace ( $atributos );
+              unset ( $atributos );
 
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
@@ -144,12 +142,13 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
-                                  <th>Perfil</th>
-                        					<th>Dependencia</th>
+                                  <th>Código</th>
+                        	  <th>Perfil</th>
+                                  <th>Dependencia</th>
                                   <th>Area</th>
-																	<th>Vacantes</th>
-                        					<th>Estado</th>
-																	<th>Detalle</th>
+				  <th>Vacantes</th>
+                        	  <th>Estado</th>
+				<th>Detalle</th>
                                 </tr>
                             </thead>
                             <tbody>";
@@ -165,19 +164,19 @@ class consultarForm {
                             	$variableDetalle.= "&tiempo=" . time ();
                             	$variableDetalle = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalle, $directorio);
 
-															if($resultadoPerfiles[$key]['estado']=='A'){
-																$resultadoPerfiles[$key]['estado']="Activo";
-															}else{
-																$resultadoPerfiles[$key]['estado']="Inactivo";
-															}
+                                if($resultadoPerfiles[$key]['estado']=='A'){
+                                        $resultadoPerfiles[$key]['estado']="Activo";
+                                }else{
+                                        $resultadoPerfiles[$key]['estado']="Inactivo";
+                                }
 
                                 $mostrarHtml = "<tr align='center'>
-																			<td align='left'>".$resultadoPerfiles[$key]['nombre']."</td>
-																			<td align='left'>".$resultadoPerfiles[$key]['dependencia']."</td>
-																			<td align='left'>".$resultadoPerfiles[$key]['area']."</td>
-																			<td align='left'>".$resultadoPerfiles[$key]['vacantes']."</td>
-																			<td align='left'>".$resultadoPerfiles[$key]['estado']."</td>
-                                ";
+                                                <td align='left'>".$resultadoPerfiles[$key]['codigo']."</td>
+                                                <td align='left'>".$resultadoPerfiles[$key]['nombre']."</td>
+                                                <td align='left'>".$resultadoPerfiles[$key]['dependencia']."</td>
+                                                <td align='left'>".$resultadoPerfiles[$key]['area']."</td>
+                                                <td align='left'>".$resultadoPerfiles[$key]['vacantes']."</td>
+                                                <td align='left'>".$resultadoPerfiles[$key]['estado']."</td>";
 
 
                                 $mostrarHtml .= "<td>";

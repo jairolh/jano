@@ -35,7 +35,8 @@ class perfilEvaluacion {
             $atributosGlobales ['campoSeguro'] = 'true';
             $_REQUEST ['tiempo'] = time ();
             // -------------------------------------------------------------------------------------------------
-            $conexion="estructura";
+            //$conexion="estructura";
+            $conexion="reportes";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
                 //identifca lo roles para la busqueda de subsistemas
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],

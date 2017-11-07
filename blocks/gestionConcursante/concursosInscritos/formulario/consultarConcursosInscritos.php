@@ -122,7 +122,6 @@ class consultarForm {
                                 </tr>
                             </thead>
                             <tbody>";
-
                         foreach($resultadoConcursosActivos as $key=>$value )
                             {
                             	//enlace para consultar los criterios asociados al tipo de jurado
@@ -141,9 +140,9 @@ class consultarForm {
                                 $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
                                 $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                 $variableVerHoja.= "&tiempo=" . time ();
-                                $variableVerHoja .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
-                                $variableVerHoja .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
-                                $variableVerHoja .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
+                                $variableVerHoja .= "&consecutivo_inscrito=".$resultadoConcursosActivos[$key]['consecutivo_inscrito'];
+                                $variableVerHoja .= "&consecutivo_concurso=".$resultadoConcursosActivos[$key]['consecutivo_concurso'];
+                                $variableVerHoja .= "&consecutivo_perfil=".$resultadoConcursosActivos[$key]['consecutivo_perfil'];
                                 $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
                                 if($resultadoConcursosActivos[$key]['estado']=='A'){
@@ -161,67 +160,67 @@ class consultarForm {
 
                                 $mostrarHtml .= "<td>";
 
-																//-------------Enlace-----------------------
-																$esteCampo = "validar";
-																$esteCampo = 'enlace_hoja';
-																$atributos ['id'] = $esteCampo;
-																$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
-																$atributos ['tabIndex'] = 0;
-																//$atributos ['columnas'] = 1;
-																$atributos ['enlaceTexto'] = 'Ver Detalle';
-																$atributos ['estilo'] = 'clasico';
-																$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																$atributos ['posicionImagen'] ="atras";//"adelante";
-																$atributos ['ancho'] = '20px';
-																$atributos ['alto'] = '20px';
-																$atributos ['redirLugar'] = false;
-																$atributos ['valor'] = '';
-																$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																unset ( $atributos );
-																 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-																$esteCampo = 'ruta_enlace_hoja';
-																$atributos ['id'] = $esteCampo;
-																$atributos ['nombre'] = $esteCampo;
-																$atributos ['tipo'] = 'hidden';
-																$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-																$atributos ['obligatorio'] = false;
-																$atributos ['valor'] = $variableVerHoja;
-																$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-																$atributos ['deshabilitado'] = FALSE;
-																$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-																// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                    //-------------Enlace-----------------------
+                                    $esteCampo = "validar";
+                                    $esteCampo = 'enlace_hoja'.$key;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja'.$key.'");';
+                                    $atributos ['tabIndex'] = 0;
+                                    //$atributos ['columnas'] = 1;
+                                    $atributos ['enlaceTexto'] = 'Ver Detalle';
+                                    $atributos ['estilo'] = 'clasico';
+                                    $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                    $atributos ['posicionImagen'] ="atras";//"adelante";
+                                    $atributos ['ancho'] = '20px';
+                                    $atributos ['alto'] = '20px';
+                                    $atributos ['redirLugar'] = false;
+                                    $atributos ['valor'] = '';
+                                    $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                    unset ( $atributos );
+                                     // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                    $esteCampo = 'ruta_enlace_hoja'.$key;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'hidden';
+                                    $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['obligatorio'] = false;
+                                    $atributos ['valor'] = $variableVerHoja;
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = FALSE;
+                                    $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
 
 
                                 $mostrarHtml .= "</td>";
 
-																$variableConsulta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																$variableConsulta.= "&opcion=consulta";
-																$variableConsulta.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																$variableConsulta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																$variableConsulta.= "&tiempo=" . time ();
-																$variableConsulta .= "&consecutivo_inscrito=".$resultadoConcursosActivos[0]['consecutivo_inscrito'];
-																$variableConsulta .= "&consecutivo_concurso=".$resultadoConcursosActivos[0]['consecutivo_concurso'];
-																$variableConsulta .= "&consecutivo_perfil=".$resultadoConcursosActivos[0]['consecutivo_perfil'];
-																$variableConsulta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableConsulta, $directorio);
+                                $variableConsulta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                $variableConsulta.= "&opcion=consultaEvaluacion";
+                                $variableConsulta.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                $variableConsulta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                $variableConsulta.= "&tiempo=" . time ();
+                                $variableConsulta .= "&consecutivo_inscrito=".$resultadoConcursosActivos[$key]['consecutivo_inscrito'];
+                                $variableConsulta .= "&consecutivo_concurso=".$resultadoConcursosActivos[$key]['consecutivo_concurso'];
+                                $variableConsulta .= "&consecutivo_perfil=".$resultadoConcursosActivos[$key]['consecutivo_perfil'];
+                                $variableConsulta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableConsulta, $directorio);
 
-																$mostrarHtml .= "<td>";
+                                $mostrarHtml .= "<td>";
 
-																//-------------Enlace-----------------------
-																$esteCampo = "validar";
-																$atributos["id"]=$esteCampo;
-																$atributos['enlace']=$variableConsulta;
-																$atributos['tabIndex']=$esteCampo;
-																$atributos['redirLugar']=true;
-																$atributos['estilo']='clasico';
-																$atributos['enlaceTexto']='Ver Evaluaciones';
-																$atributos ['posicionImagen'] ="atras";//"adelante";
-																$atributos['ancho']='20px';
-																$atributos['alto']='20px';
-																$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																unset($atributos);
+                                //-------------Enlace-----------------------
+                                $esteCampo = "validar";
+                                $atributos["id"]=$esteCampo;
+                                $atributos['enlace']=$variableConsulta;
+                                $atributos['tabIndex']=$esteCampo;
+                                $atributos['redirLugar']=true;
+                                $atributos['estilo']='clasico';
+                                $atributos['enlaceTexto']='Ver Evaluaciones';
+                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                $atributos['ancho']='20px';
+                                $atributos['alto']='20px';
+                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                unset($atributos);
 
-																$mostrarHtml .= "</td>";
+                                $mostrarHtml .= "</td>";
 
                                $mostrarHtml .= "</tr>";
                                echo $mostrarHtml;

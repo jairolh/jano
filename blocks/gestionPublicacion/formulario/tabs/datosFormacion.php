@@ -35,14 +35,15 @@ class consultarFormacion {
 		$atributosGlobales ['campoSeguro'] = 'true';
 		$_REQUEST ['tiempo'] = time ();
 		// -------------------------------------------------------------------------------------------------
-                $conexion="estructura";
-                $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-                    //identifca lo roles para la busqueda de subsistemas
-                $parametro=array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
-                                 'tipo_dato'=>'datosFormacion');    
-                $cadena_sql = $this->miSql->getCadenaSql("consultaSoportesInscripcion", $parametro);
-                $resultadoFormacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            
+                //$conexion="estructura";
+            $conexion="reportes";
+            $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
+                //identifca lo roles para la busqueda de subsistemas
+            $parametro=array('consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                             'tipo_dato'=>'datosFormacion');    
+            $cadena_sql = $this->miSql->getCadenaSql("consultaSoportesInscripcion", $parametro);
+            $resultadoFormacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+
             
             $esteCampo = "marcoFormacion";
             $atributos ['id'] = $esteCampo;

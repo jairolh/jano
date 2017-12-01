@@ -28,6 +28,7 @@ class Funcion {
 	var $miRecursoDB;
 	var $crypto;
 	var $miLogger; 
+        var $miArchivo;         
         // function verificarCampos() {
 	// include_once ($this->ruta . "/funcion/verificarCampos.php");
 	// if ($this->error == true) {
@@ -129,15 +130,12 @@ class Funcion {
 	}
 	function __construct() {
 		$this->miConfigurador = \Configurador::singleton ();
-		
 		$this->miInspectorHTML = \InspectorHTML::singleton ();
-		
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
-		
 		$this->miMensaje = \Mensaje::singleton ();
-		
                 $this->miLogger = \logger::singleton();
-		
+                $this->miArchivo = \soporte::singleton();				
+
                 $conexion = "aplicativo";
 		$this->miRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 		

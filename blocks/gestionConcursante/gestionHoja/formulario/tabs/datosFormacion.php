@@ -17,13 +17,14 @@ class formacionForm {
 		$this->lenguaje = $lenguaje;
 		$this->miFormulario = $formulario;
 		$this->miSql = $sql;
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" ); 
 	}
 	function miForm() {
 		
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
                 $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+                
 		
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
@@ -43,6 +44,17 @@ class formacionForm {
                 $seccion ['tiempo'] = $tiempo;
                 $miSesion = \Sesion::singleton();
                 $usuario=$miSesion->idUsuario();
+                
+                //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
+                $parametroTipoSop = array('dato_relaciona'=>'datosFormacion',);
+                $cadenaSalud_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
+                $resultadoTiposop = $esteRecursoDB->ejecutarAcceso($cadenaSalud_sql, "busqueda");
+                // ---------------- SECCION: Enlace para soporte -----------------------------------------------
+                $variableSoporte = "pagina=gestionarSoportes"; //pendiente la pagina para modificar parametro                                                        
+                $variableSoporte.= "&action=gestionarSoportes";
+                $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
+                $variableSoporte.= "&bloqueGrupo=";
+                $variableSoporte.= "&opcion=verPdf";
                 //identifca el usuario
 		$parametro['id_usuario']=$usuario;
                 $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
@@ -51,15 +63,7 @@ class formacionForm {
                     {  $parametro['consecutivo_formacion']=$_REQUEST['consecutivo_formacion'];
                        $cadena_sql = $this->miSql->getCadenaSql("consultarFormacion", $parametro);
                        $resultadoFormacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                        $parametroSop = array('consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
-                                             'tipo_dato'=>'datosFormacion',
-                                             'nombre_soporte'=>'soporteDiploma',
-                                             'consecutivo_dato'=>$_REQUEST['consecutivo_formacion']);
-                        $cadenaSopDip_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopDip = $esteRecursoDB->ejecutarAcceso($cadenaSopDip_sql, "busqueda");
-                        $parametroSop['nombre_soporte']='soporteTprofesional';
-                        $cadenaSopTP_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopTP = $esteRecursoDB->ejecutarAcceso($cadenaSopTP_sql, "busqueda");
+                      
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -425,178 +429,126 @@ class formacionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
-                                        $atributos ["id"]="diploma";
-                                        $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
-                                        $atributos = array_merge ( $atributos, $atributosGlobales );
-                                        echo $this->miFormulario->division ( "inicio", $atributos );
-                                        unset ( $atributos );
-                                                {
-                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                    $esteCampo = 'soporteDiploma';
-                                                    $atributos ['id'] = $esteCampo;
-                                                    $atributos ['nombre'] = $esteCampo;
-                                                    $atributos ['tipo'] = 'file';
-                                                    $atributos ['estilo'] = 'jqueryui';
-                                                    $atributos ['marco'] = true;
-                                                    $atributos ['dobleLinea'] = false;
-                                                    $atributos ['tabIndex'] = $tab;
-                                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                    $atributos ['etiquetaObligatorio'] = false;
-                                                    $atributos ['tamanno'] = 1024;
-                                                    $atributos ['evento'] = 'accept="pdf"';
-                                                    if(isset($resultadoSopDip[0]['archivo']))
-                                                        {  $atributos ['columnas'] = 2;
-                                                           $atributos ['validar'] = ''; 
-                                                        }
-                                                    else{  $atributos ['columnas'] = 1;
-                                                           $atributos ['validar'] = 'required,minSize[1]'; 
-                                                        }
-                                                    if (isset ( $_REQUEST [$esteCampo] )) 
-                                                         { $atributos ['valor'] = $_REQUEST [$esteCampo];}
-                                                    else {  $atributos ['valor'] = '';}
-                                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                    $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['anchoCaja'] = 60;
-                                                    $atributos ['maximoTamanno'] = '';
-                                                    $atributos ['anchoEtiqueta'] = 170;
-                                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                  if(isset($resultadoSopDip[0]['archivo']))
-                                                        {
-                                                           // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                          $esteCampo = 'archivoDiploma';
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_diploma");';
-                                                          $atributos ['tabIndex'] = 0;
-                                                          $atributos ['marco'] = true;
-                                                          $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoSopDip[0]['alias'];
-                                                          $atributos ['estilo'] = 'textoGrande textoGris ';
-                                                          $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                          $atributos ['ancho'] = '50px';
-                                                          $atributos ['alto'] = '50px';
-                                                          $atributos ['redirLugar'] = false;
-                                                          $atributos ['valor'] = '';
-                                                          $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                          echo $this->miFormulario->enlace( $atributos );
-                                                          unset ( $atributos );
-                                                         // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_diploma';
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['nombre'] = $esteCampo;
-                                                          $atributos ['tipo'] = 'hidden';
-                                                          $atributos ['estilo'] = 'jqueryui';
-                                                          $atributos ['marco'] = true;
-                                                          $atributos ['columnas'] = 1;
-                                                          $atributos ['dobleLinea'] = false;
-                                                          $atributos ['tabIndex'] = $tab;
-                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                          $atributos ['obligatorio'] = false;
-                                                          $atributos ['etiquetaObligatorio'] = false;
-                                                          $atributos ['validar'] = '';
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopDip[0]['ubicacion']."/".$resultadoSopDip[0]['archivo'];
-                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                          $atributos ['deshabilitado'] = FALSE;
-                                                          $atributos ['tamanno'] = 30;
-                                                          $atributos ['anchoCaja'] = 60;
-                                                          $atributos ['maximoTamanno'] = '';
-                                                          $atributos ['anchoEtiqueta'] = 170;
-                                                          //$atributos = array_merge ( $atributos, $atributosGlobales );
-                                                          echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                          // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                      }
-                                            }
-                                        echo $this->miFormulario->division( 'fin' );
-                                        unset ( $atributos );
-                                        // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------
-                                        // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
-                                        $atributos ["id"]="Tprofesional";
-                                        $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
-                                        $atributos = array_merge ( $atributos, $atributosGlobales );
-                                        echo $this->miFormulario->division ( "inicio", $atributos );
-                                        unset ( $atributos );
-                                                {
-                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                    $esteCampo = 'soporteTprofesional';
-                                                    $atributos ['id'] = $esteCampo;
-                                                    $atributos ['nombre'] = $esteCampo;
-                                                    $atributos ['tipo'] = 'file';
-                                                    $atributos ['estilo'] = 'jqueryui';
-                                                    $atributos ['marco'] = true;
-                                                    if(isset($resultadoSopTP[0]['archivo']))
-                                                        {  $atributos ['columnas'] = 2;}
-                                                    else{  $atributos ['columnas'] = 1;}
-                                                    $atributos ['dobleLinea'] = false;
-                                                    $atributos ['tabIndex'] = $tab;
-                                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                                    $atributos ['obligatorio'] = false;
-                                                    $atributos ['etiquetaObligatorio'] = false;
-                                                    $atributos ['validar'] = '';
-                                                    $atributos ['tamanno'] = 1024;
-                                                    $atributos ['evento'] = 'accept="pdf"';
-                                                    if (isset ( $_REQUEST [$esteCampo] )) 
-                                                         {    $atributos ['valor'] = $_REQUEST [$esteCampo];} 
-                                                    else {  $atributos ['valor'] = '';}
-                                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                    $atributos ['deshabilitado'] = FALSE;
-                                                    $atributos ['anchoCaja'] = 60;
-                                                    $atributos ['maximoTamanno'] = '';
-                                                    $atributos ['anchoEtiqueta'] = 170;
-                                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                  if(isset($resultadoSopTP[0]['archivo']))
-                                                        {//echo $this->campoSeguro('rutaTprofesional');
-                                                           // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                          $esteCampo = 'archivoTprofesional';
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:soporte("ruta_tprofesional");';
-                                                          $atributos ['tabIndex'] = 0;
-                                                          $atributos ['marco'] = true;
-                                                          $atributos ['columnas'] = 2;
-                                                          $atributos ['enlaceTexto'] = $resultadoSopTP[0]['alias'];
-                                                          $atributos ['estilo'] = 'textoGrande textoGris ';
-                                                          $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                          $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                          $atributos ['ancho'] = '50px';
-                                                          $atributos ['alto'] = '50px';
-                                                          $atributos ['redirLugar'] = false;
-                                                          $atributos ['valor'] = '';
-                                                          $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                          echo $this->miFormulario->enlace( $atributos );
-                                                          unset ( $atributos );
-                                                         // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_tprofesional';
-                                                          $atributos ['id'] = $esteCampo;
-                                                          $atributos ['nombre'] = $esteCampo;
-                                                          $atributos ['tipo'] = 'hidden';
-                                                          $atributos ['estilo'] = 'jqueryui';
-                                                          $atributos ['marco'] = true;
-                                                          $atributos ['columnas'] = 1;
-                                                          $atributos ['dobleLinea'] = false;
-                                                          $atributos ['tabIndex'] = $tab;
-                                                          $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                          $atributos ['obligatorio'] = false;
-                                                          $atributos ['etiquetaObligatorio'] = false;
-                                                          $atributos ['validar'] = '';
-                                                          $atributos ['valor'] = $this->rutaSoporte.$resultadoSopTP[0]['ubicacion']."/".$resultadoSopTP[0]['archivo'];
-                                                          $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                          $atributos ['deshabilitado'] = FALSE;
-                                                          $atributos ['tamanno'] = 30;
-                                                          $atributos ['anchoCaja'] = 60;
-                                                          $atributos ['maximoTamanno'] = '';
-                                                          $atributos ['anchoEtiqueta'] = 170;
-                                                          //$atributos = array_merge ( $atributos, $atributosGlobales );
-                                                          echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                          // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                      }
-                                            }
-                                        echo $this->miFormulario->division( 'fin' );
-                                        unset ( $atributos );
-                                        // --------------- FIN CONTROL : Cuadro de Soporte tarjeta profesional --------------------------------------------------                                    
+
+                // --------------- INICIO CONTROLES : CARGA SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
+                foreach ($resultadoTiposop as $tipokey => $value) 
+                    {
+                    
+                    //valida si existen soportes para el tipo
+                    if(isset($_REQUEST['consecutivo_formacion']) && $_REQUEST['consecutivo_formacion']>0)
+                        {  
+                            $parametroSop = array('consecutivo_persona'=>trim($resultadoUsuarios[0]['consecutivo']),
+                                 'tipo_dato'=>$resultadoTiposop[$tipokey]['dato_relaciona'],
+                                 'nombre_soporte'=>$resultadoTiposop[$tipokey]['nombre'],
+                                 'consecutivo_dato'=>$_REQUEST['consecutivo_formacion']
+                                );
+                            $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                            $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql , "busqueda");
+                       }
+                    // ---------------- INICIO CONTROL: Cuadro de division Soporte --------------------------------------------------------
+                     $atributos ["id"]=$resultadoTiposop[$tipokey]['tipo_soporte'];
+                     $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
+                     $atributos = array_merge ( $atributos, $atributosGlobales );
+                     echo $this->miFormulario->division ( "inicio", $atributos );
+                     unset ( $atributos );
+                             {
+                                 // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
+                                 $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
+                                 $atributos ['id'] = $esteCampo;
+                                 $atributos ['nombre'] = $esteCampo;
+                                 $atributos ['tipo'] = 'file';
+                                 $atributos ['estilo'] = 'jqueryui';
+                                 $atributos ['marco'] = true;
+                                 $atributos ['dobleLinea'] = false;
+                                 $atributos ['tabIndex'] = $tab;
+                                 $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                 if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
+                                     {  $atributos ['etiquetaObligatorio'] = true;
+                                     }
+                                 else{  $atributos ['etiquetaObligatorio'] = false;
+                                     }
+                                 $atributos ['tamanno'] = $resultadoTiposop[$tipokey]['tamanno_permitido'];
+                                 $atributos ['evento'] = 'accept="'.$resultadoTiposop[$tipokey]['extencion_permitida'].'"';
+                                 //si existe soporte van 2 columnas
+                                 if(isset($resultadoSoporte[0]['archivo']))
+                                     {  $atributos ['columnas'] = 2;
+                                        $atributos ['validar'] = ''; 
+                                     }
+                                 else{  $atributos ['columnas'] = 1;
+                                        $atributos ['validar'] = $resultadoTiposop[$tipokey]['validacion']; 
+                                     }
+                                 if (isset ( $_REQUEST [$esteCampo] )) 
+                                      { $atributos ['valor'] = $_REQUEST [$esteCampo];}
+                                 else {  $atributos ['valor'] = '';}
+                                 //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                 $atributos ['deshabilitado'] = FALSE;
+                                 $atributos ['anchoCaja'] = 60;
+                                 $atributos ['maximoTamanno'] = '';
+                                 $atributos ['anchoEtiqueta'] = 200;
+                                 $atributos = array_merge ( $atributos, $atributosGlobales );
+                                 echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                               if(isset($resultadoSoporte[0]['archivo']))
+                                     {
+                                        // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                       $esteCampo = 'archivo'.$resultadoSoporte[0]['consecutivo_soporte'];
+                                       $atributos ['id'] = $esteCampo;
+                                       $atributos ['enlace'] = 'javascript:enlaceSop("ruta'.$resultadoSoporte[0]['consecutivo_soporte'].'");';
+                                       $atributos ['tabIndex'] = 0;
+                                       $atributos ['marco'] = true;
+                                       $atributos ['columnas'] = 2;
+                                       $atributos ['enlaceTexto'] = $resultadoSoporte[0]['alias'];
+                                       $atributos ['estilo'] = 'textoGrande textoGris ';
+                                       $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                       $atributos ['posicionImagen'] ="atras";//"adelante";
+                                       $atributos ['ancho'] = '35px';
+                                       $atributos ['alto'] = '35px';
+                                       $atributos ['redirLugar'] = false;
+                                       $atributos ['valor'] = '';
+                                       $atributos = array_merge ( $atributos, $atributosGlobales );
+                                       echo $this->miFormulario->enlace( $atributos );
+                                       unset ( $atributos );
+                                      // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                         //-------------Inicio preparar enlace soporte-------
+                                         $verSoporte = $variableSoporte;
+                                         $verSoporte .= "&raiz=".$this->rutaSoporte;
+                                         $verSoporte .= "&ruta=".$resultadoSoporte[0]['ubicacion'];
+                                         $verSoporte .= "&archivo=".$resultadoSoporte[0]['archivo'];
+                                         $verSoporte .= "&alias=".$resultadoSoporte[0]['alias'];
+                                         $verSoporte = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $verSoporte, $directorio );
+                                         //-------------Fin preparar enlace soporte-------
+                                       $esteCampo = 'ruta'.$resultadoSoporte[0]['consecutivo_soporte'];
+                                       $atributos ['id'] = $esteCampo;
+                                       $atributos ['nombre'] = $esteCampo;
+                                       $atributos ['tipo'] = 'hidden';
+                                       $atributos ['estilo'] = 'jqueryui';
+                                       $atributos ['marco'] = true;
+                                       $atributos ['columnas'] = 1;
+                                       $atributos ['dobleLinea'] = false;
+                                       $atributos ['tabIndex'] = $tab;
+                                       $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                       $atributos ['obligatorio'] = false;
+                                       $atributos ['etiquetaObligatorio'] = false;
+                                       $atributos ['validar'] = '';
+                                       $atributos ['valor'] = $verSoporte;
+                                       $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                       $atributos ['deshabilitado'] = FALSE;
+                                       $atributos ['tamanno'] = 30;
+                                       $atributos ['anchoCaja'] = 60;
+                                       $atributos ['maximoTamanno'] = '';
+                                       $atributos ['anchoEtiqueta'] = 120;
+                                       //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                       echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                       // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                   }
+                         }
+                     echo $this->miFormulario->division( 'fin' );
+                     unset ( $atributos );
+                     // --------------- FIN CONTROL : Cuadro de Soporte Salud --------------------------------------------------
+                     } 
+                // --------------- FIN CONTROLES : CARGA SOPORTES --------------------------------------------------
+                                              
+                                    
 				}
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );

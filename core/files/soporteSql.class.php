@@ -38,15 +38,18 @@ class soporteSql {
                     $this->cadena_sql [$indice].=" nombre,";
                     $this->cadena_sql [$indice].=" ubicacion,";
                     $this->cadena_sql [$indice].=" descripcion,";
-                    $this->cadena_sql [$indice].=" estado,";
-                    $this->cadena_sql [$indice].=" extencion_permitida";
+                    $this->cadena_sql [$indice].=" extencion_permitida,";
+                    $this->cadena_sql [$indice].=" tamanno_permitido,";
+                    $this->cadena_sql [$indice].=" dato_relaciona,";
+                    $this->cadena_sql [$indice].=" alias,";
+                    $this->cadena_sql [$indice].=" estado ";
                     $this->cadena_sql [$indice].=" FROM  ";
                     $this->cadena_sql [$indice].=  $prefijo[0]."tipo_soporte";
                     $this->cadena_sql [$indice].=" WHERE ";
                     $this->cadena_sql [$indice].=" nombre = '".$parametro['tipo_soporte']."'";
                     $this->cadena_sql [$indice].=" AND estado='A' ";
                     break;            
-            
+                
             
         	case 'registroSoporte' :
                     $this->cadena_sql [$indice]=  "INSERT INTO ";

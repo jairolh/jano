@@ -1,6 +1,6 @@
 <?php
 $indice=0;
-$estilo[$indice++]="component.css";
+//$estilo[$indice++]="component.css";
 $estilo[$indice++]="default.css";
 
 

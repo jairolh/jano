@@ -27,4 +27,5 @@ blocks/soportes/*/*.pdf
 blocks/soportes/*/*.png
 blocks/soportes/*/*.jpg
 blocks/soportes/*/*.jepg
+blocks/development/*
 #config/*

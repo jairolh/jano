@@ -83,8 +83,11 @@ class Autenticador {
 		}
 		
 		if (isset ( $_REQUEST ['accesoCondor'] ) && $_REQUEST ['accesoCondor'] = 'true') {
-			
-			$respuesta = true;
+			include_once ("core/crypto/Encriptador.class.php");
+                        $crypto = Encriptador::singleton ();
+                        if(isset($_REQUEST['token']) && trim($this->configurador->getVariableConfiguracion ( "enlace" ))==$crypto->decodificar($_REQUEST['token']))
+                            { $respuesta = true; }
+                        else{ $respuesta = false; }    
 		}
 		
 		return $respuesta;

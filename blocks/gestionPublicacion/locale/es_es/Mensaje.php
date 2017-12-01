@@ -1,6 +1,18 @@
 
 <?php
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
+
+$this->idioma["tabBasicos"]="Datos Básicos";
+$this->idioma["tabContacto"]="Datos de Contacto";
+$this->idioma["tabFormacion"]="Formación Académica";
+$this->idioma["tabProfesional"]="Experiencia Profesional";
+$this->idioma["tabDocencia"]="Experiencia Docente";
+$this->idioma["tabActividad"]="Actividades Académicas";
+$this->idioma["tabInvestigacion"]="Experiencia Investigación";
+$this->idioma["tabProduccion"]="Producción Académica";
+$this->idioma["tabIdiomas"]="Lengua Extranjera";
+
+
 $this->idioma["marcoPerfil"]="Detalle Inscripción a Concurso";
 $this->idioma["marcoBasicos"]="Datos Básicos";
 $this->idioma["marcoContacto"]="Datos de Contacto";

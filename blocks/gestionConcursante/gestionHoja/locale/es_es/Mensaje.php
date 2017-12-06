@@ -37,7 +37,7 @@ $this->idioma ["botonRegresar"] =" Regresar ";
 
 $this->idioma["borrar"]="Eliminar Usuario";
 
-$this->idioma["cuadroIdentificacion"]="Documento Identificación "; 
+$this->idioma["cuadroIdentificacion"]="Identificación "; 
 $this->idioma["cuadroNacimiento"]="Lugar y Fecha de Nacimiento"; 
 $this->idioma["fotoTitulo"]="Adjuntar Documento en Formato JPG,JPEG o PGN menor a 1 Mb";
 $this->idioma["foto"]="Fotografía : "; 

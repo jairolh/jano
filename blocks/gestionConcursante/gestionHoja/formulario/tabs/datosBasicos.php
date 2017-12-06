@@ -59,18 +59,6 @@ class registrarForm {
                 $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
                 $variableSoporte.= "&bloqueGrupo=";
                 $variableSoporte.= "&opcion=verPdf";                
-/*
-                $parametroSop = array(
-                      'consecutivo'=>$resultadoUsuarios[0]['consecutivo'],
-                      'tipo_dato'=>'datosBasicos',
-                      'nombre_soporte'=>'foto');
-                
-                $cadenaSopFoto_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                $resultadoSopFoto = $esteRecursoDB->ejecutarAcceso($cadenaSopFoto_sql, "busqueda");
-                
-                $parametroSop['nombre_soporte']='soporteIdentificacion';
-                $cadenaSopIden_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                $resultadoSopIden = $esteRecursoDB->ejecutarAcceso($cadenaSopIden_sql, "busqueda");*/
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
                 $estefomulario= 'datosBasicos';

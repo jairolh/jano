@@ -14,16 +14,12 @@ class consultarBasicos{
         var $rutaSoporte;   
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-		
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-		
 		$this->lenguaje = $lenguaje;
-		
 		$this->miFormulario = $formulario;
-		
 		$this->miSql = $sql;
-                
                 $this->miSesion = \Sesion::singleton();
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
                 
 	}
 	function miForm() {
@@ -36,7 +32,7 @@ class consultarBasicos{
             $directorio = $this->miConfigurador->getVariableConfiguracion("host");
             $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
             $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+
             $atributosGlobales ['campoSeguro'] = 'true';
             $_REQUEST ['tiempo'] = time ();
             // -------------------------------------------------------------------------------------------------
@@ -50,18 +46,18 @@ class consultarBasicos{
             $resultadoListaBasicos= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $datos=json_decode ($resultadoListaBasicos[0]['valor_dato']);
             
-            if(isset($datos->soportes) && $datos->soportes!='')
-                {foreach ($datos->soportes as $key => $value) {
-                      if(isset($value->tipo_soporte) && $value->tipo_soporte=='foto' ){
-                        $foto=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
-                                    'alias'=> $value->alias_soporte,);
-                        }
-                      if(isset($value->tipo_soporte) && $value->tipo_soporte=='soporteIdentificacion' ){  
-                        $identificacion=array('ruta'=> $this->rutaSoporte.$value->nombre_soporte,
-                                    'alias'=> $value->alias_soporte,);
-                        }
-                  }
-                }
+            //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
+            $parametroTipoSop = array('dato_relaciona'=>'datosBasicos',);
+            $cadenaSalud_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
+            $resultadoTiposop = $esteRecursoDB->ejecutarAcceso($cadenaSalud_sql, "busqueda");
+            // ---------------- SECCION: Enlace para soporte -----------------------------------------------
+            $variableSoporte = "pagina=gestionarSoportes"; //pendiente la pagina para modificar parametro                                                        
+            $variableSoporte.= "&action=gestionarSoportes";
+            $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
+            $variableSoporte.= "&bloqueGrupo=";
+            $variableSoporte.= "&opcion=verPdf";                
+
+                
             $esteCampo = "marcoBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -76,87 +72,104 @@ class consultarBasicos{
                         $mostrarHtml= "<div style ='width: 98%; padding-left: 2%;' class='cell-border'>";
                         $mostrarHtml.= "<table id='tablaBasicos' class='table table-striped table-bordered'>";
                         $mostrarHtml.= " <tbody>";
+                        // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
+                          $mostrarHtml.= "<tr align='center' border=1 >
+                                           <td colspan=4 >";
+                                $mostrarHtml.= "<table width='100%' border='0'> 
+                                                    <tr>";            
+                                             if(isset($datos->soportes) && $datos->soportes!='')
+                                                 {foreach ($datos->soportes as $key => $value)
+                                                     { $mostrarHtml.= "<td align='center' width='".(100/count($datos->soportes))."%'>";      
+                                                     if(isset($value->tipo_soporte) && $value->tipo_soporte=='foto' )
+                                                        {   //Se codifica la imagen
+                                                            $rutaImagen= "file://".$this->rutaSoporte.$value->nombre_soporte;
+                                                            $imagen = file_get_contents ( $rutaImagen );
+                                                            $imagenEncriptada = base64_encode ( $imagen );
+                                                            $url_foto_perfil= "data:image;base64," . $imagenEncriptada;
+                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                            $esteCampo = 'archivoFoto';
+                                                            $atributos ['id'] = $esteCampo;
+                                                            $atributos['imagen']= $url_foto_perfil;
+                                                            $atributos['estilo']='campoImagen anchoColumna2';
+                                                            $atributos['etiqueta']='fotografia';
+                                                            $atributos['borde']='';
+                                                            $atributos ['ancho'] = '100px';
+                                                            $atributos ['alto'] = '120px';
+                                                            $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                            $mostrarHtml.= $this->miFormulario->campoImagen( $atributos );
+                                                            unset ( $atributos );
+                                                          // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
+                                                        }
+                                                    else {      
+                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                           $esteCampo = 'archivo'.$value->consecutivo_soporte;
+                                                           $atributos ['id'] = $esteCampo;
+                                                           $atributos ['enlace'] = 'javascript:enlaceSop("ruta'.$value->consecutivo_soporte.'");';
+                                                           $atributos ['tabIndex'] = 0;
+                                                           $atributos ['marco'] = true;
+                                                           $atributos ['columnas'] = 2;
+                                                           $atributos ['enlaceTexto'] = $value->alias_soporte;
+                                                           $atributos ['estilo'] = 'textoGrande textoGris ';
+                                                           $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                           $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                           $atributos ['ancho'] = '35px';
+                                                           $atributos ['alto'] = '35px';
+                                                           $atributos ['redirLugar'] = false;
+                                                           $atributos ['valor'] = '';
+                                                           $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                           $mostrarHtml.=$this->miFormulario->enlace( $atributos );
+                                                           unset ( $atributos );
+                                                          // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                             //-------------Inicio preparar enlace soporte-------
+                                                             $verSoporte = $variableSoporte;
+                                                             $verSoporte .= "&raiz=".$this->rutaSoporte;
+                                                             $verSoporte .= "&ruta=".$value->nombre_soporte;
+                                                             $verSoporte .= "&archivo=";
+                                                             $verSoporte .= "&alias=".$value->alias_soporte;
+                                                             $verSoporte = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $verSoporte, $directorio );
+                                                             //-------------Fin preparar enlace soporte-------
+                                                           $esteCampo = 'ruta'.$value->consecutivo_soporte;
+                                                           $atributos ['id'] = $esteCampo;
+                                                           $atributos ['nombre'] = $esteCampo;
+                                                           $atributos ['tipo'] = 'hidden';
+                                                           $atributos ['estilo'] = 'jqueryui';
+                                                           $atributos ['marco'] = true;
+                                                           $atributos ['columnas'] = 1;
+                                                           $atributos ['dobleLinea'] = false;
+                                                           $atributos ['tabIndex'] = $tab=0;
+                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                           $atributos ['obligatorio'] = false;
+                                                           $atributos ['etiquetaObligatorio'] = false;
+                                                           $atributos ['validar'] = '';
+                                                           $atributos ['valor'] = $verSoporte;
+                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                           $atributos ['deshabilitado'] = FALSE;
+                                                           $atributos ['tamanno'] = 30;
+                                                           $atributos ['anchoCaja'] = 60;
+                                                           $atributos ['maximoTamanno'] = '';
+                                                           $atributos ['anchoEtiqueta'] = 120;
+                                                           //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                                           $mostrarHtml.= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                        }   
+                                                       $mostrarHtml.= "</td>";      
+                                                     }
+                                                 }
+                                $mostrarHtml.= "   </tr>
+                                                </table>";    
+                          $mostrarHtml.= "</td>";
+                        // --------------- FIN CONTROLES : ver SOPORTES --------------------------------------------------        
+                          $mostrarHtml.= "</tr>";
+
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombres')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos->nombre."</td>
-                                                        <td colspan=2 rowspan=2 align='center'>";
-                                                        if(isset($foto))
-                                                            {
-                                                               // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                              $esteCampo = 'archivoFoto';
-                                                              $atributos ['id'] = $esteCampo;
-                                                              $atributos['imagen']= $foto['ruta'];
-                                                              $atributos['estilo']='campoImagen';
-                                                              $atributos['etiqueta']='fotografia';
-                                                              $atributos['borde']='';
-                                                              $atributos ['ancho'] = '100px';
-                                                              $atributos ['alto'] = '120px';
-                                                              $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                              $mostrarHtml.= $this->miFormulario->campoImagen( $atributos );
-                                                              unset ( $atributos );
-                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
-                                                          }
-                                $mostrarHtml.=      "</td>
-                                                </tr> ";
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->tipo_identificacion."</td>    
+                                                </tr>";                                
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('apellidos')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos->apellido."</td>
-                                                </tr> ";
-                                
-                                $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->tipo_identificacion."</td>
-                                                        <td colspan=2 rowspan=2 align='center'>";
-                                                        if(isset($identificacion))
-                                                            {
-                                                                   // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                                  $esteCampo = 'archivoIdentificacion';
-                                                                  $atributos ['id'] = $esteCampo;
-                                                                  $atributos ['enlace'] = 'javascript:soporte("ruta_Ident");';
-                                                                  $atributos ['tabIndex'] = 0;
-                                                                  $atributos ['marco'] = true;
-                                                                  $atributos ['columnas'] = 1;
-                                                                  $atributos ['enlaceTexto'] = $identificacion['alias'];
-                                                                  $atributos ['estilo'] = 'textoMediano textoGris ';
-                                                                  $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                                  $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                                  $atributos ['ancho'] = '30px';
-                                                                  $atributos ['alto'] = '30px';
-                                                                  $atributos ['redirLugar'] = false;
-                                                                  $atributos ['valor'] = $datos->identificacion;
-                                                                  $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                                  $mostrarHtml.= $this->miFormulario->enlace( $atributos );
-                                                                  unset ( $atributos );
-                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                                  $esteCampo = 'ruta_Ident';
-                                                                  $atributos ['id'] = $esteCampo;
-                                                                  $atributos ['nombre'] = $esteCampo;
-                                                                  $atributos ['tipo'] = 'hidden';
-                                                                  $atributos ['estilo'] = 'jqueryui';
-                                                                  $atributos ['marco'] = true;
-                                                                  $atributos ['columnas'] = 1;
-                                                                  $atributos ['dobleLinea'] = false;
-                                                                  $atributos ['tabIndex'] = $tab=0;
-                                                                  $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                                  $atributos ['obligatorio'] = false;
-                                                                  $atributos ['etiquetaObligatorio'] = false;
-                                                                  $atributos ['validar'] = 'minSize[1]';
-                                                                  $atributos ['valor'] = $identificacion['ruta'];
-                                                                  $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                                  $atributos ['deshabilitado'] = FALSE;
-                                                                  $atributos ['tamanno'] = 30;
-                                                                  $atributos ['anchoCaja'] = 60;
-                                                                  $atributos ['maximoTamanno'] = '';
-                                                                  $atributos ['anchoEtiqueta'] = 170;
-                                                                  $tab ++;
-                                                                  // Aplica atributos globales al control
-                                                                  //$atributos = array_merge ( $atributos, $atributosGlobales );
-                                                                  $mostrarHtml.= $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                                  // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                          }
-                                $mostrarHtml.=      "</td>
-                                                </tr> ";
-                                $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos->identificacion."</td>
                                                 </tr> ";

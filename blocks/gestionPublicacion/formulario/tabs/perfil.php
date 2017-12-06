@@ -100,8 +100,7 @@ class consultarPerfil{
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['dependencia']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('area' )."</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$resultadoListaPerfil[0]['area']."</td>  </tr> ";
-                                
-                        $mostrarHtml.= "</tbody>";
+                        $mostrarHtml.= "  </tbody>";
                         $mostrarHtml.= "</table></div>";
                         echo $mostrarHtml;
                         unset($mostrarHtml);

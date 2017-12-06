@@ -24,7 +24,9 @@ class FormProcessor {
             $path_doc= $_REQUEST['raiz'].$_REQUEST['ruta'];
             $filename =$_REQUEST['archivo'];
             $aliasname =$_REQUEST['alias'];
-            $file=$path_doc."/".$filename;
+            if(isset($_REQUEST['archivo']) && $_REQUEST['archivo']!='')
+                { $file=$path_doc."/".$filename;}
+            else{ $file=$path_doc;}    
 
             header('Content-type: application/pdf');// esta linea fue mi dolor de cabeza
             header('Content-Disposition: inline; filename="' . $aliasname . '"');

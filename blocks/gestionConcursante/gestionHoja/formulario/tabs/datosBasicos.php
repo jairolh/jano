@@ -58,7 +58,6 @@ class registrarForm {
                 $variableSoporte.= "&action=gestionarSoportes";
                 $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
                 $variableSoporte.= "&bloqueGrupo=";
-                $variableSoporte.= "&opcion=verPdf";                
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
                 $estefomulario= 'datosBasicos';
@@ -225,6 +224,7 @@ class registrarForm {
                                                                                  // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
                                                                                     //-------------Inicio preparar enlace soporte-------
                                                                                     $verSoporte = $variableSoporte;
+                                                                                    $verSoporte .= "&opcion=verPdf";
                                                                                     $verSoporte .= "&raiz=".$this->rutaSoporte;
                                                                                     $verSoporte .= "&ruta=".$resultadoSoporte[0]['ubicacion'];
                                                                                     $verSoporte .= "&archivo=".$resultadoSoporte[0]['archivo'];

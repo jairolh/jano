@@ -70,7 +70,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
             $atributos ["id"] = "tabFormacion";
             $atributos ["estilo"] = "";
             echo $this->miFormulario->division ( "inicio", $atributos );
-                   include_once ($this->ruta . "formulario/tabs/datosFormacionGeneral.php"); 
+                   include_once ($this->ruta . "formulario/tabs/datosFormacion.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 3-------------------------
@@ -86,7 +86,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
             $atributos ["id"] = "tabDocencia";
             $atributos ["estilo"] = "";
             echo $this->miFormulario->division ( "inicio", $atributos );
-                   include_once ($this->ruta . "formulario/tabs/datosDocenciaGeneral.php"); 
+                   include_once ($this->ruta . "formulario/tabs/datosDocencia.php"); 
             echo $this->miFormulario->division ( "fin" );
             unset ( $atributos );
             // -----------------Fin Division para la pestaña 5-------------------------

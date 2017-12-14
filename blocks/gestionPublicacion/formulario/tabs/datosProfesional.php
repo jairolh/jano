@@ -95,9 +95,6 @@ class consultarProfesional {
                                                 <td align='left'>".$datos->telefono_institucion."</td>
                                                 <td align='left'>".$datos->correo_institucion."</td>";
                                                 // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
-                                                
-                                            //var_dump($resultadoTiposop);
-                                        
                                                 foreach ($resultadoTiposop as $tipokey => $value) 
                                                     {//valida si existen soportes para el tipo
                                                     //se arman las celdas con los soportes existentes

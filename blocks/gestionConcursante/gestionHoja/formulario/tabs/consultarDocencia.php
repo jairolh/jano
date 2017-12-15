@@ -148,8 +148,6 @@ class consultarDocencia {
                                                          'tipo_dato'=>$resultadoTiposop[$tipokey]['dato_relaciona'],
                                                          'nombre_soporte'=>$resultadoTiposop[$tipokey]['nombre'],
                                                          'consecutivo_dato'=>$resultadoListaDocencia[$key]['consecutivo_docencia']);
-
-
                                                     $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
                                                     $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql , "busqueda");
                                                     //se arman las celdas con los soportes existentes

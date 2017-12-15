@@ -62,7 +62,7 @@ class consultarDocencia {
             $variableSoporte.= "&action=gestionarSoportes";
             $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
             $variableSoporte.= "&bloqueGrupo=";            
-            
+            //----
             $esteCampo = "marcoListaDocencia";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";

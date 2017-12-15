@@ -2,7 +2,6 @@
 namespace gestionConcursante\gestionHoja\funcion;
 use gestionConcursante\gestionHoja\funcion\redireccion;
 include_once ('redireccionar.php');
-include_once ('cargarArchivo.php');
 
 if (!isset($GLOBALS ["autorizado"])) {
     include ("../index.php");
@@ -20,14 +19,14 @@ class RegistradorInvestigacion {
     var $miLogger;
     var $miArchivo;
 
-    function __construct($lenguaje, $sql, $funcion, $miLogger) {
+    function __construct($lenguaje, $sql, $funcion, $miLogger,$miArchivo) {
         $this->miConfigurador = \Configurador::singleton();
         $this->miConfigurador->fabricaConexiones->setRecursoDB('principal');
         $this->lenguaje = $lenguaje;
         $this->miSql = $sql;
         $this->miFuncion = $funcion;
         $this->miLogger= $miLogger;
-        $this->miArchivo = new CargarArchivo($lenguaje, $sql, $funcion, $miLogger);
+        $this->miArchivo = $miArchivo;
     }
 
     function procesarFormulario() {
@@ -66,9 +65,11 @@ class RegistradorInvestigacion {
         }
         
         if($resultadoInvestigacion)
-            {   $_REQUEST['consecutivo']=$_REQUEST['consecutivo_persona'];
-                $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_investigacion'];
-                $this->miArchivo->procesarArchivo('datosInvestigacion');
+            {   
+                $datosSoporte=array('consecutivo_persona'=>$_REQUEST['consecutivo_persona'],
+                    'consecutivo_dato'=>$_REQUEST['consecutivo_investigacion'],
+                    'id_usuario'=>$_REQUEST['id_usuario']);
+                $this->miArchivo->procesarArchivo($datosSoporte);                
                 redireccion::redireccionar('actualizoInvestigacion',$arregloDatos);  exit();
             }else
             {
@@ -88,7 +89,7 @@ class RegistradorInvestigacion {
 
 }
 
-$miRegistrador = new RegistradorInvestigacion($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
+$miRegistrador = new RegistradorInvestigacion($this->lenguaje, $this->sql, $this->funcion,$this->miLogger,$this->miArchivo);
 
 $resultado = $miRegistrador->procesarFormulario();
 ?>

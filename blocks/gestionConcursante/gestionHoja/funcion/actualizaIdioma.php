@@ -2,7 +2,6 @@
 namespace gestionConcursante\gestionHoja\funcion;
 use gestionConcursante\gestionHoja\funcion\redireccion;
 include_once ('redireccionar.php');
-include_once ('cargarArchivo.php');
 
 if (!isset($GLOBALS ["autorizado"])) {
     include ("../index.php");
@@ -20,14 +19,14 @@ class RegistradorIdioma {
     var $miLogger;
     var $miArchivo;
 
-    function __construct($lenguaje, $sql, $funcion, $miLogger) {
+    function __construct($lenguaje, $sql, $funcion, $miLogger,$miArchivo) {
         $this->miConfigurador = \Configurador::singleton();
         $this->miConfigurador->fabricaConexiones->setRecursoDB('principal');
         $this->lenguaje = $lenguaje;
         $this->miSql = $sql;
         $this->miFuncion = $funcion;
         $this->miLogger= $miLogger;
-        $this->miArchivo = new CargarArchivo($lenguaje, $sql, $funcion, $miLogger);
+        $this->miArchivo = $miArchivo;
     }
 
     function procesarFormulario() {
@@ -37,12 +36,12 @@ class RegistradorIdioma {
         $arregloDatos = array('id_usuario'=>$_REQUEST['id_usuario'],
                               'consecutivo_conocimiento'=>$_REQUEST['consecutivo_conocimiento'],
                               'consecutivo_persona'=>$_REQUEST['consecutivo_persona'],
-                              'codigo_idioma'=>$_REQUEST['codigo_idioma'],
-                              'nivel_lee'=>$_REQUEST['nivel_lee'],
-                              'nivel_escribe'=>$_REQUEST['nivel_escribe'],
-                              'nivel_habla'=>$_REQUEST['nivel_habla'],
-                              'certificacion'=>$_REQUEST['certificacion'],
-                              'institucion_certificacion'=>$_REQUEST['institucion_certificacion'],
+                              'codigo_idioma'=>(isset($_REQUEST['codigo_idioma'])?$_REQUEST['codigo_idioma']:''),
+                              'nivel_lee'=>(isset($_REQUEST['nivel_lee'])?$_REQUEST['nivel_lee']:''),
+                              'nivel_escribe'=>(isset($_REQUEST['nivel_escribe'])?$_REQUEST['nivel_escribe']:''),
+                              'nivel_habla'=>(isset($_REQUEST['nivel_habla'])?$_REQUEST['nivel_habla']:''),
+                              'certificacion'=>(isset($_REQUEST['certificacion'])?$_REQUEST['certificacion']:''),
+                              'institucion_certificacion'=>(isset($_REQUEST['institucion_certificacion'])?$_REQUEST['institucion_certificacion']:''),
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
             );
@@ -56,9 +55,12 @@ class RegistradorIdioma {
         }
         
         if($resultadoIdioma)
-            {   $_REQUEST['consecutivo']=$_REQUEST['consecutivo_persona'];
-                $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_conocimiento'];
-                $this->miArchivo->procesarArchivo('datosIdioma');
+            {   
+                $datosSoporte=array('consecutivo_persona'=>$_REQUEST['consecutivo_persona'],
+                    'consecutivo_dato'=>$_REQUEST['consecutivo_conocimiento'],
+                    'id_usuario'=>$_REQUEST['id_usuario']);
+                $this->miArchivo->procesarArchivo($datosSoporte);
+
                 redireccion::redireccionar('actualizoIdioma',$arregloDatos);  exit();
             }else
             {
@@ -78,7 +80,7 @@ class RegistradorIdioma {
 
 }
 
-$miRegistrador = new RegistradorIdioma($this->lenguaje, $this->sql, $this->funcion,$this->miLogger);
+$miRegistrador = new RegistradorIdioma($this->lenguaje, $this->sql, $this->funcion,$this->miLogger,$this->miArchivo);
 
 $resultado = $miRegistrador->procesarFormulario();
 ?>

@@ -22,7 +22,7 @@ $this->idioma["marcoDocencia"]="Experiencia Docente Universitaria";
 $this->idioma["marcoActividad"]="Actividades Académicas";
 $this->idioma["marcoInvestigacion"]="Experiencia en Investigación";
 $this->idioma["marcoProduccion"]="Producción Académica";
-$this->idioma["marcoIdioma"]="Lengua Extranjera a Concursar";
+$this->idioma["marcoIdioma"]="Lengua Extranjera con que Concursa";
 
 $this->idioma["marcoEvaluacionPerfil"]="Resultados Evaluación Perfil";
 

@@ -40,7 +40,7 @@ class RegistradorDocencia {
                               'nivel_institucion_docencia'=>$_REQUEST['nivel_institucion_docencia'],
                               'codigo_institucion_docencia'=>$_REQUEST['codigo_institucion_docencia'],
                               'nombre_institucion_docencia'=>$_REQUEST['nombre_institucion_docencia'],
-                              'direccion_institucion_docencia'=>isset($_REQUEST['direccion_institucion_docencia'])?$_REQUEST['direccion_institucion_docencia']:'',
+                              'direccion_institucion_docencia'=>(isset($_REQUEST['direccion_institucion_docencia'])?$_REQUEST['direccion_institucion_docencia']:''),
                               'correo_institucion_docencia'=>$_REQUEST['correo_institucion_docencia'],
                               'telefono_institucion_docencia'=>$_REQUEST['telefono_institucion_docencia'],
                               'codigo_nivel_docencia'=>$_REQUEST['codigo_nivel_docencia'],

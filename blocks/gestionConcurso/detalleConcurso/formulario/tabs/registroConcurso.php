@@ -49,18 +49,6 @@ class registrarConcursoForm {
                     {   $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
                         $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
                         $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                       /*    $parametroSop = array('consecutivo'=>0,
-                                             'tipo_dato'=>'datosConcurso',
-                                             'nombre_soporte'=>'soporteAcuerdo',
-                                             'consecutivo_dato'=>$_REQUEST['consecutivo_concurso']);
-                        $cadenaSopAcu_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopAcu = $esteRecursoDB->ejecutarAcceso($cadenaSopAcu_sql, "busqueda");
-                        
-                        //busca soportes de autorizacion de cambio
-                        $parametroSop ['nombre_soporte']='soporteAutorizacion';
-                        $cadenaSopAut_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopAut = $esteRecursoDB->ejecutarAcceso($cadenaSopAut_sql, "busqueda");*/
-                        
                     }
                 //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
                  $parametroTipoSop = array('dato_relaciona'=>'datosConcurso',
@@ -523,7 +511,7 @@ class registrarConcursoForm {
                                 // --------------- FIN CONTROLES : CARGA SOPORTES --------------------------------------------------
 				echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
-                                				// ------------------Division para los botones-------------------------
+        			// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
 				echo $this->miFormulario->division ( "inicio", $atributos );

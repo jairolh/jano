@@ -52,9 +52,11 @@ class RegistradorCalendarioConcurso {
                 $resultadoCalendario = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarCalendarioConcurso" );
              }
         if($resultadoCalendario)
-            {   $_REQUEST['consecutivo']=0;//codigo 0 corresponde al sistema.
-                $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_calendario'];
-                $this->miArchivo->procesarArchivo('autorizacionFecha');
+            {   
+                $datosSoporte=array('consecutivo_persona'=>0,
+                                    'consecutivo_dato'=>$_REQUEST['consecutivo_calendario'],
+                                    'id_usuario'=>$_REQUEST['id_usuario']);
+                $this->miArchivo->procesarArchivo($datosSoporte);   
                 redireccion::redireccionar('actualizoCalendarioConcurso',$arregloDatos);  exit();
             }else
             {   $arregloDatos['detalle']='calendario';

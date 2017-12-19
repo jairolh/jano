@@ -17,6 +17,7 @@ class calendarioForm {
 		$this->lenguaje = $lenguaje;
 		$this->miFormulario = $formulario;
 		$this->miSql = $sql;
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" ); 
 	}
 	function miForm() {
 		
@@ -25,10 +26,7 @@ class calendarioForm {
                 $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
-                $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
-		
-		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
+                $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
 		 * Se utiliza un arreglo
@@ -56,14 +54,20 @@ class calendarioForm {
                                         'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
                        $cadena_sql = $this->miSql->getCadenaSql("consultarCalendarioConcurso", $parametro);
                        $resultadoCalendario = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                       
-                       $parametroSop = array('consecutivo'=>0,
-                                             'tipo_dato'=>'autorizacionFecha',
-                                             'nombre_soporte'=>'soporteAutorizacion',
-                                             'consecutivo_dato'=>$_REQUEST['consecutivo_calendario']);
-                        $cadenaSopAut_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                        $resultadoSopAut = $esteRecursoDB->ejecutarAcceso($cadenaSopAut_sql, "busqueda");
                     }
+                //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
+                 $parametroTipoSop = array('dato_relaciona'=>'datosCalendario',
+                                           //'tipo_soporte'=>'soporteAcuerdo',
+                                           );
+                 $cadenaSalud_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
+                 $resultadoTiposop = $esteRecursoDB->ejecutarAcceso($cadenaSalud_sql, "busqueda");
+                 // ---------------- SECCION: Enlace para soporte -----------------------------------------------
+                 $variableSoporte = "pagina=gestionarSoportes"; //pendiente la pagina para modificar parametro                                                        
+                 $variableSoporte.= "&action=gestionarSoportes";
+                 $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
+                 $variableSoporte.= "&bloqueGrupo=";
+                 //----------------	
+                    
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
                 $estefomulario= 'datosCalendario';
@@ -105,7 +109,15 @@ class calendarioForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{	      
+			{	
+                            
+                            $esteCampo = "marco";
+                            $atributos ['id'] = $esteCampo;
+                            echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                            unset ( $atributos );
+                            {
+                            
+                            
                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
 				$atributos ["id"] = "cuadro_calendario";
 				$atributos ["estiloEnLinea"] = "display:block";
@@ -194,7 +206,7 @@ class calendarioForm {
                                     if (isset ($resultadoCalendario[0]['fecha_inicio']  )) 
                                         { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_inicio'] ;}
                                     else{ $atributos ['valor'] = ''; }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -222,7 +234,7 @@ class calendarioForm {
                                     if (isset ($resultadoCalendario[0]['fecha_fin']  )) 
                                         { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_fin'] ;}
                                     else{ $atributos ['valor'] = ''; }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -257,7 +269,7 @@ class calendarioForm {
                                     if (isset ($resultadoCalendario[0]['fecha_fin_reclamacion']  )) 
                                         { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_fin_reclamacion'] ;}
                                     else{ $atributos ['valor'] = ''; }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -292,7 +304,7 @@ class calendarioForm {
                                     if (isset ($resultadoCalendario[0]['fecha_fin_resolver']  )) 
                                         { $atributos ['valor'] =  $resultadoCalendario[0]['fecha_fin_resolver'] ;}
                                     else{ $atributos ['valor'] = ''; }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -335,95 +347,144 @@ class calendarioForm {
 				echo $this->miFormulario->division ( "fin" );
 				unset ( $atributos );
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
-                                
-                                // ---------------- CONTROL: Cuadro de division Soportes --------------------------------------------------------
-                                $atributos ["id"]="autorizacion";
-                                $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
-                                $atributos = array_merge ( $atributos, $atributosGlobales );
-                                echo $this->miFormulario->division ( "inicio", $atributos );
-                                unset ( $atributos );
-                                        {
-                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                            $esteCampo = 'soporteAutorizacion';
-                                            $atributos ['id'] = $esteCampo;
-                                            $atributos ['nombre'] = $esteCampo;
-                                            $atributos ['tipo'] = 'file';
-                                            $atributos ['estilo'] = 'jqueryui';
-                                            $atributos ['marco'] = true;
-                                            $atributos ['dobleLinea'] = false;
-                                            $atributos ['tabIndex'] = $tab;
-                                            $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                            $atributos ['etiquetaObligatorio'] = true;
-                                            $atributos ['tamanno'] = 1024;
-                                            $atributos ['evento'] = 'accept="pdf"';
-                                            $atributos ['columnas'] = 1;
-                                            $atributos ['validar'] = 'required,minSize[1]'; 
-                                            if (isset ( $_REQUEST [$esteCampo] )) 
-                                                 { $atributos ['valor'] = $_REQUEST [$esteCampo];}
-                                            else {  $atributos ['valor'] = '';}
-                                            $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                            $atributos ['deshabilitado'] = FALSE;
-                                            $atributos ['anchoCaja'] = 60;
-                                            $atributos ['maximoTamanno'] = '';
-                                            $atributos ['anchoEtiqueta'] = 170;
-                                            $atributos = array_merge ( $atributos, $atributosGlobales );
-                                            if($hoy>$_REQUEST['inicio_concurso'])
-                                                {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
-                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                          if(isset($resultadoSopAut) &&is_array($resultadoSopAut))
-                                                {
-                                              foreach ($resultadoSopAut as $key => $value) 
-                                                    {
-                                                   // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                        $esteCampo = 'archivoAutorizacion'.$key;
-                                                        $atributos ['id'] = $esteCampo;
-                                                        $atributos ['enlace'] = 'javascript:soporte("ruta_autorizacion'.$key.'");';
-                                                        $atributos ['tabIndex'] = 0;
-                                                        $atributos ['marco'] = true;
-                                                        $atributos ['columnas'] = 1;
-                                                        $atributos ['enlaceTexto'] = $resultadoSopAut[$key]['alias'];
-                                                        $atributos ['estilo'] = 'textoGrande textoGris ';
-                                                        $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                        $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                        $atributos ['ancho'] = '25px';
-                                                        $atributos ['alto'] = '25px';
-                                                        $atributos ['redirLugar'] = false;
-                                                        $atributos ['valor'] = '';
-                                                        $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                        echo $this->miFormulario->enlace( $atributos );
-                                                        unset ( $atributos );
-                                                       // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                        $esteCampo = 'ruta_autorizacion'.$key;
-                                                        $atributos ['id'] = $esteCampo;
-                                                        $atributos ['nombre'] = $esteCampo;
-                                                        $atributos ['tipo'] = 'hidden';
-                                                        $atributos ['estilo'] = 'jqueryui';
-                                                        $atributos ['marco'] = true;
-                                                        $atributos ['columnas'] = 1;
-                                                        $atributos ['dobleLinea'] = false;
-                                                        $atributos ['tabIndex'] = $tab;
-                                                        $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                        $atributos ['obligatorio'] = false;
-                                                        $atributos ['etiquetaObligatorio'] = false;
-                                                        $atributos ['validar'] = '';
-                                                        $atributos ['valor'] = $this->rutaSoporte.$resultadoSopAut[$key]['ubicacion']."/".$resultadoSopAut[$key]['archivo'];
-                                                        $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                        $atributos ['deshabilitado'] = FALSE;
-                                                        $atributos ['tamanno'] = 30;
-                                                        $atributos ['anchoCaja'] = 60;
-                                                        $atributos ['maximoTamanno'] = '';
-                                                        $atributos ['anchoEtiqueta'] = 170;
-                                                        //$atributos = array_merge ( $atributos, $atributosGlobales );
-                                                        echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                        // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                    }
-                                                }  
-                                    }
-                                echo $this->miFormulario->division( 'fin' );
-                                unset ( $atributos );
-                        // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------
-                                
-                                
+
+                                // --------------- INICIO CONTROLES : CARGA SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
+                                foreach ($resultadoTiposop as $tipokey => $value) 
+                                    {
+                                    //valida si existen soportes para el tipo
+                                    if(isset($_REQUEST['consecutivo_calendario']) && $_REQUEST['consecutivo_calendario']>0)
+                                        {  
+                                            $parametroSop = array('consecutivo_persona'=>0,
+                                                 'tipo_dato'=>$resultadoTiposop[$tipokey]['dato_relaciona'],
+                                                 'nombre_soporte'=>$resultadoTiposop[$tipokey]['nombre'],
+                                                 'consecutivo_dato'=>$_REQUEST['consecutivo_calendario']
+                                                );
+                                            $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
+                                            $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql , "busqueda");
+                                       }
+                                    // ---------------- INICIO CONTROL: Cuadro de division Soporte --------------------------------------------------------
+                                     $atributos ["id"]=$resultadoTiposop[$tipokey]['tipo_soporte'];
+                                     $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
+                                     $atributos = array_merge ( $atributos, $atributosGlobales );
+                                     echo $this->miFormulario->division ( "inicio", $atributos );
+                                     unset ( $atributos );
+                                             {
+                                                 // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
+                                                 $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
+                                                 $atributos ['id'] = $esteCampo;
+                                                 $atributos ['nombre'] = $esteCampo;
+                                                 $atributos ['tipo'] = 'file';
+                                                 $atributos ['estilo'] = 'jqueryui';
+                                                 $atributos ['marco'] = true;
+                                                 $atributos ['dobleLinea'] = false;
+                                                 $atributos ['tabIndex'] = $tab;
+                                                 $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                 if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
+                                                     {  $atributos ['etiquetaObligatorio'] = true;
+                                                     }
+                                                 else{  $atributos ['etiquetaObligatorio'] = false;
+                                                     }
+                                                 $atributos ['tamanno'] = $resultadoTiposop[$tipokey]['tamanno_permitido'];
+                                                 $atributos ['evento'] = 'accept="'.$resultadoTiposop[$tipokey]['extencion_permitida'].'"';
+                                                 //si existe soporte van 2 columnas
+                                                 if(isset($resultadoSoporte[0]['archivo']) && $resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionCalendario')
+                                                     {  $atributos ['columnas'] = 2;
+                                                        $atributos ['validar'] = ''; 
+                                                     }
+                                                 else{  $atributos ['columnas'] = 1;
+                                                        $atributos ['validar'] = $resultadoTiposop[$tipokey]['validacion']; 
+                                                     }
+                                                 if (isset ( $_REQUEST [$esteCampo] )) 
+                                                      { $atributos ['valor'] = $_REQUEST [$esteCampo];}
+                                                 else {  $atributos ['valor'] = '';}
+                                                 //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                 $atributos ['deshabilitado'] = FALSE;
+                                                 $atributos ['anchoCaja'] = 60;
+                                                 $atributos ['maximoTamanno'] = '';
+                                                 $atributos ['anchoEtiqueta'] = 200;
+                                                 $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                // echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                if($resultadoTiposop[$tipokey]['nombre']=='soporteAutorizacionCalendario'  && isset($_REQUEST['inicio_concurso']) && strcmp($hoy,$_REQUEST['inicio_concurso']) > 0)
+                                                     {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
+                                                elseif($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionCalendario') 
+                                                     {echo $this->miFormulario->campoCuadroTexto ( $atributos );}                                                            
+                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                               if(isset($resultadoSoporte[0]['archivo']))
+                                                     { 
+                                                        foreach ($resultadoSoporte as $sop => $value) 
+                                                            {    if($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionCalendario')
+                                                                     {$sop=0;}   
+                                                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                                    $esteCampo = 'archivo'.$resultadoSoporte[$sop]['consecutivo_soporte'];
+                                                                    $atributos ['id'] = $esteCampo;
+                                                                    $atributos ['enlace'] = 'javascript:enlaceSop("ruta'.$resultadoSoporte[$sop]['consecutivo_soporte'].'");';
+                                                                    $atributos ['tabIndex'] = 0;
+                                                                    $atributos ['marco'] = true;
+                                                                    if($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionConcurso')
+                                                                         {  $atributos ['columnas'] = 2;
+
+                                                                         }
+                                                                     else{  $atributos ['columnas'] = 1;
+                                                                         }
+                                                                    $atributos ['enlaceTexto'] = $resultadoSoporte[$sop]['alias'];
+                                                                    $atributos ['estilo'] = 'textoGrande textoGris ';
+                                                                    $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                                    $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                    $atributos ['ancho'] = '35px';
+                                                                    $atributos ['alto'] = '35px';
+                                                                    $atributos ['redirLugar'] = false;
+                                                                    $atributos ['valor'] = '';
+                                                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                    echo $this->miFormulario->enlace( $atributos );
+                                                                    unset ( $atributos );
+                                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                                      //-------------Inicio preparar enlace soporte-------
+                                                                      $verSoporte = $variableSoporte;
+                                                                      $verSoporte .= "&opcion=verPdf";
+                                                                      $verSoporte .= "&raiz=".$this->rutaSoporte;
+                                                                      $verSoporte .= "&ruta=".$resultadoSoporte[$sop]['ubicacion'];
+                                                                      $verSoporte .= "&archivo=".$resultadoSoporte[$sop]['archivo'];
+                                                                      $verSoporte .= "&alias=".$resultadoSoporte[$sop]['alias'];
+                                                                      $verSoporte = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $verSoporte, $directorio );
+                                                                      //-------------Fin preparar enlace soporte-------
+                                                                    $esteCampo = 'ruta'.$resultadoSoporte[$sop]['consecutivo_soporte'];
+                                                                    $atributos ['id'] = $esteCampo;
+                                                                    $atributos ['nombre'] = $esteCampo;
+                                                                    $atributos ['tipo'] = 'hidden';
+                                                                    $atributos ['estilo'] = 'jqueryui';
+                                                                    $atributos ['marco'] = true;
+                                                                    $atributos ['columnas'] = 1;
+                                                                    $atributos ['dobleLinea'] = false;
+                                                                    $atributos ['tabIndex'] = $tab;
+                                                                    $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                    $atributos ['obligatorio'] = false;
+                                                                    $atributos ['etiquetaObligatorio'] = false;
+                                                                    $atributos ['validar'] = '';
+                                                                    $atributos ['valor'] = $verSoporte;
+                                                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                    $atributos ['deshabilitado'] = FALSE;
+                                                                    $atributos ['tamanno'] = 30;
+                                                                    $atributos ['anchoCaja'] = 60;
+                                                                    $atributos ['maximoTamanno'] = '';
+                                                                    $atributos ['anchoEtiqueta'] = 120;
+                                                                    //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                //valida si diferente a autorización termina el foreach    
+                                                                 if($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionCalendario')
+                                                                     {break;}   
+                                                        }       
+                                                   }
+                                         }
+                                     echo $this->miFormulario->division( 'fin' );
+                                     unset ( $atributos );
+                                     // --------------- FIN CONTROL : Cuadro de Soportes--------------------------------------------------
+                                     } 
+                                // --------------- FIN CONTROLES : CARGA SOPORTES --------------------------------------------------
+                            }    
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+			// -----------------FIN CONTROL: Botón -----------------------------------------------------------     
+			        
 				// ------------------Division para los botones-------------------------
 				$atributos ["id"] = "botones";
 				$atributos ["estilo"] = "marcoBotones";
@@ -509,13 +570,10 @@ class calendarioForm {
                                     $valorCodificado .= "&id_usuario=".$usuario;
                                     $valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                     $valorCodificado .= "&consecutivo_calendario=".$calendario;
-                                    
                                     if (isset($resultadoCalendario[0]['obligatoria']) && $resultadoCalendario[0]['obligatoria']=='S' )
                                          { $valorCodificado .= "&consecutivo_actividad=".$resultadoCalendario[0]['consecutivo_actividad'];
                                            $valorCodificado .= "&porc_aprueba_fase=".$resultadoCalendario[0]['porcentaje_aprueba'];
                                          }
-
-                                    
                                     /**
                                      * SARA permite que los nombres de los campos sean dinámicos.
                                      * Para ello utiliza la hora en que es creado el formulario para
@@ -539,9 +597,10 @@ class calendarioForm {
 				}
 				echo $this->miFormulario->division ( 'fin' );
 				// ---------------- FIN SECCION: Botones del Formulario -------------------------------------------
-			}
-			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-			// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                            }    
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
+			// -----------------FIN CONTROL: Botón -----------------------------------------------------------                                
+                                
 		}
                 // ----------------FINALIZAR EL FORMULARIO ----------------------------------------------------------
                 // Se debe declarar el mismo atributo de marco con que se inició el formulario.

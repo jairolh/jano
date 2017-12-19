@@ -87,9 +87,11 @@ class RegistradorConcurso {
         }
         
         if($resultadoConcurso)
-            {   $_REQUEST['consecutivo']=0;//$_REQUEST['consecutivo_persona'];
-                $_REQUEST['consecutivo_dato']=$_REQUEST['consecutivo_concurso'];
-                $this->miArchivo->procesarArchivo('datosConcurso');
+            {   $datosSoporte=array('consecutivo_persona'=>0,
+                                    'consecutivo_dato'=>$_REQUEST['consecutivo_concurso'],
+                                    'id_usuario'=>$_REQUEST['id_usuario']);
+                $this->miArchivo->procesarArchivo($datosSoporte);                
+                
                 redireccion::redireccionar('actualizoConcurso',$arregloDatos);  exit();
             }else
             {

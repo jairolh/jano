@@ -14,7 +14,6 @@ $nombreFormulario = $esteBloque ["nombre"];
 $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
 $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
 $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
-$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
 
 include_once ("core/crypto/Encriptador.class.php");
 $cripto = Encriptador::singleton ();
@@ -32,12 +31,6 @@ if(isset($_REQUEST['consecutivo_concurso']))
     {   $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
         $cadena_sql = $this->sql->getCadenaSql("consultaConcurso", $parametro);
         $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-        $parametroSop = array('consecutivo'=>0,
-                             'tipo_dato'=>'datosConcurso',
-                             'nombre_soporte'=>'soporteAcuerdo',
-                             'consecutivo_dato'=>$_REQUEST['consecutivo_concurso']);
-        $cadenaSopAcu_sql = $this->sql->getCadenaSql("buscarSoporte", $parametroSop);
-        $resultadoSopAcu = $esteRecursoDB->ejecutarAcceso($cadenaSopAcu_sql, "busqueda");
     }
 
 // ------------------Division para las pestañas-------------------------

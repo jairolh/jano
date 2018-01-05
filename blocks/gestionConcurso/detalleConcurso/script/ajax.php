@@ -58,7 +58,6 @@ function enlace(direccion) {
   miVentana.focus();
 }
 
-
 function marcar(obj) {
     elem=obj.elements;
     for (i=0;i<elem.length;i++)

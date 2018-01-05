@@ -140,7 +140,30 @@ class Sql extends \Sql {
 					$cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
 					break;
 
-                        case 'buscarSoporte' :
+			case 'buscarTipoSoporte' :
+				$cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" tipo_soporte,";
+                                $cadenaSql.=" nombre,";
+                                $cadenaSql.=" ubicacion,";
+                                $cadenaSql.=" descripcion,";
+                                $cadenaSql.=" extencion_permitida,";
+                                $cadenaSql.=" tamanno_permitido,";
+                                $cadenaSql.=" dato_relaciona,";
+                                $cadenaSql.=" alias,";
+                                $cadenaSql.=" validacion,";
+                                $cadenaSql.=" posicion,";
+                                $cadenaSql.=" estado ";
+                                $cadenaSql.=" FROM ".$this->miConfigurador->getVariableConfiguracion ("esquemaTipoSoporte").".tipo_soporte";
+                                $cadenaSql.=" WHERE ";
+				$cadenaSql.=" estado='A' ";
+                                $cadenaSql.=" AND dato_relaciona = '".$variable['dato_relaciona']."'";
+                                if(isset($variable['tipo_soporte']) && $variable['tipo_soporte']!='')
+                                    {$cadenaSql.=" AND nombre = '".$variable['tipo_soporte']."'";}
+                                $cadenaSql.=" ORDER BY dato_relaciona, posicion ASC, alias ASC";    
+                            break;
+                                                
+                  
+			case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" sop.consecutivo_soporte,";
                                 $cadenaSql.=" sop.consecutivo_persona,";
@@ -151,19 +174,19 @@ class Sql extends \Sql {
                                 $cadenaSql.=" tsop.tipo_soporte,";
                                 $cadenaSql.=" tsop.nombre, ";
                                 $cadenaSql.=" tsop.ubicacion";
-                                $cadenaSql.=" FROM concurso.soporte sop";
-                                $cadenaSql.=" INNER JOIN general.tipo_soporte tsop";
+                                $cadenaSql.=" FROM ".$this->miConfigurador->getVariableConfiguracion ("esquemaSoporte").".soporte sop";
+                                $cadenaSql.=" INNER JOIN ".$this->miConfigurador->getVariableConfiguracion ("esquemaTipoSoporte").".tipo_soporte tsop";
                                 $cadenaSql.=" ON tsop.tipo_soporte=sop.tipo_soporte";
                                 $cadenaSql.=" AND tsop.estado=sop.estado";
                                 $cadenaSql.=" WHERE";
                                 $cadenaSql.=" tsop.estado='A' ";
                                 $cadenaSql.=" AND sop.tipo_dato='".$variable['tipo_dato']."'";
-                                $cadenaSql.=" AND sop.consecutivo_persona='".$variable['consecutivo']."'";
+                                $cadenaSql.=" AND sop.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" AND tsop.nombre='".$variable['nombre_soporte']."'";
                                 if(isset($variable['consecutivo_dato']) && $variable['consecutivo_dato']!='')
                                     {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
                                 $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
-                            break;
+                            break;  
                         case "consultarNivel":
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" codigo_nivel,";

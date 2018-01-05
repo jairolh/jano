@@ -2,7 +2,6 @@
 namespace gestionConcursante\gestionHoja\funcion;
 use gestionConcursante\gestionHoja\funcion\redireccion;
 include_once ('redireccionar.php');
-include_once ('cargarArchivo.php');
 
 if (!isset($GLOBALS ["autorizado"])) {
     include ("../index.php");
@@ -27,7 +26,7 @@ class RegistradorContactos {
         $this->miSql = $sql;
         $this->miFuncion = $funcion;
         $this->miLogger= $miLogger;
-        $this->miArchivo = new CargarArchivo($lenguaje, $sql, $funcion, $miLogger);
+        
     }
 
     function procesarFormulario() {

@@ -11,8 +11,8 @@ $funcion [$indice ++] = "select2_locale_es.js";
 $funcion [$indice ++] = "jquery.dataTables.js";
 $funcion [$indice ++] = "jquery.dataTables.min.js";
 $funcion [$indice ++] = "timepicker.js";
-$funcion [$indice ++] = "jquery.autocomplete.js";
-$funcion [$indice ++] = "jquery.autocomplete.min.js";
+//$funcion [$indice ++] = "jquery.autocomplete.js";
+//$funcion [$indice ++] = "jquery.autocomplete.min.js";
 
 $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "host" );
 $rutaBloque .= $this->miConfigurador->getVariableConfiguracion ( "site" );
@@ -23,7 +23,7 @@ if ($esteBloque ["grupo"] == "") {
 	$rutaBloque .= "/blocks/" . $esteBloque ["grupo"] . "/" . $esteBloque ["nombre"];
 }
 
-$_REQUEST['tiempo']=time();
+//$_REQUEST['tiempo']=time();
 
 if (isset ( $funcion [0] )) {
 	foreach ( $funcion as $clave => $nombre ) {

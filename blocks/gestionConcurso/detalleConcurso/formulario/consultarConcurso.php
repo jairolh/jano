@@ -111,10 +111,6 @@ class consultarForm {
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas,'Detalle', 'Editar','Actualizar Estado');	
-                    
-                    
-                    
-                    
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoListaConcurso";
                         $atributos["estilo"] = "jqueryui";

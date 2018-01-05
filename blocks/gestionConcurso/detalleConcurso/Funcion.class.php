@@ -63,7 +63,7 @@ class Funcion {
 		
 		// Importante: Es adecuado que sea una variable llamada opcion o action la que guie el procesamiento:
 		if (isset ( $_REQUEST ['procesarAjax'] ))
-                    {
+                    {   $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                         $this->procesarAjax ();
                     } 
                 elseif (isset ( $_REQUEST ["opcion"] ))

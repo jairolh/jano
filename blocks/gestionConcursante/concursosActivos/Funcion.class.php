@@ -64,6 +64,7 @@ class Funcion {
 
 
 		if (isset ( $_REQUEST ['procesarAjax'] )){
+                        $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
 			$this->procesarAjax ();
 		}
 		elseif (isset ( $_REQUEST ["opcion"] )){

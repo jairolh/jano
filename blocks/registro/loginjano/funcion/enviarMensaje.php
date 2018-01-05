@@ -98,8 +98,7 @@ class FormProcessor {
             $variable .= "&usuario=" . $usuario ;
             $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url( $variable );
             $variable = $this->miConfigurador->configuracion ["host"].
-                    $this->miConfigurador->configuracion ["site"].
-                    "/index.php?data".$variable;
+            $this->miConfigurador->configuracion ["site"]."/index.php?data".$variable;
             //--------------------------------------------------------------------------------------------
 
 
@@ -123,62 +122,28 @@ class FormProcessor {
             require_once($ruta.'/plugin/PHPMailer/PHPMailerAutoload.php');
             $mail = new \PHPMailer();
             //$mail->SMTPDebug = 3;                               // Enable verbose debug output
-
-            $mail->isSMTP();                                      // Set mailer to use SMTP
-            $mail->Host     = $this->miConfigurador->configuracion ["hostCorreo"];  // Specify main and backup SMTP servers
-            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            //nuevas lineas para envio por gmail
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->SMTPSecure = "tls"; // sets the prefix to the servier
+            $server=explode(':',$this->miConfigurador->configuracion ["hostCorreo"]);
+            $mail->Host = $server[0];  // Specify main and backup SMTP servers
+            $mail->Port = $server[1]; // set the SMTP port for the GMAIL server
             $mail->Username = $this->miConfigurador->configuracion["cuentaCorreo"];                 // SMTP username
-            $mail->Password = $this->miConfigurador->configuracion["claveCorreo"];                           // SMTP password
-            $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
-            $mail->Port = 25;                                    // TCP port to connect to
-
-            $mail->setFrom($this->miConfigurador->configuracion["cuentaCorreo"], 'Condor');
+            $mail->Password = $this->miConfigurador->fabricaConexiones->crypto->decodificar($this->miConfigurador->configuracion["claveCorreo"]);     
+            $mail->SMTPAuth = true;
+            $mail->Timeout = 1200;
+            $mail->Charset = "utf-8";
+            // TCP port to connect to
+            $mail->setFrom($this->miConfigurador->configuracion["cuentaCorreo"], 'Udistrital');
             $mail->addAddress($correoUsuario, '');     // Add a recipient
-
-
-
             $mail->isHTML(true);                                  // Set email format to HTML
-
             $mail->Subject = 'Recuperar Clave';
             $mail->Body    = $mensaje;
-
 
             if(!$mail->send()) {
                 Redireccionador::redireccionar('correoNoEnviado', array('correo'=>$correoUsuario));
             }
             //-------------------------------------------------------------------------------------------------
-            
-          
-            //------------------------------------------------------------------------------------------------------
-//            $from = '<'.$this->miConfigurador->configuracion["cuentaCorreo"].'>';
-//            $to = '<'.$correoUsuario.'>';
-//            $subject = 'Recuperación Contraseña';
-//
-//            $headers = array(
-//                'MIME-Version' => '1.0rn',
-//                'Content-Type' => "text/html; charset=ISO-8859-1rn",
-//                'From' => $from,
-//                'To' => $to,
-//                'Subject' => $subject
-//            );
-//
-//            $smtp = Mail::factory('smtp', array(
-//                    'host' => 'ssl://'.$this->miConfigurador->configuracion["hostCorreo"],
-//                    'port' => '25',
-//                    'auth' => true,
-//                    'username' => ''.$this->miConfigurador->configuracion["cuentaCorreo"],
-//                    'password' => ''.$this->miConfigurador->configuracion["claveCorreo"]
-//                ));
-//
-//            $mail = $smtp->send($to, $headers, $mensaje);
-//
-//            if (PEAR::isError($mail)) {
-//                Redireccionador::redireccionar('correoNoEnviado', array('correo'=>$correoUsuario));
-//            } else {
-//                Redireccionador::redireccionar('correoEnviado', array('correo'=>$correoUsuario));
-//            }
-            //---------------------------------------------------------------------------------------------
-            
             
             //--------------------------------------------------------------------------------------------
             //require_once($ruta.'/core/auth/Sesion.class.php');
@@ -197,7 +162,7 @@ class FormProcessor {
             $log['fecha_log']=date("F j, Y, g:i:s a");         
             $log['host']=$this->miLogger->obtenerIP(); 
             $cadenaSql = $this->miSql->getCadenaSql("registroLogUsuario", $log);
-            $resultado = $primerRecursoDB->ejecutarAcceso($cadenaSql, "acceso");
+            $resultado = @$primerRecursoDB->ejecutarAcceso($cadenaSql, "acceso");
             //---------------------------------------------------------------------------------------------------
             Redireccionador::redireccionar('correoEnviado', array('correo'=>$correoUsuario));
             

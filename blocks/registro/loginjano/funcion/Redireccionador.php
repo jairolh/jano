@@ -147,6 +147,11 @@ class Redireccionador {
                     $variable .= "&error=" . $valor;
                 }
                 break;
+                
+            case "loginApp" :
+                $variable = "pagina=" .$valor['opcionPagina'];
+                $variable.= "&registro=".$valor['usuario'];  
+                break;                
 
             default :
                 $variable = 'pagina=' . $miPaginaActual;

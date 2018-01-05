@@ -29,12 +29,13 @@ class Funcion {
     var $crypto;
     
     function procesarFormulario() {
-    
         include_once ($this->ruta . "funcion/formProcessor.php");
-    
         return $resultado;
     }
-    
+    function procesarIngresoApp() {
+        include_once ($this->ruta . "funcion/formProcessorApp.php");
+        return $resultado;
+    }    
     function procesarAjax() {
         include_once ($this->ruta . "funcion/procesarAjax.php");
     }
@@ -76,6 +77,9 @@ class Funcion {
                     case "validarLogin":
                         $resultado = $this->procesarFormulario();
                         break;
+                    case "loginapp":
+                        $resultado = $this->procesarIngresoApp();
+                        break;                    
                     case "enviarMensaje":
                         $this->enviarMensaje();
                         break;

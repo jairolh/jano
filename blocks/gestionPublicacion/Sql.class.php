@@ -443,9 +443,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario us ";
                                 $cadenaSql.=" ON trim(us.tipo_identificacion)=trim(bas.tipo_identificacion) ";
                                 $cadenaSql.=" AND bas.identificacion=us.identificacion ";
-                                $cadenaSql.=" INNER JOIN general.pais ps ";
+                                $cadenaSql.=" LEFT OUTER JOIN general.pais ps ";
                                 $cadenaSql.=" ON ps.id_pais=bas.pais_nacimiento ";
-                                $cadenaSql.=" INNER JOIN general.ciudad cud ";
+                                $cadenaSql.=" LEFT OUTER JOIN general.ciudad cud ";
                                 $cadenaSql.=" ON cud.id_ciudad=bas.lugar_nacimiento ";
                                 $cadenaSql.=" WHERE bas.consecutivo IS NOT NULL ";
                                 if(isset($variable['identificacion']) && $variable['identificacion']!='')

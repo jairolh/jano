@@ -190,11 +190,11 @@ class Bootstrap {
              * Campos que se quieren excluir de la limpieza de código. Formato: nombreCampo1|nombreCampo2|nombreCampo3
              */
             
-            $excluir = '';
-            $_REQUEST = $this->miInspectorHtml->limpiarPHPHTML ( $_REQUEST );           
+            $excluir = 'token';
+            $_REQUEST = $this->miInspectorHtml->limpiarPHPHTML ( $_REQUEST,$excluir );           
             //Evitar que se ingrese código malicioso SQL
             
-            $_REQUEST=$this->miInspectorHtml->limpiarSQL($_REQUEST);
+            $_REQUEST=$this->miInspectorHtml->limpiarSQL($_REQUEST,$excluir);
             
             require_once ($this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/core/builder/Pagina.class.php");
             $this->miPagina = new Pagina ();

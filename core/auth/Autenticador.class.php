@@ -81,11 +81,11 @@ class Autenticador {
 		if (($this->sesionUsuario->getValorSesion ( 'sesionUsuarioId' )) != '') {
 			$_REQUEST ['usuario'] = $this->sesionUsuario->getValorSesion ( 'sesionUsuarioId' );
 		}
-		
-		if (isset ( $_REQUEST ['accesoCondor'] ) && $_REQUEST ['accesoCondor'] = 'true') {
+                //verifica el acceso para un usuario anonimo desde otra aplicacion
+		if (isset ( $_REQUEST ['accesoApp'] ) && $_REQUEST ['accesoApp'] != '' && isset ( $_REQUEST ['accesoTipo'] ) && $_REQUEST ['accesoTipo'] == 'anonimo' ) {
 			include_once ("core/crypto/Encriptador.class.php");
                         $crypto = Encriptador::singleton ();
-                        if(isset($_REQUEST['token']) && trim($this->configurador->getVariableConfiguracion ( "enlace" ))==$crypto->decodificar($_REQUEST['token']))
+                        if(isset($_REQUEST['token']) && trim($this->configurador->getVariableConfiguracion ( "tokenCurriculum" ))==$crypto->decodificar($_REQUEST['token']))
                             { $respuesta = true; }
                         else{ $respuesta = false; }    
 		}

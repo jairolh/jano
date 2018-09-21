@@ -42,13 +42,20 @@ class RegistradorBasicos {
                               'pais_nacimiento'=>$_REQUEST['pais'],
                               'departamento_nacimiento'=>$_REQUEST['departamento'],
                               'lugar_nacimiento'=>$_REQUEST['ciudad'],
-                              'sexo'=>$_REQUEST['sexo']
+                              'sexo'=>$_REQUEST['sexo'],
+                              'fecha_identificacion'=>$_REQUEST['fecha_identificacion'],
+                              'lugar_identificacion'=>$_REQUEST['lugar_identificacion'],
+                              'autorizacion'=>$_REQUEST['autorizacion'],
             );
+        
+        //    var_dump($arregloDatos);exit;
         $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarBasicos',$arregloDatos );
         $resultadoBasicos = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarBasicos" );
-        
         if($resultadoBasicos)
-            {   $datosSoporte=array('consecutivo_persona'=>$_REQUEST['consecutivo'],
+            {   
+                $cadenaSqlUs = $this->miSql->getCadenaSql ( 'actualizarDatosUsuario',$arregloDatos );
+                $resultadoUs = $esteRecursoDB->ejecutarAcceso ( $cadenaSqlUs, "actualiza", $arregloDatos, "actualizarDatosUsuario" );
+                $datosSoporte=array('consecutivo_persona'=>$_REQUEST['consecutivo'],
                     'consecutivo_dato'=>$_REQUEST['consecutivo'],
                     'id_usuario'=>$_REQUEST['id_usuario']);
                 $this->miArchivo->procesarArchivo($datosSoporte);

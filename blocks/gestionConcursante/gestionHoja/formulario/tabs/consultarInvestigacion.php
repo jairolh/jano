@@ -95,7 +95,7 @@ class consultarInvestigacion {
                             $columnas = array('Pais','Ingreso','Terminación','Investigación','Actividades','Director','Institución','Tipo','Telefono','Correo','Grupo','Categoria','Enlace');
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
-                            array_push($columnas, 'Editar');	
+                            array_push($columnas, 'Editar', 'Borrar');	
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaInvestigacion";
                                 $atributos["estilo"] = "jqueryui";
@@ -112,17 +112,24 @@ class consultarInvestigacion {
                                     <tbody>";	
                                 foreach($resultadoListaInvestigacion as $key=>$value )
                                     {   $parametro['tipo']='unico';
+                                        $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableOpcion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableOpcion.= "&tiempo=" . time ();
+                                        $variableOpcion.= "&consecutivo_investigacion=".$resultadoListaInvestigacion[$key]['consecutivo_investigacion'];
+                                        $variableOpcion.= "&consecutivo_persona=".$resultadoListaInvestigacion[$key]['consecutivo_persona'];       
                                         
-                                        $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableEditar = $variableOpcion;
                                         $variableEditar.= "&opcion=mostrar";
-                                        $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
-                                        $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_investigacion=".$resultadoListaInvestigacion[$key]['consecutivo_investigacion'];
-                                        $variableEditar .= "&consecutivo_persona=".$resultadoListaInvestigacion[$key]['consecutivo_persona'];       
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabInvestigacion";
+                                        
+                                        $variableBorrar = $variableOpcion;
+                                        $variableBorrar.= "&opcion=borrar";
+                                        $variableBorrar.= "&tipo=Investigacion";
+                                        $variableBorrar.= "&registro=".$resultadoListaInvestigacion[$key]['titulo_investigacion'];
+                                        $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
+                                        $variableBorrar.= "#tabInvestigacion";                                           
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['pais']."</td>
@@ -277,6 +284,21 @@ class consultarInvestigacion {
                                                     $atributos['ancho']='25';
                                                     $atributos['alto']='25';
                                                     $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);    
+                                        $mostrarHtml .= "</td>";
+                                        $mostrarHtml .= "<td>";
+                                                    //-------------Enlace-----------------------
+                                                    $esteCampo = "borrar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableBorrar;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='';
+                                                    $atributos['ancho']='25';
+                                                    $atributos['alto']='25';
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/trash.png";
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                         $mostrarHtml .= "</td>";

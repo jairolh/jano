@@ -11,7 +11,7 @@ class redireccion {
 		$miConfigurador = \Configurador::singleton ();
 		//$miPaginaActual = $miConfigurador->getVariableConfiguracion ( "pagina" );
                 $miPaginaActual="gestionConcursante";
-		
+		$pestanna="";
 		switch ($opcion) {
 
                         case "actualizoBasicos":
@@ -146,28 +146,18 @@ class redireccion {
                                 }
                                 break;                        
 
-                        case "borrar":
+                        case "borro":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
                                 $variable.="&mensaje=borro";
-                                if($valor!=""){
-                                        $variable.="&id_usuario=".$valor['id_usuario'];
-                                        $variable.="&identificacion=".$valor['identificacion'];
-                                        $variable.="&nombres=".$valor['nombre'];
-                                        $variable.="&apellidos=".$valor['apellido'];
-                                }
+                                $variable.="&tipo=".$valor['tipo'];
+                                $variable.="&dato=".$valor['dato'];
                                 break;                                 
-
-                        case "noborrar":
+                        case "noBorro":
                                 $variable="pagina=".$miPaginaActual;
                                 $variable.="&opcion=mensaje";
-                                $variable.="&mensaje=noborro";
-                                if($valor!=""){
-                                        $variable.="&id_usuario=".$valor['id_usuario'];
-                                        $variable.="&identificacion=".$valor['identificacion'];
-                                        $variable.="&nombres=".$valor['nombre'];
-                                        $variable.="&apellidos=".$valor['apellido'];
-                                }
+                                $variable.="&mensaje=noBorro";
+                                $variable.="&tipo=".$valor['tipo'];
                                 break;                                  
                    
                                 
@@ -307,6 +297,12 @@ class redireccion {
 			case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;
 				break;
+                        case "devolver":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mostrar";
+                                $pestanna="#tab".$_REQUEST['tipo'];
+                                
+                                break;     
 		}
 		
 		foreach ( $_REQUEST as $clave => $valor ) {
@@ -317,7 +313,7 @@ class redireccion {
 		$enlace = $miConfigurador->configuracion ['enlace'];
 		$variable = $miConfigurador->fabricaConexiones->crypto->codificar ( $variable );
 		$_REQUEST [$enlace] = $enlace . '=' . $variable;
-		$redireccion = $url . $_REQUEST [$enlace];
+		$redireccion = $url . $_REQUEST [$enlace].$pestanna;
 		
 		echo "<script>location.replace('" . $redireccion . "')</script>";
 		

@@ -369,7 +369,7 @@ class contactoForm {
 				echo $this->miFormulario->division ( "inicio", $atributos );
 				unset ( $atributos );
 				{
-					// -----------------CONTROL: Botón ----------------------------------------------------------------
+                                  	// -----------------CONTROL: Botón ----------------------------------------------------------------
 					$esteCampo = 'botonContacto';
 					$atributos ["id"] = $esteCampo;
 					$atributos ["tabIndex"] = $tab;
@@ -382,13 +382,30 @@ class contactoForm {
 					$atributos ["verificar"] = '';
 					$atributos ["tipoSubmit"] = 'jquery'; // Dejar vacio para un submit normal, en este caso se ejecuta la función submit declarada en ready.js
 					$atributos ["valor"] = $this->lenguaje->getCadena ( $esteCampo );
+                                        
 					$atributos ['nombreFormulario'] = $estefomulario;//$esteBloque ['nombre'];
 					$tab ++;
+                                            //valida si registro consentimiento informado
+                                            if($resultadoContacto[0]['autorizacion']==FALSE)
+                                                {
+                                                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                $MesteCampo= 'autorizacion';
+                                                $Matributos ['id'] = $MesteCampo;
+                                                $Matributos ['tipo'] = 'warning';
+                                                $Matributos ['estilo'] = 'textoCentrar';
+                                                $Matributos ['mensaje'] = $this->lenguaje->getCadena ( $MesteCampo );
+                                                //$tab ++;
+                                                // Aplica atributos globales al control
+                                                $Matributos = array_merge ( $Matributos, $atributosGlobales );
+                                                echo $this->miFormulario->cuadroMensaje ( $Matributos );
+                                                unset ( $Matributos );
+                                                $atributos ['deshabilitado'] = true;
+                                                }
 					
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
 					echo $this->miFormulario->campoBoton ( $atributos );
-					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
+                                        // -----------------FIN CONTROL: Botón -----------------------------------------------------------
 
                                      /**
                                      * En algunas ocasiones es útil pasar variables entre las diferentes páginas.

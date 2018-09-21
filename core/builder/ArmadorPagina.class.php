@@ -37,6 +37,7 @@ class ArmadorPagina {
 
             // De forma predeterminada las paginas del aplicativo no tienen cache
             header("Cache-Control: cache");
+            
         } else {
             if (!(isset($_REQUEST ['opcion']) && $_REQUEST ['opcion'] == 'mostrarMensaje')) {
                 header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
@@ -46,7 +47,9 @@ class ArmadorPagina {
                 header("Pragma: no-cache");
             }
         }
-
+        //se ajusta para prevenir ataques
+        header('X-Frame-Options: SAMEORIGIN');// permitir abrir en iframe
+        header('X-XSS-Protection: 1;mode=block');
         $this->raizDocumento = $this->miConfigurador->getVariableConfiguracion("raizDocumento");
 
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> ';

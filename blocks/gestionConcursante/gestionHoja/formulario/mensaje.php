@@ -219,14 +219,16 @@ class registrarForm {
 
                                     case "borro":
                                         $tipo = 'success';
-                                        $mensaje = "El el usuario <b>".$_REQUEST['id_usuario']." - ".$_REQUEST['nombres']." ".$_REQUEST['apellidos']."</b>, Se ha eliminado exitosamente.";
+                                        $mensaje = "El registro de <b>".$_REQUEST['dato']."</b>, Se ha borrado exitosamente.";
                                         $boton = "continuar";
+                                        $pestanna='#tab'.$_REQUEST['tipo'];
                                         break;  
                                     
-                                    case "noborro":
+                                    case "noBorro":
                                         $tipo = 'error';
-                                        $mensaje = "No fue posible Eliminar el usuario <b>".$_REQUEST['id_usuario']." - ".$_REQUEST['nombres']." ".$_REQUEST['apellidos']."</b>,  Por favor intente mas tarde.";
-                                        $boton = "regresar";
+                                        $mensaje = "No fue posible borrar el registro, Por favor intente mas tarde.";
+                                        $boton = "continuar";
+                                        $pestanna='#tab'.$_REQUEST['tipo'];
                                         break;                                    
                                     
                                     

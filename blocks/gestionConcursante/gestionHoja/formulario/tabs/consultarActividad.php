@@ -97,7 +97,7 @@ class consultarActividad {
                             $columnas = array('Pais','Ingreso','Terminación','Tipo Actividad','Nombre Actividad','Descripción','Institución','Tipo','Telefono','Correo','Director');
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
-                            array_push($columnas, 'Editar');	
+                            array_push($columnas, 'Editar', 'Borrar');	
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaActividad";
                                 $atributos["estilo"] = "jqueryui";
@@ -115,16 +115,25 @@ class consultarActividad {
                                 
                                 foreach($resultadoListaActividad as $key=>$value )
                                     {   $parametro['tipo']='unico';
-                                        $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableOpcion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableOpcion.= "&tiempo=" . time ();
+                                        $variableOpcion.= "&consecutivo_actividad=".$resultadoListaActividad[$key]['consecutivo_actividad'];
+                                        $variableOpcion.= "&consecutivo_persona=".$resultadoListaActividad[$key]['consecutivo_persona'];       
+                                        
+                                        $variableEditar = $variableOpcion;
                                         $variableEditar.= "&opcion=mostrar";
-                                        $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
-                                        $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_actividad=".$resultadoListaActividad[$key]['consecutivo_actividad'];
-                                        $variableEditar .= "&consecutivo_persona=".$resultadoListaActividad[$key]['consecutivo_persona'];       
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabActividad";
+                                        
+                                        $variableBorrar = $variableOpcion;
+                                        $variableBorrar.= "&opcion=borrar";
+                                        $variableBorrar.= "&tipo=Actividad";
+                                        $variableBorrar.= "&registro=".$resultadoListaActividad[$key]['nombre_actividad'];
+                                        $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
+                                        $variableBorrar.= "#tabActividad";                                              
+                                        
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaActividad[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoListaActividad[$key]['fecha_inicio']."</td>
@@ -245,6 +254,21 @@ class consultarActividad {
                                                     $atributos['ancho']='25';
                                                     $atributos['alto']='25';
                                                     $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);    
+                                        $mostrarHtml .= "</td>";
+                                        $mostrarHtml .= "<td>";
+                                                    //-------------Enlace-----------------------
+                                                    $esteCampo = "borrar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableBorrar;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='';
+                                                    $atributos['ancho']='25';
+                                                    $atributos['alto']='25';
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/trash.png";
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                         $mostrarHtml .= "</td>";

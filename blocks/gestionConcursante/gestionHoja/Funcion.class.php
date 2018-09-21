@@ -111,7 +111,10 @@ class Funcion {
                                     $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
                                     $this->guardarDatos();
                                 break;
-
+                            case "borrar":
+                                    $_REQUEST = $this->miInspectorHTML->limpiarSQL ( $_REQUEST );
+                                    $this->borrarRegistro();
+                                break;
                                                           
 
                         }
@@ -212,7 +215,10 @@ class Funcion {
 	{
 		include_once($this->ruta."/funcion/registrarUsuario.php");
 	}	
-	
+        function borrarRegistro()
+	{
+		include_once($this->ruta."/funcion/borrarRegistro.php");
+	}	
 		
 
 }

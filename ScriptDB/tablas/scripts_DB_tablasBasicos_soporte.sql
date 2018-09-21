@@ -38,7 +38,6 @@ CREATE TABLE concurso.persona
 (
   consecutivo serial NOT NULL,
   tipo_identificacion character varying(10) NOT NULL,
-  identificacion character varying(25) NOT NULL DEFAULT '0'::character varying,
   nombre character varying(50) NOT NULL DEFAULT ''::character varying,
   apellido character varying(50) NOT NULL DEFAULT ''::character varying,
   lugar_nacimiento numeric(10,0),
@@ -46,6 +45,11 @@ CREATE TABLE concurso.persona
   pais_nacimiento numeric(10,0),
   departamento_nacimiento numeric(10,0),
   sexo character varying(2),
+  identificacion character varying(25) NOT NULL DEFAULT 0,
+  fecha_identificacion date,
+  lugar_identificacion numeric(10,0),
+  pais_identificacion numeric(10,0),
+  autorizacion boolean,
   CONSTRAINT pk_persona PRIMARY KEY (consecutivo),
   CONSTRAINT fk_persona__relations_lugar FOREIGN KEY (lugar_nacimiento)
       REFERENCES general.ciudad (id_ciudad) MATCH SIMPLE
@@ -57,6 +61,7 @@ CREATE TABLE concurso.persona
 WITH (
   OIDS=FALSE
 );
+
 ALTER TABLE concurso.persona
   OWNER TO jano_admin;
 

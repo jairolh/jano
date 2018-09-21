@@ -101,7 +101,7 @@ class consultarProfesional {
                             $columnas = array('Pais','Ingreso','Terminación','Cargo','Actividades','Institución','Tipo','Telefono','Correo');
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
-                            array_push($columnas, 'Editar');
+                            array_push($columnas, 'Editar', 'Borrar');
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaProfesional";
                                 $atributos["estilo"] = "jqueryui";
@@ -119,17 +119,26 @@ class consultarProfesional {
                                 
                                 foreach($resultadoListaProfesional as $key=>$value )
                                     {   $parametro['tipo']='unico';
+                                        $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableOpcion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableOpcion.= "&tiempo=" . time ();
+                                        $variableOpcion.= "&consecutivo_experiencia=".$resultadoListaProfesional[$key]['consecutivo_experiencia'];
+                                        $variableOpcion.= "&consecutivo_persona=".$resultadoListaProfesional[$key]['consecutivo_persona'];       
                                         
-                                        $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableEditar = $variableOpcion;
                                         $variableEditar.= "&opcion=mostrar";
-                                        $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
-                                        $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_experiencia=".$resultadoListaProfesional[$key]['consecutivo_experiencia'];
-                                        $variableEditar .= "&consecutivo_persona=".$resultadoListaProfesional[$key]['consecutivo_persona'];       
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabProfesional";
+                                        
+                                        $variableBorrar = $variableOpcion;
+                                        $variableBorrar.= "&opcion=borrar";
+                                        $variableBorrar.= "&tipo=Profesional";
+                                        $variableBorrar.= "&registro=".$resultadoListaProfesional[$key]['cargo'];
+                                        $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
+                                        $variableBorrar.= "#tabProfesional";
+                                        
+                                        
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['pais']."</td>
@@ -255,6 +264,21 @@ class consultarProfesional {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                         $mostrarHtml .= "</td>";
+                                        $mostrarHtml .= "<td>";
+                                                    //-------------Enlace-----------------------
+                                                    $esteCampo = "borrar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableBorrar;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='';
+                                                    $atributos['ancho']='25';
+                                                    $atributos['alto']='25';
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/trash.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);    
+                                        $mostrarHtml .= "</td>";        
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;
                                        unset($mostrarHtml);

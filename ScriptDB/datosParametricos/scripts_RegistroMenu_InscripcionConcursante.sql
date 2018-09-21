@@ -98,6 +98,14 @@ VALUES ((SELECT DISTINCT id_subsistema FROM jano_subsistema where etiketa LIKE '
 (SELECT id_enlace FROM jano_enlace where etiqueta LIKE 'Concursos Inscritos'),
 'Servicio para consultar los concursos inscritos', 1);
 
+/******mensaje consentimiento ****/
+INSERT INTO public.jano_texto(
+            id, tipo, texto, estado)
+    VALUES ('DEFAULT', 'mensaje','<p style="text-align:justify">RESPETADO USUARIO</p><p  style="text-align:justify">La Universidad Distrital Francisco José de Caldas, informa que durante el proceso de ejecución de los concursos de Méritos, es necesario realizar tratamiento y publicación de información relacionada con el aspirante. 
+<br></br>
+Teniendo en cuenta lo anterior, autoriza de manera voluntaria, previa, explícita, informada e inequívoca a la Universidad Distrital Francisco José de Caldas, para realizar el tratamiento de los datos personales con fines institucionales, así como la divulgación de información pública por principio de transparencia y posterior contacto a través de medios telefónicos, electrónicos (SMS, chat, correo electrónico y demás medios considerados electrónicos) físicos y/o personales. De acuerdo a lo establecido mediante lo consagrado en la Ley 1581 de 2012 de protección de datos personales y la Ley 1712 de transparencia y del derecho de acceso a la información pública.
+.</p>','A');
+
 
 
 

@@ -321,7 +321,23 @@ $('#<?php echo $this->campoSeguro('fecha_nacimiento')?>').datepicker({
         yearRange: '-80:-18'
 
    });
+$('#<?php echo $this->campoSeguro('fecha_identificacion')?>').datepicker({
+        <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
+        dateFormat: 'yy-mm-dd',
 
+       <?php /*?> maxDate: 0,<?php */?>
+        changeYear: true,
+        changeMonth: true,
+        monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+            dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+        yearRange: '-90:+0'
+
+   });
+   
 $('#<?php echo $this->campoSeguro('fecha_grado')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
@@ -334,7 +350,7 @@ $('#<?php echo $this->campoSeguro('fecha_grado')?>').datepicker({
             dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
             dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-        yearRange: '-50:+0'
+        yearRange: '-60:+0'
    });
 
 $('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker({
@@ -349,7 +365,7 @@ $('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker({
             dayNames: ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
             dayNamesShort: ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
             dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
-        yearRange: '-50:+0',
+        yearRange: '-60:+0',
         <?php /*?>permite asirnara a otro campo como fecha minima */?>
         onSelect: function(dateText, inst) {
         var lockDate = new Date($('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker('getDate'));
@@ -517,6 +533,8 @@ $('#<?php echo $this->campoSeguro('ciudad')?>').width(210);
 $("#<?php echo $this->campoSeguro('ciudad')?>").select2(); 
 $('#<?php echo $this->campoSeguro('sexo')?>').width(210);
 $("#<?php echo $this->campoSeguro('sexo')?>").select2(); 
+$('#<?php echo $this->campoSeguro('lugar_identificacion')?>').width(210);
+$("#<?php echo $this->campoSeguro('lugar_identificacion')?>").select2(); 
 
 $('#<?php echo $this->campoSeguro('pais_residencia')?>').width(210);
 $("#<?php echo $this->campoSeguro('pais_residencia')?>").select2(); 

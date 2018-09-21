@@ -54,7 +54,9 @@ class Frontera {
 				case "mostrar":
 					include_once($this->ruta."formulario/registroDatos.php");
 					break;
-                                    
+                                case "borrar":
+					include_once($this->ruta."formulario/borrar.php");
+					break;                                        
                                 
         		}
 		} else {

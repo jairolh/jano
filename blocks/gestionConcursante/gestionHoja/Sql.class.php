@@ -33,6 +33,11 @@ class Sql extends \Sql {
                         case "idioma":
 				$cadenaSql = "SET lc_time_names = 'es_ES' ";
 			break;
+			case "consultaMensaje":
+                                $cadenaSql = "Select id, tipo, texto, estado FROM jano_texto ";
+                                $cadenaSql .= "WHERE tipo='autorizacionHV' ";
+                                $cadenaSql .= "AND estado='A' ";
+                            break;                    
 			case 'buscarPais' :
 				$cadenaSql = 'SELECT ';
 				$cadenaSql .= 'id_pais as ID_PAIS, ';
@@ -151,7 +156,10 @@ class Sql extends \Sql {
                                 $cadenaSql.=" bas.fecha_nacimiento, ";
                                 $cadenaSql.=" bas.pais_nacimiento, ";
                                 $cadenaSql.=" bas.departamento_nacimiento, ";
-                                $cadenaSql.=" bas.sexo ";
+                                $cadenaSql.=" bas.sexo,";
+                                $cadenaSql.=" bas.lugar_identificacion, ";
+                                $cadenaSql.=" bas.fecha_identificacion, ";
+                                $cadenaSql.=" bas.autorizacion ";
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario us ";
                                 $cadenaSql.=" ON trim(us.tipo_identificacion)=trim(bas.tipo_identificacion) ";
@@ -162,7 +170,8 @@ class Sql extends \Sql {
                                 $cadenaSql=" SELECT DISTINCT ";
                                 $cadenaSql.=" bas.identificacion, ";
                                 $cadenaSql.=" bas.nombre, ";
-                                $cadenaSql.=" bas.apellido,";
+                                $cadenaSql.=" bas.apellido, ";
+                                $cadenaSql.=" bas.autorizacion,";
                                 $cadenaSql.=" (CASE WHEN cont.consecutivo_contacto IS NULL THEN 0 ELSE cont.consecutivo_contacto END ) consecutivo_contacto, ";
                                 $cadenaSql.=" bas.consecutivo consecutivo_persona, ";
                                 $cadenaSql.=" cont.pais_residencia, ";
@@ -786,11 +795,22 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_nacimiento='".$variable['fecha_nacimiento']."', ";
                                 $cadenaSql.=" pais_nacimiento='".$variable['pais_nacimiento']."', ";
                                 $cadenaSql.=" departamento_nacimiento='".$variable['departamento_nacimiento']."', ";
-                                $cadenaSql.=" sexo='".$variable['sexo']."' ";
+                                $cadenaSql.=" sexo='".$variable['sexo']."', ";
+                                $cadenaSql.=" lugar_identificacion='".$variable['lugar_identificacion']."', ";
+                                $cadenaSql.=" fecha_identificacion='".$variable['fecha_identificacion']."', ";
+                                $cadenaSql.=" autorizacion='TRUE' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo='".$variable['consecutivo']."' ";
                                 $cadenaSql.=  " RETURNING consecutivo ";
                             break;  
+                        case "actualizarDatosUsuario":
+                            
+				$cadenaSql = "UPDATE ".$prefijo."usuario SET ";
+                                $cadenaSql .= " nombre = '".$variable['nombre']."', ";
+                                $cadenaSql .= " apellido = '".$variable['apellido']."'  ";
+                                $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
+			break;                        
                         case "actualizarContacto":
                                 $cadenaSql=" UPDATE concurso.contacto";
                                 $cadenaSql.=" SET ";
@@ -805,7 +825,16 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_contacto='".$variable['consecutivo_contacto']."' ";
                                 $cadenaSql.=  " RETURNING consecutivo_contacto ";
-                            break;                      
+                            break;              
+                        case "actualizarContactoUsuario":
+                            
+				$cadenaSql = "UPDATE ".$prefijo."usuario SET ";
+                                $cadenaSql .= " correo = '".$variable['correo']."', ";
+                                $cadenaSql .= " telefono = '".$variable['telefono']."' ";
+                                $cadenaSql .= " WHERE id_usuario = '".$variable['id_usuario']."' ";
+                                $cadenaSql.=" RETURNING id_usuario";
+			break;                        
+                        
                         case "actualizarFormacion":
                                 $cadenaSql=" UPDATE concurso.formacion";
                                 $cadenaSql.=" SET ";
@@ -958,7 +987,46 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";
                                 $cadenaSql.=  " RETURNING consecutivo_conocimiento ";
-                            break;                                  
+                            break;            
+
+                        case "borrarFormacion":
+				$cadenaSql = "DELETE FROM concurso.formacion ";
+                                $cadenaSql.= " WHERE consecutivo_formacion = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarProfesional":
+				$cadenaSql = "DELETE FROM concurso.experiencia_laboral ";
+                                $cadenaSql.= " WHERE consecutivo_experiencia = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarDocencia":
+				$cadenaSql = "DELETE FROM concurso.experiencia_docencia ";
+                                $cadenaSql.= " WHERE consecutivo_docencia = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarActividad":
+				$cadenaSql = "DELETE FROM concurso.actividad_academica ";
+                                $cadenaSql.= " WHERE consecutivo_actividad = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarInvestigacion":
+				$cadenaSql = "DELETE FROM concurso.experiencia_investigacion ";
+                                $cadenaSql.= " WHERE consecutivo_investigacion = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarProduccion":
+				$cadenaSql = "DELETE FROM concurso.produccion_academica ";
+                                $cadenaSql.= " WHERE consecutivo_produccion = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+                        case "borrarIdiomas":
+				$cadenaSql = "DELETE FROM concurso.conocimiento_idioma ";
+                                $cadenaSql.= " WHERE consecutivo_conocimiento = '".$variable['consecutivo']."' ";
+                                $cadenaSql.= " AND consecutivo_persona = '".$variable['persona']."' ";
+                            break;                        
+
+                        
+                        
                     /*viejas consultas para revisar*/
                         case "consultarLogUsuario":
 				$cadenaSql = "SELECT DISTINCT id_usuario ";

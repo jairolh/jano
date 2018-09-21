@@ -35,7 +35,7 @@ $this->idioma ["botonContinuar"] ="Continuar";
 $this->idioma ["botonConsultar"] ="Consultar";
 $this->idioma ["botonRegresar"] =" Regresar ";
 
-$this->idioma["borrar"]="Eliminar Usuario";
+$this->idioma["borrar"]="Borrar Registro";
 
 $this->idioma["cuadroIdentificacion"]="Identificación "; 
 $this->idioma["cuadroNacimiento"]="Lugar y Fecha de Nacimiento"; 
@@ -60,6 +60,10 @@ $this->idioma["departamentoTitulo"]="Seleccione el departamento";
 $this->idioma["departamento"]="Departamento: ";
 $this->idioma["ciudadTitulo"]="Seleccione la Ciudad de Nacimiento";
 $this->idioma["ciudad"]="Ciudad: ";
+$this->idioma["fecha_identificacionTitulo"]="Ingrese la Fecha de expedición del documento de identificación";
+$this->idioma["fecha_identificacion"]="Fecha Expedición: ";
+$this->idioma["lugar_identificacionTitulo"]="Seleccione la Ciudad de Nacimiento";
+$this->idioma["lugar_identificacion"]="Lugar Expedición: ";
 
 $this->idioma["pais_residenciaTitulo"]="Seleccione el país de Residencia";
 $this->idioma["pais_residencia"]="País: ";
@@ -169,6 +173,7 @@ $this->idioma["soporteDocenciaTitulo"]="Adjuntar Documento en Formato PDF menor 
 $this->idioma["soporteDocencia"]="Soporte Certificación Docencia: "; 
 $this->idioma["soportehoras_catedra"]="Indique la cantidad de horas dictadas";
 $this->idioma["horas_catedra"]="Horas dictadas: "; 
+$this->idioma["horas_catedraTitulo"]="Indique la cantidad de horas Semanales dictadas";
 
 $this->idioma["nuevoActividad"]="Registrar Actividad Académica";
 $this->idioma["nivel_actividadTitulo"]="Selecciona el tipo de Experiencia Docente Universitaria";
@@ -320,5 +325,7 @@ $this->idioma["botonActualizar"]="Actualizar";
 //------------------Mensajes -----------------------------------
 $this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
+
+$this->idioma["autorizacion"]="Debe completar los datos básicos para poder continuar.";
 
 ?>

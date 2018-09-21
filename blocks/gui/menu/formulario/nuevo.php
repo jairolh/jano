@@ -113,7 +113,7 @@ $enlaceFinSesion ['nombre'] = "Cerrar Sesión";
 <nav id="cbp-hrmenu" class="cbp-hrmenu">
     <ul>
 
-        <?php
+        <?php $id=0;
         if (isset($mMenu)) {
             // cada foreach arma encabezado del menu, grupo y servicio en su orden.
             foreach ($mMenu as $mkey => $menus) {
@@ -128,7 +128,7 @@ $enlaceFinSesion ['nombre'] = "Cerrar Sesión";
                                         <?php
                                         foreach ($grupos as $skey => $service) {
                                             ?>
-                                            <li><a
+                                            <li><a id="<?php echo "Item_".$id++; ?>"
                                                     href="<?php echo $grupos[$skey]['urlCodificada'] ?>"><?php echo $skey ?></a></li>
                                             <?php } ?>                                 
                                     </ul>

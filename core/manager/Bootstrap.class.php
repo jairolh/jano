@@ -190,7 +190,7 @@ class Bootstrap {
              * Campos que se quieren excluir de la limpieza de código. Formato: nombreCampo1|nombreCampo2|nombreCampo3
              */
             
-            $excluir = 'token';
+            $excluir = 'token|raiz|ruta';
             $_REQUEST = $this->miInspectorHtml->limpiarPHPHTML ( $_REQUEST,$excluir );           
             //Evitar que se ingrese código malicioso SQL
             

@@ -57,7 +57,10 @@ class RegistradorContactos {
         }
         
         if($resultadoContacto)
-            {   redireccion::redireccionar('actualizoContacto',$arregloDatos);  exit();
+            {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarContactoUsuario',$arregloDatos );
+               $resultadoUs = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarContactoUsuario" );
+            
+             redireccion::redireccionar('actualizoContacto',$arregloDatos);  exit();
             }else
             {
                 redireccion::redireccionar('noActualizo',$arregloDatos);  exit();

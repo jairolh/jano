@@ -96,7 +96,7 @@ class consultarIdioma {
                             $columnas = array('Idioma','Certificación','Institución certifica');
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
-                            array_push($columnas, 'Editar');	
+                            array_push($columnas, 'Editar', 'Borrar');	
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaIdioma";
                                 $atributos["estilo"] = "jqueryui";
@@ -113,16 +113,25 @@ class consultarIdioma {
                                     <tbody>";
                                 foreach($resultadoListaIdioma as $key=>$value )
                                     {   
-                                        $variableEditar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
+                                        $variableOpcion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableOpcion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                        $variableOpcion.= "&tiempo=" . time ();
+                                        $variableOpcion.= "&consecutivo_conocimiento=".$resultadoListaIdioma[$key]['consecutivo_conocimiento'];
+                                        $variableOpcion.= "&consecutivo_persona=".$resultadoListaIdioma[$key]['consecutivo_persona'];       
+                                        
+                                        $variableEditar = $variableOpcion;
                                         $variableEditar.= "&opcion=mostrar";
-                                        $variableEditar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                        $variableEditar.= "&id_usuario=" .$_REQUEST['usuario'];
-                                        $variableEditar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                        $variableEditar.= "&tiempo=" . time ();
-                                        $variableEditar .= "&consecutivo_conocimiento=".$resultadoListaIdioma[$key]['consecutivo_conocimiento'];
-                                        $variableEditar .= "&consecutivo_persona=".$resultadoListaIdioma[$key]['consecutivo_persona'];       
                                         $variableEditar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEditar, $directorio);
                                         $variableEditar.= "#tabIdiomas";
+                                        
+                                        $variableBorrar = $variableOpcion;
+                                        $variableBorrar.= "&opcion=borrar";
+                                        $variableBorrar.= "&tipo=Idiomas";
+                                        $variableBorrar.= "&registro=".$resultadoListaIdioma[$key]['idioma'];
+                                        $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
+                                        $variableBorrar.= "#tabIdiomas";     
+                                        
                                         
                                         /*$mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['idioma']."</td>
@@ -246,6 +255,21 @@ class consultarIdioma {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);    
                                        $mostrarHtml .= "</td>";
+                                        $mostrarHtml .= "<td>";
+                                                    //-------------Enlace-----------------------
+                                                    $esteCampo = "borrar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableBorrar;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='';
+                                                    $atributos['ancho']='25';
+                                                    $atributos['alto']='25';
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/trash.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);    
+                                        $mostrarHtml .= "</td>";
                                        $mostrarHtml .= "</tr>";
                                        echo $mostrarHtml;
                                        unset($mostrarHtml);

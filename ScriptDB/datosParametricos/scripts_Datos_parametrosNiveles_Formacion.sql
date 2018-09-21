@@ -6,6 +6,8 @@ VALUES (1, 'Presencial', 'A'),
 /************* NIVELES HOJA DE VIDA   *************/
 
 INSERT INTO general.nivel(codigo_nivel, nombre, tipo_nivel, descripcion, estado)
+VALUES ('0','Sin Dato','Todos','nivel sin dato','A');
+INSERT INTO general.nivel(codigo_nivel, nombre, tipo_nivel, descripcion, estado)
 VALUES ((SELECT (max(codigo_nivel)+1) cod from general.nivel),'Primaria', 'Formacion', 'Educación Basica Primaria','A');
 INSERT INTO general.nivel(codigo_nivel, nombre, tipo_nivel, descripcion, estado)
 VALUES ((SELECT (max(codigo_nivel)+1) cod from general.nivel),'Media Vocacional', 'Formacion', 'Educación Basica Secundaria','A');

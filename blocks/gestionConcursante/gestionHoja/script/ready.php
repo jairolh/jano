@@ -535,6 +535,8 @@ $('#<?php echo $this->campoSeguro('sexo')?>').width(210);
 $("#<?php echo $this->campoSeguro('sexo')?>").select2(); 
 $('#<?php echo $this->campoSeguro('lugar_identificacion')?>').width(210);
 $("#<?php echo $this->campoSeguro('lugar_identificacion')?>").select2(); 
+$('#<?php echo $this->campoSeguro('codigo_idioma_nativo')?>').width(210);
+$("#<?php echo $this->campoSeguro('codigo_idioma_nativo')?>").select2();
 
 $('#<?php echo $this->campoSeguro('pais_residencia')?>').width(210);
 $("#<?php echo $this->campoSeguro('pais_residencia')?>").select2(); 

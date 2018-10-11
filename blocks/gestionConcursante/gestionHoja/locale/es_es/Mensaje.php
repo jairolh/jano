@@ -39,6 +39,9 @@ $this->idioma["borrar"]="Borrar Registro";
 
 $this->idioma["cuadroIdentificacion"]="Identificación "; 
 $this->idioma["cuadroNacimiento"]="Lugar y Fecha de Nacimiento"; 
+$this->idioma["cuadroSoportesBasicos"]="Archivos de Soporte"; 
+
+
 $this->idioma["fotoTitulo"]="Adjuntar Documento en Formato JPG,JPEG o PGN menor a 1 Mb";
 $this->idioma["foto"]="Fotografía : "; 
 $this->idioma["identificacionTitulo"]="Digite el número de identificación del usuario";
@@ -64,6 +67,8 @@ $this->idioma["fecha_identificacionTitulo"]="Ingrese la Fecha de expedición del
 $this->idioma["fecha_identificacion"]="Fecha Expedición: ";
 $this->idioma["lugar_identificacionTitulo"]="Seleccione la Ciudad de Nacimiento";
 $this->idioma["lugar_identificacion"]="Lugar Expedición: ";
+$this->idioma["codigo_idioma_nativo"]="Idioma Nativo: ";
+$this->idioma["codigo_idioma_nativoTitulo"]="Seleccione idioma Nativo";
 
 $this->idioma["pais_residenciaTitulo"]="Seleccione el país de Residencia";
 $this->idioma["pais_residencia"]="País: ";

@@ -45,6 +45,7 @@ class RegistradorBasicos {
                               'sexo'=>$_REQUEST['sexo'],
                               'fecha_identificacion'=>$_REQUEST['fecha_identificacion'],
                               'lugar_identificacion'=>$_REQUEST['lugar_identificacion'],
+                              'codigo_idioma_nativo'=>$_REQUEST['codigo_idioma_nativo'],
                               'autorizacion'=>$_REQUEST['autorizacion'],
             );
         

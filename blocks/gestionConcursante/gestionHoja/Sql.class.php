@@ -159,6 +159,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" bas.sexo,";
                                 $cadenaSql.=" bas.lugar_identificacion, ";
                                 $cadenaSql.=" bas.fecha_identificacion, ";
+                                $cadenaSql.=" bas.codigo_idioma_nativo , ";
                                 $cadenaSql.=" bas.autorizacion ";
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario us ";
@@ -798,6 +799,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" sexo='".$variable['sexo']."', ";
                                 $cadenaSql.=" lugar_identificacion='".$variable['lugar_identificacion']."', ";
                                 $cadenaSql.=" fecha_identificacion='".$variable['fecha_identificacion']."', ";
+                                $cadenaSql.=" codigo_idioma_nativo='".$variable['codigo_idioma_nativo']."', ";
                                 $cadenaSql.=" autorizacion='TRUE' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo='".$variable['consecutivo']."' ";

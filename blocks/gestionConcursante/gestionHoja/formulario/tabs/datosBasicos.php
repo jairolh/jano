@@ -102,15 +102,16 @@ class registrarForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-                                        $atributos ["id"] = "cuadro_identificacion";
+			{    
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                                        $atributos ["id"] = "cuadroSoportesBasicos";
                                         $atributos ["estiloEnLinea"] = "display:block";
                                         $atributos = array_merge ( $atributos, $atributosGlobales );
                                         echo $this->miFormulario->division ( "inicio", $atributos );
                                         unset ( $atributos );
                                         { 
                                                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                $esteCampo = "cuadroIdentificacion";
+                                                $esteCampo = "cuadroSoportesBasicos";
                                                 $atributos ['id'] = $esteCampo;
                                                 $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
                                                 $atributos ['estilo'] = 'jqueryui';
@@ -147,7 +148,11 @@ class registrarForm {
                                                                 $atributos ['marco'] = true;
                                                                 $atributos ['dobleLinea'] = false;
                                                                 $atributos ['tabIndex'] = $tab;
-                                                                $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias'].": </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                                $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                                    
                                                                 if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
                                                                     {  $atributos ['etiquetaObligatorio'] = true;
                                                                     }
@@ -166,12 +171,12 @@ class registrarForm {
                                                                 if (isset ( $_REQUEST [$esteCampo] )) 
                                                                      { $atributos ['valor'] = $_REQUEST [$esteCampo];}
                                                                 else {  $atributos ['valor'] = '';}
-                                                                //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                                 $atributos ['deshabilitado'] = FALSE;
                                                                 $atributos ['anchoCaja'] = 60;
                                                                 $atributos ['maximoTamanno'] = '';
                                                                 $atributos ['anchoEtiqueta'] = 200;
                                                                 $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                                                                                
                                                                 echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
                                                               if(isset($resultadoSoporte[0]['archivo']))
@@ -262,7 +267,31 @@ class registrarForm {
                                                     // --------------- FIN CONTROL : Cuadro de Soporte foraech--------------------------------------------------
                                                     } 
                                                // --------------- FIN CONTROLES  : CARGA SOPORTES --------------------------------------------------
-                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                        
+                                
+                                            }
+                                            echo $this->miFormulario->agrupacion ( 'fin' );
+                                            unset ( $atributos );
+				}
+				echo $this->miFormulario->division ( "fin" );
+				unset ( $atributos );
+				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+                                // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+				$atributos ["id"] = "cuadroIdentificacion";
+				$atributos ["estiloEnLinea"] = "display:block";
+				$atributos = array_merge ( $atributos, $atributosGlobales );
+				echo $this->miFormulario->division ( "inicio", $atributos );
+				unset ( $atributos );
+				{
+					
+					$esteCampo = "cuadroIdentificacion";
+					$atributos ['id'] = $esteCampo;
+					$atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                                        $atributos ['estilo'] = 'jqueryui';
+					echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+					{                                            
+                                                    
+                                        // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                             $esteCampo = 'nombres';
                                             $atributos ['id'] = $esteCampo;
                                             $atributos ['nombre'] = $esteCampo;
@@ -613,6 +642,35 @@ class registrarForm {
                                                 echo $this->miFormulario->campoCuadroLista ( $atributos );
                                                 unset ( $atributos );
                                                 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                                // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                                $esteCampo = 'codigo_idioma_nativo';
+                                                $atributos ['nombre'] = $esteCampo;
+                                                $atributos ['id'] = $esteCampo;
+                                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                                $atributos ["etiquetaObligatorio"] = true;
+                                                $atributos ['tab'] = $tab ++;
+                                                $atributos ['anchoEtiqueta'] = 170;
+                                                $atributos ['evento'] = ' ';
+                                                if (isset ( $resultadoUsuarios[0]['codigo_idioma_nativo'] ))
+                                                     {  $atributos ['seleccion'] = $resultadoUsuarios[0]['codigo_idioma_nativo'];}
+                                                else {  $atributos ['seleccion'] = -1;}
+                                                $atributos ['deshabilitado'] = false;
+                                                $atributos ['columnas'] = 1;
+                                                $atributos ['tamanno'] = 1;
+                                                $atributos ['estilo'] = "jqueryui";
+                                                $atributos ['validar'] = "required";
+                                                $atributos ['limitar'] = true;
+                                                $atributos ['anchoCaja'] = 60;
+                                                $atributos ['evento'] = '';
+                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarIdioma" );
+                                                $matrizItems = array (array (0,' '));
+                                                $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                                $atributos ['matrizItems'] = $matrizItems;
+                                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                                unset ( $atributos );
+                                                // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                                
 					}
 					
 					echo $this->miFormulario->agrupacion ( 'fin' );

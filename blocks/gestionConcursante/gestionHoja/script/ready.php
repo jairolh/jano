@@ -557,6 +557,9 @@ $('#<?php echo $this->campoSeguro('consecutivo_programa')?>').width(450);
 $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").select2(); 
 $('#<?php echo $this->campoSeguro('graduado')?>').width(450);
 $("#<?php echo $this->campoSeguro('graduado')?>").select2(); 
+$('#<?php echo $this->campoSeguro('cursos_temporalidad')?>').width(210);
+$("#<?php echo $this->campoSeguro('cursos_temporalidad')?>").select2(); 
+
 
 $('#<?php echo $this->campoSeguro('pais_experiencia')?>').width(210);
 $("#<?php echo $this->campoSeguro('pais_experiencia')?>").select2(); 

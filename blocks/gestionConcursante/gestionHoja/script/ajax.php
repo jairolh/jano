@@ -176,7 +176,7 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('nombre_institucion')?>").addClass("validate[required]");
 
                     $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").html('');
-                    //$("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_programa')?>");  
+                    $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_programa')?>");  
                     $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").select2();
                     $("#<?php echo $this->campoSeguro('nombre_programa')?>").val('');
                     $("#<?php echo $this->campoSeguro('nombre_programa')?>").hide().slideDown("slow");
@@ -709,7 +709,7 @@ function consultarProgramaAcad(elem, request, response){
             success: function(data){ 
                 if(data[0]!=" "){
                     $("#<?php echo $this->campoSeguro('consecutivo_programa')?>").html('');
-                    $("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_programa')?>");
+                    //$("<option value='0'>OTRO </option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_programa')?>");
                     $.each(data , function(indice,valor){
                            $("<option value='"+data[ indice ].consecutivo_programa+"'>"+data[ indice ].nombre+"</option>").appendTo("#<?php echo $this->campoSeguro('consecutivo_programa')?>");
                         });

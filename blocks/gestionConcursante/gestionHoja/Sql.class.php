@@ -205,6 +205,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" form.codigo_programa, ";
                                 $cadenaSql.=" form.nombre_programa, ";
                                 $cadenaSql.=" form.cursos_aprobados, ";
+                                $cadenaSql.=" form.cursos_temporalidad, ";
+                                $cadenaSql.=" per.nombre periodicidad, ";
                                 $cadenaSql.=" form.graduado, ";
                                 $cadenaSql.=" form.fecha_grado, ";
                                 $cadenaSql.=" form.promedio ";
@@ -212,7 +214,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
                                 $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
                                 $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
-                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel AND nv.tipo_nivel='Formacion' ";
+                                $cadenaSql.=" LEFT OUTER JOIN general.nivel per ON per.codigo_nivel=form.cursos_temporalidad AND per.tipo_nivel='Temporalidad' ";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
                                 $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
                                 if(isset($variable['consecutivo_formacion']) && $variable['consecutivo_formacion']!='')
@@ -528,6 +531,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" codigo_programa, ";
                                 $cadenaSql.=" nombre_programa, ";
                                 $cadenaSql.=" cursos_aprobados, ";
+                                $cadenaSql.=" cursos_temporalidad,";
                                 $cadenaSql.=" graduado,";
                                 $cadenaSql.=" fecha_grado,";
                                 $cadenaSql.=" promedio)";
@@ -546,6 +550,7 @@ class Sql extends \Sql {
                                     { $cadenaSql.=" '".$variable['nombre_programa']."',";}
                                 else {$cadenaSql.="(SELECT prog.nombre FROM general.programa_ies prog WHERE prog.consecutivo_programa='".$variable['codigo_programa']."'),";}    
                                 $cadenaSql.=" '".$variable['cursos_aprobados']."',";
+                                $cadenaSql.=" '".$variable['cursos_temporalidad']."',";
                                 $cadenaSql.=" '".$variable['graduado']."',";
                                 $cadenaSql.=" '".$variable['fecha_grado']."',";
                                 $cadenaSql.=" '".$variable['promedio']."'";
@@ -844,10 +849,17 @@ class Sql extends \Sql {
                                 $cadenaSql.=" codigo_nivel='".$variable['codigo_nivel']."',";
                                 $cadenaSql.=" pais_formacion='".$variable['pais_formacion']."',";
                                 $cadenaSql.=" codigo_institucion='".$variable['codigo_institucion']."',";
-                                $cadenaSql.=" nombre_institucion='".$variable['nombre_institucion']."',";
+                                
+                                if(isset($variable['codigo_institucion']) && $variable['codigo_institucion']==0)
+                                     {$cadenaSql.=" nombre_institucion='".$variable['nombre_institucion']."',";}
+                                else {$cadenaSql.="nombre_institucion=(SELECT inst.nombre inst FROM general.institucion_educacion inst WHERE inst.codigo_ies='".$variable['codigo_institucion']."'),";}    
                                 $cadenaSql.=" codigo_programa='".$variable['codigo_programa']."',";
-                                $cadenaSql.=" nombre_programa='".$variable['nombre_programa']."',";
+                                if(isset($variable['codigo_programa']) && $variable['codigo_programa']==0)
+                                    { $cadenaSql.="nombre_programa='".$variable['nombre_programa']."',";}
+                                else {$cadenaSql.="nombre_programa=(SELECT prog.nombre FROM general.programa_ies prog WHERE prog.consecutivo_programa='".$variable['codigo_programa']."'),";}   
+                                
                                 $cadenaSql.=" cursos_aprobados='".$variable['cursos_aprobados']."',";
+                                $cadenaSql.=" cursos_temporalidad='".$variable['cursos_temporalidad']."',";
                                 $cadenaSql.=" graduado='".$variable['graduado']."',";
                                 $cadenaSql.=" fecha_grado='".$variable['fecha_grado']."',";
                                 $cadenaSql.=" promedio='".$variable['promedio']."'";

@@ -44,6 +44,7 @@ class RegistradorFormacion {
                               'codigo_programa'=>isset($_REQUEST['consecutivo_programa'])?$_REQUEST['consecutivo_programa']:0,
                               'nombre_programa'=>$_REQUEST['nombre_programa'],
                               'cursos_aprobados'=>$_REQUEST['cursos_aprobados'],
+                              'cursos_temporalidad'=>$_REQUEST['cursos_temporalidad'],
                               'graduado'=>$_REQUEST['graduado'],
                               'fecha_grado'=>$_REQUEST['fecha_grado'],
                               'promedio'=>$_REQUEST['promedio'],
@@ -57,7 +58,7 @@ class RegistradorFormacion {
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizarFormacion',$arregloDatos );
                 $resultadoFormacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarFormacion" );
-        }
+             }
         
         
         if($resultadoFormacion)

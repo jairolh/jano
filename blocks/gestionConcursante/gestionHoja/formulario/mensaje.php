@@ -246,6 +246,7 @@ class registrarForm {
                                     
                                     }
                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                            //$tipo = 'warning';        
                             $esteCampo = 'mensaje';
                             $atributos ['id'] = $esteCampo;
                             $atributos ['tipo'] = $tipo;

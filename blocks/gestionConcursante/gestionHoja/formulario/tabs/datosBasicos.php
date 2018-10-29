@@ -150,7 +150,7 @@ class registrarForm {
                                                                 $atributos ['tabIndex'] = $tab;
                                                                 $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                                 $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias'].": </p>";// $this->lenguaje->getCadena ( $esteCampo );
-                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
                                                                 $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                                                     
                                                                 if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
@@ -306,7 +306,8 @@ class registrarForm {
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                             $atributos ['validar']="required, minSize[5]";
                                             $atributos ['valor'] = $resultadoUsuarios[0]['nombre'];
-                                            $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            //tooltip - $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                             $atributos ['deshabilitado'] = false;
                                             $atributos ['tamanno'] = 60;
                                             $atributos ['maximoTamanno'] = '';
@@ -332,7 +333,8 @@ class registrarForm {
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                             $atributos ['validar']="required, minSize[5]";
                                             $atributos ['valor'] =  $resultadoUsuarios[0]['apellido'];
-                                            $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            //tooltip -     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                             $atributos ['deshabilitado'] = false;
                                             $atributos ['tamanno'] = 60;
                                             $atributos ['maximoTamanno'] = '';
@@ -423,9 +425,9 @@ class registrarForm {
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                             $atributos ['validar']="required, minSize[5], custom[integer]";
                                             $atributos ['valor'] = $resultadoUsuarios[0]['identificacion'];
-                                            $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                            //$atributos ['deshabilitado'] = true;
-                                            $atributos ['deshabilitado'] = 'readonly';
+                                            $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            //tooltip - $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                            $atributos ['deshabilitado'] = 'readonly';  //true;
                                             $atributos ['tamanno'] = 20;
                                             $atributos ['anchoCaja'] = 60;
                                             $atributos ['maximoTamanno'] = '';
@@ -452,7 +454,8 @@ class registrarForm {
                                                 $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                                 $atributos ['validar']="required";
                                                 $atributos ['valor'] =  $resultadoUsuarios[0]['fecha_identificacion'];
-                                                //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                //tooltip - $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                 $atributos ['deshabilitado'] = true;
                                                 $atributos ['tamanno'] = 60;
                                                 $atributos ['maximoTamanno'] = '';
@@ -535,7 +538,8 @@ class registrarForm {
                                                 $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                                 $atributos ['validar']="required";
                                                 $atributos ['valor'] =  $resultadoUsuarios[0]['fecha_nacimiento'];
-                                                //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                //tooltip - $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                 $atributos ['deshabilitado'] = true;
                                                 $atributos ['tamanno'] = 60;
                                                 $atributos ['maximoTamanno'] = '';

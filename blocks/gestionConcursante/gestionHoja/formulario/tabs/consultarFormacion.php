@@ -70,7 +70,7 @@ class consultarFormacion {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -97,8 +97,18 @@ class consultarFormacion {
                       </table></div> ";
 
                     if($resultadoFormacion)
-                        {	
-                            $columnas = array('Pais','Institucion','Nivel Formacion','Programa','Modalidad','Cursos aprobados','Promedio','Graduado','Fecha de grado' );
+                        {   $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion"),
+                                                $this->lenguaje->getCadena ("nivel_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_programa"),
+                                                $this->lenguaje->getCadena ("modalidad"),
+                                                $this->lenguaje->getCadena ("cursos_aprobados"),
+                                                $this->lenguaje->getCadena ("cursos_temporalidad"),
+                                                $this->lenguaje->getCadena ("promedio"),
+                                                $this->lenguaje->getCadena ("graduado"),
+                                                $this->lenguaje->getCadena ("fecha_grado"));
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');
@@ -145,6 +155,7 @@ class consultarFormacion {
                                                 <td align='left'>".$resultadoFormacion[$key]['nombre_programa']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['modalidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['cursos_aprobados']."</td>
+                                                <td align='left'>".$resultadoFormacion[$key]['periodicidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['promedio']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['graduado']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['fecha_grado']."</td>";
@@ -310,6 +321,9 @@ class consultarFormacion {
                 }
             echo $this->miFormulario->marcoAgrupacion ( 'fin');
             unset ( $atributos );
+            flush(); //con esta funcion hago que se muestre el resultado de inmediato y no espere a terminar todo el bucle
+            ob_flush();
+            $_REQUEST['pestanna']++;
     }
 }
 

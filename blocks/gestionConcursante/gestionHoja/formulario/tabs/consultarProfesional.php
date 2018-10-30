@@ -70,7 +70,7 @@ class consultarProfesional {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -98,7 +98,20 @@ class consultarProfesional {
 
                     if($resultadoListaProfesional)
                         {
-                            $columnas = array('Pais','Ingreso','Terminación','Cargo','Actividades','Institución','Tipo','Telefono','Correo');
+                            //$columnas = array('Pais','Ingreso','Terminación','Cargo','Actividades','Institución','Tipo','Telefono','Correo');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_experiencia"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("cargo"),
+                                                $this->lenguaje->getCadena ("descripcion_cargo"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_experiencia"),
+                                                $this->lenguaje->getCadena ("nivel_institucion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion"),
+                                                $this->lenguaje->getCadena ("correo_institucion"));
+                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');
@@ -138,15 +151,21 @@ class consultarProfesional {
                                         $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
                                         $variableBorrar.= "#tabProfesional";
                                         
-                                        
-                                        
+                                        //calcula el tiempo de experiencia
+                                        $date1 = new DateTime($resultadoListaProfesional[$key]['fecha_inicio']);
+                                        if($resultadoListaProfesional[$key]['fecha_fin']!='')
+                                             {$date2 = new DateTime($resultadoListaProfesional[$key]['fecha_fin']);}   
+                                        else {$date2 = new DateTime("now");}
+                                        $diff[$key] = $date1->diff($date2);
+
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['fecha_inicio']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diff[$key]->days."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['cargo']."</td>
-                                                <td align='left'>".$resultadoListaProfesional[$key]['descripcion_cargo']."</td>                                                    
-                                                <td align='left'>".$resultadoListaProfesional[$key]['nombre_institucion']."</td>
+                                                <td align='left' width='20%'>".$resultadoListaProfesional[$key]['descripcion_cargo']."</td>                                                    
+                                                <td align='left' width='10%' >".$resultadoListaProfesional[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['telefono_institucion']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['correo_institucion']."</td>";

@@ -222,7 +222,15 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeAttr('disabled');
                   $("#<?php echo $this->campoSeguro('fecha_fin')?>").hide().slideDown("slow");
                  }
-          });      
+          });     
+          
+    if($("#<?php echo $this->campoSeguro('cargo_actual')?>").val()=='S'){
+                $("#<?php echo $this->campoSeguro('fecha_fin')?>").val('');
+                $("#<?php echo $this->campoSeguro('fecha_fin')?>").removeClass("validate[required]");
+                $("#<?php echo $this->campoSeguro('fecha_fin')?>").attr('disabled','');
+                $("#<?php echo $this->campoSeguro('fecha_fin')?>").hide();
+
+           }     
 // Controles experiencia Docente
 
     $("#<?php echo $this->campoSeguro('pais_docencia')?>").change(function(){

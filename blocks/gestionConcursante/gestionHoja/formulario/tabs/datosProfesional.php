@@ -109,13 +109,7 @@ class profesionalForm {
                             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
                             unset ( $atributos );
                             {	      
-                               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-				$atributos ["id"] = "cuadro_experiencia";
-				$atributos ["estiloEnLinea"] = "display:block";
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->division ( "inicio", $atributos );
-				unset ( $atributos );
-				{
+                               
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'pais_experiencia';
                                     $atributos ['nombre'] = $esteCampo;
@@ -163,6 +157,7 @@ class profesionalForm {
                                             $atributos ['valor'] = $resultadoProfesional[0]['cargo']; }
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -172,37 +167,6 @@ class profesionalForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                      
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'descripcion_cargo';
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['tipo'] = 'text';
-                                    $atributos ['estilo'] = 'jqueryui';
-                                    $atributos ['marco'] = true;
-                                    $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 74;
-                                    $atributos ['filas'] = 4;
-                                    $atributos ['dobleLinea'] = 0;
-                                    $atributos ['tabIndex'] = $tab;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
-                                    $atributos ['tamanno'] = 60;
-                                    $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    if (isset ( $resultadoProfesional[0]['descripcion_cargo'] )) {
-                                            $atributos ['valor'] = $resultadoProfesional[0]['descripcion_cargo'];
-                                    } else {
-                                            $atributos ['valor'] = '';
-                                    }
-                                    $tab ++;
-                                    // Aplica atributos globales al control
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoTextArea ( $atributos );
-                                    unset ( $atributos );                                                   
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'nivel_institucion';
                                     $atributos ['nombre'] = $esteCampo;
@@ -212,8 +176,8 @@ class profesionalForm {
                                     $atributos ['tab'] = $tab ++;
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = '';
-                                    if (isset($resultadoProfesional[0]['nivel_institucion']))
-                                         {  $atributos ['seleccion'] = $resultadoProfesional[0]['nivel_institucion'];}
+                                    if (isset($resultadoProfesional[0]['codigo_nivel_institucion']))
+                                         {  $atributos ['seleccion'] = $resultadoProfesional[0]['codigo_nivel_institucion'];}
                                     else {  $atributos ['seleccion'] = -1; }
                                     $atributos ['columnas'] = 1;
                                     $atributos ['tamanno'] = 1;
@@ -249,6 +213,7 @@ class profesionalForm {
                                          {   $atributos ['valor'] = $resultadoProfesional[0]['nombre_institucion']; }
                                     else {   $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -271,12 +236,11 @@ class profesionalForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
-                                    if (isset ( $resultadoProfesional[0]['correo_institucion'] )) {
-                                            $atributos ['valor'] = $resultadoProfesional[0]['correo_institucion'];
-                                    } else {
-                                            $atributos ['valor'] = '';
-                                    }
+                                    if (isset ( $resultadoProfesional[0]['correo_institucion'] )) 
+                                         { $atributos ['valor'] = $resultadoProfesional[0]['correo_institucion'];}
+                                    else { $atributos ['valor'] = ''; }
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -305,6 +269,7 @@ class profesionalForm {
                                          {  $atributos ['valor'] = $resultadoProfesional[0]['telefono_institucion'];} 
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -358,6 +323,7 @@ class profesionalForm {
                                         {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_inicio'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -384,6 +350,7 @@ class profesionalForm {
                                         {   $atributos ['valor'] = $resultadoProfesional[0]['fecha_fin'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] =  '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -392,6 +359,50 @@ class profesionalForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'descripcion_cargo';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 74;
+                                    $atributos ['filas'] = 4;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    if (isset ( $resultadoProfesional[0]['descripcion_cargo'] )) {
+                                            $atributos ['valor'] = $resultadoProfesional[0]['descripcion_cargo'];
+                                    } else {
+                                            $atributos ['valor'] = '';
+                                    }
+                                    $tab ++;
+                                    // Aplica atributos globales al control
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoTextArea ( $atributos );
+                                    unset ( $atributos );                                                   
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    
+                            }
+                            echo $this->miFormulario->agrupacion ( 'fin' );
+                            unset ( $atributos );                                    
+                            
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                            $esteCampo = "cuadroSoportesBasicos";
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                            $atributos ['estilo'] = 'jqueryui';
+                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+                            {
                                     // --------------- INICIO CONTROLES : CARGA SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                    foreach ($resultadoTiposop as $tipokey => $value) 
                                        {
@@ -422,7 +433,10 @@ class profesionalForm {
                                                     $atributos ['marco'] = true;
                                                     $atributos ['dobleLinea'] = false;
                                                     $atributos ['tabIndex'] = $tab;
-                                                    $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                    $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                    $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias']." </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                    $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                    $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                     if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
                                                         {  $atributos ['etiquetaObligatorio'] = true;
                                                         }
@@ -537,9 +551,7 @@ class profesionalForm {
                                         // --------------- FIN CONTROL : Cuadro de Soporte foraech--------------------------------------------------
                                         } 
                                    // --------------- FIN CONTROLES  : CARGA SOPORTES --------------------------------------------------
-                                }
-				echo $this->miFormulario->division ( "fin" );
-				unset ( $atributos );
+
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
                             }
                             echo $this->miFormulario->marcoAgrupacion ( 'fin' );

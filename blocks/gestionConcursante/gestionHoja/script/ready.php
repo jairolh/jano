@@ -324,8 +324,7 @@ $('#<?php echo $this->campoSeguro('fecha_nacimiento')?>').datepicker({
 $('#<?php echo $this->campoSeguro('fecha_identificacion')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
-
-       <?php /*?> maxDate: 0,<?php */?>
+        maxDate: 0,
         changeYear: true,
         changeMonth: true,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -376,7 +375,7 @@ $('#<?php echo $this->campoSeguro('fecha_inicio')?>').datepicker({
 $('#<?php echo $this->campoSeguro('fecha_fin')?>').datepicker({
         <?php /*?>timeFormat: 'HH:mm:ss',<?php */?>
         dateFormat: 'yy-mm-dd',
-       <?php /*?> maxDate: 0,<?php */?>
+        maxDate: 0,
         changeYear: true,
         changeMonth: true,
         monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',

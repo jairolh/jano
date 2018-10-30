@@ -471,7 +471,7 @@ class formacionForm {
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
                      
-}
+                            }
                             echo $this->miFormulario->agrupacion ( 'fin' );
                             unset ( $atributos );                                    
                                     
@@ -515,7 +515,7 @@ class formacionForm {
                                                 $atributos ['dobleLinea'] = false;
                                                 $atributos ['tabIndex'] = $tab;
                                                 $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias'].": </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias']." </p>";// $this->lenguaje->getCadena ( $esteCampo );
                                                 $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
                                                 $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 

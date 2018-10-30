@@ -150,9 +150,9 @@ class consultarFormacion {
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoFormacion[$key]['pais']."</td>
-                                                <td align='left'>".$resultadoFormacion[$key]['nombre_institucion']."</td>
+                                                <td align='left' width='10%' >".$resultadoFormacion[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['nivel']."</td>
-                                                <td align='left'>".$resultadoFormacion[$key]['nombre_programa']."</td>
+                                                <td align='left' width='10%' >".$resultadoFormacion[$key]['nombre_programa']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['modalidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['cursos_aprobados']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['periodicidad']."</td>

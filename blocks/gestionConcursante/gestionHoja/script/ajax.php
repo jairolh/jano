@@ -292,6 +292,13 @@ $(function () {
                   $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").hide().slideDown("slow");
                  }
           });          
+    if($("#<?php echo $this->campoSeguro('docencia_actual')?>").val()=='S'){
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").val('');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_docencia')?>").hide();
+                 
+            }      
 
 // Controles Actividad academica
           

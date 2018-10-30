@@ -67,7 +67,7 @@ class consultarDocencia {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             
             unset ( $atributos );
@@ -96,7 +96,21 @@ class consultarDocencia {
 
                     if($resultadoListaDocencia)
                         {   //se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Nivel Programa','Vinculación','Actividades','Horas Dictadas','Institución','Tipo','Telefono','Correo');
+                            $columnas = array(  $this->lenguaje->getCadena ("pais_docencia"),
+                                                $this->lenguaje->getCadena ("fecha_inicio_docencia"),
+                                                $this->lenguaje->getCadena ("fecha_fin_docencia"),
+                                                $this->lenguaje->getCadena ("tiempo_docencia"),
+                                                $this->lenguaje->getCadena ("codigo_nivel_docencia"),
+                                                $this->lenguaje->getCadena ("nombre_vinculacion"),
+                                                $this->lenguaje->getCadena ("descripcion_docencia"),
+                                                $this->lenguaje->getCadena ("horas_catedra"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("correo_institucion_docencia")
+                                    );
+                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');	
@@ -135,16 +149,23 @@ class consultarDocencia {
                                         $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
                                         $variableBorrar.= "#tabDocencia";                                        
                                         
+                                        //calcula el tiempo de experiencia
+                                        $dateDoc1 = new DateTime($resultadoListaDocencia[$key]['fecha_inicio']);
+                                        if($resultadoListaDocencia[$key]['fecha_fin']!='')
+                                             {$dateDoc2 = new DateTime($resultadoListaDocencia[$key]['fecha_fin']);}   
+                                        else {$dateDoc2 = new DateTime("now");}
+                                        $diffDoc[$key] = $dateDoc1->diff($dateDoc2);
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['fecha_inicio']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diffDoc[$key]->days."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nivel_docencia']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nombre_vinculacion']."</td>
-                                                <td align='left'>".$resultadoListaDocencia[$key]['descripcion_docencia']."</td>
+                                                <td align='left' width='15%' >".$resultadoListaDocencia[$key]['descripcion_docencia']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['horas_catedra']."</td>                                                                                                        
-                                                <td align='left'>".$resultadoListaDocencia[$key]['nombre_institucion']."</td>
+                                                <td align='left' width='10%' >".$resultadoListaDocencia[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['telefono_institucion']."</td>
                                                 <td align='left'>".$resultadoListaDocencia[$key]['correo_institucion']."</td>";

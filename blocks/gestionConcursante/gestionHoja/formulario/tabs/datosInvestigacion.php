@@ -536,6 +536,18 @@ class investigacionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                            }
+                            echo $this->miFormulario->agrupacion ( 'fin' );
+                            unset ( $atributos );                                    
+                            
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                            $esteCampo = "cuadroSoportesBasicos";
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                            $atributos ['estilo'] = 'jqueryui';
+                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+                            {
+
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'direccion_investigacion';
                                     $atributos ['id'] = $esteCampo;
@@ -564,18 +576,8 @@ class investigacionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                       
-                            }
-                            echo $this->miFormulario->agrupacion ( 'fin' );
-                            unset ( $atributos );                                    
-                            
-                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-                            $esteCampo = "cuadroSoportesBasicos";
-                            $atributos ['id'] = $esteCampo;
-                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
-                            $atributos ['estilo'] = 'jqueryui';
-                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
-                            {
-                                    
+                                
+                                
                                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                         $atributos ["id"]="Investigacion";
                                         $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";

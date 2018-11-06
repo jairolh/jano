@@ -95,6 +95,24 @@ class consultarActividad {
                     if($resultadoListaActividad)
                         {   //se definen cabeceras de la tabla
                             $columnas = array('Pais','Ingreso','Terminación','Tipo Actividad','Nombre Actividad','Descripción','Institución','Tipo','Telefono','Correo','Director');
+                            
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_actividad"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("codigo_tipo_actividad"),
+                                                $this->lenguaje->getCadena ("nombre_actividad"),
+                                                $this->lenguaje->getCadena ("descripcion_actividad"),
+                                
+                                                $this->lenguaje->getCadena ("nombre_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("correo_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("jefe_actividad"));
+                            
+                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');	
@@ -104,7 +122,7 @@ class consultarActividad {
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
-                                echo "<div class='cell-border'><table id='tablaDocencia' class='table table-striped table-bordered'>";
+                                echo "<div class='cell-border'><table id='tablaActividad' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>";
                                              foreach ($columnas AS $col)
@@ -132,12 +150,20 @@ class consultarActividad {
                                         $variableBorrar.= "&tipo=Actividad";
                                         $variableBorrar.= "&registro=".$resultadoListaActividad[$key]['nombre_actividad'];
                                         $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
-                                        $variableBorrar.= "#tabActividad";                                              
+                                        $variableBorrar.= "#tabActividad";            
+                                        
+                                        //calcula el tiempo de experiencia
+                                        $dateAct1 = new DateTime($resultadoListaActividad[$key]['fecha_inicio']);
+                                        if($resultadoListaActividad[$key]['fecha_fin']!='')
+                                             {$dateAct2 = new DateTime($resultadoListaActividad[$key]['fecha_fin']);}   
+                                        else {$dateAct2 = new DateTime("now");}
+                                        $diffAct[$key] = $dateAct1->diff($dateAct2);
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaActividad[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoListaActividad[$key]['fecha_inicio']."</td>
-                                                <td align='left'>".$resultadoListaActividad[$key]['fecha_fin']."</td>    
+                                                <td align='left'>".$resultadoListaActividad[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diffAct[$key]->days."</td>    
                                                 <td align='left'>".$resultadoListaActividad[$key]['nombre_tipo_actividad']."</td>
                                                 <td align='left'>".$resultadoListaActividad[$key]['nombre_actividad']."</td>
                                                 <td align='left'>".$resultadoListaActividad[$key]['descripcion']."</td>

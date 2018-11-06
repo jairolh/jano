@@ -63,7 +63,7 @@ class consultarInvestigacion {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             
             unset ( $atributos );
@@ -92,9 +92,8 @@ class consultarInvestigacion {
 
                     if($resultadoListaInvestigacion)
                         {//se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Investigación','Actividades','Director','Institución','Tipo','Telefono','Correo','Grupo','Categoria','Enlace');
                             
-                             $columnas = array( 
+                            $columnas = array( 
                                                 $this->lenguaje->getCadena ("pais_investigacion"),
                                                 $this->lenguaje->getCadena ("fecha_inicio_investigacion"),
                                                 $this->lenguaje->getCadena ("fecha_fin_investigacion"),
@@ -120,7 +119,7 @@ class consultarInvestigacion {
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
-                                echo "<div class='cell-border'><table id='tablaDocencia' class='table table-striped table-bordered'>";
+                                echo "<div class='cell-border'><table id='tablaInvestigacion' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>";
                                              foreach ($columnas AS $col)

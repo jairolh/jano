@@ -347,6 +347,7 @@ $(function () {
                     $("#<?php echo $this->campoSeguro('nombre_tipo_actividad')?>").addClass("validate[required]");
             }
           });     */        
+    
 // Controles experiencia Investigacion
 
     $("#<?php echo $this->campoSeguro('pais_investigacion')?>").change(function(){
@@ -396,6 +397,12 @@ $(function () {
                  }
           }); 
           
+    if($("#<?php echo $this->campoSeguro('investigacion_actual')?>").val()=='S'){
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").val('');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").removeClass("validate[required]");
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").attr('disabled','');
+                 $("#<?php echo $this->campoSeguro('fecha_fin_investigacion')?>").hide();
+            }               
           
 // Controles experiencia Produccion          
           

@@ -84,6 +84,7 @@ $('#tablaActividad').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
 
+
 $('#tablaInvestigacion').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
@@ -589,6 +590,8 @@ $('#<?php echo $this->campoSeguro('codigo_institucion_actividad')?>').width(450)
 $("#<?php echo $this->campoSeguro('codigo_institucion_actividad')?>").select2(); 
 $('#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>').width(450);
 $("#<?php echo $this->campoSeguro('codigo_tipo_actividad')?>").select2(); 
+$('#<?php echo $this->campoSeguro('actividad_actual')?>').width(210);
+$("#<?php echo $this->campoSeguro('actividad_actual')?>").select2(); 
 
 
 $('#<?php echo $this->campoSeguro('pais_investigacion')?>').width(210);

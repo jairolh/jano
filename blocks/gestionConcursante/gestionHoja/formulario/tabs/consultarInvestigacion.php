@@ -93,6 +93,24 @@ class consultarInvestigacion {
                     if($resultadoListaInvestigacion)
                         {//se definen cabeceras de la tabla
                             $columnas = array('Pais','Ingreso','Terminación','Investigación','Actividades','Director','Institución','Tipo','Telefono','Correo','Grupo','Categoria','Enlace');
+                            
+                             $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_inicio_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_fin_investigacion"),
+                                                $this->lenguaje->getCadena ("tiempo_investigacion"),
+                                                $this->lenguaje->getCadena ("rol_investigacion"),
+                                                $this->lenguaje->getCadena ("titulo_investigacion"),
+                                                $this->lenguaje->getCadena ("descripcion_investigacion"),
+                                                $this->lenguaje->getCadena ("jefe_investigacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("correo_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("grupo_investigacion"),
+                                                $this->lenguaje->getCadena ("categoria_grupo"),
+                                                $this->lenguaje->getCadena ("direccion_investigacion"));
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');	
@@ -131,19 +149,28 @@ class consultarInvestigacion {
                                         $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
                                         $variableBorrar.= "#tabInvestigacion";                                           
                                         
+                                        //calcula el tiempo de experiencia
+                                        $dateInv1 = new DateTime($resultadoListaInvestigacion[$key]['fecha_inicio']);
+                                        if($resultadoListaInvestigacion[$key]['fecha_fin']!='')
+                                             {$dateInv2 = new DateTime($resultadoListaInvestigacion[$key]['fecha_fin']);}   
+                                        else {$dateInv2 = new DateTime("now");}
+                                        $diffInv[$key] = $dateInv1->diff($dateInv2);
+                                        
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['fecha_inicio']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['fecha_fin']."</td>
-                                                <td align='left'>".$resultadoListaInvestigacion[$key]['titulo_investigacion']."</td>
-                                                <td align='left'>".$resultadoListaInvestigacion[$key]['descripcion_investigacion']."</td>
+                                                <td align='left'>".$diffInv[$key]->days."</td>
+                                                <td align='left'>".$resultadoListaInvestigacion[$key]['rol_investigacion']."</td>
+                                                <td align='left' width='10%'>".$resultadoListaInvestigacion[$key]['titulo_investigacion']."</td>
+                                                <td align='left' width='15%'>".$resultadoListaInvestigacion[$key]['descripcion_investigacion']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['jefe_investigacion']."</td>                                                    
-                                                <td align='left'>".$resultadoListaInvestigacion[$key]['nombre_institucion']."</td>
+                                                <td align='left' width='10%'>".$resultadoListaInvestigacion[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['telefono_institucion']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['correo_institucion']."</td>
                                                 <td align='left'>".$resultadoListaInvestigacion[$key]['grupo_investigacion']."</td>
-                                                <td align='left'>".$resultadoListaInvestigacion[$key]['categoria_grupo']."</td>";
+                                                <td align='center'>".$resultadoListaInvestigacion[$key]['categoria_grupo']."</td>";
                                         $mostrarHtml .= "<td>";
                                                     if(isset($resultadoListaInvestigacion[$key]['direccion_investigacion']) && $resultadoListaInvestigacion[$key]['direccion_investigacion']!='')
                                                         {

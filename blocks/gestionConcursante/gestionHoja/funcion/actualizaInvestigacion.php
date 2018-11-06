@@ -53,6 +53,7 @@ class RegistradorInvestigacion {
                               'direccion_investigacion'=>$_REQUEST['direccion_investigacion'],
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
+                              'rol_investigacion'=>$_REQUEST['rol_investigacion'],
              );
         
         if($arregloDatos['consecutivo_investigacion']==0)

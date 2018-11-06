@@ -108,13 +108,6 @@ class investigacionForm {
                             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
                             unset ( $atributos );
                             {	      
-                               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-				$atributos ["id"] = "cuadro_investigacion";
-				$atributos ["estiloEnLinea"] = "display:block";
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->division ( "inicio", $atributos );
-				unset ( $atributos );
-				{
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'pais_investigacion';
                                     $atributos ['nombre'] = $esteCampo;
@@ -222,6 +215,7 @@ class investigacionForm {
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -250,6 +244,7 @@ class investigacionForm {
                                             $atributos ['valor'] = '';
                                     }
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -278,6 +273,7 @@ class investigacionForm {
                                          {  $atributos ['valor'] = $resultadoInvestigacion[0]['telefono_institucion'];} 
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -286,6 +282,34 @@ class investigacionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'rol_investigacion';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'text';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="required,minSize[1]";
+                                    if (isset ( $resultadoInvestigacion[0]['rol_investigacion'] )) 
+                                         {   $atributos ['valor'] = $resultadoInvestigacion[0]['rol_investigacion'];}
+                                    else {   $atributos ['valor'] = ''; }
+                                    $atributos ['deshabilitado'] = false;                                         
+                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $tab ++;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                      
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'titulo_investigacion';
                                     $atributos ['id'] = $esteCampo;
@@ -305,6 +329,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -332,6 +357,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -356,6 +382,7 @@ class investigacionForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -391,6 +418,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -418,6 +446,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -446,8 +475,8 @@ class investigacionForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $matrizItems = array (array ('N','NO'),
-                                                          array ('S','SI'));
+                                    $matrizItems = array (array ('N','Finalizado'),
+                                                          array ('S','En curso'));
                                     $atributos ['matrizItems'] = $matrizItems;
                                     $atributos = array_merge ( $atributos, $atributosGlobales );
                                     echo $this->miFormulario->campoCuadroLista ( $atributos );
@@ -471,6 +500,7 @@ class investigacionForm {
                                         {   $atributos ['valor'] = $resultadoInvestigacion[0]['fecha_inicio'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -497,6 +527,7 @@ class investigacionForm {
                                         {   $atributos ['valor'] = $resultadoInvestigacion[0]['fecha_fin'];}
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = true;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -524,6 +555,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -532,6 +564,18 @@ class investigacionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                       
+                            }
+                            echo $this->miFormulario->agrupacion ( 'fin' );
+                            unset ( $atributos );                                    
+                            
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                            $esteCampo = "cuadroSoportesBasicos";
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                            $atributos ['estilo'] = 'jqueryui';
+                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+                            {
+                                    
                                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                         $atributos ["id"]="Investigacion";
                                         $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
@@ -560,16 +604,20 @@ class investigacionForm {
                                                      echo $this->miFormulario->division ( "inicio", $atributos );
                                                      unset ( $atributos );
                                                              {
-                                                                 // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
-                                                                 $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
-                                                                 $atributos ['id'] = $esteCampo;
-                                                                 $atributos ['nombre'] = $esteCampo;
-                                                                 $atributos ['tipo'] = 'file';
-                                                                 $atributos ['estilo'] = 'jqueryui';
-                                                                 $atributos ['marco'] = true;
-                                                                 $atributos ['dobleLinea'] = false;
-                                                                 $atributos ['tabIndex'] = $tab;
-                                                                 $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
+                                                                $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['nombre'] = $esteCampo;
+                                                                $atributos ['tipo'] = 'file';
+                                                                $atributos ['estilo'] = 'jqueryui';
+                                                                $atributos ['marco'] = true;
+                                                                $atributos ['dobleLinea'] = false;
+                                                                $atributos ['tabIndex'] = $tab;
+                                                                $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias']." </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                                $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+
                                                                  if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
                                                                      {  $atributos ['etiquetaObligatorio'] = true;
                                                                      }
@@ -688,10 +736,7 @@ class investigacionForm {
                                         echo $this->miFormulario->division( 'fin' );
                                         unset ( $atributos );
                                         // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------
-                                }
-				echo $this->miFormulario->division ( "fin" );
-				unset ( $atributos );
-				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+
                             }
                             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
                             // -----------------FIN CONTROL: Botón -----------------------------------------------------------

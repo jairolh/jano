@@ -102,7 +102,19 @@ class actividadForm {
 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
-			{   $atributos ['id'] = 'datos';
+			{  
+                            $esteCampo = 'mensajeActividad';
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['tipo'] = 'warning';
+                            $atributos ['estilo'] = 'textoCentrar';
+                            $atributos ['mensaje'] = $this->lenguaje->getCadena ( $esteCampo );
+                            //$tab ++;
+                            // Aplica atributos globales al control
+                            $atributos = array_merge ( $atributos, $atributosGlobales );
+                            echo $this->miFormulario->cuadroMensaje ( $atributos );	                            
+                            
+                            
+                            $atributos ['id'] = 'datos';
                             $atributos ["estilo"] = "jqueryui";
                             $atributos ['tipoEtiqueta'] = 'inicio';
                             $atributos ["leyenda"] = '';

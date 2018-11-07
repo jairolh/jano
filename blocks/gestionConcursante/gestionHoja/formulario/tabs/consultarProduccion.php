@@ -18,18 +18,22 @@ class consultarProduccion {
 		$this->lenguaje = $lenguaje;
 		$this->miFormulario = $formulario;
 		$this->miSql = $sql;
-                $this->miSesion = \Sesion::singleton();	
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );                 
+                $this->miSesion = \Sesion::singleton();
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );                 		
 	}
 	function miForm() {
+		
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
+                
                 $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
                 $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
                 $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+		
                 $directorio = $this->miConfigurador->getVariableConfiguracion("host");
                 $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
                 $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
+
                 
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
@@ -40,9 +44,12 @@ class consultarProduccion {
 		 * Si se utiliza esta técnica es necesario realizar un mezcla entre este arreglo y el específico en cada control:
 		 * $atributos= array_merge($atributos,$atributosGlobales);
 		 */
-            $atributosGlobales ['campoSeguro'] = 'true';
-            $_REQUEST ['tiempo'] = time ();
-            // -------------------------------------------------------------------------------------------------
+		
+		$atributosGlobales ['campoSeguro'] = 'true';
+		
+		$_REQUEST ['tiempo'] = time ();
+		
+		// -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
 	//identifca lo roles para la busqueda de subsistemas
@@ -57,16 +64,14 @@ class consultarProduccion {
             $variableSoporte = "pagina=gestionarSoportes"; //pendiente la pagina para modificar parametro                                                        
             $variableSoporte.= "&action=gestionarSoportes";
             $variableSoporte.= "&bloque=" . $esteBloque["id_bloque"];
-            $variableSoporte.= "&bloqueGrupo=";            
-            //----
+            $variableSoporte.= "&bloqueGrupo=";  
             
             $esteCampo = "marcoListaProduccion";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
-            
             unset ( $atributos );
                 {
 
@@ -92,25 +97,41 @@ class consultarProduccion {
                       </table></div> ";
 
                     if($resultadoListaProduccion)
-                        {   //se definen cabeceras de la tabla
-                            $columnas = array('Ciudad','Fecha','Producto','Titulo','Autor / Editor','Publicación / Evento','Editorial','Volumen','Página','ISBN','ISSN','Indexado','Descripción','Enlace');
+                        {
+                            $columnas = array( 
+                                            $this->lenguaje->getCadena ("ciudad_produccion"),
+                                            $this->lenguaje->getCadena ("fecha_produccion"),
+                                            $this->lenguaje->getCadena ("codigo_tipo_produccion"),
+                                            $this->lenguaje->getCadena ("titulo_produccion"),
+                                            $this->lenguaje->getCadena ("nombre_autor"),
+                                            $this->lenguaje->getCadena ("nombre_producto_incluye"),
+                                            $this->lenguaje->getCadena ("nombre_editorial"),
+                                            $this->lenguaje->getCadena ("volumen"),
+                                            $this->lenguaje->getCadena ("pagina_producto"),
+                                            $this->lenguaje->getCadena ("codigo_isbn"),
+                                            $this->lenguaje->getCadena ("codigo_issn"),
+                                            $this->lenguaje->getCadena ("indexado"),
+                                            $this->lenguaje->getCadena ("descripcion_produccion"),
+                                            $this->lenguaje->getCadena ("direccion_produccion"));
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
-                            array_push($columnas, 'Editar', 'Borrar');	
+                            array_push($columnas, 'Editar', 'Borrar');
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
                                 $esteCampo = "marcoConsultaProduccion";
                                 $atributos["estilo"] = "jqueryui";
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
-                                echo "<div class='cell-border'><table id='tablaDocencia' class='table table-striped table-bordered'>";
+                                echo "<div class='cell-border'><table id='tablaProducto' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>";
                                              foreach ($columnas AS $col)
                                                 {echo " <th>$col</th>";}
                                 echo "  </tr>
                                     </thead>
-                                    <tbody>";	
+                                    <tbody>";
+                                
                                 foreach($resultadoListaProduccion as $key=>$value )
                                     {   $parametro['tipo']='unico';
                                         $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
@@ -308,7 +329,8 @@ class consultarProduccion {
                                        echo $mostrarHtml;
                                        unset($mostrarHtml);
                                        unset($variable);
-                                    }
+                                    } 
+                                    
                                 echo "</tbody>";
                                 echo "</table></div>";
                                 //Fin de Conjunto de Controles
@@ -317,7 +339,7 @@ class consultarProduccion {
                         {
                                 $atributos["id"]="divNoEncontroProduccion";
                                 $atributos["estilo"]="";
-                           //$atributos["estiloEnLinea"]="display:none"; 
+                                //$atributos["estiloEnLinea"]="display:none"; 
                                 echo $this->miFormulario->division("inicio",$atributos);
 
                                 //-------------Control Boton-----------------------

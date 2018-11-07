@@ -109,13 +109,7 @@ class produccionForm {
                             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
                             unset ( $atributos );
                             {	      
-                               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-				$atributos ["id"] = "cuadro_produccion";
-				$atributos ["estiloEnLinea"] = "display:block";
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->division ( "inicio", $atributos );
-				unset ( $atributos );
-				{
+
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'pais_produccion';
                                     $atributos ['nombre'] = $esteCampo;
@@ -259,6 +253,7 @@ class produccionForm {
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -288,6 +283,7 @@ class produccionForm {
                                          }
                                     $atributos ['deshabilitado'] = false;                                                                             
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -314,6 +310,7 @@ class produccionForm {
                                          {  $atributos ['valor'] = $resultadoProduccion[0]['nombre_autor'];} 
                                     else {  $atributos ['valor'] = '';}
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -322,6 +319,33 @@ class produccionForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------   
+                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                    $esteCampo = 'fecha_produccion';
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['tipo'] = 'texto';
+                                    $atributos ['estilo'] = 'jqueryui';
+                                    $atributos ['marco'] = true;
+                                    $atributos ['estiloMarco'] = '';
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['dobleLinea'] = 0;
+                                    $atributos ['tabIndex'] = $tab;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ['validar']="required, custom[date]";
+                                    if (isset ( $resultadoProduccion[0]['fecha_produccion'] )) 
+                                        {   $atributos ['valor'] = $resultadoProduccion[0]['fecha_produccion'];}
+                                    else {  $atributos ['valor'] = '';}
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['deshabilitado'] = false;
+                                    $atributos ['tamanno'] = 60;
+                                    $atributos ['maximoTamanno'] = '';
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                    
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'nombre_producto_incluye';
                                     $atributos ['id'] = $esteCampo;
@@ -341,6 +365,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -368,6 +393,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -395,6 +421,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -422,6 +449,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -449,6 +477,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -476,6 +505,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -503,6 +533,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -527,6 +558,7 @@ class produccionForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -543,32 +575,19 @@ class produccionForm {
                                     echo $this->miFormulario->campoTextArea ( $atributos );
                                     unset ( $atributos );                                                   
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
-                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                    $esteCampo = 'fecha_produccion';
-                                    $atributos ['id'] = $esteCampo;
-                                    $atributos ['nombre'] = $esteCampo;
-                                    $atributos ['tipo'] = 'texto';
-                                    $atributos ['estilo'] = 'jqueryui';
-                                    $atributos ['marco'] = true;
-                                    $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
-                                    $atributos ['columnas'] = 1;
-                                    $atributos ['dobleLinea'] = 0;
-                                    $atributos ['tabIndex'] = $tab;
-                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required, custom[date]";
-                                    if (isset ( $resultadoProduccion[0]['fecha_produccion'] )) 
-                                        {   $atributos ['valor'] = $resultadoProduccion[0]['fecha_produccion'];}
-                                    else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['deshabilitado'] = false;
-                                    $atributos ['tamanno'] = 60;
-                                    $atributos ['maximoTamanno'] = '';
-                                    $atributos ['anchoEtiqueta'] = 170;
-                                    $atributos = array_merge ( $atributos, $atributosGlobales );
-                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                    unset ( $atributos );
-                                    // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+
+                            }
+                            echo $this->miFormulario->agrupacion ( 'fin' );
+                            unset ( $atributos );                                    
+                            
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                            $esteCampo = "cuadroSoportesBasicos";
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                            $atributos ['estilo'] = 'jqueryui';
+                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+                            {
+                                    
                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
                                     $esteCampo = 'direccion_produccion';
                                     $atributos ['id'] = $esteCampo;
@@ -588,6 +607,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -624,16 +644,19 @@ class produccionForm {
                                                      echo $this->miFormulario->division ( "inicio", $atributos );
                                                      unset ( $atributos );
                                                              {
-                                                                 // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
-                                                                 $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
-                                                                 $atributos ['id'] = $esteCampo;
-                                                                 $atributos ['nombre'] = $esteCampo;
-                                                                 $atributos ['tipo'] = 'file';
-                                                                 $atributos ['estilo'] = 'jqueryui';
-                                                                 $atributos ['marco'] = true;
-                                                                 $atributos ['dobleLinea'] = false;
-                                                                 $atributos ['tabIndex'] = $tab;
-                                                                 $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
+                                                                $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['nombre'] = $esteCampo;
+                                                                $atributos ['tipo'] = 'file';
+                                                                $atributos ['estilo'] = 'jqueryui';
+                                                                $atributos ['marco'] = true;
+                                                                $atributos ['dobleLinea'] = false;
+                                                                $atributos ['tabIndex'] = $tab;
+                                                                $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias']." </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                                $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                                  if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
                                                                      {  $atributos ['etiquetaObligatorio'] = true;
                                                                      }
@@ -752,10 +775,7 @@ class produccionForm {
                                         echo $this->miFormulario->division( 'fin' );
                                         unset ( $atributos );
                                         // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------
-                                }
-				echo $this->miFormulario->division ( "fin" );
-				unset ( $atributos );
-				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
+
                             }
                             echo $this->miFormulario->marcoAgrupacion ( 'fin' );
                             // -----------------FIN CONTROL: Botón -----------------------------------------------------------

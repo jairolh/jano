@@ -65,7 +65,7 @@ class consultarActividad {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             
             unset ( $atributos );
@@ -94,8 +94,6 @@ class consultarActividad {
 
                     if($resultadoListaActividad)
                         {   //se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Tipo Actividad','Nombre Actividad','Descripción','Institución','Tipo','Telefono','Correo','Director');
-                            
                             $columnas = array( 
                                                 $this->lenguaje->getCadena ("pais_actividad"),
                                                 $this->lenguaje->getCadena ("fecha_inicio"),
@@ -104,14 +102,11 @@ class consultarActividad {
                                                 $this->lenguaje->getCadena ("codigo_tipo_actividad"),
                                                 $this->lenguaje->getCadena ("nombre_actividad"),
                                                 $this->lenguaje->getCadena ("descripcion_actividad"),
-                                
                                                 $this->lenguaje->getCadena ("nombre_institucion_actividad"),
                                                 $this->lenguaje->getCadena ("nivel_institucion_actividad"),
                                                 $this->lenguaje->getCadena ("telefono_institucion_actividad"),
                                                 $this->lenguaje->getCadena ("correo_institucion_actividad"),
                                                 $this->lenguaje->getCadena ("jefe_actividad"));
-                            
-                            
                             
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}

@@ -979,7 +979,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" nombre_producto_incluye='".$variable['nombre_producto_incluye']."', ";
                                 $cadenaSql.=" nombre_editorial='".$variable['nombre_editorial']."', ";
                                 $cadenaSql.=" volumen='".$variable['volumen']."', ";
-                                $cadenaSql.=" pagina='".$variable['pagina_produccion']."', ";
+                                $cadenaSql.=" pagina='".$variable['pagina_producto']."', ";
                                 $cadenaSql.=" codigo_isbn='".$variable['codigo_isbn']."', ";
                                 $cadenaSql.=" codigo_issn='".$variable['codigo_issn']."', ";
                                 $cadenaSql.=" indexado='".$variable['indexado']."', ";

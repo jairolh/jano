@@ -102,7 +102,8 @@ $('#tablaInvestigacion').DataTable({
 },
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
-$('#tablaProduccion').DataTable({
+
+$('#tablaProducto').DataTable({
 "language": {
     "lengthMenu": "Mostrar _MENU_ registro por p&aacute;gina",
     "zeroRecords": "No se encontraron registros coincidentes",
@@ -119,7 +120,6 @@ $('#tablaProduccion').DataTable({
 },
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
-                      
 
 $('#tablaIdioma').DataTable({
 "language": {

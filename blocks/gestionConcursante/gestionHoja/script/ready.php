@@ -623,6 +623,8 @@ $('#<?php echo $this->campoSeguro('nivel_habla')?>').width(210);
 $("#<?php echo $this->campoSeguro('nivel_habla')?>").select2(); 
 $('#<?php echo $this->campoSeguro('certificado')?>').width(210);
 $("#<?php echo $this->campoSeguro('certificado')?>").select2(); 
+$('#<?php echo $this->campoSeguro('idioma_concurso')?>').width(210);
+$("#<?php echo $this->campoSeguro('idioma_concurso')?>").select2(); 
 
 
 <?php 

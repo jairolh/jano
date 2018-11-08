@@ -64,7 +64,7 @@ class consultarIdioma {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+            $atributos ["leyenda"] = $this->lenguaje->getCadena ( $esteCampo );
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -93,7 +93,12 @@ class consultarIdioma {
                     if($resultadoListaIdioma)
                         {     /*echo "<thead><tr align='center'><th>Idioma </th><th>Nivel Lectura</th><th>Nivel Escritura</th><th>Nivel Dialogo</th><th>Certificación</th><th>Institución certifica</th><th>Soporte</th><th>Editar</th></tr></thead><tbody>";*/
                             //se definen cabeceras de la tabla
-                            $columnas = array('Idioma','Certificación','Institución certifica');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("codigo_idioma"),
+                                                $this->lenguaje->getCadena ("idioma_concurso"),
+                                                $this->lenguaje->getCadena ("certificacion"),
+                                                $this->lenguaje->getCadena ("institucion_certificacion"),);
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             array_push($columnas, 'Editar', 'Borrar');	
@@ -103,7 +108,7 @@ class consultarIdioma {
                                 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                                 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                                 unset($atributos);
-                                echo "<div class='cell-border'><table id='tablaDocencia' class='table table-striped table-bordered'>";
+                                echo "<div class='cell-border'><table id='tablaIdioma' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>";
                                              foreach ($columnas AS $col)
@@ -111,6 +116,7 @@ class consultarIdioma {
                                 echo "  </tr>
                                     </thead>
                                     <tbody>";
+                                $_REQUEST['idiomaConcurso']=0;
                                 foreach($resultadoListaIdioma as $key=>$value )
                                     {   
                                         $variableOpcion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );                                                        
@@ -132,6 +138,11 @@ class consultarIdioma {
                                         $variableBorrar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableBorrar, $directorio);
                                         $variableBorrar.= "#tabIdiomas";     
                                         
+                                        if($resultadoListaIdioma[$key]['idioma_concurso']=='S')
+                                            {$idiomaConcurso[$key]='SI';
+                                             $_REQUEST['idiomaConcurso']=1;
+                                            }
+                                        else{$idiomaConcurso[$key]='NO';}    
                                         
                                         /*$mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['idioma']."</td>
@@ -142,6 +153,7 @@ class consultarIdioma {
                                                 <td align='left'>".$resultadoListaIdioma[$key]['institucion_certificacion']."</td>";*/
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['idioma']."</td>
+                                                <td align='left'>".$idiomaConcurso[$key]."</td>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['certificacion']."</td>
                                                 <td align='left'>".$resultadoListaIdioma[$key]['institucion_certificacion']."</td>";
                                             // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------

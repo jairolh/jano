@@ -42,8 +42,10 @@ class RegistradorIdioma {
                               'nivel_habla'=>(isset($_REQUEST['nivel_habla'])?$_REQUEST['nivel_habla']:''),
                               'certificacion'=>(isset($_REQUEST['certificacion'])?$_REQUEST['certificacion']:''),
                               'institucion_certificacion'=>(isset($_REQUEST['institucion_certificacion'])?$_REQUEST['institucion_certificacion']:''),
+                              'idioma_concurso'=>(isset($_REQUEST['idioma_concurso'])?$_REQUEST['idioma_concurso']:''),
                               'nombre'=>$_REQUEST['nombre'],
                               'apellido'=>$_REQUEST['apellido'],
+                              
             );
         if($arregloDatos['consecutivo_conocimiento']==0)
              {  $cadenaSql = $this->miSql->getCadenaSql ( 'registroIdioma',$arregloDatos );

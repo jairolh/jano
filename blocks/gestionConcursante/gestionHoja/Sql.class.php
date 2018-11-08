@@ -387,7 +387,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conidm.nivel_habla, ";
                                // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_habla,'99')) nombre_nivel_habla,";
                                 $cadenaSql.=" conidm.certificacion,";
-                                $cadenaSql.=" conidm.institucion_certificacion";
+                                $cadenaSql.=" conidm.institucion_certificacion, ";
+                                $cadenaSql.=" conidm.idioma_concurso";
                                 $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
                                 $cadenaSql.=" INNER JOIN concurso.conocimiento_idioma conidm ON conidm.consecutivo_persona=bas.consecutivo";    
@@ -396,7 +397,20 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_conocimiento']) && $variable['consecutivo_conocimiento']!='')
                                     {$cadenaSql.=" AND conidm.consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";}
                                 $cadenaSql.=" ORDER BY idm.nombre DESC";   
-                            break;                          
+                            break;        
+                            
+                        case "idiomaConcursos":
+                                $cadenaSql=" SELECT  ";
+                                $cadenaSql.=" COUNT(DISTINCT conidm.consecutivo_conocimiento) presentar ";
+                                $cadenaSql.=" FROM concurso.persona bas "; 
+                                $cadenaSql.=" INNER JOIN ".$prefijo."usuario usu ON trim(usu.tipo_identificacion)=trim(bas.tipo_identificacion) AND bas.identificacion=usu.identificacion";
+                                $cadenaSql.=" INNER JOIN concurso.conocimiento_idioma conidm ON conidm.consecutivo_persona=bas.consecutivo";    
+                                $cadenaSql.=" WHERE usu.id_usuario='".$variable['id_usuario']."'";
+                                $cadenaSql.=" AND conidm.idioma_concurso='S'";    
+                                
+                            break;                                   
+                            
+                            
                         case "consultarModalidad":
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" codigo_modalidad,";
@@ -782,7 +796,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" nivel_escribe, ";
                                 $cadenaSql.=" nivel_habla, ";
                                 $cadenaSql.=" certificacion, ";
-                                $cadenaSql.=" institucion_certificacion)";
+                                $cadenaSql.=" institucion_certificacion, ";
+                                $cadenaSql.=" idioma_concurso )";
                                 $cadenaSql.=" VALUES (";
                                 $cadenaSql.=" DEFAULT,";
                                 $cadenaSql.=" '".$variable['consecutivo_persona']."',";
@@ -791,7 +806,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" '".$variable['nivel_escribe']."',";
                                 $cadenaSql.=" '".$variable['nivel_habla']."',";
                                 $cadenaSql.=" '".$variable['certificacion']."',";
-                                $cadenaSql.=" '".$variable['institucion_certificacion']."'";
+                                $cadenaSql.=" '".$variable['institucion_certificacion']."',";
+                                $cadenaSql.=" '".$variable['idioma_concurso']."'";
                                 $cadenaSql.=" )";
                                 $cadenaSql.=" RETURNING consecutivo_conocimiento";
                             break;                                   
@@ -1001,7 +1017,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" nivel_escribe='".$variable['nivel_escribe']."',";
                                 $cadenaSql.=" nivel_habla='".$variable['nivel_habla']."',";
                                 $cadenaSql.=" certificacion='".$variable['certificacion']."',";
-                                $cadenaSql.=" institucion_certificacion='".$variable['institucion_certificacion']."'";
+                                $cadenaSql.=" institucion_certificacion='".$variable['institucion_certificacion']."',";
+                                $cadenaSql.=" idioma_concurso='".$variable['idioma_concurso']."'";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_conocimiento='".$variable['consecutivo_conocimiento']."' ";
                                 $cadenaSql.=  " RETURNING consecutivo_conocimiento ";

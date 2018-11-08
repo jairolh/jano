@@ -25,8 +25,8 @@ $this->idioma["marcoInvestigacion"]="Registro Experiencia en Investigación / Cr
 $this->idioma["marcoListaInvestigacion"]="Experiencia en Investigación / Creación ";
 $this->idioma["marcoProduccion"]="Registro Producción Académica";
 $this->idioma["marcoListaProduccion"]="Producción Académica";
-$this->idioma["marcoIdioma"]="Registro Lengua Extranjera para participación en concursos";
-$this->idioma["marcoListaIdioma"]="Lengua Extranjera con que participa en concursos";
+$this->idioma["marcoIdioma"]="Registro Lengua Extranjera ";
+$this->idioma["marcoListaIdioma"]="Lengua Extranjera ";
 
 $this->idioma ["mensajeFormacion"] = "Mediante este formulario puede registrar formación formal e informal";
 $this->idioma ["mensajeActividad"] = "Mediante este formulario puede registrar certamenes, consejos, grupos de trabajo, monitorias en las que haya participado y distinciones que haya recibido";
@@ -302,7 +302,7 @@ $this->idioma["soporteProduccion"]="Soporte producción académica  ";
 
 
 $this->idioma["nuevoIdioma"]="Registrar Lengua Extranjera";
-$this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el Idioma que domina";
+$this->idioma["codigo_idioma_formacionTitulo"]="Seleccione el idioma que domina";
 $this->idioma["codigo_idioma"]="Idioma  ";
 $this->idioma["nivel_leeTitulo"]="Seleccione el nivel de lectura del idioma";
 $this->idioma["nivel_lee"]="Nivel Lectura  ";
@@ -310,14 +310,17 @@ $this->idioma["nivel_escribeTitulo"]="Seleccione el nivel de escritura del idiom
 $this->idioma["nivel_escribe"]="Nivel escritura  ";
 $this->idioma["nivel_hablaTitulo"]="Seleccione el nivel de habla del idioma";
 $this->idioma["nivel_habla"]="Nivel Dialogo  ";
-$this->idioma["certificadoTitulo"]="Indique si el Idioma es certificado";
-$this->idioma["certificado"]="Idioma Certificado  ";
-$this->idioma["certificacionTitulo"]="Ingrese el nombre de la certificación realizada";
-$this->idioma["certificacion"]="Nombre Certificación  ";
-$this->idioma["institucion_certificacionTitulo"]="Ingrese el nombre de la institución que certifica";
-$this->idioma["institucion_certificacion"]="Institución Certifica  ";
-$this->idioma["soporteIdiomaTitulo"]="Adjuntar Documento en Formato PDF menor a 1 Mb";
-$this->idioma["soporteIdioma"]="Soporte Certificación  ";
+$this->idioma["certificadoTitulo"]="Indique si el idioma es certificado";
+$this->idioma["certificado"]="Idioma certificado  ";
+$this->idioma["certificacionTitulo"]="Ingrese el nombre de la certificación obtenida";
+$this->idioma["certificacion"]="Nombre certificación  ";
+$this->idioma["institucion_certificacionTitulo"]="Ingrese el nombre de la institución que certificó";
+$this->idioma["institucion_certificacion"]="Institución certifica  ";
+$this->idioma["soporteIdiomaTitulo"]="Adjuntar documento en formato PDF menor a 1 Mb";
+$this->idioma["soporteIdioma"]="Soporte certificación  ";
+$this->idioma["idioma_concursoTitulo"]="Indique si es idioma para presenta las pruebas de los conculsos ";
+$this->idioma["idioma_concurso"]="Idioma para concursos";
+
 
 $this->idioma["noDefinido"]="No definido";
 $this->idioma["noEncontroFormacion"]="No existe Formación Académica registrada! ";

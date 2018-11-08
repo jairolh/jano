@@ -61,6 +61,9 @@ class idiomaForm {
                     {  $parametro['consecutivo_conocimiento']=$_REQUEST['consecutivo_conocimiento'];
                        $cadena_sql = $this->miSql->getCadenaSql("consultarIdiomas", $parametro);
                        $resultadoIdioma = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       $cadena_sql = $this->miSql->getCadenaSql("idiomaConcursos", $parametro);
+                       $resultado = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                       $_REQUEST['idiomaConcurso']=$resultado[0]['presentar'];
                     }
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -110,13 +113,7 @@ class idiomaForm {
                             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
                             unset ( $atributos );
                             {	      
-                               // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
-				$atributos ["id"] = "cuadro_idioma";
-				$atributos ["estiloEnLinea"] = "display:block";
-				$atributos = array_merge ( $atributos, $atributosGlobales );
-				echo $this->miFormulario->division ( "inicio", $atributos );
-				unset ( $atributos );
-				{
+
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'codigo_idioma';
                                     $atributos ['nombre'] = $esteCampo;
@@ -145,6 +142,37 @@ class idiomaForm {
                                     echo $this->miFormulario->campoCuadroLista ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                    $esteCampo = 'idioma_concurso';
+                                    $atributos ['nombre'] = $esteCampo;
+                                    $atributos ['id'] = $esteCampo;
+                                    $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['tab'] = $tab ++;
+                                    $atributos ['anchoEtiqueta'] = 170;
+                                    $atributos ['evento'] = ' ';
+                                    if (isset ( $resultadoIdioma[0]['idioma_concurso'] ))
+                                         {  $atributos ['seleccion'] = $resultadoIdioma[0]['idioma_concurso'];}
+                                    else {  $atributos ['seleccion'] = 'N';}
+                                    if ($_REQUEST['idiomaConcurso']>0 && !isset ( $resultadoIdioma[0]['idioma_concurso']))
+                                         { $atributos ['deshabilitado'] = true;}
+                                    elseif ($_REQUEST['idiomaConcurso']>0 && (isset ( $resultadoIdioma[0]['idioma_concurso']) && $resultadoIdioma[0]['idioma_concurso']=='N'))
+                                         { $atributos ['deshabilitado'] = true;}
+                                    else { $atributos ['deshabilitado'] = false;}
+                                    $atributos ['columnas'] = 1;
+                                    $atributos ['tamanno'] = 1;
+                                    $atributos ['estilo'] = "jqueryui";
+                                    $atributos ['validar'] = "required";
+                                    $atributos ['limitar'] = true;
+                                    $atributos ['anchoCaja'] = 60;
+                                    $atributos ['evento'] = '';
+                                    $matrizItems = array (array ('N','NO'),
+                                                          array ('S','SI'));
+                                    $atributos ['matrizItems'] = $matrizItems;
+                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                    echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                    unset ( $atributos );
+                                    // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------          
                                     // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
                                     $esteCampo = 'nivel_lee';
                                     $atributos ['nombre'] = $esteCampo;
@@ -280,6 +308,7 @@ class idiomaForm {
                                          }
                                     $atributos ['deshabilitado'] = false;                                    
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -309,6 +338,7 @@ class idiomaForm {
                                          }
                                     $atributos ['deshabilitado'] = false;                                    
                                     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -317,6 +347,17 @@ class idiomaForm {
                                     echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                     unset ( $atributos );
                                     // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------    
+                            }
+                            echo $this->miFormulario->agrupacion ( 'fin' );
+                            unset ( $atributos );                                    
+                            
+                            // ---------------- CONTROL AGRUPACION: Cuadro Agrupacion --------------------------------------------------------
+                            $esteCampo = "cuadroSoportesBasicos";
+                            $atributos ['id'] = $esteCampo;
+                            $atributos ['leyenda'] = $this->lenguaje->getCadena ( $esteCampo );
+                            $atributos ['estilo'] = 'jqueryui';
+                            echo $this->miFormulario->agrupacion ( 'inicio', $atributos );
+                            {                                    
                                     // ---------------- CONTROL: Cuadro de division --------------------------------------------------------
                                         $atributos ["id"]="Idioma";
                                         $atributos ["estiloEnLinea"] = "border-width: 0";//display:block";
@@ -345,16 +386,19 @@ class idiomaForm {
                                                      echo $this->miFormulario->division ( "inicio", $atributos );
                                                      unset ( $atributos );
                                                              {
-                                                                 // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
-                                                                 $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
-                                                                 $atributos ['id'] = $esteCampo;
-                                                                 $atributos ['nombre'] = $esteCampo;
-                                                                 $atributos ['tipo'] = 'file';
-                                                                 $atributos ['estilo'] = 'jqueryui';
-                                                                 $atributos ['marco'] = true;
-                                                                 $atributos ['dobleLinea'] = false;
-                                                                 $atributos ['tabIndex'] = $tab;
-                                                                 $atributos ['etiqueta'] = $resultadoTiposop[$tipokey]['alias'].": ";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                // ---------------- CONTROL: Cuadro de Texto -----imprime caja para carga de archivo----------------------------
+                                                                $esteCampo = $resultadoTiposop[$tipokey]['nombre'];
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['nombre'] = $esteCampo;
+                                                                $atributos ['tipo'] = 'file';
+                                                                $atributos ['estilo'] = 'jqueryui';
+                                                                $atributos ['marco'] = true;
+                                                                $atributos ['dobleLinea'] = false;
+                                                                $atributos ['tabIndex'] = $tab;
+                                                                $archivo = "formato ".$resultadoTiposop[$tipokey]['extencion_permitida']." y máximo ".number_format(($resultadoTiposop[$tipokey]['tamanno_permitido']/1024),2,",",".")." Mb";//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['etiqueta'] = "<p align='left'>".$resultadoTiposop[$tipokey]['alias']." </p>";// $this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['etiqueta'].= "<p> <font face='Verdana, Arial, Helvetica, sans-serif' size='1.2' color='#FF0000'   style='text-align:left' >".ucfirst($archivo)."</font></p>  ";  
+                                                                $atributos ['titulo'] = "Para actualizar, adjuntar archivo en ".$archivo;//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                                  if(isset($resultadoTiposop[$tipokey]['validacion']) && strstr($resultadoTiposop[$tipokey]['validacion'], 'required'))
                                                                      {  $atributos ['etiquetaObligatorio'] = true;
                                                                      }
@@ -473,10 +517,7 @@ class idiomaForm {
                                         echo $this->miFormulario->division( 'fin' );
                                         unset ( $atributos );
                                         // --------------- FIN CONTROL : Cuadro de Soporte Diploma --------------------------------------------------                                    
-                                   
-                                }
-				echo $this->miFormulario->division ( "fin" );
-				unset ( $atributos );
+
 				// ---------------- CONTROL: Fin Cuadro Agrupacion --------------------------------------------------------
                             }
                             echo $this->miFormulario->marcoAgrupacion ( 'fin' );

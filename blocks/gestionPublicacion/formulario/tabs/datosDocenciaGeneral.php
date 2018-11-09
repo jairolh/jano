@@ -58,7 +58,7 @@ class consultarDocencia {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
@@ -66,6 +66,20 @@ class consultarDocencia {
                     if($resultadoDocencia)
                         {   //define las cabeceras de la tablas
                             $columnas = array('Pais','Ingreso','Terminación','Nivel Programa','Vinculación','Horas Dictadas','Actividades','Institución','Tipo','Telefono','Correo');
+                            $columnas = array(  $this->lenguaje->getCadena ("pais_docencia"),
+                                                $this->lenguaje->getCadena ("fecha_inicio_docencia"),
+                                                $this->lenguaje->getCadena ("fecha_fin_docencia"),
+                                                $this->lenguaje->getCadena ("tiempo_docencia"),
+                                                $this->lenguaje->getCadena ("codigo_nivel_docencia"),
+                                                $this->lenguaje->getCadena ("nombre_vinculacion"),
+                                                $this->lenguaje->getCadena ("horas_catedra"),
+                                                $this->lenguaje->getCadena ("descripcion_docencia"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_docencia"),
+                                                $this->lenguaje->getCadena ("correo_institucion_docencia")
+                                    );                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);} 
                            
@@ -85,11 +99,18 @@ class consultarDocencia {
                                     <tbody>";
                                 foreach($resultadoDocencia as $key=>$value )
                                     {   $datos='';//json_decode ($resultadoDocencia[$key]['valor_dato']);	
-                                        
+                                                                                //calcula el tiempo de experiencia
+                                        $dateDoc1 = new DateTime($resultadoDocencia[$key]['fecha_inicio']);
+                                        if($resultadoDocencia[$key]['fecha_fin']!='')
+                                             {$dateDoc2 = new DateTime($resultadoDocencia[$key]['fecha_fin']);}   
+                                        else {$dateDoc2 = new DateTime("now");}
+                                        $diffDoc[$key] = $dateDoc1->diff($dateDoc2);
+
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoDocencia[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoDocencia[$key]['fecha_inicio']."</td>
                                                 <td align='left'>".$resultadoDocencia[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diffDoc[$key]->days."</td>
                                                 <td align='left'>".$resultadoDocencia[$key]['nivel_docencia']."</td>
                                                 <td align='left'>".$resultadoDocencia[$key]['nombre_vinculacion']."</td>
                                                 <td align='left'>".$resultadoDocencia[$key]['horas_catedra']."</td>

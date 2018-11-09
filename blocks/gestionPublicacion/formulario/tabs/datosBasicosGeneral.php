@@ -68,11 +68,13 @@ class consultarBasicos{
                         }
                   }
                 }*/
+            $_REQUEST['name']=$datos[0]['nombre'];
+            $_REQUEST['lastname']=$datos[0]['apellido'];
             $esteCampo = "marcoBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
@@ -196,25 +198,40 @@ class consultarBasicos{
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombres')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos[0]['nombre']."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['tipo_identificacion']."</td>    
-                                                </tr>";                                
-                                $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('apellidos')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos[0]['apellido']."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
-                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos[0]['identificacion']."</td>
                                                 </tr> ";
-                                $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('sexo')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".str_replace("F", "Femenino", str_replace("M", "Masculino", $datos[0]['sexo']))."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_nacimiento')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['fecha_nacimiento']."</td>  </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('pais_nacimiento')."</th>
                                                         <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['pais_nacimiento']."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('lugar_nacimiento')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['lugar_nacimiento']."</td>  </tr> ";
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['lugar_nacimiento']."</td>
+                                                </tr> ";
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_nacimiento')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['fecha_nacimiento']."</td> 
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('sexo')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".str_replace("F", "Femenino", str_replace("M", "Masculino", $datos[0]['sexo']))."</td>
+                                                </tr> ";
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['tipo_identificacion']."</td>    
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos[0]['identificacion']."</td>
+                                                </tr> ";
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['fecha_identificacion']."</td>    
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('lugar_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos[0]['lugar_identificacion']."</td>
+                                                </tr> ";                                
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('codigo_idioma_nativo')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos[0]['idioma_nativo']."</td>
+                                                        <th class='textoAzul' $cajaNombre> </th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato> </td>
+                                                </tr> ";
+
                                 
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";

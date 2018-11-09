@@ -438,7 +438,10 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ps.nombre_pais pais_nacimiento, ";
                                 $cadenaSql.=" bas.departamento_nacimiento, ";
                                 $cadenaSql.=" bas.sexo, ";
-                                $cadenaSql.=" us.id_usuario ";
+                                $cadenaSql.=" us.id_usuario, ";
+                                $cadenaSql.=" cudIdent.nombre lugar_identificacion, ";
+                                $cadenaSql.=" bas.fecha_identificacion, ";
+                                $cadenaSql.=" idm.nombre idioma_nativo ";
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" INNER JOIN ".$prefijo."usuario us ";
                                 $cadenaSql.=" ON trim(us.tipo_identificacion)=trim(bas.tipo_identificacion) ";
@@ -447,6 +450,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ON ps.id_pais=bas.pais_nacimiento ";
                                 $cadenaSql.=" LEFT OUTER JOIN general.ciudad cud ";
                                 $cadenaSql.=" ON cud.id_ciudad=bas.lugar_nacimiento ";
+                                $cadenaSql.=" LEFT OUTER JOIN general.ciudad cudIdent ";
+                                $cadenaSql.=" ON cudIdent.id_ciudad=bas.lugar_identificacion ";
+                                $cadenaSql.=" LEFT OUTER JOIN general.idioma idm ON idm.codigo_idioma=bas.codigo_idioma_nativo";
                                 $cadenaSql.=" WHERE bas.consecutivo IS NOT NULL ";
                                 if(isset($variable['identificacion']) && $variable['identificacion']!='')
                                     {$cadenaSql.=" AND bas.identificacion='".$variable['identificacion']."' ";}
@@ -492,6 +498,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" form.codigo_programa, ";
                                 $cadenaSql.=" form.nombre_programa, ";
                                 $cadenaSql.=" form.cursos_aprobados, ";
+                                $cadenaSql.=" per.nombre periodicidad, ";
                                 $cadenaSql.=" form.graduado, ";
                                 $cadenaSql.=" form.fecha_grado, ";
                                 $cadenaSql.=" form.promedio ";
@@ -499,6 +506,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" INNER JOIN concurso.formacion form ON form.consecutivo_persona=bas.consecutivo";
                                 $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
                                 $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" LEFT OUTER JOIN general.nivel per ON per.codigo_nivel=form.cursos_temporalidad AND per.tipo_nivel='Temporalidad' ";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
                                 $cadenaSql.=" WHERE bas.consecutivo='".$variable['id_usuario']."'";
                                 $cadenaSql.=" ORDER BY form.codigo_nivel, ";
@@ -604,7 +612,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" inv.fecha_inicio,";
                                 $cadenaSql.=" inv.fecha_fin,";
                                 $cadenaSql.=" inv.grupo_investigacion,";
-                                $cadenaSql.=" inv.categoria_grupo ";
+                                $cadenaSql.=" inv.categoria_grupo,";
+                                $cadenaSql.=" inv.rol_investigacion ";
                                 $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN concurso.experiencia_investigacion inv ON inv.consecutivo_persona=bas.consecutivo";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=inv.pais_investigacion";
@@ -652,7 +661,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conidm.nivel_habla, ";
                                // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_habla,'99')) nombre_nivel_habla,";
                                 $cadenaSql.=" conidm.certificacion,";
-                                $cadenaSql.=" conidm.institucion_certificacion";
+                                $cadenaSql.=" conidm.institucion_certificacion, ";
+                                $cadenaSql.=" conidm.idioma_concurso";
                                 $cadenaSql.=" FROM concurso.persona bas "; 
                                 $cadenaSql.=" INNER JOIN concurso.conocimiento_idioma conidm ON conidm.consecutivo_persona=bas.consecutivo";    
                                 $cadenaSql.=" INNER JOIN general.idioma idm ON idm.codigo_idioma=conidm.codigo_idioma";

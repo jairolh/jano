@@ -57,7 +57,7 @@ class consultarFormacion {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
@@ -65,7 +65,17 @@ class consultarFormacion {
 
                     if($resultadoFormacion)
                         {   //define las cabeceras de la tablas
-                            $columnas = array('Pais','Institucion','Nivel Formacion','Programa','Modalidad','Cursos aprobados','Promedio','Graduado','Fecha grado');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion"),
+                                                $this->lenguaje->getCadena ("nivel_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_programa"),
+                                                $this->lenguaje->getCadena ("modalidad_formacion"),
+                                                $this->lenguaje->getCadena ("cursos_aprobados"),
+                                                $this->lenguaje->getCadena ("cursos_temporalidad"),
+                                                $this->lenguaje->getCadena ("promedio"),
+                                                $this->lenguaje->getCadena ("graduado"),
+                                                $this->lenguaje->getCadena ("fecha_grado"));
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -91,6 +101,7 @@ class consultarFormacion {
                                                 <td align='left'>".$resultadoFormacion[$key]['nombre_programa']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['modalidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['cursos_aprobados']."</td>
+                                                <td align='left'>".$resultadoFormacion[$key]['periodicidad']."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['promedio']."</td>
                                                 <td align='left'>".str_replace("S", "SI", str_replace("N", "NO", $resultadoFormacion[$key]['graduado']))."</td>
                                                 <td align='left'>".$resultadoFormacion[$key]['fecha_grado']."</td>";

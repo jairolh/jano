@@ -52,7 +52,7 @@ class consultarContacto{
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$datos[0]['nombre']." ".$datos[0]['apellido'];
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {

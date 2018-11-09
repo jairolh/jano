@@ -57,14 +57,30 @@ class consultarInvestigacion {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
                     if($resultadoInvestigacion)
                         {//se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Investigación','Actividades','Director','Institución','Tipo','Telefono','Correo','Grupo','Categoria','Enlace');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_inicio_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_fin_investigacion"),
+                                                $this->lenguaje->getCadena ("tiempo_investigacion"),
+                                                $this->lenguaje->getCadena ("rol_investigacion"),
+                                                $this->lenguaje->getCadena ("titulo_investigacion"),
+                                                $this->lenguaje->getCadena ("descripcion_investigacion"),
+                                                $this->lenguaje->getCadena ("jefe_investigacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("correo_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("grupo_investigacion"),
+                                                $this->lenguaje->getCadena ("categoria_grupo"),
+                                                $this->lenguaje->getCadena ("direccion_investigacion"));                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -91,11 +107,19 @@ class consultarInvestigacion {
                                                   }
                                               }
                                             }
-                                     
+                                        //calcula el tiempo de experiencia
+                                        $dateInv1 = new DateTime($resultadoInvestigacion[$key]['fecha_inicio']);
+                                        if($resultadoInvestigacion[$key]['fecha_fin']!='')
+                                             {$dateInv2 = new DateTime($resultadoInvestigacion[$key]['fecha_fin']);}   
+                                        else {$dateInv2 = new DateTime("now");}
+                                        $diffInv[$key] = $dateInv1->diff($dateInv2);
+    
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['pais']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['fecha_inicio']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diffInv[$key]->days."</td>
+                                                <td align='left'>".$resultadoInvestigacion[$key]['rol_investigacion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['titulo_investigacion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['descripcion_investigacion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['jefe_investigacion']."</td>
@@ -106,11 +130,11 @@ class consultarInvestigacion {
                                                 <td align='left'>".$resultadoInvestigacion[$key]['grupo_investigacion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['categoria_grupo']."</td>";
                                         $mostrarHtml .= "<td>";
-                                                    if(isset($datos->direccion_investigacion))
+                                                    if(isset($resultadoInvestigacion[$key]['direccion_investigacion']) && $resultadoInvestigacion[$key]['direccion_investigacion']!='')
                                                         {
-                                                          $esteCampo = 'enlace_investigacion'.$datos->consecutivo_investigacion;
+                                                          $esteCampo = 'enlace_investigacion'.$key;
                                                           $atributos ['id'] = $esteCampo;
-                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace'.$datos->consecutivo_investigacion.'");';
+                                                          $atributos ['enlace'] = 'javascript:enlace("ruta_enlace'.$key.'");';
                                                           $atributos ['tabIndex'] = 0;
                                                           $atributos ['columnas'] = 2;
                                                           $atributos ['enlaceTexto'] = 'Ver Sitio';
@@ -124,13 +148,13 @@ class consultarInvestigacion {
                                                           $mostrarHtml .= $this->miFormulario->enlace( $atributos );
                                                           unset ( $atributos );
                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                          $esteCampo = 'ruta_enlace'.$datos->consecutivo_investigacion;
+                                                          $esteCampo = 'ruta_enlace'.$key;
                                                           $atributos ['id'] = $esteCampo;
                                                           $atributos ['nombre'] = $esteCampo;
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $datos->direccion_investigacion;
+                                                          $atributos ['valor'] = $resultadoInvestigacion[$key]['direccion_investigacion'];
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );

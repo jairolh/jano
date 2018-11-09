@@ -57,14 +57,18 @@ class consultarIdioma {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
                     if($resultadoIdioma)
                         {      //se definen cabeceras de la tabla
-                            $columnas = array('Idioma','Certificación','Institución certifica');
+                            $columnas = array( 
+                                            $this->lenguaje->getCadena ("codigo_idioma"),
+                                            $this->lenguaje->getCadena ("idioma_concurso"),
+                                            $this->lenguaje->getCadena ("certificacion"),
+                                            $this->lenguaje->getCadena ("institucion_certificacion"),);                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             
@@ -87,6 +91,7 @@ class consultarIdioma {
                                      
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$resultadoIdioma[$key]['idioma']."</td>
+                                                <td align='left'>".($resultadoIdioma[$key]['idioma_concurso']=='S'?'SI':'NO')."</td>
                                                 <td align='left'>".$resultadoIdioma[$key]['certificacion']."</td>
                                                 <td align='left'>".$resultadoIdioma[$key]['institucion_certificacion']."</td>";
                                         // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------

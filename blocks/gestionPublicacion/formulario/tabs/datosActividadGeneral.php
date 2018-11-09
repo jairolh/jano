@@ -58,14 +58,27 @@ class consultarActividad {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
                     if($resultadoActividad)
                         {   //se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Tipo Actividad','Nombre Actividad','Descripción','Institución','Tipo','Telefono','Correo','Director');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_actividad"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("codigo_tipo_actividad"),
+                                                $this->lenguaje->getCadena ("nombre_actividad"),
+                                                $this->lenguaje->getCadena ("descripcion_actividad"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("correo_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("jefe_actividad"));                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -83,10 +96,19 @@ class consultarActividad {
                                     </thead>
                                     <tbody>";
                                 foreach($resultadoActividad as $key=>$value )
-                                    {   $mostrarHtml = "<tr align='center'>
+                                    {   
+                                        //calcula el tiempo de experiencia
+                                        $dateAct1 = new DateTime($resultadoActividad[$key]['fecha_inicio']);
+                                        if($resultadoActividad[$key]['fecha_fin']!='')
+                                             {$dateAct2 = new DateTime($resultadoActividad[$key]['fecha_fin']);}   
+                                        else {$dateAct2 = new DateTime("now");}
+                                        $diffAct[$key] = $dateAct1->diff($dateAct2);
+                                    
+                                        $mostrarHtml = "<tr align='center'>
                                                         <td align='left'>".$resultadoActividad[$key]['pais']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['fecha_inicio']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['fecha_fin']."</td>
+                                                        <td align='left'>".$diffAct[$key]->days."</td>    
                                                         <td align='left'>".$resultadoActividad[$key]['nombre_tipo_actividad']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['nombre_actividad']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['descripcion']."</td>

@@ -56,14 +56,25 @@ class consultarProfesional {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )."";
+            $atributos ["leyenda"] = "".$this->lenguaje->getCadena ( $esteCampo )." - ".$_REQUEST['name']." ".$_REQUEST['lastname'];
             
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {
                     if($resultadoProfesional)
                         {    //define las cabeceras de la tablas
-                            $columnas = array('Pais','Ingreso','Terminación','Cargo','Actividades','Institución','Tipo','Teléfono','Correo');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_experiencia"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("cargo"),
+                                                $this->lenguaje->getCadena ("descripcion_cargo"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_experiencia"),
+                                                $this->lenguaje->getCadena ("nivel_institucion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion"),
+                                                $this->lenguaje->getCadena ("correo_institucion"));
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);} 
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -82,16 +93,24 @@ class consultarProfesional {
                                     <tbody>";
                                 foreach($resultadoProfesional as $key=>$value )
                                     {                                        
+                                        //calcula el tiempo de experiencia
+                                        $date1 = new DateTime( $resultadoProfesional[$key]['fecha_inicio']);
+                                        if( $resultadoProfesional[$key]['fecha_fin']!='')
+                                             {$date2 = new DateTime( $resultadoProfesional[$key]['fecha_fin']);}   
+                                        else {$date2 = new DateTime("now");}
+                                        $diff[$key] = $date1->diff($date2);
+
                                         $mostrarHtml = "<tr align='center'>
-                                                <td align='left'>".$resultadoProfesional[$key]['pais']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['fecha_inicio']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['fecha_fin']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['cargo']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['descripcion_cargo']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['nombre_institucion']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['nivel_institucion']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['telefono_institucion']."</td>
-                                                <td align='left'>".$resultadoProfesional[$key]['correo_institucion']."</td>";
+                                                <td align='left'>". $resultadoProfesional[$key]['pais']."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['fecha_inicio']."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['fecha_fin']."</td>
+                                                <td align='left'>".$diff[$key]->days."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['cargo']."</td>
+                                                <td align='left' width='20%'>". $resultadoProfesional[$key]['descripcion_cargo']."</td>                                                    
+                                                <td align='left' width='10%' >". $resultadoProfesional[$key]['nombre_institucion']."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['nivel_institucion']."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['telefono_institucion']."</td>
+                                                <td align='left'>". $resultadoProfesional[$key]['correo_institucion']."</td>";
                                         // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                                 foreach ($resultadoTiposop as $tipokey => $value) 
                                                     {//valida si existen soportes para el tipo

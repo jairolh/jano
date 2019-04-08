@@ -118,37 +118,37 @@ class redireccion {
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=errorTipoJurado";
 				$variable.="&nombreTipoJurado=".$valor['nombre'];
-        break;
+                        break;
 
-			case "registroCriterioTipoJurado":
-      	$variable="pagina=".$miPaginaActual;
-      	$variable.="&opcion=mensaje";
-      	$variable.="&mensaje=confirmaCriterioTipoJurado";
-      	$variable.="&tipo_jurado=".$valor['tipo_jurado'];
-      	break;
+                        case "registroCriterioTipoJurado":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=confirmaCriterioTipoJurado";
+                                $variable.="&tipo_jurado=".$valor['tipo_jurado'];
+                                break;
 
-			case "noRegistroCriterioTipoJurado":
-      	$variable="pagina=".$miPaginaActual;
-      	$variable.="&opcion=mensaje";
-      	$variable.="&mensaje=errorCriterioTipoJurado";
-      	$variable.="&tipo_jurado=".$valor['tipo_jurado'];
-      	break;
+                        case "noRegistroCriterioTipoJurado":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=errorCriterioTipoJurado";
+                                $variable.="&tipo_jurado=".$valor['tipo_jurado'];
+                                break;
 
-      case "insertoUsuarioTipoJurado":
-      	$variable="pagina=".$miPaginaActual;
-      	$variable.="&opcion=mensaje";
-      	$variable.="&mensaje=confirmaUsuarioTipoJurado";
-      	$variable.="&usuario=".$valor['usuario_jurado'];
-      	break;
+                        case "insertoUsuarioTipoJurado":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=confirmaUsuarioTipoJurado";
+                                $variable.="&usuario=".$valor['usuario_jurado'];
+                                break;
 
-    	case "noInsertoUsuarioTipoJurado":
-    		$variable="pagina=".$miPaginaActual;
-    		$variable.="&opcion=mensaje";
-    		$variable.="&mensaje=errorUsuarioTipoJurado";
-    		$variable.="&usuario=".$valor['usuario_jurado'];
-    		break;
+                        case "noInsertoUsuarioTipoJurado":
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=errorUsuarioTipoJurado";
+                                $variable.="&usuario=".$valor['usuario_jurado'];
+                                break;
 
-      case "paginaPrincipal" :
+                        case "paginaPrincipal" :
 				$variable = "pagina=" . $miPaginaActual;
 				break;
 		}

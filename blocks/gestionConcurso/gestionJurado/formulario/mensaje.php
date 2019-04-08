@@ -146,7 +146,7 @@ class registrarForm {
 
          	/*Mensaje para Habilitar o Deshabilitar el Tipo de Jurado*/
 
-         	case "habilitarTipoJurado":
+         	case "habilitoTipoJurado":
          		$tipo = 'success';
          		$mensaje = "El tipo de jurado <b>".$_REQUEST ["tipoJurado"]." </b> se habilitó con éxito.";
          		$boton = "continuar";

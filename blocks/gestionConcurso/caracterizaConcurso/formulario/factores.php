@@ -53,12 +53,13 @@ echo $this->miFormulario->division ( "inicio", $atributos );
 				break;
 			case "nuevoFactor":
 				include ($this->ruta . "formulario/tabs/registroFactor.php");
+                                break; 
 			case "nuevoRol":
 				include ($this->ruta . "formulario/tabs/registroCriterioRol.php");
-                break; 
-            case "editar":
-            	include ($this->ruta . "formulario/tabs/edita.php");
-            	break;
+                                break; 
+                        case "editar":
+                            include ($this->ruta . "formulario/tabs/edita.php");
+                            break;
         }
 
 		// -----------------Fin Division para la pestaña 1-------------------------

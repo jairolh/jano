@@ -50,6 +50,7 @@ class registrarConcursoForm {
                         $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
                         $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                     }
+                else{$nuevoConcurso=1;}    
                 //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
                  $parametroTipoSop = array('dato_relaciona'=>'datosConcurso',
                                            //'tipo_soporte'=>'soporteAcuerdo',
@@ -535,7 +536,8 @@ class registrarConcursoForm {
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
                                         //imprime boton si no ha llegado al fin de concurso
-                                    if(isset($resultadoConcurso[0]['fecha_inicio']) && strcmp($hoy,$resultadoConcurso[0]['fecha_fin']) <= 0 )
+                                        
+                                    if($nuevoConcurso || (isset($resultadoConcurso[0]['fecha_inicio']) && strcmp($hoy,$resultadoConcurso[0]['fecha_fin']) <= 0 ))
                                         {echo $this->miFormulario->campoBoton ( $atributos );}
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 				}

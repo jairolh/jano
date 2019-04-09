@@ -36,10 +36,10 @@ $this->idioma["marcoPerfil"]="Nuevo Criterio de Evaluación";
 $this->idioma["marcoRol"]="Nuevo Rol a Criterio de Evaluación";
 $this->idioma["marcoCriterio"]="Criterios de Evaluación";
 $this->idioma["marcoModalidad"]="Registrar Modalidad";
-$this->idioma["marcoActividad"]="Registrar Actividad";
+$this->idioma["marcoActividad"]="Registrar Fase";
 
 $this->idioma["registrarCriterio"]="<br><b>Registrar Nuevo <br> Criterio</b>";
-$this->idioma["nuevaActividad"]="<br><b>Registrar Nueva <br> Actividad</b>";
+$this->idioma["nuevaActividad"]="<br><b>Registrar Nueva <br> Fase</b>";
 $this->idioma["nuevaModalidad"]="<br><b>Registrar Nueva <br> Modalidad</b>";
 $this->idioma["registrarRol"]="<br><b>Registrar Nuevo <br> Rol</b>";
 

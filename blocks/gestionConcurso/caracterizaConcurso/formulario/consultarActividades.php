@@ -82,7 +82,7 @@ class consultarForm {
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
             $atributos ['tipoEtiqueta'] = 'inicio';
-            $atributos ["leyenda"] = "<b>Gestión de Actividades</b>";
+            $atributos ["leyenda"] = "<b>Gestión Fases para Concursos</b>";
             echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
             unset ( $atributos );
                 {

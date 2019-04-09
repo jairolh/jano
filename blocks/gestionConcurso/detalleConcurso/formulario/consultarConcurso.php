@@ -314,7 +314,9 @@ class consultarForm {
                                                 $atributos['ancho']='25';
                                                 $atributos['alto']='25';
                                                 $atributos['enlaceImagen']=$rutaBloque."/images/player_pause.png";
-                                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                if($hoy<$resultadoConcurso[$key]['fecha_fin'])
+                                                    { $mostrarHtml .= $this->miFormulario->enlace($atributos);}
+                                                
                                                 unset($atributos);    
                                             }
                                         else{
@@ -329,7 +331,9 @@ class consultarForm {
                                                 $atributos['ancho']='25';
                                                 $atributos['alto']='25';
                                                 $atributos['enlaceImagen']=$rutaBloque."/images/success.png";
-                                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                if($hoy<$resultadoConcurso[$key]['fecha_fin'])
+                                                    { $mostrarHtml .= $this->miFormulario->enlace($atributos);}
+                                                
                                                 unset($atributos);    
                                             }    
                                 $mostrarHtml .= "</td>";

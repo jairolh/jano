@@ -78,7 +78,7 @@ class consultarForm {
 		$usuario=$this->miSesion->getSesionUsuarioId();
 
 		//buscar consecutivo_persona
-		$tipo=substr($usuario,0,2);
+		$tipo=strtoupper(substr($usuario,0,2));
 		$id=substr($usuario,2);
 
 		$persona = array('tipo_identificacion'=> $tipo,

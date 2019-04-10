@@ -41,7 +41,9 @@ if(isset($_REQUEST['consecutivo_concurso']))
         $resultadoSopAcu = $esteRecursoDB->ejecutarAcceso($cadenaSopAcu_sql, "busqueda");*/
     }
 //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
- $parametroTipoSop = array('dato_relaciona'=>'datosConcurso','tipo_soporte'=>'soporteAcuerdo',);
+ $parametroTipoSop = array('dato_relaciona'=>'datosConcurso',
+                           //'tipo_soporte'=>'soporteAcuerdo',
+                          );
  $cadenaSalud_sql = $this->sql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
  $resultadoTiposop = $esteRecursoDB->ejecutarAcceso($cadenaSalud_sql, "busqueda");
  // ---------------- SECCION: Enlace para soporte -----------------------------------------------
@@ -131,7 +133,7 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                                        // --------------- CONTROL : Tabla --------------------------------------------------  
                                                        echo $this->miFormulario->tablaReporte ($datosConcurso); 
                                                        // --------------- Fin CONTROL : Tabla --------------------------------------------------  
-                                                                                             // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
+                                                       // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                                     foreach ($resultadoTiposop as $tipokey => $value) 
                                                         {//valida si existen soportes para el tipo
                                                         $parametroSop = array('consecutivo_persona'=>0,
@@ -143,90 +145,100 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                                         $cadenaSop_sql = $this->sql->getCadenaSql("buscarSoporte", $parametroSop);
                                                         $resultadoSoporte = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql , "busqueda");
                                                         //se arman las celdas con los soportes existentes
+                                                        if($resultadoSoporte)    
+                                                            {
+                                                            echo "<table width=100% border=0 >";
+                                                            echo "<th>".$resultadoTiposop[$tipokey]['alias']."</th>";
+                                                            echo "<tr>";
+                                                            foreach ($resultadoSoporte as $key => $value)
+                                                                {
+                                                                echo "<td>";       
+                                                                   if(isset($resultadoSoporte[$key]['archivo']))
+                                                                      {
+                                                                        $arrayFile = explode(",",strtolower( $resultadoTiposop[$tipokey]['extencion_permitida']));
+                                                                         if(isset($resultadoSoporte[$key]['archivo']) && 
+                                                                             (in_array(strtolower("png"), $arrayFile) || 
+                                                                              in_array(strtolower("jpg"), $arrayFile) ||
+                                                                              in_array(strtolower("jpeg"), $arrayFile) ||
+                                                                              in_array(strtolower("bmp"), $arrayFile)))
+                                                                                { //Se codifica la imagen
+                                                                                   $rutaImagen= "file://".$this->rutaSoporte.$resultadoSoporte[$key]['ubicacion']."/".$resultadoSoporte[$key]['archivo'];
+                                                                                   $imagen = file_get_contents ( $rutaImagen );
+                                                                                   $imagenEncriptada = base64_encode ( $imagen );
+                                                                                   $url_foto_perfil= "data:image;base64," . $imagenEncriptada;
 
-                                                        if(isset($resultadoSoporte[0]['archivo']))
-                                                              {
-                                                                $arrayFile = explode(",",strtolower( $resultadoTiposop[$tipokey]['extencion_permitida']));
-                                                                 if(isset($resultadoSoporte[0]['archivo']) && 
-                                                                     (in_array(strtolower("png"), $arrayFile) || 
-                                                                      in_array(strtolower("jpg"), $arrayFile) ||
-                                                                      in_array(strtolower("jpeg"), $arrayFile) ||
-                                                                      in_array(strtolower("bmp"), $arrayFile)))
-                                                                        { //Se codifica la imagen
-                                                                           $rutaImagen= "file://".$this->rutaSoporte.$resultadoSoporte[0]['ubicacion']."/".$resultadoSoporte[0]['archivo'];
-                                                                           $imagen = file_get_contents ( $rutaImagen );
-                                                                           $imagenEncriptada = base64_encode ( $imagen );
-                                                                           $url_foto_perfil= "data:image;base64," . $imagenEncriptada;
-
-                                                                            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                                           $esteCampo = 'archivoImagen';
-                                                                           $atributos ['id'] = $esteCampo;
-                                                                           $atributos['imagen']= $url_foto_perfil;
-                                                                           $atributos['estilo']='campoImagen anchoColumna2';
-                                                                           $atributos['etiqueta']='Imagen';
-                                                                           $atributos['borde']='';
-                                                                           $atributos ['ancho'] = '100px';
-                                                                           $atributos ['alto'] = '120px';
-                                                                           $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                                           echo $this->miFormulario->campoImagen( $atributos );
-                                                                           unset ( $atributos );
-                                                                         // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
-                                                                       }
-                                                                  else {      
-                                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                                            $esteCampo = 'archivo'.$resultadoSoporte[0]['consecutivo_soporte'];
-                                                                            $atributos ['id'] = $esteCampo;
-                                                                            $atributos ['enlace'] = 'javascript:enlaceSop("ruta'.$resultadoSoporte[0]['consecutivo_soporte'].'");';
-                                                                            $atributos ['tabIndex'] = 0;
-                                                                            $atributos ['marco'] = true;
-                                                                            $atributos ['columnas'] = 2;
-                                                                            $atributos ['enlaceTexto'] = $resultadoSoporte[0]['alias'];
-                                                                            $atributos ['estilo'] = 'textoPequenno textoGris ';
-                                                                            $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
-                                                                            $atributos ['posicionImagen'] ="atras";//"adelante";
-                                                                            $atributos ['ancho'] = '25px';
-                                                                            $atributos ['alto'] = '25px';
-                                                                            $atributos ['redirLugar'] = false;
-                                                                            $atributos ['valor'] = '';
-                                                                            $atributos = array_merge ( $atributos, $atributosGlobales );
-                                                                            echo $this->miFormulario->enlace( $atributos );
-                                                                            unset ( $atributos );
-                                                                           // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
-                                                                              //-------------Inicio preparar enlace soporte-------
-                                                                              $verSoporte = $variableSoporte;
-                                                                              $verSoporte .= "&opcion=verPdf";
-                                                                              $verSoporte .= "&raiz=".$this->rutaSoporte;
-                                                                              $verSoporte .= "&ruta=".$resultadoSoporte[0]['ubicacion'];
-                                                                              $verSoporte .= "&archivo=".$resultadoSoporte[0]['archivo'];
-                                                                              $verSoporte .= "&alias=".$resultadoSoporte[0]['alias'];
-                                                                              $verSoporte = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $verSoporte, $directorio );
-                                                                              //-------------Fin preparar enlace soporte-------
-                                                                            $esteCampo = 'ruta'.$resultadoSoporte[0]['consecutivo_soporte'];
-                                                                            $atributos ['id'] = $esteCampo;
-                                                                            $atributos ['nombre'] = $esteCampo;
-                                                                            $atributos ['tipo'] = 'hidden';
-                                                                            $atributos ['estilo'] = '';//jqueryui';
-                                                                            $atributos ['marco'] = true;
-                                                                            $atributos ['columnas'] = 1;
-                                                                            $atributos ['dobleLinea'] = false;
-                                                                            $atributos ['tabIndex'] = $tab=0;
-                                                                            $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-                                                                            $atributos ['obligatorio'] = false;
-                                                                            $atributos ['etiquetaObligatorio'] = false;
-                                                                            $atributos ['validar'] = '';
-                                                                            $atributos ['valor'] = $verSoporte;
-                                                                            //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                                                            $atributos ['deshabilitado'] = FALSE;
-                                                                            $atributos ['tamanno'] = 30;
-                                                                            $atributos ['anchoCaja'] = 60;
-                                                                            $atributos ['maximoTamanno'] = '';
-                                                                            $atributos ['anchoEtiqueta'] = 120;
-                                                                            //$atributos = array_merge ( $atributos, $atributosGlobales );
-                                                                            echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                                            // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-                                                                         }  
-                                                            }
-
+                                                                                    // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                                                   $esteCampo = 'archivoImagen';
+                                                                                   $atributos ['id'] = $esteCampo;
+                                                                                   $atributos['imagen']= $url_foto_perfil;
+                                                                                   $atributos['estilo']='campoImagen anchoColumna2';
+                                                                                   $atributos['etiqueta']='Imagen';
+                                                                                   $atributos['borde']='';
+                                                                                   $atributos ['ancho'] = '100px';
+                                                                                   $atributos ['alto'] = '120px';
+                                                                                   $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                                   echo $this->miFormulario->campoImagen( $atributos );
+                                                                                   unset ( $atributos );
+                                                                                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
+                                                                               }
+                                                                          else {      
+                                                                                     // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                                                    $esteCampo = 'archivo'.$resultadoSoporte[$key]['consecutivo_soporte'];
+                                                                                    $atributos ['id'] = $esteCampo;
+                                                                                    $atributos ['enlace'] = 'javascript:enlaceSop("ruta'.$resultadoSoporte[$key]['consecutivo_soporte'].'");';
+                                                                                    $atributos ['tabIndex'] = 0;
+                                                                                    $atributos ['marco'] = true;
+                                                                                    $atributos ['columnas'] = 2;
+                                                                                    $atributos ['enlaceTexto'] = $resultadoSoporte[$key]['alias'];
+                                                                                    $atributos ['estilo'] = 'textoPequenno textoGris ';
+                                                                                    $atributos ['enlaceImagen'] = $rutaBloque."/images/pdfImage.png";
+                                                                                    $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                                    $atributos ['ancho'] = '25px';
+                                                                                    $atributos ['alto'] = '25px';
+                                                                                    $atributos ['redirLugar'] = false;
+                                                                                    $atributos ['valor'] = '';
+                                                                                    $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                                    echo $this->miFormulario->enlace( $atributos );
+                                                                                    unset ( $atributos );
+                                                                                   // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------  
+                                                                                      //-------------Inicio preparar enlace soporte-------
+                                                                                      $verSoporte = $variableSoporte;
+                                                                                      $verSoporte .= "&opcion=verPdf";
+                                                                                      $verSoporte .= "&raiz=".$this->rutaSoporte;
+                                                                                      $verSoporte .= "&ruta=".$resultadoSoporte[$key]['ubicacion'];
+                                                                                      $verSoporte .= "&archivo=".$resultadoSoporte[$key]['archivo'];
+                                                                                      $verSoporte .= "&alias=".$resultadoSoporte[$key]['alias'];
+                                                                                      $verSoporte = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $verSoporte, $directorio );
+                                                                                      //-------------Fin preparar enlace soporte-------
+                                                                                    $esteCampo = 'ruta'.$resultadoSoporte[$key]['consecutivo_soporte'];
+                                                                                    $atributos ['id'] = $esteCampo;
+                                                                                    $atributos ['nombre'] = $esteCampo;
+                                                                                    $atributos ['tipo'] = 'hidden';
+                                                                                    $atributos ['estilo'] = '';//jqueryui';
+                                                                                    $atributos ['marco'] = true;
+                                                                                    $atributos ['columnas'] = 1;
+                                                                                    $atributos ['dobleLinea'] = false;
+                                                                                    $atributos ['tabIndex'] = $tab=0;
+                                                                                    $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                                    $atributos ['obligatorio'] = false;
+                                                                                    $atributos ['etiquetaObligatorio'] = false;
+                                                                                    $atributos ['validar'] = '';
+                                                                                    $atributos ['valor'] = $verSoporte;
+                                                                                    //$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                                    $atributos ['deshabilitado'] = FALSE;
+                                                                                    $atributos ['tamanno'] = 30;
+                                                                                    $atributos ['anchoCaja'] = 60;
+                                                                                    $atributos ['maximoTamanno'] = '';
+                                                                                    $atributos ['anchoEtiqueta'] = 120;
+                                                                                    //$atributos = array_merge ( $atributos, $atributosGlobales );
+                                                                                    echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                                    // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                                 }  
+                                                                    }
+                                                                echo "</td>";       
+                                                                }
+                                                             echo "</tr></table>";   
+                                                            } 
                                                          } 
                                                     // --------------- FIN CONTROLES : ver SOPORTES --------------------------------------------------    
                                                        

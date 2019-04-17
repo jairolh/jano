@@ -64,7 +64,21 @@ class consultarProduccion {
                 {
                     if($resultadoProduccion)
                         {   //se definen cabeceras de la tabla
-                            $columnas = array('Ciudad','Fecha','Producto','Titulo','Autor / Editor','Publicación / Evento','Editorial','Volumen','Página','ISBN','ISSN','Indexado','Descripción','Enlace');
+                            $columnas = array( 
+                                            $this->lenguaje->getCadena ("ciudad_produccion"),
+                                            $this->lenguaje->getCadena ("fecha_produccion"),
+                                            $this->lenguaje->getCadena ("codigo_tipo_produccion"),
+                                            $this->lenguaje->getCadena ("titulo_produccion"),
+                                            $this->lenguaje->getCadena ("nombre_autor"),
+                                            $this->lenguaje->getCadena ("nombre_producto_incluye"),
+                                            $this->lenguaje->getCadena ("nombre_editorial"),
+                                            $this->lenguaje->getCadena ("volumen"),
+                                            $this->lenguaje->getCadena ("pagina_producto"),
+                                            $this->lenguaje->getCadena ("codigo_isbn"),
+                                            $this->lenguaje->getCadena ("codigo_issn"),
+                                            $this->lenguaje->getCadena ("indexado"),
+                                            $this->lenguaje->getCadena ("descripcion_produccion"),
+                                            $this->lenguaje->getCadena ("direccion_produccion"));
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------

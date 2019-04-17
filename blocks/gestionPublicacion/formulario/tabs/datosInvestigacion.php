@@ -65,7 +65,23 @@ class consultarInvestigacion {
                 {
                     if($resultadoInvestigacion)
                         {//se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Investigación','Actividades','Director','Institución','Tipo','Telefono','Correo','Grupo','Categoria','Enlace');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_inicio_investigacion"),
+                                                $this->lenguaje->getCadena ("fecha_fin_investigacion"),
+                                                $this->lenguaje->getCadena ("tiempo_investigacion"),
+                                                $this->lenguaje->getCadena ("rol_investigacion"),
+                                                $this->lenguaje->getCadena ("titulo_investigacion"),
+                                                $this->lenguaje->getCadena ("descripcion_investigacion"),
+                                                $this->lenguaje->getCadena ("jefe_investigacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("correo_institucion_investigacion"),
+                                                $this->lenguaje->getCadena ("grupo_investigacion"),
+                                                $this->lenguaje->getCadena ("categoria_grupo"),
+                                                $this->lenguaje->getCadena ("direccion_investigacion"));                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -84,11 +100,19 @@ class consultarInvestigacion {
                                     <tbody>";     
                                 foreach($resultadoInvestigacion as $key=>$value )
                                     {   $datos=json_decode ($resultadoInvestigacion[$key]['valor_dato']);	
+                                        //calcula el tiempo de experiencia
+                                        $date1 = new DateTime( $datos->fecha_inicio);
+                                        if( $datos->fecha_fin!='')
+                                             {$date2 = new DateTime( $datos->fecha_fin);}   
+                                        else {$date2 = new DateTime("now");}
+                                        $diff[$key] = $date1->diff($date2);
                                         
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$datos->pais."</td>
                                                 <td align='left'>".$datos->fecha_inicio."</td>
                                                 <td align='left'>".$datos->fecha_fin."</td>
+                                                <td align='left'>".$diff[$key]->days."</td>
+                                                <td align='left'>".$datos->rol_investigacion."</td>
                                                 <td align='left'>".$datos->titulo_investigacion."</td>
                                                 <td align='left'>".$datos->descripcion_investigacion."</td>
                                                 <td align='left'>".$datos->jefe_investigacion."</td>
@@ -99,7 +123,7 @@ class consultarInvestigacion {
                                                 <td align='left'>".$datos->grupo_investigacion."</td>
                                                 <td align='left'>".$datos->categoria_grupo."</td>";
                                         $mostrarHtml .= "<td>";
-                                                    if(isset($datos->direccion_investigacion))
+                                                    if(isset($datos->direccion_investigacion) && $datos->direccion_investigacion!='')
                                                         {
                                                           $esteCampo = 'enlace_investigacion'.$datos->consecutivo_investigacion;
                                                           $atributos ['id'] = $esteCampo;

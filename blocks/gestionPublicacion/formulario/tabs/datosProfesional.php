@@ -64,7 +64,17 @@ class consultarProfesional {
                 {
                     if($resultadoProfesional)
                         {   //define las cabeceras de la tablas
-                            $columnas = array('Pais','Ingreso','Terminación','Cargo','Actividades','Institución','Tipo','Teléfono','Correo');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_experiencia"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("cargo"),
+                                                $this->lenguaje->getCadena ("descripcion_cargo"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_experiencia"),
+                                                $this->lenguaje->getCadena ("nivel_institucion"),
+                                                $this->lenguaje->getCadena ("telefono_institucion"),
+                                                $this->lenguaje->getCadena ("correo_institucion"));
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);} 
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -83,14 +93,21 @@ class consultarProfesional {
                                     <tbody>";
                                 foreach($resultadoProfesional as $key=>$value )
                                     {   $datos=json_decode ($resultadoProfesional[$key]['valor_dato']);	
-                                        
+                                        //calcula el tiempo de experiencia
+                                        $date1 = new DateTime( $datos->fecha_inicio);
+                                        if( $datos->fecha_fin!='')
+                                             {$date2 = new DateTime( $datos->fecha_fin);}   
+                                        else {$date2 = new DateTime("now");}
+                                        $diff[$key] = $date1->diff($date2);                                        
+                                    
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$datos->pais."</td>
                                                 <td align='left'>".$datos->fecha_inicio."</td>
                                                 <td align='left'>".$datos->fecha_fin."</td>
+                                                <td align='left'>".$diff[$key]->days."</td>
                                                 <td align='left'>".$datos->cargo."</td>
-                                                <td align='left'>".$datos->descripcion_cargo."</td>
-                                                <td align='left'>".$datos->nombre_institucion."</td>
+                                                <td align='left' width='20%'>".$datos->descripcion_cargo."</td>
+                                                <td align='left' width='10%'>".$datos->nombre_institucion."</td>
                                                 <td align='left'>".$datos->nivel_institucion."</td>
                                                 <td align='left'>".$datos->telefono_institucion."</td>
                                                 <td align='left'>".$datos->correo_institucion."</td>";

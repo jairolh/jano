@@ -65,7 +65,20 @@ class consultarActividad {
                 {
                     if($resultadoActividad)
                         {   //se definen cabeceras de la tabla
-                            $columnas = array('Pais','Ingreso','Terminación','Tipo Actividad','Nombre Actividad','Descripción','Institución','Tipo','Telefono','Correo','Director');
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_actividad"),
+                                                $this->lenguaje->getCadena ("fecha_inicio"),
+                                                $this->lenguaje->getCadena ("fecha_fin"),
+                                                $this->lenguaje->getCadena ("tiempo_experiencia"),
+                                                $this->lenguaje->getCadena ("codigo_tipo_actividad"),
+                                                $this->lenguaje->getCadena ("nombre_actividad"),
+                                                $this->lenguaje->getCadena ("descripcion_actividad"),
+                                                $this->lenguaje->getCadena ("nombre_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("nivel_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("telefono_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("correo_institucion_actividad"),
+                                                $this->lenguaje->getCadena ("jefe_actividad"));                            
+                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             //-----------------Inicio de Conjunto de Controles----------------------------------------
@@ -85,11 +98,17 @@ class consultarActividad {
 
                                 foreach($resultadoActividad as $key=>$value )
                                     {   $datos=json_decode ($resultadoActividad[$key]['valor_dato']);	
-                                        
+                                        //calcula el tiempo de experiencia
+                                        $date1 = new DateTime( $datos->fecha_inicio);
+                                        if( $datos->fecha_fin!='')
+                                             {$date2 = new DateTime( $datos->fecha_fin);}   
+                                        else {$date2 = new DateTime("now");}
+                                        $diff[$key] = $date1->diff($date2);                                        
                                         $mostrarHtml = "<tr align='center'>
                                                         <td align='left'>".$datos->pais."</td>
                                                         <td align='left'>".$datos->fecha_inicio."</td>
                                                         <td align='left'>".$datos->fecha_fin."</td>
+                                                        <td align='left'>".$diff[$key]->days."</td>
                                                         <td align='left'>".$datos->nombre_tipo_actividad."</td>
                                                         <td align='left'>".$datos->nombre_actividad."</td>
                                                         <td align='left'>".$datos->descripcion."</td>

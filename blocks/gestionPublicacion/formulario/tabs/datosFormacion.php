@@ -66,8 +66,17 @@ class consultarFormacion {
 
                     if($resultadoFormacion)
                         {       //define las acebceras de la tablas
-                            $columnas = array('Pais','Institucion','Nivel Formacion','Programa','Modalidad','Cursos aprobados','Promedio','Graduado','Fecha grado');
-                            foreach ($resultadoTiposop as $tipokey => $value) 
+                            $columnas = array( 
+                                                $this->lenguaje->getCadena ("pais_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_institucion"),
+                                                $this->lenguaje->getCadena ("nivel_formacion"),
+                                                $this->lenguaje->getCadena ("nombre_programa"),
+                                                $this->lenguaje->getCadena ("modalidad_formacion"),
+                                                $this->lenguaje->getCadena ("cursos_aprobados"),
+                                                $this->lenguaje->getCadena ("cursos_temporalidad"),
+                                                $this->lenguaje->getCadena ("promedio"),
+                                                $this->lenguaje->getCadena ("graduado"),
+                                                $this->lenguaje->getCadena ("fecha_grado"));                            foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                                 
                                 
@@ -91,11 +100,12 @@ class consultarFormacion {
                                      
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$datos->pais."</td>
-                                                <td align='left'>".$datos->nombre_institucion."</td>
+                                                <td align='left' width='15%'>".$datos->nombre_institucion."</td>
                                                 <td align='left'>".$datos->nivel."</td>
-                                                <td align='left'>".$datos->nombre_programa."</td>
+                                                <td align='left' width='15%'>".$datos->nombre_programa."</td>
                                                 <td align='left'>".$datos->modalidad."</td>
                                                 <td align='left'>".$datos->cursos_aprobados."</td>
+                                                <td align='left'>".$datos->periodicidad."</td>
                                                 <td align='left'>".$datos->promedio."</td>
                                                 <td align='left'>".str_replace("S", "SI", str_replace("N", "NO", $datos->graduado))."</td>
                                                 <td align='left'>".$datos->fecha_grado."</td>";

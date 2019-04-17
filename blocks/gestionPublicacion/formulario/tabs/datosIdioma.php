@@ -65,7 +65,11 @@ class consultarIdioma {
                 {
                     if($resultadoIdioma)
                         {    //se definen cabeceras de la tabla
-                            $columnas = array('Idioma','Certificación','Institución certifica');
+                            $columnas = array( 
+                                            $this->lenguaje->getCadena ("codigo_idioma"),
+                                            $this->lenguaje->getCadena ("idioma_concurso"),
+                                            $this->lenguaje->getCadena ("certificacion"),
+                                            $this->lenguaje->getCadena ("institucion_certificacion"),);                            
                             foreach ($resultadoTiposop as $tipokey => $value) 
                                 {array_push($columnas, $resultadoTiposop[$tipokey]['alias']);}
                             
@@ -88,6 +92,7 @@ class consultarIdioma {
                                      
                                         $mostrarHtml = "<tr align='center'>
                                                 <td align='left'>".$datos->idioma."</td>
+                                                <td align='left'>".($datos->idioma_concurso=='S'?'SI':'NO')."</td>
                                                 <td align='left'>".$datos->certificacion."</td>
                                                 <td align='left'>".$datos->institucion_certificacion."</td>";
                                                 // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------

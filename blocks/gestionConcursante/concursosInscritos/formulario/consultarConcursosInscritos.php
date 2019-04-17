@@ -76,7 +76,7 @@ class consultarForm {
 		$miSesion = \Sesion::singleton();
 		$usuario=$miSesion->idUsuario();
 
-		$tipo=substr($usuario,0,2);
+		$tipo=strtoupper(substr($usuario,0,2));
 		$id=substr($usuario,2);
 
 		$persona = array('tipo_identificacion'=> $tipo,

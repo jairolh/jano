@@ -92,22 +92,22 @@ class Sql extends \Sql {
 				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
 				$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
 				$cadenaSql.=" WHERE ";
-        $cadenaSql.=" s.estado='1' AND";
+                                $cadenaSql.=" s.estado='1' AND";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
 				$cadenaSql.=" (r.rol_alias='Jurado')";
 				break;
 
-				case 'consultarEvaluadores' :
-					$cadenaSql=" SELECT ";
-					$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
-					$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
-					$cadenaSql.=" WHERE ";
-	        $cadenaSql.=" s.estado='1' AND";
-					$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
-					$cadenaSql.=" s.rol_id=r.rol_id AND";
-					$cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Personal' OR r.rol_alias='ILUD' )";
-					break;
+                        case 'consultarEvaluadores' :
+                                $cadenaSql=" SELECT ";
+                                $cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
+                                $cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
+                                $cadenaSql.=" WHERE ";
+                                 $cadenaSql.=" s.estado='1' AND";
+                                $cadenaSql.=" s.id_usuario=u.id_usuario AND ";
+                                $cadenaSql.=" s.rol_id=r.rol_id AND";
+                                $cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Personal' OR r.rol_alias='ILUD' )";
+                                break;
 
 			case 'consultarTiposJurado' :
 				$cadenaSql=" SELECT ";
@@ -115,30 +115,30 @@ class Sql extends \Sql {
 				$cadenaSql.=" FROM concurso.jurado_tipo";
 				break;
 
-				case 'consultarAspirantesValidados' :
-					$cadenaSql=" SELECT ";
-					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
-					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
-					$cadenaSql.=" WHERE ";
-					$cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
-					$cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
-					$cadenaSql.=" cumple_requisito='SI' AND";
-					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
-					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
-					break;
+                        case 'consultarAspirantesValidados' :
+                                $cadenaSql=" SELECT ";
+                                $cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+                                $cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
+                                $cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
+                                $cadenaSql.=" cumple_requisito='SI' AND";
+                                $cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND";
+                                $cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
+                                break;
 
-				case 'consultarAspirantesNoAsignados' :
-					$cadenaSql=" SELECT ";
-					$cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
-					$cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
-					$cadenaSql.=" WHERE ";
-					$cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
-					$cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
-					$cadenaSql.=" cumple_requisito='SI' AND ";
-					$cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND ";
-					$cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
-					$cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
-					break;
+                        case 'consultarAspirantesNoAsignados' :
+                                $cadenaSql=" SELECT ";
+                                $cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+                                $cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
+                                $cadenaSql.=" WHERE ";
+                                $cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
+                                $cadenaSql.=" ci.consecutivo_inscrito=vr.consecutivo_inscrito AND ";
+                                $cadenaSql.=" cumple_requisito='SI' AND ";
+                                $cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND ";
+                                $cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
+                                $cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
+                                break;
 
 			case 'buscarTipoSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
@@ -726,7 +726,16 @@ class Sql extends \Sql {
                                     $cadenaSql .= "FROM general.departamento dep ";
                                     $cadenaSql .= "WHERE ";
                                     $cadenaSql .= "dep.id_departamento = bas.departamento_nacimiento) departamento,";
-                                $cadenaSql.=" bas.sexo ";
+                                $cadenaSql.=" bas.sexo, ";
+                                    $cadenaSql .= "(SELECT c.nombre ";
+                                    $cadenaSql .= "FROM general.ciudad c ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "c.id_ciudad = bas.lugar_identificacion) lugar_identificacion, ";
+                                $cadenaSql.=" bas.fecha_identificacion, ";
+                                    $cadenaSql .= "(SELECT idm.nombre ";
+                                    $cadenaSql .= "FROM general.idioma idm ";
+                                    $cadenaSql .= "WHERE ";
+                                    $cadenaSql .= "idm.codigo_idioma=bas.codigo_idioma_nativo) idioma_nativo ";
                                 $cadenaSql.=" FROM concurso.persona bas ";
                                 $cadenaSql.=" WHERE bas.consecutivo='".$variable['consecutivo_persona']."'";
                             break;

@@ -160,18 +160,17 @@ class consultarBasicos{
                           $mostrarHtml.= "</td>";
                         // --------------- FIN CONTROLES : ver SOPORTES --------------------------------------------------        
                           $mostrarHtml.= "</tr>";
-
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('nombres')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos->nombre."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->tipo_identificacion."</td>    
-                                                </tr>";                                
-                                $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('apellidos')."</th>
                                                         <td class='table-tittle estilo_tr '  $cajaDato>".$datos->apellido."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
-                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->identificacion."</td>
+                                                </tr> ";
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('pais_nacimiento')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->pais_nacimiento."</td>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('lugar_nacimiento')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->lugar_nacimiento."</td>
                                                 </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('sexo')."</th>
@@ -179,10 +178,26 @@ class consultarBasicos{
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_nacimiento')."</th>
                                                         <td class='table-tittle estilo_tr ' $cajaDato>".$datos->fecha_nacimiento."</td>  </tr> ";
                                 $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('pais_nacimiento')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->pais_nacimiento."</td>
-                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('lugar_nacimiento')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->lugar_nacimiento."</td>  </tr> ";
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('tipo_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->tipo_identificacion."</td>    
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->identificacion."</td>
+                                                </tr> ";
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('fecha_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->fecha_identificacion."</td>    
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('lugar_identificacion')."</th>
+                                                        <td class='table-tittle estilo_tr '  $cajaDato>".$datos->lugar_identificacion."</td>
+                                                </tr> ";                                
+                                $mostrarHtml.= "<tr align='center'>
+                                                        <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('codigo_idioma_nativo')."</th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->idioma_nativo."</td>
+                                                        <th class='textoAzul' $cajaNombre> </th>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato> </td>
+                                                </tr> ";
+
+
+
                                 
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";

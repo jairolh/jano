@@ -401,6 +401,28 @@ class Sql extends \Sql {
                             break;           
                         
                         /***Consultas arma hoja de vida general***/
+
+			case 'buscarTipoSoporte' :
+				$cadenaSql=" SELECT DISTINCT";
+                                $cadenaSql.=" tipo_soporte,";
+                                $cadenaSql.=" nombre,";
+                                $cadenaSql.=" ubicacion,";
+                                $cadenaSql.=" descripcion,";
+                                $cadenaSql.=" extencion_permitida,";
+                                $cadenaSql.=" tamanno_permitido,";
+                                $cadenaSql.=" dato_relaciona,";
+                                $cadenaSql.=" alias,";
+                                $cadenaSql.=" validacion,";
+                                $cadenaSql.=" posicion,";
+                                $cadenaSql.=" estado ";
+                                $cadenaSql.=" FROM ".$this->miConfigurador->getVariableConfiguracion ("esquemaTipoSoporte").".tipo_soporte";
+                                $cadenaSql.=" WHERE ";
+				$cadenaSql.=" estado='A' ";
+                                $cadenaSql.=" AND dato_relaciona = '".$variable['dato_relaciona']."'";
+                                if(isset($variable['tipo_soporte']) && $variable['tipo_soporte']!='')
+                                    {$cadenaSql.=" AND nombre = '".$variable['tipo_soporte']."'";}
+                                $cadenaSql.=" ORDER BY dato_relaciona, posicion ASC, alias ASC";    
+                            break;
                         
                         case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";

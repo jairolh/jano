@@ -110,13 +110,26 @@ class cerrarSoporteConcurso {
         $resultadoCierre = $esteRecursoDB->ejecutarAcceso($this->cadena_sql, "registro", $datosCierre, "registroCierreSoporteConcurso" );
         return $resultadoCierre;
     }  
+
+    function buscarTipoSoporte($tipo_dato,$esteRecursoDB){
+        
+        //----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
+        $parametroTipoSop = array('dato_relaciona'=>$tipo_dato,);
+        $cadenaSalud_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
+        $resultadoTiposop = $esteRecursoDB->ejecutarAcceso($cadenaSalud_sql, "busqueda");
+        $parametroSop = array();
+        foreach ($resultadoTiposop as $key => $value) 
+            { array_push($parametroSop, $resultadoTiposop[$key]['nombre']);}
+
+        return ($parametroSop);  
+    }    
     
     function buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB){
         $arregloSoporte[0]['consecutivo_soporte']=0;
         $arregloSoporte[0]['alias_soporte']='';
         $arregloSoporte[0]['nombre_soporte']='';
         foreach ($nombre_soporte as $key => $value) {
-              $parametroSop = array('consecutivo'=>$consecutivo_persona,
+              $parametroSop = array('consecutivo_persona'=>$consecutivo_persona,
                                       'tipo_dato'=>$tipo_dato,
                                       'nombre_soporte'=>$value,
                                       'consecutivo_dato'=>$consecutivo_dato);
@@ -147,11 +160,15 @@ class cerrarSoporteConcurso {
                               'pais_nacimiento' => $resultadoPersona[0]['pais'],
                               'departamento_nacimiento' => $resultadoPersona[0]['departamento'],
                               'sexo'  => $resultadoPersona[0]['sexo'],
+                              'lugar_identificacion' => $resultadoPersona[0]['lugar_identificacion'],
+                              'fecha_identificacion' => $resultadoPersona[0]['fecha_identificacion'],
+                              'idioma_nativo' => $resultadoPersona[0]['idioma_nativo'],
                          );
         //busca soportes cargados
         $consecutivo_persona=$resultadoPersona[0]['consecutivo'];
         $tipo_dato='datosBasicos';
-        $nombre_soporte=['foto','soporteIdentificacion'];
+        $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
+        //$nombre_soporte=['foto','soporteIdentificacion'];
         $consecutivo_dato=$resultadoPersona[0]['consecutivo'];
         //busca soportes por registro
         $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -242,7 +259,8 @@ class cerrarSoporteConcurso {
                     //busca soportes cargados
                     $consecutivo_persona=$resultadoFormacion[$key]['consecutivo_persona'];
                     $tipo_dato='datosFormacion';
-                    $nombre_soporte=['soporteDiploma','soporteTprofesional'];
+                    //$nombre_soporte=['soporteDiploma','soporteTprofesional'];
+                    $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                     $consecutivo_dato=$resultadoFormacion[$key]['consecutivo_formacion'];
                     //busca soportes por registro
                     $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -300,7 +318,8 @@ class cerrarSoporteConcurso {
                     //busca soportes cargados
                     $consecutivo_persona=$resultadoExperiencia[$key]['consecutivo_persona'];
                     $tipo_dato='datosExperiencia';
-                    $nombre_soporte=['soporteExperiencia'];
+                    //$nombre_soporte=['soporteExperiencia'];
+                    $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                     $consecutivo_dato=$resultadoExperiencia[$key]['consecutivo_experiencia'];
                     //busca soportes por registro
                     $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -359,7 +378,8 @@ class cerrarSoporteConcurso {
                 //busca soportes cargados
                 $consecutivo_persona=$resultadoDocencia[$key]['consecutivo_persona'];
                 $tipo_dato='datosDocencia';
-                $nombre_soporte=['soporteDocencia'];
+                //$nombre_soporte=['soporteDocencia'];
+                $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                 $consecutivo_dato=$resultadoDocencia[$key]['consecutivo_docencia'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -415,7 +435,8 @@ class cerrarSoporteConcurso {
                     //busca soportes cargados
                     $consecutivo_persona=$resultadoActividad[$key]['consecutivo_persona'];
                     $tipo_dato='datosActividad';
-                    $nombre_soporte=['soporteActividad'];
+                    //$nombre_soporte=['soporteActividad'];
+                    $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                     $consecutivo_dato=$resultadoActividad[$key]['consecutivo_actividad'];
                     //busca soportes por registro
                     $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -474,7 +495,8 @@ class cerrarSoporteConcurso {
                     //busca soportes cargados
                     $consecutivo_persona=$resultadoInvestigacion[$key]['consecutivo_persona'];
                     $tipo_dato='datosInvestigacion';
-                    $nombre_soporte=['soporteInvestigacion'];
+                    //$nombre_soporte=['soporteInvestigacion'];
+                    $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                     $consecutivo_dato=$resultadoInvestigacion[$key]['consecutivo_investigacion'];
                     //busca soportes por registro
                     $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -533,7 +555,8 @@ class cerrarSoporteConcurso {
                 //busca soportes cargados
                 $consecutivo_persona=$resultadoProduccion[$key]['consecutivo_persona'];
                 $tipo_dato='datosProduccion';
-                $nombre_soporte=['soporteProduccion'];
+                //$nombre_soporte=['soporteProduccion'];
+                $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                 $consecutivo_dato=$resultadoProduccion[$key]['consecutivo_produccion'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);
@@ -578,7 +601,8 @@ class cerrarSoporteConcurso {
                 //busca soportes cargados
                 $consecutivo_persona=$resultadoIdioma[$key]['consecutivo_persona'];
                 $tipo_dato='datosIdioma';
-                $nombre_soporte=['soporteIdioma'];
+                //$nombre_soporte=['soporteIdioma'];
+                $nombre_soporte= $this->buscarTipoSoporte($tipo_dato,$esteRecursoDB);
                 $consecutivo_dato=$resultadoIdioma[$key]['consecutivo_conocimiento'];
                 //busca soportes por registro
                 $resParametro= $this->buscarSoporte($consecutivo_persona,$tipo_dato,$nombre_soporte,$consecutivo_dato,$esteRecursoDB);

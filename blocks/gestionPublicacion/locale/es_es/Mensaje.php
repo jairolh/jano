@@ -13,7 +13,7 @@ $this->idioma["tabProduccion"]="Producción Académica";
 $this->idioma["tabIdiomas"]="Lengua Extranjera";
 
 
-$this->idioma["marcoPerfil"]="Detalle Inscripción a Concurso";
+$this->idioma["marcoPerfil"]="Detalle de Inscripción";
 $this->idioma["marcoBasicos"]="Datos Básicos";
 $this->idioma["marcoContacto"]="Datos de Contacto";
 $this->idioma["marcoFormacion"]="Formación Académica";
@@ -176,6 +176,9 @@ $this->idioma ["noEncontroProduccion"] ="No existen datos de producción académ
 $this->idioma ["noEncontroIdioma"] ="No existen datos de Lengua Extranjera registrados. ";
 
 $this->idioma ["noEncontroEvaluacion"] ="No existen datos Registrados de Evaluación. ";
+
+$this->idioma ["faseSoporteOn"] ="Los siguientes datos de hoja de vida son pre-eliminares, debido a que la fase de carga de soportes aun esta activa. ";
+$this->idioma ["faseSoporteOn"].="<br>Una vez se cierre dicha fase no será posible relacionar más soportes para el presente concurso. ";
 
 
 //------------------Mensajes -----------------------------------

@@ -25,6 +25,7 @@ $atributos ["estiloEnLinea"] = "display:none;";
 echo $this->miFormulario->division ( "inicio", $atributos );
 // unset ( $atributos );
 {   
+    
                 // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
            $esteCampo = 'logo';
            $atributos ['id'] = $esteCampo;

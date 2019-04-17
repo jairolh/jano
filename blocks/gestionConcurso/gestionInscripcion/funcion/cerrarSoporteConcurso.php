@@ -252,6 +252,7 @@ class cerrarSoporteConcurso {
                                           'codigo_programa' => $resultadoFormacion[$key]['codigo_programa'],
                                           'nombre_programa' => $resultadoFormacion[$key]['nombre_programa'],
                                           'cursos_aprobados' => $resultadoFormacion[$key]['cursos_aprobados'],
+                                          'periodicidad' => $resultadoFormacion[$key]['periodicidad'],
                                           'graduado' => $resultadoFormacion[$key]['graduado'],
                                           'fecha_grado' => $resultadoFormacion[$key]['fecha_grado'],
                                           'promedio' => $resultadoFormacion[$key]['promedio'],
@@ -491,6 +492,7 @@ class cerrarSoporteConcurso {
                                           'fecha_fin' => $resultadoInvestigacion[$key]['fecha_fin'],
                                           'grupo_investigacion' => $resultadoInvestigacion[$key]['grupo_investigacion'],
                                           'categoria_grupo' => $resultadoInvestigacion[$key]['categoria_grupo'],
+                                          'rol_investigacion' => $resultadoInvestigacion[$key]['rol_investigacion'],
                                      );
                     //busca soportes cargados
                     $consecutivo_persona=$resultadoInvestigacion[$key]['consecutivo_persona'];
@@ -597,6 +599,7 @@ class cerrarSoporteConcurso {
                                       'idioma' => $resultadoIdioma[$key]['idioma'],
                                       'certificacion' => $resultadoIdioma[$key]['certificacion'],
                                       'institucion_certificacion' => $resultadoIdioma[$key]['institucion_certificacion'],
+                                      'idioma_concurso' => $resultadoIdioma[$key]['idioma_concurso'],
                                  );
                 //busca soportes cargados
                 $consecutivo_persona=$resultadoIdioma[$key]['consecutivo_persona'];

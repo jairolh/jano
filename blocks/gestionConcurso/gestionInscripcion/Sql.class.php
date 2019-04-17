@@ -783,12 +783,14 @@ class Sql extends \Sql {
                                 $cadenaSql.=" form.codigo_programa, ";
                                 $cadenaSql.=" form.nombre_programa, ";
                                 $cadenaSql.=" form.cursos_aprobados, ";
+                                $cadenaSql.=" per.nombre periodicidad, ";
                                 $cadenaSql.=" form.graduado, ";
                                 $cadenaSql.=" form.fecha_grado, ";
                                 $cadenaSql.=" form.promedio ";
                                 $cadenaSql.=" FROM concurso.formacion form ";
                                 $cadenaSql.=" INNER JOIN general.modalidad_educacion modo ON modo.codigo_modalidad=form.codigo_modalidad ";
                                 $cadenaSql.=" INNER JOIN general.nivel nv ON nv.codigo_nivel=form.codigo_nivel";
+                                $cadenaSql.=" LEFT OUTER JOIN general.nivel per ON per.codigo_nivel=form.cursos_temporalidad AND per.tipo_nivel='Temporalidad' ";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=form.pais_formacion";
                                 $cadenaSql.=" WHERE form.consecutivo_persona='".$variable['consecutivo_persona']."'";
                                 $cadenaSql.=" ORDER BY form.codigo_nivel, ";
@@ -894,7 +896,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" inv.fecha_inicio,";
                                 $cadenaSql.=" inv.fecha_fin,";
                                 $cadenaSql.=" inv.grupo_investigacion,";
-                                $cadenaSql.=" inv.categoria_grupo ";
+                                $cadenaSql.=" inv.categoria_grupo,";
+                                $cadenaSql.=" inv.rol_investigacion ";
                                 $cadenaSql.=" FROM concurso.experiencia_investigacion inv";
                                 $cadenaSql.=" INNER JOIN general.pais ps ON ps.id_pais=inv.pais_investigacion";
                                 $cadenaSql.=" WHERE inv.consecutivo_persona='".$variable['consecutivo_persona']."'";
@@ -940,7 +943,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conidm.nivel_habla, ";
                                // $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=to_number(conidm.nivel_habla,'99')) nombre_nivel_habla,";
                                 $cadenaSql.=" conidm.certificacion,";
-                                $cadenaSql.=" conidm.institucion_certificacion";
+                                $cadenaSql.=" conidm.institucion_certificacion, ";
+                                $cadenaSql.=" conidm.idioma_concurso";
                                 $cadenaSql.=" FROM concurso.conocimiento_idioma conidm ";
                                 $cadenaSql.=" INNER JOIN general.idioma idm ON idm.codigo_idioma=conidm.codigo_idioma";
                                 $cadenaSql.=" WHERE conidm.consecutivo_persona='".$variable['consecutivo_persona']."'";

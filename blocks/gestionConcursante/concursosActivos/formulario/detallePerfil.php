@@ -14,13 +14,9 @@ class registrarForm {
 
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-
 		$this->lenguaje = $lenguaje;
-
 		$this->miFormulario = $formulario;
-
 		$this->miSql = $sql;
 	}
 
@@ -70,24 +66,29 @@ class registrarForm {
 		{
 			// ---------------- SECCION: Controles del Formulario -----------------------------------------------
 
-	$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+                $miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+                $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+                $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
-        $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
-        $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
-        $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
+                $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+                $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
+                $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
-        $variable = "pagina=" . $miPaginaActual;
-        $variable .= "&opcion=detalleConcurso";
-        $variable .= "&id_concurso=".$_REQUEST['id_concurso'];
-        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+                $variable = "pagina=" . $miPaginaActual;
+                $variable .= "&opcion=detalleConcurso";
+                $variable .= "&id_concurso=".$_REQUEST['id_concurso'];
+                $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
-        $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $_REQUEST['id_perfil']);
-        $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-
+                $cadena_sql = $this->miSql->getCadenaSql("consultaPerfil", $_REQUEST['id_perfil']);
+                $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                $parametro=array('consecutivo_concurso'=>$_REQUEST['id_concurso'],
+                                 'fecha_actual' => date("Y-m-d"),
+                                 'fase'=>'Inscripción');
+                $cadena_sql = $this->miSql->getCadenaSql("consultaCalendario", $parametro);
+                $resultadoCalendar = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                
+                
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
       $esteCampo = 'botonRegresar';
       $atributos ['id'] = $esteCampo;
@@ -120,52 +121,52 @@ class registrarForm {
 						$resultadoPerfil[0]['estado']="Inactivo";
 					}
 
-						//-----------------Inicio de Conjunto de Controles----------------------------------------
-								$esteCampo = "marcoConsultaPerfiles";
-								$atributos["estilo"] = "jqueryui";
-								$atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
-								//echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
-								unset($atributos);
+                                //-----------------Inicio de Conjunto de Controles----------------------------------------
+                                $esteCampo = "marcoConsultaPerfiles";
+                                $atributos["estilo"] = "jqueryui";
+                                $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
+                                //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+                                unset($atributos);
 
-								echo "<div style ='width: 80%; padding-left: 10%;' class='cell-border'><table id='tablaPerfiles' class='table table-striped table-bordered'>";
-								echo "<tbody>";
-								$mostrarHtml = "<tr align='center'>
-											<th class='textoAzul'>Concurso</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Código Perfil</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['codigo']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Perfil</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Dependencia</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['dependencia']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Area</td>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['area']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Vacantes</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['vacantes']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Descripción</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['descripcion']."</td>
-                                                                               </tr>";
-								$mostrarHtml .= "<tr align='center'>
-											<th class='textoAzul'>Requisitos</th>
-											<td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['requisitos']."</td>
-                                                                               </tr>";
+                                echo "<div style ='width: 80%; padding-left: 10%;' class='cell-border'><table id='tablaPerfiles' class='table table-striped table-bordered'>";
+                                echo "<tbody>";
+                                $mostrarHtml = "<tr align='center'>
+                                                        <th class='textoAzul'>Concurso</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['concurso']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Código Perfil</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['codigo']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Perfil</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['perfil']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Dependencia</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['dependencia']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Area</td>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['area']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Vacantes</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['vacantes']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Descripción</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['descripcion']."</td>
+                                               </tr>";
+                                $mostrarHtml .= "<tr align='center'>
+                                                        <th class='textoAzul'>Requisitos</th>
+                                                        <td class='table-tittle estilo_tr '>".$resultadoPerfil[0]['requisitos']."</td>
+                                               </tr>";
 
-								echo $mostrarHtml;
-								unset($mostrarHtml);
-								echo "</tbody>";
-								echo "</table></div>";
+                                echo $mostrarHtml;
+                                unset($mostrarHtml);
+                                echo "</tbody>";
+                                echo "</table></div>";
 				}
 
 				else{
@@ -240,7 +241,36 @@ class registrarForm {
 
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
-					echo $this->miFormulario->campoBoton ( $atributos );
+                                        
+                                        if($resultadoCalendar)
+                                            {   echo $this->miFormulario->campoBoton ( $atributos );    }
+                                        else{
+                                        
+                                        
+                                                $atributos["id"]="divNoEncontroConcurso";
+                                                $atributos["estilo"]="";
+                                                //$atributos["estiloEnLinea"]="display:none";
+                                                echo $this->miFormulario->division("inicio",$atributos);
+
+                                                //-------------Control Boton-----------------------
+                                                $esteCampo = "inscripcionCerrada";
+                                                $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                                                $atributos["etiqueta"] = "";
+                                                $atributos["estilo"] = "centrar";
+                                                $atributos["tipo"] = 'warning';
+                                                $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                                                echo $this->miFormulario->cuadroMensaje($atributos);
+                                                unset($atributos);
+                                                //-------------Fin Control Boton----------------------
+
+                                                 echo $this->miFormulario->division("fin");
+                                        
+                                            }
+                                        
+                                        
+                                        
+                                        
+                                        
 					unset ( $atributos );
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------
 

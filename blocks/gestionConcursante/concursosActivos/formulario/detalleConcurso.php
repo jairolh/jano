@@ -138,27 +138,28 @@ class consultarForm {
                         //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                         unset($atributos);
 
-                        echo "<div class='cell-border'><table id='tablaProcesos' class='table table-striped table-bordered'>";
+                    echo "<div class='cell-border'>";
+                    echo "<table id='tablaConcursos' class='table table-striped table-bordered'>";
 
-                        echo "<thead>
-                                <tr align='center'>
-                                  <th>Código</th>
-                        	  <th>Perfil</th>
-                                  <th>Dependencia</th>
-                                  <th>Area</th>
-				  <th>Vacantes</th>
-                        	  <th>Estado</th>
-				<th>Detalle</th>
-                                </tr>
-                            </thead>
-                            <tbody>";
+                    echo "<thead>
+                            <tr align='center'>
+                              <th>Código</th>
+                              <th>Perfil</th>
+                              <th>Dependencia</th>
+                              <th>Area</th>
+                              <th>Vacantes</th>
+                              <th>Estado</th>
+                              <th>Detalle</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
 
                         foreach($resultadoPerfiles as $key=>$value )
                             {
                             	//enlace para consultar los criterios asociados al tipo de jurado
                             	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableDetalle.= "&opcion=consultarPerfil";
-															$variableDetalle.= "&id_concurso=" .$resultadoPerfiles[$key]['consecutivo_concurso'];
+                                $variableDetalle.= "&id_concurso=" .$resultadoPerfiles[$key]['consecutivo_concurso'];
                             	$variableDetalle.= "&id_perfil=" .$resultadoPerfiles[$key]['consecutivo_perfil'];
                             	$variableDetalle.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                             	$variableDetalle.= "&tiempo=" . time ();
@@ -210,25 +211,25 @@ class consultarForm {
                         //echo $this->miFormulario->marcoAgrupacion("fin");
 
                 }
-								else{
-									$atributos["id"]="divNoEncontroModalidades";
-									$atributos["estilo"]="";
-									//$atributos["estiloEnLinea"]="display:none";
-									echo $this->miFormulario->division("inicio",$atributos);
+            else{
+                    $atributos["id"]="divNoEncontroModalidades";
+                    $atributos["estilo"]="";
+                    //$atributos["estiloEnLinea"]="display:none";
+                    echo $this->miFormulario->division("inicio",$atributos);
 
-									//-------------Control Boton-----------------------
-									$esteCampo = "noEncontroPerfilesActivos";
-									$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-									$atributos["etiqueta"] = "";
-									$atributos["estilo"] = "centrar";
-									$atributos["tipo"] = 'error';
-									$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-									echo $this->miFormulario->cuadroMensaje($atributos);
-									unset($atributos);
-									//-------------Fin Control Boton----------------------
+                    //-------------Control Boton-----------------------
+                    $esteCampo = "noEncontroPerfilesActivos";
+                    $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                    $atributos["etiqueta"] = "";
+                    $atributos["estilo"] = "centrar";
+                    $atributos["tipo"] = 'error';
+                    $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                    echo $this->miFormulario->cuadroMensaje($atributos);
+                    unset($atributos);
+                    //-------------Fin Control Boton----------------------
 
-								 echo $this->miFormulario->division("fin");
-									//------------------Division para los botones-------------------------
+                 echo $this->miFormulario->division("fin");
+                    //------------------Division para los botones-------------------------
 
                 }
 

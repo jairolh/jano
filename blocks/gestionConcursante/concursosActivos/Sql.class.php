@@ -39,18 +39,29 @@ class Sql extends \Sql {
                             break;
 
 			case "consultaConcursosActivos":
-                                $cadenaSql = "Select  ";
-                                $cadenaSql .= "consecutivo_concurso, ";
-                                $cadenaSql .= "codigo, ";
-                                $cadenaSql .= "nombre,  ";
-                                $cadenaSql .= "descripcion,  ";
-                                $cadenaSql .= "estado,  ";
-                                $cadenaSql .= "fecha_inicio,  ";
-                                $cadenaSql .= "fecha_fin  ";
-                                $cadenaSql .= "FROM concurso.concurso ";
-                                $cadenaSql .= "WHERE estado='A' ";
-                                $cadenaSql .= "AND '".$variable['fecha_actual']."'::DATE BETWEEN fecha_inicio::DATE ";
-                                $cadenaSql .= "AND fecha_fin::DATE";
+                                $cadenaSql = "SELECT DISTINCT  ";
+                                $cadenaSql .= "conc.consecutivo_concurso, ";
+                                $cadenaSql .= "conc.codigo, ";
+                                $cadenaSql .= "conc.nombre,  ";
+                                $cadenaSql .= "conc.descripcion,  ";
+                                $cadenaSql .= "conc.estado,  ";
+                                $cadenaSql .= "conc.fecha_inicio,  ";
+                                $cadenaSql .= "conc.fecha_fin,  ";
+                                $cadenaSql.=" cal.fecha_inicio inicio_inscripcion, ";
+                                $cadenaSql.=" cal.fecha_fin  fin_inscripcion ";
+
+                                $cadenaSql .= "FROM concurso.concurso conc ";
+                                
+                                $cadenaSql.=" INNER JOIN concurso.concurso_calendario cal  ";
+                                $cadenaSql.=" ON cal.consecutivo_concurso=conc.consecutivo_concurso ";
+                                $cadenaSql.=" INNER JOIN concurso.actividad_calendario act  ";
+                                $cadenaSql.=" ON act.consecutivo_actividad=cal.consecutivo_actividad ";
+                                $cadenaSql.=" AND act.nombre IN ('Inscripción') ";
+                                $cadenaSql .= "WHERE conc.estado='A' ";
+                                $cadenaSql .= "AND ('".$variable['fecha_actual']."'::DATE BETWEEN conc.fecha_inicio::DATE AND conc.fecha_fin::DATE) ";
+                                $cadenaSql .= "AND cal.fecha_fin::DATE >= '".$variable['fecha_actual']."'::DATE ";
+                                
+                                
                                 break;
 
 			 case "consultaPerfiles":
@@ -106,18 +117,32 @@ class Sql extends \Sql {
                                 $cadenaSql .= "WHERE tipo_identificacion='".$variable['tipo_identificacion']."' ";
                                 $cadenaSql .= "AND identificacion='".$variable['identificacion']."'";
                                 break;
+                            
+                        case "consultaCalendario":
+                                $cadenaSql=" SELECT DISTINCT ";
+                                $cadenaSql.=" cal.fecha_inicio, ";
+                                $cadenaSql.=" cal.fecha_fin, ";
+                                $cadenaSql.=" cal.consecutivo_concurso,";
+                                $cadenaSql.=" cal.consecutivo_actividad ";
+                                $cadenaSql.=" FROM concurso.concurso_calendario cal ";
+                                $cadenaSql.=" INNER JOIN concurso.actividad_calendario act ON act.consecutivo_actividad=cal.consecutivo_actividad ";
+                                $cadenaSql.=" AND act.nombre IN ('".$variable['fase']."') ";
+                                $cadenaSql.=" WHERE cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
+                                $cadenaSql .= "AND ('".$variable['fecha_actual']."'::DATE BETWEEN cal.fecha_inicio::DATE AND cal.fecha_fin::DATE) ";
+                                
+                            break;         
 
 			case "registrarInscripcion":
-      	$cadenaSql = "INSERT INTO concurso.concurso_inscrito(consecutivo_perfil, consecutivo_persona, fecha_registro, autorizacion)";
-      	$cadenaSql .= " VALUES ( ";
-     		$cadenaSql .= " ".$variable['perfil'].", ";
-      	$cadenaSql .= " '".$variable['consecutivo_persona']."', ";
-				$cadenaSql .= " '".$variable['fecha']."', ";
-				$cadenaSql .= " '".$variable['autorizacion']."' ";
-      	$cadenaSql .= " ) ";
-      	$cadenaSql .= " RETURNING consecutivo_inscrito";
-				//exit;
-       	break;
+                                $cadenaSql = "INSERT INTO concurso.concurso_inscrito(consecutivo_perfil, consecutivo_persona, fecha_registro, autorizacion)";
+                                $cadenaSql .= " VALUES ( ";
+                                $cadenaSql .= " ".$variable['perfil'].", ";
+                                $cadenaSql .= " '".$variable['consecutivo_persona']."', ";
+                                $cadenaSql .= " '".$variable['fecha']."', ";
+                                $cadenaSql .= " '".$variable['autorizacion']."' ";
+                                $cadenaSql .= " ) ";
+                                $cadenaSql .= " RETURNING consecutivo_inscrito";
+                                                        //exit;
+                                break;
 
 
 			/**

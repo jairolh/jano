@@ -41,6 +41,8 @@ $this->idioma["maximo_puntos_concTitulo"]="Ingrese el Puntaje Máximo para evalu
 $this->idioma["maximo_puntos_conc"]="Puntaje Máximo: ";
 $this->idioma["porc_aprueba_concTitulo"]="Ingrese el Porcentaje de aprobación para ser incluido a la lista de elegibles del concurso";
 $this->idioma["porc_aprueba_conc"]="Porcentaje Aprobación: ";
+$this->idioma["max_inscribe_aspirante"]="Máximo inscripciones:"; 
+$this->idioma["max_inscribe_aspiranteTitulo"]="Ingrese el número máximo de inscripciones por aspirante, a perfiles del concurso";
 
 
 $this->idioma["nuevoCriterio"]="Registrar Criterio de Evaluación ";

@@ -230,7 +230,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" ( SELECT COUNT(prf.consecutivo_perfil) perfil ";
                                 $cadenaSql.=" FROM concurso.concurso_perfil prf";
                                 $cadenaSql.=" WHERE prf.estado='A' ";
-                                $cadenaSql.=" AND prf.consecutivo_concurso=conc.consecutivo_concurso) perfiles";
+                                $cadenaSql.=" AND prf.consecutivo_concurso=conc.consecutivo_concurso) perfiles,";
+                                $cadenaSql.=" conc.max_inscribe_aspirante ";
                                 $cadenaSql.=" FROM concurso.concurso conc ";
                                 $cadenaSql.=" INNER JOIN concurso.modalidad_concurso mdl ON mdl.consecutivo_modalidad=conc.consecutivo_modalidad";
                                 $cadenaSql.=" INNER JOIN general.nivel nvl ON nvl.tipo_nivel='TipoConcurso' AND nvl.codigo_nivel= mdl.codigo_nivel_concurso";
@@ -374,7 +375,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" fecha_fin, ";
                                 $cadenaSql.=" estado,";
                                 $cadenaSql.=" maximo_puntos, ";
-                                $cadenaSql.=" porcentaje_aprueba) ";
+                                $cadenaSql.=" porcentaje_aprueba, ";
+                                $cadenaSql.=" max_inscribe_aspirante) ";
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " DEFAULT, ";
                                 $cadenaSql .= " '".$variable['codigo']."', ";
@@ -386,7 +388,8 @@ class Sql extends \Sql {
                                 $cadenaSql .= " '".$variable['fecha_fin_concurso']."', ";
                                 $cadenaSql .= " 'A' , ";
                                 $cadenaSql .= " '".$variable['maximo_puntos']."', ";
-                                $cadenaSql .= " '".$variable['porcentaje_aprueba']."' ";
+                                $cadenaSql .= " '".$variable['porcentaje_aprueba']."', ";
+                                $cadenaSql .= " '".$variable['max_inscribe_aspirante']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_concurso";
                         break;  
@@ -477,7 +480,8 @@ class Sql extends \Sql {
                                 $cadenaSql.= " fecha_inicio= '".$variable['fecha_inicio_concurso']."', ";
                                 $cadenaSql.= " fecha_fin= '".$variable['fecha_fin_concurso']."', ";
                                 $cadenaSql.=" maximo_puntos= '".$variable['maximo_puntos']."', ";
-                                $cadenaSql.=" porcentaje_aprueba= '".$variable['porcentaje_aprueba']."' ";
+                                $cadenaSql.=" porcentaje_aprueba= '".$variable['porcentaje_aprueba']."', ";
+                                $cadenaSql.=" max_inscribe_aspirante= '".$variable['max_inscribe_aspirante']."' ";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" consecutivo_concurso= '".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.=" RETURNING consecutivo_concurso";

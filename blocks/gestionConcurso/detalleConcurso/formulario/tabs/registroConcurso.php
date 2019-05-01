@@ -375,7 +375,33 @@ class registrarConcursoForm {
                                 $atributos = array_merge ( $atributos, $atributosGlobales );
                                 echo $this->miFormulario->campoCuadroTexto ( $atributos );
                                 unset ( $atributos );
-                                // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                   
+                                // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------        
+                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                                $esteCampo = 'max_inscribe_aspirante';
+                                $atributos ['id'] = $esteCampo;
+                                $atributos ['nombre'] = $esteCampo;
+                                $atributos ['tipo'] = 'text';
+                                $atributos ['estilo'] = 'jqueryui';
+                                $atributos ['marco'] = true;
+                                $atributos ['estiloMarco'] = '';
+                                $atributos ["etiquetaObligatorio"] = true;
+                                $atributos ['columnas'] = 1;
+                                $atributos ['dobleLinea'] = 0;
+                                $atributos ['tabIndex'] = $tab;
+                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                $atributos ['validar']="required,custom[number],minSize[1],maxSize[2],min[1]";
+                                if (isset ( $resultadoConcurso[0]['max_inscribe_aspirante'] )) 
+                                     {  $atributos ['valor'] = $resultadoConcurso[0]['max_inscribe_aspirante'];} 
+                                else {  $atributos ['valor'] = '1';}
+                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                $atributos ['deshabilitado'] = false;
+                                $atributos ['tamanno'] = 60;
+                                $atributos ['maximoTamanno'] = '';
+                                $atributos ['anchoEtiqueta'] = 170;
+                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                                unset ( $atributos );
+                                // ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------                                                              
                                 // --------------- INICIO CONTROLES : CARGA SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                 foreach ($resultadoTiposop as $tipokey => $value) 
                                     {

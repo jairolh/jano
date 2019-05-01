@@ -116,10 +116,12 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                             '7'=>$resultadoConcurso[0]['maximo_puntos'],
                                             'MÁximo puntos '=>$resultadoConcurso[0]['maximo_puntos'],
                                             '8'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
-                                            'Porcentaje aprueba'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
-                                            '9'=>$resultadoConcurso[0]['estado'],
+                                            'Porcentaje aprueba'=>$resultadoConcurso[0]['porcentaje_aprueba']." ",
+                                            'Inscripciones por aspirante'=>$resultadoConcurso[0]['max_inscribe_aspirante'],
+                                            '9'=>$resultadoConcurso[0]['max_inscribe_aspirante']." ",
+                                            '10'=>$resultadoConcurso[0]['estado'],
                                             'Estado'=>$resultadoConcurso[0]['estado'],
-                                            '10'=>$resultadoConcurso[0]['acuerdo'],
+                                            '11'=>$resultadoConcurso[0]['acuerdo'],
                                             'Acuerdo'=>$resultadoConcurso[0]['acuerdo'],
                                              ));
                     

@@ -44,6 +44,7 @@ class RegistradorConcurso {
                               'estado'=>isset($_REQUEST['estado'])?$_REQUEST['estado']:'',
                               'maximo_puntos'=>$_REQUEST['maximo_puntos_conc'],
                               'porcentaje_aprueba'=>$_REQUEST['porc_aprueba_conc'],
+                              'max_inscribe_aspirante'=>$_REQUEST['max_inscribe_aspirante'],
             );
         
         

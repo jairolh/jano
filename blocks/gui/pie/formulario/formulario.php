@@ -106,22 +106,25 @@ class pie {
                     unset($atributos);
                 }
                 echo $this->miFormulario->division("fin");
+                
                 $atributos ["id"] = "colm3";
                 echo $this->miFormulario->division("inicio", $atributos);
                 unset($atributos);
                 {
                     setlocale(LC_ALL, "es_ES");
-                    $fecha = strftime("%A %d de %B del %Y");
+                    $dia = strftime("%A, ");
+                    $fecha = strftime("%d de %B de %Y ");
 
                     $esteCampo = 'fecha';
                     $atributos ["id"] = $esteCampo;
                     $atributos ["estilo"] = $esteCampo;
                     $atributos ['columnas'] = 1;
                     $atributos ["estilo"] = $esteCampo;
-                    $atributos ['texto'] = utf8_encode(ucwords($fecha));
+                    $atributos ['texto'] = utf8_encode(ucwords($dia).$fecha).'<div id="hora"></div>';
                     $tab ++;
                     echo $this->miFormulario->campoTexto($atributos);
                     unset($atributos);
+                    echo '<div id="hora"></div>';
                 }
                 echo $this->miFormulario->division("fin");
                 $atributos ["id"] = "colm4";
@@ -139,7 +142,7 @@ class pie {
                     $atributos ['ancho'] = '30px';
                     $atributos ['alto'] = '30px';
                     $tab ++;
-                    echo $this->miFormulario->enlace($atributos);
+                   // echo $this->miFormulario->enlace($atributos);
                     unset($atributos);
 
                     $esteCampo = 'enlacefacebook';
@@ -179,8 +182,8 @@ class pie {
         $atributos ['marco'] = true;
         $atributos ['tipoEtiqueta'] = 'fin';
         echo $this->miFormulario->formulario($atributos);
-
         return true;
+        
     }
 
 }

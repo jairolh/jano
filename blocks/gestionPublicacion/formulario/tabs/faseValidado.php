@@ -43,6 +43,8 @@ class faseCerrado{
             //$conexion="estructura";
             $conexion="reportes";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
+            if($_REQUEST['fase']='soporte')
+                { $_REQUEST['nombre']= "Inscripción y ".$_REQUEST['nombre']; }
             
             $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario']);    
@@ -94,6 +96,7 @@ class faseCerrado{
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
                                             <th>Id</th>
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
@@ -104,10 +107,11 @@ class faseCerrado{
                                     <tbody>";
                                 foreach($resultadoListaFase as $key=>$value )
                                     {   $mostrarHtml.= "<tr align='center'>
-                                                    <td align='left'>".($key+1)."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['consecutivo_inscrito']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
+                                                    <td align='left' width='6%'>".($key+1)."</td>
+                                                    <td align='left' width='10%'>".$resultadoListaFase[$key]['codigo']."</td>
+                                                    <td align='left' width='20%' >".$resultadoListaFase[$key]['perfil']."</td>
+                                                    <td align='left' width='10%' >".$resultadoListaFase[$key]['consecutivo_inscrito']."</td>
+                                                    <td align='left' width='10%'>".$resultadoListaFase[$key]['identificacion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['nombre']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>";
                                            $mostrarHtml.= "</tr>";
@@ -167,7 +171,7 @@ class faseCerrado{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA ASPIRANTES APROBARÓN | FECHA CIERRE ".$cierre."</th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA ASPIRANTES REGISTRADOS | FECHA CIERRE ".$cierre."</th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";

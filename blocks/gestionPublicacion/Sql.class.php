@@ -155,6 +155,7 @@ class Sql extends \Sql {
                                 $cadenaSql="SELECT DISTINCT  ";
                                 $cadenaSql.="prf4.consecutivo_concurso, ";
                                 $cadenaSql.="prf4.consecutivo_perfil, ";
+                                $cadenaSql.="prf4.codigo, ";
                                 $cadenaSql.="prf4.nombre perfil, ";
                                 $cadenaSql.="prf4.descripcion,  ";
                                 $cadenaSql.="prf4.dependencia, ";

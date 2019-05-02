@@ -51,7 +51,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista Aspirantes Aprobarón - Fecha Cierre ".$_REQUEST['cierre']."
+                             Lista Aspirantes Registrados - Fecha Cierre ".$_REQUEST['cierre']."
                             </span>
                         </td>
                     </tr> ";
@@ -82,7 +82,10 @@ $contenido .= "   <tr align='center' style='mso-yfti-irow:0;mso-yfti-firstrow:ye
 $contenido .= "     <td width='30' align='center' valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Id</span>";        
 $contenido .= "     </td>";        
-$contenido .= "     <td width='250' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <td width='85' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Código</span>";        
+$contenido .= "     </td>";
+$contenido .= "     <td width='185' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Perfil</span>";        
 $contenido .= "     </td>";    
 $contenido .= "     <td width='60' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
@@ -91,7 +94,7 @@ $contenido .= "     </td>";
 $contenido .= "     <td width='100' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Identificación</span>";        
 $contenido .= "     </td>";        
-$contenido .= "     <td width='240' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <td width='220' align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Nombre</span>";        
 $contenido .= "     </td>";        
 $contenido .= "   </tr>";        
@@ -101,6 +104,7 @@ foreach($resultadoListaFase as $key=>$value )
    {           
     $contenido .= "   <tr style='mso-yfti-irow:1' align='center'>";        
     $contenido .= "   <td align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
+    $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";
     $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
     $contenido .= "   <td align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['consecutivo_inscrito']."</span></td>";        
     $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        

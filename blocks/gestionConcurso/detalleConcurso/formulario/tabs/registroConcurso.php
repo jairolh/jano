@@ -459,7 +459,8 @@ class registrarConcursoForm {
                                                  $atributos ['anchoEtiqueta'] = 200;
                                                  $atributos = array_merge ( $atributos, $atributosGlobales );
                                                 // echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                if($resultadoTiposop[$tipokey]['nombre']=='soporteAutorizacionConcurso'  && isset($resultadoConcurso[0]['fecha_inicio']) && strcmp($hoy,$resultadoConcurso[0]['fecha_inicio']) > 0)
+                                                 
+                                                if($resultadoTiposop[$tipokey]['nombre']=='soporteAutorizacionConcurso'  && isset($resultadoConcurso[0]['fecha_inicio']) && strcmp($hoy,$resultadoConcurso[0]['fecha_inicio']) >= 0)
                                                      {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
                                                 elseif($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionConcurso') 
                                                      {echo $this->miFormulario->campoCuadroTexto ( $atributos );}                                                            

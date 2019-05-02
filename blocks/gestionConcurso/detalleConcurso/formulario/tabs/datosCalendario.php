@@ -404,7 +404,7 @@ class calendarioForm {
                                                  $atributos ['anchoEtiqueta'] = 200;
                                                  $atributos = array_merge ( $atributos, $atributosGlobales );
                                                 // echo $this->miFormulario->campoCuadroTexto ( $atributos );
-                                                if($resultadoTiposop[$tipokey]['nombre']=='soporteAutorizacionCalendario'  && isset($_REQUEST['inicio_concurso']) && strcmp($hoy,$_REQUEST['inicio_concurso']) > 0)
+                                                if($resultadoTiposop[$tipokey]['nombre']=='soporteAutorizacionCalendario'  && isset($_REQUEST['inicio_concurso']) && strcmp($hoy,$_REQUEST['inicio_concurso']) >= 0)
                                                      {echo $this->miFormulario->campoCuadroTexto ( $atributos );}
                                                 elseif($resultadoTiposop[$tipokey]['nombre']!='soporteAutorizacionCalendario') 
                                                      {echo $this->miFormulario->campoCuadroTexto ( $atributos );}                                                            

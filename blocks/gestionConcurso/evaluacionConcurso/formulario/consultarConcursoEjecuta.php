@@ -14,15 +14,10 @@ class consultarForm {
         var $rutaSoporte;
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-
 		$this->lenguaje = $lenguaje;
-
 		$this->miFormulario = $formulario;
-
 		$this->miSql = $sql;
-
                 $this->miSesion = \Sesion::singleton();
 	}
 	function miForm() {
@@ -53,7 +48,25 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            $parametro=array('hoy'=>date("Y-m-d"));
+            
+                //identifca lo roles para la busqueda de subsistemas
+                $roles=  $this->miSesion->RolesSesion();
+                $aux=0;
+                
+                $tipo = array();
+                $find='';
+                foreach ($roles as $key => $value) 
+                    {  if (!in_array($roles[$key]['nom_app'], $tipo)) 
+                          { array_push ( $tipo , $roles[$key]['nom_app'] );}
+                    }
+                
+                foreach ($tipo as $key => $value) 
+                    {   $find.="'".$value."'";
+                        if(($key+1)<count($tipo))
+                            {$find.=",";}
+                    }
+                
+            $parametro=array('hoy'=>date("Y-m-d"),'tipo'=>$find);
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $esteCampo = "marcoEjecucion";

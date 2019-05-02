@@ -53,10 +53,7 @@ class consultarForm {
             // -------------------------------------------------------------------------------------------------
             $conexion="estructura";
             $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-            $parametro=array(
-							'hoy'=>date("Y-m-d"),
-							'jurado'=>$this->miSesion->getSesionUsuarioId()
-						);
+            $parametro=array('hoy'=>date("Y-m-d"),'jurado'=>$this->miSesion->getSesionUsuarioId());
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             $esteCampo = "marcoEjecucion";

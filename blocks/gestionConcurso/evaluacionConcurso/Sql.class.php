@@ -206,7 +206,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" conc.estado='A' ";
 
-
                                 if(isset($variable['consecutivo_concurso']) &&  $variable['consecutivo_concurso']!='' )
                                    {$cadenaSql .= " AND conc.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                    }
@@ -214,6 +213,10 @@ class Sql extends \Sql {
                                    {$cadenaSql.=" AND conc.fecha_inicio <='".$variable['hoy']."' ";
                                     $cadenaSql.=" AND conc.fecha_fin>= '".$variable['hoy']."' ";
                                    }
+                                 if(isset($variable['tipo']) &&  $variable['tipo']!='' )
+                                   {
+                                    $cadenaSql.=" AND nvl.nombre IN (".$variable['tipo'].") ";
+                                   }    
                                 $cadenaSql.=" ORDER BY ";
                                 $cadenaSql.=" conc.fecha_inicio DESC, ";
                                 $cadenaSql.=" conc.fecha_fin DESC ";

@@ -83,14 +83,15 @@ class consultarForm {
 				'identificacion'=> $id
 		);
 
-            //buscar el consecutivo de la persona
+
+
+        //buscar el consecutivo de la persona
             $cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
             $resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
             //buscar perfiles inscritos
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcursosInscritos", $resultadoPersona[0][0]);
             $resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-
+           
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -101,6 +102,8 @@ class consultarForm {
                 {
 
                 if($resultadoConcursosActivos){
+                    $hoy = date("Y-m-d");
+    
                     //-----------------Inicio de Conjunto de Controles----------------------------------------
                         $esteCampo = "marcoConsultaPerfiles";
                         $atributos["estilo"] = "jqueryui";
@@ -116,14 +119,18 @@ class consultarForm {
                                   <th>Concurso</th>
                                   <th>Código Perfil</th>
                                   <th>Perfil</th>
-                                  <th>Estado</th>
+                                  <th>Estado Concurso</th>
                                   <th>Detalle</th>
                                   <th>Evaluaciones</th>
                                 </tr>
                             </thead>
                             <tbody>";
                         foreach($resultadoConcursosActivos as $key=>$value )
-                            {
+                            {                               
+                                if($resultadoConcursosActivos[$key]['fecha_fin'] <= $hoy   )
+                                    {$estado_concurso='Finalizado';}
+                                else{$estado_concurso='En ejecución';}    
+                            
                             	//enlace para consultar los criterios asociados al tipo de jurado
                             	$variableDetalle = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                             	$variableDetalle.= "&opcion=detalleConcurso";
@@ -156,7 +163,7 @@ class consultarForm {
                                         <td align='left'>".$resultadoConcursosActivos[$key]['concurso']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['codigo_perfil']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['perfil']."</td>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['estado']."</td>";
+                                        <td align='left'>".$estado_concurso."</td>";
 
                                 $mostrarHtml .= "<td>";
 

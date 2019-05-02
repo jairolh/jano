@@ -65,6 +65,7 @@ $this->idioma ["noEncontroPerfilesActivos"] = "No hay perfiles activos para la f
 $this->idioma["noEncontroPerfil"]="No se encontró el perfil";
 
 $this->idioma ["inscripcionCerrada"] = "Las fechas de inscripción al concurso, no se encuentran habilitadas.";
+$this->idioma ["limiteInscripcion"] = "No puede realizar una nueva inscripción.<br>Ya se ha completado el límite de inscripciones para el concurso.";
 
 $this->idioma["autorizacion"]="Acorde con el reglamento de Concursos Docentes, ARTÍCULO 20º - PARÁGRAFO 2, ¿Autoriza a la Universidad para publicar la información relacionada con su Hoja de Vida?";
 

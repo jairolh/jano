@@ -99,9 +99,11 @@ echo $this->miFormulario->division ( "inicio", $atributos );
                                             'MÁximo puntos '=>$resultadoConcurso[0]['maximo_puntos'],
                                             '8'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
                                             'Porcentaje aprueba'=>$resultadoConcurso[0]['porcentaje_aprueba']." %",
-                                            '9'=>$resultadoConcurso[0]['estado'],
+                                            '9'=>$resultadoConcurso[0]['max_inscribe_aspirante']." ",
+                                            'Inscripciones por aspirante'=>$resultadoConcurso[0]['max_inscribe_aspirante'],
+                                            '10'=>$resultadoConcurso[0]['estado'],
                                             'Estado'=>$resultadoConcurso[0]['estado'],
-                                            '10'=>$resultadoConcurso[0]['acuerdo'],
+                                            '11'=>$resultadoConcurso[0]['acuerdo'],
                                             'Acuerdo'=>$resultadoConcurso[0]['acuerdo'],
                                              ));
                                              // ---------------- CONTROL: Cuadro de division --------------------------------------------------------

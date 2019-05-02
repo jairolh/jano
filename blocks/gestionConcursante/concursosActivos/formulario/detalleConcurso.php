@@ -15,16 +15,11 @@ class consultarForm {
 
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-
 		$this->lenguaje = $lenguaje;
-
 		$this->miFormulario = $formulario;
-
 		$this->miSql = $sql;
-
-    $this->miSesion = \Sesion::singleton();
+                $this->miSesion = \Sesion::singleton(); 
 	}
 
 	function miForm() {

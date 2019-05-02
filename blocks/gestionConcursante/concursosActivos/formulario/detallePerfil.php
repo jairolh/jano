@@ -17,7 +17,8 @@ class registrarForm {
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
 		$this->lenguaje = $lenguaje;
 		$this->miFormulario = $formulario;
-		$this->miSql = $sql;
+		$this->miSql = $sql;    
+                $this->miSesion = \Sesion::singleton();
 	}
 
 	function miForm() {
@@ -75,6 +76,16 @@ class registrarForm {
                 $directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
                 $directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
+                $usuario=$this->miSesion->getSesionUsuarioId();
+                
+                //buscar consecutivo_persona
+		$tipo=strtoupper(substr($usuario,0,2));
+		$id=substr($usuario,2);
+                $persona = array('tipo_identificacion'=> $tipo,'identificacion'=> $id);
+		//buscar el consecutivo de la persona
+		$cadena_sql = $this->miSql->getCadenaSql("consultaConsecutivo", $persona);
+		$resultadoPersona = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                
                 $variable = "pagina=" . $miPaginaActual;
                 $variable .= "&opcion=detalleConcurso";
                 $variable .= "&id_concurso=".$_REQUEST['id_concurso'];
@@ -84,26 +95,30 @@ class registrarForm {
                 $resultadoPerfil = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 $parametro=array('consecutivo_concurso'=>$_REQUEST['id_concurso'],
                                  'fecha_actual' => date("Y-m-d"),
-                                 'fase'=>'Inscripción');
+                                 'fase'=>'Inscripción',
+				 'usuario'=> $resultadoPersona[0][0]
+                        );
                 $cadena_sql = $this->miSql->getCadenaSql("consultaCalendario", $parametro);
                 $resultadoCalendar = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 
+                $cadena_sql = $this->miSql->getCadenaSql("consultaInscripciones", $parametro);
+                $resultadoInscripcion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 
-			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-      $esteCampo = 'botonRegresar';
-      $atributos ['id'] = $esteCampo;
-      $atributos ['enlace'] = $variable;
-      $atributos ['tabIndex'] = $tab;
-      $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-      $atributos ['estilo'] = 'textoPequenno textoGris';
-      $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
-      $atributos ['posicionImagen'] = "atras";//"adelante";
-      $atributos ['ancho'] = '30px';
-      $atributos ['alto'] = '30px';
-      $atributos ['redirLugar'] = true;
-      $tab ++;
-      echo $this->miFormulario->enlace ( $atributos );
-      unset ( $atributos );
+                //---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                $esteCampo = 'botonRegresar';
+                $atributos ['id'] = $esteCampo;
+                $atributos ['enlace'] = $variable;
+                $atributos ['tabIndex'] = $tab;
+                $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                $atributos ['estilo'] = 'textoPequenno textoGris';
+                $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                $atributos ['posicionImagen'] = "atras";//"adelante";
+                $atributos ['ancho'] = '30px';
+                $atributos ['alto'] = '30px';
+                $atributos ['redirLugar'] = true;
+                $tab ++;
+                echo $this->miFormulario->enlace ( $atributos );
+                unset ( $atributos );
 
 			$esteCampo = "marcoCriterio";
 			$atributos ['id'] = $esteCampo;
@@ -242,34 +257,43 @@ class registrarForm {
 					// Aplica atributos globales al control
 					$atributos = array_merge ( $atributos, $atributosGlobales );
                                         
-                                        if($resultadoCalendar)
+                                        if($resultadoCalendar && $resultadoInscripcion[0]['inscrito'] < $resultadoPerfil[0]['max_inscribe'] )
                                             {   echo $this->miFormulario->campoBoton ( $atributos );    }
+                                        elseif($resultadoInscripcion[0]['inscrito'] >= $resultadoPerfil[0]['max_inscribe'])
+                                            {   //div limite de inscripciones hechas
+                                                $atributos["id"]="divNoInscripcion";
+                                                $atributos["estilo"]="";
+                                                //$atributos["estiloEnLinea"]="display:none";
+                                                echo $this->miFormulario->division("inicio",$atributos);
+                                                //-------------Control Boton-----------------------
+                                                $esteCampo = "limiteInscripcion";
+                                                $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                                                $atributos["etiqueta"] = "";
+                                                $atributos["estilo"] = "centrar";
+                                                $atributos["tipo"] = 'warning';
+                                                $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);
+                                                echo $this->miFormulario->cuadroMensaje($atributos);
+                                                unset($atributos);
+                                                //-------------Fin Control Boton----------------------
+                                                 echo $this->miFormulario->division("fin");}    
                                         else{
-                                        
-                                        
+                                                //div no inicia fecha inscripcion
                                                 $atributos["id"]="divNoEncontroConcurso";
                                                 $atributos["estilo"]="";
                                                 //$atributos["estiloEnLinea"]="display:none";
                                                 echo $this->miFormulario->division("inicio",$atributos);
-
                                                 //-------------Control Boton-----------------------
                                                 $esteCampo = "inscripcionCerrada";
                                                 $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
                                                 $atributos["etiqueta"] = "";
                                                 $atributos["estilo"] = "centrar";
                                                 $atributos["tipo"] = 'warning';
-                                                $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                                                $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);
                                                 echo $this->miFormulario->cuadroMensaje($atributos);
                                                 unset($atributos);
                                                 //-------------Fin Control Boton----------------------
-
-                                                 echo $this->miFormulario->division("fin");
-                                        
+                                                echo $this->miFormulario->division("fin");
                                             }
-                                        
-                                        
-                                        
-                                        
                                         
 					unset ( $atributos );
 					// -----------------FIN CONTROL: Botón -----------------------------------------------------------

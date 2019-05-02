@@ -227,7 +227,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" conc.fecha_inicio,";
                                 $cadenaSql.=" conc.fecha_fin, ";
                                 $cadenaSql.=" conc.maximo_puntos, ";
-                                $cadenaSql.=" conc.porcentaje_aprueba, ";
+                                $cadenaSql.=" conc.porcentaje_aprueba,";
+                                $cadenaSql.=" conc.max_inscribe_aspirante, ";
                                 $cadenaSql.=" (CASE WHEN conc.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado, ";
                                 $cadenaSql.=" mdl.nombre modalidad, ";
                                 $cadenaSql.=" mdl.codigo_nivel_concurso,";

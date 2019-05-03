@@ -32,13 +32,19 @@ class AsignarAspirantes {
     function procesarFormulario() {
 
         $conexion="estructura";
-	      $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-
+	$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+        
+        $porciones=array();
+        foreach ( $_REQUEST as $key => $values )
+            { 
+             if(substr($key,0,9) == 'seleccion' && $key!='seleccionJurado')
+                    {array_push($porciones, $values); }
+            }
         //arreglo de js
         $items=$_REQUEST['aspirantes'];
 
         //obtener arreglo dividiendo por comas
-        $porciones = explode(",", $items);
+        //$porciones = explode(",", $items);
 
         $fecha = date("Y-m-d H:i:s");
 

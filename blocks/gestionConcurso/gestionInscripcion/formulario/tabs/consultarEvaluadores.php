@@ -57,9 +57,9 @@ class consultarEvaluador {
                 $miSesion = \Sesion::singleton();
                 $usuario=$miSesion->idUsuario();
 
-								$parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
-								$cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
-								$resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                $parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']);
+                $cadena_sql = $this->miSql->getCadenaSql("consultarInscritoConcurso", $parametro);
+                $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre']."Evaluadores";

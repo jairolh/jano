@@ -125,9 +125,9 @@ class registrarForm {
               $parametro['id_usuario']='';
           }
 
-					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
-					$aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-					//var_dump($aspirantes);
+            $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
+            $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+            //var_dump($aspirantes);
 
 if($aspirantes){
 
@@ -152,7 +152,7 @@ if($aspirantes){
 	foreach($aspirantes as $key=>$value ){
 
 		$mostrarHtml = "<tr align='center'>
-						<td align='left'>";
+				 <td align='left'>";
 
 		// ---------------- CONTROL: Checkbox -----------
 		$esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
@@ -173,7 +173,7 @@ if($aspirantes){
 		$atributos ['validar'] = '';
 		$atributos ['deshabilitado'] = false;
 		$tab ++;
-		//$atributos = array_merge ( $atributos, $atributosGlobales );
+		$atributos = array_merge ( $atributos, $atributosGlobales );
 		$mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
 
 
@@ -181,10 +181,10 @@ if($aspirantes){
 
 
 		$mostrarHtml .= "<td align='left'>".$aspirantes[$key]['consecutivo_inscrito']."</td>
-						<td align='left'>".$aspirantes[$key]['tipo_identificacion']."</td>
-						<td align='left'>".$aspirantes[$key]['identificacion']."</td>
-						<td align='left'>".$aspirantes[$key]['nombre']."</td>
-						<td align='left'>".$aspirantes[$key]['perfil']."</td>";
+                                    <td align='left'>".$aspirantes[$key]['tipo_identificacion']."</td>
+                                    <td align='left'>".$aspirantes[$key]['identificacion']."</td>
+                                    <td align='left'>".$aspirantes[$key]['nombre']."</td>
+                                    <td align='left'>".$aspirantes[$key]['perfil']."</td>";
 		$mostrarHtml .= "</tr>";
 		echo $mostrarHtml;
 		unset($mostrarHtml);

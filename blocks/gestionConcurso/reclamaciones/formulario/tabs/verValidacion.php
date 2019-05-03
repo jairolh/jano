@@ -75,14 +75,34 @@ class registrarForm {
 
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 
-      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+                        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+                        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+                        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
-			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
+                        $directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
+                        $variable = "pagina=" . $miPaginaActual;
+                        $variable.= "&opcion=consutarReclamaciones";
+                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+                        // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                        $esteCampo = 'botonRegresar';
+                        $atributos ['id'] = $esteCampo;
+                        $atributos ['enlace'] = $variable;
+                        $atributos ['tabIndex'] = 1;
+                        $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                        $atributos ['estilo'] = 'textoPequenno textoGris';
+                        $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                        $atributos ['posicionImagen'] = "atras";//"adelante";
+                        $atributos ['ancho'] = '30px';
+                        $atributos ['alto'] = '30px';
+                        $atributos ['redirLugar'] = true;
+                        echo $this->miFormulario->enlace ( $atributos );
+                        unset ( $atributos );
+                        
+                        
 			$esteCampo = "marcoSubsistema";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";

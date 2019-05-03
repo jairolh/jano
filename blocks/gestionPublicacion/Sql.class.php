@@ -187,6 +187,7 @@ class Sql extends \Sql {
                                 $cadenaSql="SELECT DISTINCT ";
                                 $cadenaSql.="prf.consecutivo_concurso,  ";
                                 $cadenaSql.="prf.consecutivo_perfil,  ";
+                                $cadenaSql.="prf.codigo,  ";
                                 $cadenaSql.="prf.nombre perfil,  ";
                                 $cadenaSql.="prf.descripcion,  ";
                                 $cadenaSql.="prf.dependencia,  ";
@@ -228,6 +229,7 @@ class Sql extends \Sql {
                                     $cadenaSql.="SELECT DISTINCT  ";
                                     $cadenaSql.="prf.consecutivo_concurso,  ";
                                     $cadenaSql.="prf.consecutivo_perfil,  ";
+                                    $cadenaSql.="prf.codigo,  ";
                                     $cadenaSql.="prf.nombre perfil,  ";
                                     $cadenaSql.="prf.descripcion,  ";
                                     $cadenaSql.="prf.dependencia,  ";
@@ -252,7 +254,7 @@ class Sql extends \Sql {
                                        {$cadenaSql .= " AND prf.consecutivo_perfil='".$variable['consecutivo_perfil']."' ";} 
 
                                 }
-                                    $cadenaSql.="ORDER BY perfil , cumple_requisito DESC, inscripcion ";                                
+                                    $cadenaSql.=" ORDER BY perfil , cumple_requisito DESC, inscripcion ";                                
                             break;                            
                     
                        case "listadoCierreEvaluacion":

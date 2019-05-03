@@ -107,13 +107,14 @@ class registrarForm {
                         $atributos ['redirLugar'] = true;
                         echo $this->miFormulario->enlace ( $atributos );
                         unset ( $atributos );
+                        
 
-												//detalle de la reclamación
-												$parametro=array(
-													'reclamacion'=>$_REQUEST['reclamacion']
-												);
-												$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
-												$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        //detalle de la reclamación
+                        $parametro=array(
+                                'reclamacion'=>$_REQUEST['reclamacion']
+                        );
+                        $cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
+                        $respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 			$esteCampo = "marcoConsultaReclamacion";
 			$atributos ['id'] = $esteCampo;

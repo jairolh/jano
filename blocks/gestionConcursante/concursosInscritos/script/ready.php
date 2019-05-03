@@ -61,7 +61,23 @@
 
 });
 
+// Asociar el widget de validación al formulario detalleConcurso
+$("#concursosInscritos").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
 
+$(function() {
+    $("#concursosInscritos").submit(function() {
+        $resultado=$("#concursosInscritos").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+
+});
 
 // Asociar el widget de validación al formulario
 $("#gestionJurado").validationEngine({

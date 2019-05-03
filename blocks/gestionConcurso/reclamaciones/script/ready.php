@@ -57,6 +57,23 @@ $('#tablaConsultaCalendario').DataTable({
 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
 });
 
+// Asociar el widget de validación al formulario detalleConcurso
+$("#reclamaciones").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
+
+$(function() {
+    $("#reclamaciones").submit(function() {
+        $resultado=$("#reclamaciones").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+
+});
 
 // Asociar el widget de validación al formulario detalleConcurso
 $("#evaluacion").validationEngine({

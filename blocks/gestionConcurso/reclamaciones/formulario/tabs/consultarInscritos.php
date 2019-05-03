@@ -85,11 +85,32 @@ class evaluarReclamacion {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			//buscar reclamaciones para el concurso
-			$parametro=array(
-	    		'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
-	    );
+			$parametro=array('consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                         'reclamacion'=>$_REQUEST['reclamacion']);
 			$cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
-	    $resultadoReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        $resultadoReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        
+                        
+                        $variable = "pagina=" . $miPaginaActual;
+                        $variable.= "&opcion=consutarReclamaciones";
+                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+                        // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                        $esteCampo = 'botonRegresar';
+                        $atributos ['id'] = $esteCampo;
+                        $atributos ['enlace'] = $variable;
+                        $atributos ['tabIndex'] = 1;
+                        $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                        $atributos ['estilo'] = 'textoPequenno textoGris';
+                        $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                        $atributos ['posicionImagen'] = "atras";//"adelante";
+                        $atributos ['ancho'] = '30px';
+                        $atributos ['alto'] = '30px';
+                        $atributos ['redirLugar'] = true;
+                        echo $this->miFormulario->enlace ( $atributos );
+                        unset ( $atributos );
+                        
+                        
 
 			$esteCampo = "marcoEvaluacionReclamacion";
 			$atributos ['id'] = $esteCampo;
@@ -100,87 +121,87 @@ class evaluarReclamacion {
 			unset ( $atributos );
 			{
 				 if($resultadoReclamacion){
-									//-----------------Inicio de Conjunto de Controles----------------------------------------
-											$esteCampo = "marcoConsultaInscrito";
-											$atributos["estilo"] = "jqueryui";
-											$atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
-											//echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
-											unset($atributos);
+                    //-----------------Inicio de Conjunto de Controles----------------------------------------
+                                    $esteCampo = "marcoConsultaInscrito";
+                                    $atributos["estilo"] = "jqueryui";
+                                    $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
+                                    //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+                                    unset($atributos);
 
-											echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
-											echo "<thead>
-													<tr align='center'>
-															<th>N° Inscripción</th>
-															<th>Identificación</th>
-															<th>Aspirante</th>
-															<th>Hoja de Vida</th>
-													</tr>
-													</thead>
-													<tbody>";
+                                    echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
+                                    echo "<thead>
+                                                    <tr align='center'>
+                                                                    <th>N° Inscripción</th>
+                                                                    <th>Identificación</th>
+                                                                    <th>Aspirante</th>
+                                                                    <th>Hoja de Vida</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>";
 
-													foreach($resultadoReclamacion as $key=>$value ){
-																$parametro=array(
-														         'consecutivo_inscrito'=>$resultadoReclamacion[$key]['id_inscrito']
-														    );
-														    $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion2", $parametro);
-														    $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                                    foreach($resultadoReclamacion as $key=>$value ){
+                                                                            $parametro=array(
+                                                                     'consecutivo_inscrito'=>$resultadoReclamacion[$key]['id_inscrito']
+                                                                );
+                                                                $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion2", $parametro);
+                                                                $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-																$mostrarHtml = "<tr align='center'>
-																	<td align='left'>".$resultadoReclamacion[$key]['id_inscrito']."</td>
-																	<td align='left'>".$resultadoReclamacion[$key]['identificacion']."</td>
-																	<td align='left'>".$resultadoReclamacion[$key]['nombre_inscrito']."</td>";
-																	$mostrarHtml .= "<td>";
+                                                                        $mostrarHtml = "<tr align='center'>
+                                                                                <td align='left'>".$resultadoReclamacion[$key]['id_inscrito']."</td>
+                                                                                <td align='left'>".$resultadoReclamacion[$key]['identificacion']."</td>
+                                                                                <td align='left'>".$resultadoReclamacion[$key]['nombre_inscrito']."</td>";
+                                                                                $mostrarHtml .= "<td>";
 
-																	$variableVerHoja = "pagina=publicacion";
-																	$variableVerHoja.= "&opcion=hojaVida";
-																	$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																	$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-																	$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																	$variableVerHoja.= "&tiempo=" . time ();
-																	$variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamacion[$key]['id_inscrito'];
-																	$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																	$variableVerHoja .= "&consecutivo_perfil=".$resultadoReclamacion[$key]['consecutivo_perfil'];
-																	$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                                                                $variableVerHoja = "pagina=publicacion";
+                                                                                $variableVerHoja.= "&opcion=hojaVida";
+                                                                                $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                                                $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                                                $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                                                $variableVerHoja.= "&tiempo=" . time ();
+                                                                                $variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamacion[$key]['id_inscrito'];
+                                                                                $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                                                $variableVerHoja .= "&consecutivo_perfil=".$resultadoReclamacion[$key]['consecutivo_perfil'];
+                                                                                $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
-																			//-------------Enlace-----------------------
-																			$esteCampo = "verHojaVida";
-																			$esteCampo = 'enlace_hoja';
-																			$atributos ['id'] = $esteCampo;
-																			$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
-																			$atributos ['tabIndex'] = 0;
-																			$atributos ['columnas'] = 1;
-																			$atributos ['enlaceTexto'] = 'Ver Curriculum';
-																			$atributos ['estilo'] = 'clasico';
-																			$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																			$atributos ['posicionImagen'] ="atras";//"adelante";
-																			$atributos ['ancho'] = '20px';
-																			$atributos ['alto'] = '20px';
-																			$atributos ['redirLugar'] = false;
-																			$atributos ['valor'] = '';
-																			$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																			unset ( $atributos );
-																			 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-																			$esteCampo = 'ruta_enlace_hoja';
-																			$atributos ['id'] = $esteCampo;
-																			$atributos ['nombre'] = $esteCampo;
-																			$atributos ['tipo'] = 'hidden';
-																			$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-																			$atributos ['obligatorio'] = false;
-																			$atributos ['valor'] = $variableVerHoja;
-																			$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-																			$atributos ['deshabilitado'] = FALSE;
-																			$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-																			// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                                //-------------Enlace-----------------------
+                                                                                $esteCampo = "verHojaVida";
+                                                                                $esteCampo = 'enlace_hoja';
+                                                                                $atributos ['id'] = $esteCampo;
+                                                                                $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+                                                                                $atributos ['tabIndex'] = 0;
+                                                                                $atributos ['columnas'] = 1;
+                                                                                $atributos ['enlaceTexto'] = 'Ver Curriculum';
+                                                                                $atributos ['estilo'] = 'clasico';
+                                                                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                                $atributos ['ancho'] = '20px';
+                                                                                $atributos ['alto'] = '20px';
+                                                                                $atributos ['redirLugar'] = false;
+                                                                                $atributos ['valor'] = '';
+                                                                                $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                                                unset ( $atributos );
+                                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                                $esteCampo = 'ruta_enlace_hoja';
+                                                                                $atributos ['id'] = $esteCampo;
+                                                                                $atributos ['nombre'] = $esteCampo;
+                                                                                $atributos ['tipo'] = 'hidden';
+                                                                                $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                                $atributos ['obligatorio'] = false;
+                                                                                $atributos ['valor'] = $variableVerHoja;
+                                                                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                                $atributos ['deshabilitado'] = FALSE;
+                                                                                $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                                // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
 
-																	 $mostrarHtml .= "</td>";
+                                                                                                                         $mostrarHtml .= "</td>";
 
-												 $mostrarHtml .= "</tr>";
-											 }
-												 echo $mostrarHtml;
-												 unset($mostrarHtml);
+                                                                                 $mostrarHtml .= "</tr>";
+                                                                         }
+                                                                                 echo $mostrarHtml;
+                                                                                 unset($mostrarHtml);
 
-									echo "</tbody>";
-									echo "</table></div>";
+                                                                    echo "</tbody>";
+                                                                    echo "</table></div>";
 
 
 								echo "<div style ='padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
@@ -340,7 +361,7 @@ class evaluarReclamacion {
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
 										$atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-										$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
+										$atributos ['validar'] = 'required, minSize[5], maxSize[3000]';
 										$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 										$atributos ['deshabilitado'] = false;
 										$atributos ['tamanno'] = 60;

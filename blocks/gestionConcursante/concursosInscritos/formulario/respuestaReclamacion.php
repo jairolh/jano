@@ -84,7 +84,7 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
-			$variable.= "&opcion=consulta";
+			$variable.= "&opcion=consultaEvaluacion";
 			$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$variable.= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 			$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
@@ -106,12 +106,12 @@ class registrarForm {
                         echo $this->miFormulario->enlace ( $atributos );
                         unset ( $atributos );
 
-												//detalle de la reclamación
-												$parametro=array(
-													'reclamacion'=>$_REQUEST['reclamacion']
-												);
-												$cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
-												$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        //detalle de la reclamación
+                        $parametro=array(
+                                'reclamacion'=>$_REQUEST['reclamacion']
+                        );
+                        $cadena_sql = $this->miSql->getCadenaSql("respuestaReclamacion", $parametro);
+                        $respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 			$esteCampo = "marcoConsultaReclamacion";
 			$atributos ['id'] = $esteCampo;
@@ -130,18 +130,17 @@ class registrarForm {
 										<th>Fecha Respuesta</th>
 										<th>¿Aplica reclamación?</th>
 										<th>Observaciones</th>
-										<th>Evaluador</th>
 								</tr>
 						</thead>
 						<tbody>";
-
+                                                /*				<th>Evaluador</th>*/
 						if($respuestaReclamacion){
 							$mostrarHtml = "<tr align='center'>
 											<td align='left'>".$respuestaReclamacion[0]['id_reclamacion']."</td>
 											<td align='left'>".$respuestaReclamacion[0]['fecha_registro']."</td>
 											<td align='left'>".$respuestaReclamacion[0]['respuesta']."</td>
-											<td align='left'>".$respuestaReclamacion[0]['observacion']."</td>
-											<td align='left'>".$respuestaReclamacion[0]['evaluador']."</td>";
+											<td align='left'>".$respuestaReclamacion[0]['observacion']."</td>";
+											//<td align='left'>".$respuestaReclamacion[0]['evaluador']."</td>";
 
 						 $mostrarHtml .= "</tr>";
 						}

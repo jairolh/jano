@@ -12,13 +12,9 @@ class consultaForm {
 	var $miSql;
 	function __construct($lenguaje, $formulario, $sql) {
 		$this->miConfigurador = \Configurador::singleton ();
-
 		$this->miConfigurador->fabricaConexiones->setRecursoDB ( 'principal' );
-
 		$this->lenguaje = $lenguaje;
-
 		$this->miFormulario = $formulario;
-
 		$this->miSql = $sql;
 	}
 	function miForm() {
@@ -143,32 +139,30 @@ class consultaForm {
 					$actividadesConReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
 					echo '<div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" class="collapsed">
-            Evaluación de requisitos
-          </a>
-        </h4>
-      </div>';
+                                                <div class="panel panel-default">
+                                                  <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" class="collapsed">
+                                                        Evaluación de requisitos
+                                                      </a>
+                                                    </h4>
+                                                  </div>';
 
-					echo '
-      <div id="collapse1" class="panel-collapse collapse">';
+					echo '<div id="collapse1" class="panel-collapse collapse">';
 
 					echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 					echo "<thead>
-							<tr align='center'>
-									<th>Resultado</th>
-									<th>Observación</th>
-									<th>Fecha</th>
-							</tr>
-					</thead>
-					<tbody> ";
-
+                                                <tr align='center'>
+                                                    <th>Cumple requisitos</th>
+                                                    <th>Observación</th>
+                                                    <th>Fecha</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody> ";
 					$mostrarHtml = "<tr align='center'>
-											<td align='left'>" . $resultadoValidacion [0] ['cumple_requisito'] . "</td>
-											<td align='left'>" . $resultadoValidacion [0] ['observacion'] . "</td>
-											<td align='left'>" . $resultadoValidacion [0] ['fecha_registro'] . "</td>";
+                                            <td align='left'>" . $resultadoValidacion [0] ['cumple_requisito'] . "</td>
+                                            <td align='left'>" . $resultadoValidacion [0] ['observacion'] . "</td>
+                                            <td align='left'>" . $resultadoValidacion [0] ['fecha_registro'] . "</td>";
 					$mostrarHtml .= "</tr>";
 
 					echo $mostrarHtml;
@@ -211,8 +205,8 @@ class consultaForm {
 						);
 						$cadena_sql = $this->miSql->getCadenaSql ( "respuestaReclamacion", $parametro );
 						$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
-
-						// enlace para consultar los criterios asociados al tipo de jurado
+                                                
+                                                // enlace para consultar los criterios asociados al tipo de jurado
 						$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 						$variableDetalleRta .= "&opcion=consultarDetalleRta";
 						$variableDetalleRta .= "&consecutivo_concurso=" . $_REQUEST ['consecutivo_concurso'];
@@ -232,20 +226,20 @@ class consultaForm {
 
 						echo "<table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 						echo "<thead>
-								<tr align='center'>
-										<th>Reclamación</th>
-										<th>Observación</th>
-										<th>Fecha</th>
-										<th>¿Aplica la reclamación?</th>
-										<th>Nueva Evaluación</th>
-								</tr>
+							<tr align='center'>
+                                                            <th>Reclamación</th>
+                                                            <th>Observación</th>
+                                                            <th>Fecha</th>
+                                                            <th>¿Aplica la reclamación?</th>
+                                                            <th>Nueva Evaluación</th>
+                                                        </tr>
 						</thead>
 						<tbody> ";
 
 						$mostrarHtml = "<tr align='center'>
-												<td align='left'>" . $reclamacionesValidacion [0] ['id'] . "</td>
-												<td align='left'>" . $reclamacionesValidacion [0] ['observacion'] . "</td>
-												<td align='left'>" . $reclamacionesValidacion [0] ['fecha_registro'] . "</td>";
+                                                                    <td align='left'>" . $reclamacionesValidacion [0] ['id'] . "</td>
+                                                                    <td align='left'>" . $reclamacionesValidacion [0] ['observacion'] . "</td>
+                                                                    <td align='left'>" . $reclamacionesValidacion [0] ['fecha_registro'] . "</td>";
 
 						if ($respuestaReclamacion) {
 							$mostrarHtml .= "<td align='left'>";
@@ -275,7 +269,7 @@ class consultaForm {
 							$variableValidacion .= "&id_usuario=" . $_REQUEST ['usuario'];
 							$variableValidacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
 							$variableValidacion .= "&tiempo=" . time ();
-							$variableValidacion .= "&consecutivo_inscrito=" . $_REQUEST ['consecutivo_concurso'];
+							$variableValidacion .= "&consecutivo_inscrito=" . $_REQUEST ['consecutivo_inscrito'];
 							// $variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
 							// $variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
 							$variableValidacion .= "&reclamacion=" . $respuestaReclamacion [0] ['id_reclamacion'];
@@ -331,8 +325,8 @@ class consultaForm {
 
 						// ------------------Division para los botones-------------------------
 
-						$fecha = date ( "Y-m-d H:i:s" );
-						if ($fecha <= $fechaFinReclamacionValidacion [0] ['fecha_fin_reclamacion']) {
+						$fecha = date ( "Y-m-d" );
+                                                if ($fecha <= $fechaFinReclamacionValidacion [0] ['fecha_fin_reclamacion']) {
 
 							$id_etapa = $fechaFinReclamacionValidacion [0] ['consecutivo_calendario'];
 							$etapa = $fechaFinReclamacionValidacion [0] ['nombre'];

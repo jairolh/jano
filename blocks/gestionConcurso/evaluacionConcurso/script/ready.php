@@ -76,6 +76,24 @@ $('#tablaConsultaInscrito').DataTable({
 });
 
 // Asociar el widget de validación al formulario detalleConcurso
+$("#evaluacionConcurso").validationEngine({
+    promptPosition : "centerRight",
+    scroll: false
+});
+
+$(function() {
+    $("#evaluacionConcurso").submit(function() {
+        $resultado=$("#evaluacionConcurso").validationEngine("validate");
+        if ($resultado) {
+            return true;
+        }
+        return false;
+    });
+
+
+});
+
+// Asociar el widget de validación al formulario detalleConcurso
 $("#detalleConcurso").validationEngine({
     promptPosition : "centerRight",
     scroll: false

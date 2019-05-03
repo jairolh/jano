@@ -71,8 +71,8 @@ class registrarForm {
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 
 			$rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-            $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-           	$rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+                        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+                        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
@@ -83,30 +83,30 @@ class registrarForm {
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-           	$esteCampo = 'botonRegresar';
-           	$atributos ['id'] = $esteCampo;
-           	$atributos ['enlace'] = $variable;
-           	$atributos ['tabIndex'] = $tab;
-           	$atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
-           	$atributos ['estilo'] = 'textoPequenno textoGris';
-           	$atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
-           	$atributos ['posicionImagen'] = "atras";//"adelante";
-           	$atributos ['ancho'] = '30px';
-           	$atributos ['alto'] = '30px';
-           	$atributos ['redirLugar'] = true;
-           	$tab ++;
-           	echo $this->miFormulario->enlace ( $atributos );
-           	unset ( $atributos );
+                        $esteCampo = 'botonRegresar';
+                        $atributos ['id'] = $esteCampo;
+                        $atributos ['enlace'] = $variable;
+                        $atributos ['tabIndex'] = $tab;
+                        $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                        $atributos ['estilo'] = 'textoPequenno textoGris';
+                        $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                        $atributos ['posicionImagen'] = "atras";//"adelante";
+                        $atributos ['ancho'] = '30px';
+                        $atributos ['alto'] = '30px';
+                        $atributos ['redirLugar'] = true;
+                        $tab ++;
+                        echo $this->miFormulario->enlace ( $atributos );
+                        unset ( $atributos );
 
-						$parametro=array(
-							'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-							'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
-							'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil'],
-							'consecutivo_calendario'=>$_REQUEST['id_etapa']
-						);
-						$cadena_sql = $this->miSql->getCadenaSql("consultaDatosInscripcion", $parametro);
-						$inscripcion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-						//var_dump($inscripcion);
+                        $parametro=array(
+                                'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
+                                'consecutivo_perfil'=>$_REQUEST['consecutivo_perfil'],
+                                'consecutivo_calendario'=>$_REQUEST['id_etapa']
+                        );
+                        $cadena_sql = $this->miSql->getCadenaSql("consultaDatosInscripcion", $parametro);
+                        $inscripcion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                        //var_dump($inscripcion);
 
 			$esteCampo = "marcoReclamacion";
 			$atributos ['id'] = $esteCampo;
@@ -118,25 +118,18 @@ class registrarForm {
 			{
 
 				echo "<div style =' padding-left: 8%; padding-right: 8%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
-
-			 echo "
-					 <tbody>";
+                                echo " <tbody>";
 
 			 $mostrarHtml = "<tr >
-						 <th>Concurso</th>
-						 <td colspan='1'>".$inscripcion[0]['concurso']."</td>
-						 <th>Perfil</th>
-						 <td colspan='1'>".$inscripcion[0]['perfil']."</td>
-						 </tr>
-			 ";
-
+                                            <th>Concurso</th>
+                                            <td colspan='1'>".$inscripcion[0]['concurso']."</td>
+                                            <th>Perfil</th>
+                                            <td colspan='1'>".$inscripcion[0]['perfil']."</td>
+                                        </tr>";
 			 $mostrarHtml .= "<tr >
-						 <th>Etapa</th>
-						 <td colspan='3'>".$_REQUEST['etapa']."</td>
-						 </tr>
-			 ";
-
-
+                                            <th>Etapa</th>
+                                            <td colspan='3'>".$_REQUEST['etapa']."</td>
+                                            </tr>";
 
 			 echo $mostrarHtml;
 			 unset($mostrarHtml);
@@ -158,7 +151,7 @@ class registrarForm {
 				$atributos ['dobleLinea'] = 0;
 				$atributos ['tabIndex'] = $tab;
 				$atributos ['etiqueta'] = "Observaciones";
-				$atributos ['validar'] = 'maxSize[3000]';
+				$atributos ['validar'] = 'required, minSize[10], maxSize[3000]';
 				$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
 				$atributos ['deshabilitado'] = false;
 				$atributos ['tamanno'] = 60;

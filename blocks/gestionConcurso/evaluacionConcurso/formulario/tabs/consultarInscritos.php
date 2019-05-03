@@ -83,25 +83,25 @@ class consultarInscrito {
                                 echo "<div class='cell-border'><table id='tablaConsultaInscrito' class='table table-striped table-bordered'>";
                                 echo "<thead>
                                         <tr align='center'>
-
                                             <th>Tipo Identificación</th>
                                             <th>Identificación</th>
                                             <th>Nombre</th>
-																						<th>Perfil</th>
+                                            <th>Código</th>
+                                            <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Fecha</th>
-																						<th>Estado Validación</th>
+                                            <th>Estado Validación</th>
                                             <th>Validar Requisitos</th>
                                         </tr>
                                     </thead>
                                     <tbody>";
 
-																		//consulta para verificar que la etapa esté activa
-																		$hoy = date("Y-m-d");
-																		$parametro['hoy']=$hoy;
-																		$parametro['consecutivo_concurso']=$resultadoListaInscrito[0]['consecutivo_concurso'];
-																		$cadena_sql = $this->miSql->getCadenaSql("consultaEtapaActiva", $parametro);
-																		$resultadoEtapa = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                //consulta para verificar que la etapa esté activa
+                                $hoy = date("Y-m-d");
+                                $parametro['hoy']=$hoy;
+                                $parametro['consecutivo_concurso']=$resultadoListaInscrito[0]['consecutivo_concurso'];
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaEtapaActiva", $parametro);
+                                $resultadoEtapa = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
                                 foreach($resultadoListaInscrito as $key=>$value )
                                     {   $parametro['tipo']='unico';
@@ -116,48 +116,47 @@ class consultarInscrito {
                                         $variableValidar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableValidar.= "&opcion=validar";
                                         $variableValidar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				$variableValidar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+                                        $variableValidar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
                                         $variableValidar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableValidar.= "&tiempo=" . time ();
                                         $variableValidar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                         $variableValidar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableValidar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+					$variableValidar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
                                         $variableValidar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidar, $directorio);
                                         $variableValidar.= "#tabInscrito";
 
-																				//verificar si ya se realizó la validación de la inscripción
-														            $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
-														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        //verificar si ya se realizó la validación de la inscripción
+                                        $cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
+                                        $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-																				if($resultadoValidacion){
-																					if($validacion=$resultadoValidacion[0]['cumple_requisito']=='SI'){
-																						$validacion="APROBADO";
-																					}else{
-																						$validacion="NO APROBADO";
-																					}
+                                            if($resultadoValidacion){
+                                                    if($validacion=$resultadoValidacion[0]['cumple_requisito']=='SI'){
+                                                            $validacion="APROBADO";
+                                                    }else{
+                                                            $validacion="NO APROBADO";
+                                                    }
 
-																				}else{
-																					$validacion="PENDIENTE";
-																				}
+                                            }else{
+                                                    $validacion="PENDIENTE";
+                                            }
 
                                         $mostrarHtml = "<tr align='center'>
-
                                                 <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['identificacion']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
-																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>
+						<td align='left'>".$resultadoListaInscrito[$key]['codigo']."</td>
+                                                <td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['consecutivo_inscrito']."</td>
                                                 <td align='left'>".$resultadoListaInscrito[$key]['fecha_registro']."</td>
-																								<td align='left'>".$validacion."</td>";
+						<td align='left'>".$validacion."</td>";
                                         $mostrarHtml .= "<td>";
 
-																				$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+					$variableVerValidacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerValidacion .= "&opcion=consultarValidacion";
-																				$variableVerValidacion .= "&aspirante=" . $resultadoListaInscrito[$key]['tipo_identificacion'].$resultadoListaInscrito[$key]['identificacion'];
-																				$variableVerValidacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+					$variableVerValidacion .= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
                                         $variableVerValidacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                         $variableVerValidacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableVerValidacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+					$variableVerValidacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
                                         $variableVerValidacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableVerValidacion .= "&tiempo=" . time ();
                                         $variableVerValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerValidacion, $directorio);
@@ -177,22 +176,22 @@ class consultarInscrito {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);
                                                 }
-																								else if ($resultadoValidacion){
-																									$esteCampo = "validar";
-																									$atributos["id"]=$esteCampo;
-																									$atributos['enlace']=$variableVerValidacion;
-																									$atributos['tabIndex']=$esteCampo;
-																									$atributos['redirLugar']=true;
-																									$atributos['estilo']='clasico';
-																									$atributos['enlaceTexto']='Ver Validación';
-																									$atributos['ancho']='30';
-																									$atributos['alto']='30';
-																									//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
-																									$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																									unset($atributos);
-																								}else{
-																									$mostrarHtml .=  "Etapa Finalizada";
-																								}
+                                            else if ($resultadoValidacion){
+                                                    $esteCampo = "validar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableVerValidacion;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='Ver Validación';
+                                                    $atributos['ancho']='30';
+                                                    $atributos['alto']='30';
+                                                    //$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);
+                                            }else{
+                                                    $mostrarHtml .=  "Etapa Finalizada";
+                                            }
                                          $mostrarHtml .= "</td>";
 
                                        $mostrarHtml .= "</tr>";

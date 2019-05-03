@@ -106,7 +106,7 @@ class registrarForm {
 						$tipo = 'success';
 						$mensaje = "Reclamación realizada";
 						$boton = "continuar";
-						$variable.="&opcion=consulta";
+						$variable.="&opcion=consultar";
 						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 						$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 						$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
@@ -115,12 +115,12 @@ class registrarForm {
 					case "errorReclamacion":
 						$tipo = 'error';
 						$mensaje = "No fue posible realizar la reclamación. Por favor intente más tarde.";
-            $boton = "regresar";
-            $variable.="&opcion=consulta";
+                                                $boton = "regresar";
+                                                $variable.="&opcion=consultar";
 						$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 						$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 						$variable.= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-            break;
+                                                  break;
 
 					case "confirmaInscripcion":
 						$tipo = 'success';
@@ -132,9 +132,9 @@ class registrarForm {
 					case "errorInscripcion":
 						$tipo = 'error';
 						$mensaje = "No fue posible realizar la inscripción al perfil <b>".$_REQUEST['nombre_perfil']."</b>. Por favor intente más tarde.";
-            $boton = "regresar";
-            $variable.="&opcion=consultar";
-            break;
+                                                $boton = "regresar";
+                                                $variable.="&opcion=consultar";
+                                                break;
 
 
           }

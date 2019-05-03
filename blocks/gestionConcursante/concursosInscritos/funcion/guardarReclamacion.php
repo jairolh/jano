@@ -38,7 +38,7 @@ class RegistradorValidacion {
                               'fecha'=> $fecha,
                               'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                               'id_inscrito'=>$_REQUEST['consecutivo_inscrito']
-        );
+                             );
 
         $cadenaSql = $this->miSql->getCadenaSql ( 'registroReclamacion',$arregloDatos );
         $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroReclamacion" );
@@ -54,7 +54,7 @@ class RegistradorValidacion {
                                   'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario'],
                                   'consecutivo_inscrito'=>$_REQUEST['consecutivo_inscrito'],
                                   'reclamacion'=>$resultado
-            );
+                                 );
             //se referencia la reclamación en la tabla concurso.valida_requisito
             $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaValidacion',$arregloDatos );
             $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaValidacion" );

@@ -24,7 +24,7 @@
 		        "previous":   "Anterior"
 		    }
         },
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
         
 });
         

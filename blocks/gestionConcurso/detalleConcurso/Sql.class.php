@@ -161,7 +161,8 @@ class Sql extends \Sql {
                                 $cadenaSql.=" estado ";
                                 $cadenaSql.=" FROM concurso.actividad_calendario ";
                                 $cadenaSql.=" WHERE ";
-                                $cadenaSql.=" nombre IN ('Inscripción','Registro Soportes','Evaluar Requisitos','Lista Elegibles') ";
+                                $cadenaSql.=" trim(nombre) IN ('Inscripción','Registro soportes','Evaluar requisitos','Evaluar hoja de vida','Pruebas de competencias','Listado de elegibles') ";
+                                $cadenaSql.=" ORDER BY consecutivo_actividad ";
                             break;         
                         case "consultaActividadCalendario":
                                 $cadenaSql=" SELECT DISTINCT ";

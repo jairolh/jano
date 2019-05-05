@@ -24,7 +24,7 @@ $('#tablaProcesos').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
 });
 
@@ -44,7 +44,7 @@ $('#tablaProfesional').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
 });
 
@@ -63,7 +63,7 @@ $('#tablaDocencia').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 });
 
 $('#tablaActividad').DataTable({
@@ -81,7 +81,7 @@ $('#tablaActividad').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 });
 
 
@@ -100,7 +100,7 @@ $('#tablaInvestigacion').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 });
 
 $('#tablaProducto').DataTable({
@@ -118,7 +118,7 @@ $('#tablaProducto').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 });
 
 $('#tablaIdioma').DataTable({
@@ -136,7 +136,7 @@ $('#tablaIdioma').DataTable({
                 "previous":   "Anterior"
             }
 },
-"lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 });
 
 // Asociar el widget de validación al formulario

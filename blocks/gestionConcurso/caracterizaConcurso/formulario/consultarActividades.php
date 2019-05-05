@@ -101,7 +101,7 @@ class consultarForm {
                                 $atributos ['ancho'] = '45px';
                                 $atributos ['alto'] = '45px';
                                 $atributos ['redirLugar'] = true;
-                                echo $this->miFormulario->enlace ( $atributos );
+                                //echo $this->miFormulario->enlace ( $atributos );
                                 unset ( $atributos );
                 echo "            </td>
                         </tr>
@@ -120,10 +120,11 @@ class consultarForm {
 
                         echo "<thead>
                                 <tr align='center'>
+                                    <th>Código</th>
                                     <th>Nombre</th>
-                        			<th>Descripción</th>
+                                    <th>Descripción</th>
                                     <th>Estado</th>
-                        			<th>Editar</th>
+                                    <th>Editar</th>
                                     <th>Actualizar Estado</th>
                                 </tr>
                             </thead>
@@ -162,6 +163,7 @@ class consultarForm {
                                 }
                                 
                                 $mostrarHtml = "<tr align='center'>
+                                        <td align='left'>".$resultadoActividades[$key]['consecutivo_actividad']."</td>
                                         <td align='left'>".$resultadoActividades[$key]['nombre']."</td>
                                         <td align='left'>".$resultadoActividades[$key]['descripcion']."</td>		
                                         <td align='left'>".$resultadoActividades[$key]['estado']."</td>
@@ -179,7 +181,7 @@ class consultarForm {
                                 $atributos['ancho']='25';
                                 $atributos['alto']='25';
                                 $atributos['enlaceImagen']=$rutaBloque."/images/edit.png";
-                                $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                               // $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                 unset($atributos);
                                 
                                 $mostrarHtml .= "</td>

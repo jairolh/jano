@@ -28,7 +28,7 @@ class contactoForm {
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
                 $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
 		
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**

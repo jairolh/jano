@@ -42,6 +42,7 @@ class Frontera {
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
 
 		$this->miFormulario = new \FormularioHtml ();
+                
 		if (isset ( $_REQUEST ['opcion'] )) {
 
 			switch ($_REQUEST ['opcion']) {

@@ -27,7 +27,7 @@ class criterioForm {
 		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 		$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
     $rutaBloque = $this->miConfigurador->getVariableConfiguracion ( "raizDocumento" ) . "/blocks/";
-    $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+    $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
 
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**

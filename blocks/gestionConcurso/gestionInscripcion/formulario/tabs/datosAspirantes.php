@@ -116,123 +116,125 @@ class registrarForm {
 				unset ( $atributos );
 				{
 
-					$parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
-					if(isset($_REQUEST['seleccionJurado'])){
-              $parametro['id_usuario']= $_REQUEST['seleccionJurado'];
-          }else if(isset($_REQUEST['seleccionEvaluador'])) {
-              $parametro['id_usuario']= $_REQUEST['seleccionEvaluador'];
-          }else{
-              $parametro['id_usuario']='';
-          }
+                                    $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
+                                    if(isset($_REQUEST['seleccionJurado'])){
+                                      $parametro['id_usuario']= $_REQUEST['seleccionJurado'];
+                                  }else if(isset($_REQUEST['seleccionEvaluador'])) {
+                                      $parametro['id_usuario']= $_REQUEST['seleccionEvaluador'];
+                                  }else{
+                                      $parametro['id_usuario']='';
+                                  }
 
-            $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
-            $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-            //var_dump($aspirantes);
+                        $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
+                        $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                        //var_dump($aspirantes);
 
-if($aspirantes){
+                        if($aspirantes){
 
-echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
-echo "<thead>
-			<tr align='center'>
-			<th>
-			 <input name='seleccionarTodo' id='seleccionarTodo' value='3' tabindex='4' class='justificado validate[]' type='checkbox'>
-					Seleccionar
-			 </th>
-					<th>Inscripción</th>
-					<th>Tipo Identificación</th>
-					<th>Identificación</th>
-					<th>Nombre</th>
-					<th>Perfil</th>
-			</tr>
-	</thead>
-	<tbody>";
+                        echo "<div class='cell-border'><table id='tablaConsultaAspirante' class='table table-striped table-bordered'>";
+                        echo "<thead>
+                                    <tr align='center'>
+                                        <th>
+                                         <input name='seleccionarTodo' id='seleccionarTodo' value='3' tabindex='4' class='justificado validate[]' type='checkbox'>
+                                                        Seleccionar
+                                        </th>
+                                        <th>Inscripción</th>
+                                        <th>Tipo Identificación</th>
+                                        <th>Identificación</th>
+                                        <th>Nombre</th>
+                                        <th>Código</th>
+                                        <th>Perfil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
 
-if($aspirantes){
-	$primero=$aspirantes[0]['consecutivo_inscrito'];
-	foreach($aspirantes as $key=>$value ){
+                        if($aspirantes){
+                                $primero=$aspirantes[0]['consecutivo_inscrito'];
+                                foreach($aspirantes as $key=>$value ){
 
-		$mostrarHtml = "<tr align='center'>
-				 <td align='left'>";
+                                        $mostrarHtml = "<tr align='center'>
+                                                         <td align='center'  width='8%'  >";
 
-		// ---------------- CONTROL: Checkbox -----------
-		$esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
-		$atributos ['id'] = $esteCampo;
-		$atributos ['nombre'] = $esteCampo;
-		$atributos ['marco'] = true;
-		$atributos ['estiloMarco'] = true;
-		$atributos ["etiquetaObligatorio"] = true;
-		$atributos ['columnas'] = 1;
-		$atributos ['dobleLinea'] = 1;
-		$atributos ['tabIndex'] = $tab;
-		$atributos ['etiqueta'] = "";
-		$atributos ['seleccionado'] = false;
-		$atributos ['valor'] = $aspirantes[$key]['consecutivo_inscrito'];
+                                        // ---------------- CONTROL: Checkbox -----------
+                                        $esteCampo = 'seleccion'.$aspirantes[$key]['consecutivo_inscrito'];
+                                        $atributos ['id'] = $esteCampo;
+                                        $atributos ['nombre'] = $esteCampo;
+                                        $atributos ['marco'] = true;
+                                        $atributos ['estiloMarco'] = true;
+                                        $atributos ["etiquetaObligatorio"] = true;
+                                        $atributos ['columnas'] = 1;
+                                        $atributos ['dobleLinea'] = 1;
+                                        $atributos ['tabIndex'] = $tab;
+                                        $atributos ['etiqueta'] = "";
+                                        $atributos ['seleccionado'] = false;
+                                        $atributos ['valor'] = $aspirantes[$key]['consecutivo_inscrito'];
 
-		$atributos ['estilo'] = 'justificado';
-		$atributos ['eventoFuncion'] = ' ';
-		$atributos ['validar'] = '';
-		$atributos ['deshabilitado'] = false;
-		$tab ++;
-		$atributos = array_merge ( $atributos, $atributosGlobales );
-		$mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
-
-
-		$mostrarHtml.="</td>";
+                                        $atributos ['estilo'] = 'justificado';
+                                        $atributos ['eventoFuncion'] = ' ';
+                                        $atributos ['validar'] = '';
+                                        $atributos ['deshabilitado'] = false;
+                                        $tab ++;
+                                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                                        $mostrarHtml .= $this->miFormulario->campoCuadroSeleccion ( $atributos );
 
 
-		$mostrarHtml .= "<td align='left'>".$aspirantes[$key]['consecutivo_inscrito']."</td>
-                                    <td align='left'>".$aspirantes[$key]['tipo_identificacion']."</td>
-                                    <td align='left'>".$aspirantes[$key]['identificacion']."</td>
-                                    <td align='left'>".$aspirantes[$key]['nombre']."</td>
-                                    <td align='left'>".$aspirantes[$key]['perfil']."</td>";
-		$mostrarHtml .= "</tr>";
-		echo $mostrarHtml;
-		unset($mostrarHtml);
-		unset($variable);
-	}
+                                        $mostrarHtml.="</td>";
 
-	if($key>0){
-		$ultimo=$aspirantes[$key]['consecutivo_inscrito'];
-		$valores= $primero . ",".$ultimo;
-	}else{
-		$valores= $primero;
-	}
 
-}
-echo "</tbody>";
-echo "</table></div>";
+                                        $mostrarHtml .= "<td align='left' width='10%' >".$aspirantes[$key]['consecutivo_inscrito']."</td>
+                                                            <td align='left' width='6%' >".$aspirantes[$key]['tipo_identificacion']."</td>
+                                                            <td align='left' width='10%'>".$aspirantes[$key]['identificacion']."</td>
+                                                            <td align='left'>".$aspirantes[$key]['nombre']."</td>
+                                                            <td align='left' width='10%' >".$aspirantes[$key]['codigo']."</td>
+                                                            <td align='left'>".$aspirantes[$key]['perfil']."</td>";
+                                        $mostrarHtml .= "</tr>";
+                                        echo $mostrarHtml;
+                                        unset($mostrarHtml);
+                                        unset($variable);
+                                }
 
-// ////////////////Hidden////////////
-$esteCampo = 'aspirantes';
-$atributos ["id"] = $esteCampo;
-$atributos ["tipo"] = "hidden";
-$atributos ['estilo'] = '';
-$atributos ['validar'] = '';
-$atributos ["obligatorio"] = true;
-$atributos ['marco'] = true;
-$atributos ["etiqueta"] = "";
+                                if($key>0){
+                                        $ultimo=$aspirantes[$key]['consecutivo_inscrito'];
+                                        $valores= $primero . ",".$ultimo;
+                                }else{
+                                        $valores= $primero;
+                                }
 
-$atributos = array_merge ( $atributos, $atributosGlobales );
-echo $this->miFormulario->campoCuadroTexto ( $atributos );
-unset ( $atributos );
+                        }
+                        echo "</tbody>";
+                        echo "</table></div>";
 
-// ////////////////Hidden////////////
-$esteCampo = 'numeroAspirantes';
-$atributos ["id"] = $esteCampo;
-$atributos ["tipo"] = "hidden";
-$atributos ['estilo'] = '';
-$atributos ['validar'] = '';
-$atributos ["obligatorio"] = true;
-$atributos ['marco'] = true;
-$atributos ["etiqueta"] = "";
-$atributos ['valor'] = $valores;
+                        // ////////////////Hidden////////////
+                        $esteCampo = 'aspirantes';
+                        $atributos ["id"] = $esteCampo;
+                        $atributos ["tipo"] = "hidden";
+                        $atributos ['estilo'] = '';
+                        $atributos ['validar'] = '';
+                        $atributos ["obligatorio"] = true;
+                        $atributos ['marco'] = true;
+                        $atributos ["etiqueta"] = "";
 
-$atributos = array_merge ( $atributos, $atributosGlobales );
-echo $this->miFormulario->campoCuadroTexto ( $atributos );
-unset ( $atributos );
+                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                        echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                        unset ( $atributos );
 
-}else
- {
+                        // ////////////////Hidden////////////
+                        $esteCampo = 'numeroAspirantes';
+                        $atributos ["id"] = $esteCampo;
+                        $atributos ["tipo"] = "hidden";
+                        $atributos ['estilo'] = '';
+                        $atributos ['validar'] = '';
+                        $atributos ["obligatorio"] = true;
+                        $atributos ['marco'] = true;
+                        $atributos ["etiqueta"] = "";
+                        $atributos ['valor'] = $valores;
+
+                        $atributos = array_merge ( $atributos, $atributosGlobales );
+                        echo $this->miFormulario->campoCuadroTexto ( $atributos );
+                        unset ( $atributos );
+
+                        }else
+                         {
 				 $atributos["id"]="divNoEncontroCriterio";
 				 $atributos["estilo"]="";
 		//$atributos["estiloEnLinea"]="display:none";
@@ -251,7 +253,7 @@ unset ( $atributos );
 
 				echo $this->miFormulario->division("fin");
 				 //------------------Division para los botones-------------------------
- }
+                        }
 
 
 }
@@ -325,35 +327,38 @@ if($aspirantes){
 			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 
 			if(isset($_REQUEST['seleccionJurado'])){
-          $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionJurado'];
-      }else if(isset($_REQUEST['seleccionEvaluador'])) {
-          $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionEvaluador'];
-      }
+                            $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionJurado'];
+                            $valorCodificado .= "&tab=tabJurados";
+                        }else if(isset($_REQUEST['seleccionEvaluador'])) {
+                            $valorCodificado .= "&seleccionJurado=" . $_REQUEST['seleccionEvaluador'];
+                            $valorCodificado .= "&tab=tabEvaluadores";
+                        }
 
-      $parametro['concurso']=$_REQUEST['consecutivo_concurso'];
-      if(isset($_REQUEST['seleccionJurado'])){
-          $parametro['usuario']= $_REQUEST['seleccionJurado'];
-      }else if(isset($_REQUEST['seleccionEvaluador'])) {
-          $parametro['usuario']= $_REQUEST['seleccionEvaluador'];
-      }else{
-          $parametro['usuario']='';
-      }
+                        $parametro['concurso']=$_REQUEST['consecutivo_concurso'];
+                        if(isset($_REQUEST['seleccionJurado'])){
+                            $parametro['usuario']= $_REQUEST['seleccionJurado'];
+                        }else if(isset($_REQUEST['seleccionEvaluador'])) {
+                            $parametro['usuario']= $_REQUEST['seleccionEvaluador'];
+                        }else{
+                            $parametro['usuario']='';
+                        }
 
-			//buscar tipo de jurado
-      $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaJurado3", $parametro);
-      $tipo = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                            //buscar tipo de jurado
+                          $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaJurado3", $parametro);
+                          $tipo = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
 
-			if(isset($_REQUEST ["tipoJurado"])){
-				$valorCodificado .= "&tipoJurado=" . $_REQUEST ["tipoJurado"];
-			}else if($tipo){
-          $valorCodificado .= "&tipoJurado=" . $tipo[0]['id_jurado_tipo'];
-      }else{
-					$atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaTipoInterno", $parametro);
-					$tipoInterno = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-					if($tipoInterno){
-							$valorCodificado .= "&tipoJurado=" . $tipoInterno[0]['id'];
-					}
-			}
+                        if(isset($_REQUEST ["tipoJurado"])){
+                                $valorCodificado .= "&tipoJurado=" . $_REQUEST ["tipoJurado"];
+                            }
+                        else if($tipo)
+                            { $valorCodificado .= "&tipoJurado=" . $tipo[0]['id_jurado_tipo'];}
+                        else{
+                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultaTipoInterno", $parametro);
+                                $tipoInterno = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                if($tipoInterno){
+                                                $valorCodificado .= "&tipoJurado=" . $tipoInterno[0]['id'];
+                                }
+                            }
 
 			$valorCodificado .= "&nombre_concurso=" . $_REQUEST ["nombre_concurso"];
 

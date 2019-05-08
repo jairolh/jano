@@ -304,7 +304,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.porcentaje_aprueba, ";
                                 $cadenaSql.=" cal.fecha_fin_reclamacion, ";
                                 $cadenaSql.=" cal.fecha_fin_resolver, ";
-                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro Soportes' OR act.nombre='Evaluar Requisitos'  OR act.nombre='Lista Elegibles' ";
+                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro soportes' OR act.nombre='Evaluar requisitos'  OR act.nombre='Listado de elegibles' ";
                                 $cadenaSql.=" THEN 'S' ";
                                 $cadenaSql.=" ELSE 'N' END ) obligatoria  ";
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";
@@ -319,10 +319,10 @@ class Sql extends \Sql {
                                 if(isset($variable['estado']) &&  $variable['estado']!='' )
                                    {$cadenaSql.=" AND cal.estado='A' "; }   
                                 if(isset($variable['fase_obligatorio']) &&  $variable['fase_obligatorio']=='S' )
-                                   { $cadenaSql.=" AND act.nombre  IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
+                                   { $cadenaSql.=" AND act.nombre  IN ('Inscripción','Registro soportes','Evaluar requisitos') ";
                                    }   
                                 elseif(isset($variable['fase_obligatorio']) &&  $variable['fase_obligatorio']=='N' )
-                                   { $cadenaSql.=" AND act.nombre  NOT IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
+                                   { $cadenaSql.=" AND act.nombre  NOT IN ('Inscripción','Registro soportes','Evaluar requisitos') ";
                                    }     
                                 $cadenaSql.=" ORDER BY  cal.fecha_inicio ASC, cal.fecha_fin ASC ";
                             break;     

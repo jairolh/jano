@@ -14,30 +14,30 @@ class redireccion {
 		switch ($opcion) {
 
 			case "validoRequisito":
-							$variable="pagina=".$miPaginaActual;
-							$variable.="&opcion=mensaje";
-							$variable.="&mensaje=validoRequisito";
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=validoRequisito";
 
-							$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-							$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-							$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-							break;
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                $variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                break;
 
 			case "noValidoRequisito":
-							$variable="pagina=".$miPaginaActual;
-							$variable.="&opcion=mensaje";
-							$variable.="&mensaje=noValidoRequisito";
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=noValidoRequisito";
 
-							$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-							$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-							$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-							break;
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                $variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                break;
 
 			case "evaluoReclamacion":
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=registroEvaluacionReclamacion";
-				//$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 				$variable.= "&usuario=".$_REQUEST['usuario'];
 				break;
 
@@ -45,25 +45,25 @@ class redireccion {
 				$variable="pagina=".$miPaginaActual;
 				$variable.="&opcion=mensaje";
 				$variable.="&mensaje=noregistroEvaluacionReclamacion";
-				//$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+				$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 				$variable.= "&usuario=".$_REQUEST['usuario'];
 				break;
 
 			case "registroEvaluacion":
-							$variable="pagina=".$miPaginaActual;
-							$variable.="&opcion=mensaje";
-							$variable.="&mensaje=registroEvaluacion";
-							$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-							$variable.= "&usuario=".$_REQUEST['usuario'];
-							break;
+                                $variable="pagina=".$miPaginaActual;
+                                $variable.="&opcion=mensaje";
+                                $variable.="&mensaje=registroEvaluacion";
+                                $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                $variable.= "&usuario=".$_REQUEST['usuario'];
+                                break;
 
-							case "noregistroEvaluacion":
-											$variable="pagina=".$miPaginaActual;
-											$variable.="&opcion=mensaje";
-											$variable.="&mensaje=noregistroEvaluacion";
-											$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-											$variable.= "&usuario=".$_REQUEST['usuario'];
-											break;
+                        case "noregistroEvaluacion":
+                            $variable="pagina=".$miPaginaActual;
+                            $variable.="&opcion=mensaje";
+                            $variable.="&mensaje=noregistroEvaluacion";
+                            $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                            $variable.= "&usuario=".$_REQUEST['usuario'];
+                            break;
 
                         case "validoRequisito":
                                 $variable="pagina=".$miPaginaActual;

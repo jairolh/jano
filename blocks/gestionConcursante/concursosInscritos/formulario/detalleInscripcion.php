@@ -737,7 +737,7 @@ class consultaForm {
 							// ------------------Division para los botones-------------------------
 						}
 
-						$fecha = date ( "Y-m-d H:i:s" );
+						$fecha = date ( "Y-m-d" );
 						// var_dump($reclamacionesCompetencias);
 
 						if ($fecha <= $fechaFinReclamacionSegundaLengua [0] ['fecha_fin_reclamacion'] && ! $reclamacionesCompetencias) {
@@ -1152,7 +1152,7 @@ class consultaForm {
 							// ------------------Division para los botones-------------------------
 						}
 
-						$fecha = date ( "Y-m-d H:i:s" );
+						$fecha = date ( "Y-m-d" );
 						// var_dump($reclamacionesCompetencias);
 
 						if ($fecha <= $fechaFinReclamacionCompetencias [0] ['fecha_fin_reclamacion'] && ! $reclamacionesCompetencias) {
@@ -1568,7 +1568,7 @@ class consultaForm {
 							// ------------------Division para los botones-------------------------
 						}
 
-						$fecha = date ( "Y-m-d H:i:s" );
+						$fecha = date ( "Y-m-d" );
 						// var_dump($reclamacionesCompetencias);
 
                         if ($fecha <= $fechaFinReclamacionHoja [0] ['fecha_fin_reclamacion'] && !$reclamacionesHoja) {

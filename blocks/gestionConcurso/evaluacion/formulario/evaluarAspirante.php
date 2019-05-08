@@ -119,25 +119,28 @@ class registrarForm {
 				//consultar datos de la inscripción
 				$cadena_sql = $this->miSql->getCadenaSql("consultaInscripcion", $parametro);
 				$resultadoInscripcion= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
 				//var_dump($resultadoInscripcion);
 
 				echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
-								<tr align='center'>
-										<th>Concurso</th>
-										<th>Perfil</th>
-										<th>Modalidad</th>
-								</tr>
-						</thead>
-						<tbody>";
+                                        <tr align='center'>
+                                            <th>Concurso</th>
+                                            <th>Perfil</th>
+                                            <th>Modalidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
 
-						$mostrarHtml = "<tr align='center'>
-										<td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
+                                        $mostrarHtml = "<tr align='center'>
+                                                        <td align='left' width='25%'>".$resultadoInscripcion[0]['concurso']."</td>
+                                                        <td align='left'>".$resultadoInscripcion[0]['perfil']."</td>
+                                                        <td align='left'>".$resultadoInscripcion[0]['modalidad']."</td>";
 
 					 $mostrarHtml .= "</tr>";
+                                        $mostrarHtml .= "<tr>
+                                                            <th>Requisitos</th>
+                                                            <td colspan='2'>" . $resultadoInscripcion[0] ['requisitos'] . "</td>
+                                                        </tr>"; 
 					 echo $mostrarHtml;
 					 unset($mostrarHtml);
 					 echo "</tbody>";
@@ -226,29 +229,35 @@ class registrarForm {
 	 					unset ( $atributos );
 	 					{
 							//consultar roles del usuario
-							$cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario", $_REQUEST['usuario']);
+                                                        $parametrous=array(
+	 						 'usuario'=> $_REQUEST['usuario'],
+							 'hoy'=>date("Y-m-d"),
+	 					 	);
+							$cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario",$parametrous);
 							$resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-							foreach($resultadoRoles as $key=>$value ){
+                                                        $rol='';
+                                                        foreach($resultadoRoles as $key=>$value ){
 								if($resultadoRoles[$key]['rol']=='Jurado'){
-                    $rol=$resultadoRoles[$key]['cod_rol'];
+                                                                $rol.=$resultadoRoles[$key]['cod_rol'];
 										$valorPuntaje="natural";
 								}
 								else if(($resultadoRoles[$key]['rol']=='Docencia')
                                                                     ||($resultadoRoles[$key]['rol']=='ILUD')
                                                                     ||($resultadoRoles[$key]['rol']=='Personal')){
-                                                                    $rol=$resultadoRoles[$key]['cod_rol'];
+                                                                    $rol.="'".$resultadoRoles[$key]['cod_rol']."'";
 																																		$valorPuntaje="decimal";
 								}
-
+                                                                
+                                                                if(($key+1) < count($resultadoRoles))
+                                                                        { $rol.=",";}
 							}
-
 							$parametro=array(
 	 						 'rol'=>$rol,
 							 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-							 'factor'=> 'Competencias profesionales y comunicativas'
+							 'factor'=> 'Competencias profesionales y comunicativas',
+                                                         'hoy'=>date("Y-m-d"),
 	 					 	);
-                                                               //Consultar criterios de evaluación asociados al rol JURADO o ILUD
+                                                               //Consultar criterios de evaluación asociados al rol DOCENCIA o ILUD
 								$cadena_sql = $this->miSql->getCadenaSql("consultaCriteriosRol", $parametro);
 		 					 	$resultadoCriterios= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 								//var_dump($resultadoCriterios);
@@ -270,7 +279,7 @@ class registrarForm {
 										$atributos ['columnas'] = 3;
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
-										$atributos ['etiqueta'] = $resultadoCriterios[$key]['criterio'];
+										$atributos ['etiqueta'] = "<b>".$resultadoCriterios[$key]['criterio']."</b>";
 
 										if($valorPuntaje=='natural'){
 											$atributos ['validar']="required, custom[onlyNumberSp], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
@@ -283,7 +292,7 @@ class registrarForm {
 										$atributos ['deshabilitado'] = false;
 										$atributos ['tamanno'] = 8;
 										$atributos ['maximoTamanno'] = '';
-										$atributos ['anchoEtiqueta'] = 300;
+										$atributos ['anchoEtiqueta'] = 350;
 										$tab ++;
 										// Aplica atributos globales al control
 										$atributos = array_merge ( $atributos, $atributosGlobales );

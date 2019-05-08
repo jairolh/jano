@@ -10,6 +10,7 @@ $('#tablaConsultaAspirantesAsignados').DataTable({
       { title: "Inscripción" },
       { title: "Identificación" },
       { title: "Aspirante" },
+      { title: "Código" },
       { title: "Perfil" }
   ],
 "language": {
@@ -34,6 +35,7 @@ $('#tablaConsultaAspirantesEvaluador').DataTable({
       { title: "Inscripción" },
       { title: "Identificación" },
       { title: "Aspirante" },
+      { title: "Código" },
       { title: "Perfil" }
   ],
 "language": {

@@ -49,9 +49,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";
-                                $cadenaSql.=" WHEN act.nombre='Registro Soportes' THEN 'soporte' ";
-                                $cadenaSql.=" WHEN act.nombre='Evaluar Requisitos' THEN 'requisito' ";
-                                $cadenaSql.=" WHEN act.nombre='Lista Elegibles' THEN 'elegibles'  ";
+                                $cadenaSql.=" WHEN act.nombre='Registro soportes' THEN 'soporte' ";
+                                $cadenaSql.=" WHEN act.nombre='Evaluar requisitos' THEN 'requisito' ";
+                                $cadenaSql.=" WHEN act.nombre='Listado de elegibles' THEN 'elegibles'  ";
                                 $cadenaSql.="  ELSE 'evaluacion' END ) fase, ";
                                     $cadenaSql.=" (SELECT count(DISTINCT sop.consecutivo_inscrito) soporte  ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
@@ -168,12 +168,12 @@ class Sql extends \Sql {
                 $cadenaSql=" SELECT ";
                 $cadenaSql.=" consecutivo_actividad, ";
                 $cadenaSql.=" nombre ";
-                $cadenaSql.=" FROM concurso.actividad_calendario";
+                $cadenaSql.=" FROM concurso.actividad_calendario ";
                 $cadenaSql.=" WHERE ";
-                $cadenaSql.=" nombre='Evaluar Requisitos'";
-                $cadenaSql.=" OR nombre='Evaluar Hoja de Vida'";
-                $cadenaSql.=" OR nombre='Prueba idioma extranjero'";
-                $cadenaSql.=" OR nombre='Pruebas de Competencias'";
+                $cadenaSql.=" nombre='Evaluar requisitos'";
+                $cadenaSql.=" OR nombre='Evaluar hoja de vida'";
+                $cadenaSql.=" OR nombre='Pruebas idioma extranjero'";
+                $cadenaSql.=" OR nombre='Pruebas de competencias'";
                 break;
 
             case "consultaPerfil":
@@ -309,7 +309,7 @@ class Sql extends \Sql {
 				$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
 				$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
 				$cadenaSql .= "and id_inscrito= ".$variable ["consecutivo_inscrito"];
-				$cadenaSql .= " and (criterio.nombre='Prueba de Lengua Extranjera') )";
+				$cadenaSql .= " and (UPPER(criterio.nombre)='PRUEBA DE LENGUA EXTRANJERA'))";
 				//echo $cadenaSql;
 				break;
 
@@ -330,7 +330,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
 					$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
 					$cadenaSql .= "and id_inscrito= ".$variable ["consecutivo_inscrito"];
-					$cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral')))";
+					$cadenaSql .= " and ((UPPER(criterio.nombre)='PRUEBA ESCRITA') or (UPPER(criterio.nombre)='PRUEBA ORAL')))";
 					break;
 
 				case "actualizaEvaluacionHojaVida" :
@@ -350,7 +350,7 @@ class Sql extends \Sql {
 					$cadenaSql .= "ce.consecutivo_criterio=criterio.consecutivo_criterio ";
 					$cadenaSql .= "and ep.id_evaluar=ce.consecutivo_evaluar ";
 					$cadenaSql .= "and id_inscrito= ".$variable ["consecutivo_inscrito"];
-					$cadenaSql .= " and ((criterio.nombre='Prueba escrita') or (criterio.nombre='Prueba oral') or (criterio.nombre='Prueba de Lengua Extranjera')))";
+					$cadenaSql .= " and ((UPPER(criterio.nombre)='PRUEBA ESCRITA') or (UPPER(criterio.nombre)='PRUEBA ORAL') or (UPPER(criterio.nombre)='PRUEBA DE LENGUA EXTRANJERA')))";
 					//echo $cadenaSql;
 					break;
 

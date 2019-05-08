@@ -36,7 +36,7 @@ class consultarPerfil{
             $directorio = $this->miConfigurador->getVariableConfiguracion("host");
             $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
             $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
             $atributosGlobales ['campoSeguro'] = 'true';
             $_REQUEST ['tiempo'] = time ();
             // -------------------------------------------------------------------------------------------------

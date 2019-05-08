@@ -29,7 +29,7 @@ class consultarForm {
 	function miForm() {
 
             // Rescatar los datos de este bloque
-						$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+            $miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
             $esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
 
             $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
@@ -39,7 +39,7 @@ class consultarForm {
             $directorio = $this->miConfigurador->getVariableConfiguracion("host");
             $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
             $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
             // ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
             /**
              * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -64,32 +64,61 @@ class consultarForm {
             */
 
             //consultar roles del usuario
-            $cadena_sql = $this->miSql->getCadenaSql("consultaRolesUsuario", $_REQUEST['usuario']);
+                $roles=  $this->miSesion->RolesSesion();
+                $aux=0;
+                $tipo = array();
+                $perfil = array();
+                $actividad = array();
+                $find='';
+                $perfiles='';
+                $actividades = '';            
+            
+                foreach ($roles as $key => $value) 
+                    {  if (!in_array($roles[$key]['nom_app'], $tipo)) 
+                          { array_push ( $tipo , $roles[$key]['nom_app'] );}
+                       if (!in_array($roles[$key]['cod_rol'], $perfil)) 
+                          { array_push ( $perfil , $roles[$key]['cod_rol'] );}    
+                    }
+                foreach ($tipo as $key => $value) 
+                    {   $find.="'".$value."'";
+                        if(($key+1)<count($tipo))
+                            {$find.=",";}
+                    }
+
+                foreach ($perfil as $key => $value) 
+                    {   $perfiles.="'".$value."'";
+                        if(($key+1)<count($perfil))
+                            {$perfiles.=",";}
+                    }    
+                    
+            $parametro=array('hoy'=>date("Y-m-d"),'tipo'=>$find,'perfiles'=>$perfiles);            
+            //consultar roles del usuario
+            $cadena_sql = $this->miSql->getCadenaSql("consultaRolActividad", $parametro);
             $resultadoRoles= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-            $actividad="";
-            foreach($resultadoRoles as $key=>$value ){
-                if($resultadoRoles[$key]['rol']=='Docencia'){
-                    $actividad='Evaluar Hoja de Vida';
-                }else if($resultadoRoles[$key]['rol']=='ILUD'){
-                    $actividad='Prueba idioma extranjero';
-                }else if($resultadoRoles[$key]['rol']=='Jurado'){
-                    $actividad='Pruebas de Competencias';
-                }
-            }
-
+            foreach ($resultadoRoles as $key => $value) 
+                    {  if (!in_array($resultadoRoles[$key]['consecutivo_actividad'], $actividad)) 
+                          { array_push ( $actividad , $resultadoRoles[$key]['consecutivo_actividad'] );}
+                    }
+                foreach ($actividad as $key => $value) 
+                    {   $actividades.="'".$value."'";
+                        if(($key+1)<count($actividad))
+                            {$actividades.=",";}
+                    }
+            
             //consulta de todas las reclamaciones
             $parametro=array(
-                'actividad'=>$actividad,
+                'actividad'=>$actividades,
                 'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso']
             );
             $cadena_sql = $this->miSql->getCadenaSql("consultarReclamaciones", $parametro);
             $resultadoReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-						$variable = "pagina=" . $miPaginaActual;
-						$variable.= "&opcion=listar";
-						$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
-						// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+            $variable = "pagina=" . $miPaginaActual;
+            //$variable.= "&opcion=listar";
+            $variable.= "&usuario=".$_REQUEST['usuario'];
+            $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+            // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
             $esteCampo = 'botonRegresar';
             $atributos ['id'] = $esteCampo;
             $atributos ['enlace'] = $variable;
@@ -127,7 +156,7 @@ class consultarForm {
                                     <th>Reclamación</th>
                                     <th>Observación</th>
                                     <th>Fecha</th>
-																		<th>Etapa</th>
+				<th>Etapa</th>
                                     <th>Aplica Reclamación</th>
                                 </tr>
                             </thead>
@@ -135,48 +164,46 @@ class consultarForm {
 
                         foreach($resultadoReclamaciones as $key=>$value ){
 
-													$parametro=array(
-														'reclamacion'=>$resultadoReclamaciones[$key]['id']
-													);
-													$cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
-							            $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-													//var_dump($resultadoRespuestaReclamaciones);
+                                $parametro=array('reclamacion'=>$resultadoReclamaciones[$key]['id']);
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamaciones", $parametro);
+                                $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                //var_dump($resultadoRespuestaReclamaciones);
 
-													$variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-													$variableDetalleRta.= "&opcion=consultarDetalleRta";
-													$variableDetalleRta.= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
-													$variableDetalleRta.= "&reclamacion=" .$resultadoReclamaciones[$key]['id'];
-													$variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-													$variableDetalleRta.= "&tiempo=" . time ();
-													$variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
+                                $variableDetalleRta = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                $variableDetalleRta.= "&opcion=consultarDetalleRta";
+                                $variableDetalleRta.= "&consecutivo_concurso=" .$_REQUEST['consecutivo_concurso'];
+                                $variableDetalleRta.= "&reclamacion=" .$resultadoReclamaciones[$key]['id'];
+                                $variableDetalleRta.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                $variableDetalleRta.= "&tiempo=" . time ();
+                                $variableDetalleRta = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableDetalleRta, $directorio);
 
-													/*buscar si existen evaluaciones parciales inactivas:
-														el # de inactivas = # de activas para la reclamación y el jurado
- 													*/
-													$parametro=array(
-														'usuario'=>$this->miSesion->getSesionUsuarioId (),
-														'reclamacion'=>$resultadoReclamaciones[$key]['id']
-													);
+                                /*buscar si existen evaluaciones parciales inactivas:
+                                        el # de inactivas = # de activas para la reclamación y el jurado
+                                */
+                                $parametro=array(
+                                        'usuario'=>$this->miSesion->getSesionUsuarioId (),
+                                        'reclamacion'=>$resultadoReclamaciones[$key]['id']
+                                );
 
-													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionInactivas", $parametro);
-													$evaluacionesInactivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionInactivas", $parametro);
+                                $evaluacionesInactivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-													$cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionActivas", $parametro);
-													$evaluacionesActivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacionActivas", $parametro);
+                                $evaluacionesActivas = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-                                                    $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
-													$evaluacionesReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                                                    //var_dump($evaluacionesReclamacion);
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaEvaluacionesReclamacion", $parametro);
+                                $evaluacionesReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                //var_dump($evaluacionesReclamacion);
 
-                                                    //buscar en concurso.respuesta_reclamacion
-                                                    $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacion", $parametro);
-													$respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                //buscar en concurso.respuesta_reclamacion
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacion", $parametro);
+                                $respuestaReclamacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-															if($respuestaReclamacion){
-																$respuesta="Ver Respuesta";
-															}else{
-																$respuesta="PENDIENTE";
-															}
+                                if($respuestaReclamacion){
+                                        $respuesta="Ver Respuesta";
+                                }else{
+                                        $respuesta="PENDIENTE";
+                                }
 
                                 $mostrarHtml = "<tr align='center'>
                                         <td align='left'>".$resultadoReclamaciones[$key]['id']."</td>
@@ -185,85 +212,84 @@ class consultarForm {
                                         <td align='left'>".$resultadoReclamaciones[$key]['nombre']."</td>
                                         <td align='left'>";
 
-																				//consulta fecha máxima para dar respuesta a la reclamación: Fase de VALIDACION DE REQUISITOS
-																				$parametro=array(
-																					'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
-																					'actividad'=>$actividad
-																				);
-																				$cadena_sql = $this->miSql->getCadenaSql("fechaFinResolver", $parametro);
-																				$fechaFinResolver = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        //consulta fecha máxima para dar respuesta a la reclamación: Fase de VALIDACION DE REQUISITOS
+                                        $parametro=array(
+                                                'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
+                                                'actividad'=>$resultadoReclamaciones[$key]['nombre']
+                                        );
+                                        $cadena_sql = $this->miSql->getCadenaSql("fechaFinResolver", $parametro);
+                                        $fechaFinResolver = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-																					if($respuesta=="PENDIENTE"){
+                                        if($respuesta=="PENDIENTE")
+                                           {    $fecha = date("Y-m-d");
+                                                if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver'])
+                                                    {
+                                                    $variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                                    $variableVerHoja.= "&opcion=validacion";
+                                                    $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                    $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                    $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                    $variableVerHoja.= "&tiempo=" . time ();
 
-																						$fecha = date("Y-m-d H:i:s");
-																						if($fecha<=$fechaFinResolver[0]['fecha_fin_resolver']){
+                                                    $variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
+                                                    $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                    $variableVerHoja .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
+                                                    $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
-                                                                        $variableVerHoja = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-                                                                        $variableVerHoja.= "&opcion=validacion";
-                                                                        $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-                                                                        $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-                                                                        $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-                                                                        $variableVerHoja.= "&tiempo=" . time ();
+                                                    //-------------Enlace-----------------------
+                                                    $esteCampo = "verHojaVida";
+                                                    $esteCampo = 'enlace_hoja';
+                                                    $atributos ['id'] = $esteCampo;
+                                                    $atributos ['enlace'] = $variableVerHoja;
+                                                    $atributos ['tabIndex'] = 0;
+                                                    $atributos ['columnas'] = 1;
+                                                    $atributos ['enlaceTexto'] = ' Verificar Reclamación';
+                                                    $atributos ['estilo'] = 'clasico';
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+                                                    $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                    $atributos ['ancho'] = '20px';
+                                                    $atributos ['alto'] = '20px';
+                                                    $atributos ['redirLugar'] = false;
+                                                    $atributos ['valor'] = '';
+                                                    $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                    unset ( $atributos );
+                                                    }
+                                                else{ $mostrarHtml .="RECLAMACIÓN SIN RESPUESTA";}
+                                            }
+                                        else if($evaluacionesReclamacion)
+                                            {
+                                                $variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                                $variableValidacion.= "&opcion=consultaEvaluacion";
+                                                $variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                $variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                $variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                $variableValidacion.= "&tiempo=" . time ();
+                                                $variableValidacion .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
+                                                $variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
+                                                $variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
+                                                $variableValidacion .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
+                                                $variableValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidacion, $directorio);
 
-                                                                        $variableVerHoja .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
-                                                                        $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-                                                                        $variableVerHoja .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
-                                                                        $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                                //-------------Enlace-----------------------
+                                                $esteCampo = "verEvaluacion";
+                                                $esteCampo = 'enlace_hoja';
+                                                $atributos ['id'] = $esteCampo;
+                                                $atributos ['enlace'] = $variableValidacion;
+                                                $atributos ['tabIndex'] = 0;
+                                                $atributos ['columnas'] = 1;
+                                                $atributos ['enlaceTexto'] = 'Ver Evaluación';
+                                                $atributos ['estilo'] = 'clasico';
+                                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                $atributos ['ancho'] = '20px';
+                                                $atributos ['alto'] = '20px';
+                                                $atributos ['redirLugar'] = false;
+                                                $atributos ['valor'] = '';
+                                                $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                unset ( $atributos );
+                                            }
 
-																											//-------------Enlace-----------------------
-																											$esteCampo = "verHojaVida";
-																											$esteCampo = 'enlace_hoja';
-																											$atributos ['id'] = $esteCampo;
-																											$atributos ['enlace'] = $variableVerHoja;
-																											$atributos ['tabIndex'] = 0;
-																											$atributos ['columnas'] = 1;
-																											$atributos ['enlaceTexto'] = ' Verificar Reclamación';
-																											$atributos ['estilo'] = 'clasico';
-																											$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
-																											$atributos ['posicionImagen'] ="atras";//"adelante";
-																											$atributos ['ancho'] = '20px';
-																											$atributos ['alto'] = '20px';
-																											$atributos ['redirLugar'] = false;
-																											$atributos ['valor'] = '';
-																											$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																											unset ( $atributos );
-
-																						}else{
-																							$mostrarHtml .="RECLAMACIÓN SIN RESPUESTA";
-																						}
-																					}else if($evaluacionesReclamacion){
-																					$variableValidacion = "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
-																					$variableValidacion.= "&opcion=consultaEvaluacion";
-																					$variableValidacion.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																					$variableValidacion.= "&id_usuario=" .$_REQUEST['usuario'];
-																					$variableValidacion.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-																					$variableValidacion.= "&tiempo=" . time ();
-																					$variableValidacion .= "&consecutivo_inscrito=".$resultadoReclamaciones[$key]['id_inscrito'];
-																					$variableValidacion .= "&consecutivo_concurso=".$resultadoReclamaciones[$key]['id_concurso'];
-																					$variableValidacion .= "&consecutivo_perfil=".$resultadoReclamaciones[$key]['consecutivo_perfil'];
-																					$variableValidacion .= "&reclamacion=".$resultadoReclamaciones[$key]['id'];
-																					$variableValidacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableValidacion, $directorio);
-
-																					//-------------Enlace-----------------------
-																					$esteCampo = "verEvaluacion";
-																					$esteCampo = 'enlace_hoja';
-																					$atributos ['id'] = $esteCampo;
-																					$atributos ['enlace'] = $variableValidacion;
-																					$atributos ['tabIndex'] = 0;
-																					$atributos ['columnas'] = 1;
-																					$atributos ['enlaceTexto'] = 'Ver Evaluación';
-																					$atributos ['estilo'] = 'clasico';
-																					$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																					$atributos ['posicionImagen'] ="atras";//"adelante";
-																					$atributos ['ancho'] = '20px';
-																					$atributos ['alto'] = '20px';
-																					$atributos ['redirLugar'] = false;
-																					$atributos ['valor'] = '';
-																					$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-																					unset ( $atributos );
-																				}
-
-																				$mostrarHtml .="</td>";
+                                $mostrarHtml .="</td>";
 
 
 

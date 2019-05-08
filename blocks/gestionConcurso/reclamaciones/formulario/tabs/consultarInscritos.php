@@ -458,6 +458,7 @@ class evaluarReclamacion {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarRespuestaEvaluacion";
+			$valorCodificado .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 			$valorCodificado .= "&reclamacion=" .$resultadoValidacion[0]['id_reclamacion'];
 			$valorCodificado .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
 			$valorCodificado .= "&evaluar_respuesta=" .$resultadoValidacion[0]['consecutivo_valida'];//la validación

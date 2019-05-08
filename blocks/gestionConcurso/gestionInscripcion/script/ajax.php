@@ -231,6 +231,7 @@ function consultarCriterio(elem, request, response){
                       { title: "Inscripción" },
                       { title: "Identificación" },
                       { title: "Aspirante" },
+                      { title: "Código" },
                       { title: "Perfil" }
                   ],
                   destroy: true,
@@ -248,7 +249,7 @@ function consultarCriterio(elem, request, response){
                                   "previous":   "Anterior"
                               }
                   },
-                  lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                  lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100,  "Todos"]],
 
               } );
 
@@ -289,6 +290,7 @@ function consultarCriterio(elem, request, response){
                         { title: "Inscripción" },
                         { title: "Identificación" },
                         { title: "Aspirante" },
+                        { title: "Código" },
                         { title: "Perfil" }
                     ],
                     destroy: true,
@@ -306,7 +308,7 @@ function consultarCriterio(elem, request, response){
                                     "previous":   "Anterior"
                                 }
                     },
-                    lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
 
                 } );
 

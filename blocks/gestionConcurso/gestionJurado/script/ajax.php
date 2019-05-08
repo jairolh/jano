@@ -34,6 +34,28 @@ $urlFinal16 = $url . $cadenaACodificar16;
 
 <script type='text/javascript'>
 
+function soporte(archivo) {
+  var miPopup
+  miPopup = window.open('about:blank','soporte','width=600,height=850,menubar=no') 
+  //miPopup.location = $("#<?php echo $this->campoSeguro('rutasoporte')?>").val();
+  miPopup.location = $("#"+archivo).val();
+  miPopup.focus();
+}
+
+function enlaceSop(direccion) {
+  var miVentana
+  miVentana = window.open('about:blank','soporte','width=600,height=850,menubar=no,scrollbars=yes') 
+  miVentana.location = $("#"+direccion).val();
+  miVentana.focus();
+}
+
+function enlace(direccion) {
+  var miVentana
+  miVentana = window.open('about:blank','enlace','width=900,height=700,menubar=no,scrollbars=yes') 
+  miVentana.location = $("#"+direccion).val();
+  miVentana.focus();
+}
+
 function show(bloq) {
     obj = document.getElementById(bloq);
     obj.style.display = (obj.style.display=='none') ? 'block' : 'none';

@@ -123,13 +123,13 @@ class registrarForm {
 
 				echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
 				echo "<thead>
-								<tr align='center'>
-										<th>Concurso</th>
-										<th>Perfil</th>
-										<th>Modalidad</th>
-								</tr>
-						</thead>
-						<tbody>";
+                                        <tr align='center'>
+                                                        <th>Concurso</th>
+                                                        <th>Perfil</th>
+                                                        <th>Modalidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
 
 				$mostrarHtml = "<tr align='center'>
                                                     <td align='left'>".$resultadoInscripcion[0]['concurso']."</td>
@@ -232,12 +232,13 @@ class registrarForm {
 		 			$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
 		 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 		 			unset ( $atributos );
-		 			{
+		 			{                                           
 						echo "<div class='cell-border'><table id='tablaConsultaAspirantes' class='table table-striped table-bordered'>";
  	 				 echo "<thead>
  	 								<tr align='center'>
  	 										<th>Criterio</th>
  	 										<th>Calificación</th>
+ 	 										<th>Estado registro</th>
 											<th>Observaciones</th>
  	 								</tr>
  	 						</thead>
@@ -248,13 +249,14 @@ class registrarForm {
 								if($resultado[$key]['observacion']==""){
 									$resultado[$key]['observacion']="Sin observaciones";
 								}
+                                                                
+                                                        $mostrarHtml .= "<tr align='center'>
+                                                                           <td align='left'>".$resultado[$key]['criterio']."</td>
+                                                                           <td align='left'>".$resultado[$key]['puntaje_parcial']."</td>
+                                                                           <td align='left'>".($resultado[$key]['estado']=='A'?'ACTIVO':'INACTIVO')."</td>
+                                                                           <td align='left'>".$resultado[$key]['observacion']."</td>";
 
-							 $mostrarHtml .= "<tr align='center'>
-  	 										<td align='left'>".$resultado[$key]['criterio']."</td>
-  	 										<td align='left'>".$resultado[$key]['puntaje_parcial']."</td>
-												<td align='left'>".$resultado[$key]['observacion']."</td>";
-
-  	 					 $mostrarHtml .= "</tr>";
+                                                         $mostrarHtml .= "</tr>";
 							}
 
  	 					 echo $mostrarHtml;

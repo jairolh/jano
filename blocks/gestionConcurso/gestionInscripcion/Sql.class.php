@@ -60,7 +60,7 @@ class Sql extends \Sql {
 
 			case 'consultaJurado2' :
 				$cadenaSql=" SELECT ";
-				$cadenaSql.=" ji.id_inscrito AS Inscripción,  concat(p.tipo_identificacion, identificacion) AS Identificación, concat( p.nombre, ' ', p.apellido) AS Aspirante, cp.nombre AS Perfil, jt.nombre AS tipo_jurado";
+				$cadenaSql.=" ji.id_inscrito AS Inscripción,  concat(p.tipo_identificacion, identificacion) AS Identificación, concat( p.nombre, ' ', p.apellido) AS Aspirante, cp.codigo AS Código, cp.nombre AS Perfil, jt.nombre AS tipo_jurado";
 				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt, concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p";
 				$cadenaSql.=" WHERE ";
 				$cadenaSql.=" id_usuario='".$variable['usuario']."'";
@@ -129,7 +129,7 @@ class Sql extends \Sql {
 
                         case 'consultarAspirantesNoAsignados' :
                                 $cadenaSql=" SELECT ";
-                                $cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.nombre AS perfil, ci.consecutivo_inscrito ";
+                                $cadenaSql.=" consecutivo, tipo_identificacion, identificacion, concat( p.nombre, ' ', p.apellido) AS nombre, ci.consecutivo_perfil, cp.codigo, cp.nombre AS perfil, ci.consecutivo_inscrito ";
                                 $cadenaSql.=" FROM concurso.concurso_inscrito ci, concurso.valida_requisito vr, concurso.persona p, concurso.concurso_perfil cp";
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" p.consecutivo=ci.consecutivo_persona AND ";
@@ -139,7 +139,6 @@ class Sql extends \Sql {
                                 $cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
                                 $cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
                                 break;
-
 			case 'buscarTipoSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" tipo_soporte,";
@@ -186,7 +185,7 @@ class Sql extends \Sql {
                                 if(isset($variable['consecutivo_dato']) && $variable['consecutivo_dato']!='')
                                     {$cadenaSql.=" AND sop.consecutivo_dato='".$variable['consecutivo_dato']."' ";}
                                 $cadenaSql.=" ORDER BY sop.consecutivo_soporte DESC ";
-                            break;  
+                            break; 
                         case "consultarNivel":
                                 $cadenaSql=" SELECT DISTINCT";
                                 $cadenaSql.=" codigo_nivel,";
@@ -274,9 +273,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.estado, ";
                                 $cadenaSql.=" est.estado nom_estado, ";
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";
-                                $cadenaSql.=" WHEN act.nombre='Registro Soportes' THEN 'soporte' ";
-                                $cadenaSql.=" WHEN act.nombre='Evaluar Requisitos' THEN 'requisito' ";
-                                $cadenaSql.=" WHEN act.nombre='Lista Elegibles' THEN 'elegibles'  ";
+                                $cadenaSql.=" WHEN act.nombre='Registro soportes' THEN 'soporte' ";
+                                $cadenaSql.=" WHEN act.nombre='Evaluar requisitos' THEN 'requisito' ";
+                                $cadenaSql.=" WHEN act.nombre='Listado de elegibles' THEN 'elegibles'  ";
                                 $cadenaSql.="  ELSE 'evaluacion' END ) fase, ";
                                     $cadenaSql.=" (SELECT count(DISTINCT sop.consecutivo_inscrito) soporte  ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
@@ -366,7 +365,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" WHERE ";
                                 $cadenaSql.=" cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND cal.estado='A' ";
-                                $cadenaSql.="AND act.nombre NOT IN ('Inscripción','Registro Soportes','Evaluar Requisitos') ";
+                                $cadenaSql.="AND act.nombre NOT IN ('Inscripción','Registro soportes','Evaluar requisitos') ";
                                 if(isset($variable['consecutivo_calendario']) &&  $variable['consecutivo_calendario']!='' )
                                    {
                                     $cadenaSql.=" AND cal.consecutivo_calendario!='".$variable['consecutivo_calendario']."' ";
@@ -507,9 +506,9 @@ class Sql extends \Sql {
                                 $cadenaSql.="cal.estado='A' ";
                                 $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND act.nombre<>'Inscripción' ";
-                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
-                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
-                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="AND act.nombre<>'Registro soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Listado de elegibles' ";
                                 $cadenaSql.="GROUP BY etp.consecutivo_inscrito ";
                                 $cadenaSql.="ORDER BY aprobado DESC ";
                             break;
@@ -543,9 +542,9 @@ class Sql extends \Sql {
                                 $cadenaSql.="cal.estado='A' ";
                                 $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND act.nombre<>'Inscripción' ";
-                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
-                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
-                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="AND act.nombre<>'Registro soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Listado de elegibles' ";
                                 $cadenaSql.="GROUP BY cal.consecutivo_concurso ";
                             break;
 

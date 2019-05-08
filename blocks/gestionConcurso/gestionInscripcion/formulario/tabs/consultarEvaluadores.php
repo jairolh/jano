@@ -33,7 +33,7 @@ class consultarEvaluador {
 
 		// Rescatar los datos de este bloque
 		$esteBloque = $this->miConfigurador->getVariableConfiguracion ( "esteBloque" );
-		$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+		$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
 		 * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -107,51 +107,51 @@ class consultarEvaluador {
 
 					if($resultadoJurado){
 
-								 //-----------------Inicio de Conjunto de Controles----------------------------------------
-										 $esteCampo = "marcoConsultaInscrito";
-										 $atributos["estilo"] = "jqueryui";
-										 $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
-										 //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
-										 unset($atributos);
-										 $tab=1;
+                                //-----------------Inicio de Conjunto de Controles----------------------------------------
+                                                $esteCampo = "marcoConsultaInscrito";
+                                                $atributos["estilo"] = "jqueryui";
+                                                $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
+                                                //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
+                                                unset($atributos);
+                                                $tab=1;
 
-										 // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
-										 $esteCampo = 'seleccionEvaluador';
-										 $atributos ['columnas'] = 1;
-										 $atributos ['nombre'] = $esteCampo;
-										 $atributos ['id'] = $esteCampo;
-										 $atributos ['evento'] = '';
-										 $atributos ['deshabilitado'] = false;
-										 $atributos ["etiquetaObligatorio"] = true;
-										 $atributos ['tab'] = $tab;
-										 $atributos ['tamanno'] = 1;
-										 $atributos ['estilo'] = 'jqueryui';
-										 $atributos ['validar'] = 'required';
-										 $atributos ['limitar'] = true;
-										 $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-										 $atributos ['anchoEtiqueta'] = 170;
-										 $atributos ['anchoCaja'] = 60;
-										 if (isset ( $_REQUEST [$esteCampo] ))
-										 {$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
-										 else {	$atributos ['seleccion'] = -1;}
-										 $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarEvaluadores" );
-										 $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
-										 $atributos ['matrizItems'] = $matrizItems;
-										 // Utilizar lo siguiente cuando no se pase un arreglo:
-										 // $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
-										 // $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
-										 $tab ++;
-										 $atributos = array_merge ( $atributos, $atributosGlobales );
-										 echo $this->miFormulario->campoCuadroLista ( $atributos );
-										 unset ( $atributos );
-										 // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
+                                                // ---------------- CONTROL: Cuadro de Lista --------------------------------------------------------
+                                                $esteCampo = 'seleccionEvaluador';
+                                                $atributos ['columnas'] = 1;
+                                                $atributos ['nombre'] = $esteCampo;
+                                                $atributos ['id'] = $esteCampo;
+                                                $atributos ['evento'] = '';
+                                                $atributos ['deshabilitado'] = false;
+                                                $atributos ["etiquetaObligatorio"] = true;
+                                                $atributos ['tab'] = $tab;
+                                                $atributos ['tamanno'] = 1;
+                                                $atributos ['estilo'] = 'jqueryui';
+                                                $atributos ['validar'] = 'required';
+                                                $atributos ['limitar'] = true;
+                                                $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
+                                                $atributos ['anchoEtiqueta'] = 170;
+                                                $atributos ['anchoCaja'] = 60;
+                                                if (isset ( $_REQUEST [$esteCampo] ))
+                                                {$atributos ['seleccion'] = $_REQUEST [$esteCampo];}
+                                                else {	$atributos ['seleccion'] = -1;}
+                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarEvaluadores" );
+                                                $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
+                                                $atributos ['matrizItems'] = $matrizItems;
+                                                // Utilizar lo siguiente cuando no se pase un arreglo:
+                                                // $atributos['baseDatos']='ponerAquiElNombreDeLaConexión';
+                                                // $atributos ['cadena_sql']='ponerLaCadenaSqlAEjecutar';
+                                                $tab ++;
+                                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                echo $this->miFormulario->campoCuadroLista ( $atributos );
+                                                unset ( $atributos );
+                                                // ---------------- FIN CONTROL: Cuadro de Lista --------------------------------------------------------
 
-                          // ------------------Division para los botones-------------------------
-                         $atributos ["id"] = "botones";
-                         $atributos ["estilo"] = "marcoBotones";
-                         echo $this->miFormulario->division ( "inicio", $atributos );
-                         unset ( $atributos );
-                         {
+                            // ------------------Division para los botones-------------------------
+                           $atributos ["id"] = "botones";
+                           $atributos ["estilo"] = "marcoBotones";
+                           echo $this->miFormulario->division ( "inicio", $atributos );
+                           unset ( $atributos );
+                           {
                                  // -----------------CONTROL: Botón ----------------------------------------------------------------
                                  $esteCampo = 'botonAsignarAspirantesEvaluador';
                                  $atributos ["id"] = $esteCampo;
@@ -172,48 +172,48 @@ class consultarEvaluador {
                                  $atributos = array_merge ( $atributos, $atributosGlobales );
                                  echo $this->miFormulario->campoBoton ( $atributos );
                                  // -----------------FIN CONTROL: Botón -----------------------------------------------------------
-                         }
-                         echo $this->miFormulario->division ( 'fin' );
+                            }
+                                    echo $this->miFormulario->division ( 'fin' );
+
+                                        $esteCampo = "marcoListaAspirantes";
+                                        $atributos ['id'] = $esteCampo;
+                                        $atributos ["estilo"] = "jqueryui";
+                                        $atributos ['tipoEtiqueta'] = 'inicio';
+                                        $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
+                                        echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+
+                                       /* $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
+                                        $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );*/
+                                        //var_dump($aspirantes);
+
+                                        echo "<table id='tablaConsultaAspirantesEvaluador' class='display' width='100%'></table>";
+
+                                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 
-										 $esteCampo = "marcoListaAspirantes";
-										 $atributos ['id'] = $esteCampo;
-										 $atributos ["estilo"] = "jqueryui";
-										 $atributos ['tipoEtiqueta'] = 'inicio';
-										 $atributos ["leyenda"] = "<b>".$this->lenguaje->getCadena ( $esteCampo )."</b>";
-										 echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 
-										/* $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesValidados", $parametro);
-										 $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );*/
-										 //var_dump($aspirantes);
+                                   }
+                               else{
+                                        $tab=1;
+                                        //---------------Inicio Formulario (<form>)--------------------------------
+                                        $atributos["id"]="divNoEncontroConcurso";
+                                        $atributos["estilo"]="marcoBotones";
+                                        //$atributos["estiloEnLinea"]="display:none";
+                                        echo $this->miFormulario->division("inicio",$atributos);
 
-										 echo "<table id='tablaConsultaAspirantesEvaluador' class='display' width='100%'></table>";
-
-										 echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-
-
-
-								}else{
-										$tab=1;
-										//---------------Inicio Formulario (<form>)--------------------------------
-										$atributos["id"]="divNoEncontroConcurso";
-										$atributos["estilo"]="marcoBotones";
-										//$atributos["estiloEnLinea"]="display:none";
-										echo $this->miFormulario->division("inicio",$atributos);
-
-										//-------------Control Boton-----------------------
-										$esteCampo = "noEncontroJurados";
-										$atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
-										$atributos["etiqueta"] = "";
-										$atributos["estilo"] = "centrar";
-										$atributos["tipo"] = 'error';
-										$atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
-										echo $this->miFormulario->cuadroMensaje($atributos);
-										unset($atributos);
-										//------------------Fin Division para los botones-------------------------
-										echo $this->miFormulario->division("fin");
-										//-------------Control cuadroTexto con campos ocultos-----------------------
-								}
+                                        //-------------Control Boton-----------------------
+                                        $esteCampo = "noEncontroJurados";
+                                        $atributos["id"] = $esteCampo; //Cambiar este nombre y el estilo si no se desea mostrar los mensajes animados
+                                        $atributos["etiqueta"] = "";
+                                        $atributos["estilo"] = "centrar";
+                                        $atributos["tipo"] = 'error';
+                                        $atributos["mensaje"] = $this->lenguaje->getCadena($esteCampo);;
+                                        echo $this->miFormulario->cuadroMensaje($atributos);
+                                        unset($atributos);
+                                        //------------------Fin Division para los botones-------------------------
+                                        echo $this->miFormulario->division("fin");
+                                        //-------------Control cuadroTexto con campos ocultos-----------------------
+                                   }
 
 				//echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 

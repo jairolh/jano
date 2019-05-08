@@ -29,7 +29,7 @@ class RegistradorEvaluacion {
 
     function procesarFormulario() {
         $conexion="estructura";
-	      $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
+	$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
         $fecha = date("Y-m-d H:i:s");
 
@@ -50,7 +50,8 @@ class RegistradorEvaluacion {
                                   'id_evaluar'=>$_REQUEST['id_evaluar'.$i],
                                   'puntaje'=>$_REQUEST['puntaje'.$i],
                                   'observacion'=>$_REQUEST['observaciones'.$i],
-                                  'fecha'=> $fecha
+                                  'fecha'=> $fecha,
+                                  'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso']
                 );
 
             $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );
@@ -66,24 +67,22 @@ class RegistradorEvaluacion {
           }
         }else{
           //si no existe el grupo
-          $cadena_sql = $this->miSql->getCadenaSql("registrarGrupo", $parametro);
-      		$registroGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroGrupoEvaluacion");
-
+            $cadena_sql = $this->miSql->getCadenaSql("registrarGrupo", $parametro);
+            $registroGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "registra", $parametro, "registroGrupoEvaluacion");
+            
             for($i=0; $i<$_REQUEST['numeroCriterios']; $i++){
-                $arregloDatos = array('grupo'=>$registroGrupo[0][0],
+                $arregloDatos = array('grupo'=>$registroGrupo,
                                     'inscrito'=>$_REQUEST['consecutivo_inscrito'],
-                                    'criterio'=>$_REQUEST['criterio'.$i],
+                                    'id_evaluar'=>$_REQUEST['id_evaluar'.$i],
                                     'puntaje'=>$_REQUEST['puntaje'.$i],
                                     'observacion'=>$_REQUEST['observaciones'.$i],
                                     'fecha'=> $fecha,
                                     'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso']
                   );
 
-              $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );
-              $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroEvaluacion" );
-
+             $cadenaSql = $this->miSql->getCadenaSql ( 'registroEvaluacion',$arregloDatos );
+             $resultado = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroEvaluacion" );
             }
-
             if($resultado){
                 redireccion::redireccionar('registroEvaluacion',$arregloDatos);  exit();
             }

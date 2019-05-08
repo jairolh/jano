@@ -47,8 +47,10 @@ class registrarForm {
 		// lineas para conectar base de d atos-------------------------------------------------------------------------------------------------
 		$conexion = "estructura";
 		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
-
-    $seccion ['tiempo'] = $tiempo;
+                $seccion ['tiempo'] = $tiempo;
+    
+                                
+    
 
 		// ---------------- SECCION: Parámetros Generales del Formulario ----------------------------------
 		$esteCampo = $esteBloque ['nombre'];
@@ -75,14 +77,36 @@ class registrarForm {
 
 			$miPaginaActual = $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 
-      $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
-      $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
-      $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
+                        $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
+                        $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
+                        $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
 
 			$directorio = $this->miConfigurador->getVariableConfiguracion ( "host" );
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "site" ) . "/index.php?";
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
+                        $variable = "pagina=" . $miPaginaActual;
+                        $variable.= "&opcion=consutarReclamaciones";
+                        $variable.= "&usuario=".$_REQUEST['usuario'];
+                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                        $variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
+
+                        // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+                        $esteCampo = 'botonRegresar';
+                        $atributos ['id'] = $esteCampo;
+                        $atributos ['enlace'] = $variable;
+                        $atributos ['tabIndex'] = 1;
+                        $atributos ['enlaceTexto'] = $this->lenguaje->getCadena ( $esteCampo );
+                        $atributos ['estilo'] = 'textoPequenno textoGris';
+                        $atributos ['enlaceImagen'] = $rutaBloque."/images/player_rew.png";
+                        $atributos ['posicionImagen'] = "atras";//"adelante";
+                        $atributos ['ancho'] = '30px';
+                        $atributos ['alto'] = '30px';
+                        $atributos ['redirLugar'] = true;
+                        echo $this->miFormulario->enlace ( $atributos );
+                        echo "<br><br>";
+                        unset ( $atributos );                        
+                        
 			$esteCampo = "marcoSubsistema";
 			$atributos ['id'] = $esteCampo;
 			$atributos ["estilo"] = "jqueryui";
@@ -129,54 +153,54 @@ class registrarForm {
 						</thead>
 						<tbody>";
 
-						$mostrarHtml = "<tr align='center'>
-										<td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
-										<td align='left'>".$resultadoInscripcion[0]['nombre'].$resultadoInscripcion[0]['apellido']."</td>";
-										$mostrarHtml .= "<td>";
+				$mostrarHtml = "<tr align='center'>
+                                                <td align='left'>".$_REQUEST['consecutivo_inscrito']."</td>
+                                                <td align='left'>".$resultadoInscripcion[0]['tipo_identificacion'].$resultadoInscripcion[0]['identificacion']."</td>
+                                                <td align='left'>".$resultadoInscripcion[0]['nombre'].$resultadoInscripcion[0]['apellido']."</td>";
+                                                $mostrarHtml .= "<td>";
 
-										$variableVerHoja = "pagina=publicacion";
-										$variableVerHoja.= "&opcion=hojaVida";
-										$variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-										$variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
-										$variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
-										$variableVerHoja.= "&tiempo=" . time ();
-										$variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-										$variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-										$variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-										$variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
+                                                $variableVerHoja = "pagina=publicacion";
+                                                $variableVerHoja.= "&opcion=hojaVida";
+                                                $variableVerHoja.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                                $variableVerHoja.= "&id_usuario=" .$_REQUEST['usuario'];
+                                                $variableVerHoja.= "&campoSeguro=" . $_REQUEST ['tiempo'];
+                                                $variableVerHoja.= "&tiempo=" . time ();
+                                                $variableVerHoja .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                                $variableVerHoja .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                $variableVerHoja .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                $variableVerHoja = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerHoja, $directorio);
 
-												//-------------Enlace-----------------------
-												$esteCampo = "verHojaVida";
-												$esteCampo = 'enlace_hoja';
-												$atributos ['id'] = $esteCampo;
-												$atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
-												$atributos ['tabIndex'] = 0;
-												$atributos ['columnas'] = 1;
-												$atributos ['enlaceTexto'] = 'Ver Curriculum';
-												$atributos ['estilo'] = 'clasico';
-												$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-												$atributos ['posicionImagen'] ="atras";//"adelante";
-												$atributos ['ancho'] = '20px';
-												$atributos ['alto'] = '20px';
-												$atributos ['redirLugar'] = false;
-												$atributos ['valor'] = '';
-												$mostrarHtml .= $this->miFormulario->enlace( $atributos );
-												unset ( $atributos );
-												 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
-												$esteCampo = 'ruta_enlace_hoja';
-												$atributos ['id'] = $esteCampo;
-												$atributos ['nombre'] = $esteCampo;
-												$atributos ['tipo'] = 'hidden';
-												$atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
-												$atributos ['obligatorio'] = false;
-												$atributos ['valor'] = $variableVerHoja;
-												$atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-												$atributos ['deshabilitado'] = FALSE;
-												$mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-												// --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                //-------------Enlace-----------------------
+                                                                $esteCampo = "verHojaVida";
+                                                                $esteCampo = 'enlace_hoja';
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja");';
+                                                                $atributos ['tabIndex'] = 0;
+                                                                $atributos ['columnas'] = 1;
+                                                                $atributos ['enlaceTexto'] = 'Ver Curriculum';
+                                                                $atributos ['estilo'] = 'clasico';
+                                                                $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                                $atributos ['posicionImagen'] ="atras";//"adelante";
+                                                                $atributos ['ancho'] = '20px';
+                                                                $atributos ['alto'] = '20px';
+                                                                $atributos ['redirLugar'] = false;
+                                                                $atributos ['valor'] = '';
+                                                                $mostrarHtml .= $this->miFormulario->enlace( $atributos );
+                                                                unset ( $atributos );
+                                                                 // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
+                                                                $esteCampo = 'ruta_enlace_hoja';
+                                                                $atributos ['id'] = $esteCampo;
+                                                                $atributos ['nombre'] = $esteCampo;
+                                                                $atributos ['tipo'] = 'hidden';
+                                                                $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
+                                                                $atributos ['obligatorio'] = false;
+                                                                $atributos ['valor'] = $variableVerHoja;
+                                                                $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                                                $atributos ['deshabilitado'] = FALSE;
+                                                                $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                                // --------------- FIN CONTROL : Cuadro de Texto --------------------------------------------------
 
-										 $mostrarHtml .= "</td>";
+                                                 $mostrarHtml .= "</td>";
 
 
 					 $mostrarHtml .= "</tr>";
@@ -217,92 +241,73 @@ class registrarForm {
 								echo "</table></div>";
 
 
-$esteCampo = "marcoNuevaEvaluacion";
-$atributos ['id'] = $esteCampo;
-$atributos ["estilo"] = "jqueryui";
-$atributos ['tipoEtiqueta'] = 'inicio';
-//$atributos ["estiloEnLinea"] = "display:none;";
-$atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
-echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
-unset ( $atributos );
-{
+                $esteCampo = "marcoNuevaEvaluacion";
+                $atributos ['id'] = $esteCampo;
+                $atributos ["estilo"] = "jqueryui";
+                $atributos ['tipoEtiqueta'] = 'inicio';
+                //$atributos ["estiloEnLinea"] = "display:none;";
+                $atributos ["leyenda"] =  $this->lenguaje->getCadena ( $esteCampo );
+                echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
+                unset ( $atributos );
+                {
 
-//###################################################################
+                //###################################################################
 
-        $parametro = array (
-                'reclamacion' => $_REQUEST['reclamacion'],
-                'usuario'=>$_REQUEST['usuario']
-        );
-								$cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
-								$resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+                    $parametro = array ('reclamacion' => $_REQUEST['reclamacion'],'usuario'=>$_REQUEST['usuario']);
+                    $cadena_sql = $this->miSql->getCadenaSql ( "consultarDetalleReclamacion", $parametro );
+                    $resultadoDetalleReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
+                    echo "Reclamación # " . $_REQUEST['reclamacion']. " : " . $resultadoDetalleReclamacion [0] ['observacion_reclamacion'] . "<br>";
+                    echo "Fecha de la respuesta: " . $resultadoDetalleReclamacion [0] ['evaluacion_fecha'] . "<br><br>";
+                    echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
+                    echo "<tbody>";
+                        $mostrarHtml = "";
+                        $mostrarHtml .= "<tr align='center'>";
+                        $mostrarHtml .= "<th colspan='1'>Criterio</th>";
+                        $mostrarHtml .= "<th colspan='1'>Calificación Anterior</th>";
+                        $mostrarHtml .= "<th colspan='1'>¿Aplica Reclamación?</th>";
+                        $mostrarHtml .= "<th colspan='1'>Nueva Calificación</th>";
+                        $mostrarHtml .= "<tr>";
 
-                                echo "Reclamación # " . $_REQUEST['reclamacion'] . "<br>";
-							    echo "Fecha de la respuesta: " . $resultadoDetalleReclamacion [0] ['evaluacion_fecha'] . "<br><br>";
+                            foreach ( $resultadoDetalleReclamacion as $key => $value ) {
 
-								echo "<div style ='padding-left: 5%; padding-right: 5%;' class='cell-border'><table id='tabla' class='table table-striped table-bordered'>";
-								echo "<tbody>";
-
-								$mostrarHtml = "";
-								$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
-																<th colspan='1'>Calificación Anterior</th>
-                                                                <th colspan='1'>¿Aplica Reclamación?</th>
-																<th colspan='1'>Nueva Calificación</th><tr>";
-
-                foreach ( $resultadoDetalleReclamacion as $key => $value ) {
-
-                    $parametro = array (
-                            'reclamacion' => $_REQUEST['reclamacion'],
-                            'criterio'=>$resultadoDetalleReclamacion[$key]['id_evaluar']
-                    );
-                    $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacionCriterio", $parametro);
-					$resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-                    // buscar datos Inactivos del criterio
-                    $cadena_sql = $this->miSql->getCadenaSql("consultaPuntajeInactivo", $parametro);
-                    $resultadoPuntajeInactivo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-
-                    //var_dump($resultadoPuntajeInactivo);
-                    $puntajeActivo = "NN";
-                    if($resultadoPuntajeInactivo){
-                        $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
-                        $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-                    }else{
-                        $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
-                    }
-
-                    $mostrarHtml .= "<tr>
-                    <td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
-                    <td colspan='1'>" . $puntajeInactivo . "</td>
-                    <td colspan='1'>" . $resultadoRespuestaReclamaciones[0]['respuesta'] . "</td>";
-
-                        $mostrarHtml .= "<td colspan='1'>";
-                        if($resultadoRespuestaReclamaciones[0]['respuesta']=='SI'){
-                                $mostrarHtml .= $puntajeActivo;
-                        }else{
-                              $mostrarHtml .= "No Aplica";
-                        }
-                        $mostrarHtml .= "</td>";
-                }
-
-                echo $mostrarHtml;
-                unset ( $mostrarHtml );
-
-
-//###########################################
-					echo "</tbody>";
-					echo "</table>";
-
-
-								echo "</div>";
+                                $parametro = array ('reclamacion' => $_REQUEST['reclamacion'],'criterio'=>$resultadoDetalleReclamacion[$key]['id_evaluar'],'usuario'=>$_REQUEST['usuario']);
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaRespuestaReclamacionCriterio", $parametro);
+                                $resultadoRespuestaReclamaciones = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                // buscar datos Inactivos del criterio
+                                $cadena_sql = $this->miSql->getCadenaSql("consultaPuntajeInactivo", $parametro);
+                                $resultadoPuntajeInactivo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                //var_dump($resultadoPuntajeInactivo);
+                                $puntajeActivo = "NN";
+                                if($resultadoPuntajeInactivo){
+                                    $puntajeInactivo=$resultadoPuntajeInactivo[0]['puntaje_parcial'];
+                                    $puntajeActivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                                }else{
+                                    $puntajeInactivo=$resultadoDetalleReclamacion[$key]['puntaje_parcial'];
+                                }
+                                $mostrarHtml .= "<tr>
+                                <td colspan='1'>" . $resultadoDetalleReclamacion [$key] ['nombre_criterio'] . "</td>
+                                <td colspan='1'>" . $puntajeInactivo . "</td>
+                                <td colspan='1'>" . $resultadoRespuestaReclamaciones[0]['respuesta'] . "</td>";
+                                $mostrarHtml .= "<td colspan='1'>";
+                                    if($resultadoRespuestaReclamaciones[0]['respuesta']=='SI'){
+                                            $mostrarHtml .= $puntajeActivo;
+                                    }else{
+                                          $mostrarHtml .= "No Aplica";
+                                    }
+                                    $mostrarHtml .= "</td>";
+                            }
+                            echo $mostrarHtml;
+                            unset ( $mostrarHtml );
+                        //###########################################
+                                echo "</tbody>";
+                                echo "</table>";
+                            echo "</div>";
 
 
 
-							}
-						echo $this->miFormulario->marcoAgrupacion ( 'fin' );
-
+                                }
+                        echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 			}
-
-
 			echo $this->miFormulario->marcoAgrupacion ( 'fin' );
 
 			// ------------------- SECCION: Paso de variables ------------------------------------------------

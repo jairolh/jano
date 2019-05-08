@@ -13,7 +13,7 @@ $this->idioma["marcoCriteriosEvaluados"]="Criterios Evaluados";
 $this->idioma["marcoEvaluacionCriterios"]="Criterios a evaluar";
 $this->idioma["marcoNuevaEvaluacion"]="Nueva Evaluación";
 
-$this->idioma["marcoEjecucion"]="<b>Reclamaciones en la Evaluación de Competencias </b> ";
+$this->idioma["marcoEjecucion"]="<b>Reclamaciones en fase de evaluación</b> ";
 $this->idioma["marcoConcurso"]="Nuevo Concurso";
 $this->idioma["marcoListaConcurso"]="Concursos Registrados";
 $this->idioma["marcoDetalleConcurso"]="Consulta Concurso en ejecución";

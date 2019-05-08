@@ -41,12 +41,21 @@ function soporte(archivo) {
   miPopup = window.open('about:blank','soporte','width=600,height=850,menubar=no') 
   //miPopup.location = $("#<?php echo $this->campoSeguro('rutasoporte')?>").val();
   miPopup.location = $("#"+archivo).val();
+  miPopup.focus();
+}
+
+function enlaceSop(direccion) {
+  var miVentana
+  miVentana = window.open('about:blank','soporte','width=600,height=850,menubar=no,scrollbars=yes') 
+  miVentana.location = $("#"+direccion).val();
+  miVentana.focus();
 }
 
 function enlace(direccion) {
   var miVentana
-  miVentana = window.open('about:blank','enlace','width=1100,height=600,menubar=no,scrollbars=yes') 
+  miVentana = window.open('about:blank','enlace','width=900,height=700,menubar=no,scrollbars=yes') 
   miVentana.location = $("#"+direccion).val();
+  miVentana.focus();
 }
 
 function marcar(obj) {

@@ -19,7 +19,8 @@ class redireccion {
                             $variable.="&opcion=mensaje";
                             $variable.="&mensaje=juradoAsignado";
                             $variable.="&nombre_concurso=".$valor['nombre_concurso'];
-														$variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                            $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                            $variable.="&tab=".$valor['tab'];
                             break;
 
                         case "noAsignoJurado":
@@ -27,7 +28,8 @@ class redireccion {
                             $variable.="&opcion=mensaje";
                             $variable.="&mensaje=noAsignoJurado";
                             $variable.="&nombre_concurso=".$valor['nombre_concurso'];
-														$variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                            $variable.="&consecutivo_concurso=".$valor['consecutivo_concurso'];
+                            $variable.="&tab=".$valor['tab'];
                             break;
 
                         case "Cerro":

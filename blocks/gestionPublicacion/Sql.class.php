@@ -396,9 +396,9 @@ class Sql extends \Sql {
                                 $cadenaSql.="cal.estado='A' ";
                                 $cadenaSql.="AND cal.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                 $cadenaSql.="AND act.nombre<>'Inscripción' ";
-                                $cadenaSql.="AND act.nombre<>'Registro Soportes' ";
-                                $cadenaSql.="AND act.nombre<>'Evaluar Requisitos' ";
-                                $cadenaSql.="AND act.nombre<>'Lista Elegibles' ";
+                                $cadenaSql.="AND act.nombre<>'Registro soportes' ";
+                                $cadenaSql.="AND act.nombre<>'Evaluar requisitos' ";
+                                $cadenaSql.="AND act.nombre<>'Listado de elegibles' ";
                                 $cadenaSql.="ORDER BY cal.fecha_inicio ";
 
                             break;           

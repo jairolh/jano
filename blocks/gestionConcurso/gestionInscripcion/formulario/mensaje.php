@@ -109,20 +109,20 @@ class registrarForm {
                                 {
                                     case "juradoAsignado":
                                         $tipo = 'success';
-                                        $mensaje = "Jurado asignado al concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
+                                        $mensaje = "Aspirantes asignados al Jurado, en concurso <b>".$_REQUEST['nombre_concurso']."</b>.";
                                         $boton = "continuar";
-																				$variable.= "&opcion=detalle";
-																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																				$pestanna='#tabJurados';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $pestanna='#'.$_REQUEST['tab'];
                                         break;
 
                                     case "noAsignoJurado":
                                         $tipo = 'error';
-                                        $mensaje = "No se pudo asignar el Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
+                                        $mensaje = "No se pudo asignar los aspirantes al Jurado al concurso <b>".$_REQUEST['nombre_concurso']."</b>. Por favor verifique los datos e intente mas tarde.";
                                         $boton = "regresar";
-																				$variable.= "&opcion=detalle";
-																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																				$pestanna='#tabJurados';
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $pestanna='#'.$_REQUEST['tab'];
                                         break;
 
 

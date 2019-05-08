@@ -40,7 +40,7 @@ class consultarInscrito {
                 $directorio = $this->miConfigurador->getVariableConfiguracion("host");
                 $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
                 $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+                $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
 
 		// ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
 		/**
@@ -57,13 +57,31 @@ class consultarInscrito {
 		$_REQUEST ['tiempo'] = time ();
 
 		// -------------------------------------------------------------------------------------------------
-    $conexion="estructura";
-		$esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
+            $conexion="estructura";
+            $esteRecursoDB = $this->miConfigurador->fabricaConexiones->getRecursoDB ( $conexion );
+            
+               //identifca lo roles para la busqueda de subsistemas
+                $roles=  $this->miSesion->RolesSesion();
+                $aux=0;
+                
+                $tipo = array();
+                $find='';
+                foreach ($roles as $key => $value) 
+                    {  if (!in_array($roles[$key]['nom_app'], $tipo)) 
+                          { array_push ( $tipo , $roles[$key]['nom_app'] );}
+                    }
+                
+                foreach ($tipo as $key => $value) 
+                    {   $find.="'".$value."'";
+                        if(($key+1)<count($tipo))
+                            {$find.=",";}
+                    }
 
             $parametro=array(
                                 'concurso'=>$_REQUEST['consecutivo_concurso'],
                                 'jurado'=>$this->miSesion->getSesionUsuarioId(),
-                                'hoy'=>date("Y-m-d")
+                                'hoy'=>date("Y-m-d"),
+                                'tipo'=>$find
                         );
             $cadena_sql = $this->miSql->getCadenaSql("consultarAspirantesAsignados", $parametro);
             $resultadoListaInscrito = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -92,6 +110,7 @@ class consultarInscrito {
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
                                             <th>Nombre</th>
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Evaluar</th>
                                         </tr>
@@ -110,12 +129,12 @@ class consultarInscrito {
                                         $variableEvaluar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableEvaluar.= "&opcion=evaluar";
                                         $variableEvaluar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				//$variableEvaluar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
+					//$variableEvaluar.= "&nombre_usuario=". $resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido'];
                                         $variableEvaluar.= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableEvaluar.= "&tiempo=" . time ();
                                         $variableEvaluar .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                         $variableEvaluar .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableEvaluar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+					$variableEvaluar .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
                                         $variableEvaluar = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEvaluar, $directorio);
                                         //$variableEvaluar.= "#tabInscrito";
 
@@ -132,49 +151,50 @@ class consultarInscrito {
                                         $variableEstado.= "&tiempo=" . time ();
                                         $variableEstado = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableEstado, $directorio);
 
-																				//verificar si ya se realizó la validación de la inscripción
-														            /*$cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
-														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                                                            //verificar si ya se realizó la validación de la inscripción
+                                        /*$cadena_sql = $this->miSql->getCadenaSql("consultarValidacion", $resultadoListaInscrito[$key]['consecutivo_inscrito']);
+                                        $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-																				if($resultadoValidacion){
-																					$validacion=$resultadoValidacion[0]['cumple_requisito'];
-																				}else{
-																					$validacion="PENDIENTE";
-																				}*/
+                                                                            if($resultadoValidacion){
+                                                                                    $validacion=$resultadoValidacion[0]['cumple_requisito'];
+                                                                            }else{
+                                                                                    $validacion="PENDIENTE";
+                                                                            }*/
 
                                         $mostrarHtml = "<tr align='center'>
-                                                <td align='left'>".$resultadoListaInscrito[$key]['id_inscrito']."</td>
-                                                <td align='left'>".$resultadoListaInscrito[$key]['tipo_identificacion']." ".$resultadoListaInscrito[$key]['identificacion']."</td>
-                                                <td align='left'>".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
-																								<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
-                                        $mostrarHtml .= "<td>";
+                                                <td align='left' width='6%'>".$resultadoListaInscrito[$key]['id_inscrito']."</td>
+                                                <td align='left' width='10%' >".$resultadoListaInscrito[$key]['tipo_identificacion']." ".$resultadoListaInscrito[$key]['identificacion']."</td>
+                                                <td align='left' >".$resultadoListaInscrito[$key]['nombre']." ".$resultadoListaInscrito[$key]['apellido']."</td>
+                        			<td align='left' width='10%'>".$resultadoListaInscrito[$key]['codigo']."</td>
+                        			<td align='left'>".$resultadoListaInscrito[$key]['perfil']."</td>";
+                                        $mostrarHtml .= "<td  width='8%'>";
 
-																				//consultar grupo de concurso y jurado (con evaluador y perfil)
-																				$parametro=array(
-																					'jurado'=>$this->miSesion->getSesionUsuarioId(),
-																					'perfil'=>$resultadoListaInscrito[0]['consecutivo_perfil'],
-																				);
-																				$cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
-														            $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        //consultar grupo de concurso y jurado (con evaluador y perfil)
+                                        $parametro=array(
+                                                'jurado'=>$this->miSesion->getSesionUsuarioId(),
+                                                'perfil'=>$resultadoListaInscrito[$key]['consecutivo_perfil'],
+                                        );
+                                        $cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
+                                        $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
-																				$variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
+                                        $variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
-																				$variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
-																				$variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
+                                        $variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
+                                        $variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                       	$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
-																				$variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-																				$variableVerEvaluacion .= "&grupo=".$resultadoGrupo[0]['id'];
+                                        $variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
+                                        $variableVerEvaluacion .= "&grupo=".$resultadoGrupo[0]['id'];
                                         $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableVerEvaluacion .= "&tiempo=" . time ();
                                         $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
 
-																				//consultar si ya se hizo la evaluación parcial
-																				$parametro=array(
-																					'grupo'=>$resultadoGrupo[0]['id'],
-																					'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
-																				);
-														            $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
-														            $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        //consultar si ya se hizo la evaluación parcial
+                                        $parametro=array(
+                                                'grupo'=>$resultadoGrupo[0]['id'],
+                                                'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
+                                        );
+                                        $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
+                                        $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
                                             if(!$resultadoValidacion){
                                                 //-------------Enlace-----------------------
@@ -191,20 +211,20 @@ class consultarInscrito {
                                                     $mostrarHtml .= $this->miFormulario->enlace($atributos);
                                                     unset($atributos);
                                                 }
-																								else{
-																									$esteCampo = "validar";
-																									$atributos["id"]=$esteCampo;
-																									$atributos['enlace']=$variableVerEvaluacion;
-																									$atributos['tabIndex']=$esteCampo;
-																									$atributos['redirLugar']=true;
-																									$atributos['estilo']='clasico';
-																									$atributos['enlaceTexto']='Ver Evaluación';
-																									$atributos['ancho']='30';
-																									$atributos['alto']='30';
-																									//$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
-																									$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																									unset($atributos);
-																								}
+                                            else{
+                                                    $esteCampo = "validar";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableVerEvaluacion;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']='Ver Evaluación';
+                                                    $atributos['ancho']='30';
+                                                    $atributos['alto']='30';
+                                                    //$atributos['enlaceImagen']=$rutaBloque."/images/check_file.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);
+                                            }
                                          $mostrarHtml .= "</td>";
 
                                        $mostrarHtml .= "</tr>";

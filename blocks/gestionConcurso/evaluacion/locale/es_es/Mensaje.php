@@ -24,7 +24,7 @@ $this->idioma["marcoInscrito"]="Registro Inscrito";
 $this->idioma["marcoListaInscrito"]="Aspirantes asignados";
 
 $this->idioma["noEncontroInscrito"]="No tiene aspirantes asignados para evaluación";
-$this->idioma["noEncontroCriteriosParaEvaluar"]="No se encontraron criterios para la evaluación";
+$this->idioma["noEncontroCriteriosParaEvaluar"]="La fase de evaluación se encuentra cerrada o no existen criterios registrados para la evaluación.";
 
 //formularios
 $this->idioma["tipo"]="Tipo: ";

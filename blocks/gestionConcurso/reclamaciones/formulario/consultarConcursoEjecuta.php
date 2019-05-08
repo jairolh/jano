@@ -40,7 +40,7 @@ class consultarForm {
             $directorio = $this->miConfigurador->getVariableConfiguracion("host");
             $directorio.= $this->miConfigurador->getVariableConfiguracion("site") . "/index.php?";
             $directorio.=$this->miConfigurador->getVariableConfiguracion("enlace");
-            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+            $this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
             // ---------------- SECCION: Parámetros Globales del Formulario ----------------------------------
             /**
              * Atributos que deben ser aplicados a todos los controles de este formulario.
@@ -76,7 +76,7 @@ class consultarForm {
             $parametro=array('hoy'=>date("Y-m-d"),'tipo'=>$find);
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcurso", $parametro);
             $resultadoConcurso = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-						//var_dump($resultadoConcurso);
+	
 
             //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
             $parametroTipoSop = array('dato_relaciona'=>'datosConcurso','tipo_soporte'=>'soporteAcuerdo',);
@@ -123,7 +123,7 @@ class consultarForm {
 
                         foreach($resultadoConcurso as $key=>$value )
                             {   $parametro['tipo']='unico';
-                                $parametroSop = array('consecutivo'=>0,
+                                $parametroSop = array('consecutivo_persona'=>0,
                                      'tipo_dato'=>'datosConcurso',
                                      'nombre_soporte'=>'soporteAcuerdo',
                                      'consecutivo_dato'=>$resultadoConcurso[$key]['consecutivo_concurso']
@@ -250,23 +250,23 @@ class consultarForm {
 
                                         <td>";
 
-																				if($resultadoConcurso[$key]['reclamaciones']>=1){
-																					$esteCampo = "detalle";
-																					$atributos["id"]=$esteCampo;
-																					$atributos['enlace']=$variableDetalle;
-																					$atributos['tabIndex']=$esteCampo;
-																					$atributos['redirLugar']=true;
-																					$atributos['estilo']='clasico';
-																					$atributos['enlaceTexto']=$resultadoConcurso[$key]['reclamaciones'];
-																					$atributos['ancho']='25';
-																					$atributos['alto']='25';
-																					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																					$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																					unset($atributos);
-																			 //-------------Enlace-----------------------
-																		 }else{
-																			 $mostrarHtml .= "0";
-																		 }
+                                if($resultadoConcurso[$key]['reclamaciones']>=1){
+                                        $esteCampo = "detalle";
+                                        $atributos["id"]=$esteCampo;
+                                        $atributos['enlace']=$variableDetalle;
+                                        $atributos['tabIndex']=$esteCampo;
+                                        $atributos['redirLugar']=true;
+                                        $atributos['estilo']='clasico';
+                                        $atributos['enlaceTexto']=$resultadoConcurso[$key]['reclamaciones']." ";
+                                        $atributos['ancho']='25';
+                                        $atributos['alto']='25';
+                                        $atributos ['posicionImagen'] ="adelante";//"atras";
+                                        $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                        $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                        unset($atributos);
+                                        //-------------Enlace-----------------------
+                                     }
+                                else{     $mostrarHtml .= "0"; }
 
                                 $mostrarHtml .= "</td>";
 

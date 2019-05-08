@@ -108,57 +108,57 @@ class registrarForm {
                             switch ($_REQUEST ['mensaje'])
                                 {
 
-																	case "validoRequisito":
-																			$tipo = 'success';
-																			$mensaje = "Requisitos de la inscripción validados correctamente.";
-																			$variable.= "&opcion=consutarReclamaciones";
-																			$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																			$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																			$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																			break;
+                                    case "validoRequisito":
+                                                    $tipo = 'success';
+                                                    $mensaje = "Requisitos de la inscripción validados correctamente.";
+                                                    $variable.= "&opcion=consutarReclamaciones";
+                                                    $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                    $variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                    $variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                                    break;
 
-																	case "noValidoRequisito":
-																			$tipo = 'error';
-																			$mensaje = "No fue posible realizar la validación de los requisitos de la inscripción.</b>.<br> Por favor intente mas tarde.";
-																			$variable.= "&opcion=consutarReclamaciones";
-																			$variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																			$variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
-																			$variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
-																			$boton = "regresar";
-																			break;
+                                    case "noValidoRequisito":
+                                                    $tipo = 'error';
+                                                    $mensaje = "No fue posible realizar la validación de los requisitos de la inscripción.</b>.<br> Por favor intente mas tarde.";
+                                                    $variable.= "&opcion=consutarReclamaciones";
+                                                    $variable.="&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                    $variable.="&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                                                    $variable.="&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                                                    $boton = "regresar";
+                                                    break;
 
-																	case "registroEvaluacionReclamacion":
-																			$tipo = 'success';
-																			$mensaje = "Evaluación de la reclamación registrada correctamente.";
-																			$variable.= "&opcion=listar";
-																			$variable.= "&usuario=".$_REQUEST['usuario'];
-																			//$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																			break;
+                                    case "registroEvaluacionReclamacion":
+                                                    $tipo = 'success';
+                                                    $mensaje = "Evaluación de la reclamación registrada correctamente.";
+                                                    $variable.= "&opcion=consutarReclamaciones";
+                                                    $variable.= "&usuario=".$_REQUEST['usuario'];
+                                                    $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                    break;
 
-																	case "noregistroEvaluacionReclamacion":
-																			$tipo = 'error';
-																			$mensaje = "No fue posible realizar la evaluación de la reclamación.</b><br>Por favor intente más tarde.";
-																			$variable.= "&opcion=listar";
-																			$variable.= "&usuario=".$_REQUEST['usuario'];
-																			//$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
-																			$boton = "regresar";
-																			break;
+                                    case "noregistroEvaluacionReclamacion":
+                                                    $tipo = 'error';
+                                                    $mensaje = "No fue posible realizar la evaluación de la reclamación.</b><br>Por favor intente más tarde.";
+                                                    $variable.= "&opcion=consutarReclamaciones";
+                                                    $variable.= "&usuario=".$_REQUEST['usuario'];
+                                                    $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                                    $boton = "regresar";
+                                                    break;
 
 
                                     case "registroEvaluacion":
                                         $tipo = 'success';
                                         $mensaje = "Evaluación registrada correctamente.";
-																				$variable.= "&opcion=detalle";
-																				$variable.= "&usuario=".$_REQUEST['usuario'];
-																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&usuario=".$_REQUEST['usuario'];
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         break;
 
                                     case "noregistroEvaluacion":
                                         $tipo = 'error';
                                         $mensaje = "No fue posible realizar la evaluación.</b><br>Por favor intente más tarde.";
-																				$variable.= "&opcion=detalle";
-																				$variable.= "&usuario=".$_REQUEST['usuario'];
-																				$variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                                        $variable.= "&opcion=detalle";
+                                        $variable.= "&usuario=".$_REQUEST['usuario'];
+                                        $variable.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
                                         $boton = "regresar";
                                         break;
 

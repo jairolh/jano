@@ -46,10 +46,10 @@ class cerrarSoporteConcurso {
                 //llama imagen progreso
                 $this->progreso($esteBloque);
                 //busca datos registrados
-                $parametro['nombre_fase']='Registro Soportes';
+                $parametro['nombre_fase']='Registro soportes';
                 $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
                 $faseAnt = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                $parametro['nombre_fase']='Evaluar Requisitos';
+                $parametro['nombre_fase']='Evaluar requisitos';
                 $cadena_sql = $this->miSql->getCadenaSql('consultarFaseObligatoria', $parametro);
                 $fase = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 //asigna fases

@@ -14,7 +14,7 @@ $nombreFormulario = $esteBloque ["nombre"];
 $rutaBloque = $this->miConfigurador->getVariableConfiguracion("host");
 $rutaBloque.=$this->miConfigurador->getVariableConfiguracion("site") . "/blocks/";
 $rutaBloque.= $esteBloque['grupo'] . "/" . $esteBloque['nombre'];
-$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "host" ) .$this->miConfigurador->getVariableConfiguracion ( "site" ) . "/blocks/";
+$this->rutaSoporte =$this->rutaSoporte = $this->miConfigurador->getVariableConfiguracion ( "raizSoportes" );
 
 include_once ("core/crypto/Encriptador.class.php");
 $cripto = Encriptador::singleton ();

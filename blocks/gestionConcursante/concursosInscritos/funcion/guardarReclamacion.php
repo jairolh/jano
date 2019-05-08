@@ -83,7 +83,7 @@ class RegistradorValidacion {
           }
 
           //Para Competencias
-          else if($_REQUEST['consecutivo_actividad']==9){
+          else if($_REQUEST['consecutivo_actividad']==5){
             $arregloDatos = array(
                                   'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
                                   'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
@@ -101,7 +101,7 @@ class RegistradorValidacion {
           }
 
           //Para Hoja de Vida
-          else if($_REQUEST['consecutivo_actividad']==5){
+          else if($_REQUEST['consecutivo_actividad']==4){
             $arregloDatos = array(
                                   'consecutivo_perfil='=>$_REQUEST['consecutivo_perfil'],
                                   'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
@@ -112,7 +112,7 @@ class RegistradorValidacion {
             //se referencia la reclamación en la tabla concurso.evaluacion_parcial
             $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaEvaluacionHojaVida',$arregloDatos );
             $resultadoActualizacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "actualizaEvaluacionHojaVida" );
-
+ 
             if($resultadoActualizacion){
               redireccion::redireccionar('registroReclamacion',$arregloDatos);  exit();
             }

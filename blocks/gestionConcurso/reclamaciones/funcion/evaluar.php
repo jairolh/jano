@@ -32,7 +32,7 @@ class RegistradorEvaluacion {
 	      $esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
 
         $fecha = date("Y-m-d H:i:s");
-
+        
         if($_REQUEST['validacion']=='SI'){
           //inactivar registro de la validación
           $parametro=array(
@@ -48,7 +48,8 @@ class RegistradorEvaluacion {
           'observacion'=>$_REQUEST['observaciones'],
           'fecha'=>$fecha,
           'evaluar_respuesta'=>$_REQUEST['evaluar_respuesta'],
-          'evaluador'=>$_REQUEST['usuario']
+          'evaluador'=>$_REQUEST['usuario'],
+          'consecutivo_concurso' => $_REQUEST['consecutivo_concurso']      
         );
 
         $cadena_sql = $this->miSql->getCadenaSql("registroEvaluacionReclamacion", $parametro);

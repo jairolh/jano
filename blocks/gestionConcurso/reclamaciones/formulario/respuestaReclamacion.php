@@ -178,6 +178,7 @@ class registrarForm {
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];
 			$valorCodificado .= "&opcion=guardarValidacion";
+                        echo $valorCodificado.= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
 												//$valorCodificado .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
 
 			/**

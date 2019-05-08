@@ -82,10 +82,7 @@ class evaluarReclamacion {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			// buscar reclamaciones para el concurso
-			$parametro = array (
-				'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'],
-        'reclamacion' => $_REQUEST ['reclamacion']
-			);
+			$parametro = array ('consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'], 'reclamacion' => $_REQUEST ['reclamacion']);
 			$cadena_sql = $this->miSql->getCadenaSql ( "consultarReclamaciones", $parametro );
 			$resultadoReclamacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
@@ -124,9 +121,9 @@ class evaluarReclamacion {
 						$resultadoValidacion = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
 
 						$mostrarHtml = "<tr align='center'>
-																<td align='left'>" . $resultadoReclamacion [$key] ['id_inscrito'] . "</td>
-																<td align='left'>" . $resultadoReclamacion [$key] ['identificacion'] . "</td>
-																<td align='left'>" . $resultadoReclamacion [$key] ['nombre_inscrito'] . "</td>";
+                                                                    <td align='left'>" . $resultadoReclamacion [$key] ['id_inscrito'] . "</td>
+                                                                    <td align='left'>" . $resultadoReclamacion [$key] ['identificacion'] . "</td>
+                                                                    <td align='left'>" . $resultadoReclamacion [$key] ['nombre_inscrito'] . "</td>";
 						$mostrarHtml .= "<td>";
 
 						$variableVerHoja = "pagina=publicacion";
@@ -180,15 +177,19 @@ class evaluarReclamacion {
 					echo "</tbody>";
 					echo "</table></div>";
 
-					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
+					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'>";
+					echo "<table id='tablaRequisitos' class='table table-striped table-bordered'>";
 					echo "<tbody>";
 					$mostrarHtml = "<tr>
-			 								<th>Concurso</th>
-			 								<td colspan='1'>" . $resultadoReclamacion [$key] ['concurso'] . "</td>
-			 								<th>Perfil</th>
-			 								<td colspan='1'>" . $resultadoReclamacion [$key] ['perfil'] . "</td>
-			 								</tr>";
-
+                                                            <th>Concurso</th>
+                                                            <td colspan='1'>" . $resultadoReclamacion [$key] ['concurso'] . "</td>
+                                                            <th>Perfil</th>
+                                                            <td colspan='1'>" . $resultadoReclamacion [$key] ['perfil'] . "</td>
+                                                        </tr>";
+                                        $mostrarHtml .= "<tr>
+                                                            <th>Requisitos</th>
+                                                            <td colspan='2'>" . $resultadoReclamacion [$key] ['requisitos'] . "</td>
+                                                        </tr>";
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
 					unset ( $variable );
@@ -197,13 +198,15 @@ class evaluarReclamacion {
 
 					echo "<div style ='width: 100%; padding-left: 12%; padding-right: 12%;' class='cell-border'><table id='tablaRequisitos' class='table table-striped table-bordered'>";
 					echo "<tbody>";
-					$mostrarHtml = "<tr align='center'>" . "<th colspan='2'>Reclamación #" . $resultadoReclamacion [0] ['id'] . "</th>
-												</td>";
-					$mostrarHtml .= "<tr>" . "<th colspan='1'>Fecha</th>
-												<td colspan='3'>" . $resultadoReclamacion [0] ['fecha_registro'] . "</td>";
-
-					$mostrarHtml .= "<tr>" . "<th colspan='1'>Observación</th>
-												<td colspan='3'>" . $resultadoReclamacion [0] ['observacion'] . "</td>";
+					$mostrarHtml = "<tr align='center'> ";
+					$mostrarHtml .= "<th colspan='2'>Reclamación #" . $resultadoReclamacion [0] ['id'] . "</th> ";
+					$mostrarHtml .= "</td> ";
+					$mostrarHtml .= "<tr> ";
+					$mostrarHtml .= "<th colspan='1'>Fecha</th> ";
+					$mostrarHtml .= "<td colspan='3'>" . $resultadoReclamacion [0] ['fecha_registro'] . "</td>";
+					$mostrarHtml .= "<tr> ";
+					$mostrarHtml .= "<th colspan='1'>Observación</th> ";
+					$mostrarHtml .= "<td colspan='3'>" . $resultadoReclamacion [0] ['observacion'] . "</td>";
 					echo $mostrarHtml;
 					unset ( $mostrarHtml );
 					unset ( $variable );
@@ -225,9 +228,9 @@ class evaluarReclamacion {
 					//var_dump($resultadoDetalleReclamacion);
 
 					$mostrarHtml .= "<tr align='center'>" . "<th colspan='1'>Criterio</th>
-													<th colspan='1'>Calificación</th>
-                                                    <th colspan='1'>¿Aplica Reclamación?</th>
-													<th colspan='1'>Observaciones</th><tr>";
+                                                        <th colspan='1'>Calificación</th>
+                                                        <th colspan='1'>¿Aplica Reclamación?</th>
+                                                        <th colspan='1'>Observaciones</th><tr>";
 
 					foreach ( $resultadoDetalleReclamacion as $key => $value ) {
 						$mostrarHtml .= "<tr>
@@ -338,33 +341,36 @@ class evaluarReclamacion {
 
 						$mostrarHtml .= "</td>";
 
-                        $mostrarHtml .= "<tr id='puntaje".$key."' style='display:none;'><td colspan='4'>";
-                        $esteCampo = 'puntaje'.$key;
-                        $atributos ['id'] = $esteCampo;
-                        $atributos ['nombre'] = $esteCampo;
-                        $atributos ['tipo'] = 'text';
-                        $atributos ['estilo'] = 'jqueryui';
-                        $atributos ['marco'] = true;
-                        $atributos ['estiloMarco'] = '';
-                        $atributos ["etiquetaObligatorio"] = true;
-                        //$atributos ['columnas'] = 3;
-                        $atributos ['dobleLinea'] = 0;
-                        $atributos ['tabIndex'] = $tab;
-												$atributos ['validar'] = "required, min[0], max[".$resultadoDetalleReclamacion[$key]['maximo_puntos']."]";
-                        $atributos ['etiqueta'] = "Nueva Calificación";
-                        $atributos ['valor'] = '';
-                        $atributos ['titulo'] = "";
-                        $atributos ['deshabilitado'] = false;
-                        $atributos ['tamanno'] = 8;
-                        $atributos ['maximoTamanno'] = '';
-                        $atributos ['anchoEtiqueta'] = 180;
-                        $atributos ["estiloEnLinea"] = "padding: 5px";
-                        $tab ++;
-                        // Aplica atributos globales al control
-                        $atributos = array_merge ( $atributos, $atributosGlobales );
-                        $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
-                        unset ( $atributos );
-                        $mostrarHtml .= "</td></tr>";
+                                                $mostrarHtml .= "<tr id='puntaje".$key."' style='display:none;'><td colspan='2'>";
+                                                $esteCampo = 'puntaje'.$key;
+                                                $atributos ['id'] = $esteCampo;
+                                                $atributos ['nombre'] = $esteCampo;
+                                                $atributos ['tipo'] = 'text';
+                                                $atributos ['estilo'] = 'jqueryui';
+                                                $atributos ['marco'] = true;
+                                                $atributos ['estiloMarco'] = '';
+                                                $atributos ["etiquetaObligatorio"] = true;
+                                                //$atributos ['columnas'] = 3;
+                                                $atributos ['dobleLinea'] = 0;
+                                                $atributos ['tabIndex'] = $tab;
+                                                $atributos ['validar'] = "required, min[0], max[".$resultadoDetalleReclamacion[$key]['maximo_puntos']."]";
+                                                $atributos ['etiqueta'] = "Nueva Calificación";
+                                                $atributos ['valor'] = '';
+                                                $atributos ['titulo'] = "";
+                                                $atributos ['deshabilitado'] = false;
+                                                $atributos ['tamanno'] = 8;
+                                                $atributos ['maximoTamanno'] = '';
+                                                $atributos ['anchoEtiqueta'] = 180;
+                                                $atributos ["estiloEnLinea"] = "padding: 5px";
+                                                $tab ++;
+                                                // Aplica atributos globales al control
+                                                $atributos = array_merge ( $atributos, $atributosGlobales );
+                                                $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );
+                                                unset ( $atributos );
+                                                
+                                                $mostrarHtml .= "</td>";
+                                                $mostrarHtml .= "<td colspan='2'> / <b>".$resultadoDetalleReclamacion[$key]['maximo_puntos'];
+                                                $mostrarHtml .= "</td></tr>";
 
 					}
 

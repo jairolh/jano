@@ -44,7 +44,8 @@ class cerrarEvaluacionFinal {
                          'nombre_concurso'=>$_REQUEST['nombre_concurso'],
                          'nombre'=>$_REQUEST['nombre'],   
                          'faseNueva'=>isset($_REQUEST['etapaPasa'])?$_REQUEST['etapaPasa']:0,
-                         'faseDesc'=>'',);    
+                         'faseDesc'=>'',
+                         'hoy'=>date("Y-m-d"),);    
         //$cadena_sql = $this->miSql->getCadenaSql("consultarCalculoEvaluacionParcial", $parametro);
         $cadena_sql = $this->miSql->getCadenaSql("consultarReclamacionesEvaluacion", $parametro);
         $resultadoListaReclamo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -71,7 +72,7 @@ class cerrarEvaluacionFinal {
                             {   //recorre las evaluaciones de criterios, registradas por inscrito y calcula el puntaje final
                                 if (in_array($resultadoParcial[$parc]['id_evaluar'], $evaluar)) {
                                      $pos=array_search($resultadoParcial[$parc]['id_evaluar'], $evaluar);
-                                     $puntaje[$pos]['puntos']+=$resultadoParcial[$parc]['puntaje_parcial'];
+                                     $puntaje[$pos]['puntos']+=round((double)$resultadoParcial[$parc]['puntaje_parcial'],2);
                                      if($resultadoParcial[$parc]['id_reclamacion']!='')
                                        {$puntaje[$pos]['id_reclamacion']=$resultadoParcial[$parc]['id_reclamacion'];}
                                     }
@@ -79,7 +80,7 @@ class cerrarEvaluacionFinal {
                                      array_push($evaluar,$resultadoParcial[$parc]['id_evaluar']);
                                      $pos=array_search($resultadoParcial[$parc]['id_evaluar'], $evaluar);
                                      $puntaje[$pos]['evaluar']=$resultadoParcial[$parc]['id_evaluar'];
-                                     $puntaje[$pos]['puntos']=$resultadoParcial[$parc]['puntaje_parcial'];
+                                     $puntaje[$pos]['puntos']=round((double)$resultadoParcial[$parc]['puntaje_parcial'],2);
                                      $puntaje[$pos]['aprueba']=$resultadoParcial[$parc]['puntos_aprueba'];
                                      $puntaje[$pos]['jurados']=$resultadoParcial[$parc]['jurados'];
                                      $puntaje[$pos]['id_inscrito']=$resultadoParcial[$parc]['id_inscrito'];
@@ -92,7 +93,7 @@ class cerrarEvaluacionFinal {
                         $promedio=0;
                         foreach ($puntaje as $eval => $value) 
                             {    
-                                    $final=($puntaje[$eval]['puntos']/$puntaje[$eval]['jurados']);
+                                    $final=round(($puntaje[$eval]['puntos']/$puntaje[$eval]['jurados']),2);
                                     //se calcula los puntajes final de la fase y de aprobación
                                     $fase['puntos']+=$final;
                                     $fase['Paprueba']+=$puntaje[$eval]['aprueba'];
@@ -187,8 +188,9 @@ class cerrarEvaluacionFinal {
                 exit();
             }
         else
-            {redireccion::redireccionar('noCerroFase',$parametro);
-             exit();
+            {   $this->cerrarFase($parametro,$esteRecursoDB);
+                redireccion::redireccionar('CerroFase',$parametro);
+                exit();
             }
     }
 

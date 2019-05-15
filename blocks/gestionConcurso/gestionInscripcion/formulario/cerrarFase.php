@@ -119,7 +119,7 @@ class cerrarForm{
                                         $mensaje = "<b>Se han registrado ".$_REQUEST['reclamos']." reclamaciones para esta fase!</b><br><br>";    
                                     }
                                     
-                                $mensaje .= "Esta seguro de realizar Cierre <b>".$_REQUEST['tipo_cierre']."</b> la fase de <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
+                                $mensaje .= "Esta seguro de realizar el cierre <b>".$_REQUEST['tipo_cierre']."</b> de la fase <b>".$_REQUEST['nombre']."</b>, del Concurso <b>" . $_REQUEST ['nombre_concurso']."</b>?";
                                 $mensaje .= "<br> Recuerde que una vez cerrada no se pueden registrar más datos.";
                                 $boton = "cerrarFase";
 

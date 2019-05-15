@@ -63,11 +63,12 @@ class Sql extends \Sql {
 				$cadenaSql.=" ji.id_inscrito AS Inscripción,  concat(p.tipo_identificacion, identificacion) AS Identificación, concat( p.nombre, ' ', p.apellido) AS Aspirante, cp.codigo AS Código, cp.nombre AS Perfil, jt.nombre AS tipo_jurado";
 				$cadenaSql.=" FROM concurso.jurado_inscrito ji, concurso.jurado_tipo jt, concurso.concurso_inscrito ci, concurso.concurso_perfil cp, concurso.persona p";
 				$cadenaSql.=" WHERE ";
-				$cadenaSql.=" id_usuario='".$variable['usuario']."'";
+				$cadenaSql.=" ji.id_usuario='".$variable['usuario']."'";
+                                $cadenaSql.=" AND ji.id_jurado_rol='".$variable['rol']."'";
 				$cadenaSql.=" AND ci.consecutivo_inscrito=ji.id_inscrito";
 				$cadenaSql.=" AND cp.consecutivo_perfil= ci.consecutivo_perfil";
 				//concurso
-				$cadenaSql.=" AND cp.consecutivo_concurso=".$variable['concurso'];
+                                $cadenaSql.=" AND cp.consecutivo_concurso=".$variable['concurso'];
 				$cadenaSql.=" AND ci.consecutivo_persona= p.consecutivo";
 				$cadenaSql.=" AND jt.id=ji.id_jurado_tipo";
 
@@ -89,24 +90,24 @@ class Sql extends \Sql {
 
 			case 'consultarJurados' :
 				$cadenaSql=" SELECT ";
-				$cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
+				$cadenaSql.=" concat(r.rol_id,'-',u.id_usuario) AS codigo, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, u.id_usuario, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
 				$cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
 				$cadenaSql.=" WHERE ";
                                 $cadenaSql.=" s.estado='1' AND";
 				$cadenaSql.=" s.id_usuario=u.id_usuario AND ";
 				$cadenaSql.=" s.rol_id=r.rol_id AND";
-				$cadenaSql.=" (r.rol_alias='Jurado')";
+				$cadenaSql.=" (UPPER(r.rol_alias)='JURADO')";
 				break;
 
                         case 'consultarEvaluadores' :
                                 $cadenaSql=" SELECT ";
-                                $cadenaSql.=" u.id_usuario, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
+                                $cadenaSql.=" concat(r.rol_id,'-',u.id_usuario) AS codigo, concat( u.nombre, ' ', u.apellido, ' - ', r.rol_alias) AS nombre, u.id_usuario, r.rol_id, r.rol_nombre AS nombre_rol, r.rol_nombre ";
                                 $cadenaSql.=" FROM jano_usuario u, jano_rol r, jano_usuario_subsistema s";
                                 $cadenaSql.=" WHERE ";
-                                 $cadenaSql.=" s.estado='1' AND";
+                                $cadenaSql.=" s.estado='1' AND";
                                 $cadenaSql.=" s.id_usuario=u.id_usuario AND ";
                                 $cadenaSql.=" s.rol_id=r.rol_id AND";
-                                $cadenaSql.=" (r.rol_alias='Docencia' OR r.rol_alias='Personal' OR r.rol_alias='ILUD' )";
+                                $cadenaSql.=" (UPPER(r.rol_alias)='DOCENCIA' OR UPPER(r.rol_alias)='PERSONAL' OR UPPER(r.rol_alias)='ILUD' )";
                                 break;
 
 			case 'consultarTiposJurado' :
@@ -137,7 +138,13 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cumple_requisito='SI' AND ";
                                 $cadenaSql.=" cp.consecutivo_perfil=ci.consecutivo_perfil AND ";
                                 $cadenaSql.=" consecutivo_concurso=".$variable['consecutivo_concurso'];
-                                $cadenaSql.=" AND ci.consecutivo_inscrito NOT IN (SELECT id_inscrito FROM concurso.jurado_inscrito ji WHERE id_usuario='".$variable['id_usuario']."')";
+                                $cadenaSql.=" AND ci.consecutivo_inscrito NOT IN ";
+                                $cadenaSql.="  (SELECT id_inscrito  ";
+                                $cadenaSql.="    FROM concurso.jurado_inscrito ji  ";
+                                $cadenaSql.="    WHERE id_usuario='".$variable['id_usuario']."' ";
+                                $cadenaSql.="    AND id_jurado_rol='".$variable['rol']."' ";
+                                $cadenaSql.=" )";
+                                
                                 break;
 			case 'buscarTipoSoporte' :
 				$cadenaSql=" SELECT DISTINCT";
@@ -528,6 +535,10 @@ class Sql extends \Sql {
                                    {
                                     $cadenaSql.=" AND eval.consecutivo_concurso='".$variable['consecutivo_concurso']."' ";
                                    }
+                                if(isset($variable['consecutivo_criterio']) &&  $variable['consecutivo_criterio']!='' )
+                                   {
+                                    $cadenaSql.=" AND eval.consecutivo_criterio='".$variable['consecutivo_criterio']."' ";
+                                   }                                   
                                 $cadenaSql.="GROUP BY eval.consecutivo_concurso ";
                             break;
 
@@ -565,15 +576,21 @@ class Sql extends \Sql {
                                 $cadenaSql.="eval.maximo_puntos, ";
                                 $cadenaSql.="eval.puntos_aprueba, ";
                                 $cadenaSql.="eval.consecutivo_calendario, ";
+                                
                                 $cadenaSql.="(SELECT count (DISTINCT jur.id_usuario) asignado ";
                                 $cadenaSql.="FROM concurso.concurso_evaluar cev ";
-                                $cadenaSql.="INNER JOIN  concurso.jurado_criterio jcrt ON jcrt.id_criterio=cev.consecutivo_criterio AND jcrt.estado=cev.estado ";
-                                $cadenaSql.="INNER JOIN public.jano_usuario_subsistema usu ON usu.rol_id=jcrt.id_jurado_rol ";
-                                $cadenaSql.="INNER JOIN concurso.jurado_inscrito jur ON jur.estado='A' AND usu.id_usuario=jur.id_usuario ";
-                                $cadenaSql.="WHERE  cev.estado='A' ";
+                                $cadenaSql.="INNER JOIN concurso.jurado_criterio jcrt ON jcrt.id_criterio=cev.consecutivo_criterio AND jcrt.estado=cev.estado  ";
+                                $cadenaSql.="INNER JOIN public.jano_usuario_subsistema usu ON usu.rol_id=jcrt.id_jurado_rol AND usu.estado='1' ";
+                                $cadenaSql.="INNER JOIN concurso.jurado_inscrito jur ON jur.estado='A' AND usu.id_usuario=jur.id_usuario AND jur.id_jurado_rol=jcrt.id_jurado_rol ";
+                                $cadenaSql.="WHERE cev.estado='A' ";
                                 $cadenaSql.="AND cev.consecutivo_concurso=eval.consecutivo_concurso ";
                                 $cadenaSql.="AND cev.consecutivo_calendario=eval.consecutivo_calendario ";
-                                $cadenaSql.="AND jur.id_inscrito=parc.id_inscrito  ";
+                                $cadenaSql.="AND '".$variable['hoy']."' BETWEEN usu.fecha_registro AND usu.fecha_caduca  ";
+                                $cadenaSql.="AND cev.consecutivo_criterio=eval.consecutivo_criterio ";
+                                $cadenaSql.="AND jur.id_inscrito=parc.id_inscrito ";
+                                
+                                
+                                
                                 $cadenaSql.=") jurados, ";
                                 $cadenaSql.="gr.id_evaluador ";
                                 $cadenaSql.="FROM concurso.evaluacion_parcial parc ";
@@ -1055,13 +1072,15 @@ class Sql extends \Sql {
 				$cadenaSql.=" id_usuario,";
 				$cadenaSql.=" id_inscrito, ";
 				$cadenaSql.=" id_jurado_tipo,";
-				$cadenaSql.=" fecha_registro ";
+				$cadenaSql.=" fecha_registro,";
+				$cadenaSql.=" id_jurado_rol ";
 				$cadenaSql.=" )";
 				$cadenaSql .= " VALUES ( ";
 				$cadenaSql .= " '".$variable['usuario']."', ";
 				$cadenaSql .= " '".$variable['inscrito']."', ";
 				$cadenaSql .= " '".$variable['jurado_tipo']."', ";
-				$cadenaSql .= " '".$variable['fecha']."' ";
+				$cadenaSql .= " '".$variable['fecha']."', ";
+				$cadenaSql .= " '".$variable['rol']."' ";
 				$cadenaSql .= " )";
 				$cadenaSql.=" RETURNING id";
                         break;

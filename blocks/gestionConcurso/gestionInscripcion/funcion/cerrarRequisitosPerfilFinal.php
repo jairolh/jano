@@ -76,8 +76,9 @@ class cerrarRequisitosPerfil {
                 exit();
             }
         else
-            {redireccion::redireccionar('noCerroFase',$parametro);
-             exit();
+            {$this->cerrarFase($parametro,$esteRecursoDB);
+                redireccion::redireccionar('CerroFase',$parametro);
+                exit();
             }
     }
 

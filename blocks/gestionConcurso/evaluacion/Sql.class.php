@@ -221,7 +221,8 @@ class Sql extends \Sql {
 				$cadenaSql.=" INNER JOIN concurso.concurso_evaluar ev ON ev.consecutivo_criterio=ce.consecutivo_criterio AND ev.estado='A' ";
 				$cadenaSql.=" INNER JOIN concurso.concurso_calendario cal ON ev.consecutivo_calendario=cal.consecutivo_calendario ";
 				$cadenaSql.=" WHERE ";
-				$cadenaSql.="  id_jurado_rol IN (".$variable['rol'].")"; 
+				$cadenaSql.=" jc.estado='A' "; 
+                                $cadenaSql.=" AND  jc.id_jurado_rol IN (".$variable['rol'].")"; 
                                 $cadenaSql.=" AND ev.consecutivo_concurso=".$variable['consecutivo_concurso']; 
 				$cadenaSql.=" AND '".$variable['hoy']."' BETWEEN cal.fecha_inicio AND cal.fecha_fin ";
 				$cadenaSql.=" ORDER BY criterio ";
@@ -233,11 +234,28 @@ class Sql extends \Sql {
 		break;
 
 		case "consultarEvaluacionParcial":
-				$cadenaSql=" SELECT DISTINCT ep.id, ep.id_grupo, ep.id_inscrito, ep.id_evaluar";
+			/*	$cadenaSql=" SELECT DISTINCT ep.id, ep.id_grupo, ep.id_inscrito, ep.id_evaluar";
 				$cadenaSql.=" FROM concurso.evaluacion_parcial ep";
 				$cadenaSql.=" WHERE";
 				$cadenaSql.=" id_inscrito=".$variable['inscrito'];
 				$cadenaSql.=" AND id_grupo='".$variable['grupo']."'";
+                                */
+                                $cadenaSql=" SELECT DISTINCT ";
+				$cadenaSql.=" eg.id_evaluador, ";
+				$cadenaSql.=" eg.id_perfil, ";
+				$cadenaSql.=" evp.id_grupo, ";
+				$cadenaSql.=" evp.id_inscrito ";
+				$cadenaSql.=" FROM concurso.evaluacion_grupo eg ";
+				$cadenaSql.=" INNER JOIN concurso.evaluacion_parcial evp ON evp.id_grupo=eg.id AND evp.estado='A' ";
+				$cadenaSql.=" INNER JOIN concurso.concurso_evaluar ev ON evp.id_evaluar=ev.consecutivo_evaluar AND ev.estado='A' ";
+				$cadenaSql.=" INNER JOIN concurso.concurso_calendario cal ON ev.consecutivo_calendario=cal.consecutivo_calendario AND ev.consecutivo_concurso=cal.consecutivo_concurso ";
+				$cadenaSql.=" AND '".$variable['hoy']."' BETWEEN cal.fecha_inicio AND cal.fecha_fin_resolver ";
+				$cadenaSql.=" WHERE eg.id_evaluador='".$variable['jurado']."'";
+				$cadenaSql.=" AND eg.id_perfil='".$variable['perfil']."' ";
+				$cadenaSql.=" AND evp.id_inscrito='".$variable['inscrito']."' ";
+				
+                                
+                                
 		break;
 
 		case "consultarGrupo":
@@ -248,19 +266,19 @@ class Sql extends \Sql {
 				$cadenaSql.=" AND id_perfil=".$variable['perfil'];
 		break;
 
-			case "consultaPerfil":
-							$cadenaSql=" SELECT ";
-							$cadenaSql.=" c.nombre AS concurso, ";
-							$cadenaSql.=" p.nombre AS perfil, ";
-							$cadenaSql.=" p.requisitos ";
-							$cadenaSql.=" FROM concurso.concurso AS c, ";
-							$cadenaSql.=" concurso.concurso_perfil AS p ";
-							$cadenaSql.=" WHERE ";
-							$cadenaSql.=" c.consecutivo_concurso=".$variable['consecutivo_concurso'];
-							$cadenaSql.=" AND p.consecutivo_perfil=".$variable['consecutivo_perfil'];
-							$cadenaSql.=" AND c.consecutivo_concurso=p.consecutivo_concurso ";
+                case "consultaPerfil":
+                        $cadenaSql=" SELECT ";
+                        $cadenaSql.=" c.nombre AS concurso, ";
+                        $cadenaSql.=" p.nombre AS perfil, ";
+                        $cadenaSql.=" p.requisitos ";
+                        $cadenaSql.=" FROM concurso.concurso AS c, ";
+                        $cadenaSql.=" concurso.concurso_perfil AS p ";
+                        $cadenaSql.=" WHERE ";
+                        $cadenaSql.=" c.consecutivo_concurso=".$variable['consecutivo_concurso'];
+                        $cadenaSql.=" AND p.consecutivo_perfil=".$variable['consecutivo_perfil'];
+                        $cadenaSql.=" AND c.consecutivo_concurso=p.consecutivo_concurso ";
 
-					break;
+                    break;
 
                         case 'buscarSoporte' :
 				$cadenaSql=" SELECT DISTINCT";

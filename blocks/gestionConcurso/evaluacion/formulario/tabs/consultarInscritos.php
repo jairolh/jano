@@ -118,14 +118,7 @@ class consultarInscrito {
                                     <tbody>";
                                 foreach($resultadoListaInscrito as $key=>$value )
                                     {   $parametro['tipo']='unico';
-                                        /*
-                                        $parametroSop = array('consecutivo'=>$resultadoListaInscrito[$key]['consecutivo_persona'],
-                                             'tipo_dato'=>'datosInscrito',
-                                             'nombre_soporte'=>'soporteInscrito',
-                                             'consecutivo_dato'=>$resultadoListaInscrito[$key]['consecutivo_actividad']
-                                            );
-                                        $cadenaSop_sql = $this->miSql->getCadenaSql("buscarSoporte", $parametroSop);
-                                        $resultadoSact = $esteRecursoDB->ejecutarAcceso($cadenaSop_sql, "busqueda");*/
+                                        
                                         $variableEvaluar = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableEvaluar.= "&opcion=evaluar";
                                         $variableEvaluar.= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -173,28 +166,26 @@ class consultarInscrito {
                                         $parametro=array(
                                                 'jurado'=>$this->miSesion->getSesionUsuarioId(),
                                                 'perfil'=>$resultadoListaInscrito[$key]['consecutivo_perfil'],
-                                        );
-                                        $cadena_sql = $this->miSql->getCadenaSql("consultarGrupo", $parametro);
-                                        $resultadoGrupo = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                                'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
+                                                'hoy'=>date("Y-m-d"),
+                                                );
 
+                                        $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
+                                        $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        
+                                        
                                         $variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
                                         $variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
                                         $variableVerEvaluacion .= "&consecutivo_concurso=".$resultadoListaInscrito[$key]['consecutivo_concurso'];
                                       	$variableVerEvaluacion .= "&consecutivo_perfil=".$resultadoListaInscrito[$key]['consecutivo_perfil'];
                                         $variableVerEvaluacion .= "&consecutivo_inscrito=".$resultadoListaInscrito[$key]['consecutivo_inscrito'];
-                                        $variableVerEvaluacion .= "&grupo=".$resultadoGrupo[0]['id'];
+                                        $variableVerEvaluacion .= "&grupo=".$resultadoValidacion[0]['id_grupo'];
                                         $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableVerEvaluacion .= "&tiempo=" . time ();
                                         $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
 
-                                        //consultar si ya se hizo la evaluación parcial
-                                        $parametro=array(
-                                                'grupo'=>$resultadoGrupo[0]['id'],
-                                                'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
-                                        );
-                                        $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
-                                        $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+                                        
 
                                             if(!$resultadoValidacion){
                                                 //-------------Enlace-----------------------

@@ -117,13 +117,17 @@ class registrarForm {
 				{
 
                                     $parametro['consecutivo_concurso']=$_REQUEST['consecutivo_concurso'];
-                                    if(isset($_REQUEST['seleccionJurado'])){
-                                      $parametro['id_usuario']= $_REQUEST['seleccionJurado'];
-                                  }else if(isset($_REQUEST['seleccionEvaluador'])) {
-                                      $parametro['id_usuario']= $_REQUEST['seleccionEvaluador'];
-                                  }else{
-                                      $parametro['id_usuario']='';
-                                  }
+                                    if(isset($_REQUEST['seleccionJurado']))
+                                        { $rol=explode('-',$_REQUEST['seleccionJurado']); 
+                                          $parametro['rol']= $rol[0];
+                                          $parametro['id_usuario']= $rol[1];
+                                        }
+                                    else if(isset($_REQUEST['seleccionEvaluador'])) 
+                                        { $rol=explode('-',$_REQUEST['seleccionEvaluador']); 
+                                          $parametro['rol']= $rol[0];
+                                          $parametro['id_usuario']= $rol[1];
+                                        }
+                                    else{ $parametro['id_usuario']='';}
 
                         $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "consultarAspirantesNoAsignados", $parametro);
                         $aspirantes = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );

@@ -33,7 +33,6 @@ class AsignarAspirantes {
 
         $conexion="estructura";
 	$esteRecursoDB=$this->miConfigurador->fabricaConexiones->getRecursoDB($conexion);
-        
         $porciones=array();
         foreach ( $_REQUEST as $key => $values )
             { 
@@ -47,9 +46,11 @@ class AsignarAspirantes {
         //$porciones = explode(",", $items);
 
         $fecha = date("Y-m-d H:i:s");
-
+        $rol=explode('-',$_REQUEST['seleccionJurado']);  
+        
         foreach ( $porciones as $key => $values ) {
-          $arregloDatos = array('usuario'=>$_REQUEST['seleccionJurado'],
+          $arregloDatos = array('usuario'=>$rol[1],
+                            'rol'=>$rol[0],
                             'inscrito'=>$values,
                             'jurado_tipo'=>$_REQUEST['tipoJurado'],
                             'fecha'=>$fecha,
@@ -57,7 +58,7 @@ class AsignarAspirantes {
                             'consecutivo_concurso'=>$_REQUEST['consecutivo_concurso'],
                             'tab'=>$_REQUEST['tab']
           );
-
+         
           $cadenaSql = $this->miSql->getCadenaSql ('registroAspirantesJurado',$arregloDatos);
           $resultadoAsignacion = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroAspirantesJurado" );
         };

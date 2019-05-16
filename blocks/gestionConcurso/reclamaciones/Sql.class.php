@@ -189,23 +189,25 @@ class Sql extends \Sql {
                                         break;
 
 				case "registroValidacion":
-								$cadenaSql =" INSERT INTO concurso.valida_requisito (";
-								$cadenaSql .=" consecutivo_inscrito,";
-								$cadenaSql .=" cumple_requisito, ";
-								$cadenaSql .=" observacion,";
-								$cadenaSql .=" fecha_registro, ";
-								$cadenaSql .=" estado, ";
-								$cadenaSql .=" id_reclamacion ";
-								$cadenaSql .=" )";
-								$cadenaSql .= " VALUES ( ";
-								$cadenaSql .= " '".$variable['consecutivo_inscrito']."', ";
-								$cadenaSql .= " '".$variable['validacion']."', ";
-								$cadenaSql .= " '".$variable['observaciones']."', ";
-								$cadenaSql .= " '".$variable['fecha']."', ";
-								$cadenaSql .= " 'A', ";
-								$cadenaSql .= " '".$variable['reclamacion']."' ";
-								$cadenaSql .= " )";
-								$cadenaSql.=" RETURNING consecutivo_valida";
+                                        $cadenaSql =" INSERT INTO concurso.valida_requisito (";
+                                        $cadenaSql .=" consecutivo_inscrito,";
+                                        $cadenaSql .=" cumple_requisito, ";
+                                        $cadenaSql .=" observacion,";
+                                        $cadenaSql .=" fecha_registro, ";
+                                        $cadenaSql .=" estado, ";
+                                        $cadenaSql .=" id_reclamacion, ";
+                                        $cadenaSql .=" version_valida ";
+                                        $cadenaSql .=" )";
+                                        $cadenaSql .= " VALUES ( ";
+                                        $cadenaSql .= " '".$variable['consecutivo_inscrito']."', ";
+                                        $cadenaSql .= " '".$variable['validacion']."', ";
+                                        $cadenaSql .= " '".$variable['observaciones']."', ";
+                                        $cadenaSql .= " '".$variable['fecha']."', ";
+                                        $cadenaSql .= " 'A', ";
+                                        $cadenaSql .= " '".$variable['reclamacion']."', ";
+                                         $cadenaSql .= " '".$variable['version_validacion']."' ";
+                                        $cadenaSql .= " )";
+                                        $cadenaSql.=" RETURNING consecutivo_valida";
 				break;
 
 				case "registroEvaluacionReclamacion":

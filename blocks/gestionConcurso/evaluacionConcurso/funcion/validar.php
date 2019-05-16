@@ -40,7 +40,8 @@ class RegistradorValidacion {
 
                               'consecutivo_concurso'=> $_REQUEST['consecutivo_concurso'],
                               'consecutivo_perfil'=> $_REQUEST['consecutivo_perfil'],
-                              'consecutivo_inscrito'=> $_REQUEST['consecutivo_inscrito']
+                              'consecutivo_inscrito'=> $_REQUEST['consecutivo_inscrito'],
+                              'version_validacion'=>'1',
 
             );
 

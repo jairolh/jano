@@ -51,8 +51,8 @@ class faseFinal{
             
             $cadena_sql = $this->miSql->getCadenaSql("listadoCierreRequisitos", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
-            $cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
+            $cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
+            //$cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
             $esteCampo = "marcoCerrado";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -98,6 +98,7 @@ class faseFinal{
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
                                             <th>Id</th>
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
@@ -112,6 +113,7 @@ class faseFinal{
                                 foreach($resultadoListaFase as $key=>$value )
                                     {   $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
+                                                    <td align='justify' width='10%'>".$resultadoListaFase[$key]['codigo']."</td>
                                                     <td align='justify' width='15%'>".$resultadoListaFase[$key]['perfil']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
@@ -177,7 +179,7 @@ class faseFinal{
                                                               unset ( $atributos );
                                                             // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------  
                                 $mostrarHtml.=     "    </td>
-                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS EVALUACIÓN RECLAMACIONES </th></tr> ";
+                                                        <th class='textoAzul' colspan=2> LISTA RESULTADOS EVALUACIÓN RECLAMACIONES - FECHA CIERRE ".$cierre." </th></tr> ";
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>CONCURSO: </th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre_concurso']."</td></tr> ";

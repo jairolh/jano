@@ -53,7 +53,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Lista de resultados evaluación de reclamaciones 
+                             Lista de resultados evaluación de reclamaciones - Fecha Cierre ".$_REQUEST['cierre']." 
                             </span>
                         </td>
                     </tr> ";
@@ -85,6 +85,9 @@ $contenido .= "     <td align='center' valign=top style='border:solid windowtext
 $contenido .= "     <span style='font-size:9.0pt;'>Nro</span>";        
 $contenido .= "     </td>";        
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Código</span>";        
+$contenido .= "     </td>";        
+$contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Perfil</span>";        
 $contenido .= "     </td>";    
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
@@ -112,13 +115,14 @@ foreach($resultadoListaFase as $key=>$value )
    {           
     $contenido .= "   <tr style='mso-yfti-irow:1' align='center' valign='middle'>";        
     $contenido .= "   <td width='25'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
-    $contenido .= "   <td width='140' align='justify'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
-    $contenido .= "   <td width='50'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
-    $contenido .= "   <td width='70' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
-    $contenido .= "   <td width='145' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
-    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['id_reclamacion']."</span></td>";        
-    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['cumple_requisito']."</span></td>";        
-    $contenido .= "   <td width='165' align='justify'><span style='font-size:6pt;'>".$resultadoListaFase[$key]['observacion']."</span></td>";        
+    $contenido .= "   <td width='65' align='justify'><span style='font-size:6.0pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";          
+    $contenido .= "   <td width='110' align='justify'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
+    $contenido .= "   <td width='50'  align='center'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
+    $contenido .= "   <td width='65' align='left'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
+    $contenido .= "   <td width='130' align='left'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
+    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['id_reclamacion']."</span></td>";        
+    $contenido .= "   <td width='40'  align='center'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['cumple_requisito']."</span></td>";        
+    $contenido .= "   <td width='150' align='justify'><span style='font-size:6pt;'>".$resultadoListaFase[$key]['observacion']."</span></td>";        
     $contenido .= "   </tr>";
     }
 

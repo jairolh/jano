@@ -133,14 +133,16 @@ class Sql extends \Sql {
                                 $cadenaSql .=" cumple_requisito, ";
                                 $cadenaSql .=" observacion,";
                                 $cadenaSql .=" fecha_registro, ";
-                                $cadenaSql .=" estado ";
+                                $cadenaSql .=" estado, ";
+                                $cadenaSql .=" version_valida ";
                                 $cadenaSql .=" )";
                                 $cadenaSql .= " VALUES ( ";
                                 $cadenaSql .= " '".$variable['consecutivo_inscrito']."', ";
                                 $cadenaSql .= " '".$variable['validacion']."', ";
                                 $cadenaSql .= " '".$variable['observaciones']."', ";
                                 $cadenaSql .= " '".$variable['fecha']."', ";
-                                $cadenaSql .= " 'A' ";
+                                $cadenaSql .= " 'A', ";
+                                $cadenaSql .= " '".$variable['version_validacion']."' ";
                                 $cadenaSql .= " )";
                                 $cadenaSql.=" RETURNING consecutivo_valida";
 			break;

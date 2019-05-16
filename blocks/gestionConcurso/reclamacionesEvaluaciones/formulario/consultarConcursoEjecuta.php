@@ -275,23 +275,24 @@ class consultarForm {
 
                                         <td>";
 
-																				if($resultadoConcurso[$key]['reclamaciones']>=1){
-																					$esteCampo = "detalle";
-																					$atributos["id"]=$esteCampo;
-																					$atributos['enlace']=$variableDetalle;
-																					$atributos['tabIndex']=$esteCampo;
-																					$atributos['redirLugar']=true;
-																					$atributos['estilo']='clasico';
-																					$atributos['enlaceTexto']=$resultadoConcurso[$key]['reclamaciones'];
-																					$atributos['ancho']='25';
-																					$atributos['alto']='25';
-																					//$atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
-																					$mostrarHtml .= $this->miFormulario->enlace($atributos);
-																					unset($atributos);
-																			 //-------------Enlace-----------------------
-																		 }else{
-																			 $mostrarHtml .= "0";
-																		 }
+                                            if($resultadoConcurso[$key]['reclamaciones']>=1){
+                                                    $esteCampo = "detalle";
+                                                    $atributos["id"]=$esteCampo;
+                                                    $atributos['enlace']=$variableDetalle;
+                                                    $atributos['tabIndex']=$esteCampo;
+                                                    $atributos['redirLugar']=true;
+                                                    $atributos['estilo']='clasico';
+                                                    $atributos['enlaceTexto']=$resultadoConcurso[$key]['reclamaciones']." ";
+                                                    $atributos['ancho']='25';
+                                                    $atributos['alto']='25';
+                                                    $atributos ['posicionImagen'] ="adelante";//"atras";
+                                                    $atributos['enlaceImagen']=$rutaBloque."/images/xmag.png";
+                                                    $mostrarHtml .= $this->miFormulario->enlace($atributos);
+                                                    unset($atributos);
+                                     //-------------Enlace-----------------------
+                                         }else{
+                                                 $mostrarHtml .= "0";
+                                         }
 
                                 $mostrarHtml .= "</td>";
 

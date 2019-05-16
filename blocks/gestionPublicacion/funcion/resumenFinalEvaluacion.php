@@ -55,7 +55,7 @@ $paginaHeader.= "   <tr>
 $paginaHeader.="    <tr>
                         <td align='center'>
                             <span style='font-size:9.0pt;'>
-                             Listado final de Aspirantes que superarón la fase
+                             Listado final de Aspirantes que superarón la fase - Fecha cierre ".$_REQUEST['cierre']."
                             </span>
                         </td>
                     </tr> ";
@@ -93,6 +93,9 @@ $contenido .= "     <td align='center' valign=top style='border:solid windowtext
 $contenido .= "     <span style='font-size:9.0pt;'>Nro</span>";        
 $contenido .= "     </td>";        
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+$contenido .= "     <span style='font-size:9.0pt;'>Código</span>";        
+$contenido .= "     </td>";         
+$contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Perfil</span>";        
 $contenido .= "     </td>";    
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
@@ -122,10 +125,11 @@ foreach($resultadoListaFase as $key=>$value )
    {           
     $contenido .= "   <tr style='mso-yfti-irow:1' align='center' valign='middle'>";        
     $contenido .= "   <td width='30'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
-    $contenido .= "   <td width='150' align='justify'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
-    $contenido .= "   <td width='60'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
-    $contenido .= "   <td width='80' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
-    $contenido .= "   <td width='150' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
+    $contenido .= "   <td width='80' align='justify'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";        
+    $contenido .= "   <td width='150' align='justify'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
+    $contenido .= "   <td width='55'  align='center'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['inscripcion']."</span></td>";        
+    $contenido .= "   <td width='70' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
+    $contenido .= "   <td width='130' align='left'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
     //decodifica los puntaje de los criterios                    
     $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
     foreach ($puntajes as $pts => $puntos)
@@ -141,9 +145,9 @@ foreach($resultadoListaFase as $key=>$value )
         unset($puntajes);    
     $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</span></td>";        
     if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
+        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
     else
-        {$contenido .= "   <td width='85' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
+        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
     $contenido .= "   </tr>";
     }
 

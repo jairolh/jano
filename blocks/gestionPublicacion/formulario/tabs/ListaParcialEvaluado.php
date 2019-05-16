@@ -50,6 +50,7 @@ class faseEvaluado{
                              'tipo_cierre'=>$_REQUEST['tipo_cierre']);    
             $cadena_sql = $this->miSql->getCadenaSql("listadoCierreEvaluacion", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
+            
             //consulta los creterios de evaluación de la fase
             $cadena_sql = $this->miSql->getCadenaSql("consultaCriterioFase", $parametro);
             $criterioFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
@@ -59,8 +60,8 @@ class faseEvaluado{
                      $maximo_puntos+=$criterioFase[$crt]['maximo_puntos'];
                     }
             $_REQUEST['puntos_aprueba']=(($maximo_puntos*$_REQUEST['porcentaje_aprueba'])/100);
-            //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
-            $cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
+            $cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
+            //$cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
             $esteCampo = "marcoCerrado";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -108,6 +109,7 @@ class faseEvaluado{
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
                                             <th>Nro</th>
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
@@ -125,6 +127,7 @@ class faseEvaluado{
                         foreach($resultadoListaFase as $key=>$value )
                             {   $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
+                                                    <td align='justify' width='10%'>".$resultadoListaFase[$key]['codigo']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>

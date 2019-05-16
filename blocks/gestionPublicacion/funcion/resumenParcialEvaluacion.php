@@ -61,7 +61,7 @@ $paginaHeader.="    <tr>
                     </tr> ";
 $paginaHeader.= "   <tr>
                         <td align='center'>  
-                            <span style='font-size:9.0pt;'> Puntaje Aprobación: ".$_REQUEST['puntos_aprueba']."</span>
+                            <span style='font-size:9.0pt;'> Puntaje mínimo aprobación: ".$_REQUEST['puntos_aprueba']."</span>
                         </td>
                     </tr> ";
 $paginaHeader.= " </tbody>";
@@ -85,7 +85,7 @@ $paginafooter .= "</table>";
 $paginafooter .= "</page_footer>";
 
 //registra el contenido de la tabla - Tamaños carta  max: vert 680 - horz 940 ; Tamaños oficio  max: vert 680 - horz 1240
-$anchoCriterio=(650/(count($criterioFase)+1));
+$anchoCriterio=(600/(count($criterioFase)+1));
 $contenido  = "<div align=center>";        
 $contenido .= "<table align='center' class=MsoTableGrid border='1' cellspacing='0' cellpadding='0' style='border-collapse:collapse;border:none;'>";        
 $contenido .= "   <tr align='center' style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>";        

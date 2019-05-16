@@ -112,6 +112,7 @@ class faseElegibles{
                          $mostrarHtml.="<thead>
                                         <tr align='center' class='textoAzul'>
                                             <th>Nro</th>
+                                            <th>Código</th>
                                             <th>Perfil</th>
                                             <th>Inscripción</th>
                                             <th>Identificación</th>
@@ -129,6 +130,7 @@ class faseElegibles{
                         foreach($resultadoListaFase as $key=>$value )
                             {   $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
+                                                    <td align='justify' width='10%'>".$resultadoListaFase[$key]['codigo']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['inscripcion']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
@@ -215,7 +217,7 @@ class faseElegibles{
                                                         <th class='textoAzul' $cajaNombre>FASE:</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre']."</td></tr> "; 
                                 $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>Puntaje Aprueba:</th>
+                                                        <th class='textoAzul' $cajaNombre>Puntaje mínimo aprobación:</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['puntos_aprueba']."</td></tr> "; 
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";

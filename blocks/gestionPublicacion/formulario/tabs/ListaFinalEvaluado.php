@@ -214,7 +214,7 @@ class faseEvaluado{
                                                         <th class='textoAzul' $cajaNombre>FASE:</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['nombre']."</td></tr> "; 
                                 $mostrarHtml.= "<tr align='center'>
-                                                        <th class='textoAzul' $cajaNombre>Puntaje Aprueba:</th>
+                                                        <th class='textoAzul' $cajaNombre>Puntaje mínimo aprobación:</th>
                                                         <td class='table-tittle estilo_tr' $cajaDato>".$_REQUEST['puntos_aprueba']."</td></tr> "; 
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";

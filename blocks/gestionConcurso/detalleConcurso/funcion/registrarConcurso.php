@@ -62,10 +62,9 @@ class RegistradorConcurso {
                 $arregloDatos['codigo']=$codigo;
                 
                 $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
-                //$resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
-                $_REQUEST['consecutivo_concurso']=$resultadoConcurso=7;
-            
-               echo  $cadenaSql = $this->miSql->getCadenaSql ( 'consultaActividadObligatoria',$arregloDatos );
+                $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
+                
+                $cadenaSql = $this->miSql->getCadenaSql ( 'consultaActividadObligatoria',$arregloDatos );
                 $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
                 foreach ($resultadoActividad as $key => $value) {
                     $datosCalendario=array('consecutivo_concurso'=> $resultadoConcurso,
@@ -78,7 +77,7 @@ class RegistradorConcurso {
                                            'consecutivo_evaluar'=> 0,
                                            'porcentaje_aprueba'=>0
                                         );
-                   echo "<br>".$cadenaSql = $this->miSql->getCadenaSql ('registroCalendarioConcurso',$datosCalendario);
+                    $cadenaSql = $this->miSql->getCadenaSql ('registroCalendarioConcurso',$datosCalendario);
                     $resultadoCalendario = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $datosCalendario, "registroCalendarioConcurso" );
                 }
                 
@@ -86,12 +85,12 @@ class RegistradorConcurso {
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarConcurso" );
         }
-        exit;
+        
         if($resultadoConcurso)
             {   $datosSoporte=array('consecutivo_persona'=>0,
                                     'consecutivo_dato'=>$_REQUEST['consecutivo_concurso'],
                                     'id_usuario'=>$_REQUEST['id_usuario']);
-               // $this->miArchivo->procesarArchivo($datosSoporte);                
+                $this->miArchivo->procesarArchivo($datosSoporte);                
                 
                 redireccion::redireccionar('actualizoConcurso',$arregloDatos);  exit();
             }else

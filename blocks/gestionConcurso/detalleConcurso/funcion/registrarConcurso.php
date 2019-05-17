@@ -64,6 +64,8 @@ class RegistradorConcurso {
                 $cadenaSql = $this->miSql->getCadenaSql ( 'registroConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "registra", $arregloDatos, "registroConcurso" );
                 
+                $id_concurso=(int)$resultadoConcurso;
+
                 $cadenaSql = $this->miSql->getCadenaSql ( 'consultaActividadObligatoria',$arregloDatos );
                 $resultadoActividad = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "busqueda" );
                 foreach ($resultadoActividad as $key => $value) {
@@ -84,14 +86,15 @@ class RegistradorConcurso {
              }
         else {  $cadenaSql = $this->miSql->getCadenaSql ( 'actualizaConcurso',$arregloDatos );
                 $resultadoConcurso = $esteRecursoDB->ejecutarAcceso ( $cadenaSql, "actualiza", $arregloDatos, "actualizarConcurso" );
-        }
+                $id_concurso=$_REQUEST['consecutivo_concurso'];
+             }
         
         if($resultadoConcurso)
             {   $datosSoporte=array('consecutivo_persona'=>0,
-                                    'consecutivo_dato'=>$_REQUEST['consecutivo_concurso'],
-                                    'id_usuario'=>$_REQUEST['id_usuario']);
+                                    'consecutivo_dato'=>$id_concurso,
+                                    'id_usuario'=>$_REQUEST['id_usuario']); 
                 $this->miArchivo->procesarArchivo($datosSoporte);                
-                
+              
                 redireccion::redireccionar('actualizoConcurso',$arregloDatos);  exit();
             }else
             {

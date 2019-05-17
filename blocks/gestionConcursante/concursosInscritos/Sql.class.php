@@ -174,6 +174,9 @@ class Sql extends \Sql {
                 $cadenaSql.=" OR nombre='Evaluar hoja de vida'";
                 $cadenaSql.=" OR nombre='Pruebas idioma extranjero'";
                 $cadenaSql.=" OR nombre='Pruebas de competencias'";
+                $cadenaSql.=" ORDER BY consecutivo_actividad ";
+                
+                
                 break;
 
             case "consultaPerfil":
@@ -430,7 +433,7 @@ class Sql extends \Sql {
 			 $cadenaSql.=" AND ep.id_evaluar = ce.consecutivo_evaluar";
 			 $cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 			 $cadenaSql.=" AND ep.id_grupo=eg.id";
-			 $cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
+			 $cadenaSql.=" AND UPPER(concat(us.tipo_identificacion, '', us.identificacion))=UPPER(eg.id_evaluador)";
 			 $cadenaSql.=" AND ce.consecutivo_criterio in ";
 
 			 $cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
@@ -469,7 +472,7 @@ class Sql extends \Sql {
 	 			$cadenaSql.=" AND ep.id_evaluar = ce.consecutivo_evaluar";
 	 			$cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 	 			$cadenaSql.=" AND ep.id_grupo=eg.id";
-				$cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
+				$cadenaSql.=" AND UPPER(concat(us.tipo_identificacion, '', us.identificacion))=UPPER(eg.id_evaluador)";
 				$cadenaSql.=" AND ce.consecutivo_criterio IN";
 
 				$cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";
@@ -507,7 +510,7 @@ class Sql extends \Sql {
 			 $cadenaSql.=" AND ep.id_evaluar = ce.consecutivo_evaluar";
 			 $cadenaSql.=" AND ce.consecutivo_criterio=ceval.consecutivo_criterio";
 			 $cadenaSql.=" AND ep.id_grupo=eg.id";
-			 $cadenaSql.=" AND concat(us.tipo_identificacion, '', us.identificacion)=eg.id_evaluador";
+			 $cadenaSql.=" AND UPPER(concat(us.tipo_identificacion, '', us.identificacion))=UPPER(eg.id_evaluador)";
 			 $cadenaSql.=" AND ce.consecutivo_criterio NOT IN ";
 
 			 $cadenaSql .= "(select distinct criterio.consecutivo_criterio from ";

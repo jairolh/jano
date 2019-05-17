@@ -391,7 +391,7 @@ class consultaForm {
 
 					$parametro = array (
 							'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'],
-							'consecutivo_actividad' => $actividadesConReclamacion [2] ['consecutivo_actividad']
+							'consecutivo_actividad' => $actividadesConReclamacion [3] ['consecutivo_actividad']
 					);
 					$cadena_sql = $this->miSql->getCadenaSql ( "fechaFinReclamacion", $parametro );
 					$fechaFinReclamacionSegundaLengua = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );
@@ -804,7 +804,7 @@ class consultaForm {
 					// consulta fecha máxima para realizar reclamación: Fase de EVALUACION DE COMPETENCIAS
 					$parametro = array (
 							'consecutivo_concurso' => $_REQUEST ['consecutivo_concurso'],
-							'consecutivo_actividad' => $actividadesConReclamacion [3] ['consecutivo_actividad']
+							'consecutivo_actividad' => $actividadesConReclamacion [2] ['consecutivo_actividad']
 					);
 					$cadena_sql = $this->miSql->getCadenaSql ( "fechaFinReclamacion", $parametro );
 					$fechaFinReclamacionCompetencias = $esteRecursoDB->ejecutarAcceso ( $cadena_sql, "busqueda" );

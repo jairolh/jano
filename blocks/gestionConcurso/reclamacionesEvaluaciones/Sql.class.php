@@ -174,7 +174,7 @@ class Sql extends \Sql {
 					$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
 					$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
 					$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
-					$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
+					$cadenaSql .= " AND UPPER(concat(us.tipo_identificacion, '', us.identificacion))=UPPER(grupo.id_evaluador)";
 					$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
 					//$cadenaSql .= " AND evaluacion.estado='A'";
 					//echo $cadenaSql;
@@ -191,7 +191,7 @@ class Sql extends \Sql {
 				$cadenaSql .= " and ce.consecutivo_criterio=criterio.consecutivo_criterio";
 				$cadenaSql .= " AND reclamacion.id=" . $variable ['reclamacion'];
 				$cadenaSql .= " AND grupo.id=evaluacion.id_grupo";
-				$cadenaSql .= " AND concat(us.tipo_identificacion, '', us.identificacion)=grupo.id_evaluador";
+                                $cadenaSql .= " AND UPPER(concat(us.tipo_identificacion, '', us.identificacion))=UPPER(grupo.id_evaluador)";
 				$cadenaSql .= " AND grupo.id_evaluador='" . $variable ['usuario'] . "'";
                                 $cadenaSql .= " AND evaluacion.estado='A'";
                                 $cadenaSql .= " ORDER BY criterio.nombre";

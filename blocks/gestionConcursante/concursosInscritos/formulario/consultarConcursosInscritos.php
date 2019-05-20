@@ -91,7 +91,7 @@ class consultarForm {
             //buscar perfiles inscritos
             $cadena_sql = $this->miSql->getCadenaSql("consultaConcursosInscritos", $resultadoPersona[0][0]);
             $resultadoConcursosActivos = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-           
+            //var_dump($resultadoConcursosActivos);
             $esteCampo = "marcoDatosBasicos";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";
@@ -110,11 +110,10 @@ class consultarForm {
                         $atributos["leyenda"] = $this->lenguaje->getCadena($esteCampo);
                         //echo $this->miFormulario->marcoAgrupacion("inicio", $atributos);
                         unset($atributos);
-
                         echo "<div class='cell-border'><table id='tablaProcesos' class='table table-striped table-bordered'>";
-
                         echo "<thead>
                                 <tr align='center'>
+                                  <th>Inscripción</th>
                                   <th>Código</th>
                                   <th>Concurso</th>
                                   <th>Código Perfil</th>
@@ -159,7 +158,8 @@ class consultarForm {
                                 }
 
                                 $mostrarHtml = "<tr align='center'>
-                                        <td align='left'>".$resultadoConcursosActivos[$key]['codigo_concurso']."</td>
+                                        <td align='center'>".$resultadoConcursosActivos[$key]['consecutivo_inscrito']."</td>
+                                        <td align='center'>".$resultadoConcursosActivos[$key]['codigo_concurso']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['concurso']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['codigo_perfil']."</td>
                                         <td align='left'>".$resultadoConcursosActivos[$key]['perfil']."</td>
@@ -168,7 +168,6 @@ class consultarForm {
                                 $mostrarHtml .= "<td>";
 
                                     //-------------Enlace-----------------------
-                                    $esteCampo = "validar";
                                     $esteCampo = 'enlace_hoja'.$key;
                                     $atributos ['id'] = $esteCampo;
                                     $atributos ['enlace'] = 'javascript:enlace("ruta_enlace_hoja'.$key.'");';

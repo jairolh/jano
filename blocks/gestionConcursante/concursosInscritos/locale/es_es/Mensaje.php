@@ -2,40 +2,48 @@
 <?php
 $this->idioma ["noDefinido"] = "Etiqueta no esta definida en locale/es_es/Mensaje.php";
 
+$this->idioma["marcoInscripcion"]="Detalle inscripción";
+$this->idioma["marcoEvaluacionPerfil"]="Resultados Evaluación Perfil";
+
+
+
+$this->idioma["inscripcion"]="Número Inscripción:";
+$this->idioma["fecha_registro"]="Fecha Inscripción:";
+$this->idioma["nombre"]="Nombre Concurso:";
+$this->idioma["modalidad"]="Modalidad Concurso:";
+$this->idioma["codigo"]="Código perfil:";
+$this->idioma["perfil"]="Perfil:";
+$this->idioma["dependencia"]="Dependencia / Facultad:";
+$this->idioma["area"]="Área / Proyecto:";
+$this->idioma["nivel_concurso"]="Nivel Concurso:";
+
+
+
+
+
 $this->idioma ["selecc_registros"] ="Selección Registros: ";
-
 $this->idioma ["observaciones"] ="Observaciones ";
-
 $this->idioma ["observacionesTitulo"] ="Ingrese Observaciones";
-
 $this->idioma ["botonAceptar"] ="Aceptar";
 $this->idioma ["botonCriterio"] ="Aceptar";
-
 $this->idioma ["botonCancelar"] ="Cancelar";
-
 $this->idioma ["botonContinuar"] ="Continuar";
-
 $this->idioma ["botonConsultar"] ="Consultar";
-
 $this->idioma ["botonRegresar"] =" Regresar ";
 
 $this->idioma["marcoSubsistema"]="Evaluación de Aspirante";
 $this->idioma["marcoNuevaEvaluacion"]="Nueva Evaluación";
-
 $this->idioma["nivel"]="Nivel";
 $this->idioma["seleccionNivel"]="Selección nivel";
 
 $this->idioma["marcoEditaPerfil"]="Editar Datos de Factor";
-
 $this->idioma["marcoEditaModalidad"]="Editar Datos de la Modalidad";
 $this->idioma["marcoEditaActividad"]="Editar Datos de la Actividad";
 $this->idioma["marcoConsultaReclamacion"]="Reclamación";
 
 $this->idioma["tabCriterios"]="Gestión de Criterios";
 $this->idioma["tabJurados"]="Jurados";
-
 $this->idioma["marcoPerfil"]="Nuevo Criterio de Evaluación";
-
 $this->idioma["marcoCriterio"]="Nuevo tipo de jurado";
 $this->idioma["marcoCriterios"]="Agregar criterio al tipo de jurado";
 $this->idioma["marcoJurados"]="Asignar tipo de jurado a usuario";
@@ -113,8 +121,9 @@ $this->idioma["botonInscribir"]="Aplicar ";
 
 //------------------Mensajes -----------------------------------
 
-$this->idioma["continuar"]="Continuar";
+$this->idioma ["noEncontroEvaluacion"] ="No existen datos Registrados de Evaluación. ";
 
+$this->idioma["continuar"]="Continuar";
 $this->idioma["regresar"]="Regresar";
 
 $this->idioma["marcoDetalleTipoJurado"]="Detalle Tipo Jurado";

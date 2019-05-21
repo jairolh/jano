@@ -122,6 +122,7 @@ class consultaForm {
 			unset ( $atributos );
 			{
                             include ($this->ruta . "formulario/tabs/evaluacionPerfil.php");
+                            include ($this->ruta . "formulario/tabs/evaluacionFases.php");
 
 			}
 

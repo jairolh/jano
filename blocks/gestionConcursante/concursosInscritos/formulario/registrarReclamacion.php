@@ -79,7 +79,12 @@ class registrarForm {
 			$directorio .= $this->miConfigurador->getVariableConfiguracion ( "enlace" );
 
 			$variable = "pagina=" . $miPaginaActual;
-			$variable .= "&opcion=gestionActividades";
+			$variable .= "&opcion=consultaEvaluacion";
+                        $variable .= "&usuario=".$_REQUEST['usuario'];
+                        $variable .= "&consecutivo_inscrito=".$_REQUEST['consecutivo_inscrito'];
+                        $variable .= "&consecutivo_concurso=".$_REQUEST['consecutivo_concurso'];
+                        $variable .= "&consecutivo_perfil=".$_REQUEST['consecutivo_perfil'];
+                        
 			$variable = $this->miConfigurador->fabricaConexiones->crypto->codificar_url ( $variable, $directorio );
 
 			// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------

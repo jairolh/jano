@@ -118,7 +118,7 @@ class faseFinal{
                                                     <td align='left'>".$resultadoListaFase[$key]['identificacion']."</td>
                                                     <td align='left' width='10%' >".$resultadoListaFase[$key]['nombre']."</td>
                                                     <td align='left' width='10%'>".$resultadoListaFase[$key]['apellido']."</td>
-                                                    <td align='left'>".$resultadoListaFase[$key]['cumple_requisito']."</td>
+                                                    <td align='left'>".ucwords(strtolower($resultadoListaFase[$key]['cumple_requisito']))." cumple</td>
                                                     <td align='justify' width='25%' >".$resultadoListaFase[$key]['observacion']."</td>";
                                            $mostrarHtml.= "</tr>";
                                            //echo $mostrarHtml;

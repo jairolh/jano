@@ -125,8 +125,24 @@ class faseEvaluado{
                                         </tr>
                                     </thead>
                                     <tbody>";
-                        foreach($resultadoListaFase as $key=>$value )
-                            {   $mostrarHtml.= "<tr align='center'>
+                            $aux=0; 
+                            $listado=array();
+                            foreach($resultadoListaFase as $key=>$value )
+                                {   if(!in_array($resultadoListaFase[$key]['codigo'], $listado))
+                                        { array_push($listado, $resultadoListaFase[$key]['codigo']);
+                                          $aux=1;
+                                        }
+                                    if($resultadoListaFase[$key]['vacantes']>=$aux)
+                                        {
+                                          $estado='<b>Seleccionado</b>';
+                                          $aux++;
+                                        }
+                                    else{
+                                        //$estado='Continúa';
+                                        $estado='';
+                                        $aux++;
+                                        }
+                                $mostrarHtml.= "<tr align='center'>
                                                     <td align='left'>".($key+1)."</td>
                                                     <td align='justify' width='10%'>".$resultadoListaFase[$key]['codigo']."</td>
                                                     <td align='left'>".$resultadoListaFase[$key]['perfil']."</td>
@@ -148,7 +164,12 @@ class faseEvaluado{
                                     unset($puntajes);
                                     
                                 $mostrarHtml.= "   <td align='right'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</td>";
-                                $mostrarHtml.= "   <td align='left'>".(($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])?'Aprobó':'No aprobó');
+                                
+                                if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
+                                    {$mostrarHtml.= "   <td align='left'><span style='color:green'>$estado</span></td>"; }       
+                                else
+                                    {$mostrarHtml.= "   <td align='left'><span style='color:red'> No continúa</span></td>"; }
+                                
                                 $mostrarHtml.= "   </td>";    
                                 $mostrarHtml.= "</tr>";
                                            //echo $mostrarHtml;

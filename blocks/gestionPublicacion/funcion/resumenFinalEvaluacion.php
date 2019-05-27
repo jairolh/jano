@@ -30,7 +30,7 @@ $criterioFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
 
 //armar el contenido de la cabecera de la Página - carta vert 120,450,120 - oficio HOR 120,1000,120
 $paginaHeader= "<page_header>";
-$paginaHeader.= "<table align='center' border='0' width = '100%'>";
+$paginaHeader.= "<table align='center' border='0' width = '1240'>";
 $paginaHeader.= " <tbody>";
 $paginaHeader.= "   <tr valign='middle' >";
 $paginaHeader.= "       <td width='120' align='center' rowspan=5 >";
@@ -43,7 +43,7 @@ $paginaHeader.= "            <img src='".$directorio."images/Jano.png' alt='Sist
 $paginaHeader.= "       </td>";
 $paginaHeader.= " </tr> ";
 $paginaHeader.="    <tr >
-                        <td align='center'>  
+                        <td  width='1000' align='center'>  
                             <span style='font-size:10.0pt;'> Concurso: ".$_REQUEST['nombre_concurso']."</span>
                         </td>
                     </tr> ";
@@ -59,26 +59,29 @@ $paginaHeader.="    <tr>
                             </span>
                         </td>
                     </tr> ";
+$puntaje_aprueba=($_REQUEST['puntos_aprueba']>0)?'Puntaje mínimo aprobación: '.$_REQUEST['puntos_aprueba']:'';
 $paginaHeader.= "   <tr>
                         <td align='center'>  
-                            <span style='font-size:9.0pt;'>Puntaje mínimo aprobación: ".$_REQUEST['puntos_aprueba']."</span>
+                            <span style='font-size:9.0pt;'>".$puntaje_aprueba."</span>
                         </td>
                     </tr> ";
 $paginaHeader.= " </tbody>";
 $paginaHeader.= "</table>";
- 
 $paginaHeader.= "</page_header>";
 
 //armar el contenido del pie de Página
 $paginafooter  = "<page_footer>";
 $paginafooter .= "<table align='center' width = '100%'>";
 $paginafooter .= "  <tr>";
-$paginafooter .= "      <td align='center'>";
+$paginafooter .= "      <td align='center' >";
 $paginafooter .= "        <span style='font-size:8.0pt;'>";
-$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas - Todos los derechos reservados.";
+$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas";
 $paginafooter .= "        <br> Carrera 8 N. 40-78 Piso 1 / PBX 3238400 - 3239300";
 $paginafooter .= "        <br>                        ".$correo;
-$paginafooter .= "          </span> ";
+$paginafooter .= "        </span> ";
+$paginafooter .= "        <span style='font-size:7.0pt;'>";
+$paginafooter .= "        <br><br>Impreso mediante ". mb_strtolower($aplicativo, 'UTF-8')." - ".date("Y-m-d H:i:s")." - Página [[page_cu]] de [[page_nb]]";
+$paginafooter .= "        </span> ";
 $paginafooter .= "      </td>";
 $paginafooter .= " </tr>";
 $paginafooter .= "</table>";
@@ -116,9 +119,14 @@ foreach ($criterioFase as $crt => $criterio)
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Total</span>";        
 $contenido .= "     </td>"; 
-$contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
-$contenido .= "     <span style='font-size:9.0pt;'>Estado</span>";        
-$contenido .= "     </td>"; 
+
+if ($_REQUEST['puntos_aprueba']>0)
+    {
+    $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
+    $contenido .= "     <span style='font-size:9.0pt;'>Estado</span>";        
+    $contenido .= "     </td>"; 
+    }
+
 $contenido .= "   </tr>";        
 
 foreach($resultadoListaFase as $key=>$value )
@@ -144,10 +152,10 @@ foreach($resultadoListaFase as $key=>$value )
         }
         unset($puntajes);    
     $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</span></td>";        
-    if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
-        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
-    else
-        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
+    if($_REQUEST['puntos_aprueba']>0 && $resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
+        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:green'>Continúa</span></td>"; }       
+    elseif ($_REQUEST['puntos_aprueba']>0)
+        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:red'> No continúa</span></td>"; }       
     $contenido .= "   </tr>";
     }
 
@@ -155,12 +163,12 @@ $contenido .= "</table>   ";
 $contenido .= "</div>   ";        
     
 //arma la pagina en pdf    
-$contenidoPagina = "<page backtop='30mm' backbottom='10mm' backleft='10mm' backright='10mm'>";    
+$contenidoPagina = "<page backtop='30mm' backbottom='20mm' backleft='10mm' backright='10mm'>";    
 $contenidoPagina .= $paginaHeader;
 $contenidoPagina .= $paginafooter;
 $contenidoPagina .= $contenido;
 $contenidoPagina .= "</page>";
-$nombre= 'resumenFase_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
+$nombre= 'ListaFase_'.str_replace(' ','_',trim($_REQUEST['nombre'])).'_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
 //$contenido .= "<nobreak>"; 
 
 /**

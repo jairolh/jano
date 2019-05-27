@@ -50,8 +50,8 @@ class faseCerrado{
                              'consecutivo_calendario'=>$_REQUEST['consecutivo_calendario']);    
             $cadena_sql = $this->miSql->getCadenaSql("consultaFaseCerroValida", $parametro);
             $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-            //$cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
-            $cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
+            $cierre=isset($resultadoListaFase)?substr($resultadoListaFase[0]['fecha_registro'],0,10):'';
+            //$cierre=isset($resultadoListaFase)?$resultadoListaFase[0]['fecha_registro']:'';
             $esteCampo = "marcoCerrado";
             $atributos ['id'] = $esteCampo;
             $atributos ["estilo"] = "jqueryui";

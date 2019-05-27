@@ -37,14 +37,14 @@ $paginaHeader.= "   <tr valign='middle' >";
 $paginaHeader.= "       <td width='120' align='center' rowspan=5 >";
 $paginaHeader.= "            <img src='".$directorio."images/escudo_ud.png' alt='Universidad Distrital Francisco José de Caldas' height='100' width='92'>";
 $paginaHeader.= "       </td>
-                        <td width='1000'align='center'><b><span style='font-size:13.0pt;mso-bidi-font-size:11.0pt;line-height:107%'>".mb_strtoupper($aplicativo, 'UTF-8')."</span></b>
+                        <td width='1000' align='center'><b><span style='font-size:13.0pt;mso-bidi-font-size:11.0pt;line-height:107%'>".mb_strtoupper($aplicativo, 'UTF-8')."</span></b>
                         </td>";
 $paginaHeader.= "       <td width='120' align='center' rowspan=5 >";
 $paginaHeader.= "            <img src='".$directorio."images/Jano.png' alt='Sistema Gestión de Concursos' height='51' width='120'>";
 $paginaHeader.= "       </td>";
 $paginaHeader.= " </tr> ";
 $paginaHeader.="    <tr >
-                        <td align='center'>  
+                        <td width='1000' align='center'>  
                             <span style='font-size:10.0pt;'> Concurso: ".$_REQUEST['nombre_concurso']."</span>
                         </td>
                     </tr> ";
@@ -60,9 +60,10 @@ $paginaHeader.="    <tr>
                             </span>
                         </td>
                     </tr> ";
+$puntaje_aprueba=($_REQUEST['puntos_aprueba']>0)?'Puntaje mínimo aprobación: '.$_REQUEST['puntos_aprueba']:'';
 $paginaHeader.= "   <tr>
                         <td align='center'>  
-                            <span style='font-size:9.0pt;'> Puntaje mínimo aprobación: ".$_REQUEST['puntos_aprueba']."</span>
+                            <span style='font-size:9.0pt;'>".$puntaje_aprueba."</span>
                         </td>
                     </tr> ";
 $paginaHeader.= " </tbody>";
@@ -74,12 +75,15 @@ $paginaHeader.= "</page_header>";
 $paginafooter  = "<page_footer>";
 $paginafooter .= "<table align='center' width = '100%'>";
 $paginafooter .= "  <tr>";
-$paginafooter .= "      <td align='center'>";
+$paginafooter .= "      <td align='center' >";
 $paginafooter .= "        <span style='font-size:8.0pt;'>";
-$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas - Todos los derechos reservados.";
+$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas";
 $paginafooter .= "        <br> Carrera 8 N. 40-78 Piso 1 / PBX 3238400 - 3239300";
 $paginafooter .= "        <br>                        ".$correo;
-$paginafooter .= "          </span> ";
+$paginafooter .= "        </span> ";
+$paginafooter .= "        <span style='font-size:7.0pt;'>";
+$paginafooter .= "        <br><br>Impreso mediante ". mb_strtolower($aplicativo, 'UTF-8')." - ".date("Y-m-d H:i:s")." - Página [[page_cu]] de [[page_nb]]";
+$paginafooter .= "        </span> ";
 $paginafooter .= "      </td>";
 $paginafooter .= " </tr>";
 $paginafooter .= "</table>";
@@ -120,10 +124,28 @@ $contenido .= "     </td>";
 $contenido .= "     <td align='center'  valign=top style='border:solid windowtext 1.0pt;background:#BDD6EE;'>";        
 $contenido .= "     <span style='font-size:9.0pt;'>Estado</span>";        
 $contenido .= "     </td>"; 
+
 $contenido .= "   </tr>";        
 
+$aux=0; 
+$listado=array();
 foreach($resultadoListaFase as $key=>$value )
-   {           
+    {   if(!in_array($resultadoListaFase[$key]['codigo'], $listado))
+            { array_push($listado, $resultadoListaFase[$key]['codigo']);
+              $aux=1;
+            }
+        if($resultadoListaFase[$key]['vacantes']>=$aux)
+            {
+              $estado='<b>Seleccionado</b>';
+              $aux++;
+            }
+        else{
+            //$estado='continúa';
+            $estado='';
+            $aux++;
+            }  
+
+    
     $contenido .= "   <tr style='mso-yfti-irow:1' align='center' valign='middle'>";        
     $contenido .= "   <td width='30'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
     $contenido .= "   <td width='80' align='justify'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";        
@@ -146,9 +168,9 @@ foreach($resultadoListaFase as $key=>$value )
         unset($puntajes);    
     $contenido .= "   <td width='".$anchoCriterio."'  align='center'><span style='font-size:7.5pt;'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</span></td>";        
     if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
-        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:green'>Aprobó</span></td>"; }       
+        {$contenido .= "   <td width='60' align='justify'><span style='font-size:7.5pt;color:green'>$estado</span></td>"; }       
     else
-        {$contenido .= "   <td width='55' align='justify'><span style='font-size:7.5pt;color:red'> No aprobó</span></td>"; }       
+        {$contenido .= "   <td width='60' align='justify'><span style='font-size:7.5pt;color:red'> No continúa</span></td>"; }       
     $contenido .= "   </tr>";
     }
 
@@ -156,12 +178,12 @@ $contenido .= "</table>   ";
 $contenido .= "</div>   ";        
     
 //arma la pagina en pdf    
-$contenidoPagina = "<page backtop='30mm' backbottom='10mm' backleft='10mm' backright='10mm'>";    
+$contenidoPagina = "<page backtop='30mm' backbottom='20mm' backleft='10mm' backright='10mm'>";    
 $contenidoPagina .= $paginaHeader;
 $contenidoPagina .= $paginafooter;
 $contenidoPagina .= $contenido;
 $contenidoPagina .= "</page>";
-$nombre= 'resumenFase_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
+$nombre= 'ListaFase_'.str_replace(' ','_',trim($_REQUEST['nombre'])).'_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
 //$contenido .= "<nobreak>"; 
 
 /**

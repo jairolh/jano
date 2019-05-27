@@ -149,7 +149,10 @@ class faseEvaluado{
                                     unset($puntajes);
                                     
                                 $mostrarHtml.= "   <td align='right'>".number_format($resultadoListaFase[$key]['puntaje_promedio'],2)."</td>";
-                                $mostrarHtml.= "   <td align='left'>".(($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])?'Aprobó':'No aprobó');
+                                if($resultadoListaFase[$key]['puntaje_promedio']>=$_REQUEST['puntos_aprueba'])
+                                    {$mostrarHtml.= "   <td align='left'><span style='color:green'>Continúa</span></td>"; }       
+                                else
+                                    {$mostrarHtml.= "   <td align='left'><span style='color:red'> No continúa</span></td>"; }
                                 $mostrarHtml.= "   </td>";    
                                 $mostrarHtml.= "</tr>";
                                            //echo $mostrarHtml;

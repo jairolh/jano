@@ -39,7 +39,7 @@ $paginaHeader.= "            <img src='".$directorio."images/Jano.png' alt='Sist
 $paginaHeader.= "       </td>";
 $paginaHeader.= " </tr> ";
 $paginaHeader.="    <tr >
-                        <td align='center'>  
+                        <td  width='450' align='center'>  
                             <span style='font-size:10.0pt;'> Concurso: ".$_REQUEST['nombre_concurso']."</span>
                         </td>
                     </tr> ";
@@ -64,12 +64,15 @@ $paginaHeader.= "</page_header>";
 $paginafooter  = "<page_footer>";
 $paginafooter .= "<table align='center' width = '100%'>";
 $paginafooter .= "  <tr>";
-$paginafooter .= "      <td align='center'>";
+$paginafooter .= "      <td align='center' >";
 $paginafooter .= "        <span style='font-size:8.0pt;'>";
-$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas - Todos los derechos reservados.";
+$paginafooter .= "        Universidad Distrital Francisco Jos&eacute; de Caldas";
 $paginafooter .= "        <br> Carrera 8 N. 40-78 Piso 1 / PBX 3238400 - 3239300";
 $paginafooter .= "        <br>                        ".$correo;
-$paginafooter .= "          </span> ";
+$paginafooter .= "        </span> ";
+$paginafooter .= "        <span style='font-size:7.0pt;'>";
+$paginafooter .= "        <br><br>Impreso mediante ". mb_strtolower($aplicativo, 'UTF-8')." - ".date("Y-m-d H:i:s")." - Página [[page_cu]] de [[page_nb]]";
+$paginafooter .= "        </span> ";
 $paginafooter .= "      </td>";
 $paginafooter .= " </tr>";
 $paginafooter .= "</table>";
@@ -102,13 +105,13 @@ $contenido .= "   </tr>";
 
 foreach($resultadoListaFase as $key=>$value )
    {           
-    $contenido .= "   <tr style='mso-yfti-irow:1' align='center'>";        
-    $contenido .= "   <td align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
-    $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";
-    $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
-    $contenido .= "   <td align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['consecutivo_inscrito']."</span></td>";        
-    $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
-    $contenido .= "   <td align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
+    $contenido .= "   <tr style='mso-yfti-irow:1' align='center' valign='middle'>";        
+    $contenido .= "   <td width='30'  align='center' ><span style='font-size:7.0pt;'>".($key+1)."</span></td>";        
+    $contenido .= "   <td width='85' align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['codigo']."</span></td>";
+    $contenido .= "   <td width='185'  align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['perfil']."</span></td>";        
+    $contenido .= "   <td width='60'  align='center'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['consecutivo_inscrito']."</span></td>";        
+    $contenido .= "   <td width='100'  align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['identificacion']."</span></td>";        
+    $contenido .= "   <td width='220'  align='left'><span style='font-size:7.5pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
     $contenido .= "   </tr>";
     }
 
@@ -116,12 +119,12 @@ $contenido .= "</table>   ";
 $contenido .= "</div>   ";        
     
 //arma la pagina en pdf    
-$contenidoPagina = "<page backtop='30mm' backbottom='10mm' backleft='10mm' backright='10mm'>";    
+$contenidoPagina = "<page backtop='30mm' backbottom='20mm' backleft='10mm' backright='10mm'>";    
 $contenidoPagina .= $paginaHeader;
 $contenidoPagina .= $paginafooter;
 $contenidoPagina .= $contenido;
 $contenidoPagina .= "</page>";
-$nombre= 'resumenFase_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
+$nombre= 'ListaFase_'.str_replace(' ','_',trim($_REQUEST['nombre'])).'_'.str_replace(' ','_',trim($_REQUEST['nombre_concurso'])).'.pdf';
 $html2pdf = new HTML2PDF('P','LETTER','es'); //Vertical
 //$html2pdf = new HTML2PDF('L','LETTER','es'); //Horizontal
 $res = $html2pdf->WriteHTML($contenidoPagina);

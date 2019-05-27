@@ -61,7 +61,7 @@ class fasesEvaluacion {
               //  var_dump($criterioFase);
 
                 $parametro['estado_evaluar']='A';
-                $cadena_sql = $this->miSql->getCadenaSql("listadoCierreEvaluacion", $parametro);
+                $cadena_sql = $this->miSql->getCadenaSql("listadoCierreEvaluacionResultados", $parametro);
                 $resultadoListaFase= $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
                 //fases de evaluacion
                               

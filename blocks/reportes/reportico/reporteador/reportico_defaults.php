@@ -155,7 +155,7 @@
                 $reportico->set_page_header_attribute("H3", "justify", "right" );
 
                 // Create Page No on bottom of PDF page
-                $reportico->create_page_footer("F1", 2, "Impreso por: ".$user." Sistema de Gestión Financiera - TIKE {STYLE border-width: 1 0 0 0; margin: 40 0 0 0; font-size: 8; text-align: left; font-style: italic; }" );
+                $reportico->create_page_footer("F1", 2, "Impreso por: ".$user." Sistema de Gestión de concursos - JANO {STYLE border-width: 1 0 0 0; margin: 40 0 0 0; font-size: 8; text-align: left; font-style: italic; }" );
                 $reportico->create_page_footer("F2", 2, "Página: {PAGE}{STYLE border-width: 1 0 0 0; margin: 40 0 0 0; font-style: italic; }" );
                 //$reportico->create_page_footer("F3", 2, "Fuente de datos: Sistema Sicapital {STYLE border-width: 1 0 0 0; margin: 40 0 0 0; font-size: 8; text-align: right; font-style: italic; }" );
             }

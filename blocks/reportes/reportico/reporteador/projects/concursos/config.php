@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------------
 
 // Password required to gain access to the project
-define('SW_PROJECT_PASSWORD', 'contabilidadTike');
+define('SW_PROJECT_PASSWORD', 'concursosJano');
 
 // Location of Reportico Top Level Directory From Browser Point of View
 define('SW_HTTP_BASEDIR', './');
@@ -16,7 +16,7 @@ define('SW_HTTP_URLHOST', 'http://127.0.0.1');
 define('SW_DEFAULT_PROJECT', 'reports');
 
 // Project Title used at the top of menus
-define('SW_PROJECT_TITLE', 'Contabilidad');
+define('SW_PROJECT_TITLE', 'concursos');
 
 // Identify whether to always run in into Debug Mode
 define('SW_ALLOW_OUTPUT', true);
@@ -30,7 +30,7 @@ define('SW_DEFAULT_SHOWCRITERIA', false);
 // are prevented. This means that the designer prevents entry of potentially
 // cdangerous ustom PHP source in the Custom Source Section or potentially
 // dangerous SQL statements in Pre-Execute Criteria sections
-define('SW_SAFE_DESIGN_MODE',false);
+define('SW_SAFE_DESIGN_MODE',true);
 
 // If false prevents any designing of reports
 define('SW_ALLOW_MAINTAIN', true);
@@ -41,7 +41,7 @@ define('AJAX_ENABLED',true);
 
 // Location of Reportico Top Level Directory From Browser Point of View
 // DB connection details for ADODB
-define('SW_DB_TYPE', 'oci8');
+define('SW_DB_TYPE', 'pdo_pgsql');
 // If connecting to existing framework db then use
 // db parameters from external framework
 if ( SW_DB_TYPE == "framework" )
@@ -55,10 +55,10 @@ define('SW_DB_DATABASE', SW_FRAMEWORK_DB_DATABASE);
 else
 {
 define('SW_DB_DRIVER', SW_DB_TYPE);
-define('SW_DB_USER', 'SICGEFAD');
-define('SW_DB_PASSWORD', 's1cg3f@d2013');
-define('SW_DB_HOST', '10.20.251.254:1524');
-define('SW_DB_DATABASE', 'ud');
+define('SW_DB_USER', 'jano_reporte');
+define('SW_DB_PASSWORD', 'r3p0rt3s=jano2017');
+define('SW_DB_HOST', '10.20.0.184:5434');
+define('SW_DB_DATABASE', 'jano');
 }
 define('SW_DB_CONNECT_FROM_CONFIG', true);
 define('SW_DB_DATEFORMAT', 'Y-m-d');

@@ -278,7 +278,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="prmd.evaluaciones, ";
                                 $cadenaSql.="prmd.fecha_registro,  ";
                                 $cadenaSql.="prmd.id_reclamacion,  ";
-                                $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
+                                $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' WHEN prmd.estado='I' THEN 'Inactivo' ELSE '' END) estado_prom ";
                                 $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                 $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona ";
@@ -324,7 +324,7 @@ class Sql extends \Sql {
                                     $cadenaSql.="prmd.evaluaciones, ";
                                     $cadenaSql.="prmd.fecha_registro,  ";
                                     $cadenaSql.="prmd.id_reclamacion,  ";
-                                    $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
+                                    $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' WHEN prmd.estado='I' THEN 'Inactivo' ELSE '' END) estado_prom ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                     $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                     $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona  ";
@@ -360,7 +360,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="prmd.evaluaciones, ";
                                 $cadenaSql.="prmd.fecha_registro,  ";
                                 $cadenaSql.="prmd.id_reclamacion,  ";
-                                $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' ELSE 'Inactivo' END) estado_prom ";
+                                $cadenaSql.=" (CASE WHEN prmd.estado='A' THEN 'Activo' WHEN prmd.estado='I' THEN 'Inactivo' ELSE '' END) estado_prom ";
                                 $cadenaSql.="FROM concurso.concurso_perfil prf  ";
                                 $cadenaSql.="INNER JOIN concurso.concurso_inscrito insc ON prf.consecutivo_perfil=insc.consecutivo_perfil  AND prf.estado='A' ";
                                 $cadenaSql.="INNER JOIN concurso.persona bas ON bas.consecutivo=insc.consecutivo_persona ";

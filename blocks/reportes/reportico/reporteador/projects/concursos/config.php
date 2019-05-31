@@ -56,8 +56,17 @@ else
 {
 define('SW_DB_DRIVER', SW_DB_TYPE);
 define('SW_DB_USER', 'jano_reporte');
-define('SW_DB_PASSWORD', 'r3p0rt3s=jano2017');
-define('SW_DB_HOST', '10.20.0.184:5434');
+$oas_external_env = getEnv('OAS_EXTERNAL_ENV');
+if($oas_external_env == 'master') {
+        define('SW_DB_PASSWORD', 'KQuZdWktMGMZu5vo');
+        define('SW_DB_HOST', 'pgprod.udistritaloas.edu.co:5432');
+}else if($oas_external_env == 'develop') {
+        define('SW_DB_PASSWORD', 'r3p0rt3s=jano2017');
+        define('SW_DB_HOST', 'pruebaspostgres.c8an9arwoaua.us-east-1.rds.amazonaws.com:5432');
+}
+else {  define('SW_DB_PASSWORD', 'r3p0rt3s=jano2017');
+        define('SW_DB_HOST', '10.20.0.184:5434');
+        }
 define('SW_DB_DATABASE', 'jano');
 }
 define('SW_DB_CONNECT_FROM_CONFIG', true);

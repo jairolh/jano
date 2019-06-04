@@ -295,7 +295,7 @@ class idiomaForm {
                                     $atributos ['estilo'] = 'jqueryui';
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['etiquetaObligatorio'] = false;
                                     $atributos ['columnas'] = 1;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
@@ -307,7 +307,7 @@ class idiomaForm {
                                     else {   $atributos ['valor'] = '';
                                          }
                                     $atributos ['deshabilitado'] = false;                                    
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -325,7 +325,7 @@ class idiomaForm {
                                     $atributos ['estilo'] = 'jqueryui';
                                     $atributos ['marco'] = true;
                                     $atributos ['estiloMarco'] = '';
-                                    $atributos ["etiquetaObligatorio"] = true;
+                                    $atributos ['etiquetaObligatorio'] = false;
                                     $atributos ['columnas'] = 1;
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
@@ -337,7 +337,7 @@ class idiomaForm {
                                     else {   $atributos ['valor'] = '';
                                          }
                                     $atributos ['deshabilitado'] = false;                                    
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

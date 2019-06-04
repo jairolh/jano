@@ -229,7 +229,7 @@ class actividadForm {
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -258,7 +258,7 @@ class actividadForm {
                                             $atributos ['valor'] = '';
                                     }
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -348,7 +348,7 @@ class actividadForm {
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -378,7 +378,7 @@ class actividadForm {
                                          }
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;
@@ -404,7 +404,7 @@ class actividadForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -434,13 +434,13 @@ class actividadForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],custom[onlyLetterSp]";
                                     if (isset ( $resultadoActividad[0]['jefe_actividad'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['jefe_actividad']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;     
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );                                    
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
                                     $atributos ['anchoEtiqueta'] = 170;

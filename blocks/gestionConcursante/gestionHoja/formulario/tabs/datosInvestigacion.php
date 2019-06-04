@@ -214,7 +214,7 @@ class investigacionForm {
                                     else {   $atributos ['valor'] = '';
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -243,7 +243,7 @@ class investigacionForm {
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -300,7 +300,7 @@ class investigacionForm {
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['rol_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -328,7 +328,7 @@ class investigacionForm {
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['titulo_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -351,12 +351,12 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],custom[onlyLetterSp]";
                                     if (isset ( $resultadoInvestigacion[0]['jefe_investigacion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['jefe_investigacion']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -381,7 +381,7 @@ class investigacionForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -417,7 +417,7 @@ class investigacionForm {
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['grupo_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -445,7 +445,7 @@ class investigacionForm {
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['categoria_grupo'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -566,7 +566,7 @@ class investigacionForm {
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['direccion_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

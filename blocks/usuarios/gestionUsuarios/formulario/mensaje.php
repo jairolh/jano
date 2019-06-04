@@ -175,7 +175,7 @@ class registrarForm {
                                     
                                     case "actualizo":
                                         $tipo = 'success';
-                                        $mensaje = "Los datos del usuario ".$_REQUEST['id_usuario']." se actualizarón exitosamente.";
+                                        $mensaje = "Los datos del usuario ".$_REQUEST['id_usuario']." se actualizaron exitosamente.";
                                         $boton = "continuar";
                                         break;
                                     

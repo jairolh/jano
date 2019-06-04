@@ -252,7 +252,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = '';
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -282,7 +282,7 @@ class produccionForm {
                                     else {   $atributos ['valor'] = '';
                                          }
                                     $atributos ['deshabilitado'] = false;                                                                             
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -305,11 +305,11 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],custom[onlyLetterSp]";
                                     if (isset ( $resultadoProduccion[0]['nombre_autor'] )) 
                                          {  $atributos ['valor'] = $resultadoProduccion[0]['nombre_autor'];} 
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -364,7 +364,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_producto_incluye'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -392,7 +392,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_editorial']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -420,7 +420,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['volumen']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -448,7 +448,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['pagina']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -476,7 +476,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['codigo_isbn']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -504,7 +504,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['codigo_issn']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -532,7 +532,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['indexado']; }
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -557,7 +557,7 @@ class produccionForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -606,7 +606,7 @@ class produccionForm {
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['direccion_produccion'];}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

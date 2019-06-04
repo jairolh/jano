@@ -304,7 +304,7 @@ class registrarForm {
                                             $atributos ['dobleLinea'] = 0;
                                             $atributos ['tabIndex'] = $tab;
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                            $atributos ['validar']="required, minSize[5]";
+                                            $atributos ['validar']="required, minSize[2]";
                                             $atributos ['valor'] = $resultadoUsuarios[0]['nombre'];
                                             $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                             //tooltip - $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
@@ -331,7 +331,7 @@ class registrarForm {
                                             $atributos ['dobleLinea'] = 0;
                                             $atributos ['tabIndex'] = $tab;
                                             $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                            $atributos ['validar']="required, minSize[5]";
+                                            $atributos ['validar']="required, minSize[2]";
                                             $atributos ['valor'] =  $resultadoUsuarios[0]['apellido'];
                                             $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                             //tooltip -     $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );

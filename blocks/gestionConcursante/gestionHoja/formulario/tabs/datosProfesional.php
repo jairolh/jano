@@ -156,7 +156,7 @@ class profesionalForm {
                                     if (isset ( $resultadoProfesional[0]['cargo'] )) {
                                             $atributos ['valor'] = $resultadoProfesional[0]['cargo']; }
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -212,7 +212,7 @@ class profesionalForm {
                                     if (isset ( $resultadoProfesional[0]['nombre_institucion'] )) 
                                          {   $atributos ['valor'] = $resultadoProfesional[0]['nombre_institucion']; }
                                     else {   $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -239,7 +239,7 @@ class profesionalForm {
                                     if (isset ( $resultadoProfesional[0]['correo_institucion'] )) 
                                          { $atributos ['valor'] = $resultadoProfesional[0]['correo_institucion'];}
                                     else { $atributos ['valor'] = ''; }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -375,7 +375,7 @@ class profesionalForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';

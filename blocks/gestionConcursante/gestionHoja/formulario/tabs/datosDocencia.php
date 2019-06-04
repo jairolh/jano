@@ -215,7 +215,7 @@ class docenciaForm {
                                     else {   $atributos ['valor'] = '';
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -244,7 +244,7 @@ class docenciaForm {
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -362,7 +362,7 @@ class docenciaForm {
                                     else {   $atributos ['valor'] = '';
                                             $atributos ['deshabilitado'] = false;                                    
                                          }
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['tamanno'] = 60;
                                     $atributos ['maximoTamanno'] = '';
@@ -387,7 +387,7 @@ class docenciaForm {
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar'] = 'required, minSize[10], maxSize[2000]';
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;
@@ -422,7 +422,7 @@ class docenciaForm {
                                     if (isset ( $resultadoDocencia[0]['horas_catedra'] )) 
                                          {  $atributos ['valor'] = $resultadoDocencia[0]['horas_catedra'];} 
                                     else {  $atributos ['valor'] = '';}
-                                    $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
+                                    $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['tamanno'] = 60;

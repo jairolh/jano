@@ -152,10 +152,10 @@ class faseEvaluado{
                                                     <td align='left'>".$resultadoListaFase[$key]['apellido']."</td>";
                                 //decodifica los puntaje de los criterios                    
                                 $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
-                                foreach ($puntajes as $pts => $puntos)
+                                foreach ($criterioFase as $crt => $criterio)
                                     {
                                      $mostrarHtml.="<td align='center'>";
-                                     foreach ($criterioFase as $crt => $criterio)
+                                     foreach ($puntajes as $pts => $puntos)
                                         {if($criterioFase[$crt]['codigo']==$puntajes[$pts]->id_evaluar)
                                             {$mostrarHtml.=$puntajes[$pts]->puntaje_final;}
                                         }

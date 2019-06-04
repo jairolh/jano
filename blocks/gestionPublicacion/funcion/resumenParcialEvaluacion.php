@@ -142,10 +142,10 @@ foreach($resultadoListaFase as $key=>$value )
     $contenido .= "   <td width='130' align='left'><span style='font-size:7.0pt;'>".$resultadoListaFase[$key]['nombre']." ".$resultadoListaFase[$key]['apellido']."</span></td>";
     //decodifica los puntaje de los criterios                    
     $puntajes=json_decode($resultadoListaFase[$key]['evaluaciones']);
-    foreach ($puntajes as $pts => $puntos)
+    foreach ($criterioFase as $crt => $criterio)
         {
          $contenido .="<td width='".$anchoCriterio."'  align='center'> ";
-         foreach ($criterioFase as $crt => $criterio)
+         foreach ($puntajes as $pts => $puntos)
             {if($criterioFase[$crt]['codigo']==$puntajes[$pts]->id_evaluar)
                 {$contenido .= "<span style='font-size:7.5pt;'>".$puntajes[$pts]->puntaje_final."</span>";
                 }

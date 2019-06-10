@@ -271,15 +271,9 @@ class registrarForm {
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
 										$atributos ['etiqueta'] = $resultadoCriterios[$key]['criterio'];
-
-										if($valorPuntaje=='natural'){
-											$atributos ['validar']="required, custom[onlyNumberSp], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
-										}else{
-											$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
-										}
-
+										$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
 										$atributos ['valor'] = '';
-										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['criterio'];
+										$atributos ['titulo'] = "Puntaje para ".$resultadoCriterios[$key]['criterio'];
 										$atributos ['deshabilitado'] = false;
 										$atributos ['tamanno'] = 8;
 										$atributos ['maximoTamanno'] = '';

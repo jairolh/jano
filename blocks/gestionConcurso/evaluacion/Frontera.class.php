@@ -40,8 +40,6 @@ class Frontera {
 		include_once ("core/builder/FormularioHtml.class.php");
 
 		$this->ruta = $this->miConfigurador->getVariableConfiguracion ( "rutaBloque" );
-                echo "frontera";
-                var_dump($_REQUEST);//exit;
 		$this->miFormulario = new \FormularioHtml ();
 		if (isset ( $_REQUEST ['opcion'] )) {
 

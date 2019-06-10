@@ -268,35 +268,6 @@ class registrarForm {
 								if($resultadoCriterios){
 									foreach($resultadoCriterios as $key=>$value ){
                                                                             
-                                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
-										$esteCampo = 'criterio'.$key;
-										$atributos ['id'] = $esteCampo;
-										$atributos ['nombre'] = $esteCampo;
-										$atributos ['tipo'] = 'hidden';
-										$atributos ['estilo'] = 'jqueryui';
-										$atributos ['marco'] = true;
-										$atributos ['estiloMarco'] = '';
-										$atributos ["etiquetaObligatorio"] = true;
-										$atributos ['columnas'] = 3;
-										$atributos ['dobleLinea'] = 0;
-										$atributos ['tabIndex'] = $tab;
-										$atributos ['etiqueta'] = "";
-										$atributos ['validar']="";
-										$atributos ['valor'] = $resultadoCriterios[$key]['criterio'];
-										$atributos ['titulo'] = "";
-										$atributos ['deshabilitado'] = false;
-										$atributos ['tamanno'] = 8;
-										$atributos ['maximoTamanno'] = '';
-										$atributos ['anchoEtiqueta'] = 350;
-										$tab ++;
-										// Aplica atributos globales al control
-										$atributos = array_merge ( $atributos, $atributosGlobales );
-										echo $this->miFormulario->campoCuadroTexto ( $atributos );
-										unset ( $atributos );
-										// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
-                                                                            
-                                                                            
-                                                                            
 										// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 										$esteCampo = 'puntaje'.$key;
 										$atributos ['id'] = $esteCampo;
@@ -306,13 +277,13 @@ class registrarForm {
 										$atributos ['marco'] = true;
 										$atributos ['estiloMarco'] = '';
 										$atributos ["etiquetaObligatorio"] = true;
-										$atributos ['columnas'] = 3;
+										$atributos ['columnas'] = 2;
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
 										$atributos ['etiqueta'] = "<b>".$resultadoCriterios[$key]['criterio']."</b>";
 										$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
 										$atributos ['valor'] = '';
-										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['criterio'];
+										$atributos ['titulo'] = "Puntaje para ".$resultadoCriterios[$key]['criterio'];
 										$atributos ['deshabilitado'] = false;
 										$atributos ['tamanno'] = 8;
 										$atributos ['maximoTamanno'] = '';
@@ -368,6 +339,23 @@ class registrarForm {
 										echo $this->miFormulario->campoCuadroTexto ( $atributos );
 										unset ( $atributos );
 
+                                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+										$esteCampo = 'criterio'.$key;
+										$atributos ['id'] = $esteCampo;
+										$atributos ['nombre'] = $esteCampo;
+										$atributos ['tipo'] = 'hidden';
+										$atributos ['estilo'] = 'jqueryui';
+										$atributos ['marco'] = true;
+										$atributos ['estiloMarco'] = '';
+										$atributos ['etiqueta'] = "";
+										$atributos ['valor'] = $resultadoCriterios[$key]['criterio'];
+										// Aplica atributos globales al control
+										$atributos = array_merge ( $atributos, $atributosGlobales );
+										echo $this->miFormulario->campoCuadroTexto ( $atributos );
+										unset ( $atributos );
+										// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                                            
+                                                                                
 									}
 
 									echo "</div>";

@@ -164,16 +164,23 @@ class consultarInscrito {
 
                                         //consultar grupo de concurso y jurado (con evaluador y perfil)
                                         $parametro=array(
+                                                'consecutivo_concurso'=>$resultadoListaInscrito[$key]['consecutivo_concurso'], 
                                                 'jurado'=>$this->miSesion->getSesionUsuarioId(),
                                                 'perfil'=>$resultadoListaInscrito[$key]['consecutivo_perfil'],
                                                 'inscrito'=>$resultadoListaInscrito[$key]['id_inscrito'],
                                                 'hoy'=>date("Y-m-d"),
                                                 );
 
-                                        $cadena_sql = $this->miSql->getCadenaSql("consultarEvaluacionParcial", $parametro);
+                                        $cadena_sql = $this->miSql->getCadenaSql("verificarEvaluacionParcialJurado", $parametro);
                                         $resultadoValidacion = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                                        
-                                        
+                                        //var_dump($resultadoValidacion);
+                                        $evaluacion='evaluado';
+                                        if($resultadoValidacion){
+                                            foreach ($resultadoValidacion as $key => $value) {
+                                                if($resultadoValidacion[$key]['evaluo']=='' && $parametro['hoy']>=$resultadoValidacion[$key]['fecha_inicio'] && $parametro['hoy']<=$resultadoValidacion[$key]['fecha_fin'] )
+                                                    {$evaluacion='evaluar';}
+                                                }
+                                        }    
                                         $variableVerEvaluacion = "pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
                                         $variableVerEvaluacion .= "&opcion=consultarEvaluacion";
                                         $variableVerEvaluacion .= "&usuario=" . $this->miSesion->getSesionUsuarioId();
@@ -184,10 +191,7 @@ class consultarInscrito {
                                         $variableVerEvaluacion .= "&campoSeguro=" . $_REQUEST ['tiempo'];
                                         $variableVerEvaluacion .= "&tiempo=" . time ();
                                         $variableVerEvaluacion = $this->miConfigurador->fabricaConexiones->crypto->codificar_url($variableVerEvaluacion, $directorio);
-
-                                        
-
-                                            if(!$resultadoValidacion){
+                                            if(!$resultadoValidacion || $evaluacion=='evaluar' ){
                                                 //-------------Enlace-----------------------
                                                     $esteCampo = "validar";
                                                     $atributos["id"]=$esteCampo;

@@ -231,14 +231,14 @@ class registrarForm {
 
 							foreach($resultadoRoles as $key=>$value ){
 								if($resultadoRoles[$key]['rol']=='Jurado'){
-                    $rol=$resultadoRoles[$key]['cod_rol'];
-										$valorPuntaje="natural";
+                                                                    $rol=$resultadoRoles[$key]['cod_rol'];
+                                                                    $valorPuntaje="natural";
 								}
 								else if(($resultadoRoles[$key]['rol']=='Docencia')
                                                                     ||($resultadoRoles[$key]['rol']=='ILUD')
                                                                     ||($resultadoRoles[$key]['rol']=='Personal')){
                                                                     $rol=$resultadoRoles[$key]['cod_rol'];
-																																		$valorPuntaje="decimal";
+								    $valorPuntaje="decimal";
 								}
 
 							}

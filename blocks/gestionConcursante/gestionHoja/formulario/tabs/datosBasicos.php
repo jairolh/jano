@@ -48,7 +48,7 @@ class registrarForm {
 		$parametro['id_usuario']=$usuario;
                 $cadena_sql = $this->miSql->getCadenaSql("consultarBasicos", $parametro);
                 $resultadoUsuarios = $esteRecursoDB->ejecutarAcceso($cadena_sql, "busqueda");
-                //var_dump($resultadoUsuarios);
+               // var_dump($resultadoUsuarios);
                 //-----BUSCA LOS TIPOS DE SOPORTES PARA EL FORMUALRIO, SEGÚN LOS RELACIONADO EN LA TABLA
                 $parametroTipoSop = array('dato_relaciona'=>'datosBasicos',);
                 $cadenaSalud_sql = $this->miSql->getCadenaSql("buscarTipoSoporte", $parametroTipoSop);
@@ -560,7 +560,7 @@ class registrarForm {
                                                 $atributos ['tab'] = $tab ++;
                                                 $atributos ['anchoEtiqueta'] = 170;
                                                 $atributos ['evento'] = ' ';
-                                                if (isset ( $resultadoUsuarios[0][$esteCampo] ))
+                                                if (isset ($resultadoUsuarios[0]['pais_nacimiento']))
                                                      {  $atributos ['seleccion'] = $resultadoUsuarios[0]['pais_nacimiento'];}
                                                 else {	$atributos ['seleccion'] = 112;}
                                                 $atributos ['deshabilitado'] = false;
@@ -593,8 +593,10 @@ class registrarForm {
                                                 //$atributos ['seleccion'] = - 1;
                                                 $atributos ['anchoEtiqueta'] = 170;
                                                 $atributos ['evento'] = '';
-                                                if (isset ( $resultadoUsuarios[0]['departamento_nacimiento'] ))
-                                                     {  $atributos ['seleccion'] = $resultadoUsuarios[0]['departamento_nacimiento'];}
+                                                if (isset($resultadoUsuarios[0]['departamento_nacimiento']))
+                                                     {  $atributos ['seleccion'] = $resultadoUsuarios[0]['departamento_nacimiento'];
+                                                        $parametro['pais']= $resultadoUsuarios[0]['pais_nacimiento'];
+                                                     }
                                                 else {	$atributos ['seleccion'] = - 1;}
                                                 $atributos ['deshabilitado'] = false;
                                                 $atributos ['columnas'] = 1;
@@ -604,7 +606,8 @@ class registrarForm {
                                                 $atributos ['limitar'] = true;
                                                 $atributos ['anchoCaja'] = 60;
                                                 $atributos ['evento'] = '';
-                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarDepartamento" );
+                                                
+                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarDepartamento",$parametro);
                                                 $matrizItems = array (array (0,' '));
                                                 $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
                                                 $atributos ['matrizItems'] = $matrizItems;
@@ -625,6 +628,7 @@ class registrarForm {
                                                 $atributos ['evento'] = '';
                                                 if (isset ( $resultadoUsuarios[0]['lugar_nacimiento'] ))
                                                      {  $atributos ['seleccion'] = $resultadoUsuarios[0]['lugar_nacimiento'];
+                                                        $parametro['departamento']= $resultadoUsuarios[0]['departamento_nacimiento'];
                                                         $atributos ['deshabilitado'] = false;
                                                      }
                                                 else {	$atributos ['seleccion'] = - 1;
@@ -637,7 +641,7 @@ class registrarForm {
                                                 $atributos ['limitar'] = true;
                                                 $atributos ['anchoCaja'] = 60;
                                                 $atributos ['evento'] = '';
-                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarCiudad" );
+                                                $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarCiudad",$parametro );
                                                 $matrizItems = array (array (0,' '));
                                                 $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
                                                 $atributos ['matrizItems'] = $matrizItems;

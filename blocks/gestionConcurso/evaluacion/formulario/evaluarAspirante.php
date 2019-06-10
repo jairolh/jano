@@ -239,13 +239,13 @@ class registrarForm {
                                                         foreach($resultadoRoles as $key=>$value ){
 								if($resultadoRoles[$key]['rol']=='Jurado'){
                                                                 $rol.=$resultadoRoles[$key]['cod_rol'];
-										$valorPuntaje="natural";
+								$valorPuntaje="natural";
 								}
 								else if(($resultadoRoles[$key]['rol']=='Docencia')
                                                                     ||($resultadoRoles[$key]['rol']=='ILUD')
                                                                     ||($resultadoRoles[$key]['rol']=='Personal')){
                                                                     $rol.="'".$resultadoRoles[$key]['cod_rol']."'";
-																																		$valorPuntaje="decimal";
+ 								    $valorPuntaje="decimal";
 								}
                                                                 
                                                                 if(($key+1) < count($resultadoRoles))
@@ -267,6 +267,36 @@ class registrarForm {
 
 								if($resultadoCriterios){
 									foreach($resultadoCriterios as $key=>$value ){
+                                                                            
+                                                                                // ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
+										$esteCampo = 'criterio'.$key;
+										$atributos ['id'] = $esteCampo;
+										$atributos ['nombre'] = $esteCampo;
+										$atributos ['tipo'] = 'hidden';
+										$atributos ['estilo'] = 'jqueryui';
+										$atributos ['marco'] = true;
+										$atributos ['estiloMarco'] = '';
+										$atributos ["etiquetaObligatorio"] = true;
+										$atributos ['columnas'] = 3;
+										$atributos ['dobleLinea'] = 0;
+										$atributos ['tabIndex'] = $tab;
+										$atributos ['etiqueta'] = "";
+										$atributos ['validar']="";
+										$atributos ['valor'] = $resultadoCriterios[$key]['criterio'];
+										$atributos ['titulo'] = "";
+										$atributos ['deshabilitado'] = false;
+										$atributos ['tamanno'] = 8;
+										$atributos ['maximoTamanno'] = '';
+										$atributos ['anchoEtiqueta'] = 350;
+										$tab ++;
+										// Aplica atributos globales al control
+										$atributos = array_merge ( $atributos, $atributosGlobales );
+										echo $this->miFormulario->campoCuadroTexto ( $atributos );
+										unset ( $atributos );
+										// ---------------- FIN CONTROL: Cuadro de Texto --------------------------------------------------------
+                                                                            
+                                                                            
+                                                                            
 										// ---------------- CONTROL: Cuadro de Texto --------------------------------------------------------
 										$esteCampo = 'puntaje'.$key;
 										$atributos ['id'] = $esteCampo;
@@ -280,13 +310,7 @@ class registrarForm {
 										$atributos ['dobleLinea'] = 0;
 										$atributos ['tabIndex'] = $tab;
 										$atributos ['etiqueta'] = "<b>".$resultadoCriterios[$key]['criterio']."</b>";
-
-										if($valorPuntaje=='natural'){
-											$atributos ['validar']="required, custom[onlyNumberSp], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
-										}else{
-											$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
-										}
-
+										$atributos ['validar']="required, custom[number], min[0], max[".$resultadoCriterios[$key]['maximo_puntos']."]";
 										$atributos ['valor'] = '';
 										$atributos ['titulo'] = "Puntaje de la ".$resultadoCriterios[$key]['criterio'];
 										$atributos ['deshabilitado'] = false;
@@ -443,8 +467,8 @@ class registrarForm {
 			 * (c) a través de campos ocultos en los formularios. (deprecated)
 			 */
 			// En este formulario se utiliza el mecanismo (b) para pasar las siguientes variables:
-
-			$valorCodificado = "action=" . $esteBloque ["nombre"];
+                        $valorCodificado = "";
+			//$valorCodificado = "action=" . $esteBloque ["nombre"];//envia directo a funcion
 			$valorCodificado .= "&pagina=" . $this->miConfigurador->getVariableConfiguracion ( 'pagina' );
 			$valorCodificado .= "&bloque=" . $esteBloque ['nombre'];
 			$valorCodificado .= "&bloqueGrupo=" . $esteBloque ["grupo"];

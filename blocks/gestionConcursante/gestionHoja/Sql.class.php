@@ -353,7 +353,9 @@ class Sql extends \Sql {
                                 $cadenaSql.=" prod.consecutivo_produccion,";
                                 $cadenaSql.=" prod.consecutivo_persona,";
                                 $cadenaSql.=" prod.codigo_tipo_produccion,";
-                                $cadenaSql.=" (SELECT nombre FROM general.nivel WHERE codigo_nivel=prod.codigo_tipo_produccion) nombre_tipo_produccion,";
+                                $cadenaSql.=" (CASE WHEN prod.codigo_tipo_produccion!=0
+                                                    THEN  (SELECT nombre FROM general.nivel WHERE codigo_nivel=prod.codigo_tipo_produccion)
+                                                    ELSE prod.nombre_tipo_produccion END) nombre_tipo_produccion, ";
                                 $cadenaSql.=" prod.titulo_produccion,";
                                 $cadenaSql.=" prod.nombre_autor,";
                                 $cadenaSql.=" prod.nombre_producto_incluye,";
@@ -993,7 +995,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" SET ";
                                 $cadenaSql.=" codigo_tipo_produccion='".$variable['codigo_tipo_produccion']."', ";
                                 if(isset($variable['codigo_tipo_produccion']) && $variable['codigo_tipo_produccion']==0)
-                                     { $cadenaSql.="nombre_tipo_produccion='".['nombre_vinculacion']."',";}
+                                     { $cadenaSql.="nombre_tipo_produccion='".$variable['nombre_tipo_produccion']."',";}
                                 else {$cadenaSql.="nombre_tipo_produccion= (SELECT niv.nombre FROM general.nivel niv WHERE niv.codigo_nivel='".$variable['codigo_tipo_produccion']."'),";}                                    
                                 $cadenaSql.=" titulo_produccion='".$variable['titulo_produccion']."', ";
                                 $cadenaSql.=" nombre_autor='".$variable['nombre_autor']."', ";

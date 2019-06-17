@@ -138,7 +138,7 @@ class consultarProduccion {
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $datos->direccion_produccion;
+                                                          $atributos ['valor'] = str_replace('\\','',  $datos->direccion_produccion);
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );

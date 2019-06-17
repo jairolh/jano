@@ -147,7 +147,7 @@ class consultarInvestigacion {
                                                           $atributos ['tipo'] = 'hidden';
                                                           $atributos ['etiqueta'] = "";//$this->lenguaje->getCadena ( $esteCampo );
                                                           $atributos ['obligatorio'] = false;
-                                                          $atributos ['valor'] = $datos->direccion_investigacion;
+                                                          $atributos ['valor'] = str_replace('\\','',  $datos->direccion_investigacion);
                                                           $atributos ['titulo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                                           $atributos ['deshabilitado'] = FALSE;
                                                           $mostrarHtml .= $this->miFormulario->campoCuadroTexto ( $atributos );

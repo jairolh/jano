@@ -149,7 +149,9 @@ class produccionForm {
                                     $atributos ['anchoEtiqueta'] = 170;
                                     $atributos ['evento'] = '';
                                     if (isset ( $resultadoProduccion[0]['departamento_produccion'] ))
-                                         {  $atributos ['seleccion'] = $resultadoProduccion[0]['departamento_produccion'];}
+                                         {  $atributos ['seleccion'] = $resultadoProduccion[0]['departamento_produccion'];
+                                            $parametro['pais']=  $resultadoProduccion[0]['pais_produccion'];
+                                         }
                                     else {	$atributos ['seleccion'] = - 1;}
                                     $atributos ['deshabilitado'] = false;
                                     $atributos ['columnas'] = 1;
@@ -159,7 +161,7 @@ class produccionForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarDepartamento" );
+                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarDepartamento",$parametro );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
                                     $atributos ['matrizItems'] = $matrizItems;
@@ -180,6 +182,7 @@ class produccionForm {
                                     $atributos ['evento'] = '';
                                     if (isset ( $resultadoProduccion[0]['ciudad_produccion'] ))
                                          {  $atributos ['seleccion'] =$resultadoProduccion[0]['ciudad_produccion'];
+                                            $parametro['departamento']= $resultadoProduccion[0]['departamento_produccion'];
                                             $atributos ['deshabilitado'] = false;
                                          }
                                     else {  $atributos ['seleccion'] = - 1;
@@ -192,7 +195,7 @@ class produccionForm {
                                     $atributos ['limitar'] = true;
                                     $atributos ['anchoCaja'] = 60;
                                     $atributos ['evento'] = '';
-                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarCiudad" );
+                                    $atributos ['cadena_sql'] = $this->miSql->getCadenaSql ( "buscarCiudad",$parametro );
                                     $matrizItems = array (array (0,' '));
                                     $matrizItems = $esteRecursoDB->ejecutarAcceso ( $atributos ['cadena_sql'], "busqueda" );
                                     $atributos ['matrizItems'] = $matrizItems;
@@ -247,7 +250,7 @@ class produccionForm {
                                     $atributos ['validar']="required,minSize[1]";
                                     if (isset ( $resultadoProduccion[0]['nombre_tipo_produccion'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_tipo_produccion']; 
-                                             $atributos ['deshabilitado'] = true;                                         
+                                             $atributos ['deshabilitado'] = false;                                         
                                          }
                                     else {   $atributos ['valor'] = '';
                                             $atributos ['deshabilitado'] = false;                                    
@@ -603,7 +606,7 @@ class produccionForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="custom[url]";
                                     if (isset ( $resultadoProduccion[0]['direccion_produccion'] )) 
-                                         {   $atributos ['valor'] = $resultadoProduccion[0]['direccion_produccion'];}
+                                         {   $atributos ['valor'] = str_replace('\\','', $resultadoProduccion[0]['direccion_produccion']);}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );

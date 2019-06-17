@@ -563,7 +563,7 @@ class investigacionForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="custom[url]";
                                     if (isset ( $resultadoInvestigacion[0]['direccion_investigacion'] )) 
-                                         {   $atributos ['valor'] = $resultadoInvestigacion[0]['direccion_investigacion'];}
+                                         {   $atributos ['valor'] = str_replace('\\','', $resultadoInvestigacion[0]['direccion_investigacion']);}
                                     else {   $atributos ['valor'] = ''; }
                                     $atributos ['deshabilitado'] = false;                                         
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );

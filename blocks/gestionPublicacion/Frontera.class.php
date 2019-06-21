@@ -72,7 +72,12 @@ class Frontera {
                                                     unset($atributos); 
                                                     //-------------Fin Control Boton----------------------
                                                    echo $this->miFormulario->division("fin");
-                                                $_REQUEST['identificacion']=substr($_REQUEST['usuario'],2);
+                                                //buscar consecutivo_persona   
+                                                $tam=2;
+                                                if(strtoupper(substr($_REQUEST['usuario'],0,1))!='C')
+                                                    {$tam=3;}
+                                                $_REQUEST['identificacion']=substr($_REQUEST['usuario'],$tam);    
+                                                
                                                 include_once ($this->ruta . "/formulario/hojaVidaGeneral.php");}
                                         
 					break;

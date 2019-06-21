@@ -121,16 +121,14 @@ class registrarForm {
 			echo $this->miFormulario->marcoAgrupacion ( 'inicio', $atributos );
 			unset ( $atributos );
 			{
-
-
 				echo "<div class='cell-border'><table id='tablaConsultaInscripcion' class='table table-striped table-bordered'>";
 				echo "<thead>
-								<tr align='center'>
-										<th>N° Reclamación</th>
-										<th>Fecha Respuesta</th>
-										<th>¿Aplica reclamación?</th>
-										<th>Observaciones</th>
-								</tr>
+                                                <tr align='center'>
+                                                    <th>N° Reclamación</th>
+                                                    <th>Fecha Respuesta</th>
+                                                    <th>¿Aplica reclamación?</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
 						</thead>
 						<tbody>";
                                                 /*				<th>Evaluador</th>*/

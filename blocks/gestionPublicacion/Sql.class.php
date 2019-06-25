@@ -452,7 +452,7 @@ class Sql extends \Sql {
                                 $cadenaSql.="AND act.nombre<>'Inscripción' ";
                                 $cadenaSql.="AND act.nombre<>'Registro soportes' ";
                                 $cadenaSql.="AND act.nombre<>'Evaluar requisitos' ";
-                                $cadenaSql.="AND act.nombre<>'Listado de elegibles' ";
+                                $cadenaSql.="AND act.nombre<>'Resultados finales' ";
                                 $cadenaSql.="ORDER BY cal.fecha_inicio ";
 
                             break;           

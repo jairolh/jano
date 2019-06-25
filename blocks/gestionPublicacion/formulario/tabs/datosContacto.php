@@ -80,9 +80,9 @@ class consultarContacto{
                                                         <td class='table-tittle estilo_tr ' $cajaDato>".$datos->celular."</td>  </tr> ";                                
                                 $mostrarHtml.= "<tr align='center'>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('correo')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->correo."</td>
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".str_replace('\\','', $datos->correo)."</td>
                                                         <th class='textoAzul' $cajaNombre>".$this->lenguaje->getCadena ('correo_secundario')."</th>
-                                                        <td class='table-tittle estilo_tr ' $cajaDato>".$datos->correo_secundario."</td>  </tr> ";                                   
+                                                        <td class='table-tittle estilo_tr ' $cajaDato>".str_replace('\\','', $datos->correo_secundario)."</td>  </tr> ";                                   
                         $mostrarHtml.= "</tbody>";
                         $mostrarHtml.= "</table></div>";
                         echo $mostrarHtml;

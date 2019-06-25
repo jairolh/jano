@@ -152,7 +152,7 @@ class profesionalForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoProfesional[0]['cargo'] )) {
                                             $atributos ['valor'] = $resultadoProfesional[0]['cargo']; }
                                     else {  $atributos ['valor'] = '';}
@@ -208,7 +208,7 @@ class profesionalForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoProfesional[0]['nombre_institucion'] )) 
                                          {   $atributos ['valor'] = $resultadoProfesional[0]['nombre_institucion']; }
                                     else {   $atributos ['valor'] = '';}
@@ -237,7 +237,7 @@ class profesionalForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
                                     if (isset ( $resultadoProfesional[0]['correo_institucion'] )) 
-                                         { $atributos ['valor'] = $resultadoProfesional[0]['correo_institucion'];}
+                                         { $atributos ['valor'] = str_replace('\\','', $resultadoProfesional[0]['correo_institucion']); }
                                     else { $atributos ['valor'] = ''; }
                                     $atributos ['titulo'] = '';//$this->lenguaje->getCadena ( $esteCampo . 'Titulo' );
                                     $atributos ['textoFondo'] = $this->lenguaje->getCadena ( $esteCampo . 'Titulo' );

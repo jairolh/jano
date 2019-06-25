@@ -119,7 +119,7 @@ class consultarInvestigacion {
                                                 <td align='left'>".$datos->nombre_institucion."</td>
                                                 <td align='left'>".$datos->nivel_institucion."</td>
                                                 <td align='left'>".$datos->telefono_institucion."</td>
-                                                <td align='left'>".$datos->correo_institucion."</td>
+                                                <td align='left'>".str_replace('\\','', $datos->correo_institucion)."</td>
                                                 <td align='left'>".$datos->grupo_investigacion."</td>
                                                 <td align='left'>".$datos->categoria_grupo."</td>";
                                         $mostrarHtml .= "<td>";

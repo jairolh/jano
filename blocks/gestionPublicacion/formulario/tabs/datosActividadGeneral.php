@@ -115,7 +115,7 @@ class consultarActividad {
                                                         <td align='left'>".$resultadoActividad[$key]['nombre_institucion']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['nivel_institucion']."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['telefono_institucion']."</td>
-                                                        <td align='left'>".$resultadoActividad[$key]['correo_institucion']."</td>
+                                                        <td align='left'>".str_replace('\\','', $resultadoActividad[$key]['correo_institucion'])."</td>
                                                         <td align='left'>".$resultadoActividad[$key]['jefe_actividad']."</td>";
                                         // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                                 foreach ($resultadoTiposop as $tipokey => $value) 

@@ -252,7 +252,7 @@ class contactoForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
                                     if (isset ( $resultadoContacto[0]['correo'] )) {
-                                            $atributos ['valor'] = $resultadoContacto[0]['correo'];
+                                            $atributos ['valor'] = str_replace('\\','', $resultadoContacto[0]['correo']);
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -283,7 +283,7 @@ class contactoForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="custom[email]";
                                     if (isset ( $resultadoContacto[0]['correo_secundario'] )) {
-                                            $atributos ['valor'] = $resultadoContacto[0]['correo_secundario'];
+                                            $atributos ['valor'] = str_replace('\\','', $resultadoContacto[0]['correo_secundario']);
                                     } else {
                                             $atributos ['valor'] = '';
                                     }

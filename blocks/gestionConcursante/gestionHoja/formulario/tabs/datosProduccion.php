@@ -247,7 +247,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoProduccion[0]['nombre_tipo_produccion'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_tipo_produccion']; 
                                              $atributos ['deshabilitado'] = false;                                         
@@ -278,7 +278,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[150]";
                                     if (isset ( $resultadoProduccion[0]['titulo_produccion'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['titulo_produccion']; 
                                          }
@@ -308,7 +308,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],custom[onlyLetterSp]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100],custom[onlyLetterSp]";
                                     if (isset ( $resultadoProduccion[0]['nombre_autor'] )) 
                                          {  $atributos ['valor'] = $resultadoProduccion[0]['nombre_autor'];} 
                                     else {  $atributos ['valor'] = '';}
@@ -362,7 +362,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[150]";
                                     if (isset ( $resultadoProduccion[0]['nombre_producto_incluye'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_producto_incluye'];}
                                     else {   $atributos ['valor'] = ''; }
@@ -390,7 +390,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[100]";
                                     if (isset ( $resultadoProduccion[0]['nombre_editorial'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['nombre_editorial']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -418,7 +418,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[50]";
                                     if (isset ( $resultadoProduccion[0]['volumen'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['volumen']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -446,7 +446,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[50]";
                                     if (isset ( $resultadoProduccion[0]['pagina'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['pagina']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -474,7 +474,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[50]";
                                     if (isset ( $resultadoProduccion[0]['codigo_isbn'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['codigo_isbn']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -502,7 +502,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[50]";
                                     if (isset ( $resultadoProduccion[0]['codigo_issn'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['codigo_issn']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -530,7 +530,7 @@ class produccionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1]";
+                                    $atributos ['validar']="minSize[1],maxSize[255]";
                                     if (isset ( $resultadoProduccion[0]['indexado'] )) 
                                          {   $atributos ['valor'] = $resultadoProduccion[0]['indexado']; }
                                     else {   $atributos ['valor'] = ''; }

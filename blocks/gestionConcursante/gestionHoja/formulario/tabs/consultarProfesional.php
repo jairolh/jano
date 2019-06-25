@@ -168,7 +168,7 @@ class consultarProfesional {
                                                 <td align='left' width='10%' >".$resultadoListaProfesional[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoListaProfesional[$key]['telefono_institucion']."</td>
-                                                <td align='left'>".$resultadoListaProfesional[$key]['correo_institucion']."</td>";
+                                                <td align='left'>".str_replace('\\','', $resultadoListaProfesional[$key]['correo_institucion'])."</td>";
 
                                                 // --------------- INICIO CONTROLES : Visualizar SOPORTES SEGUN LOS RELACIONADOS --------------------------------------------------
                                                 foreach ($resultadoTiposop as $tipokey => $value) 

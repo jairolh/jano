@@ -161,7 +161,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" estado ";
                                 $cadenaSql.=" FROM concurso.actividad_calendario ";
                                 $cadenaSql.=" WHERE ";
-                                $cadenaSql.=" trim(nombre) IN ('Inscripción','Registro soportes','Evaluar requisitos','Evaluar hoja de vida','Pruebas de competencias','Listado de elegibles') ";
+                                $cadenaSql.=" trim(nombre) IN ('Inscripción','Registro soportes','Evaluar requisitos','Evaluar hoja de vida','Pruebas de competencias','Resultados finales') ";
                                 $cadenaSql.=" ORDER BY consecutivo_actividad ";
                             break;         
                         case "consultaActividadCalendario":
@@ -304,7 +304,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" cal.porcentaje_aprueba, ";
                                 $cadenaSql.=" cal.fecha_fin_reclamacion, ";
                                 $cadenaSql.=" cal.fecha_fin_resolver, ";
-                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro soportes' OR act.nombre='Evaluar requisitos'  OR act.nombre='Listado de elegibles' ";
+                                $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' OR act.nombre='Registro soportes' OR act.nombre='Evaluar requisitos'  OR act.nombre='Resultados finales' ";
                                 $cadenaSql.=" THEN 'S' ";
                                 $cadenaSql.=" ELSE 'N' END ) obligatoria  ";
                                 $cadenaSql.=" FROM concurso.concurso_calendario cal";

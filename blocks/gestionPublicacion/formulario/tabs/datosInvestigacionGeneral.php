@@ -126,7 +126,7 @@ class consultarInvestigacion {
                                                 <td align='left'>".$resultadoInvestigacion[$key]['nombre_institucion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['nivel_institucion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['telefono_institucion']."</td>
-                                                <td align='left'>".$resultadoInvestigacion[$key]['correo_institucion']."</td>
+                                                <td align='left'>".str_replace('\\','', $resultadoInvestigacion[$key]['correo_institucion'])."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['grupo_investigacion']."</td>
                                                 <td align='left'>".$resultadoInvestigacion[$key]['categoria_grupo']."</td>";
                                         $mostrarHtml .= "<td>";

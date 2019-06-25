@@ -207,7 +207,7 @@ class docenciaForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoDocencia[0]['nombre_institucion'] )) 
                                          {   $atributos ['valor'] = $resultadoDocencia[0]['nombre_institucion']; 
                                              $atributos ['deshabilitado'] = true;                                         
@@ -240,7 +240,7 @@ class docenciaForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
                                     if (isset ( $resultadoDocencia[0]['correo_institucion'] )) {
-                                            $atributos ['valor'] = $resultadoDocencia[0]['correo_institucion'];
+                                            $atributos ['valor'] = str_replace('\\','',  $resultadoDocencia[0]['correo_institucion']);
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -354,7 +354,7 @@ class docenciaForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoDocencia[0]['nombre_vinculacion'] )) 
                                          {   $atributos ['valor'] = $resultadoDocencia[0]['nombre_vinculacion']; 
                                             $atributos ['deshabilitado'] = true;                                         
@@ -418,7 +418,7 @@ class docenciaForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],min[0],custom[number]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[8],min[0],custom[number]";
                                     if (isset ( $resultadoDocencia[0]['horas_catedra'] )) 
                                          {  $atributos ['valor'] = $resultadoDocencia[0]['horas_catedra'];} 
                                     else {  $atributos ['valor'] = '';}

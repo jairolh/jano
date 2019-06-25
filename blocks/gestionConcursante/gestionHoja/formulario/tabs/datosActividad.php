@@ -220,7 +220,7 @@ class actividadForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoActividad[0]['nombre_institucion'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['nombre_institucion']; 
                                              $atributos ['deshabilitado'] = true;                                         
@@ -253,7 +253,7 @@ class actividadForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
                                     if (isset ( $resultadoActividad[0]['correo_institucion'] )) {
-                                            $atributos ['valor'] = $resultadoActividad[0]['correo_institucion'];
+                                            $atributos ['valor'] = str_replace('\\','', $resultadoActividad[0]['correo_institucion']);
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -339,7 +339,7 @@ class actividadForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoActividad[0]['nombre_tipo_actividad'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['nombre_tipo_actividad']; 
                                             $atributos ['deshabilitado'] = true;                                         
@@ -370,7 +370,7 @@ class actividadForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[150]";
                                     if (isset ( $resultadoActividad[0]['nombre_actividad'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['nombre_actividad']; 
                                          }
@@ -434,7 +434,7 @@ class actividadForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="minSize[1],custom[onlyLetterSp]";
+                                    $atributos ['validar']="minSize[1],maxSize[100],custom[onlyLetterSp]";
                                     if (isset ( $resultadoActividad[0]['jefe_actividad'] )) 
                                          {   $atributos ['valor'] = $resultadoActividad[0]['jefe_actividad']; }
                                     else {   $atributos ['valor'] = ''; }

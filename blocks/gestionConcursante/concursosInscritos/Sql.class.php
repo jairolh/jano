@@ -75,7 +75,7 @@ class Sql extends \Sql {
                                 $cadenaSql.=" (CASE WHEN act.nombre='Inscripción' THEN 'registro' ";
                                 $cadenaSql.=" WHEN act.nombre='Registro soportes' THEN 'soporte' ";
                                 $cadenaSql.=" WHEN act.nombre='Evaluar requisitos' THEN 'requisito' ";
-                                $cadenaSql.=" WHEN act.nombre='Listado de elegibles' THEN 'elegibles'  ";
+                                $cadenaSql.=" WHEN act.nombre='Resultados finales' THEN 'elegibles'  ";
                                 $cadenaSql.="  ELSE 'evaluacion' END ) fase, ";
                                     $cadenaSql.=" (SELECT count(DISTINCT sop.consecutivo_inscrito) soporte  ";
                                     $cadenaSql.="FROM concurso.concurso_perfil prf  ";
@@ -152,7 +152,7 @@ class Sql extends \Sql {
                                     $cadenaSql.="AND act.nombre<>'Inscripción' ";
                                     $cadenaSql.="AND act.nombre<>'Registro soportes' ";
                                     $cadenaSql.="AND act.nombre<>'Evaluar requisitos' ";
-                                    $cadenaSql.="AND act.nombre<>'Listado de elegibles' ";
+                                    $cadenaSql.="AND act.nombre<>'Resultados finales' ";
                                    }                                
                                 else if(isset($variable['fase']) &&  $variable['fase']=='requisitos' )
                                    {

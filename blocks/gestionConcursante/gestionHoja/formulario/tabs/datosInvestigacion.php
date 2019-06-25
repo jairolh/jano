@@ -206,7 +206,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100]";
                                     if (isset ( $resultadoInvestigacion[0]['nombre_institucion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['nombre_institucion']; 
                                              $atributos ['deshabilitado'] = true;                                         
@@ -239,7 +239,7 @@ class investigacionForm {
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
                                     $atributos ['validar']="required, custom[email]";
                                     if (isset ( $resultadoInvestigacion[0]['correo_institucion'] )) {
-                                            $atributos ['valor'] = $resultadoInvestigacion[0]['correo_institucion'];
+                                            $atributos ['valor'] = str_replace('\\','', $resultadoInvestigacion[0]['correo_institucion']); 
                                     } else {
                                             $atributos ['valor'] = '';
                                     }
@@ -295,7 +295,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[50]";
                                     if (isset ( $resultadoInvestigacion[0]['rol_investigacion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['rol_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
@@ -323,7 +323,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[255]";
                                     if (isset ( $resultadoInvestigacion[0]['titulo_investigacion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['titulo_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
@@ -351,7 +351,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="required,minSize[1],custom[onlyLetterSp]";
+                                    $atributos ['validar']="required,minSize[1],maxSize[100],custom[onlyLetterSp]";
                                     if (isset ( $resultadoInvestigacion[0]['jefe_investigacion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['jefe_investigacion']; }
                                     else {   $atributos ['valor'] = ''; }
@@ -412,7 +412,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="";
+                                    $atributos ['validar']="maxSize[100]";
                                     if (isset ( $resultadoInvestigacion[0]['grupo_investigacion'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['grupo_investigacion'];}
                                     else {   $atributos ['valor'] = ''; }
@@ -440,7 +440,7 @@ class investigacionForm {
                                     $atributos ['dobleLinea'] = 0;
                                     $atributos ['tabIndex'] = $tab;
                                     $atributos ['etiqueta'] = $this->lenguaje->getCadena ( $esteCampo );
-                                    $atributos ['validar']="";
+                                    $atributos ['validar']="maxSize[8]";
                                     if (isset ( $resultadoInvestigacion[0]['categoria_grupo'] )) 
                                          {   $atributos ['valor'] = $resultadoInvestigacion[0]['categoria_grupo'];}
                                     else {   $atributos ['valor'] = ''; }
